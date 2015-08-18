@@ -1,12 +1,50 @@
+**/nbproject/private/
+
+.gradle
+# Class Files #
 *.class
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
 # Package Files #
-*.jar
+#*.jar
 *.war
 *.ear
+lib/jME3*
+**/bin/
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+.project
+.classpath
+.settings
+
+**/gen/
+
+**/Thumbs.db
+local.properties
+
+**/*.dylib
+/build/
+
+.gradle
+# Class Files #
+*.class
+
+# Package Files #
+#*.jar
+*.war
+*.ear
+lib/jME3*
+**/bin/
+
+.project
+.classpath
+.settings
+
+**/gen/
+
+**/Thumbs.db
+local.properties
+
+**/*.dylib
+/build/
+*.log
+/.nb-gradle/private/
+*.dll
