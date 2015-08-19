@@ -1,12 +1,10 @@
 package view;
 
-import util.annotation.AssetManagerRef;
+import util.LogUtil;
 import util.annotation.GuiNodeRef;
 import util.annotation.RootNodeRef;
 import util.annotation.ViewPortRef;
-import view.acting.ActorDrawer;
 import view.mapDrawing.LightDrawer;
-import view.mapDrawing.MapDrawer;
 import view.material.MaterialManager;
 
 import com.google.inject.Inject;
@@ -18,20 +16,21 @@ import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 
 public class View {
-	@RootNodeRef
-	protected Node rootNode;
-	@GuiNodeRef
-	protected Node guiNode;
-	@ViewPortRef
-	protected ViewPort viewPort;
-	@AssetManagerRef
-	protected AssetManager assetManager;
+	protected final Node rootNode;
+	protected final Node guiNode;
+	protected final ViewPort viewPort;
+	protected final AssetManager assetManager;
 	
 	// Drawers
 	protected LightDrawer lightDrawer;
 
 	@Inject
-	public View() {
+	public View(@RootNodeRef Node rootNode, @GuiNodeRef Node guiNode, @ViewPortRef ViewPort viewPort, AssetManager assetManager) {
+		this.rootNode = rootNode;
+		this.viewPort = viewPort;
+		this.guiNode = guiNode;
+		
+		this.assetManager = assetManager;
 		createSky();
 	}
 

@@ -6,6 +6,7 @@ import java.awt.GraphicsEnvironment;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
+import util.LogUtil;
 import util.math.RandomUtil;
 
 import com.jme3.app.Application;
@@ -117,6 +118,7 @@ public abstract class CosmoVania extends Application implements PhysicsTickListe
 
 	@Override
 	public void initialize() {
+		LogUtil.init();
 		bulletAppState = new BulletAppState();
 		bulletAppState.startPhysics();
 

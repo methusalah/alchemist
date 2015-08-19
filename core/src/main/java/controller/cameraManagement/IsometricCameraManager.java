@@ -4,6 +4,8 @@ import model.ModelManager;
 import util.geometry.geom3d.Point3D;
 import view.math.TranslateUtil;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
@@ -24,7 +26,8 @@ public class IsometricCameraManager extends CameraManager {
 	private Point3D pos;
 	private Point3D target;
 
-	public IsometricCameraManager(Camera cam, float elevation) {
+	@Inject
+	public IsometricCameraManager(Camera cam, @Named("CamElevation") float elevation) {
 		super(cam);
 		pos = new Point3D(0, 0, elevation);
 		target = new Point3D(0, elevation*2/3, 0);

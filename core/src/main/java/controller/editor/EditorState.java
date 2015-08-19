@@ -10,13 +10,16 @@ import util.event.BattleFieldUpdateEvent;
 import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
 import view.EditorView;
+import view.View;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
 import controller.AppState;
+import controller.SpatialSelector;
 import controller.cameraManagement.IsometricCameraManager;
 
 /**
@@ -25,9 +28,12 @@ import controller.cameraManagement.IsometricCameraManager;
  */
 public class EditorState extends AppState {
 	protected Point2D screenCoord;
-	protected EditorView view;
 
-	public EditorState() {
+	@Inject
+	public EditorState(EditorView ev, EditorInputInterpreter ii, SpatialSelector ss, IsometricCameraManager icm) {
+		super(ev, ii, ss, icm);
+		ss.centered = false;
+//		view = new View();
 		//super();
 //		inputInterpreter = new EditorInputInterpreter(this);
 //		guiController = new EditorGUIController(nifty, this);

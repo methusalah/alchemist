@@ -22,16 +22,18 @@ import controller.cameraManagement.CameraManager;
  */
 public abstract class AppState extends AbstractAppState {
 
-	protected InputInterpreter inputInterpreter;
-	public SpatialSelector spatialSelector;
-	public CameraManager cameraManager;
-	public GUIController guiController;
-	private View view;
+	protected final InputInterpreter inputInterpreter;
+	protected final SpatialSelector spatialSelector;
+	protected final CameraManager cameraManager;
+	protected final View view;
 
 	@Inject
-	public AppState() {
+	public AppState(View view, InputInterpreter inputInterpreter, SpatialSelector spatialSelector, CameraManager cameraManager) {
 		super();
-//		spatialSelector = new SpatialSelector(cam, view);
+		this.view = view;
+		this.inputInterpreter = inputInterpreter;
+		this.spatialSelector = spatialSelector;
+		this.cameraManager = cameraManager;
 	}
 
 	@Override

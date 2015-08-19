@@ -5,13 +5,13 @@ import controller.AppState;
 
 public class AppStateChangeEvent extends Event {
 
-	private final Class<AppState> AppStateClass;
+	private final Class<? extends AppState> AppStateClass;
 
-	public AppStateChangeEvent(Class<AppState> AppStateClass) {
+	public AppStateChangeEvent(Class<? extends AppState> AppStateClass) {
 		this.AppStateClass = AppStateClass;
 	}
 
-	public Class<AppState> getControllerClass() {
+	public Class<? extends AppState> getControllerClass() {
 		return AppStateClass;
 	}
 }

@@ -1,8 +1,11 @@
 package view;
 
+import util.annotation.GuiNodeRef;
+import util.annotation.RootNodeRef;
 import util.event.EventManager;
 import view.mapDrawing.EditorRenderer;
 
+import com.google.inject.Inject;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.renderer.ViewPort;
@@ -13,21 +16,8 @@ public class EditorView extends View {
 	// Renderers
 	public EditorRenderer editorRend;
 
-	public EditorView(Node rootNode, Node gui, PhysicsSpace physicsSpace, AssetManager am, ViewPort vp) {
-		super(rootNode, gui, physicsSpace, am, vp);
-		editorRend = new EditorRenderer(this);
+	@Inject
+	public EditorView(@RootNodeRef Node rn, @GuiNodeRef Node gn, ViewPort vp,  AssetManager am) {
+		super(rn, gn, vp, am);
 	}
-
-	@Override
-	public void reset() {
-		super.reset();
-		
-		if(editorRend != null)
-			rootNode.detachChild(editorRend.mainNode);
-			EventManager.unregister(editorRend);
-
-		editorRend = new EditorRenderer(this);
-		rootNode.attachChild(editorRend.mainNode);
-	}
-
 }

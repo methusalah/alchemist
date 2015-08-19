@@ -18,6 +18,7 @@ import util.annotation.StateManagerRef;
 import util.annotation.ViewPortRef;
 import util.event.AppStateChangeEvent;
 import view.EditorView;
+import view.View;
 import view.mapDrawing.MapDrawer;
 import view.material.MaterialManager;
 
@@ -42,7 +43,7 @@ import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 
 import controller.AppState;
-import controller.editor.EditorGUIController;
+import controller.SpatialSelector;
 import controller.editor.EditorInputInterpreter;
 import controller.editor.EditorState;
 import controller.topdown.TopdownState;
@@ -86,7 +87,7 @@ public class MainDev extends CosmoVania {
 			@Override
 			protected void configure() {
 
-				bind(AssetManager.class).annotatedWith(AssetManagerRef.class).toInstance(assetManager);
+				bind(AssetManager.class).toInstance(assetManager);
 				bind(AppSettings.class).annotatedWith(AppSettingsRef.class).toInstance(settings);
 				bind(AppStateManager.class).annotatedWith(StateManagerRef.class).toInstance(stateManager);
 				bind(Node.class).annotatedWith(RootNodeRef.class).toInstance(rootNode);
@@ -97,10 +98,13 @@ public class MainDev extends CosmoVania {
 				
 				bind(AudioRenderer.class).annotatedWith(AudioRendererRef.class).toInstance(audioRenderer);
 				bind(InputManager.class).annotatedWith(InputManagerRef.class).toInstance(inputManager);
-				bind(Camera.class).annotatedWith(CameraRef.class).toInstance(cam);
+				bind(Camera.class).toInstance(cam);
 
 //				bind(TopdownState.class).annotatedWith(Names.named("TopdownState")).to(TopdownState.class).in(Singleton.class);
-				bind(EditorState.class).annotatedWith(Names.named("EditorState")).to(EditorState.class).in(Singleton.class);
+				bind(EditorState.class).in(Singleton.class);
+				bind(SpatialSelector.class).annotatedWith(Names.named("EditorSpatialSelector")).;
+				bind(EditorView.class).in(Singleton.class);
+				bind(Float.class).annotatedWith(Names.named("CamElevation")).toInstance(10f);
 			}
 		});
 		injector = Guice.createInjector(modules);

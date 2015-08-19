@@ -22,6 +22,7 @@ public class SpatialSelector {
 	View view;
 	public boolean centered = false;
 
+	@Inject
 	public SpatialSelector(Camera c, View v) {
 		cam = c;
 		view = v;

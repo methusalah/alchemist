@@ -1,18 +1,20 @@
 package controller.editor;
 
-import util.event.AppStateChangeEvent;
-import util.event.EventManager;
 import model.ModelManager;
 import model.battlefield.lighting.SunLight;
 import model.editor.ToolManager;
+import util.event.AppStateChangeEvent;
+import util.event.EventManager;
+import view.EditorView;
 
+import com.google.inject.Inject;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 
 import controller.InputInterpreter;
-import controller.Reporter;
+import controller.topdown.TopdownState;
 
 public class EditorInputInterpreter extends InputInterpreter {
 	protected final static String SWITCH_CTRL_1 = "ctrl1";
@@ -62,9 +64,9 @@ public class EditorInputInterpreter extends InputInterpreter {
 
 	boolean analogUnpressed = false;
 
-	EditorInputInterpreter(EditorState controller) {
-		super(controller);
-		controller.spatialSelector.centered = false;
+	@Inject 
+	EditorInputInterpreter(EditorView view) {
+		super(view);
 		setMappings();
 	}
 
@@ -205,13 +207,10 @@ public class EditorInputInterpreter extends InputInterpreter {
 					break;
 
 				case SWITCH_CTRL_1:
-					EventManager.post(new AppStateChangeEvent(0));
+					EventManager.post(new AppStateChangeEvent(EditorState.class));
 					break;
 				case SWITCH_CTRL_2:
-					EventManager.post(new AppStateChangeEvent(1));
-					break;
-				case SWITCH_CTRL_3:
-					EventManager.post(new AppStateChangeEvent(2));
+					EventManager.post(new AppStateChangeEvent(TopdownState.class));
 					break;
 				case TOGGLE_PENCIL_SHAPE:
 					ToolManager.getActualTool().pencil.toggleShape();
@@ -248,7 +247,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 					ToolManager.toggleSet();
 					break;
 				case TOGGLE_GRID:
-					((EditorState) ctrl).view.editorRend.toggleGrid();
+					getView().editorRend.toggleGrid();
 					break;
 				case TOGGLE_SOWER:
 					ToolManager.toggleSower();
@@ -275,10 +274,12 @@ public class EditorInputInterpreter extends InputInterpreter {
 					ModelManager.setNewBattlefield();
 					break;
 				case REPORT:
-					Reporter.reportAll();
 					break;
 			}
-			ctrl.guiController.askRedraw();
 		}
+	}
+	
+	private EditorView getView(){
+		return (EditorView)view;
 	}
 }
