@@ -1,12 +1,12 @@
 package app;
 
-import geometry.math.RandomUtil;
-
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
+
+import util.math.RandomUtil;
 
 import com.jme3.app.Application;
 import com.jme3.app.StatsView;
