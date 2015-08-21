@@ -65,8 +65,8 @@ public class EditorInputInterpreter extends InputInterpreter {
 	boolean analogUnpressed = false;
 
 	@Inject 
-	EditorInputInterpreter(EditorView view) {
-		super(view);
+	EditorInputInterpreter(EditorView v) {
+		super(v);
 		setMappings();
 	}
 
@@ -143,40 +143,10 @@ public class EditorInputInterpreter extends InputInterpreter {
 			ToolManager.releasePencils();
 			analogUnpressed = false;
 		} else {
-			SunLight sunLight = ModelManager.getBattlefield().getSunLight();
 			switch (name) {
 				case PRIMARY_ACTION:
-					ToolManager.analogPrimaryAction();
 					break;
 				case SECONDARY_ACTION:
-					ToolManager.analogSecondaryAction();
-					break;
-				case INC_DAYTIME:
-					sunLight.incDayTime();
-					break;
-				case DEC_DAYTIME:
-					sunLight.decDayTime();
-					break;
-				case COMPASS_EAST:
-					sunLight.turnCompassEast();
-					break;
-				case COMPASS_WEST:
-					sunLight.turnCompassWest();
-					break;
-				case INC_INTENSITY:
-					sunLight.incIntensity();
-					break;
-				case DEC_INTENSITY:
-					sunLight.decIntensity();
-					break;
-				case DEC_RED:
-					sunLight.decRed();
-					break;
-				case DEC_GREEN:
-					sunLight.decGreen();
-					break;
-				case DEC_BLUE:
-					sunLight.decBlue();
 					break;
 			}
 		}
@@ -187,11 +157,9 @@ public class EditorInputInterpreter extends InputInterpreter {
 		if (!isPressed) {
 			switch (name) {
 				case PRIMARY_ACTION:
-					ToolManager.primaryAction();
 					analogUnpressed = true;
 					break;
 				case SECONDARY_ACTION:
-					ToolManager.secondaryAction();
 					analogUnpressed = true;
 					break;
 				case INC_DAYTIME:

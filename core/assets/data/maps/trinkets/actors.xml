@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+    <Actor id="StdTrinket">
+        <Type value="Model"/>
+<!--        <Scale value="1"/>
+        <ActorList Trigger="onAllTime" ActorLink=""/>
+-->
+    </Actor>
+    <Actor id="3dsmaxActor">
+        <Type value="Model"/>
+	    <Pitch value="-90"/>
+        <Scale value=" 0.0025"/>
+    </Actor>
+    <Actor id="blenderActor">
+        <Type value="Model"/>
+        <Scale value="0.25"/>
+    </Actor>
+</catalog>

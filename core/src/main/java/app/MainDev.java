@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import model.ModelManager;
 import model.editor.ToolManager;
 import model.editor.engines.CollisionTester;
+import util.LogUtil;
 import util.annotation.AppSettingsRef;
 import util.annotation.AssetManagerRef;
 import util.annotation.AudioRendererRef;
@@ -17,7 +18,9 @@ import util.annotation.RootNodeRef;
 import util.annotation.StateManagerRef;
 import util.annotation.ViewPortRef;
 import util.event.AppStateChangeEvent;
+import util.event.EventManager;
 import view.EditorView;
+import view.TopdownView;
 import view.View;
 import view.mapDrawing.MapDrawer;
 import view.material.MaterialManager;
@@ -52,6 +55,7 @@ public class MainDev extends CosmoVania {
 
 	protected Injector injector;
 	protected Collection<Module> modules;
+	private AppState currentAppState;
 	
 	public static void main(String[] args) {
 		CosmoVania.main(new MainDev());
@@ -60,12 +64,14 @@ public class MainDev extends CosmoVania {
 	@Override
 	public void simpleInitApp() {
 		populateInjector();
-		
 		MaterialManager.setAssetManager(assetManager);
 		
 		stateManager.attach(injector.getInstance(EditorState.class));
 
-//		ModelManager.setNewBattlefield();
+		EventManager.register(this);
+		
+		
+		ModelManager.setNewBattlefield();
 	}
 
 	@Override
@@ -76,7 +82,10 @@ public class MainDev extends CosmoVania {
 
 	@Subscribe
 	public void handleEvent(AppStateChangeEvent e) {
-		stateManager.attach(injector.getInstance(e.getControllerClass()));
+		stateManager.detach(currentAppState);
+		currentAppState = injector.getInstance(e.getControllerClass());
+		stateManager.attach(currentAppState);
+		
 	}
 	
 	private void populateInjector(){
@@ -91,20 +100,20 @@ public class MainDev extends CosmoVania {
 				bind(AppSettings.class).annotatedWith(AppSettingsRef.class).toInstance(settings);
 				bind(AppStateManager.class).annotatedWith(StateManagerRef.class).toInstance(stateManager);
 				bind(Node.class).annotatedWith(RootNodeRef.class).toInstance(rootNode);
-				bind(ViewPort.class).annotatedWith(ViewPortRef.class).toInstance(viewPort);
+				bind(ViewPort.class).toInstance(viewPort);
 
 				bind(Node.class).annotatedWith(GuiNodeRef.class).toInstance(guiNode);
 				bind(ViewPort.class).annotatedWith(Names.named("GuiViewPort")).toInstance(guiViewPort);
 				
 				bind(AudioRenderer.class).annotatedWith(AudioRendererRef.class).toInstance(audioRenderer);
-				bind(InputManager.class).annotatedWith(InputManagerRef.class).toInstance(inputManager);
+				bind(InputManager.class).toInstance(inputManager);
 				bind(Camera.class).toInstance(cam);
 
 //				bind(TopdownState.class).annotatedWith(Names.named("TopdownState")).to(TopdownState.class).in(Singleton.class);
 				bind(EditorState.class).in(Singleton.class);
-				bind(SpatialSelector.class).annotatedWith(Names.named("EditorSpatialSelector")).;
 				bind(EditorView.class).in(Singleton.class);
-				bind(Float.class).annotatedWith(Names.named("CamElevation")).toInstance(10f);
+				bind(TopdownState.class).in(Singleton.class);
+				bind(TopdownView.class).in(Singleton.class);
 			}
 		});
 		injector = Guice.createInjector(modules);

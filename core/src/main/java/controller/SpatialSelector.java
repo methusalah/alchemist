@@ -18,14 +18,15 @@ import com.jme3.scene.Spatial;
 
 public class SpatialSelector {
 
-	Camera cam;
-	View view;
+	private final Camera cam;
+	private final View view;
+	private final InputManager inputManager;
 	public boolean centered = false;
 
-	@Inject
-	public SpatialSelector(Camera c, View v) {
+	public SpatialSelector(Camera c, View v, InputManager im) {
 		cam = c;
 		view = v;
+		inputManager = im;
 	}
 
 	public Geometry getGeometry(Node n) {
@@ -67,8 +68,8 @@ public class SpatialSelector {
 	}
 
 	private Ray getMouseRay() {
-		Vector3f origin = cam.getWorldCoordinates(im.getCursorPosition(), 0f);
-		Vector3f direction = cam.getWorldCoordinates(im.getCursorPosition(), 1f);
+		Vector3f origin = cam.getWorldCoordinates(inputManager.getCursorPosition(), 0f);
+		Vector3f direction = cam.getWorldCoordinates(inputManager.getCursorPosition(), 1f);
 		direction.subtractLocal(origin).normalizeLocal();
 		return new Ray(origin, direction);
 	}

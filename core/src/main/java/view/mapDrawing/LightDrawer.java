@@ -3,17 +3,16 @@
  */
 package view.mapDrawing;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import model.ModelManager;
-import view.View;
+import util.annotation.RootNodeRef;
 import view.math.TranslateUtil;
 
+import com.google.inject.Inject;
 import com.jme3.asset.AssetManager;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
 import com.jme3.post.ssao.SSAOFilter;
@@ -26,9 +25,7 @@ import com.jme3.shadow.EdgeFilteringMode;
 /**
  * @author Benoît
  */
-public class LightDrawer implements ActionListener {
-
-	View view;
+public class LightDrawer {
 	Node rootNode;
 
 	AmbientLight al;
@@ -37,8 +34,8 @@ public class LightDrawer implements ActionListener {
 	DirectionalLightShadowRenderer sr;
 	DirectionalLightShadowFilter sf;
 
-	public LightDrawer(View view, AssetManager am, Node rootNode, ViewPort vp) {
-		this.view = view;
+	@Inject
+	public LightDrawer(AssetManager am, @RootNodeRef Node rootNode, ViewPort vp) {
 		this.rootNode = rootNode;
 
 		FilterPostProcessor fpp = new FilterPostProcessor(am);
@@ -62,7 +59,18 @@ public class LightDrawer implements ActionListener {
 		BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
 		fpp.addFilter(bloom);
 		vp.addProcessor(fpp);
-
+	}
+	
+	public void Initialize(){
+		al = new AmbientLight();
+		
+		sun = new DirectionalLight();
+		sun.setDirection(new Vector3f(1, 1, 1));
+		
+		sf.setLight(sun);
+		
+		rootNode.addLight(al);
+		rootNode.addLight(sun);
 	}
 
 	public void reset() {
@@ -76,22 +84,8 @@ public class LightDrawer implements ActionListener {
 //		sr.setLight(shadowCaster);
 		sf.setLight(shadowCaster);
 
-		rootNode.addLight(al);
-		rootNode.addLight(sun);
-		rootNode.addLight(shadowCaster);
 		
 		updateLights();
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		switch (e.getActionCommand()) {
-			case "light":
-				updateLights();
-				break;
-			default:
-				throw new IllegalArgumentException("Unknown command : " + e.getActionCommand());
-		}
 	}
 
 	public void updateLights() {

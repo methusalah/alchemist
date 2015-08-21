@@ -25,6 +25,7 @@ import view.material.MaterialManager;
 import view.math.TranslateUtil;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -38,10 +39,7 @@ import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 
 public class MapDrawer {
-
-	private static final Logger logger = Logger.getLogger(MapDrawer.class.getName());
-	View view;
-	AssetManager am;
+	AssetManager assetManager;
 
 	private Map<String, Spatial> models = new HashMap<>();
 
@@ -52,18 +50,16 @@ public class MapDrawer {
 	private TerrainSplatTexture groundTexture;
 	private TerrainSplatTexture coverTexture;
 
-	public Node mainNode = new Node();
-	public Node castAndReceiveNode = new Node();
-	public Node receiveNode = new Node();
+	public Node mainNode = new Node(this.getClass().getSimpleName()+" main");
+	public Node castAndReceiveNode = new Node(this.getClass().getSimpleName()+" cast and receive shadow");
+	public Node receiveNode = new Node(this.getClass().getSimpleName()+" receive shadow");
 
 	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
 
-	public MapDrawer(View view, AssetManager am) {
-		this.view = view;
-		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getAtlas(), am);
-		coverTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getCover(), am);
-		coverTexture.transp = true;
-		this.am = am;
+	@Inject
+	public MapDrawer(AssetManager am) {
+		this.assetManager = am;
+
 		castAndReceiveNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
 		receiveNode.setShadowMode(RenderQueue.ShadowMode.Receive);
 		mainNode.attachChild(castAndReceiveNode);
@@ -72,13 +68,17 @@ public class MapDrawer {
 	}
 
 	public void renderTiles() {
+		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getAtlas(), assetManager);
+		coverTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getCover(), assetManager);
+		coverTexture.transp = true;
+
 		MapStyle style = ModelManager.getBattlefield().getMap().getStyle();
 		int index = 0;
 		for (String s : style.diffuses) {
-			Texture diffuse = am.loadTexture(s);
+			Texture diffuse = assetManager.loadTexture(s);
 			Texture normal = null;
 			if (style.normals.get(index) != null) {
-				normal = am.loadTexture(style.normals.get(index));
+				normal = assetManager.loadTexture(style.normals.get(index));
 			}
 			double scale = style.scales.get(index);
 
@@ -89,10 +89,10 @@ public class MapDrawer {
 
 		index = 0;
 		for (String s : style.coverDiffuses) {
-			Texture diffuse = am.loadTexture(s);
+			Texture diffuse = assetManager.loadTexture(s);
 			Texture normal = null;
 			if (style.coverNormals.get(index) != null) {
-				normal = am.loadTexture(style.coverNormals.get(index));
+				normal = assetManager.loadTexture(style.coverNormals.get(index));
 			}
 			double scale = style.coverScales.get(index);
 
@@ -102,7 +102,7 @@ public class MapDrawer {
 		coverTexture.buildMaterial();
 
 		for (Parcel parcel : ModelManager.getBattlefield().getMap().getParcelling().getAll()) {
-			Geometry g = new Geometry();
+			Geometry g = new Geometry(parcel.toString()+" on ground");
 			Mesh jmeMesh = TranslateUtil.toJMEMesh(parcel.getMesh());
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			g.setMesh(jmeMesh);
@@ -114,20 +114,20 @@ public class MapDrawer {
 			castAndReceiveNode.attachChild(g);
 			mainPhysicsSpace.add(g);
 
-			Geometry g2 = new Geometry();
+			Geometry g2 = new Geometry(parcel.toString()+" on cover");
 			g2.setMesh(jmeMesh);
 			g2.setMaterial(coverTexture.getMaterial());
 			g2.setQueueBucket(Bucket.Transparent);
 			g2.setLocalTranslation(0, 0, 0.01f);
 			coverSpatial.put(parcel, g2);
-			castAndReceiveNode.attachChild(g2);
+//			castAndReceiveNode.attachChild(g2);
 		}
 		updateTiles(ModelManager.getBattlefield().getMap().getAll());
 	}
 
 	private Spatial getModel(String path) {
 		if (!models.containsKey(path)) {
-			models.put(path, am.loadModel(path));
+			models.put(path, assetManager.loadModel(path));
 		}
 		return models.get(path).clone();
 	}
@@ -219,7 +219,6 @@ public class MapDrawer {
 		ManmadeFace face = (ManmadeFace) (c.face);
 		Spatial s = getModel(face.modelPath);
 		if (s == null) {
-			logger.warning("Can't find model " + face.modelPath);
 			return;
 		}
 		switch (c.type) {

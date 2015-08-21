@@ -4,6 +4,7 @@ import util.annotation.GuiNodeRef;
 import util.annotation.RootNodeRef;
 import util.event.EventManager;
 import view.mapDrawing.EditorRenderer;
+import view.mapDrawing.MapDrawer;
 
 import com.google.inject.Inject;
 import com.jme3.asset.AssetManager;
@@ -17,7 +18,7 @@ public class EditorView extends View {
 	public EditorRenderer editorRend;
 
 	@Inject
-	public EditorView(@RootNodeRef Node rn, @GuiNodeRef Node gn, ViewPort vp,  AssetManager am) {
-		super(rn, gn, vp, am);
+	public EditorView(@RootNodeRef Node rn, @GuiNodeRef Node gn, ViewPort vp,  AssetManager am, MapDrawer md) {
+		super(rn, gn, vp, am, md);
 	}
 }

@@ -13,7 +13,7 @@ import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.army.components.Unit;
-import util.event.BattleFieldUpdateEvent;
+import util.event.MapResetEvent;
 import util.event.EventManager;
 import util.event.GenericEvent;
 import view.material.MaterialManager;
