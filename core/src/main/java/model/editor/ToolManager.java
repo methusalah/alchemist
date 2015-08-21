@@ -48,7 +48,7 @@ public class ToolManager {
 		
 		actualTool = getCliffTool();
 
-		new Thread(sower).start();
+//		new Thread(sower).start();
 	}
 
 	public static void setCliffTool() {
@@ -204,4 +204,5 @@ public class ToolManager {
 	public static void setAtlasTool(AtlasTool atlasTool) {
 		ToolManager.atlasTool = atlasTool;
 	}
+	
 }

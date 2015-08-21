@@ -10,9 +10,9 @@ import view.mapDrawing.LightDrawer;
 import view.mapDrawing.MapDrawer;
 import view.material.MaterialManager;
 
-import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.jme3.asset.AssetManager;
 import com.jme3.math.ColorRGBA;
 import com.jme3.renderer.ViewPort;
@@ -26,20 +26,19 @@ public class View {
 	protected final Node guiNode;
 	protected final ViewPort viewPort;
 	protected final AssetManager assetManager;
+	protected final LightDrawer lightDrawer;
+	protected final MapDrawer mapDrawer;
 	
-	// Drawers
-	protected LightDrawer lightDrawer;
-	protected MapDrawer mapDrawer;
-
 	@Inject
-	public View(@RootNodeRef Node rootNode, @GuiNodeRef Node guiNode, @ViewPortRef ViewPort viewPort, AssetManager assetManager, MapDrawer md) {
+	public View(@RootNodeRef Node rootNode, @GuiNodeRef Node guiNode, @ViewPortRef ViewPort viewPort, AssetManager assetManager, Injector injector) {
 		this.rootNode = rootNode;
 		this.viewPort = viewPort;
 		this.guiNode = guiNode;
-		mapDrawer = md;
+		mapDrawer = injector.getInstance(MapDrawer.class);
+		lightDrawer = injector.getInstance(LightDrawer.class);
 		this.assetManager = assetManager;
 		createSky();
-		rootNode.attachChild(md.mainNode);
+		rootNode.attachChild(mapDrawer.mainNode);
 		EventManager.register(this);
 	}
 
@@ -70,19 +69,24 @@ public class View {
 
 	@Subscribe
 	public void firstRender(MapResetEvent e){
+		lightDrawer.Initialize();
 		mapDrawer.renderTiles();
-		presentSpatial(rootNode, 0);
 	}
 	
-	public void presentSpatial(Spatial s, int indent){
+	@Override
+	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		nodeToString(sb, rootNode, 0);
+		return sb.toString();
+	}
+	public void nodeToString(StringBuilder sb, Spatial s, int indent){
 		for(int i = 0; i<indent; i++)
 			sb.append("    ");
 		sb.append(s.toString() + " pos : " + s.getLocalTranslation());
 		LogUtil.info(sb.toString());
 		if(s instanceof Node)
 			for(Spatial child : ((Node)s).getChildren())
-				presentSpatial(child, indent+1);
+				nodeToString(sb, child, indent+1);
 	}
 	
 	public Node getRootNode(){

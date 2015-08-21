@@ -67,5 +67,10 @@ public abstract class Tool {
 	public AssetSet getSet() {
 		return set;
 	}
+	
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName()+ "(operation : "+actualOp+", actual set : "+set+")";
+	}
 
 }

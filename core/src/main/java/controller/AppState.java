@@ -23,7 +23,7 @@ public abstract class AppState extends AbstractAppState {
 	protected final InputInterpreter inputInterpreter;
 	protected final SpatialSelector spatialSelector;
 	protected final CameraManager cameraManager;
-	protected final InputManager inputManager; 
+	protected final InputManager inputManager;
 	protected final View view;
 
 	@Inject

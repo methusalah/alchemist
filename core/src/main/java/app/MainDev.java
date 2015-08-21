@@ -40,6 +40,7 @@ import com.jme3.bullet.BulletAppState;
 import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.math.Vector3f;
+import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
@@ -50,11 +51,13 @@ import controller.SpatialSelector;
 import controller.editor.EditorInputInterpreter;
 import controller.editor.EditorState;
 import controller.topdown.TopdownState;
+import de.lessvoid.nifty.Nifty;
 
 public class MainDev extends CosmoVania {
 
 	protected Injector injector;
 	protected Collection<Module> modules;
+	NiftyJmeDisplay niftyDisplay;
 	private AppState currentAppState;
 	
 	public static void main(String[] args) {
@@ -63,13 +66,16 @@ public class MainDev extends CosmoVania {
 
 	@Override
 	public void simpleInitApp() {
+		niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
+		guiViewPort.addProcessor(niftyDisplay);
+
 		populateInjector();
 		MaterialManager.setAssetManager(assetManager);
 		
-		stateManager.attach(injector.getInstance(EditorState.class));
+		currentAppState = injector.getInstance(EditorState.class);
+		stateManager.attach(currentAppState);
 
 		EventManager.register(this);
-		
 		
 		ModelManager.setNewBattlefield();
 	}
@@ -108,6 +114,8 @@ public class MainDev extends CosmoVania {
 				bind(AudioRenderer.class).annotatedWith(AudioRendererRef.class).toInstance(audioRenderer);
 				bind(InputManager.class).toInstance(inputManager);
 				bind(Camera.class).toInstance(cam);
+				
+				bind(Nifty.class).toInstance(niftyDisplay.getNifty());
 
 //				bind(TopdownState.class).annotatedWith(Names.named("TopdownState")).to(TopdownState.class).in(Singleton.class);
 				bind(EditorState.class).in(Singleton.class);

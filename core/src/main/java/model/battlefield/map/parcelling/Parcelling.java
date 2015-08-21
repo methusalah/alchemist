@@ -167,8 +167,10 @@ public class Parcelling extends Grid<Parcel>{
 
 		List<Triangle3D> res = new ArrayList<>();
 		for (Polygon3D p : polygons) {
-			Triangulator triangulator = new Triangulator(p.getTranslation(t.getPos().x + 0.5, t.getPos().y + 0.5, 0));
-			res.addAll(triangulator.getTriangles());
+			if(p != null){
+				Triangulator triangulator = new Triangulator(p.getTranslation(t.getPos().x + 0.5, t.getPos().y + 0.5, 0));
+				res.addAll(triangulator.getTriangles());
+			}
 		}
 
 		return res;

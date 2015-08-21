@@ -10,7 +10,7 @@ import model.battlefield.map.cliff.Cliff;
 import model.battlefield.map.cliff.Ramp;
 
 public abstract class Dug1 extends NaturalFace {
-    public final static int NB_VERTEX_ROWS = 13;
+    public final static int NB_VERTEX_ROWS = 11;
     public final static int NB_VERTEX_COL = 3;
     private final static double MAX_NOISE = 0.26;
     protected final static double MAX_RIDGE_POS = 0.3;
@@ -29,19 +29,17 @@ public abstract class Dug1 extends NaturalFace {
     
     private ArrayList<Point3D> createProfile(){
         ArrayList<Point3D> res = new ArrayList<>();
-        res.add(new Point3D(0.6, 0, 0));
-        res.add(new Point3D(0.55, 0, 0.07*2));
-        res.add(new Point3D(0.48, 0, 0.15*2));
-        res.add(new Point3D(0.41, 0, 0.25*2));
-        res.add(new Point3D(0.38, 0, 0.38*2));
-        res.add(new Point3D(0.36, 0, 0.50*2));
-        res.add(new Point3D(0.38, 0, 0.60*2));
-        res.add(new Point3D(0.48, 0, 0.7*2));
-        res.add(new Point3D(0.55, 0, 0.82*2));
-        res.add(new Point3D(0.65, 0, 0.9*2));
-        res.add(new Point3D(0.62, 0, 1.01*2));
-        res.add(new Point3D(0.40, 0, 1.01*2));
-        res.add(new Point3D(0.35, 0, 1*2));
+        res.add(new Point3D(1, 0, 0));
+        res.add(new Point3D(0.55, 0, 0.1*2));
+        res.add(new Point3D(0.37, 0, 0.2*2));
+        res.add(new Point3D(0.26, 0, 0.3*2));
+        res.add(new Point3D(0.20, 0, 0.4*2));
+        res.add(new Point3D(0.17, 0, 0.5*2));
+        res.add(new Point3D(0.17, 0, 0.6*2));
+        res.add(new Point3D(0.21, 0, 0.7*2));
+        res.add(new Point3D(0.27, 0, 0.8*2));
+        res.add(new Point3D(0.40, 0, 0.9*2));
+        res.add(new Point3D(0.01, 0, 1*2));
         return res;
     }
     

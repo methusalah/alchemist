@@ -3,6 +3,7 @@ package controller.editor;
 import model.ModelManager;
 import model.battlefield.lighting.SunLight;
 import model.editor.ToolManager;
+import util.LogUtil;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import view.EditorView;
@@ -145,8 +146,10 @@ public class EditorInputInterpreter extends InputInterpreter {
 		} else {
 			switch (name) {
 				case PRIMARY_ACTION:
+					ToolManager.analogPrimaryAction();
 					break;
 				case SECONDARY_ACTION:
+					ToolManager.analogSecondaryAction();;
 					break;
 			}
 		}
@@ -157,23 +160,13 @@ public class EditorInputInterpreter extends InputInterpreter {
 		if (!isPressed) {
 			switch (name) {
 				case PRIMARY_ACTION:
+					ToolManager.primaryAction();
 					analogUnpressed = true;
 					break;
 				case SECONDARY_ACTION:
+					ToolManager.secondaryAction();
 					analogUnpressed = true;
 					break;
-				case INC_DAYTIME:
-				case DEC_DAYTIME:
-				case COMPASS_EAST:
-				case COMPASS_WEST:
-				case INC_INTENSITY:
-				case DEC_INTENSITY:
-				case DEC_RED:
-				case DEC_GREEN:
-				case DEC_BLUE:
-					analogUnpressed = true;
-					break;
-
 				case SWITCH_CTRL_1:
 					EventManager.post(new AppStateChangeEvent(EditorState.class));
 					break;
@@ -245,6 +238,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 					break;
 			}
 		}
+		LogUtil.info(""+ToolManager.getActualTool());
 	}
 	
 	private EditorView getView(){

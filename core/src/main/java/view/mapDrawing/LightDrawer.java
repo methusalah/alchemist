@@ -65,7 +65,7 @@ public class LightDrawer {
 		al = new AmbientLight();
 		
 		sun = new DirectionalLight();
-		sun.setDirection(new Vector3f(1, 1, 1));
+		sun.setDirection(new Vector3f(-1, -1, -1));
 		
 		sf.setLight(sun);
 		

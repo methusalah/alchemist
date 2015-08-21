@@ -22,7 +22,7 @@ public class TopdownCameraManager extends CameraManager {
 	protected final static String ZOOM_IN = "zoomin";
 	protected final static String ZOOM_OUT = "zoomout";
 
-	private double maxSpeed = 10;
+	private double maxSpeed = 1;
 	private Point3D pos;
 	private Point3D target;
 
@@ -30,7 +30,7 @@ public class TopdownCameraManager extends CameraManager {
 	public TopdownCameraManager(Camera cam, @Named("CamElevation") float elevation) {
 		super(cam);
 		pos = new Point3D(0, 0, elevation);
-		target = new Point3D(0, 5, 5);
+		target = new Point3D(0, 0, 0);
 		placeCam();
 		setMappings();
 	}
@@ -90,7 +90,7 @@ public class TopdownCameraManager extends CameraManager {
 	}
 
 	protected void zoom(double value){
-		pos = pos.getAddition(value, value, -value);
+		pos = pos.getAddition(0, 0, -value);
 		placeCam();
 	}
 
@@ -102,8 +102,8 @@ public class TopdownCameraManager extends CameraManager {
 			case STRAFE_SOUTH : move(0, -velocity); break;
 			case STRAFE_EAST : move(velocity, 0); break;
 			case STRAFE_WEST : move(-velocity, 0); break;
-			case ZOOM_IN : zoom(1); break;
-			case ZOOM_OUT : zoom(-1); break;
+			case ZOOM_IN : zoom(0.3); break;
+			case ZOOM_OUT : zoom(-0.3); break;
 		}
 	}
 
