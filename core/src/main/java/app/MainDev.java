@@ -2,27 +2,23 @@ package app;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.logging.Logger;
 
 import model.ModelManager;
-import model.editor.ToolManager;
-import model.editor.engines.CollisionTester;
+import model.ES.component.PlanarPosition;
+import model.ES.component.PlanarInertia;
 import util.LogUtil;
 import util.annotation.AppSettingsRef;
-import util.annotation.AssetManagerRef;
 import util.annotation.AudioRendererRef;
-import util.annotation.CameraRef;
 import util.annotation.GuiNodeRef;
-import util.annotation.InputManagerRef;
 import util.annotation.RootNodeRef;
 import util.annotation.StateManagerRef;
-import util.annotation.ViewPortRef;
+import util.entity.CompMask;
+import util.entity.Entity;
+import util.entity.EntityPool;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import view.EditorView;
 import view.TopdownView;
-import view.View;
-import view.mapDrawing.MapDrawer;
 import view.material.MaterialManager;
 
 import com.google.common.eventbus.Subscribe;
@@ -32,14 +28,10 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
-import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioRenderer;
-import com.jme3.bullet.BulletAppState;
-import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
-import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
@@ -47,8 +39,7 @@ import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 
 import controller.AppState;
-import controller.SpatialSelector;
-import controller.editor.EditorInputInterpreter;
+import controller.ProcessorAppState;
 import controller.editor.EditorState;
 import controller.topdown.TopdownState;
 import de.lessvoid.nifty.Nifty;
@@ -74,10 +65,12 @@ public class MainDev extends CosmoVania {
 		
 		currentAppState = injector.getInstance(EditorState.class);
 		stateManager.attach(currentAppState);
+		
+		stateManager.attach(new ProcessorAppState());
 
 		EventManager.register(this);
 		
-		ModelManager.setNewBattlefield();
+//		ModelManager.setNewBattlefield();
 	}
 
 	@Override

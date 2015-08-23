@@ -11,8 +11,6 @@ import model.builders.entity.definitions.DefParser;
 
 public class ModelManager {
 
-	private static final Logger logger = Logger.getLogger(ModelManager.class.getName());
-
 	public static final String CONFIG_PATH = "assets/data";
 	public static final String DEFAULT_MAP_PATH = "assets/maps/";
 	private static final double UPDATE_DELAY = 1000;
@@ -70,7 +68,6 @@ public class ModelManager {
 			MapArtisanUtil.act(getBattlefield().getMap());
 			getBattlefield().getEngagement().reset();
 			EventManager.post(new MapResetEvent());
-			logger.info("Done.");
 		}
 	}
 
