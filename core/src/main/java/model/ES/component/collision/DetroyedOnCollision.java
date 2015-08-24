@@ -1,7 +1,7 @@
 package model.ES.component.collision;
 
-import util.entity.Comp;
+import com.simsilica.es.EntityComponent;
 
-public class DetroyedOnCollision implements Comp {
+public class DetroyedOnCollision implements EntityComponent {
 
 }

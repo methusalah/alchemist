@@ -2,30 +2,23 @@ package model.ES.processor.motion;
 
 import model.ES.component.motion.PlanarPosition;
 import model.ES.component.motion.PlanarPossibleMotion;
-import model.ES.component.motion.PlayerOrder;
 import util.LogUtil;
-import util.entity.CompMask;
-import util.entity.Entity;
-import util.entity.EntityGroup;
-import util.entity.EntityPool;
-import util.entity.Processor;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 
+import com.simsilica.es.Entity;
+
+import controller.entityAppState.Processor;
+
 public class RealisticMotionProc extends Processor {
-
-	public RealisticMotionProc() {
-		mask = new CompMask(PlanarPosition.class, PlanarPossibleMotion.class);
-	}
-
+	
 	@Override
-	protected void onUpdate(float elapsedTime) {
-		for(Entity e : entities.getCopyList()){
-			applyMotion(e);
-		}
+	protected void registerSets() {
+		register(entityData.getEntities(PlanarPosition.class, PlanarPossibleMotion.class));
 	}
-
-	private void applyMotion(Entity e) {
+	
+	@Override
+	protected void onEntityAdded(Entity e, float elapsedTime){
 		PlanarPossibleMotion motion = e.get(PlanarPossibleMotion.class);
 		PlanarPosition position = e.get(PlanarPosition.class);
 		
@@ -36,8 +29,8 @@ public class RealisticMotionProc extends Processor {
 //		if(!Map.getCollision(newPosition).isEmpty()){
 //			changeNewPosition
 		} else {
-			e.remove(PlanarPossibleMotion.class);
-			e.addOrUpdate(new PlanarPosition(newPosition, newOrientation));
+			setComp(e, new PlanarPosition(newPosition, newOrientation));
+			removeComp(e, PlanarPossibleMotion.class);
 			LogUtil.info("new position " + newPosition + " orientation : "+AngleUtil.toDegrees(newOrientation));
 		}
 	}

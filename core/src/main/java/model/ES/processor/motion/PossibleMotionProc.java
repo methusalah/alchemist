@@ -4,30 +4,21 @@ import model.ES.component.motion.PlanarDesiredMotion;
 import model.ES.component.motion.PlanarInertia;
 import model.ES.component.motion.PlanarMotionCapacity;
 import model.ES.component.motion.PlanarPosition;
-import model.ES.component.motion.PlanarPossibleMotion;
-import model.ES.events.PossibleMotionAttachedEvent;
-import model.ES.events.TheoricalMotionAttachedEvent;
-import util.entity.CompMask;
-import util.entity.Entity;
-import util.entity.EntityGroup;
-import util.entity.EntityPool;
-import util.entity.Processor;
-import util.event.EventManager;
+import model.ES.component.motion.PlayerOrder;
+
+import com.simsilica.es.Entity;
+
+import controller.entityAppState.Processor;
 
 public class PossibleMotionProc extends Processor {
 	
-	public PossibleMotionProc() {
-		mask = new CompMask(PlanarDesiredMotion.class, PlanarMotionCapacity.class, PlanarInertia.class);
-	}
-
 	@Override
-	protected void onUpdate(float elapsedTime) {
-		for(Entity e : entities.getCopyList()){
-			AdaptMotionToCapacity(e);
-		}
+	protected void registerSets() {
+		register(entityData.getEntities(PlanarDesiredMotion.class, PlanarMotionCapacity.class, PlanarInertia.class));
 	}
-
-	private void AdaptMotionToCapacity(Entity e) {
+	
+	@Override
+	protected void onEntityAdded(Entity e, float elapsedTime){
 		PlanarDesiredMotion motion = e.get(PlanarDesiredMotion.class);
 		PlanarInertia inertia = e.get(PlanarInertia.class);
 		PlanarMotionCapacity capacity = e.get(PlanarMotionCapacity.class);
@@ -36,8 +27,7 @@ public class PossibleMotionProc extends Processor {
 		adapter.adaptSpeed();
 		adapter.adaptRotation();
 		
-		e.remove(PlanarDesiredMotion.class);
-		e.add(adapter.getResultingMotion());
-		
+		setComp(e, adapter.getResultingMotion());
+		removeComp(e, PlanarDesiredMotion.class);
 	}
 }

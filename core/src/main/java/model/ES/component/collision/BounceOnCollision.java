@@ -1,7 +1,7 @@
 package model.ES.component.collision;
 
-import util.entity.Comp;
+import com.simsilica.es.EntityComponent;
 
-public class BounceOnCollision implements Comp {
+public class BounceOnCollision implements EntityComponent {
 
 }

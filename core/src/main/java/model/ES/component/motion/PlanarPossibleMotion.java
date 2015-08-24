@@ -1,8 +1,8 @@
 package model.ES.component.motion;
 
-import util.entity.Comp;
+import com.simsilica.es.EntityComponent;
 
-public class PlanarPossibleMotion implements Comp{
+public class PlanarPossibleMotion implements EntityComponent{
 	private final float elapsedTime;
 	private final double rotation;
 	private final double distance;

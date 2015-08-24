@@ -24,6 +24,7 @@ dependencies {
 	compile "com.jme3:jme3-lwjgl:$jmonkeyengine_version"
 	compile "com.jme3:jme3-niftygui:$jmonkeyengine_version"
 
+	compile 'org.slf4j:slf4j-simple:1.6.1'
 
 	compile 'org.bushe:eventbus:1.4'
 	compile 'com.google.guava:guava:18.0'

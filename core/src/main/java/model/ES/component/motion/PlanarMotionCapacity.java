@@ -1,8 +1,8 @@
 package model.ES.component.motion;
 
-import util.entity.Comp;
+import com.simsilica.es.EntityComponent;
 
-public class PlanarMotionCapacity implements Comp {
+public class PlanarMotionCapacity implements EntityComponent {
 	private final double maxSpeed;
 	private final double maxRotationSpeed;
 	private final double acceleration;

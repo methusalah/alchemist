@@ -1,9 +1,10 @@
 package model.ES.component.motion;
 
-import util.entity.Comp;
 import util.geometry.geom2d.Point2D;
 
-public class PlanarPosition implements Comp {
+import com.simsilica.es.EntityComponent;
+
+public class PlanarPosition implements EntityComponent {
 	private final Point2D position;
 	private final double orientation;
 	

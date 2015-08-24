@@ -1,9 +1,10 @@
 package model.ES.component.motion;
 
-import util.entity.Comp;
 import util.geometry.geom2d.Point2D;
 
-public class PlayerOrder implements Comp {
+import com.simsilica.es.EntityComponent;
+
+public class PlayerOrder implements EntityComponent {
 	private final boolean thrust;
 	private final boolean fire;
 	private final Point2D target;

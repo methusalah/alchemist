@@ -1,11 +1,8 @@
 package controller.editor;
 
-import model.EntityManager;
 import model.ModelManager;
-import model.battlefield.lighting.SunLight;
 import model.editor.ToolManager;
 import util.LogUtil;
-import util.entity.EntityPool;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import view.EditorView;
@@ -231,7 +228,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 					ModelManager.setNewBattlefield();
 					break;
 				case REPORT:
-					LogUtil.info(EntityPool.toReport());
+//					LogUtil.info(EntityPool.toReport());
 					break;
 			}
 		}

@@ -17,6 +17,7 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import com.simsilica.es.EntityData;
 
 public class TopdownCameraManager extends CameraManager {
 	protected final static String STRAFE_NORTH = "strafenorth";
@@ -101,7 +102,8 @@ public class TopdownCameraManager extends CameraManager {
 	@Override
 	public void onAnalog(String name, float value, float tpf) {
 		double velocity = tpf*maxSpeed*1;
-		Point2D position = ModelManager.ship.get(PlanarPosition.class).getPosition();
+		EntityData ed = ModelManager.entityData;
+		Point2D position = ed.getComponent(ModelManager.shipID, PlanarPosition.class).getPosition();
 		switch(name){
 //			case STRAFE_NORTH : move(0, velocity); break;
 //			case STRAFE_SOUTH : move(0, -velocity); break;
@@ -109,10 +111,10 @@ public class TopdownCameraManager extends CameraManager {
 //			case STRAFE_WEST : move(-velocity, 0); break;
 //			case ZOOM_IN : zoom(0.3); break;
 //			case ZOOM_OUT : zoom(-0.3); break;
-		case STRAFE_NORTH : ModelManager.ship.addOrUpdate(new PlayerOrder(true, false, position.getAddition(0, 1))); break;
-		case STRAFE_SOUTH : ModelManager.ship.addOrUpdate(new PlayerOrder(true, false, position.getAddition(0, -1))); break;
-		case STRAFE_EAST : ModelManager.ship.addOrUpdate(new PlayerOrder(true, false, position.getAddition(1, 0))); break;
-		case STRAFE_WEST : ModelManager.ship.addOrUpdate(new PlayerOrder(true, false, position.getAddition(-1, 0))); break;
+		case STRAFE_NORTH : ed.setComponent(ModelManager.shipID, new PlayerOrder(true, false, position.getAddition(0, 1))); break;
+		case STRAFE_SOUTH : ed.setComponent(ModelManager.shipID, new PlayerOrder(true, false, position.getAddition(0, -1))); break;
+		case STRAFE_EAST : ed.setComponent(ModelManager.shipID, new PlayerOrder(true, false, position.getAddition(1, 0))); break;
+		case STRAFE_WEST : ed.setComponent(ModelManager.shipID, new PlayerOrder(true, false, position.getAddition(-1, 0))); break;
 		}
 	}
 

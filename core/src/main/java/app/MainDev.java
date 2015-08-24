@@ -5,23 +5,20 @@ import java.util.LinkedList;
 
 import model.ModelManager;
 import model.ES.component.motion.PlanarInertia;
+import model.ES.component.motion.PlanarMotionCapacity;
 import model.ES.component.motion.PlanarPosition;
-import model.ES.component.motion.PlayerOrder;
 import model.ES.processor.OrderProc;
 import model.ES.processor.motion.PossibleMotionProc;
 import model.ES.processor.motion.RealisticMotionProc;
-import util.LogUtil;
 import util.annotation.AppSettingsRef;
 import util.annotation.AudioRendererRef;
 import util.annotation.GuiNodeRef;
 import util.annotation.RootNodeRef;
 import util.annotation.StateManagerRef;
-import util.entity.CompMask;
-import util.entity.Entity;
-import util.entity.EntityPool;
-import util.entity.ProcessorPool;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
+import util.geometry.geom2d.Point2D;
+import util.math.AngleUtil;
 import view.EditorView;
 import view.TopdownView;
 import view.material.MaterialManager;
@@ -42,10 +39,11 @@ import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
+import com.simsilica.es.EntityData;
 
 import controller.AppState;
-import controller.ProcessorAppState;
 import controller.editor.EditorState;
+import controller.entityAppState.EntityDataAppState;
 import controller.topdown.TopdownState;
 import de.lessvoid.nifty.Nifty;
 
@@ -71,10 +69,18 @@ public class MainDev extends CosmoVania {
 		currentAppState = injector.getInstance(EditorState.class);
 		stateManager.attach(currentAppState);
 		
-		stateManager.attach(new ProcessorAppState());
-		ProcessorPool.attach(OrderProc.class);
-		ProcessorPool.attach(PossibleMotionProc.class);
-		ProcessorPool.attach(RealisticMotionProc.class);
+		stateManager.attach(new EntityDataAppState());
+		stateManager.attach(new OrderProc());
+		stateManager.attach(new PossibleMotionProc());
+		stateManager.attach(new RealisticMotionProc());
+		
+		EntityData ed = stateManager.getState(EntityDataAppState.class).getEntityData();
+		ModelManager.entityData = ed;
+		ModelManager.shipID = ed.createEntity();
+		ed.setComponent(ModelManager.shipID, new PlanarPosition(new Point2D(1, 1), 0.5));
+		ed.setComponent(ModelManager.shipID, new PlanarInertia(0));
+		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(2, AngleUtil.toRadians(360), 1, 1));
+		
 
 		EventManager.register(this);
 		

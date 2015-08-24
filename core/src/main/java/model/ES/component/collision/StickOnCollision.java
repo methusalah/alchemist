@@ -1,7 +1,7 @@
 package model.ES.component.collision;
 
-import util.entity.Comp;
+import com.simsilica.es.EntityComponent;
 
-public class StickOnCollision implements Comp {
+public class StickOnCollision implements EntityComponent {
 
 }

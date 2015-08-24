@@ -1,8 +1,8 @@
 package model.ES.component.motion;
 
-import util.entity.Comp;
+import com.simsilica.es.EntityComponent;
 
-public class PlanarInertia implements Comp {
+public class PlanarInertia implements EntityComponent {
 	private final double speed;
 	
 	public double getSpeed() {
