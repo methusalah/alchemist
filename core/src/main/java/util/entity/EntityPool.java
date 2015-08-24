@@ -5,12 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import util.LogUtil;
+
 public class EntityPool {
 	
 	private static long lastID = 0;
 	private static List<Entity> entities = new ArrayList<>();
 	private static Map<CompMask, EntityGroup> groups = new HashMap<>();
 
+	private EntityPool(){
+		
+	}
+	
 	public static Entity createEntity(String name){
 		Entity e = new Entity(lastID++, name);
 		entities.add(e);
@@ -47,6 +53,8 @@ public class EntityPool {
 		EntityGroup g = new EntityGroup();
 		g.addAll(getEntities(compSet));
 		groups.put(compSet, g);
+		if(compSet == null)
+			LogUtil.info("comp set " + compSet);
 	}
 	
 	protected static void removeFromGroups(Entity e){
@@ -54,16 +62,19 @@ public class EntityPool {
 			g.remove(e);
 	}
 
-	protected static void addToGroups(Entity e){
+	protected static void placeInGroups(Entity e){
 		for(EntityGroup g : findGroupsFor(e))
 			g.add(e);
 	}
 	
 	private static List<EntityGroup> findGroupsFor(Entity e){
 		List<EntityGroup> res = new ArrayList<>();
-		for(CompMask set : groups.keySet())
+		for(CompMask set : groups.keySet()){
+			if(set == null)
+				LogUtil.info("zarb !");
 			if(e.has(set))
 				res.add(groups.get(set));
+		}
 		return res;
 	}
 	

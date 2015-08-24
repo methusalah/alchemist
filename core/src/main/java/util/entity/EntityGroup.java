@@ -46,4 +46,11 @@ public class EntityGroup implements Iterable<Entity>{
 	public List<Entity> getUpdated(){
 		return updated;
 	}
+	
+	public List<Entity> getCopyList(){
+		List<Entity> res = new ArrayList<Entity>();
+		for(Entity e : entities)
+			res.add(e);
+		return res;
+	}
 }

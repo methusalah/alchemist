@@ -4,8 +4,12 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import model.ModelManager;
-import model.ES.component.PlanarPosition;
-import model.ES.component.PlanarInertia;
+import model.ES.component.motion.PlanarInertia;
+import model.ES.component.motion.PlanarPosition;
+import model.ES.component.motion.PlayerOrder;
+import model.ES.processor.OrderProc;
+import model.ES.processor.motion.PossibleMotionProc;
+import model.ES.processor.motion.RealisticMotionProc;
 import util.LogUtil;
 import util.annotation.AppSettingsRef;
 import util.annotation.AudioRendererRef;
@@ -15,6 +19,7 @@ import util.annotation.StateManagerRef;
 import util.entity.CompMask;
 import util.entity.Entity;
 import util.entity.EntityPool;
+import util.entity.ProcessorPool;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import view.EditorView;
@@ -67,10 +72,13 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(currentAppState);
 		
 		stateManager.attach(new ProcessorAppState());
+		ProcessorPool.attach(OrderProc.class);
+		ProcessorPool.attach(PossibleMotionProc.class);
+		ProcessorPool.attach(RealisticMotionProc.class);
 
 		EventManager.register(this);
 		
-//		ModelManager.setNewBattlefield();
+		ModelManager.setNewBattlefield();
 	}
 
 	@Override

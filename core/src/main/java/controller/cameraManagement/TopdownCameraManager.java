@@ -1,6 +1,10 @@
 package controller.cameraManagement;
 
 import model.ModelManager;
+import model.ES.component.motion.PlanarDesiredMotion;
+import model.ES.component.motion.PlanarPosition;
+import model.ES.component.motion.PlayerOrder;
+import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import view.math.TranslateUtil;
 
@@ -97,13 +101,18 @@ public class TopdownCameraManager extends CameraManager {
 	@Override
 	public void onAnalog(String name, float value, float tpf) {
 		double velocity = tpf*maxSpeed*1;
+		Point2D position = ModelManager.ship.get(PlanarPosition.class).getPosition();
 		switch(name){
-			case STRAFE_NORTH : move(0, velocity); break;
-			case STRAFE_SOUTH : move(0, -velocity); break;
-			case STRAFE_EAST : move(velocity, 0); break;
-			case STRAFE_WEST : move(-velocity, 0); break;
-			case ZOOM_IN : zoom(0.3); break;
-			case ZOOM_OUT : zoom(-0.3); break;
+//			case STRAFE_NORTH : move(0, velocity); break;
+//			case STRAFE_SOUTH : move(0, -velocity); break;
+//			case STRAFE_EAST : move(velocity, 0); break;
+//			case STRAFE_WEST : move(-velocity, 0); break;
+//			case ZOOM_IN : zoom(0.3); break;
+//			case ZOOM_OUT : zoom(-0.3); break;
+		case STRAFE_NORTH : ModelManager.ship.addOrUpdate(new PlayerOrder(true, false, position.getAddition(0, 1))); break;
+		case STRAFE_SOUTH : ModelManager.ship.addOrUpdate(new PlayerOrder(true, false, position.getAddition(0, -1))); break;
+		case STRAFE_EAST : ModelManager.ship.addOrUpdate(new PlayerOrder(true, false, position.getAddition(1, 0))); break;
+		case STRAFE_WEST : ModelManager.ship.addOrUpdate(new PlayerOrder(true, false, position.getAddition(-1, 0))); break;
 		}
 	}
 

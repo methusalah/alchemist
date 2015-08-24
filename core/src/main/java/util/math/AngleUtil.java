@@ -2,14 +2,14 @@ package util.math;
 
 import util.geometry.geom2d.Point2D;
 
-public abstract class AngleUtil {
-	public static final double NULL = 0.0;
+public class AngleUtil {
+	public static double NULL = 0.0;
 	public static final double RIGHT = Math.PI/2;
 	public static final double FLAT = Math.PI;
 	public static final double FULL = FLAT*2;
-	public static int COUNTERCLOCKWISE = 1;
-	public static int CLOCKWISE = -1;
-	public static int NONE = 0;
+	public static final int COUNTERCLOCKWISE = 1;
+	public static final int CLOCKWISE = -1;
+	public static final int NONE = 0;
 
 	public static double normalize(double relativeAngle) {
 		while(relativeAngle <= -Math.PI) {
@@ -41,6 +41,12 @@ public abstract class AngleUtil {
 			return NONE;
 		}
 	}
+	
+	public static int getTurn(double fromAngle, double toAngle) {
+		double orientedDiff = AngleUtil.getOrientedDifference(fromAngle, toAngle);
+		return (int)Math.signum(orientedDiff);
+	}
+
 
 	/**
 	 * Computes the unoriented (smallest) difference between two angles.

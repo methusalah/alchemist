@@ -8,6 +8,10 @@ public class ProcessorPool {
 	private static Map<Class<? extends Processor>, Processor> processors = new HashMap<>();
 	private static Map<Class<? extends Processor>, Processor> enabledProcessors = new HashMap<>();
 
+	private ProcessorPool(){
+		
+	}
+	
 	public static void attach(Class<? extends Processor> processorClass){
 		if(processors.containsKey(processorClass))
 			throw new RuntimeException(processorClass.getSimpleName()+" is already attached.");

@@ -1,25 +1,27 @@
 package util.entity;
 
+import java.util.List;
+
 
 public class Processor {
 	
 	protected CompMask mask;
-	protected EntityGroup entites;
+	protected EntityGroup entities;
 	
 	
 	final void update(float elapsedTime){
 		onUpdate(elapsedTime);
-		for(Entity e : entites.getAdded())
+		for(Entity e : entities.getAdded())
 			onEntityAdded(e);
-		for(Entity e : entites.getRemoved())
+		for(Entity e : entities.getRemoved())
 			onEntityRemoved(e);
-		for(Entity e : entites.getUpdated())
+		for(Entity e : entities.getUpdated())
 			onEntityUpdated(e);
 	}
 	
 	
 	final void setAttached(){
-		entites = EntityPool.getGroup(mask);
+		entities = EntityPool.getGroup(mask);
 		onAttached();
 	}
 	final void setDetached(){

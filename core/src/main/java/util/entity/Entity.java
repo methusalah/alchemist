@@ -19,12 +19,26 @@ public final class Entity {
 			throw new RuntimeException("Can't add the same component twice.");
 		EntityPool.removeFromGroups(this);
 		put(comp);
-		EntityPool.addToGroups(this);
+		EntityPool.placeInGroups(this);
+	}
+
+	public <T extends Comp> T get(Class<T> compClass){
+		if(!contains(compClass))
+			throw new RuntimeException("Can't find component.");
+		return (T) comps.get(compClass);
 	}
 	
-	public <T extends Comp> void update(T comp){
-		if(!contains(comp))
-			throw new RuntimeException("Can't find any component to update.");
+	public <T extends Comp> void remove(Class<? extends Comp> compClass) {
+		if(!contains(compClass))
+			throw new RuntimeException("Can't find component.");
+		EntityPool.removeFromGroups(this);
+		comps.remove(compClass);
+		EntityPool.placeInGroups(this);
+	}
+	
+	public <T extends Comp> void addOrUpdate(T comp){
+//		if(!contains(comp))
+//			throw new RuntimeException("Can't find component.");
 		put(comp);
 	}
 	
@@ -34,7 +48,7 @@ public final class Entity {
 					return false;
 		return true;
 	}
-	
+
 	private <T extends Comp> boolean contains(T comp){
 		return contains(comp.getClass());
 	}
@@ -47,9 +61,6 @@ public final class Entity {
 		comps.put(comp.getClass(), comp);
 	}
 
-	public <T extends Comp> T get(Class<T> compClass){
-		return (T) comps.get(compClass);
-	}
 	
 	public String toString() {
 		return Entity.class.getSimpleName() + " name: " + name + "/ID: " + id + " (" + new CompMask(comps.keySet()).toString() + ")";

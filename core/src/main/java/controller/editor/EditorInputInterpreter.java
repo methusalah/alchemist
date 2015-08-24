@@ -1,9 +1,11 @@
 package controller.editor;
 
+import model.EntityManager;
 import model.ModelManager;
 import model.battlefield.lighting.SunLight;
 import model.editor.ToolManager;
 import util.LogUtil;
+import util.entity.EntityPool;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import view.EditorView;
@@ -210,12 +212,6 @@ public class EditorInputInterpreter extends InputInterpreter {
 				case TOGGLE_GRID:
 					getView().editorRend.toggleGrid();
 					break;
-				case TOGGLE_SOWER:
-					ToolManager.toggleSower();
-					break;
-				case STEP_SOWER:
-					ToolManager.stepSower();
-					break;
 				case TOGGLE_LIGHT_COMP:
 					ModelManager.getBattlefield().getSunLight().toggleLight();
 					break;
@@ -235,6 +231,7 @@ public class EditorInputInterpreter extends InputInterpreter {
 					ModelManager.setNewBattlefield();
 					break;
 				case REPORT:
+					LogUtil.info(EntityPool.toReport());
 					break;
 			}
 		}

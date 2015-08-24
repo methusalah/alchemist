@@ -2,8 +2,15 @@ package model;
 
 import java.util.logging.Logger;
 
+import util.entity.Entity;
+import util.entity.EntityPool;
 import util.event.MapResetEvent;
 import util.event.EventManager;
+import util.geometry.geom2d.Point2D;
+import util.math.AngleUtil;
+import model.ES.component.motion.PlanarInertia;
+import model.ES.component.motion.PlanarMotionCapacity;
+import model.ES.component.motion.PlanarPosition;
 import model.battlefield.Battlefield;
 import model.battlefield.BattlefieldFactory;
 import model.builders.MapArtisanUtil;
@@ -23,17 +30,21 @@ public class ModelManager {
 	private final static DefParser parser;
 	private static double nextUpdate = 0;
 	public static boolean battlefieldReady = true;
+	public static Entity ship;
 
 	static {
-		parser = new DefParser(CONFIG_PATH);
+		ship = EntityPool.createEntity("player ship");
+		ship.add(new PlanarPosition(new Point2D(1, 1), 0.5));
+		ship.add(new PlanarInertia(0));
+		ship.add(new PlanarMotionCapacity(2, AngleUtil.toRadians(360), 2, 2));
 
+		parser = new DefParser(CONFIG_PATH);
 		factory = new BattlefieldFactory();
 		// setNewBattlefield();
 	}
 
 	// no instancing from outside
 	private ModelManager() {
-
 	}
 
 	public static void updateConfigs() {

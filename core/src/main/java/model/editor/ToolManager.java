@@ -32,7 +32,6 @@ public class ToolManager {
 
 	private static double delay = 0;
 	private static long lastAction = 0;
-	private static Sower sower = new Sower();
 	
 	private ToolManager() {
 
@@ -121,26 +120,6 @@ public class ToolManager {
 		}
 	}
 
-	public static void toggleSower(){
-		synchronized (sower) {
-			if(sower.isPaused()){
-				sower.unpause();
-			}else{
-				sower.askForPause();
-			}
-		}
-	}
-
-	public static void stepSower(){
-		if(sower.isPaused()){
-			sower.stepByStep();
-		}
-	}
-	
-	public static void killSower(){
-		sower.destroy();
-	}
-	
 	public static void updateGroundAtlas() {
 		EventManager.post(new UpdateGroundAtlasEvent());
 	}
