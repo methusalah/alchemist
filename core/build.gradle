@@ -36,6 +36,7 @@ dependencies {
 	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.5.0'
 	
 	compile 'com.github.brainless-studios:tonegodgui:-SNAPSHOT'
+	compile 'com.github.brainless-studios:zay-es:-SNAPSHOT'
 	
 	compile 'org.codehaus.groovy:groovy-all:2.3.10'
 	
