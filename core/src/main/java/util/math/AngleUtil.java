@@ -44,13 +44,14 @@ public class AngleUtil {
 	
 	public static int getTurn(double fromAngle, double toAngle) {
 		double orientedDiff = AngleUtil.getOrientedDifference(fromAngle, toAngle);
+		if(Math.abs(orientedDiff) < PrecisionUtil.APPROX)
+			orientedDiff = 0;
 		return (int)Math.signum(orientedDiff);
 	}
 
 
 	/**
 	 * Computes the unoriented (smallest) difference between two angles.
-	 * The angles are assumed to be normalized to the range [-Pi, Pi].
 	 * The result will be in the range [0, Pi].
 	 *
 	 * @param ang1 the angle of one vector (in [-Pi, Pi] )
@@ -59,8 +60,10 @@ public class AngleUtil {
 	 *
 	 * Copied from JTS library
 	 */
-	public static double getSmallestDifference(double ang1, double ang2) {
+	public static double getSmallestDifference(double angle1, double angle2) {
 		double delAngle;
+		double ang1 = normalize(angle1);
+		double ang2 = normalize(angle2);
 		if (ang1 < ang2) {
 			delAngle = ang2 - ang1;
 		} else {

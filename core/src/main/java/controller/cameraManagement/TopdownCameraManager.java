@@ -1,7 +1,7 @@
 package controller.cameraManagement;
 
 import model.ModelManager;
-import model.ES.component.motion.PlanarDesiredMotion;
+import model.ES.component.motion.PlanarIntendedMotion;
 import model.ES.component.motion.PlanarPosition;
 import model.ES.component.motion.PlayerOrder;
 import util.geometry.geom2d.Point2D;
@@ -111,11 +111,26 @@ public class TopdownCameraManager extends CameraManager {
 //			case STRAFE_WEST : move(-velocity, 0); break;
 //			case ZOOM_IN : zoom(0.3); break;
 //			case ZOOM_OUT : zoom(-0.3); break;
-		case STRAFE_NORTH : ed.setComponent(ModelManager.shipID, new PlayerOrder(true, false, position.getAddition(0, 1))); break;
-		case STRAFE_SOUTH : ed.setComponent(ModelManager.shipID, new PlayerOrder(true, false, position.getAddition(0, -1))); break;
-		case STRAFE_EAST : ed.setComponent(ModelManager.shipID, new PlayerOrder(true, false, position.getAddition(1, 0))); break;
-		case STRAFE_WEST : ed.setComponent(ModelManager.shipID, new PlayerOrder(true, false, position.getAddition(-1, 0))); break;
-		}
+		case STRAFE_NORTH :
+			ModelManager.command.target = position.getAddition(0, 1);
+			ModelManager.command.thrust = true;
+			break;
+		case STRAFE_SOUTH :
+			ModelManager.command.target = position.getAddition(0, -1);
+			ModelManager.command.thrust = true;
+			break;
+		case STRAFE_EAST :
+			ModelManager.command.target = position.getAddition(1, 0);
+			ModelManager.command.thrust = true;
+			break;
+		case STRAFE_WEST :
+			ModelManager.command.target = position.getAddition(-1, 0);
+			ModelManager.command.thrust = true;
+			break;
+		default:
+			ModelManager.command.target = null;
+			ModelManager.command.thrust = false;
+	}
 	}
 
 	@Override

@@ -26,6 +26,7 @@ public class ModelManager {
 	public static boolean battlefieldReady = true;
 	public static EntityData entityData;
 	public static EntityId shipID;
+	public static Command command = new Command();
 
 	static {
 		parser = new DefParser(CONFIG_PATH);

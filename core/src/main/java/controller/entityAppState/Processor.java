@@ -3,12 +3,12 @@ package controller.entityAppState;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.ES.component.motion.PlanarPosition;
 import app.CosmoVania;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
+import com.simsilica.es.ComponentFilter;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
@@ -66,6 +66,11 @@ public abstract class Processor extends AbstractAppState {
     @SafeVarargs
 	protected final void register(Class<? extends EntityComponent>... compClass){
     	sets.add(entityData.getEntities(compClass));
+    }
+
+    @SafeVarargs
+	protected final void register(ComponentFilter filter, Class<? extends EntityComponent>... compClass){
+    	sets.add(entityData.getEntities(filter, compClass));
     }
     
     protected final void setComp(Entity e, EntityComponent comp){

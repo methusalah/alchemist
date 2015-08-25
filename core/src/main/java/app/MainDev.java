@@ -9,7 +9,8 @@ import model.ES.component.motion.PlanarInertia;
 import model.ES.component.motion.PlanarMotionCapacity;
 import model.ES.component.motion.PlanarPosition;
 import model.ES.processor.OrderProc;
-import model.ES.processor.motion.PossibleMotionProc;
+import model.ES.processor.motion.InertiaMotionProc;
+import model.ES.processor.motion.MotionProc;
 import model.ES.processor.motion.RealisticMotionProc;
 import util.annotation.AppSettingsRef;
 import util.annotation.AudioRendererRef;
@@ -74,7 +75,8 @@ public class MainDev extends CosmoVania {
 		
 		stateManager.attach(new EntityDataAppState());
 		stateManager.attach(new OrderProc());
-		stateManager.attach(new PossibleMotionProc());
+		stateManager.attach(new MotionProc());
+		stateManager.attach(new InertiaMotionProc());
 		stateManager.attach(new RealisticMotionProc());
 		stateManager.attach(new ModelProc(assetManager));
 		stateManager.attach(new PlacingModelProc());
@@ -83,9 +85,9 @@ public class MainDev extends CosmoVania {
 		ModelManager.entityData = ed;
 		ModelManager.shipID = ed.createEntity();
 		ed.setComponent(ModelManager.shipID, new PlanarPosition(new Point2D(1, 1), 0.5));
-		ed.setComponent(ModelManager.shipID, new PlanarInertia(0));
-		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(2, AngleUtil.toRadians(360), 1, 1));
-		ed.setComponent(ModelManager.shipID, new ModelComp("human/htank/htank03c.mesh.xml", 0.0025));
+		ed.setComponent(ModelManager.shipID, new PlanarInertia(0, false));
+		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(0.2, AngleUtil.toRadians(760), 0.1, 0.1));
+		ed.setComponent(ModelManager.shipID, new ModelComp("human/htank/htank03c.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
 		
 
 		EventManager.register(this);
