@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ES.component.motion.PlanarPosition;
+import app.CosmoVania;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
@@ -19,12 +20,12 @@ public abstract class Processor extends AbstractAppState {
 	protected EntityData entityData;
 	protected List<EntitySet> sets = new ArrayList<>();
 	
-	protected Application app;
+	protected CosmoVania app;
 	
 	@Override
 	public final void initialize(AppStateManager stateManager, Application app) {
 		super.initialize(stateManager, app);
-		this.app = app;
+		this.app = (CosmoVania)app;
         entityData = stateManager.getState(EntityDataAppState.class).getEntityData();
 
         registerSets();
@@ -62,8 +63,9 @@ public abstract class Processor extends AbstractAppState {
         super.cleanup();
     }
 
-    protected final void register(EntitySet set){
-    	sets.add(set);
+    @SafeVarargs
+	protected final void register(Class<? extends EntityComponent>... compClass){
+    	sets.add(entityData.getEntities(compClass));
     }
     
     protected final void setComp(Entity e, EntityComponent comp){

@@ -14,7 +14,7 @@ public class RealisticMotionProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(entityData.getEntities(PlanarPosition.class, PlanarPossibleMotion.class));
+		register(PlanarPosition.class, PlanarPossibleMotion.class);
 	}
 	
 	@Override

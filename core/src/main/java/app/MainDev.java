@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import model.ModelManager;
+import model.ES.component.ModelComp;
 import model.ES.component.motion.PlanarInertia;
 import model.ES.component.motion.PlanarMotionCapacity;
 import model.ES.component.motion.PlanarPosition;
@@ -20,6 +21,8 @@ import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 import view.EditorView;
+import view.ModelProc;
+import view.PlacingModelProc;
 import view.TopdownView;
 import view.material.MaterialManager;
 
@@ -73,6 +76,8 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new OrderProc());
 		stateManager.attach(new PossibleMotionProc());
 		stateManager.attach(new RealisticMotionProc());
+		stateManager.attach(new ModelProc(assetManager));
+		stateManager.attach(new PlacingModelProc());
 		
 		EntityData ed = stateManager.getState(EntityDataAppState.class).getEntityData();
 		ModelManager.entityData = ed;
@@ -80,6 +85,7 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(ModelManager.shipID, new PlanarPosition(new Point2D(1, 1), 0.5));
 		ed.setComponent(ModelManager.shipID, new PlanarInertia(0));
 		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(2, AngleUtil.toRadians(360), 1, 1));
+		ed.setComponent(ModelManager.shipID, new ModelComp("human/htank/htank03c.mesh.xml", 0.0025));
 		
 
 		EventManager.register(this);

@@ -13,7 +13,7 @@ public class OrderProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(entityData.getEntities(PlanarPosition.class, PlayerOrder.class));
+		register(PlanarPosition.class, PlayerOrder.class);
 	}
 	
 	@Override

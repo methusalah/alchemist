@@ -14,7 +14,7 @@ public class PossibleMotionProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(entityData.getEntities(PlanarDesiredMotion.class, PlanarMotionCapacity.class, PlanarInertia.class));
+		register(PlanarDesiredMotion.class, PlanarMotionCapacity.class, PlanarInertia.class);
 	}
 	
 	@Override

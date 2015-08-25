@@ -1,5 +1,8 @@
 package view;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import util.LogUtil;
 import util.annotation.GuiNodeRef;
 import util.annotation.RootNodeRef;
@@ -20,6 +23,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
+import com.simsilica.es.EntityId;
 
 public class View {
 	protected final Node rootNode;
