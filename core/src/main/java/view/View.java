@@ -1,8 +1,5 @@
 package view;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import util.LogUtil;
 import util.annotation.GuiNodeRef;
 import util.annotation.RootNodeRef;
@@ -23,7 +20,6 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
-import com.simsilica.es.EntityId;
 
 public class View {
 	protected final Node rootNode;
@@ -32,6 +28,8 @@ public class View {
 	protected final AssetManager assetManager;
 	protected final LightDrawer lightDrawer;
 	protected final MapDrawer mapDrawer;
+	
+	private Node plane = new Node("planeNode");
 	
 	@Inject
 	public View(@RootNodeRef Node rootNode, @GuiNodeRef Node guiNode, @ViewPortRef ViewPort viewPort, AssetManager assetManager, Injector injector) {
@@ -65,6 +63,15 @@ public class View {
 		yAxe.setMaterial(MaterialManager.redMaterial);
 		yAxe.setLocalTranslation(0, 5, 0);
 		rootNode.attachChild(yAxe);
+		
+		Geometry planeGeom = new Geometry("plane");
+		planeGeom.setMesh(new Box(500, 500, 0.01f));
+		planeGeom.setMaterial(MaterialManager.cyanMaterial);
+		plane.attachChild(planeGeom);
+	}
+	
+	public Node getPlane(){
+		return plane;
 	}
 	
 	public void update(float elapsedTime){

@@ -8,9 +8,11 @@ import model.ES.component.ModelComp;
 import model.ES.component.motion.PlanarInertia;
 import model.ES.component.motion.PlanarMotionCapacity;
 import model.ES.component.motion.PlanarPosition;
-import model.ES.processor.OrderProc;
+import model.ES.component.motion.PlayerControl;
+import model.ES.processor.PlayerControlProc;
 import model.ES.processor.motion.InertiaMotionProc;
-import model.ES.processor.motion.MotionProc;
+import model.ES.processor.motion.PlanarRotationProc;
+import model.ES.processor.motion.PlanarThrustProc;
 import model.ES.processor.motion.RealisticMotionProc;
 import util.annotation.AppSettingsRef;
 import util.annotation.AudioRendererRef;
@@ -74,8 +76,9 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(currentAppState);
 		
 		stateManager.attach(new EntityDataAppState());
-		stateManager.attach(new OrderProc());
-		stateManager.attach(new MotionProc());
+		stateManager.attach(new PlayerControlProc());
+		stateManager.attach(new PlanarRotationProc());
+		stateManager.attach(new PlanarThrustProc());
 		stateManager.attach(new InertiaMotionProc());
 		stateManager.attach(new RealisticMotionProc());
 		stateManager.attach(new ModelProc(assetManager));
@@ -84,9 +87,10 @@ public class MainDev extends CosmoVania {
 		EntityData ed = stateManager.getState(EntityDataAppState.class).getEntityData();
 		ModelManager.entityData = ed;
 		ModelManager.shipID = ed.createEntity();
+		ed.setComponent(ModelManager.shipID, new PlayerControl());
 		ed.setComponent(ModelManager.shipID, new PlanarPosition(new Point2D(1, 1), 0.5));
-		ed.setComponent(ModelManager.shipID, new PlanarInertia(0, false));
-		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(0.2, AngleUtil.toRadians(760), 0.1, 0.1));
+		ed.setComponent(ModelManager.shipID, new PlanarInertia(Point2D.ORIGIN));
+		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(2, AngleUtil.toRadians(500), 30, 6));
 		ed.setComponent(ModelManager.shipID, new ModelComp("human/htank/htank03c.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
 		
 

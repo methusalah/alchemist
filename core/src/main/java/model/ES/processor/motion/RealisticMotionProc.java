@@ -1,11 +1,8 @@
 package model.ES.processor.motion;
 
-import model.ES.component.motion.PlanarInertia;
-import model.ES.component.motion.PlanarPosition;
 import model.ES.component.motion.PlanarMotion;
-import util.LogUtil;
+import model.ES.component.motion.PlanarPosition;
 import util.geometry.geom2d.Point2D;
-import util.math.AngleUtil;
 
 import com.simsilica.es.Entity;
 
@@ -20,10 +17,19 @@ public class RealisticMotionProc extends Processor {
 	
 	@Override
 	protected void onEntityAdded(Entity e, float elapsedTime){
+		manage(e, elapsedTime);
+	}
+
+	@Override
+	protected void onEntityUpdated(Entity e, float elapsedTime){
+		manage(e, elapsedTime);
+	}
+	
+	private void manage(Entity e, float elapsedTime){
 		PlanarMotion motion = e.get(PlanarMotion.class);
 		PlanarPosition position = e.get(PlanarPosition.class);
 
-		LogUtil.info("motion application");
+		app.getDebugger().add("motion application");
 		
 		double newOrientation = position.getOrientation() + motion.getRotation();
 		Point2D newPosition = position.getPosition().getTranslation(newOrientation, motion.getDistance());

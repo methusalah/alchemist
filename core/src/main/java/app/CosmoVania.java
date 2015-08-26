@@ -43,6 +43,7 @@ public abstract class CosmoVania extends Application implements PhysicsTickListe
 
 	protected BitmapText fpsText;
 	protected MyDebugger debugger;
+	protected MyDebugger processorTrace;
 	protected StatsView statsView;
 
 	private AppActionListener actionListener = new AppActionListener();
@@ -105,8 +106,10 @@ public abstract class CosmoVania extends Application implements PhysicsTickListe
 		fpsText.setText("Frames per second");
 		guiNode.attachChild(fpsText);
 
-		debugger = new MyDebugger(0, settings.getHeight(), assetManager.loadFont("Interface/Fonts/Console.fnt"));
+		debugger = new MyDebugger(200, settings.getHeight()-100, assetManager.loadFont("Interface/Fonts/Console.fnt"));
 		guiNode.attachChild(debugger.getNode());
+
+		processorTrace = new MyDebugger(200, settings.getHeight()-300, assetManager.loadFont("Interface/Fonts/Console.fnt"));
 	}
 
 	public void loadStatsView() {
@@ -168,8 +171,10 @@ public abstract class CosmoVania extends Application implements PhysicsTickListe
 
 		// simple update and root node
 		debugger.reset();
+		processorTrace.reset();
 		simpleUpdate(tpf);
 		debugger.getNode();
+		processorTrace.getNode();
 
 		rootNode.updateLogicalState(tpf);
 		guiNode.updateLogicalState(tpf);
@@ -241,5 +246,20 @@ public abstract class CosmoVania extends Application implements PhysicsTickListe
 		appInstance.setSettings(settings);
 		appInstance.restart(); // restart the context to apply changes
 		cam.resize(settings.getWidth(), settings.getHeight(), true);
+	}
+
+	public MyDebugger getDebugger() {
+		return debugger;
+	}
+	
+	public MyDebugger getProcessorTrace() {
+		return processorTrace;
+	}
+	
+	public void toggleProcessorTrace(){
+		if(!guiNode.hasChild(processorTrace.getNode()))
+			guiNode.attachChild(processorTrace.getNode());
+		else
+			guiNode.detachChild(processorTrace.getNode());
 	}
 }

@@ -2,12 +2,15 @@ package controller.topdown;
 
 import java.util.logging.Logger;
 
+import util.LogUtil;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
 import view.EditorView;
 import view.TopdownView;
 import model.CommandManager;
+import model.ModelManager;
+import app.CosmoVania;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
@@ -19,14 +22,12 @@ import controller.editor.EditorState;
 
 public class TopdownInputInterpreter extends InputInterpreter {
 
-	private static final Logger logger = Logger.getLogger(TopdownInputInterpreter.class.getName());
-
 	protected final static String SWITCH_CTRL_1 = "ctrl1";
 	protected final static String SWITCH_CTRL_2 = "ctrl2";
 	protected final static String SWITCH_CTRL_3 = "ctrl3";
 
 	protected final static String SELECT = "select";
-	protected final static String ACTION = "action";
+	protected final static String THRUST = "action";
 	protected final static String MOVE_ATTACK = "moveattack";
 	protected final static String MULTIPLE_SELECTION = "multipleselection";
 	protected final static String HOLD = "hold";
@@ -38,6 +39,8 @@ public class TopdownInputInterpreter extends InputInterpreter {
 	boolean multipleSelection = false;
 	double dblclicTimer = 0;
 	Point2D dblclicCoord;
+	
+	CosmoVania app;
 
 	TopdownInputInterpreter(TopdownView v) {
 		super(v);
@@ -45,7 +48,7 @@ public class TopdownInputInterpreter extends InputInterpreter {
 	}
 
 	private void setMappings() {
-		mappings = new String[] { SWITCH_CTRL_1, SWITCH_CTRL_2, SWITCH_CTRL_3, SELECT, ACTION, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE };
+		mappings = new String[] { SWITCH_CTRL_1, SWITCH_CTRL_2, SWITCH_CTRL_3, SELECT, THRUST, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE };
 	}
 
 	@Override
@@ -54,7 +57,7 @@ public class TopdownInputInterpreter extends InputInterpreter {
 		inputManager.addMapping(SWITCH_CTRL_2, new KeyTrigger(KeyInput.KEY_F2));
 		inputManager.addMapping(SWITCH_CTRL_3, new KeyTrigger(KeyInput.KEY_F3));
 		inputManager.addMapping(SELECT, new MouseButtonTrigger(0));
-		inputManager.addMapping(ACTION, new MouseButtonTrigger(1));
+		inputManager.addMapping(THRUST, new MouseButtonTrigger(1));
 		inputManager.addMapping(MOVE_ATTACK, new KeyTrigger(KeyInput.KEY_A));
 		inputManager.addMapping(MULTIPLE_SELECTION, new KeyTrigger(KeyInput.KEY_LCONTROL),
 				new KeyTrigger(KeyInput.KEY_RCONTROL));
@@ -76,6 +79,8 @@ public class TopdownInputInterpreter extends InputInterpreter {
 
 	@Override
 	public void onAnalog(String name, float value, float tpf) {
+		switch(name){
+		}
 	}
 
 	@Override
@@ -94,9 +99,11 @@ public class TopdownInputInterpreter extends InputInterpreter {
 					break;
 				case SELECT:
 					break;
-				case ACTION:
+				case THRUST:
+					ModelManager.command.thrust = false;
 					break;
 				case MOVE_ATTACK:
+					app.toggleProcessorTrace();
 					break;
 				case HOLD:
 					break;
@@ -106,6 +113,8 @@ public class TopdownInputInterpreter extends InputInterpreter {
 		} else {
 			// input pressed
 			switch(name){
+			case THRUST:
+				ModelManager.command.thrust = true;
 				case MULTIPLE_SELECTION:
 					break;
 				case SELECT:

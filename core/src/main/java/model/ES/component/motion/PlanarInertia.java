@@ -1,25 +1,27 @@
 package model.ES.component.motion;
 
+import util.geometry.geom2d.Point2D;
+
 import com.simsilica.es.EntityComponent;
 
 public class PlanarInertia implements EntityComponent {
-	private final double speed;
-	private final boolean accelerate;
+	private final Point2D velocity;
+	private final Point2D appliedVelocity;
 	
-	public PlanarInertia(double speed, boolean accelerate) {
-		this.speed = speed;
-		this.accelerate = accelerate;
-	}
-	
-	public boolean isAccelerate() {
-		return accelerate;
+	public PlanarInertia(Point2D velocity) {
+		this(velocity, Point2D.ORIGIN);
 	}
 
-	public double getSpeed() {
-		return speed;
+	public PlanarInertia(Point2D velocity, Point2D appliedVelocity) {
+		this.velocity = velocity;
+		this.appliedVelocity = appliedVelocity;
 	}
 
-	
-	
-	
+	public Point2D getVelocity() {
+		return velocity;
+	}
+
+	public Point2D getAppliedVelocity() {
+		return appliedVelocity;
+	}
 }

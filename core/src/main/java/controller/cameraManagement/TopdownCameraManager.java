@@ -1,7 +1,7 @@
 package controller.cameraManagement;
 
 import model.ModelManager;
-import model.ES.component.motion.PlanarIntendedMotion;
+import model.ES.component.motion.PlanarThrust;
 import model.ES.component.motion.PlanarPosition;
 import model.ES.component.motion.PlayerOrder;
 import util.geometry.geom2d.Point2D;

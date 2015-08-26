@@ -32,7 +32,5 @@ public class EntityDataAppState extends AbstractAppState {
     }
     @Override
     public void update(float tpf) {
-    	LogUtil.info("*************************");
-    	LogUtil.info("");
     }
 }

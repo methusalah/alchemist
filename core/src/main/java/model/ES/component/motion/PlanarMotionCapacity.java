@@ -5,17 +5,17 @@ import com.simsilica.es.EntityComponent;
 public class PlanarMotionCapacity implements EntityComponent {
 	private final double maxSpeed;
 	private final double maxRotationSpeed;
-	private final double acceleration;
-	private final double deceleration;
+	private final double thrustPower;
+	private final double mass;
 	
 	public PlanarMotionCapacity(double maxSpeed,
 			double maxRotationSpeed,
-			double acceleration,
-			double deceleration){
+			double thrustPower,
+			double mass){
 		this.maxRotationSpeed = maxRotationSpeed;
 		this.maxSpeed = maxSpeed;
-		this.acceleration = acceleration;
-		this.deceleration = deceleration;
+		this.thrustPower = thrustPower;
+		this.mass = mass;
 	}
 
 	public double getMaxSpeed() {
@@ -26,12 +26,12 @@ public class PlanarMotionCapacity implements EntityComponent {
 		return maxRotationSpeed;
 	}
 
-	public double getAcceleration() {
-		return acceleration;
+	public double getThrustPower() {
+		return thrustPower;
 	}
 
-	public double getDeceleration() {
-		return deceleration;
+	public double getMass() {
+		return mass;
 	}
 
 }
