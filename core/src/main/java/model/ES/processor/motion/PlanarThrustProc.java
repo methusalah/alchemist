@@ -38,7 +38,7 @@ public class PlanarThrustProc extends Processor {
 		PlanarPosition position = e.get(PlanarPosition.class);
 		PlanarInertia inertia = e.get(PlanarInertia.class);
 		
-		setComp(e, new PlanarInertia(inertia.getVelocity(), Point2D.ORIGIN.getTranslation(position.getOrientation(), 0.00001)));
+		setComp(e, new PlanarInertia(inertia.getVelocity(), Point2D.ORIGIN.getTranslation(position.getOrientation(), 0.001*elapsedTime)));
 		removeComp(e, PlanarThrust.class);
 		
 		StringBuilder sb = new StringBuilder(this.getClass().getSimpleName() + System.lineSeparator());

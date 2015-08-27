@@ -4,6 +4,7 @@ import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 import model.ModelManager;
+import model.ES.component.motion.PlanarInertiaDebugger;
 import model.ES.component.motion.PlanarThrust;
 import model.ES.component.motion.PlanarInertia;
 import model.ES.component.motion.PlanarMotionCapacity;
@@ -28,44 +29,21 @@ public class InertiaMotionProc extends Processor {
 		PlanarPosition position = e.get(PlanarPosition.class);
 		PlanarMotionCapacity capacity = e.get(PlanarMotionCapacity.class);
 		
-		
-		
-		
-//		double speed = inertia.getSpeed();
-//		double maxSpeed = capacity.getMaxSpeed();
-//		double acceleration = capacity.getAcceleration();
-//		double deceleration = capacity.getDeceleration();
-//		String s = "Inertia processor for " + e.getId()+ " Speed : "+inertia.getSpeed();
-//
-//		if(inertia.isAccelerate()){
-//			if(speed < maxSpeed){
-//				speed = speed + acceleration*elapsedTime;
-//				speed = Math.min(maxSpeed, speed);
-//			}
-//			s = s + " and accelerate.";
-//		} else {
-//			if(speed > 0){
-//				speed = speed - deceleration*elapsedTime;
-//				speed = Math.max(0, speed);
-//			}
-//			s = s + " and decelerate.";
-//		}
-//		app.getDebugger().add(s);
-
 		Point2D velocity = inertia.getVelocity();
-		if(inertia.getAppliedVelocity().isOrigin()){
-			double brake = Math.exp(-capacity.getMass());
-			velocity = velocity.getSubtraction(velocity.getMult(brake));
-			if(velocity.getLength() < 0.0001)
-				velocity = Point2D.ORIGIN;
-		} else {
-			velocity = velocity.getAddition(inertia.getAppliedVelocity().getMult(capacity.getThrustPower() / capacity.getMass()));
-		}
+		double friction = Math.exp(-capacity.getMass());
+		velocity = velocity.getSubtraction(velocity.getMult(friction));
+		if(velocity.getLength() < 0.0001)
+			velocity = Point2D.ORIGIN;
+		velocity = velocity.getAddition(inertia.getAppliedVelocity().getMult(capacity.getThrustPower() / capacity.getMass()));
+		velocity = velocity.getTruncation(capacity.getMaxSpeed());
 		
 		PlanarInertia resultingInertia = new PlanarInertia(velocity);
 
 		setComp(e, resultingInertia);
 		setComp(e, new PlanarPosition(position.getPosition().getAddition(velocity), position.getOrientation()));
+		
+		// debug
+		setComp(e, new PlanarInertiaDebugger(inertia.getVelocity(), inertia.getAppliedVelocity(), velocity));
 		
 		StringBuilder sb = new StringBuilder(this.getClass().getSimpleName() + System.lineSeparator());
 		sb.append("    velocity length : "+ inertia.getVelocity().getLength() + System.lineSeparator());

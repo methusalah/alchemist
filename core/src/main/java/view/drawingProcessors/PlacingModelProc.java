@@ -1,9 +1,10 @@
-package view;
+package view.drawingProcessors;
 
 import model.ES.component.ModelComp;
 import model.ES.component.motion.PlanarPosition;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
+import view.SpatialPool;
 import view.math.TranslateUtil;
 
 import com.jme3.math.Quaternion;

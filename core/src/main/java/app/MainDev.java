@@ -13,7 +13,6 @@ import model.ES.processor.PlayerControlProc;
 import model.ES.processor.motion.InertiaMotionProc;
 import model.ES.processor.motion.PlanarRotationProc;
 import model.ES.processor.motion.PlanarThrustProc;
-import model.ES.processor.motion.RealisticMotionProc;
 import util.annotation.AppSettingsRef;
 import util.annotation.AudioRendererRef;
 import util.annotation.GuiNodeRef;
@@ -24,9 +23,10 @@ import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 import view.EditorView;
-import view.ModelProc;
-import view.PlacingModelProc;
 import view.TopdownView;
+import view.drawingProcessors.InertiaVisualisationProc;
+import view.drawingProcessors.ModelProc;
+import view.drawingProcessors.PlacingModelProc;
 import view.material.MaterialManager;
 
 import com.google.common.eventbus.Subscribe;
@@ -80,9 +80,9 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new PlanarRotationProc());
 		stateManager.attach(new PlanarThrustProc());
 		stateManager.attach(new InertiaMotionProc());
-		stateManager.attach(new RealisticMotionProc());
 		stateManager.attach(new ModelProc(assetManager));
 		stateManager.attach(new PlacingModelProc());
+		stateManager.attach(new InertiaVisualisationProc());
 		
 		EntityData ed = stateManager.getState(EntityDataAppState.class).getEntityData();
 		ModelManager.entityData = ed;
@@ -90,7 +90,7 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(ModelManager.shipID, new PlayerControl());
 		ed.setComponent(ModelManager.shipID, new PlanarPosition(new Point2D(1, 1), 0.5));
 		ed.setComponent(ModelManager.shipID, new PlanarInertia(Point2D.ORIGIN));
-		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(2, AngleUtil.toRadians(500), 30, 6));
+		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(2, AngleUtil.toRadians(500), 500, 5));
 		ed.setComponent(ModelManager.shipID, new ModelComp("human/htank/htank03c.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
 		
 

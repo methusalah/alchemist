@@ -1,8 +1,9 @@
-package view;
+package view.drawingProcessors;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import view.SpatialPool;
 import model.ES.component.ModelComp;
 import model.ES.component.motion.PlanarPosition;
 

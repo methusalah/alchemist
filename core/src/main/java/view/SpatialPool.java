@@ -10,6 +10,9 @@ public class SpatialPool {
 
 	
 	public static Map<EntityId, Spatial> models = new HashMap<>();
+	public static Map<EntityId, Spatial> inertias = new HashMap<>();
+	public static Map<EntityId, Spatial> appliedVelocities = new HashMap<>();
+	public static Map<EntityId, Spatial> resultingVelocity = new HashMap<>();
 
 	
 	private SpatialPool(){
