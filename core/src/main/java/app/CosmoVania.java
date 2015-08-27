@@ -21,6 +21,7 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Node;
@@ -30,6 +31,8 @@ import com.jme3.system.JmeContext.Type;
 import com.jme3.system.JmeSystem;
 import com.jme3.util.BufferUtils;
 
+import de.lessvoid.nifty.Nifty;
+
 public abstract class CosmoVania extends Application implements PhysicsTickListener {
 
 	private static final Logger logger = Logger.getLogger(CosmoVania.class.getName());
@@ -38,6 +41,8 @@ public abstract class CosmoVania extends Application implements PhysicsTickListe
 
 	protected Node rootNode = new Node("Root Node");
 	protected Node guiNode = new Node("Gui Node");
+	protected NiftyJmeDisplay niftyDisplay;
+	
 
 	protected float secondCounter = 0.0f;
 
@@ -122,6 +127,7 @@ public abstract class CosmoVania extends Application implements PhysicsTickListe
 	@Override
 	public void initialize() {
 		LogUtil.init();
+		AppFacade.setApp(this);
 		bulletAppState = new BulletAppState();
 		bulletAppState.startPhysics();
 
@@ -143,6 +149,9 @@ public abstract class CosmoVania extends Application implements PhysicsTickListe
 			inputManager.addMapping("SIMPLEAPP_Memory", new KeyTrigger(KeyInput.KEY_M));
 			inputManager.addListener(actionListener, "SIMPLEAPP_Exit", "SIMPLEAPP_CameraPos", "SIMPLEAPP_Memory");
 		}
+
+		niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
+		guiViewPort.addProcessor(niftyDisplay);
 
 		// call user code
 		simpleInitApp();
@@ -261,5 +270,9 @@ public abstract class CosmoVania extends Application implements PhysicsTickListe
 			guiNode.attachChild(processorTrace.getNode());
 		else
 			guiNode.detachChild(processorTrace.getNode());
+	}
+	
+	public Nifty getNifty(){
+		return niftyDisplay.getNifty();
 	}
 }

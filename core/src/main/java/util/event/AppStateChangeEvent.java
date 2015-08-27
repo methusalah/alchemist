@@ -1,17 +1,17 @@
 package util.event;
 
-import controller.AppState;
+import controller.Controller;
 
 
 public class AppStateChangeEvent extends Event {
 
-	private final Class<? extends AppState> AppStateClass;
+	private final Class<? extends Controller> AppStateClass;
 
-	public AppStateChangeEvent(Class<? extends AppState> AppStateClass) {
+	public AppStateChangeEvent(Class<? extends Controller> AppStateClass) {
 		this.AppStateClass = AppStateClass;
 	}
 
-	public Class<? extends AppState> getControllerClass() {
+	public Class<? extends Controller> getControllerClass() {
 		return AppStateClass;
 	}
 }

@@ -12,6 +12,7 @@ import model.builders.entity.MapStyleBuilder;
 import model.builders.entity.definitions.BuilderManager;
 import model.editor.ToolManager;
 import model.editor.tools.Tool;
+import app.AppFacade;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -32,23 +33,22 @@ public class EditorGUIController extends GUIController {
 	private static final Logger logger = Logger.getLogger(EditorGUIController.class.getName());
 
 	@Inject
-	public EditorGUIController(Nifty nifty) {
-		super(nifty);
+	public EditorGUIController() {
 		drawer = new EditorGUIDrawer(this);
-		nifty.setIgnoreKeyboardEvents(true);
-		nifty.fromXml("interface/screen.xml", "editor");
+		AppFacade.getNifty().setIgnoreKeyboardEvents(true);
+		AppFacade.getNifty().fromXml("interface/screen.xml", "editor");
 	}
 
 	@Override
 	public void activate() {
-		nifty.gotoScreen("editor");
-		nifty.update();
+		AppFacade.getNifty().gotoScreen("editor");
+		AppFacade.getNifty().update();
 		askRedraw();
 	}
 
 	@Override
 	public void update() {
-		if (!nifty.getCurrentScreen().getScreenId().equals("editor")) {
+		if (!AppFacade.getNifty().getCurrentScreen().getScreenId().equals("editor")) {
 			throw new RuntimeException("updating editor screen but is not current screen.");
 		}
 		if (redrawAsked) {
@@ -59,8 +59,6 @@ public class EditorGUIController extends GUIController {
 
 	@Override
 	public void bind(Nifty nifty, Screen screen) {
-		logger.info("bind");
-		this.nifty = nifty;
 	}
 
 	@Override

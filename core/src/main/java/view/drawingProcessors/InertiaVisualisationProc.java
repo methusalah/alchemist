@@ -77,7 +77,6 @@ public class InertiaVisualisationProc extends Processor {
 		Point2D end = start.getAddition(direction.getMult(100));
 		
 		
-		LogUtil.info("applied velocity length : "+start.getDistance(end));
 		Line l = new Line(TranslateUtil.toVector3f(start.get3D(0.2)), TranslateUtil.toVector3f(end.get3D(0.2)));
 		l.setLineWidth(3);
 		body.setMesh(l);

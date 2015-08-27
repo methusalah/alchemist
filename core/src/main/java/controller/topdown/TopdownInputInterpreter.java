@@ -10,6 +10,7 @@ import view.EditorView;
 import view.TopdownView;
 import model.CommandManager;
 import model.ModelManager;
+import app.AppFacade;
 import app.CosmoVania;
 
 import com.jme3.input.InputManager;
@@ -18,63 +19,12 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 
 import controller.InputInterpreter;
-import controller.editor.EditorState;
+import controller.editor.EditorCtrl;
 
 public class TopdownInputInterpreter extends InputInterpreter {
 
-	protected final static String SWITCH_CTRL_1 = "ctrl1";
-	protected final static String SWITCH_CTRL_2 = "ctrl2";
-	protected final static String SWITCH_CTRL_3 = "ctrl3";
-
-	protected final static String SELECT = "select";
-	protected final static String THRUST = "action";
-	protected final static String MOVE_ATTACK = "moveattack";
-	protected final static String MULTIPLE_SELECTION = "multipleselection";
-	protected final static String HOLD = "hold";
-	protected final static String PAUSE = "pause";
-
-	protected final static int DOUBLE_CLIC_DELAY = 200;// milliseconds
-	protected final static int DOUBLE_CLIC_MAX_OFFSET = 5;// in pixels on screen
-
-	boolean multipleSelection = false;
-	double dblclicTimer = 0;
-	Point2D dblclicCoord;
-	
-	CosmoVania app;
-
 	TopdownInputInterpreter(TopdownView v) {
-		super(v);
-		setMappings();
-	}
-
-	private void setMappings() {
-		mappings = new String[] { SWITCH_CTRL_1, SWITCH_CTRL_2, SWITCH_CTRL_3, SELECT, THRUST, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE };
-	}
-
-	@Override
-	protected void registerInputs(InputManager inputManager) {
-		inputManager.addMapping(SWITCH_CTRL_1, new KeyTrigger(KeyInput.KEY_F1));
-		inputManager.addMapping(SWITCH_CTRL_2, new KeyTrigger(KeyInput.KEY_F2));
-		inputManager.addMapping(SWITCH_CTRL_3, new KeyTrigger(KeyInput.KEY_F3));
-		inputManager.addMapping(SELECT, new MouseButtonTrigger(0));
-		inputManager.addMapping(THRUST, new MouseButtonTrigger(1));
-		inputManager.addMapping(MOVE_ATTACK, new KeyTrigger(KeyInput.KEY_A));
-		inputManager.addMapping(MULTIPLE_SELECTION, new KeyTrigger(KeyInput.KEY_LCONTROL),
-				new KeyTrigger(KeyInput.KEY_RCONTROL));
-		inputManager.addMapping(HOLD, new KeyTrigger(KeyInput.KEY_H));
-		inputManager.addMapping(PAUSE, new KeyTrigger(KeyInput.KEY_SPACE));
-
-		inputManager.addListener(this, mappings);
-	}
-
-	@Override
-	protected void unregisterInputs(InputManager inputManager) {
-		for (String s : mappings) {
-			if (inputManager.hasMapping(s)) {
-				inputManager.deleteMapping(s);
-			}
-		}
-		inputManager.removeListener(this);
+		super(v, new TopdownMapping());
 	}
 
 	@Override
@@ -84,42 +34,38 @@ public class TopdownInputInterpreter extends InputInterpreter {
 	}
 
 	@Override
-	public void onAction(String name, boolean isPressed, float tpf) {
-		if (!isPressed) {
-			switch (name) {
-			case SWITCH_CTRL_1:
-				EventManager.post(new AppStateChangeEvent(EditorState.class));
-				break;
-			case SWITCH_CTRL_2:
-				EventManager.post(new AppStateChangeEvent(TopdownState.class));
-				break;
+	protected void onActionPressed(String name, float tpf) {
+		switch(name){
+		case TopdownMapping.THRUST:
+			ModelManager.command.thrust = true;
+		}
+	}
 
-				case MULTIPLE_SELECTION:
-					CommandManager.setMultipleSelection(false);
-					break;
-				case SELECT:
-					break;
-				case THRUST:
-					ModelManager.command.thrust = false;
-					break;
-				case MOVE_ATTACK:
-					app.toggleProcessorTrace();
-					break;
-				case HOLD:
-					break;
-				case PAUSE:
-					break;
-			}
-		} else {
-			// input pressed
-			switch(name){
-			case THRUST:
-				ModelManager.command.thrust = true;
-				case MULTIPLE_SELECTION:
-					break;
-				case SELECT:
-					break;
-			}
+	@Override
+	protected void onActionReleased(String name, float tpf) {
+		switch (name) {
+		case TopdownMapping.SWITCH_CTRL_1:
+			EventManager.post(new AppStateChangeEvent(EditorCtrl.class));
+			break;
+		case TopdownMapping.SWITCH_CTRL_2:
+			EventManager.post(new AppStateChangeEvent(TopdownCtrl.class));
+			break;
+
+		case TopdownMapping.MULTIPLE_SELECTION:
+			CommandManager.setMultipleSelection(false);
+			break;
+		case TopdownMapping.SELECT:
+			break;
+		case TopdownMapping.THRUST:
+			ModelManager.command.thrust = false;
+			break;
+		case TopdownMapping.MOVE_ATTACK:
+			AppFacade.getApp().toggleProcessorTrace();
+			break;
+		case TopdownMapping.HOLD:
+			break;
+		case TopdownMapping.PAUSE:
+			break;
 		}
 	}
 }

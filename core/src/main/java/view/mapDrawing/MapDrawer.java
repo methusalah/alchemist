@@ -23,6 +23,7 @@ import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
 import view.material.MaterialManager;
 import view.math.TranslateUtil;
+import app.AppFacade;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -39,8 +40,6 @@ import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 
 public class MapDrawer {
-	AssetManager assetManager;
-
 	private Map<String, Spatial> models = new HashMap<>();
 
 	private Map<Parcel, Spatial> parcelsSpatial = new HashMap<>();
@@ -57,9 +56,7 @@ public class MapDrawer {
 	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
 
 	@Inject
-	public MapDrawer(AssetManager am) {
-		this.assetManager = am;
-
+	public MapDrawer() {
 		castAndReceiveNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
 		receiveNode.setShadowMode(RenderQueue.ShadowMode.Receive);
 		mainNode.attachChild(castAndReceiveNode);
@@ -68,17 +65,17 @@ public class MapDrawer {
 	}
 
 	public void renderTiles() {
-		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getAtlas(), assetManager);
-		coverTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getCover(), assetManager);
+		groundTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getAtlas(), AppFacade.getAssetManager());
+		coverTexture = new TerrainSplatTexture(ModelManager.getBattlefield().getMap().getCover(), AppFacade.getAssetManager());
 		coverTexture.transp = true;
 
 		MapStyle style = ModelManager.getBattlefield().getMap().getStyle();
 		int index = 0;
 		for (String s : style.diffuses) {
-			Texture diffuse = assetManager.loadTexture(s);
+			Texture diffuse = AppFacade.getAssetManager().loadTexture(s);
 			Texture normal = null;
 			if (style.normals.get(index) != null) {
-				normal = assetManager.loadTexture(style.normals.get(index));
+				normal = AppFacade.getAssetManager().loadTexture(style.normals.get(index));
 			}
 			double scale = style.scales.get(index);
 
@@ -89,10 +86,10 @@ public class MapDrawer {
 
 		index = 0;
 		for (String s : style.coverDiffuses) {
-			Texture diffuse = assetManager.loadTexture(s);
+			Texture diffuse = AppFacade.getAssetManager().loadTexture(s);
 			Texture normal = null;
 			if (style.coverNormals.get(index) != null) {
-				normal = assetManager.loadTexture(style.coverNormals.get(index));
+				normal = AppFacade.getAssetManager().loadTexture(style.coverNormals.get(index));
 			}
 			double scale = style.coverScales.get(index);
 
@@ -127,7 +124,7 @@ public class MapDrawer {
 
 	private Spatial getModel(String path) {
 		if (!models.containsKey(path)) {
-			models.put(path, assetManager.loadModel(path));
+			models.put(path, AppFacade.getAssetManager().loadModel(path));
 		}
 		return models.get(path).clone();
 	}

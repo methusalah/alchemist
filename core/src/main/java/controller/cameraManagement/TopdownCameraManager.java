@@ -7,6 +7,7 @@ import model.ES.component.motion.PlayerOrder;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import view.math.TranslateUtil;
+import app.AppFacade;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -18,6 +19,8 @@ import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.simsilica.es.EntityData;
+
+import controller.CameraManager;
 
 public class TopdownCameraManager extends CameraManager {
 	protected final static String STRAFE_NORTH = "strafenorth";
@@ -31,9 +34,7 @@ public class TopdownCameraManager extends CameraManager {
 	private Point3D pos;
 	private Point3D target;
 
-	@Inject
-	public TopdownCameraManager(Camera cam, @Named("CamElevation") float elevation) {
-		super(cam);
+	public TopdownCameraManager(float elevation) {
 		pos = new Point3D(0, 0, elevation);
 		target = new Point3D(0, 0, 0);
 		placeCam();
@@ -61,8 +62,8 @@ public class TopdownCameraManager extends CameraManager {
 	}
 
 	private void placeCam(){
-		cam.setLocation(TranslateUtil.toVector3f(pos));
-		cam.lookAt(TranslateUtil.toVector3f(target), Vector3f.UNIT_Y);
+		AppFacade.getCamera().setLocation(TranslateUtil.toVector3f(pos));
+		AppFacade.getCamera().lookAt(TranslateUtil.toVector3f(target), Vector3f.UNIT_Y);
 	}
 
 	@Override

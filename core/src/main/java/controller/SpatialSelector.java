@@ -1,12 +1,10 @@
 package controller;
 
-import model.EntityManager;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
-import view.View;
 import view.PointUtil;
-import view.acting.ModelPerformer;
 import view.math.TranslateUtil;
+import app.AppFacade;
 
 import com.jme3.input.InputManager;
 import com.jme3.math.Ray;
@@ -14,19 +12,12 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
 
 public class SpatialSelector {
 
-	private final Camera cam;
-	private final View view;
-	private final InputManager inputManager;
 	public boolean centered = false;
 
-	public SpatialSelector(Camera c, View v, InputManager im) {
-		cam = c;
-		view = v;
-		inputManager = im;
+	public SpatialSelector() {
 	}
 
 	public Geometry getGeometry(Node n) {
@@ -54,8 +45,8 @@ public class SpatialSelector {
 	}
 
 	public Point2D getCoord(Node n, Point2D screenCoord) {
-		Vector3f origin = cam.getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 0f);
-		Vector3f direction = cam.getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 1f);
+		Vector3f origin = AppFacade.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 0f);
+		Vector3f direction = AppFacade.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 1f);
 		direction.subtractLocal(origin).normalizeLocal();
 		Ray r = new Ray(origin, direction);
 		return PointUtil.getPointedCoord(n, r);
@@ -63,42 +54,18 @@ public class SpatialSelector {
 
 	public Point2D getScreenCoord(Point3D pos) {
 		Vector3f vPos = TranslateUtil.toVector3f(pos);
-		Vector3f screenCoord = cam.getScreenCoordinates(vPos);
+		Vector3f screenCoord = AppFacade.getCamera().getScreenCoordinates(vPos);
 		return TranslateUtil.toPoint3D(screenCoord).get2D();
 	}
 
 	private Ray getMouseRay() {
-		Vector3f origin = cam.getWorldCoordinates(inputManager.getCursorPosition(), 0f);
-		Vector3f direction = cam.getWorldCoordinates(inputManager.getCursorPosition(), 1f);
+		Vector3f origin = AppFacade.getCamera().getWorldCoordinates(AppFacade.getInputManager().getCursorPosition(), 0f);
+		Vector3f direction = AppFacade.getCamera().getWorldCoordinates(AppFacade.getInputManager().getCursorPosition(), 1f);
 		direction.subtractLocal(origin).normalizeLocal();
 		return new Ray(origin, direction);
 	}
 
 	private Ray getCameraRay() {
-		return new Ray(cam.getLocation(), cam.getDirection());
+		return new Ray(AppFacade.getCamera().getLocation(), AppFacade.getCamera().getDirection());
 	}
-
-	public String getSpatialLabel() {
-		Spatial s = getGeometry(view.getRootNode());
-		while (s != null && s.getName() != null) {
-			if (s.getName().startsWith("label")) {
-				return s.getName();
-			}
-			s = s.getParent();
-		}
-		return null;
-	}
-
-	public long getEntityId() {
-		Spatial s = getGeometry(view.getRootNode());
-		while (s != null && s.getName() != null) {
-			Object o = s.getUserData(ModelPerformer.ENTITYID_USERDATA);
-			if (o != null && EntityManager.isValidId((long) o)) {
-				return (long) o;
-			}
-			s = s.getParent();
-		}
-		return EntityManager.NOT_VALID_ID;
-	}
-
 }

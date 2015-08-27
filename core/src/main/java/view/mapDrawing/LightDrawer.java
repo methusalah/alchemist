@@ -6,6 +6,7 @@ package view.mapDrawing;
 import model.ModelManager;
 import util.annotation.RootNodeRef;
 import view.math.TranslateUtil;
+import app.AppFacade;
 
 import com.google.inject.Inject;
 import com.jme3.asset.AssetManager;
@@ -26,19 +27,14 @@ import com.jme3.shadow.EdgeFilteringMode;
  * @author Benoît
  */
 public class LightDrawer {
-	Node rootNode;
-
 	AmbientLight al;
 	DirectionalLight sun;
 	DirectionalLight shadowCaster;
 	DirectionalLightShadowRenderer sr;
 	DirectionalLightShadowFilter sf;
 
-	@Inject
-	public LightDrawer(AssetManager am, @RootNodeRef Node rootNode, ViewPort vp) {
-		this.rootNode = rootNode;
-
-		FilterPostProcessor fpp = new FilterPostProcessor(am);
+	public LightDrawer() {
+		FilterPostProcessor fpp = new FilterPostProcessor(AppFacade.getAssetManager());
 
 		int SHADOWMAP_SIZE = 4096;
 //		sr = new DirectionalLightShadowRenderer(am, SHADOWMAP_SIZE, 1);
@@ -46,7 +42,7 @@ public class LightDrawer {
 //		sr.setShadowIntensity((float) ModelManager.getBattlefield().getSunLight().shadowCaster.intensity);
 //		vp.addProcessor(sr);
 
-		sf = new DirectionalLightShadowFilter(am, SHADOWMAP_SIZE, 1);
+		sf = new DirectionalLightShadowFilter(AppFacade.getAssetManager(), SHADOWMAP_SIZE, 1);
 		sf.setEnabled(true);
 		sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
 		sf.setShadowZExtend(SHADOWMAP_SIZE);
@@ -58,7 +54,7 @@ public class LightDrawer {
 		// Glow filter
 		BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
 		fpp.addFilter(bloom);
-		vp.addProcessor(fpp);
+		AppFacade.getViewPort().addProcessor(fpp);
 	}
 	
 	public void Initialize(){
@@ -69,14 +65,14 @@ public class LightDrawer {
 		
 		sf.setLight(sun);
 		
-		rootNode.addLight(al);
-		rootNode.addLight(sun);
+		AppFacade.getRootNode().addLight(al);
+		AppFacade.getRootNode().addLight(sun);
 	}
 
 	public void reset() {
-		rootNode.removeLight(al);
-		rootNode.removeLight(sun);
-		rootNode.removeLight(shadowCaster);
+		AppFacade.getRootNode().removeLight(al);
+		AppFacade.getRootNode().removeLight(sun);
+		AppFacade.getRootNode().removeLight(shadowCaster);
 
 		al = TranslateUtil.toJMELight(ModelManager.getBattlefield().getSunLight().ambient);
 		sun = TranslateUtil.toJMELight(ModelManager.getBattlefield().getSunLight().sun);

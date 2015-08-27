@@ -7,6 +7,7 @@ package controller;
 import java.awt.Color;
 import java.util.List;
 
+import app.AppFacade;
 import de.lessvoid.nifty.controls.DropDown;
 import de.lessvoid.nifty.controls.ListBox;
 import de.lessvoid.nifty.controls.Slider;
@@ -96,7 +97,7 @@ public abstract class GUIDrawer {
         Element e = guiCtrl.getElement(id);
         if(e == null || e.getRenderer(ImageRenderer.class) == null)
             throw new IllegalArgumentException("can't find element with background '"+id+"'.");
-        e.getRenderer(ImageRenderer.class).setImage(guiCtrl.nifty.createImage(backgroundPath, false));
+        e.getRenderer(ImageRenderer.class).setImage(AppFacade.getNifty().createImage(backgroundPath, false));
     }
     
     protected void enable(String elementName){

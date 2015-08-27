@@ -10,7 +10,9 @@ import util.event.MapResetEvent;
 import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
 import view.EditorView;
+import view.TopdownView;
 import view.View;
+import app.AppFacade;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -18,7 +20,7 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 
-import controller.AppState;
+import controller.Controller;
 import controller.SpatialSelector;
 import controller.cameraManagement.TopdownCameraManager;
 
@@ -26,14 +28,16 @@ import controller.cameraManagement.TopdownCameraManager;
  *
  * @author Benoît
  */
-public class EditorState extends AppState {
+public class EditorCtrl extends Controller {
 	EditorGUIController guiController;
 
 	@Inject
-	public EditorState(EditorView v, Camera cam, InputManager im, EditorGUIController eguic) {
-		super(v, new EditorInputInterpreter(v), new SpatialSelector(cam, v, im),new TopdownCameraManager(cam, 10), im);
+	public EditorCtrl() {
 		spatialSelector.centered = false;
-		guiController = eguic;
+		guiController = new EditorGUIController();
+		view = new EditorView();
+		inputInterpreter = new EditorInputInterpreter(getView());
+		cameraManager = new TopdownCameraManager(10);
 	}
 
 	@Override
@@ -41,9 +45,7 @@ public class EditorState extends AppState {
 		view.update(elapsedTime);
 		guiController.update();
 		
-		ToolManager.setPointedSpatialLabel(spatialSelector.getSpatialLabel());
-		ToolManager.setPointedSpatialEntityId(spatialSelector.getEntityId());
-		Point2D coord = spatialSelector.getCoord(view.getRootNode());
+		Point2D coord = spatialSelector.getCoord(AppFacade.getRootNode());
 		if (coord != null &&
 				ModelManager.battlefieldReady &&
 				ModelManager.getBattlefield().getMap().isInBounds(coord)) {
@@ -55,13 +57,17 @@ public class EditorState extends AppState {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
-		inputManager.setCursorVisible(true);
+		AppFacade.getInputManager().setCursorVisible(true);
 		guiController.activate();
 	}
 
 	@Override
 	public void stateDetached(AppStateManager stateManager) {
 		super.stateDetached(stateManager);
+	}
+	
+	private EditorView getView(){
+		return (EditorView)view;
 	}
 
 }
