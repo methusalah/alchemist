@@ -3,7 +3,7 @@ package model.ES.processor;
 import model.ModelManager;
 import model.ES.component.motion.PlanarNeededRotation;
 import model.ES.component.motion.PlanarThrust;
-import model.ES.component.motion.PlanarPosition;
+import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlayerControl;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
@@ -17,7 +17,7 @@ public class PlayerControlProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(PlanarPosition.class, PlayerControl.class);
+		register(PlanarStance.class, PlayerControl.class);
 	}
 	
 	@Override
@@ -39,15 +39,15 @@ public class PlayerControlProc extends Processor {
 	}
 	
 	private PlanarNeededRotation addNeededRotation(Entity e){
-		PlanarPosition pos = e.get(PlanarPosition.class);
-		double angleToTarget = ModelManager.command.target.getSubtraction(pos.getPosition()).getAngle();
+		PlanarStance stance = e.get(PlanarStance.class);
+		double angleToTarget = ModelManager.command.target.getSubtraction(stance.getCoord()).getAngle();
 
 		// rotation
 		double neededRotAngle = 0;
-		Point2D front = pos.getPosition().getTranslation(pos.getOrientation(), 1);
-		int turn = AngleUtil.getTurn(pos.getPosition(), front, ModelManager.command.target);
-		if(turn != AngleUtil.NONE || angleToTarget != pos.getOrientation()){
-			double diff = AngleUtil.getSmallestDifference(pos.getOrientation(), angleToTarget);
+		Point2D front = stance.getCoord().getTranslation(stance.getOrientation(), 1);
+		int turn = AngleUtil.getTurn(stance.getCoord(), front, ModelManager.command.target);
+		if(turn != AngleUtil.NONE || angleToTarget != stance.getOrientation()){
+			double diff = AngleUtil.getSmallestDifference(stance.getOrientation(), angleToTarget);
 			if(turn >= 0)
 				neededRotAngle = diff;
 			else
@@ -63,9 +63,9 @@ public class PlayerControlProc extends Processor {
 	}
 	
 	private PlanarThrust addThrust(Entity e){
-		PlanarPosition pos = e.get(PlanarPosition.class);
+		PlanarStance stance = e.get(PlanarStance.class);
 		if(ModelManager.command.thrust
-				&& pos.getPosition().getDistance(ModelManager.command.target) > 0.1){
+				&& stance.getCoord().getDistance(ModelManager.command.target) > 0.1){
     		PlanarThrust thrust = new PlanarThrust();
     		setComp(e, thrust);
     		return thrust;

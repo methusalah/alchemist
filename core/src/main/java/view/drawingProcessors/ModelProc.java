@@ -5,7 +5,8 @@ import java.util.Map;
 
 import view.SpatialPool;
 import model.ES.component.ModelComp;
-import model.ES.component.motion.PlanarPosition;
+import model.ES.component.motion.PlanarStance;
+import app.AppFacade;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.scene.Spatial;
@@ -15,13 +16,7 @@ import com.simsilica.es.EntityId;
 import controller.entityAppState.Processor;
 
 public class ModelProc extends Processor {
-
-	private final AssetManager assetManager;
 	Map<String, Spatial> modelPrototypes = new HashMap<>();
-	
-	public ModelProc(AssetManager am) {
-		assetManager = am;
-	}
 	
 	@Override
 	protected void registerSets() {
@@ -45,7 +40,7 @@ public class ModelProc extends Processor {
 	
 	private Spatial getPrototype(String modelPath){
 		if (!modelPrototypes.containsKey(modelPath)) {
-			Spatial s = assetManager.loadModel("models/" + modelPath);
+			Spatial s = AppFacade.getAssetManager().loadModel("models/" + modelPath);
 			modelPrototypes.put(modelPath, s);
 		}
 		return modelPrototypes.get(modelPath);

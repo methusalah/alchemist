@@ -2,7 +2,7 @@ package view.drawingProcessors;
 
 import model.ES.component.motion.PlanarInertia;
 import model.ES.component.motion.PlanarInertiaDebugger;
-import model.ES.component.motion.PlanarPosition;
+import model.ES.component.motion.PlanarStance;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import view.SpatialPool;
@@ -29,7 +29,7 @@ public class InertiaVisualisationProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(PlanarInertiaDebugger.class, PlanarPosition.class);
+		register(PlanarInertiaDebugger.class, PlanarStance.class);
 	}
 	
 	@Override
@@ -50,7 +50,7 @@ public class InertiaVisualisationProc extends Processor {
 	}
 	
 	private void createModel(Entity e){
-		PlanarPosition pos = e.get(PlanarPosition.class);
+		PlanarStance pos = e.get(PlanarStance.class);
 		PlanarInertiaDebugger inertia = e.get(PlanarInertiaDebugger.class);
 		Node root = app.getRootNode();
 		
@@ -63,9 +63,9 @@ public class InertiaVisualisationProc extends Processor {
 		if(root.hasChild(SpatialPool.resultingVelocity.get(e.getId())))
 			app.getRootNode().detachChild(SpatialPool.resultingVelocity.get(e.getId()));
 
-		SpatialPool.inertias.put(e.getId(), getArrow(pos.getPosition(), inertia.getVelocity(), ColorRGBA.Red));
-		SpatialPool.appliedVelocities.put(e.getId(), getArrow(pos.getPosition(), inertia.getAppliedVelocity(), ColorRGBA.Blue));
-		SpatialPool.resultingVelocity.put(e.getId(), getArrow(pos.getPosition(), inertia.getResultingVelocity(), ColorRGBA.Green));
+		SpatialPool.inertias.put(e.getId(), getArrow(pos.getCoord(), inertia.getVelocity(), ColorRGBA.Red));
+		SpatialPool.appliedVelocities.put(e.getId(), getArrow(pos.getCoord(), inertia.getAppliedVelocity(), ColorRGBA.Blue));
+		SpatialPool.resultingVelocity.put(e.getId(), getArrow(pos.getCoord(), inertia.getResultingVelocity(), ColorRGBA.Green));
 
 		app.getRootNode().attachChild(SpatialPool.inertias.get(e.getId()));
 		app.getRootNode().attachChild(SpatialPool.appliedVelocities.get(e.getId()));
@@ -74,7 +74,7 @@ public class InertiaVisualisationProc extends Processor {
 	
 	private Node getArrow(Point2D start, Point2D direction, ColorRGBA color){
 		Geometry body = new Geometry("body");
-		Point2D end = start.getAddition(direction.getMult(100));
+		Point2D end = start.getAddition(direction.getMult(1000));
 		
 		
 		Line l = new Line(TranslateUtil.toVector3f(start.get3D(0.2)), TranslateUtil.toVector3f(end.get3D(0.2)));

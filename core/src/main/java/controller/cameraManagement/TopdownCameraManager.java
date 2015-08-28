@@ -1,23 +1,18 @@
 package controller.cameraManagement;
 
 import model.ModelManager;
-import model.ES.component.motion.PlanarThrust;
-import model.ES.component.motion.PlanarPosition;
-import model.ES.component.motion.PlayerOrder;
+import model.ES.component.motion.PlanarStance;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import view.math.TranslateUtil;
 import app.AppFacade;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
 import com.simsilica.es.EntityData;
 
 import controller.CameraManager;
@@ -104,7 +99,7 @@ public class TopdownCameraManager extends CameraManager {
 	public void onAnalog(String name, float value, float tpf) {
 		double velocity = tpf*maxSpeed*1;
 		EntityData ed = ModelManager.entityData;
-		Point2D position = ed.getComponent(ModelManager.shipID, PlanarPosition.class).getPosition();
+		Point2D position = ed.getComponent(ModelManager.shipID, PlanarStance.class).getCoord();
 		switch(name){
 //			case STRAFE_NORTH : move(0, velocity); break;
 //			case STRAFE_SOUTH : move(0, -velocity); break;

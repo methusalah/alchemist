@@ -1,7 +1,7 @@
 package view.drawingProcessors;
 
 import model.ES.component.ModelComp;
-import model.ES.component.motion.PlanarPosition;
+import model.ES.component.motion.PlanarStance;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
 import view.SpatialPool;
@@ -18,7 +18,7 @@ public class PlacingModelProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(ModelComp.class, PlanarPosition.class);
+		register(ModelComp.class, PlanarStance.class);
 	}
 	
 	
@@ -28,11 +28,11 @@ public class PlacingModelProc extends Processor {
 		if(!model.isCreated())
 			return;
 		
-		PlanarPosition position = e.get(PlanarPosition.class);
+		PlanarStance position = e.get(PlanarStance.class);
 		Spatial s = SpatialPool.models.get(e.getId());
 
 		// translation
-		s.setLocalTranslation(TranslateUtil.toVector3f(position.getPosition()));
+		s.setLocalTranslation(TranslateUtil.toVector3f(position.getCoord()));
 
 		// rotation
 		Quaternion r = new Quaternion();

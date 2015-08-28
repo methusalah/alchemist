@@ -4,7 +4,7 @@ import model.ModelManager;
 import model.ES.component.ModelComp;
 import model.ES.component.motion.PlanarInertia;
 import model.ES.component.motion.PlanarMotionCapacity;
-import model.ES.component.motion.PlanarPosition;
+import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlayerControl;
 import model.ES.processor.PlayerControlProc;
 import model.ES.processor.motion.InertiaMotionProc;
@@ -51,7 +51,7 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new PlanarRotationProc());
 		stateManager.attach(new PlanarThrustProc());
 		stateManager.attach(new InertiaMotionProc());
-		stateManager.attach(new ModelProc(assetManager));
+		stateManager.attach(new ModelProc());
 		stateManager.attach(new PlacingModelProc());
 		stateManager.attach(new InertiaVisualisationProc());
 		
@@ -59,7 +59,7 @@ public class MainDev extends CosmoVania {
 		ModelManager.entityData = ed;
 		ModelManager.shipID = ed.createEntity();
 		ed.setComponent(ModelManager.shipID, new PlayerControl());
-		ed.setComponent(ModelManager.shipID, new PlanarPosition(new Point2D(1, 1), 0.5));
+		ed.setComponent(ModelManager.shipID, new PlanarStance(new Point2D(1, 1), 0.5));
 		ed.setComponent(ModelManager.shipID, new PlanarInertia(Point2D.ORIGIN));
 		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(2, AngleUtil.toRadians(500), 300, 5));
 		ed.setComponent(ModelManager.shipID, new ModelComp("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));

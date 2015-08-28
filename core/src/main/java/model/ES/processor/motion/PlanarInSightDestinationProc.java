@@ -1,5 +1,6 @@
 package model.ES.processor.motion;
 
+import model.ES.component.motion.PlanarInSightDestination;
 import model.ES.component.motion.PlanarInertia;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarThrust;
@@ -9,11 +10,11 @@ import com.simsilica.es.Entity;
 
 import controller.entityAppState.Processor;
 
-public class PlanarThrustProc extends Processor {
+public class PlanarInSightDestinationProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(PlanarThrust.class, PlanarStance.class, PlanarInertia.class);
+		register(PlanarInSightDestination.class, PlanarStance.class, PlanarInertia.class);
 	}
 	
 	@Override
@@ -28,7 +29,11 @@ public class PlanarThrustProc extends Processor {
 	
 	private void manage(Entity e, float elapsedTime){
 		PlanarStance stance = e.get(PlanarStance.class);
+		PlanarInSightDestination dest = e.get(PlanarInSightDestination.class);
 		PlanarInertia inertia = e.get(PlanarInertia.class);
+		
+		
+		
 		
 		setComp(e, new PlanarInertia(inertia.getVelocity(), Point2D.ORIGIN.getTranslation(stance.getOrientation(), 0.001*elapsedTime)));
 		removeComp(e, PlanarThrust.class);
