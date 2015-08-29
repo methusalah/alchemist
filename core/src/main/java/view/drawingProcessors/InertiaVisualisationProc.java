@@ -1,7 +1,7 @@
 package view.drawingProcessors;
 
-import model.ES.component.motion.PlanarInertia;
-import model.ES.component.motion.PlanarInertiaDebugger;
+import model.ES.component.motion.PlanarWippingInertia;
+import model.ES.component.motion.PlanarVelocityInertiaDebugger;
 import model.ES.component.motion.PlanarStance;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
@@ -29,7 +29,7 @@ public class InertiaVisualisationProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(PlanarInertiaDebugger.class, PlanarStance.class);
+		register(PlanarVelocityInertiaDebugger.class, PlanarStance.class);
 	}
 	
 	@Override
@@ -51,7 +51,7 @@ public class InertiaVisualisationProc extends Processor {
 	
 	private void createModel(Entity e){
 		PlanarStance pos = e.get(PlanarStance.class);
-		PlanarInertiaDebugger inertia = e.get(PlanarInertiaDebugger.class);
+		PlanarVelocityInertiaDebugger inertia = e.get(PlanarVelocityInertiaDebugger.class);
 		Node root = app.getRootNode();
 		
 		if(root.hasChild(SpatialPool.inertias.get(e.getId())))
@@ -74,7 +74,7 @@ public class InertiaVisualisationProc extends Processor {
 	
 	private Node getArrow(Point2D start, Point2D direction, ColorRGBA color){
 		Geometry body = new Geometry("body");
-		Point2D end = start.getAddition(direction.getMult(1000));
+		Point2D end = start.getAddition(direction);
 		
 		
 		Line l = new Line(TranslateUtil.toVector3f(start.get3D(0.2)), TranslateUtil.toVector3f(end.get3D(0.2)));

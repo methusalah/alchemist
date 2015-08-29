@@ -22,6 +22,9 @@ public abstract class Controller extends AbstractAppState {
 
 	protected InputInterpreter inputInterpreter;
 	protected CameraManager cameraManager;
+	public CameraManager getCameraManager() {
+		return cameraManager;
+	}
 	protected View view;
 	
 	public Controller() {

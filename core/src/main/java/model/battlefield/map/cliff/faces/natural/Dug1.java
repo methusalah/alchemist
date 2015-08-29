@@ -29,7 +29,7 @@ public abstract class Dug1 extends NaturalFace {
     
     private ArrayList<Point3D> createProfile(){
         ArrayList<Point3D> res = new ArrayList<>();
-        res.add(new Point3D(1, 0, 0));
+        res.add(new Point3D(0.6, 0, 0));
         res.add(new Point3D(0.55, 0, 0.1*2));
         res.add(new Point3D(0.37, 0, 0.2*2));
         res.add(new Point3D(0.26, 0, 0.3*2));
@@ -39,7 +39,7 @@ public abstract class Dug1 extends NaturalFace {
         res.add(new Point3D(0.21, 0, 0.7*2));
         res.add(new Point3D(0.27, 0, 0.8*2));
         res.add(new Point3D(0.40, 0, 0.9*2));
-        res.add(new Point3D(0.01, 0, 1*2));
+        res.add(new Point3D(0.4, 0, 1*2));
         return res;
     }
     

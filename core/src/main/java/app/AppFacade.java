@@ -1,5 +1,6 @@
 package app;
 
+import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
@@ -46,6 +47,10 @@ public class AppFacade {
 	
 	public static Nifty getNifty(){
 		return app.getNifty();
+	}
+	
+	public static AppStateManager getStateManager(){
+		return app.getStateManager();
 	}
 	
 	

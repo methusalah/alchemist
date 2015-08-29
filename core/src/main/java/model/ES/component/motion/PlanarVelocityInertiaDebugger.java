@@ -4,13 +4,13 @@ import util.geometry.geom2d.Point2D;
 
 import com.simsilica.es.EntityComponent;
 
-public class PlanarInertiaDebugger implements EntityComponent {
+public class PlanarVelocityInertiaDebugger implements EntityComponent {
 	private final Point2D velocity;
 	private final Point2D appliedVelocity;
 	private final Point2D resultingVelocity;
 	
 	
-	public PlanarInertiaDebugger(Point2D velocity, Point2D appliedVelocity, Point2D resultingVelocity) {
+	public PlanarVelocityInertiaDebugger(Point2D velocity, Point2D appliedVelocity, Point2D resultingVelocity) {
 		this.velocity = velocity;
 		this.appliedVelocity = appliedVelocity;
 		this.resultingVelocity = resultingVelocity;

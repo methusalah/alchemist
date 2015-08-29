@@ -36,6 +36,7 @@ public class TopdownCtrl extends Controller {
 	@Override
 	public void update(float elapsedTime) {
 		ModelManager.command.target = spatialSelector.getCoord(view.getPlane());
+		getView().actordrawer.render();
 	}
 
 	@Override
@@ -47,5 +48,4 @@ public class TopdownCtrl extends Controller {
 	private TopdownView getView(){
 		return (TopdownView)view;
 	}
-
 }

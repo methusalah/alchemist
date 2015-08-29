@@ -22,6 +22,7 @@ import com.jme3.renderer.Camera;
 
 import controller.Controller;
 import controller.SpatialSelector;
+import controller.cameraManagement.ChasingCameraProc;
 import controller.cameraManagement.TopdownCameraManager;
 
 /**
@@ -52,6 +53,8 @@ public class EditorCtrl extends Controller {
 			ToolManager.updatePencilsPos(coord);
 //			view.editorRend.drawPencil();
 		}
+		getView().actordrawer.render();
+
 	}
 
 	@Override
@@ -68,6 +71,20 @@ public class EditorCtrl extends Controller {
 	
 	private EditorView getView(){
 		return (EditorView)view;
+	}
+	
+	@Override
+	public void onEnabled() {
+		ChasingCameraProc proc = AppFacade.getStateManager().getState(ChasingCameraProc.class);
+		if(proc != null)
+			proc.setEnabled(false);
+	}
+
+	@Override
+	public void onDisabled() {
+		ChasingCameraProc proc = AppFacade.getStateManager().getState(ChasingCameraProc.class);
+		if(proc != null)
+			proc.setEnabled(true);
 	}
 
 }

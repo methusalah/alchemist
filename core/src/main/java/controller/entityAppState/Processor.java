@@ -37,6 +37,9 @@ public abstract class Processor extends AbstractAppState {
 	
     @Override
     public final void update(float elapsedTime) {
+    	if(!isEnabled())
+    		return;
+    	
         for(EntitySet set : sets)
 	        if (set.applyChanges()) {
 	            for (Entity e : set.getChangedEntities()) {

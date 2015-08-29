@@ -1,6 +1,6 @@
 package model.ES.processor.motion;
 
-import model.ES.component.motion.PlanarInertia;
+import model.ES.component.motion.PlanarWippingInertia;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarThrust;
 import util.geometry.geom2d.Point2D;
@@ -13,7 +13,7 @@ public class PlanarThrustProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(PlanarThrust.class, PlanarStance.class, PlanarInertia.class);
+		register(PlanarThrust.class, PlanarStance.class, PlanarWippingInertia.class);
 	}
 	
 	@Override
@@ -28,9 +28,9 @@ public class PlanarThrustProc extends Processor {
 	
 	private void manage(Entity e, float elapsedTime){
 		PlanarStance stance = e.get(PlanarStance.class);
-		PlanarInertia inertia = e.get(PlanarInertia.class);
+		PlanarWippingInertia inertia = e.get(PlanarWippingInertia.class);
 		
-		setComp(e, new PlanarInertia(inertia.getVelocity(), Point2D.ORIGIN.getTranslation(stance.getOrientation(), 0.001*elapsedTime)));
+		setComp(e, new PlanarWippingInertia(inertia.getVelocity(), Point2D.ORIGIN.getTranslation(stance.getOrientation(), elapsedTime)));
 		removeComp(e, PlanarThrust.class);
 		
 		StringBuilder sb = new StringBuilder(this.getClass().getSimpleName() + System.lineSeparator());

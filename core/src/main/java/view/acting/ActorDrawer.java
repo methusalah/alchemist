@@ -13,11 +13,13 @@ import model.battlefield.actors.Actor;
 import model.battlefield.actors.ActorPool;
 import model.battlefield.actors.ModelActor;
 import model.battlefield.army.components.Unit;
+import util.LogUtil;
 import util.event.MapResetEvent;
 import util.event.EventManager;
 import util.event.GenericEvent;
 import view.material.MaterialManager;
 import view.math.TranslateUtil;
+import app.AppFacade;
 
 import com.google.common.eventbus.Subscribe;
 import com.jme3.animation.AnimChannel;
@@ -66,6 +68,9 @@ public class ActorDrawer implements AnimEventListener {
 	public ActorDrawer(AssetManager assetManager) {
 		this.assetManager = assetManager;
 		mainNode = new Node();
+		
+		AppFacade.getRootNode().attachChild(mainNode);
+		
 		abandoned = new Node();
 		mainNode.attachChild(abandoned);
 
@@ -109,6 +114,9 @@ public class ActorDrawer implements AnimEventListener {
 			
 		// first, the spatials attached to interrupted actor are detached
 		ActorPool pool = ModelManager.getBattlefield().getActorPool();
+		
+		LogUtil.info("nb actors : "+ModelManager.getBattlefield().getActorPool().getActors().size());
+		
 		for (Actor a : pool.grabDeletedActors()) {
 			if (a.getViewElements().spatial != null) {
 				mainNode.detachChild(a.getViewElements().spatial);

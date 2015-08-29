@@ -1,12 +1,13 @@
 package view;
 
-import view.mapDrawing.EditorRenderer;
+import app.AppFacade;
+import view.acting.ActorDrawer;
+
 
 public class TopdownView extends View {
 
-	// Renderers
-	public EditorRenderer editorRend;
-
+	public ActorDrawer actordrawer = new ActorDrawer(AppFacade.getAssetManager());
+	
 	public TopdownView() {
 		super();
 	}

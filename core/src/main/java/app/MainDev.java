@@ -2,7 +2,8 @@ package app;
 
 import model.ModelManager;
 import model.ES.component.ModelComp;
-import model.ES.component.motion.PlanarInertia;
+import model.ES.component.camera.ChasingCamera;
+import model.ES.component.motion.PlanarWippingInertia;
 import model.ES.component.motion.PlanarMotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlayerControl;
@@ -21,8 +22,10 @@ import view.material.MaterialManager;
 
 import com.google.common.eventbus.Subscribe;
 import com.simsilica.es.EntityData;
+import com.simsilica.es.EntityId;
 
 import controller.Controller;
+import controller.cameraManagement.ChasingCameraProc;
 import controller.editor.EditorCtrl;
 import controller.entityAppState.EntityDataAppState;
 import controller.topdown.TopdownCtrl;
@@ -54,15 +57,23 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new ModelProc());
 		stateManager.attach(new PlacingModelProc());
 		stateManager.attach(new InertiaVisualisationProc());
+		stateManager.attach(new ChasingCameraProc(stateManager.getState(TopdownCtrl.class).getCameraManager()));
+		
 		
 		EntityData ed = stateManager.getState(EntityDataAppState.class).getEntityData();
 		ModelManager.entityData = ed;
 		ModelManager.shipID = ed.createEntity();
 		ed.setComponent(ModelManager.shipID, new PlayerControl());
 		ed.setComponent(ModelManager.shipID, new PlanarStance(new Point2D(1, 1), 0.5));
-		ed.setComponent(ModelManager.shipID, new PlanarInertia(Point2D.ORIGIN));
-		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(2, AngleUtil.toRadians(500), 300, 5));
+		ed.setComponent(ModelManager.shipID, new PlanarWippingInertia(Point2D.ORIGIN));
+		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(3, AngleUtil.toRadians(360), 3, 50));
 		ed.setComponent(ModelManager.shipID, new ModelComp("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
+
+
+		EntityId camId= ed.createEntity();
+		ed.setComponent(camId, new PlanarStance(new Point2D(1, 1), 0, 20));
+		ed.setComponent(camId, new ChasingCamera(ModelManager.shipID, 3, 0, 1, 1));
+		ed.setComponent(camId, new PlanarMotionCapacity(1, AngleUtil.toRadians(500), 1, 0.1));
 		
 
 		EventManager.register(this);

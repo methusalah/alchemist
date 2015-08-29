@@ -4,7 +4,6 @@ import model.ModelManager;
 import model.ES.component.motion.PlanarStance;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
-import view.math.TranslateUtil;
 import app.AppFacade;
 
 import com.jme3.input.InputManager;
@@ -12,7 +11,6 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
-import com.jme3.math.Vector3f;
 import com.simsilica.es.EntityData;
 
 import controller.CameraManager;
@@ -24,10 +22,6 @@ public class TopdownCameraManager extends CameraManager {
 	protected final static String STRAFE_WEST = "strafewest";
 	protected final static String ZOOM_IN = "zoomin";
 	protected final static String ZOOM_OUT = "zoomout";
-
-	private double maxSpeed = 1;
-	private Point3D pos;
-	private Point3D target;
 
 	public TopdownCameraManager(float elevation) {
 		pos = new Point3D(0, 0, elevation);
@@ -56,11 +50,6 @@ public class TopdownCameraManager extends CameraManager {
 	public void desactivate() {
 	}
 
-	private void placeCam(){
-		AppFacade.getCamera().setLocation(TranslateUtil.toVector3f(pos));
-		AppFacade.getCamera().lookAt(TranslateUtil.toVector3f(target), Vector3f.UNIT_Y);
-	}
-
 	@Override
 	public void unregisterInputs(InputManager inputManager){
 		for(String s : mappings) {
@@ -82,51 +71,29 @@ public class TopdownCameraManager extends CameraManager {
 		inputManager.addListener(this, mappings);
 	}
 
-	public void move(double x, double y){
-		if (ModelManager.getBattlefield().getMap().isInBounds(target.getAddition(x, y, 0).get2D())) {
-			pos = pos.getAddition(x, y, 0);
-			target = target.getAddition(x, y, 0);
-			placeCam();
-		}
-	}
-
-	protected void zoom(double value){
-		pos = pos.getAddition(0, 0, -value);
-		placeCam();
-	}
-
 	@Override
 	public void onAnalog(String name, float value, float tpf) {
-		double velocity = tpf*maxSpeed*1;
-		EntityData ed = ModelManager.entityData;
-		Point2D position = ed.getComponent(ModelManager.shipID, PlanarStance.class).getCoord();
+		double velocity = tpf*5;
 		switch(name){
-//			case STRAFE_NORTH : move(0, velocity); break;
-//			case STRAFE_SOUTH : move(0, -velocity); break;
-//			case STRAFE_EAST : move(velocity, 0); break;
-//			case STRAFE_WEST : move(-velocity, 0); break;
-//			case ZOOM_IN : zoom(0.3); break;
-//			case ZOOM_OUT : zoom(-0.3); break;
-		case STRAFE_NORTH :
-			ModelManager.command.target = position.getAddition(0, 1);
-			ModelManager.command.thrust = true;
-			break;
-		case STRAFE_SOUTH :
-			ModelManager.command.target = position.getAddition(0, -1);
-			ModelManager.command.thrust = true;
-			break;
-		case STRAFE_EAST :
-			ModelManager.command.target = position.getAddition(1, 0);
-			ModelManager.command.thrust = true;
-			break;
-		case STRAFE_WEST :
-			ModelManager.command.target = position.getAddition(-1, 0);
-			ModelManager.command.thrust = true;
-			break;
-		default:
-			ModelManager.command.target = null;
-			ModelManager.command.thrust = false;
-	}
+			case STRAFE_NORTH :
+				translate(new Point3D(0, velocity, 0));
+				lookAt(pos.get2D().get3D(0));
+				break;
+			case STRAFE_SOUTH :
+				translate(new Point3D(0, -velocity, 0));
+				lookAt(pos.get2D().get3D(0));
+				break;
+			case STRAFE_EAST :
+				translate(new Point3D(velocity, 0, 0));
+				lookAt(pos.get2D().get3D(0));
+				break;
+			case STRAFE_WEST :
+				translate(new Point3D(-velocity, 0, 0));
+				lookAt(pos.get2D().get3D(0));
+				break;
+			case ZOOM_IN : zoom(0.3); break;
+			case ZOOM_OUT : zoom(-0.3); break;
+		}
 	}
 
 	@Override
