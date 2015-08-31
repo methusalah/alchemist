@@ -115,8 +115,6 @@ public class ActorDrawer implements AnimEventListener {
 		// first, the spatials attached to interrupted actor are detached
 		ActorPool pool = ModelManager.getBattlefield().getActorPool();
 		
-		LogUtil.info("nb actors : "+ModelManager.getBattlefield().getActorPool().getActors().size());
-		
 		for (Actor a : pool.grabDeletedActors()) {
 			if (a.getViewElements().spatial != null) {
 				mainNode.detachChild(a.getViewElements().spatial);

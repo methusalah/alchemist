@@ -7,17 +7,10 @@ import util.geometry.geom3d.Point3D;
 public class ParticleCaster implements EntityComponent{
 	private final Point3D translation;
 	private final Point3D direction;
-	private double fanning;
-	private double initialSpeed;
-	private double perSecond;
-	private double duration;
-	public double getDuration() {
-		return duration;
-	}
-
-	public double getPerSecond() {
-		return perSecond;
-	}
+	private double fanning = 0;
+	private double initialSpeed = 1;
+	private double perSecond = 50;
+	private double duration = 1;
 
 	private final boolean emitting;
 	
@@ -46,5 +39,14 @@ public class ParticleCaster implements EntityComponent{
 	public boolean isEmitting() {
 		return emitting;
 	}
+	
+	public double getDuration() {
+		return duration;
+	}
+
+	public double getPerSecond() {
+		return perSecond;
+	}
+
 	
 }
