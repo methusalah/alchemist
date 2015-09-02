@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import view.SpatialPool;
-import model.ES.component.ModelComp;
 import model.ES.component.motion.PlanarStance;
+import model.ES.component.visuals.ModelComp;
 import app.AppFacade;
 
 import com.jme3.asset.AssetManager;

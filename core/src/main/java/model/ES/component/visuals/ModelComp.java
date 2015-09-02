@@ -1,4 +1,4 @@
-package model.ES.component;
+package model.ES.component.visuals;
 
 import com.simsilica.es.EntityComponent;
 

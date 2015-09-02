@@ -12,13 +12,13 @@ public class PlanarStance implements EntityComponent {
 	private final double elevation; 
 	private final Point3D upVector;
 	
-	public PlanarStance(Point2D position, double orientation) {
-		this(position, orientation, 0);
-	}
-
-	public PlanarStance(Point2D position, double orientation, double elevation) {
-		this(position, orientation, elevation, Point3D.UNIT_Z);
-	}
+//	public PlanarStance(Point2D position, double orientation) {
+//		this(position, orientation, 0);
+//	}
+//
+//	public PlanarStance(Point2D position, double orientation, double elevation) {
+//		this(position, orientation, elevation, Point3D.UNIT_Z);
+//	}
 
 	public PlanarStance(Point2D position, double orientation, double elevation, Point3D upVector) {
 		this.coord = position;

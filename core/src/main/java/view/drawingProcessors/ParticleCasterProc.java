@@ -2,6 +2,7 @@ package view.drawingProcessors;
 
 import java.util.ArrayList;
 
+import util.LogUtil;
 import util.geometry.geom3d.Point3D;
 import view.SpatialPool;
 import view.math.TranslateUtil;
@@ -25,79 +26,99 @@ public class ParticleCasterProc extends Processor {
 		register(ParticleCaster.class, PlanarStance.class);
 	}
 	
-	
+	@Override
+	protected void onEntityAdded(Entity e, float elapsedTime) {
+		ParticleCaster caster = e.get(ParticleCaster.class);
+		if(SpatialPool.emitters.containsKey(e.getId()))
+			throw new RuntimeException("Can't add the same particle caster twice.");
+		
+		ParticleEmitter pe = new ParticleEmitter("ParticleCaster for entity "+e.getId(), Type.Triangle, caster.getMaxCount());
+		SpatialPool.emitters.put(e.getId(), pe);
+
+		// material
+		Material m = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Particle.j3md");
+		m.setTexture("Texture", AppFacade.getAssetManager().loadTexture("textures/" + caster.getSpritePath()));
+		pe.setMaterial(m);
+
+		pe.setImagesX(caster.getNbCol());
+		pe.setImagesY(caster.getNbRow());
+
+		// particle fanning
+		pe.getParticleInfluencer().setVelocityVariation((float)caster.getFanning());
+
+		// particle size
+		pe.setStartSize((float)caster.getStartSize());
+		pe.setEndSize((float)caster.getEndSize());
+		
+		// particle life
+		pe.setLowLife((float)caster.getMinLife());
+		pe.setHighLife((float)caster.getMaxLife());
+
+		// particle color
+		pe.setStartColor(TranslateUtil.toColorRGBA(caster.getStartColor()));
+		pe.setEndColor(TranslateUtil.toColorRGBA(caster.getEndColor()));
+		
+		// particle facing
+		switch(caster.getFacing()){
+		case Camera: break;
+		case Horizontal: pe.setFaceNormal(Vector3f.UNIT_Z); break;
+		case Velocity: pe.setFacingVelocity(true);
+		}
+		
+		//particle per seconds
+		pe.setParticlesPerSec((float)caster.getPerSecond());
+		
+		AppFacade.getRootNode().attachChild(pe);
+		
+		onEntityUpdated(e, elapsedTime);
+	}
+
 	@Override
 	protected void onEntityUpdated(Entity e, float elapsedTime) {
 		PlanarStance stance = e.get(PlanarStance.class);
 		ParticleCaster caster = e.get(ParticleCaster.class);
-		
-		if(!SpatialPool.emitters.containsKey(e.getId())){
-			ParticleEmitter pe = new ParticleEmitter("dada", Type.Triangle, 50);
-			SpatialPool.emitters.put(e.getId(), pe);
-
-			// material
-			Material m = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Particle.j3md");
-			m.setTexture("Texture", AppFacade.getAssetManager().loadTexture("textures/" + "particles/flame.png"));
-			pe.setMaterial(m);
-
-			pe.setImagesX(2);
-			pe.setImagesY(2);
-
-			pe.getParticleInfluencer().setVelocityVariation((float)caster.getFanning());
-
-			
-			pe.setStartSize(0.5f);
-			pe.setEndSize(0.2f);
-			pe.setLowLife(0.1f);
-			pe.setHighLife(0.5f);
-
-			AppFacade.getRootNode().attachChild(pe);
-		}
 		ParticleEmitter pe = SpatialPool.emitters.get(e.getId());
-		
-		if(caster.isEmitting())
-			pe.setParticlesPerSec((float)caster.getPerSecond());
-		else
-			pe.setParticlesPerSec(0);
 
-		Point3D casterPos = caster.getTranslation().getRotationAroundZ(stance.getOrientation()).getAddition(stance.getCoord().get3D(1));//stance.getElevation()));
+		Point3D casterPos = caster.getTranslation().getRotationAroundZ(stance.getOrientation()).getAddition(stance.getCoord().get3D(stance.getElevation()));
 		Point3D velocity = caster.getDirection().getRotationAroundZ(stance.getOrientation());
 		velocity = velocity.getScaled(caster.getInitialSpeed());
 		
 		pe.setLocalTranslation(TranslateUtil.toVector3f(casterPos));
 		pe.getParticleInfluencer().setInitialVelocity(TranslateUtil.toVector3f(velocity));
 
-		
-		if(caster.getDuration() == 0)
+		if(caster.isAllAtOnce())
 			pe.emitAllParticles();
-
-			
-		
-		
-		
 
 		// trick to interpolate position of the particles when emitter moves between two frames
 		// as jMonkey doesn't manage it
 		if(pe.getUserData("lastPos") != null &&
 				!pe.getUserData("lastPos").equals(Vector3f.ZERO) &&
-				!pe.getUserData("lastPos").equals(casterPos)){
-//			double elapsedTime = System.currentTimeMillis()-(Long)pe.getUserData("lastTime");
+				!pe.getUserData("lastPos").equals(pe.getWorldTranslation())){
+			double myelapsed = System.currentTimeMillis()-(Long)pe.getUserData("lastTime");
+			int count = 0;
 			for(Particle p : getParticles(pe)){
 				double age = (p.startlife-p.life)*1000;
-				if(age < elapsedTime) {
-					p.position.interpolate((Vector3f)pe.getUserData("lastPos"), (float)(age/elapsedTime));
+				if(age < myelapsed) {
+					count++;
+//					LogUtil.info("age : "+age+"/ elapsed : "+myelapsed);
+					p.position.set(pe.getWorldTranslation());
+					Vector3f save = p.position.clone();
+					p.position.interpolate((Vector3f)pe.getUserData("lastPos"), (float)(age/myelapsed));
+					LogUtil.info(age+" distance of interpolation : "+p.position.distance(save)+" / distance parcourue : "+save.distance((Vector3f)pe.getUserData("lastPos")));
 				}
 			}
+			if(count>0)
+				LogUtil.info("corrected particle count : "+count);
 		}
-//		pe.setUserData("lastPos", pos.clone());
+		pe.setUserData("lastPos", pe.getWorldTranslation().clone());
 		pe.setUserData("lastTime", System.currentTimeMillis());
+	}
 
-		
-		
-		
+	@Override
+	protected void onEntityRemoved(Entity e, float elapsedTime) {
 		
 	}
-	
+
 	private ArrayList<Particle> getParticles(ParticleEmitter pe){
 		ArrayList<Particle> res = new ArrayList<>();
 		for(int i = 0; i<pe.getParticles().length; i++){
