@@ -1,7 +1,7 @@
 package view.drawingProcessors;
 
-import model.ES.component.motion.PlanarStance;
-import model.ES.component.visuals.ModelComp;
+import model.ES.component.planarMotion.PlanarStance;
+import model.ES.component.visuals.Model;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
 import view.SpatialPool;
@@ -18,13 +18,13 @@ public class PlacingModelProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(ModelComp.class, PlanarStance.class);
+		register(Model.class, PlanarStance.class);
 	}
 	
 	
 	@Override
 	protected void onEntityUpdated(Entity e, float elapsedTime) {
-		ModelComp model = e.get(ModelComp.class);
+		Model model = e.get(Model.class);
 		if(!model.isCreated())
 			return;
 		

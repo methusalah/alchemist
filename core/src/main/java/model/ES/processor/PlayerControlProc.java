@@ -1,10 +1,10 @@
 package model.ES.processor;
 
 import model.ModelManager;
-import model.ES.component.motion.PlanarNeededRotation;
-import model.ES.component.motion.PlanarThrust;
-import model.ES.component.motion.PlanarStance;
-import model.ES.component.motion.PlayerControl;
+import model.ES.component.planarMotion.PlanarNeededRotation;
+import model.ES.component.planarMotion.PlanarStance;
+import model.ES.component.planarMotion.PlanarThrust;
+import model.ES.component.planarMotion.PlayerControl;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 

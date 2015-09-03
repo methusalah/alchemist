@@ -5,8 +5,8 @@ import util.geometry.geom2d.Point2D;
 import com.simsilica.es.Entity;
 
 import model.ES.component.camera.ChasingCamera;
-import model.ES.component.motion.PlanarMotionCapacity;
-import model.ES.component.motion.PlanarStance;
+import model.ES.component.planarMotion.PlanarMotionCapacity;
+import model.ES.component.planarMotion.PlanarStance;
 import controller.CameraManager;
 import controller.entityAppState.Processor;
 

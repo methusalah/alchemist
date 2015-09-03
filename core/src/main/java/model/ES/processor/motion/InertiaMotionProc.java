@@ -1,9 +1,9 @@
 package model.ES.processor.motion;
 
-import model.ES.component.motion.PlanarWippingInertia;
-import model.ES.component.motion.PlanarVelocityInertiaDebugger;
-import model.ES.component.motion.PlanarMotionCapacity;
-import model.ES.component.motion.PlanarStance;
+import model.ES.component.planarMotion.PlanarMotionCapacity;
+import model.ES.component.planarMotion.PlanarStance;
+import model.ES.component.planarMotion.PlanarVelocityInertiaDebugger;
+import model.ES.component.planarMotion.PlanarWippingInertia;
 import util.geometry.geom2d.Point2D;
 
 import com.simsilica.es.Entity;

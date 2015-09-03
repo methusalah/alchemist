@@ -2,7 +2,7 @@ package model.ES.component.visuals;
 
 import com.simsilica.es.EntityComponent;
 
-public class ModelComp implements EntityComponent {
+public class Model implements EntityComponent {
 	private final String path;
 	private final double scale;
 	private final double yawFix;
@@ -10,13 +10,13 @@ public class ModelComp implements EntityComponent {
 	private final double rollFix;
 	private boolean created = false;
 	
-	public ModelComp(String path) {
+	public Model(String path) {
 		this(path, 1);
 	}
-	public ModelComp(String path, double scale) {
+	public Model(String path, double scale) {
 		this(path, scale, 0, 0, 0);
 	}
-	public ModelComp(String path, double scale, double yawFix, double pitchFix, double rollFix) {
+	public Model(String path, double scale, double yawFix, double pitchFix, double rollFix) {
 		this.path = path;
 		this.scale = scale;
 		this.yawFix = yawFix;

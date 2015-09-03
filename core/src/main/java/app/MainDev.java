@@ -4,14 +4,15 @@ import java.awt.Color;
 
 import model.ModelManager;
 import model.ES.component.camera.ChasingCamera;
-import model.ES.component.motion.PlanarWippingInertia;
-import model.ES.component.motion.PlanarMotionCapacity;
-import model.ES.component.motion.PlanarStance;
-import model.ES.component.motion.PlayerControl;
-import model.ES.component.visuals.ModelComp;
+import model.ES.component.planarMotion.PlanarMotionCapacity;
+import model.ES.component.planarMotion.PlanarStance;
+import model.ES.component.planarMotion.PlanarWippingInertia;
+import model.ES.component.planarMotion.PlayerControl;
+import model.ES.component.visuals.Model;
 import model.ES.component.visuals.ParticleCaster;
 import model.ES.component.visuals.ParticleCaster.Facing;
 import model.ES.processor.PlayerControlProc;
+import model.ES.processor.holder.HolderOnBoneProc;
 import model.ES.processor.motion.InertiaMotionProc;
 import model.ES.processor.motion.PlanarRotationProc;
 import model.ES.processor.motion.PlanarThrustProc;
@@ -62,6 +63,7 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new InertiaMotionProc());
 		stateManager.attach(new ModelProc());
 		stateManager.attach(new PlacingModelProc());
+		stateManager.attach(new HolderOnBoneProc());
 		stateManager.attach(new InertiaVisualisationProc());
 		stateManager.attach(new ChasingCameraProc(stateManager.getState(TopdownCtrl.class).getCameraManager()));
 		stateManager.attach(new ParticleCasterProc());
@@ -74,7 +76,7 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(ModelManager.shipID, new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
 		ed.setComponent(ModelManager.shipID, new PlanarWippingInertia(Point2D.ORIGIN));
 		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(3, AngleUtil.toRadians(360), 5, 100));
-		ed.setComponent(ModelManager.shipID, new ModelComp("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
+		ed.setComponent(ModelManager.shipID, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
 		ed.setComponent(ModelManager.shipID, new ParticleCaster(new Point3D(-1, 0, 0),
 				new Point3D(-1, 0, 0),
 				"particles/flame.png",

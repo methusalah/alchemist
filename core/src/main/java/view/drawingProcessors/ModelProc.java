@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import view.SpatialPool;
-import model.ES.component.motion.PlanarStance;
-import model.ES.component.visuals.ModelComp;
+import model.ES.component.planarMotion.PlanarStance;
+import model.ES.component.visuals.Model;
 import app.AppFacade;
 
 import com.jme3.asset.AssetManager;
@@ -20,7 +20,7 @@ public class ModelProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(ModelComp.class);
+		register(Model.class);
 	}
 	
 	@Override
@@ -47,7 +47,7 @@ public class ModelProc extends Processor {
 	}
 	
 	private void createModel(Entity e){
-		ModelComp model = e.get(ModelComp.class);
+		Model model = e.get(Model.class);
 		Spatial s = getPrototype(model.getPath()).clone();
 		s.scale((float)model.getScale());
 		model.setCreated();

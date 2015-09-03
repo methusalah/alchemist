@@ -1,8 +1,8 @@
 package model.ES.processor.motion;
 
-import model.ES.component.motion.PlanarMotionCapacity;
-import model.ES.component.motion.PlanarNeededRotation;
-import model.ES.component.motion.PlanarStance;
+import model.ES.component.planarMotion.PlanarMotionCapacity;
+import model.ES.component.planarMotion.PlanarNeededRotation;
+import model.ES.component.planarMotion.PlanarStance;
 import util.math.AngleUtil;
 
 import com.simsilica.es.Entity;

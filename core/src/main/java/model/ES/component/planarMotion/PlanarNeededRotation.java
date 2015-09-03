@@ -1,4 +1,4 @@
-package model.ES.component.motion;
+package model.ES.component.planarMotion;
 
 import java.text.DecimalFormat;
 
