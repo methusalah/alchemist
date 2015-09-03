@@ -12,10 +12,6 @@ public class ParticleCaster implements EntityComponent{
 	public static enum Facing {
 		Horizontal, Velocity, Camera
 	}
-
-	private final Point3D translation;
-	private final Point3D direction;
-
 	private final String spritePath;
 	private final int nbCol;
 	private final int nbRow;
@@ -37,9 +33,7 @@ public class ParticleCaster implements EntityComponent{
 	private final double startVariation;
 	private final boolean allAtOnce;
 	
-	public ParticleCaster(Point3D translation,
-			Point3D directionVector,
-			String spritePath,
+	public ParticleCaster(String spritePath,
 			int nbCol,
 			int nbRow,
 			double initialSpeed,
@@ -60,8 +54,6 @@ public class ParticleCaster implements EntityComponent{
 			double startVariation,
 			boolean allAtOnce
 			) {
-		this.translation = translation;
-		this.direction = directionVector;
 		this.spritePath = spritePath;
 		this.nbCol = nbCol;
 		this.nbRow = nbRow;
@@ -92,14 +84,6 @@ public class ParticleCaster implements EntityComponent{
 
 	public double getInitialSpeed() {
 		return initialSpeed;
-	}
-
-	public Point3D getTranslation() {
-		return translation;
-	}
-
-	public Point3D getDirection() {
-		return direction;
 	}
 
 	public double getPerSecond() {

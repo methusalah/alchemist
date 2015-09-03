@@ -42,7 +42,6 @@ public abstract class CosmoVania extends Application implements PhysicsTickListe
 	protected Node rootNode = new Node("Root Node");
 	protected Node guiNode = new Node("Gui Node");
 	protected NiftyJmeDisplay niftyDisplay;
-	
 
 	protected float secondCounter = 0.0f;
 
