@@ -66,7 +66,7 @@ public class PlayerControlProc extends Processor {
 		PlanarStance stance = e.get(PlanarStance.class);
 		if(ModelManager.command.thrust
 				&& stance.getCoord().getDistance(ModelManager.command.target) > 0.1){
-    		PlanarThrust thrust = new PlanarThrust();
+    		PlanarThrust thrust = new PlanarThrust(Point2D.UNIT_X);
     		setComp(e, thrust);
     		return thrust;
 		}

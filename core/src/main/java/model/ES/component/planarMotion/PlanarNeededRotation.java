@@ -8,23 +8,23 @@ import com.simsilica.es.EntityComponent;
 
 
 public class PlanarNeededRotation implements EntityComponent {
-	private final double rotation;
+	private final double angle;
 	
-	public PlanarNeededRotation(double rotation) {
-		if(rotation == 0)
+	public PlanarNeededRotation(double angle) {
+		if(angle == 0)
 			throw new IllegalArgumentException("can't need a rotation of 0");
-		this.rotation = rotation;
+		this.angle = angle;
 	}
 
-	public double getRotation() {
-		return rotation;
+	public double getAngle() {
+		return angle;
 	}
 
 
 	@Override
 	public String toString() {
 		DecimalFormat df = new DecimalFormat("0.00");
-		return this.getClass().getSimpleName() + " - rotation :"+df.format(AngleUtil.toDegrees(rotation));
+		return this.getClass().getSimpleName() + " - rotation :"+df.format(AngleUtil.toDegrees(angle));
 	}
 
 }

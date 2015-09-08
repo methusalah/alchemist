@@ -32,8 +32,8 @@ public class PlanarRotationProc extends Processor {
 		PlanarStance stance = e.get(PlanarStance.class); 
 		
 		double maxRotation = capacity.getMaxRotationSpeed() * elapsedTime;
-		maxRotation = Math.min(Math.abs(neededRotation.getRotation()), maxRotation);
-		double possibleRotation = maxRotation*Math.signum(neededRotation.getRotation());
+		maxRotation = Math.min(Math.abs(neededRotation.getAngle()), maxRotation);
+		double possibleRotation = maxRotation*Math.signum(neededRotation.getAngle());
 		
 		PlanarStance newStance = new PlanarStance(stance.getCoord(), stance.getOrientation() + possibleRotation, stance.getElevation(), stance.getUpVector());
 		
@@ -41,7 +41,7 @@ public class PlanarRotationProc extends Processor {
 		removeComp(e, PlanarNeededRotation.class);
 		
 		StringBuilder sb = new StringBuilder(this.getClass().getSimpleName() + System.lineSeparator());
-		sb.append("    needed rotation : "+ AngleUtil.toDegrees(neededRotation.getRotation()) + System.lineSeparator());
+		sb.append("    needed rotation : "+ AngleUtil.toDegrees(neededRotation.getAngle()) + System.lineSeparator());
 		sb.append("    rotation capacity : " + AngleUtil.toDegrees(possibleRotation) + " (rotation speed : "+ AngleUtil.toDegrees(capacity.getMaxRotationSpeed()) + ")" + System.lineSeparator());
 		sb.append("    new orientation : " + AngleUtil.toDegrees(newStance.getOrientation()) + System.lineSeparator());
 		app.getDebugger().add(sb.toString());

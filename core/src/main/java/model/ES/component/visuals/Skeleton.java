@@ -17,6 +17,13 @@ public class Skeleton implements EntityComponent{
 		this.initialized = initialized;
 	}
 
+	public Point3D getPosition(String boneName) {
+		return bonePositions.get(boneName);
+	}
+	public Point3D getDirection(String boneName) {
+		return boneDirections.get(boneName);
+	}
+	
 	public HashMap<String, Point3D> getBonePositions() {
 		return bonePositions;
 	}

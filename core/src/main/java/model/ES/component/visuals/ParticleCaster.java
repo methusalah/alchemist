@@ -33,6 +33,8 @@ public class ParticleCaster implements EntityComponent{
 	private final double startVariation;
 	private final boolean allAtOnce;
 	
+	public int actualPerSecond;
+	
 	public ParticleCaster(String spritePath,
 			int nbCol,
 			int nbRow,
@@ -86,7 +88,7 @@ public class ParticleCaster implements EntityComponent{
 		return initialSpeed;
 	}
 
-	public double getPerSecond() {
+	public int getPerSecond() {
 		return perSecond;
 	}
 

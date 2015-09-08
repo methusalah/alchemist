@@ -6,7 +6,9 @@ import util.LogUtil;
 import util.geometry.geom3d.Point3D;
 import view.SpatialPool;
 import view.math.TranslateUtil;
+import model.ModelManager;
 import model.ES.component.planarMotion.PlanarStance;
+import model.ES.component.spaceMotion.SpaceStance;
 import model.ES.component.visuals.ParticleCaster;
 import app.AppFacade;
 
@@ -16,6 +18,7 @@ import com.jme3.effect.ParticleMesh.Type;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.simsilica.es.Entity;
+import com.simsilica.es.EntitySet;
 
 import controller.entityAppState.Processor;
 
@@ -25,7 +28,18 @@ public class ParticleCasterInPlaneProc extends Processor {
 	protected void registerSets() {
 		register(ParticleCaster.class, PlanarStance.class);
 	}
-	
+
+//	@Override
+//	protected void onUpdated(float elapsedTime) {
+//		if(ModelManager.command.target == null)
+//			return;
+//		
+//        for(EntitySet set : sets)
+//        	for (Entity e : set){
+//        		manage(e, elapsedTime);
+//        	}
+//	}
+
 	@Override
 	protected void onEntityAdded(Entity e, float elapsedTime) {
 		ParticleCaster caster = e.get(ParticleCaster.class);
@@ -78,16 +92,27 @@ public class ParticleCasterInPlaneProc extends Processor {
 
 	@Override
 	protected void onEntityUpdated(Entity e, float elapsedTime) {
-		PlanarStance stance = e.get(PlanarStance.class);
+		Point3D pos, velocity;
+		if(e.get(PlanarStance.class) != null){
+			PlanarStance stance = e.get(PlanarStance.class);
+			pos = stance.getCoord().get3D(stance.getElevation());
+			velocity = Point3D.UNIT_X.getRotationAroundZ(stance.getOrientation());
+		} else if(e.get(SpaceStance.class) != null){ 
+			SpaceStance stance = e.get(SpaceStance.class);
+			pos = stance.getPosition();
+			velocity = stance.getDirection();
+		} else {
+			throw new RuntimeException("Stance missing for a caster.");
+		}
+
 		ParticleCaster caster = e.get(ParticleCaster.class);
 		ParticleEmitter pe = SpatialPool.emitters.get(e.getId());
-
-		Point3D casterPos = caster.getTranslation().getRotationAroundZ(stance.getOrientation()).getAddition(stance.getCoord().get3D(stance.getElevation()));
-		Point3D velocity = caster.getDirection().getRotationAroundZ(stance.getOrientation());
+		
 		velocity = velocity.getScaled(caster.getInitialSpeed());
 		
-		pe.setLocalTranslation(TranslateUtil.toVector3f(casterPos));
+		pe.setLocalTranslation(TranslateUtil.toVector3f(pos));
 		pe.getParticleInfluencer().setInitialVelocity(TranslateUtil.toVector3f(velocity));
+		pe.setParticlesPerSec(caster.actualPerSecond);
 
 
 		// trick to interpolate position of the particles when emitter moves between two frames
@@ -105,11 +130,11 @@ public class ParticleCasterInPlaneProc extends Processor {
 					p.position.set(pe.getWorldTranslation());
 					Vector3f save = p.position.clone();
 					p.position.interpolate((Vector3f)pe.getUserData("lastPos"), (float)(age/myelapsed));
-					LogUtil.info(age+" distance of interpolation : "+p.position.distance(save)+" / distance parcourue : "+save.distance((Vector3f)pe.getUserData("lastPos")));
+//					LogUtil.info(age+" distance of interpolation : "+p.position.distance(save)+" / distance parcourue : "+save.distance((Vector3f)pe.getUserData("lastPos")));
 				}
 			}
-			if(count>0)
-				LogUtil.info("corrected particle count : "+count);
+//			if(count>0)
+//				LogUtil.info("corrected particle count : "+count);
 		}
 		pe.setUserData("lastPos", pe.getWorldTranslation().clone());
 		pe.setUserData("lastTime", System.currentTimeMillis());

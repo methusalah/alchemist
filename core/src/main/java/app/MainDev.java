@@ -8,14 +8,20 @@ import model.ES.component.planarMotion.PlanarMotionCapacity;
 import model.ES.component.planarMotion.PlanarStance;
 import model.ES.component.planarMotion.PlanarWippingInertia;
 import model.ES.component.planarMotion.PlayerControl;
+import model.ES.component.relation.PlanarHolding;
+import model.ES.component.shipGear.RotationThruster;
+import model.ES.component.spaceMotion.SpaceStance;
 import model.ES.component.visuals.Model;
 import model.ES.component.visuals.ParticleCaster;
 import model.ES.component.visuals.ParticleCaster.Facing;
 import model.ES.processor.PlayerControlProc;
-import model.ES.processor.holder.HolderOnBoneProc;
+import model.ES.processor.holder.BoneHoldingProc;
+import model.ES.processor.holder.PlanarHoldingProc;
 import model.ES.processor.motion.InertiaMotionProc;
 import model.ES.processor.motion.PlanarRotationProc;
 import model.ES.processor.motion.PlanarThrustProc;
+import model.ES.processor.shipGear.ParticleThrusterProc;
+import model.ES.processor.shipGear.RotationThrusterProc;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
@@ -23,6 +29,7 @@ import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
 import view.drawingProcessors.InertiaVisualisationProc;
 import view.drawingProcessors.ModelProc;
+import view.drawingProcessors.ParticleCasterInPlaneProc;
 import view.drawingProcessors.ParticleCasterProc;
 import view.drawingProcessors.PlacingModelProc;
 import view.material.MaterialManager;
@@ -58,18 +65,25 @@ public class MainDev extends CosmoVania {
 		
 		stateManager.attach(new EntityDataAppState());
 		stateManager.attach(new PlayerControlProc());
+		stateManager.attach(new RotationThrusterProc());
 		stateManager.attach(new PlanarRotationProc());
 		stateManager.attach(new PlanarThrustProc());
 		stateManager.attach(new InertiaMotionProc());
 		stateManager.attach(new ModelProc());
 		stateManager.attach(new PlacingModelProc());
-		stateManager.attach(new HolderOnBoneProc());
+		stateManager.attach(new BoneHoldingProc());
 		stateManager.attach(new InertiaVisualisationProc());
 		stateManager.attach(new ChasingCameraProc(stateManager.getState(TopdownCtrl.class).getCameraManager()));
-		stateManager.attach(new ParticleCasterProc());
+//		stateManager.attach(new ParticleCasterProc());
+		stateManager.attach(new PlanarHoldingProc());
+		stateManager.attach(new ParticleThrusterProc());
+		stateManager.attach(new ParticleCasterInPlaneProc());
+		
 		
 		
 		EntityData ed = stateManager.getState(EntityDataAppState.class).getEntityData();
+		
+		// ship
 		ModelManager.entityData = ed;
 		ModelManager.shipID = ed.createEntity();
 		ed.setComponent(ModelManager.shipID, new PlayerControl());
@@ -77,12 +91,16 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(ModelManager.shipID, new PlanarWippingInertia(Point2D.ORIGIN));
 		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(3, AngleUtil.toRadians(360), 5, 100));
 		ed.setComponent(ModelManager.shipID, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(ModelManager.shipID, new ParticleCaster(new Point3D(-1, 0, 0),
-				new Point3D(-1, 0, 0),
-				"particles/flame.png",
+		
+		// thruster
+		EntityId rotth = ed.createEntity();
+		ed.setComponent(rotth, new PlanarHolding(ModelManager.shipID, new Point3D(1, 0.5, 0), -AngleUtil.toRadians(20)));
+		ed.setComponent(rotth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(rotth, new RotationThruster(true, AngleUtil.toRadians(5), 0, false));
+		ed.setComponent(rotth, new ParticleCaster("particles/flame.png",
 				2,
 				2,
-				3,
+				0,
 				0,
 				false,
 				200,
@@ -101,6 +119,7 @@ public class MainDev extends CosmoVania {
 				false));
 
 
+		// camera
 		EntityId camId= ed.createEntity();
 		ed.setComponent(camId, new PlanarStance(new Point2D(1, 1), 0, 20, Point3D.UNIT_Z));
 		ed.setComponent(camId, new ChasingCamera(ModelManager.shipID, 3, 0, 0.5, 0.5));

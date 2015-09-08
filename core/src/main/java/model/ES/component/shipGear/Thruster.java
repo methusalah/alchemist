@@ -4,7 +4,7 @@ import util.geometry.geom3d.Point3D;
 
 import com.simsilica.es.EntityComponent;
 
-public class Thruster implements EntityComponent{
+public class Thruster implements EntityComponent {
 	private final Point3D direction;
 	private final double activationAngle;
 	private final double activation;
