@@ -1,4 +1,4 @@
-package model.ES.processor;
+package model.ES.processor.command;
 
 import model.ModelManager;
 import model.ES.component.planarMotion.PlanarNeededRotation;
@@ -46,7 +46,7 @@ public class PlayerControlProc extends Processor {
 		double neededRotAngle = 0;
 		Point2D front = stance.getCoord().getTranslation(stance.getOrientation(), 1);
 		int turn = AngleUtil.getTurn(stance.getCoord(), front, ModelManager.command.target);
-		if(turn != AngleUtil.NONE || angleToTarget != stance.getOrientation()){
+		if(turn != AngleUtil.NONE){// || angleToTarget != stance.getOrientation()){
 			double diff = AngleUtil.getSmallestDifference(stance.getOrientation(), angleToTarget);
 			if(turn >= 0)
 				neededRotAngle = diff;
@@ -54,7 +54,7 @@ public class PlayerControlProc extends Processor {
 				neededRotAngle = -diff;
 		}
 		
-		if(neededRotAngle != 0){
+		if(Math.abs(neededRotAngle) > 0.01){
 			PlanarNeededRotation neededRotation = new PlanarNeededRotation(neededRotAngle);
     		setComp(e, neededRotation);
     		return neededRotation;

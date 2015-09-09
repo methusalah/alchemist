@@ -114,8 +114,6 @@ public class ParticleCasterInPlaneProc extends Processor {
 		pe.setLocalTranslation(TranslateUtil.toVector3f(pos));
 		pe.getParticleInfluencer().setInitialVelocity(TranslateUtil.toVector3f(velocity));
 		pe.setParticlesPerSec(caster.actualPerSecond);
-		LogUtil.info("actual particle count : "+getParticles(pe).size());
-
 
 		// trick to interpolate position of the particles when emitter moves between two frames
 		// as jMonkey doesn't manage it

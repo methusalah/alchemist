@@ -22,7 +22,7 @@ import model.ES.component.shipGear.RotationThruster;
 import model.ES.component.shipGear.Thruster;
 import model.ES.component.visuals.Model;
 import model.ES.component.visuals.ParticleCaster;
-import model.ES.processor.PlayerControlProc;
+import model.ES.processor.command.PlayerControlProc;
 import model.ES.processor.holder.BoneHoldingProc;
 import model.ES.processor.holder.PlanarHoldingProc;
 import model.ES.processor.motion.InertiaMotionProc;
