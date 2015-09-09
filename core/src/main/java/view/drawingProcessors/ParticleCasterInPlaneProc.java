@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import util.LogUtil;
 import util.geometry.geom3d.Point3D;
 import view.SpatialPool;
+import view.jme.MyParticleEmitter;
 import view.math.TranslateUtil;
 import model.ModelManager;
 import model.ES.component.planarMotion.PlanarStance;
@@ -46,7 +47,7 @@ public class ParticleCasterInPlaneProc extends Processor {
 		if(SpatialPool.emitters.containsKey(e.getId()))
 			throw new RuntimeException("Can't add the same particle caster twice.");
 		
-		ParticleEmitter pe = new ParticleEmitter("ParticleCaster for entity "+e.getId(), Type.Triangle, caster.getMaxCount());
+		MyParticleEmitter pe = new MyParticleEmitter("ParticleCaster for entity "+e.getId(), Type.Triangle, caster.getMaxCount());
 		SpatialPool.emitters.put(e.getId(), pe);
 
 		// material
@@ -106,13 +107,14 @@ public class ParticleCasterInPlaneProc extends Processor {
 		}
 
 		ParticleCaster caster = e.get(ParticleCaster.class);
-		ParticleEmitter pe = SpatialPool.emitters.get(e.getId());
+		MyParticleEmitter pe = SpatialPool.emitters.get(e.getId());
 		
 		velocity = velocity.getScaled(caster.getInitialSpeed());
 		
 		pe.setLocalTranslation(TranslateUtil.toVector3f(pos));
 		pe.getParticleInfluencer().setInitialVelocity(TranslateUtil.toVector3f(velocity));
 		pe.setParticlesPerSec(caster.actualPerSecond);
+		LogUtil.info("actual particle count : "+getParticles(pe).size());
 
 
 		// trick to interpolate position of the particles when emitter moves between two frames
@@ -145,7 +147,7 @@ public class ParticleCasterInPlaneProc extends Processor {
 		
 	}
 
-	private ArrayList<Particle> getParticles(ParticleEmitter pe){
+	private ArrayList<Particle> getParticles(MyParticleEmitter pe){
 		ArrayList<Particle> res = new ArrayList<>();
 		for(int i = 0; i<pe.getParticles().length; i++){
 			if(pe.getParticles()[i].life != 0) {

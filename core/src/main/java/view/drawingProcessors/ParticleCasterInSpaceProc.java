@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import util.LogUtil;
 import util.geometry.geom3d.Point3D;
 import view.SpatialPool;
+import view.jme.MyParticleEmitter;
 import view.math.TranslateUtil;
 import model.ES.component.planarMotion.PlanarStance;
 import model.ES.component.spaceMotion.SpaceStance;
@@ -36,7 +37,7 @@ public class ParticleCasterInSpaceProc extends Processor {
 	protected void onEntityUpdated(Entity e, float elapsedTime) {
 		SpaceStance stance = e.get(SpaceStance.class);
 		ParticleCaster caster = e.get(ParticleCaster.class);
-		ParticleEmitter pe = SpatialPool.emitters.get(e.getId());
+		MyParticleEmitter pe = SpatialPool.emitters.get(e.getId());
 
 		Point3D velocity = stance.getDirection().getScaled(caster.getInitialSpeed());
 		
@@ -74,7 +75,7 @@ public class ParticleCasterInSpaceProc extends Processor {
 		
 	}
 
-	private ArrayList<Particle> getParticles(ParticleEmitter pe){
+	private ArrayList<Particle> getParticles(MyParticleEmitter pe){
 		ArrayList<Particle> res = new ArrayList<>();
 		for(int i = 0; i<pe.getParticles().length; i++){
 			if(pe.getParticles()[i].life != 0) {

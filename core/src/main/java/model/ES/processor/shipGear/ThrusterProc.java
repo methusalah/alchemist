@@ -53,7 +53,6 @@ public class ThrusterProc extends Processor {
 				activationRate = 1;
 				if(!thruster.isOnOff())
 					activationRate = 1-(diff/thruster.getActivationAngle());
-				LogUtil.info("paf !!");
 			}
 		}
 		setComp(e, new Thruster(thruster.getDirection(), thruster.getActivationAngle(), activationRate, thruster.isOnOff()));

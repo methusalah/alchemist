@@ -35,11 +35,8 @@ import java.io.IOException;
 
 import com.jme3.bounding.BoundingBox;
 import com.jme3.effect.Particle;
-import com.jme3.effect.ParticleEmitter;
 import com.jme3.effect.ParticleMesh;
 import com.jme3.effect.ParticleMesh.Type;
-import com.jme3.effect.ParticlePointMesh;
-import com.jme3.effect.ParticleTriMesh;
 import com.jme3.effect.influencers.DefaultParticleInfluencer;
 import com.jme3.effect.influencers.ParticleInfluencer;
 import com.jme3.effect.shapes.EmitterPointShape;
@@ -57,12 +54,13 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.Control;
 import com.jme3.util.TempVars;
 
 /**
- * <code>ParticleEmitter</code> is a special kind of geometry which simulates
+ * <code>MyParticleEmitter</code> is a special kind of geometry which simulates
  * a particle system.
  * <p>
  * Particle emitters can be used to simulate various kinds of phenomena,
@@ -71,19 +69,19 @@ import com.jme3.util.TempVars;
  * Particle emitters have many properties which are used to control the 
  * simulation. The interpretation of these properties depends on the 
  * {@link ParticleInfluencer} that has been assigned to the emitter via
- * {@link ParticleEmitter#setParticleInfluencer(com.jme3.effect.influencers.ParticleInfluencer) }.
+ * {@link MyParticleEmitter#setParticleInfluencer(com.jme3.effect.influencers.ParticleInfluencer) }.
  * By default the implementation {@link DefaultParticleInfluencer} is used.
  * 
  * @author Kirill Vainer
  */
-public class MyParticleEmitter extends ParticleEmitter {
+public class MyParticleEmitter extends Geometry {
 
     private boolean enabled = true;
     private static final EmitterShape DEFAULT_SHAPE = new EmitterPointShape(Vector3f.ZERO);
     private static final ParticleInfluencer DEFAULT_INFLUENCER = new DefaultParticleInfluencer();
-    private MyParticleEmitter.ParticleEmitterControl control;
+    private ParticleEmitterControl control;
     private EmitterShape shape = DEFAULT_SHAPE;
-    private ParticleMesh particleMesh;
+    private MyParticleMesh particleMesh;
     private ParticleInfluencer particleInfluencer = DEFAULT_INFLUENCER;
     private ParticleMesh.Type meshType;
     private Particle[] particles;
@@ -123,13 +121,11 @@ public class MyParticleEmitter extends ParticleEmitter {
             this.parentEmitter = parentEmitter;
         }
 
-        @Override
         public Control cloneForSpatial(Spatial spatial) {
             return this; // WARNING: Sets wrong control on spatial. Will be
-            // fixed automatically by ParticleEmitter.clone() method.
+            // fixed automatically by MyParticleEmitter.clone() method.
         }
 
-        @Override
         public void setSpatial(Spatial spatial) {
         }
 
@@ -141,21 +137,17 @@ public class MyParticleEmitter extends ParticleEmitter {
             return parentEmitter.isEnabled();
         }
 
-        @Override
         public void update(float tpf) {
             parentEmitter.updateFromControl(tpf);
         }
 
-        @Override
         public void render(RenderManager rm, ViewPort vp) {
             parentEmitter.renderFromControl(rm, vp);
         }
 
-        @Override
         public void write(JmeExporter ex) throws IOException {
         }
 
-        @Override
         public void read(JmeImporter im) throws IOException {
         }
     }
@@ -171,7 +163,7 @@ public class MyParticleEmitter extends ParticleEmitter {
         clone.shape = shape.deepClone();
 
         // Reinitialize particle list
-        clone.setNumParticles2(particles.length);
+        clone.setNumParticles(particles.length);
 
         clone.faceNormal = faceNormal.clone();
         clone.startColor = startColor.clone();
@@ -182,16 +174,16 @@ public class MyParticleEmitter extends ParticleEmitter {
         clone.controls.remove(control);
 
         // put correct control
-        clone.controls.add(new MyParticleEmitter.ParticleEmitterControl(clone));
+        clone.controls.add(new ParticleEmitterControl(clone));
 
         // Reinitialize particle mesh
         switch (meshType) {
             case Point:
-                clone.particleMesh = new ParticlePointMesh();
+                clone.particleMesh = new MyParticlePointMesh();
                 clone.setMesh(clone.particleMesh);
                 break;
             case Triangle:
-                clone.particleMesh = new ParticlePointMesh();
+                clone.particleMesh = new MyParticleTriMesh();
                 clone.setMesh(clone.particleMesh);
                 break;
             default:
@@ -204,8 +196,7 @@ public class MyParticleEmitter extends ParticleEmitter {
     }
 
     public MyParticleEmitter(String name, Type type, int numParticles) {
-        super();
-        this.name = name;
+        super(name);
         setBatchHint(BatchHint.Never);
         // ignore world transform, unless user sets inLocalSpace
         this.setIgnoreTransform(true);
@@ -223,22 +214,22 @@ public class MyParticleEmitter extends ParticleEmitter {
         shape = shape.deepClone();
         particleInfluencer = particleInfluencer.clone();
 
-        control = new MyParticleEmitter.ParticleEmitterControl(this);
+        control = new ParticleEmitterControl(this);
         controls.add(control);
 
         switch (meshType) {
             case Point:
-                particleMesh = new ParticlePointMesh();
+                particleMesh = new MyParticlePointMesh();
                 this.setMesh(particleMesh);
                 break;
             case Triangle:
-                particleMesh = new ParticlePointMesh();
+                particleMesh = new MyParticleTriMesh();
                 this.setMesh(particleMesh);
                 break;
             default:
                 throw new IllegalStateException("Unrecognized particle type: " + meshType);
         }
-        this.setNumParticles2(numParticles);
+        this.setNumParticles(numParticles);
 //        particleMesh.initParticleData(this, particles.length);
     }
 
@@ -250,12 +241,10 @@ public class MyParticleEmitter extends ParticleEmitter {
         setBatchHint(BatchHint.Never);
     }
 
-    @Override
     public void setShape(EmitterShape shape) {
         this.shape = shape;
     }
 
-    @Override
     public EmitterShape getShape() {
         return shape;
     }
@@ -268,7 +257,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @see ParticleInfluencer
      */
-    @Override
     public void setParticleInfluencer(ParticleInfluencer particleInfluencer) {
         this.particleInfluencer = particleInfluencer;
     }
@@ -282,7 +270,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @see ParticleInfluencer
      */
-    @Override
     public ParticleInfluencer getParticleInfluencer() {
         return particleInfluencer;
     }
@@ -294,9 +281,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * @return the mesh type used by the particle emitter.
      * 
      * @see #setMeshType(com.jme3.effect.ParticleMesh.Type)
-     * @see ParticleEmitter#ParticleEmitter(java.lang.String, com.jme3.effect.ParticleMesh.Type, int) 
+     * @see MyParticleEmitter#MyParticleEmitter(java.lang.String, com.jme3.effect.ParticleMesh.Type, int) 
      */
-    @Override
     public ParticleMesh.Type getMeshType() {
         return meshType;
     }
@@ -305,22 +291,21 @@ public class MyParticleEmitter extends ParticleEmitter {
      * Sets the type of mesh used by the particle emitter.
      * @param meshType The mesh type to use
      */
-    @Override
     public void setMeshType(ParticleMesh.Type meshType) {
         this.meshType = meshType;
         switch (meshType) {
             case Point:
-                particleMesh = new ParticlePointMesh();
+                particleMesh = new MyParticlePointMesh();
                 this.setMesh(particleMesh);
                 break;
             case Triangle:
-                particleMesh = new ParticleTriMesh();
+                particleMesh = new MyParticleTriMesh();
                 this.setMesh(particleMesh);
                 break;
             default:
                 throw new IllegalStateException("Unrecognized particle type: " + meshType);
         }
-        this.setNumParticles2(particles.length);
+        this.setNumParticles(particles.length);
     }
 
     /**
@@ -328,9 +313,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @return true if particles should spawn in world space. 
      * 
-     * @see ParticleEmitter#setInWorldSpace(boolean) 
+     * @see MyParticleEmitter#setInWorldSpace(boolean) 
      */
-    @Override
     public boolean isInWorldSpace() {
         return worldSpace;
     }
@@ -346,7 +330,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @param worldSpace true if particles should spawn in world space. 
      */
-    @Override
     public void setInWorldSpace(boolean worldSpace) {
         this.setIgnoreTransform(worldSpace);
         this.worldSpace = worldSpace;
@@ -357,7 +340,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @return the number of visible particles
      */
-    @Override
     public int getNumVisibleParticles() {
 //        return unusedIndices.size() + next;
         return lastUsed + 1;
@@ -371,7 +353,7 @@ public class MyParticleEmitter extends ParticleEmitter {
      * @param numParticles the maximum amount of particles that
      * can exist at the same time with this emitter.
      */
-    public final void setNumParticles2(int numParticles) {
+    public final void setNumParticles(int numParticles) {
         particles = new Particle[numParticles];
         for (int i = 0; i < numParticles; i++) {
             particles[i] = new Particle();
@@ -383,7 +365,6 @@ public class MyParticleEmitter extends ParticleEmitter {
         lastUsed = -1;
     }
 
-    @Override
     public int getMaxNumParticles() {
         return particles.length;
     }
@@ -394,12 +375,11 @@ public class MyParticleEmitter extends ParticleEmitter {
      * <p>
      * This includes both existing and non-existing particles.
      * The size of the array is set to the <code>numParticles</code> value
-     * specified in the constructor or {@link ParticleEmitter#setNumParticles(int) }
+     * specified in the constructor or {@link MyParticleEmitter#setNumParticles(int) }
      * method. 
      * 
      * @return a list of all particles.
      */
-    @Override
     public Particle[] getParticles() {
         return particles;
     }
@@ -409,9 +389,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @return the normal which particles are facing. 
      * 
-     * @see ParticleEmitter#setFaceNormal(com.jme3.math.Vector3f) 
+     * @see MyParticleEmitter#setFaceNormal(com.jme3.math.Vector3f) 
      */
-    @Override
     public Vector3f getFaceNormal() {
         if (Vector3f.isValidVector(faceNormal)) {
             return faceNormal;
@@ -432,7 +411,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * @param faceNormal The normals particles should face, or <code>null</code>
      * if particles should face the camera.
      */
-    @Override
     public void setFaceNormal(Vector3f faceNormal) {
         if (faceNormal == null || !Vector3f.isValidVector(faceNormal)) {
             this.faceNormal.set(Vector3f.NAN);
@@ -446,9 +424,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @return the rotation speed in radians/sec for particles.
      * 
-     * @see ParticleEmitter#setRotateSpeed(float) 
+     * @see MyParticleEmitter#setRotateSpeed(float) 
      */
-    @Override
     public float getRotateSpeed() {
         return rotateSpeed;
     }
@@ -460,7 +437,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * @param rotateSpeed the rotation speed in radians/sec for particles
      * spawned after the invocation of this method.
      */
-    @Override
     public void setRotateSpeed(float rotateSpeed) {
         this.rotateSpeed = rotateSpeed;
     }
@@ -472,9 +448,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * @return true if every particle spawned
      * should have a random facing angle. 
      * 
-     * @see ParticleEmitter#setRandomAngle(boolean) 
+     * @see MyParticleEmitter#setRandomAngle(boolean) 
      */
-    @Override
     public boolean isRandomAngle() {
         return randomAngle;
     }
@@ -486,7 +461,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * @param randomAngle if every particle spawned
      * should have a random facing angle.
      */
-    @Override
     public void setRandomAngle(boolean randomAngle) {
         this.randomAngle = randomAngle;
     }
@@ -498,9 +472,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * @return True if every particle spawned should get a random
      * image.
      * 
-     * @see ParticleEmitter#setSelectRandomImage(boolean) 
+     * @see MyParticleEmitter#setSelectRandomImage(boolean) 
      */
-    @Override
     public boolean isSelectRandomImage() {
         return selectRandomImage;
     }
@@ -512,8 +485,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * <p>By default, X and Y are equal
      * to 1, thus allowing only 1 possible image to be selected, but if the
-     * particle is configured with multiple images by using {@link ParticleEmitter#setImagesX(int) }
-     * and {#link ParticleEmitter#setImagesY(int) } methods, then multiple images
+     * particle is configured with multiple images by using {@link MyParticleEmitter#setImagesX(int) }
+     * and {#link MyParticleEmitter#setImagesY(int) } methods, then multiple images
      * can be selected. Setting to false will cause each particle to have an animation
      * of images displayed, starting at image 1, and going until image X*Y when
      * the particle reaches its end of life.
@@ -521,7 +494,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * @param selectRandomImage True if every particle spawned should get a random
      * image.
      */
-    @Override
     public void setSelectRandomImage(boolean selectRandomImage) {
         this.selectRandomImage = selectRandomImage;
     }
@@ -531,10 +503,9 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @return True if particles spawned should face their velocity.
      * 
-     * @see ParticleEmitter#setFacingVelocity(boolean) 
+     * @see MyParticleEmitter#setFacingVelocity(boolean) 
      */
-     @Override
-   public boolean isFacingVelocity() {
+    public boolean isFacingVelocity() {
         return facingVelocity;
     }
 
@@ -547,7 +518,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * @param followVelocity True if particles spawned should face their velocity.
      * 
      */
-    @Override
     public void setFacingVelocity(boolean followVelocity) {
         this.facingVelocity = followVelocity;
     }
@@ -557,9 +527,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @return the end color of the particles spawned.
      * 
-     * @see ParticleEmitter#setEndColor(com.jme3.math.ColorRGBA) 
+     * @see MyParticleEmitter#setEndColor(com.jme3.math.ColorRGBA) 
      */
-    @Override
     public ColorRGBA getEndColor() {
         return endColor;
     }
@@ -574,7 +543,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @param endColor the end color of the particles spawned.
      */
-    @Override
     public void setEndColor(ColorRGBA endColor) {
         this.endColor.set(endColor);
     }
@@ -584,9 +552,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @return the end size of the particles spawned.
      * 
-     * @see ParticleEmitter#setEndSize(float) 
+     * @see MyParticleEmitter#setEndSize(float) 
      */
-    @Override
     public float getEndSize() {
         return endSize;
     }
@@ -601,7 +568,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @param endSize the end size of the particles spawned.
      */
-    @Override
     public void setEndSize(float endSize) {
         this.endSize = endSize;
     }
@@ -611,9 +577,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @return the gravity vector.
      * 
-     * @see ParticleEmitter#setGravity(com.jme3.math.Vector3f) 
+     * @see MyParticleEmitter#setGravity(com.jme3.math.Vector3f) 
      */
-    @Override
     public Vector3f getGravity() {
         return gravity;
     }
@@ -623,7 +588,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @param gravity the gravity vector
      */
-    @Override
     public void setGravity(Vector3f gravity) {
         this.gravity.set(gravity);
     }
@@ -635,7 +599,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * @param y the y component of the gravity vector
      * @param z the z component of the gravity vector
      */
-    @Override
     public void setGravity(float x, float y, float z) {
         this.gravity.x = x;
         this.gravity.y = y;
@@ -647,9 +610,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @return the high value of life.
      * 
-     * @see ParticleEmitter#setHighLife(float) 
+     * @see MyParticleEmitter#setHighLife(float) 
      */
-    @Override
     public float getHighLife() {
         return highLife;
     }
@@ -662,7 +624,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @param highLife the high value of life.
      */
-    @Override
     public void setHighLife(float highLife) {
         this.highLife = highLife;
     }
@@ -672,9 +633,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @return the number of images along the X axis (width).
      * 
-     * @see ParticleEmitter#setImagesX(int) 
+     * @see MyParticleEmitter#setImagesX(int) 
      */
-    @Override
     public int getImagesX() {
         return imagesX;
     }
@@ -684,11 +644,10 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * <p>To determine
      * how multiple particle images are selected and used, see the
-     * {@link ParticleEmitter#setSelectRandomImage(boolean) } method.
+     * {@link MyParticleEmitter#setSelectRandomImage(boolean) } method.
      * 
      * @param imagesX the number of images along the X axis (width).
      */
-    @Override
     public void setImagesX(int imagesX) {
         this.imagesX = imagesX;
         particleMesh.setImagesXY(this.imagesX, this.imagesY);
@@ -699,9 +658,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @return the number of images along the Y axis (height).
      * 
-     * @see ParticleEmitter#setImagesY(int) 
+     * @see MyParticleEmitter#setImagesY(int) 
      */
-    @Override
     public int getImagesY() {
         return imagesY;
     }
@@ -710,11 +668,10 @@ public class MyParticleEmitter extends ParticleEmitter {
      * Set the number of images along the Y axis (height).
      * 
      * <p>To determine how multiple particle images are selected and used, see the
-     * {@link ParticleEmitter#setSelectRandomImage(boolean) } method.
+     * {@link MyParticleEmitter#setSelectRandomImage(boolean) } method.
      * 
      * @param imagesY the number of images along the Y axis (height).
      */
-    @Override
     public void setImagesY(int imagesY) {
         this.imagesY = imagesY;
         particleMesh.setImagesXY(this.imagesX, this.imagesY);
@@ -725,9 +682,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @return the low value of life.
      * 
-     * @see ParticleEmitter#setLowLife(float) 
+     * @see MyParticleEmitter#setLowLife(float) 
      */
-    @Override
     public float getLowLife() {
         return lowLife;
     }
@@ -740,7 +696,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @param lowLife the low value of life.
      */
-    @Override
     public void setLowLife(float lowLife) {
         this.lowLife = lowLife;
     }
@@ -752,9 +707,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * @return the number of particles to spawn per
      * second.
      * 
-     * @see ParticleEmitter#setParticlesPerSec(float) 
+     * @see MyParticleEmitter#setParticlesPerSec(float) 
      */
-    @Override
     public float getParticlesPerSec() {
         return particlesPerSec;
     }
@@ -766,10 +720,9 @@ public class MyParticleEmitter extends ParticleEmitter {
      * @param particlesPerSec the number of particles to spawn per
      * second.
      */
-     @Override
-   public void setParticlesPerSec(float particlesPerSec) {
+    public void setParticlesPerSec(float particlesPerSec) {
         this.particlesPerSec = particlesPerSec;
-        timeDifference = 0;
+        //timeDifference = 0;
     }
     
     /**
@@ -777,10 +730,9 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @return the start color of the particles spawned.
      * 
-     * @see ParticleEmitter#setStartColor(com.jme3.math.ColorRGBA) 
+     * @see MyParticleEmitter#setStartColor(com.jme3.math.ColorRGBA) 
      */
-     @Override
-   public ColorRGBA getStartColor() {
+    public ColorRGBA getStartColor() {
         return startColor;
     }
 
@@ -793,7 +745,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @param startColor the start color of the particles spawned
      */
-    @Override
     public void setStartColor(ColorRGBA startColor) {
         this.startColor.set(startColor);
     }
@@ -803,9 +754,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @return the start color of the particles spawned.
      * 
-     * @see ParticleEmitter#setStartSize(float) 
+     * @see MyParticleEmitter#setStartSize(float) 
      */
-    @Override
     public float getStartSize() {
         return startSize;
     }
@@ -819,16 +769,14 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @param startSize the start size of the particles spawned.
      */
-    @Override
     public void setStartSize(float startSize) {
         this.startSize = startSize;
     }
 
     /**
-     * @deprecated Use ParticleEmitter.getParticleInfluencer().getInitialVelocity() instead.
+     * @deprecated Use MyParticleEmitter.getParticleInfluencer().getInitialVelocity() instead.
      */
     @Deprecated
-    @Override
     public Vector3f getInitialVelocity() {
         return particleInfluencer.getInitialVelocity();
     }
@@ -836,19 +784,18 @@ public class MyParticleEmitter extends ParticleEmitter {
     /**
      * @param initialVelocity Set the initial velocity a particle is spawned with,
      * the initial velocity given in the parameter will be varied according
-     * to the velocity variation set in {@link ParticleEmitter#setVelocityVariation(float) }.
+     * to the velocity variation set in {@link MyParticleEmitter#setVelocityVariation(float) }.
      * A particle will move toward its velocity unless it is effected by the
      * gravity.
      *
      * @deprecated
      * This method is deprecated. 
-     * Use ParticleEmitter.getParticleInfluencer().setInitialVelocity(initialVelocity); instead.
+     * Use MyParticleEmitter.getParticleInfluencer().setInitialVelocity(initialVelocity); instead.
      *
-     * @see ParticleEmitter#setVelocityVariation(float) 
-     * @see ParticleEmitter#setGravity(float)
+     * @see MyParticleEmitter#setVelocityVariation(float) 
+     * @see MyParticleEmitter#setGravity(float)
      */
     @Deprecated
-    @Override
     public void setInitialVelocity(Vector3f initialVelocity) {
         this.particleInfluencer.setInitialVelocity(initialVelocity);
     }
@@ -856,11 +803,10 @@ public class MyParticleEmitter extends ParticleEmitter {
     /**
      * @deprecated
      * This method is deprecated. 
-     * Use ParticleEmitter.getParticleInfluencer().getVelocityVariation(); instead.
+     * Use MyParticleEmitter.getParticleInfluencer().getVelocityVariation(); instead.
      * @return the initial velocity variation factor
      */
     @Deprecated
-    @Override
     public float getVelocityVariation() {
         return particleInfluencer.getVelocityVariation();
     }
@@ -869,15 +815,14 @@ public class MyParticleEmitter extends ParticleEmitter {
      * @param variation Set the variation by which the initial velocity
      * of the particle is determined. <code>variation</code> should be a value
      * from 0 to 1, where 0 means particles are to spawn with exactly
-     * the velocity given in {@link ParticleEmitter#setStartVel(com.jme3.math.Vector3f) },
+     * the velocity given in {@link MyParticleEmitter#setStartVel(com.jme3.math.Vector3f) },
      * and 1 means particles are to spawn with a completely random velocity.
      * 
      * @deprecated
      * This method is deprecated. 
-     * Use ParticleEmitter.getParticleInfluencer().setVelocityVariation(variation); instead.
+     * Use MyParticleEmitter.getParticleInfluencer().setVelocityVariation(variation); instead.
      */
     @Deprecated
-    @Override
     public void setVelocityVariation(float variation) {
         this.particleInfluencer.setVelocityVariation(variation);
     }
@@ -925,7 +870,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * Instantly emits all the particles possible to be emitted. Any particles
      * which are currently inactive will be spawned immediately.
      */
-    @Override
     public void emitAllParticles() {
         // Force world transform to update
         this.getWorldTransform();
@@ -959,7 +903,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * Instantly kills all active particles, after this method is called, all
      * particles will be dead and no longer visible.
      */
-    @Override
     public void killAllParticles() {
         for (int i = 0; i < particles.length; ++i) {
             if (particles[i].life > 0) {
@@ -974,7 +917,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * @param index The index of the particle to kill
      * @see #getParticles() 
      */
-    @Override
     public void killParticle(int index){
         freeParticle(index);
     }
@@ -1063,7 +1005,6 @@ public class MyParticleEmitter extends ParticleEmitter {
         }
         
         // Spawns particles within the tpf timeslot with proper age
-        float originalTPF = tpf;
         float interval = 1f / particlesPerSec;
         tpf += timeDifference;
         while (tpf > interval){
@@ -1071,8 +1012,6 @@ public class MyParticleEmitter extends ParticleEmitter {
             Particle p = emitParticle(min, max);
             if (p != null){
                 p.life -= tpf;
-                if(isInWorldSpace())
-                    p.position.interpolate(lastPos, 1-tpf/originalTPF);
                 if (p.life <= 0){
                     freeParticle(lastUsed);
                 }else{
@@ -1081,7 +1020,6 @@ public class MyParticleEmitter extends ParticleEmitter {
             }
         }
         timeDifference = tpf;
-        lastPos = new Vector3f(getWorldTranslation());
 
         BoundingBox bbox = (BoundingBox) this.getMesh().getBound();
         bbox.setMinMax(min, max);
@@ -1098,7 +1036,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @param enabled True to enable the particle emitter
      */
-    @Override
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
@@ -1108,9 +1045,8 @@ public class MyParticleEmitter extends ParticleEmitter {
      * 
      * @return True if a particle emitter is enabled for update.
      * 
-     * @see ParticleEmitter#setEnabled(boolean) 
+     * @see MyParticleEmitter#setEnabled(boolean) 
      */
-    @Override
     public boolean isEnabled() {
         return enabled;
     }
@@ -1119,7 +1055,6 @@ public class MyParticleEmitter extends ParticleEmitter {
      * Callback from Control.update(), do not use.
      * @param tpf 
      */
-    @Override
     public void updateFromControl(float tpf) {
         if (enabled) {
             this.updateParticleState(tpf);
@@ -1156,7 +1091,6 @@ public class MyParticleEmitter extends ParticleEmitter {
         }
     }
 
-    @Override
     public void preload(RenderManager rm, ViewPort vp) {
         this.updateParticleState(0);
         particleMesh.updateParticleData(particles, vp.getCamera(), Matrix3f.IDENTITY);
@@ -1228,17 +1162,17 @@ public class MyParticleEmitter extends ParticleEmitter {
 
         switch (meshType) {
             case Point:
-                particleMesh = new ParticlePointMesh();
+                particleMesh = new MyParticlePointMesh();
                 this.setMesh(particleMesh);
                 break;
             case Triangle:
-                particleMesh = new ParticleTriMesh();
+                particleMesh = new MyParticleTriMesh();
                 this.setMesh(particleMesh);
                 break;
             default:
                 throw new IllegalStateException("Unrecognized particle type: " + meshType);
         }
-        this.setNumParticles2(numParticles);
+        this.setNumParticles(numParticles);
 //        particleMesh.initParticleData(this, particles.length);
 //        particleMesh.setImagesXY(imagesX, imagesY);
 
@@ -1256,7 +1190,7 @@ public class MyParticleEmitter extends ParticleEmitter {
                 if (obj instanceof MyParticleEmitter) {
                     controls.remove(i);
                     // now add the proper one in
-                    controls.add(new MyParticleEmitter.ParticleEmitterControl(this));
+                    controls.add(new ParticleEmitterControl(this));
                     break;
                 }
             }
@@ -1269,18 +1203,9 @@ public class MyParticleEmitter extends ParticleEmitter {
         } else {
             // since the parentEmitter is not loaded, it must be 
             // loaded separately
-            control = getControl(MyParticleEmitter.ParticleEmitterControl.class);
+            control = getControl(ParticleEmitterControl.class);
             control.parentEmitter = this;
 
         }
     }
-    
-    Vector3f lastPos = Vector3f.ZERO;
-
-    @Override
-    public void setLocalTranslation(Vector3f localTranslation) {
-        super.setLocalTranslation(localTranslation);
-    }
-    
-    
 }

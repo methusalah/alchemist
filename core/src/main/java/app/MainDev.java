@@ -2,6 +2,15 @@ package app;
 
 import java.awt.Color;
 
+import com.google.common.eventbus.Subscribe;
+import com.simsilica.es.EntityData;
+import com.simsilica.es.EntityId;
+
+import controller.Controller;
+import controller.cameraManagement.ChasingCameraProc;
+import controller.editor.EditorCtrl;
+import controller.entityAppState.EntityDataAppState;
+import controller.topdown.TopdownCtrl;
 import model.ModelManager;
 import model.ES.component.camera.ChasingCamera;
 import model.ES.component.planarMotion.PlanarMotionCapacity;
@@ -11,15 +20,12 @@ import model.ES.component.planarMotion.PlayerControl;
 import model.ES.component.relation.PlanarHolding;
 import model.ES.component.shipGear.RotationThruster;
 import model.ES.component.shipGear.Thruster;
-import model.ES.component.spaceMotion.SpaceStance;
 import model.ES.component.visuals.Model;
 import model.ES.component.visuals.ParticleCaster;
-import model.ES.component.visuals.ParticleCaster.Facing;
 import model.ES.processor.PlayerControlProc;
 import model.ES.processor.holder.BoneHoldingProc;
 import model.ES.processor.holder.PlanarHoldingProc;
 import model.ES.processor.motion.InertiaMotionProc;
-import model.ES.processor.motion.PlanarOrthogonalThrustProc;
 import model.ES.processor.motion.PlanarRotationProc;
 import model.ES.processor.motion.PlanarThrustProc;
 import model.ES.processor.shipGear.ParticleThrusterProc;
@@ -30,22 +36,10 @@ import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
-import view.drawingProcessors.InertiaVisualisationProc;
 import view.drawingProcessors.ModelProc;
 import view.drawingProcessors.ParticleCasterInPlaneProc;
-import view.drawingProcessors.ParticleCasterProc;
 import view.drawingProcessors.PlacingModelProc;
 import view.material.MaterialManager;
-
-import com.google.common.eventbus.Subscribe;
-import com.simsilica.es.EntityData;
-import com.simsilica.es.EntityId;
-
-import controller.Controller;
-import controller.cameraManagement.ChasingCameraProc;
-import controller.editor.EditorCtrl;
-import controller.entityAppState.EntityDataAppState;
-import controller.topdown.TopdownCtrl;
 
 public class MainDev extends CosmoVania {
 
@@ -97,18 +91,18 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(3, AngleUtil.toRadians(360), 5, 100));
 		ed.setComponent(ModelManager.shipID, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
 		
-//		// rotation thruster
-//		EntityId rotth1 = ed.createEntity();
-//		ed.setComponent(rotth1, new PlanarHolding(ModelManager.shipID, new Point3D(0.5, 0.2, 0), -AngleUtil.toRadians(20)));
-//		ed.setComponent(rotth1, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-//		ed.setComponent(rotth1, new RotationThruster(true, AngleUtil.toRadians(5), 0, false));
-//		ed.setComponent(rotth1, getCaster1());
-//
-//		EntityId rotth2 = ed.createEntity();
-//		ed.setComponent(rotth2, new PlanarHolding(ModelManager.shipID, new Point3D(0.5, -0.2, 0), -AngleUtil.toRadians(20)));
-//		ed.setComponent(rotth2, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-//		ed.setComponent(rotth2, new RotationThruster(false, AngleUtil.toRadians(-5), 0, false));
-//		ed.setComponent(rotth2, getCaster1());
+		// rotation thruster
+		EntityId rotth1 = ed.createEntity();
+		ed.setComponent(rotth1, new PlanarHolding(ModelManager.shipID, new Point3D(0.5, 0.2, 0), -AngleUtil.toRadians(20)));
+		ed.setComponent(rotth1, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(rotth1, new RotationThruster(true, AngleUtil.toRadians(5), 0, false));
+		ed.setComponent(rotth1, getCaster1());
+
+		EntityId rotth2 = ed.createEntity();
+		ed.setComponent(rotth2, new PlanarHolding(ModelManager.shipID, new Point3D(0.5, -0.2, 0), -AngleUtil.toRadians(20)));
+		ed.setComponent(rotth2, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(rotth2, new RotationThruster(false, AngleUtil.toRadians(-5), 0, false));
+		ed.setComponent(rotth2, getCaster1());
 
 		EntityId rearth = ed.createEntity();
 		ed.setComponent(rearth, new PlanarHolding(ModelManager.shipID, new Point3D(-0.7, 0, 0), AngleUtil.FLAT));
