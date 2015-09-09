@@ -36,8 +36,18 @@ public class TopdownInputInterpreter extends InputInterpreter {
 	@Override
 	protected void onActionPressed(String name, float tpf) {
 		switch(name){
-		case TopdownMapping.THRUST:
-			ModelManager.command.thrust = true;
+		case TopdownMapping.FORWARD:
+			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(1, 0);
+			break;
+		case TopdownMapping.BACKWARD:
+			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(-1, 0);
+			break;
+		case TopdownMapping.STRAFFE_LEFT:
+			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(0, 1);
+			break;
+		case TopdownMapping.STRAFFE_RIGHT:
+			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(0, -1);
+			break;
 		}
 	}
 
@@ -56,8 +66,17 @@ public class TopdownInputInterpreter extends InputInterpreter {
 			break;
 		case TopdownMapping.SELECT:
 			break;
-		case TopdownMapping.THRUST:
-			ModelManager.command.thrust = false;
+		case TopdownMapping.FORWARD:
+			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(-1, 0);
+			break;
+		case TopdownMapping.BACKWARD:
+			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(1, 0);
+			break;
+		case TopdownMapping.STRAFFE_LEFT:
+			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(0, -1);
+			break;
+		case TopdownMapping.STRAFFE_RIGHT:
+			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(0, 1);
 			break;
 		case TopdownMapping.MOVE_ATTACK:
 			AppFacade.getApp().toggleProcessorTrace();
