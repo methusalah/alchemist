@@ -19,6 +19,7 @@ import model.ES.processor.PlayerControlProc;
 import model.ES.processor.holder.BoneHoldingProc;
 import model.ES.processor.holder.PlanarHoldingProc;
 import model.ES.processor.motion.InertiaMotionProc;
+import model.ES.processor.motion.PlanarOrthogonalThrustProc;
 import model.ES.processor.motion.PlanarRotationProc;
 import model.ES.processor.motion.PlanarThrustProc;
 import model.ES.processor.shipGear.ParticleThrusterProc;
@@ -71,6 +72,7 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new ThrusterProc());
 		stateManager.attach(new PlanarRotationProc());
 		stateManager.attach(new PlanarThrustProc());
+//		stateManager.attach(new PlanarOrthogonalThrustProc());
 		stateManager.attach(new InertiaMotionProc());
 		stateManager.attach(new ModelProc());
 		stateManager.attach(new PlacingModelProc());
