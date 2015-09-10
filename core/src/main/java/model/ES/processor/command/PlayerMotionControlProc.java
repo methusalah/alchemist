@@ -3,7 +3,7 @@ package model.ES.processor.command;
 import model.ModelManager;
 import model.ES.component.planarMotion.PlanarNeededRotation;
 import model.ES.component.planarMotion.PlanarStance;
-import model.ES.component.planarMotion.PlanarThrust;
+import model.ES.component.planarMotion.PlanarNeededVelocity;
 import model.ES.component.planarMotion.PlayerControl;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
@@ -28,7 +28,7 @@ public class PlayerMotionControlProc extends Processor {
         for(EntitySet set : sets)
         	for (Entity e : set){
         		PlanarNeededRotation nr = addNeededRotation(e);
-        		PlanarThrust t = addThrust(e);
+        		PlanarNeededVelocity t = addThrust(e);
         		
         		StringBuilder sb = new StringBuilder(this.getClass().getSimpleName() + System.lineSeparator());
         		sb.append("    target : "+ ModelManager.command.target + "/thrust = "+ ModelManager.command.thrust + System.lineSeparator());
@@ -62,11 +62,11 @@ public class PlayerMotionControlProc extends Processor {
 		return null;
 	}
 	
-	private PlanarThrust addThrust(Entity e){
+	private PlanarNeededVelocity addThrust(Entity e){
 		PlanarStance stance = e.get(PlanarStance.class);
 		if(!ModelManager.command.thrust.isOrigin()
 				&& stance.getCoord().getDistance(ModelManager.command.target) > 0.1){
-    		PlanarThrust thrust = new PlanarThrust(ModelManager.command.thrust);
+    		PlanarNeededVelocity thrust = new PlanarNeededVelocity(ModelManager.command.thrust);
     		setComp(e, thrust);
     		return thrust;
 		}

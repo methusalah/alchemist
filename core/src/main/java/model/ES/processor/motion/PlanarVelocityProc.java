@@ -1,19 +1,20 @@
 package model.ES.processor.motion;
 
 import model.ES.component.planarMotion.PlanarStance;
-import model.ES.component.planarMotion.PlanarThrust;
-import model.ES.component.planarMotion.PlanarWippingInertia;
+import model.ES.component.planarMotion.PlanarNeededVelocity;
+import model.ES.component.planarMotion.PlanarWipping;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
 import com.simsilica.es.Entity;
 
 import controller.entityAppState.Processor;
 
-public class PlanarThrustProc extends Processor {
+public class PlanarVelocityProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(PlanarThrust.class, PlanarStance.class, PlanarWippingInertia.class);
+		register(PlanarNeededVelocity.class, PlanarStance.class, PlanarWipping.class);
 	}
 	
 	@Override
@@ -28,11 +29,11 @@ public class PlanarThrustProc extends Processor {
 	
 	private void manage(Entity e, float elapsedTime){
 		PlanarStance stance = e.get(PlanarStance.class);
-		PlanarThrust thrust = e.get(PlanarThrust.class);
-		PlanarWippingInertia inertia = e.get(PlanarWippingInertia.class);
+		PlanarNeededVelocity velocity = e.get(PlanarNeededVelocity.class);
+		PlanarWipping inertia = e.get(PlanarWipping.class);
 		
-		setComp(e, new PlanarWippingInertia(inertia.getVelocity(), thrust.getDirection().getRotation(stance.getOrientation()).getScaled(elapsedTime), inertia.getDragging()));
-		removeComp(e, PlanarThrust.class);
+		setComp(e, new PlanarWipping(inertia.getVelocity(), velocity.getDirection().getRotation(stance.getOrientation()), inertia.getDragging()));
+		removeComp(e, PlanarNeededVelocity.class);
 		
 		StringBuilder sb = new StringBuilder(this.getClass().getSimpleName() + System.lineSeparator());
 		app.getDebugger().add(sb.toString());

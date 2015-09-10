@@ -3,7 +3,7 @@ package model.ES.processor.command;
 import model.ModelManager;
 import model.ES.component.planarMotion.PlanarNeededRotation;
 import model.ES.component.planarMotion.PlanarStance;
-import model.ES.component.planarMotion.PlanarThrust;
+import model.ES.component.planarMotion.PlanarNeededVelocity;
 import model.ES.component.planarMotion.PlayerControl;
 import model.ES.component.shipGear.CapacityActivation;
 import model.ES.component.shipGear.Gun;

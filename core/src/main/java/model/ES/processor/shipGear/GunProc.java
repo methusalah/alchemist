@@ -2,8 +2,9 @@ package model.ES.processor.shipGear;
 
 import model.ES.component.Cooldown;
 import model.ES.component.planarMotion.PlanarMotionCapacity;
+import model.ES.component.planarMotion.PlanarNeededVelocity;
 import model.ES.component.planarMotion.PlanarStance;
-import model.ES.component.planarMotion.PlanarWippingInertia;
+import model.ES.component.planarMotion.PlanarWipping;
 import model.ES.component.shipGear.CapacityActivation;
 import model.ES.component.shipGear.Gun;
 import model.ES.component.visuals.Model;
@@ -35,8 +36,9 @@ public class GunProc extends Processor {
 			setComp(e, new Cooldown(System.currentTimeMillis(), cd.getDuration()));
 			EntityId firing = entityData.createEntity();
 			entityData.setComponent(firing, new PlanarStance(stance.getCoord(), stance.getOrientation(), stance.getElevation(), Point3D.UNIT_Z));
-			entityData.setComponent(firing, new PlanarWippingInertia(Point2D.ORIGIN.getTranslation(stance.getOrientation(), 1), 0));
-			entityData.setComponent(firing, new PlanarMotionCapacity(5, 0, 10, 100));
+			entityData.setComponent(firing, new PlanarWipping(Point2D.ORIGIN, 0));
+			entityData.setComponent(firing, new PlanarMotionCapacity(8, 0, 100, 1));
+			entityData.setComponent(firing, new PlanarNeededVelocity(Point2D.UNIT_X));
 			entityData.setComponent(firing, new Model("human/hmissileT1/hmissileT1_02.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
 		}
 

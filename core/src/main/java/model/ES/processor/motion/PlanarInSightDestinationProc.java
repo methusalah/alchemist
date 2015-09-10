@@ -2,8 +2,8 @@ package model.ES.processor.motion;
 
 import model.ES.component.planarMotion.PlanarInSightDestination;
 import model.ES.component.planarMotion.PlanarStance;
-import model.ES.component.planarMotion.PlanarThrust;
-import model.ES.component.planarMotion.PlanarWippingInertia;
+import model.ES.component.planarMotion.PlanarNeededVelocity;
+import model.ES.component.planarMotion.PlanarWipping;
 import util.geometry.geom2d.Point2D;
 
 import com.simsilica.es.Entity;
@@ -14,7 +14,7 @@ public class PlanarInSightDestinationProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(PlanarInSightDestination.class, PlanarStance.class, PlanarWippingInertia.class);
+		register(PlanarInSightDestination.class, PlanarStance.class, PlanarWipping.class);
 	}
 	
 	@Override
@@ -30,13 +30,13 @@ public class PlanarInSightDestinationProc extends Processor {
 	private void manage(Entity e, float elapsedTime){
 		PlanarStance stance = e.get(PlanarStance.class);
 		PlanarInSightDestination dest = e.get(PlanarInSightDestination.class);
-		PlanarWippingInertia inertia = e.get(PlanarWippingInertia.class);
+		PlanarWipping inertia = e.get(PlanarWipping.class);
 		
 		
 		
 		
-		setComp(e, new PlanarWippingInertia(inertia.getVelocity(), Point2D.ORIGIN.getTranslation(stance.getOrientation(), 0.001*elapsedTime), inertia.getDragging()));
-		removeComp(e, PlanarThrust.class);
+		setComp(e, new PlanarWipping(inertia.getVelocity(), Point2D.ORIGIN.getTranslation(stance.getOrientation(), 0.001*elapsedTime), inertia.getDragging()));
+		removeComp(e, PlanarNeededVelocity.class);
 		
 		StringBuilder sb = new StringBuilder(this.getClass().getSimpleName() + System.lineSeparator());
 		app.getDebugger().add(sb.toString());

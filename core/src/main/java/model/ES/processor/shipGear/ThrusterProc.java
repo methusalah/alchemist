@@ -1,7 +1,7 @@
 package model.ES.processor.shipGear;
 
 import model.ModelManager;
-import model.ES.component.planarMotion.PlanarThrust;
+import model.ES.component.planarMotion.PlanarNeededVelocity;
 import model.ES.component.relation.BoneHolding;
 import model.ES.component.relation.PlanarHolding;
 import model.ES.component.shipGear.RotationThruster;
@@ -45,7 +45,7 @@ public class ThrusterProc extends Processor {
 		else
 			throw new RuntimeException("Missing holder");
 
-		PlanarThrust thrust = entityData.getComponent(holder, PlanarThrust.class);
+		PlanarNeededVelocity thrust = entityData.getComponent(holder, PlanarNeededVelocity.class);
 		double activationRate = 0;
 		if(thrust != null){
 			double diff = AngleUtil.getSmallestDifference(thrust.getDirection().getAngle(), thruster.getDirection().get2D().getAngle());

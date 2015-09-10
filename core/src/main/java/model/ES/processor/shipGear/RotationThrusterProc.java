@@ -2,7 +2,7 @@ package model.ES.processor.shipGear;
 
 import model.ModelManager;
 import model.ES.component.planarMotion.PlanarNeededRotation;
-import model.ES.component.planarMotion.PlanarThrust;
+import model.ES.component.planarMotion.PlanarNeededVelocity;
 import model.ES.component.relation.BoneHolding;
 import model.ES.component.relation.PlanarHolding;
 import model.ES.component.shipGear.RotationThruster;
