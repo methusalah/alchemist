@@ -3,6 +3,7 @@ package view.drawingProcessors;
 import java.util.HashMap;
 import java.util.Map;
 
+import util.LogUtil;
 import view.SpatialPool;
 import model.ES.component.planarMotion.PlanarStance;
 import model.ES.component.visuals.Model;
@@ -52,6 +53,6 @@ public class ModelProc extends Processor {
 		s.scale((float)model.getScale());
 		model.setCreated();
 		SpatialPool.models.put(e.getId(), s);
-		app.getRootNode().attachChild(s);
+		AppFacade.getRootNode().attachChild(s);
 	}
 }

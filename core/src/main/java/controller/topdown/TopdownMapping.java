@@ -18,13 +18,13 @@ public class TopdownMapping extends Mapping {
 	final static String BACKWARD = "backward";
 	final static String STRAFFE_LEFT = "straffeleft";
 	final static String STRAFFE_RIGHT = "strafferight";
-	final static String MOVE_ATTACK = "moveattack";
-	final static String MULTIPLE_SELECTION = "multipleselection";
+	final static String PRIMARY = "primary";
+	final static String SECONDARY = "secondary";
 	final static String HOLD = "hold";
 	final static String PAUSE = "pause";
 	
 	public TopdownMapping() {
-		mapping = new String[] { SWITCH_CTRL_1, SWITCH_CTRL_2, SWITCH_CTRL_3, SELECT, FORWARD, BACKWARD, STRAFFE_LEFT, STRAFFE_RIGHT, MOVE_ATTACK, MULTIPLE_SELECTION, HOLD, PAUSE };
+		mapping = new String[] { SWITCH_CTRL_1, SWITCH_CTRL_2, SWITCH_CTRL_3, SELECT, FORWARD, BACKWARD, STRAFFE_LEFT, STRAFFE_RIGHT, PRIMARY, SECONDARY, HOLD, PAUSE };
 	}
 
 	@Override
@@ -37,8 +37,8 @@ public class TopdownMapping extends Mapping {
 		AppFacade.getInputManager().addMapping(BACKWARD, new KeyTrigger(KeyInput.KEY_S));
 		AppFacade.getInputManager().addMapping(STRAFFE_LEFT, new KeyTrigger(KeyInput.KEY_Q));
 		AppFacade.getInputManager().addMapping(STRAFFE_RIGHT, new KeyTrigger(KeyInput.KEY_D));
-		AppFacade.getInputManager().addMapping(MOVE_ATTACK, new KeyTrigger(KeyInput.KEY_A));
-		AppFacade.getInputManager().addMapping(MULTIPLE_SELECTION, new KeyTrigger(KeyInput.KEY_LCONTROL),
+		AppFacade.getInputManager().addMapping(PRIMARY, new MouseButtonTrigger(0));
+		AppFacade.getInputManager().addMapping(SECONDARY, new KeyTrigger(KeyInput.KEY_LCONTROL),
 				new KeyTrigger(KeyInput.KEY_RCONTROL));
 		AppFacade.getInputManager().addMapping(HOLD, new KeyTrigger(KeyInput.KEY_H));
 		AppFacade.getInputManager().addMapping(PAUSE, new KeyTrigger(KeyInput.KEY_SPACE));

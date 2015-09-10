@@ -35,7 +35,7 @@ public class PlanarInSightDestinationProc extends Processor {
 		
 		
 		
-		setComp(e, new PlanarWippingInertia(inertia.getVelocity(), Point2D.ORIGIN.getTranslation(stance.getOrientation(), 0.001*elapsedTime)));
+		setComp(e, new PlanarWippingInertia(inertia.getVelocity(), Point2D.ORIGIN.getTranslation(stance.getOrientation(), 0.001*elapsedTime), inertia.getDragging()));
 		removeComp(e, PlanarThrust.class);
 		
 		StringBuilder sb = new StringBuilder(this.getClass().getSimpleName() + System.lineSeparator());

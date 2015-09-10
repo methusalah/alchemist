@@ -48,6 +48,9 @@ public class TopdownInputInterpreter extends InputInterpreter {
 		case TopdownMapping.STRAFFE_RIGHT:
 			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(0, -1);
 			break;
+		case TopdownMapping.PRIMARY:
+			ModelManager.command.capacities.add("gun");
+			break;
 		}
 	}
 
@@ -61,8 +64,11 @@ public class TopdownInputInterpreter extends InputInterpreter {
 			EventManager.post(new AppStateChangeEvent(TopdownCtrl.class));
 			break;
 
-		case TopdownMapping.MULTIPLE_SELECTION:
-			CommandManager.setMultipleSelection(false);
+		case TopdownMapping.PRIMARY:
+			for(int i = 0; i<ModelManager.command.capacities.size(); i++)
+				if(ModelManager.command.capacities.get(i).equals("gun")){
+					ModelManager.command.capacities.remove(i);
+				}
 			break;
 		case TopdownMapping.SELECT:
 			break;
@@ -77,9 +83,6 @@ public class TopdownInputInterpreter extends InputInterpreter {
 			break;
 		case TopdownMapping.STRAFFE_RIGHT:
 			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(0, 1);
-			break;
-		case TopdownMapping.MOVE_ATTACK:
-			AppFacade.getApp().toggleProcessorTrace();
 			break;
 		case TopdownMapping.HOLD:
 			break;

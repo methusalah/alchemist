@@ -111,7 +111,7 @@ public abstract class CosmoVania extends Application implements PhysicsTickListe
 		guiNode.attachChild(fpsText);
 
 		debugger = new MyDebugger(200, settings.getHeight()-100, assetManager.loadFont("Interface/Fonts/Console.fnt"));
-		guiNode.attachChild(debugger.getNode());
+//		guiNode.attachChild(debugger.getNode());
 
 		processorTrace = new MyDebugger(200, settings.getHeight()-300, assetManager.loadFont("Interface/Fonts/Console.fnt"));
 	}
@@ -258,10 +258,6 @@ public abstract class CosmoVania extends Application implements PhysicsTickListe
 
 	public MyDebugger getDebugger() {
 		return debugger;
-	}
-	
-	public MyDebugger getProcessorTrace() {
-		return processorTrace;
 	}
 	
 	public void toggleProcessorTrace(){

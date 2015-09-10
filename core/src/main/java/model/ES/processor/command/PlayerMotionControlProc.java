@@ -13,7 +13,7 @@ import com.simsilica.es.EntitySet;
 
 import controller.entityAppState.Processor;
 
-public class PlayerControlProc extends Processor {
+public class PlayerMotionControlProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
