@@ -23,7 +23,16 @@ public class PlacingModelProc extends Processor {
 	
 	
 	@Override
+	protected void onEntityAdded(Entity e, float elapsedTime) {
+		manage(e, elapsedTime);
+	}
+	
+	@Override
 	protected void onEntityUpdated(Entity e, float elapsedTime) {
+		manage(e, elapsedTime);
+	}
+	
+	private void manage(Entity e, float elapsedTime) {
 		Model model = e.get(Model.class);
 		if(!model.isCreated())
 			return;
@@ -49,5 +58,4 @@ public class PlacingModelProc extends Processor {
 
 		s.setLocalRotation(r);
 	}
-	
 }

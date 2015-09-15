@@ -1,6 +1,7 @@
 package app;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import com.google.common.eventbus.Subscribe;
 import com.simsilica.es.EntityData;
@@ -14,6 +15,9 @@ import controller.topdown.TopdownCtrl;
 import model.ModelManager;
 import model.ES.component.Cooldown;
 import model.ES.component.camera.ChasingCamera;
+import model.ES.component.collision.BounceOnCollision;
+import model.ES.component.collision.CollisionShape;
+import model.ES.component.collision.Physic;
 import model.ES.component.planarMotion.PlanarMotionCapacity;
 import model.ES.component.planarMotion.PlanarStance;
 import model.ES.component.planarMotion.PlanarWipping;
@@ -25,6 +29,8 @@ import model.ES.component.shipGear.RotationThruster;
 import model.ES.component.shipGear.Thruster;
 import model.ES.component.visuals.Model;
 import model.ES.component.visuals.ParticleCaster;
+import model.ES.processor.collision.BouncingProc;
+import model.ES.processor.collision.CollisionProc;
 import model.ES.processor.command.PlayerCapacityControlProc;
 import model.ES.processor.command.PlayerMotionControlProc;
 import model.ES.processor.holder.BoneHoldingProc;
@@ -73,6 +79,8 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new PlanarVelocityProc());
 //		stateManager.attach(new PlanarOrthogonalThrustProc());
 		stateManager.attach(new planarWippingProc());
+		stateManager.attach(new CollisionProc());
+		stateManager.attach(new BouncingProc());
 		stateManager.attach(new BoneHoldingProc());
 //		stateManager.attach(new InertiaVisualisationProc());
 		stateManager.attach(new ChasingCameraProc(stateManager.getState(TopdownCtrl.class).getCameraManager()));
@@ -96,6 +104,9 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(ModelManager.shipID, new PlanarWipping(Point2D.ORIGIN, 0.1));
 		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(3, AngleUtil.toRadians(360), 10, 100));
 		ed.setComponent(ModelManager.shipID, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
+		ed.setComponent(ModelManager.shipID, new Physic(new CollisionShape(1), new ArrayList<>()));
+		ed.setComponent(ModelManager.shipID, new BounceOnCollision());
+		
 		
 		// rotation thrusters
 		EntityId rotth1 = ed.createEntity();
@@ -158,6 +169,13 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(camId, new ChasingCamera(ModelManager.shipID, 3, 0, 0.5, 0.5));
 		ed.setComponent(camId, new PlanarMotionCapacity(1, AngleUtil.toRadians(500), 1, 0.1));
 		
+		// collisionatationneur
+		EntityId mechantcollisionneur = ed.createEntity();
+		ed.setComponent(mechantcollisionneur, new PlanarStance(new Point2D(20, 20), 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(mechantcollisionneur, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
+		ed.setComponent(mechantcollisionneur, new Physic(new CollisionShape(1), new ArrayList<>()));
+		
+				
 
 		EventManager.register(this);
 		
