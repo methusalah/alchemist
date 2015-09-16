@@ -5,7 +5,6 @@ import util.geometry.geom2d.Point2D;
 import model.ES.component.collision.Collision;
 import model.ES.component.collision.Physic;
 import model.ES.component.planarMotion.PlanarMotionCapacity;
-import model.ES.component.planarMotion.PlanarStance;
 import model.ES.component.planarMotion.PlanarWipping;
 
 import com.simsilica.es.Entity;
@@ -22,8 +21,8 @@ public class CollisionResolutionProc extends Processor {
 	@Override
 	protected void onEntityAdded(Entity e, float elapsedTime) {
 		Collision col = e.get(Collision.class);
-		Entity A = entityData.getEntity(col.getA(), PlanarWipping.class, PlanarStance.class, PlanarMotionCapacity.class, Physic.class);
-		Entity B = entityData.getEntity(col.getB(), PlanarWipping.class, PlanarStance.class, PlanarMotionCapacity.class, Physic.class);
+		Entity A = entityData.getEntity(col.getA(), PlanarWipping.class, PlanarMotionCapacity.class, Physic.class);
+		Entity B = entityData.getEntity(col.getB(), PlanarWipping.class, PlanarMotionCapacity.class, Physic.class);
 		
 		Physic phA = A.get(Physic.class);
 		Physic phB = B.get(Physic.class);
@@ -51,7 +50,6 @@ public class CollisionResolutionProc extends Processor {
 			
 			setComp(A, new PlanarWipping(newVelA, A.get(PlanarWipping.class).getDragging()));
 			setComp(B, new PlanarWipping(newVelB, B.get(PlanarWipping.class).getDragging()));
-			LogUtil.info("pouet");
 
 		}
 		entityData.removeEntity(e.getId());

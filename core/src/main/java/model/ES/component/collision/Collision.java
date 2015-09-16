@@ -7,13 +7,13 @@ import com.simsilica.es.EntityId;
 
 public class Collision implements EntityComponent {
 	private final EntityId a, b;
-	private final Point2D coord;
+	private final double penetration;
 	private final Point2D normal;
 	
-	public Collision(EntityId a, EntityId b, Point2D coord, Point2D normal) {
+	public Collision(EntityId a, EntityId b, double penetration, Point2D normal) {
 		this.a = a;
 		this.b = b;
-		this.coord = coord;
+		this.penetration = penetration;
 		this.normal = normal;
 	}
 
@@ -25,11 +25,12 @@ public class Collision implements EntityComponent {
 		return b;
 	}
 
-	public Point2D getCoord() {
-		return coord;
-	}
-
 	public Point2D getNormal() {
 		return normal;
 	}
+
+	public double getPenetration() {
+		return penetration;
+	}
+
 }

@@ -55,11 +55,10 @@ public class CollisionProc extends Processor {
 		if(d <= spacing){
 			Point2D v = c2.getSubtraction(c1);
 			v = v.getScaled(ph1.getShape().radius-((spacing-d)/2));
-			Point2D collisionPoint = c1.getAddition(v);
 			
 			Point2D normal = v.getNormalized();
 			EntityId collision = entityData.createEntity();
-			entityData.setComponent(collision, new Collision(e1.getId(), e2.getId(), collisionPoint, normal));
+			entityData.setComponent(collision, new Collision(e1.getId(), e2.getId(), spacing-d, normal));
 		}
 	}
 }
