@@ -18,6 +18,7 @@ import model.ES.component.camera.ChasingCamera;
 import model.ES.component.collision.BounceOnCollision;
 import model.ES.component.collision.CollisionShape;
 import model.ES.component.collision.Physic;
+import model.ES.component.debug.VelocityDebugger;
 import model.ES.component.planarMotion.PlanarMotionCapacity;
 import model.ES.component.planarMotion.PlanarStance;
 import model.ES.component.planarMotion.PlanarWipping;
@@ -50,6 +51,7 @@ import util.math.AngleUtil;
 import view.drawingProcessors.ModelProc;
 import view.drawingProcessors.ParticleCasterInPlaneProc;
 import view.drawingProcessors.PlacingModelProc;
+import view.drawingProcessors.VelocityVisualisationProc;
 import view.material.MaterialManager;
 
 public class MainDev extends CosmoVania {
@@ -93,70 +95,82 @@ public class MainDev extends CosmoVania {
 
 		stateManager.attach(new ModelProc());
 		stateManager.attach(new PlacingModelProc());
+		stateManager.attach(new VelocityVisualisationProc());
 		
 		EntityData ed = stateManager.getState(EntityDataAppState.class).getEntityData();
 		
+		
+		// collisionatationneur
+		EntityId mechantcollisionneur = ed.createEntity();
+		ed.setComponent(mechantcollisionneur, new PlanarStance(new Point2D(10, 10), 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(mechantcollisionneur, new Model("human/adav/adav02b.mesh.xml", 0.01, 0, AngleUtil.toRadians(-90), 0));
+		ed.setComponent(mechantcollisionneur, new Physic(new CollisionShape(2), 0.8));
+		ed.setComponent(mechantcollisionneur, new PlanarWipping(Point2D.ORIGIN, 0.1));
+		ed.setComponent(mechantcollisionneur, new PlanarMotionCapacity(3, AngleUtil.toRadians(360), 10, 400));
+		ed.setComponent(mechantcollisionneur, new VelocityDebugger());
+		
+
 		// ship
-		ModelManager.entityData = ed;
-		ModelManager.shipID = ed.createEntity();
-		ed.setComponent(ModelManager.shipID, new PlayerControl());
-		ed.setComponent(ModelManager.shipID, new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
-		ed.setComponent(ModelManager.shipID, new PlanarWipping(Point2D.ORIGIN, 0.1));
-		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(3, AngleUtil.toRadians(360), 10, 100));
-		ed.setComponent(ModelManager.shipID, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(ModelManager.shipID, new Physic(new CollisionShape(1), 0.8));
-		ed.setComponent(ModelManager.shipID, new BounceOnCollision());
+		EntityId playerShip = ed.createEntity();
+		ed.setComponent(playerShip, new PlayerControl());
+		ed.setComponent(playerShip, new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
+		ed.setComponent(playerShip, new PlanarWipping(Point2D.ORIGIN, 0.1));
+		ed.setComponent(playerShip, new PlanarMotionCapacity(3, AngleUtil.toRadians(360), 10, 100));
+		ed.setComponent(playerShip, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
+		ed.setComponent(playerShip, new Physic(new CollisionShape(1), 0.8));
+		ed.setComponent(playerShip, new BounceOnCollision());
+		ed.setComponent(playerShip, new VelocityDebugger());
 		
 		
 		// rotation thrusters
 		EntityId rotth1 = ed.createEntity();
-		ed.setComponent(rotth1, new PlanarHolding(ModelManager.shipID, new Point3D(0.5, 0.2, 0), -AngleUtil.toRadians(20)));
+		ed.setComponent(rotth1, new PlanarHolding(playerShip, new Point3D(0.5, 0.2, 0), -AngleUtil.toRadians(20)));
 		ed.setComponent(rotth1, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(rotth1, new RotationThruster(true, AngleUtil.toRadians(5), 0, false));
 		ed.setComponent(rotth1, getCaster1());
 
 		EntityId rotth2 = ed.createEntity();
-		ed.setComponent(rotth2, new PlanarHolding(ModelManager.shipID, new Point3D(0.5, -0.2, 0), -AngleUtil.toRadians(20)));
+		ed.setComponent(rotth2, new PlanarHolding(playerShip, new Point3D(0.5, -0.2, 0), -AngleUtil.toRadians(20)));
 		ed.setComponent(rotth2, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(rotth2, new RotationThruster(false, AngleUtil.toRadians(-5), 0, false));
 		ed.setComponent(rotth2, getCaster1());
 
 		// main thruster
 		EntityId rearth = ed.createEntity();
-		ed.setComponent(rearth, new PlanarHolding(ModelManager.shipID, new Point3D(-0.7, 0, 0), AngleUtil.FLAT));
+		ed.setComponent(rearth, new PlanarHolding(playerShip, new Point3D(-0.7, 0, 0), AngleUtil.FLAT));
 		ed.setComponent(rearth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(rearth, new Thruster(new Point3D(1, 0, 0), AngleUtil.toRadians(90), 0, false));
 		ed.setComponent(rearth, getCaster2());
 
 		// front thrusters
 		EntityId frontleftth = ed.createEntity();
-		ed.setComponent(frontleftth, new PlanarHolding(ModelManager.shipID, new Point3D(0.4, 0.15, 0), AngleUtil.toRadians(20)));
+		ed.setComponent(frontleftth, new PlanarHolding(playerShip, new Point3D(0.4, 0.15, 0), AngleUtil.toRadians(20)));
 		ed.setComponent(frontleftth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(frontleftth, new Thruster(new Point3D(-1, -1, 0), AngleUtil.toRadians(70), 0, true));
 		ed.setComponent(frontleftth, getCaster3());
 
 		EntityId frontrightth = ed.createEntity();
-		ed.setComponent(frontrightth, new PlanarHolding(ModelManager.shipID, new Point3D(0.4, -0.15, 0), AngleUtil.toRadians(-20)));
+		ed.setComponent(frontrightth, new PlanarHolding(playerShip, new Point3D(0.4, -0.15, 0), AngleUtil.toRadians(-20)));
 		ed.setComponent(frontrightth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(frontrightth, new Thruster(new Point3D(-1, 1, 0), AngleUtil.toRadians(70), 0, true));
 		ed.setComponent(frontrightth, getCaster3());
 
 		// lateral thrusters
 		EntityId rearleftth = ed.createEntity();
-		ed.setComponent(rearleftth, new PlanarHolding(ModelManager.shipID, new Point3D(-0.34, 0.2, 0), AngleUtil.toRadians(110)));
+		ed.setComponent(rearleftth, new PlanarHolding(playerShip, new Point3D(-0.34, 0.2, 0), AngleUtil.toRadians(110)));
 		ed.setComponent(rearleftth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(rearleftth, new Thruster(new Point3D(1, -1.5, 0), AngleUtil.toRadians(50), 0, true));
 		ed.setComponent(rearleftth, getCaster3());
 
 		EntityId rearrightth = ed.createEntity();
-		ed.setComponent(rearrightth, new PlanarHolding(ModelManager.shipID, new Point3D(-0.34, -0.2, 0), AngleUtil.toRadians(-110)));
+		ed.setComponent(rearrightth, new PlanarHolding(playerShip, new Point3D(-0.34, -0.2, 0), AngleUtil.toRadians(-110)));
 		ed.setComponent(rearrightth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(rearrightth, new Thruster(new Point3D(1, 1.5, 0), AngleUtil.toRadians(50), 0, true));
 		ed.setComponent(rearrightth, getCaster3());
 
 		// weapon
 		EntityId weapon = ed.createEntity();
-		ed.setComponent(weapon, new PlanarHolding(ModelManager.shipID, new Point3D(0, 0, 0), 0));
+		ed.setComponent(weapon, new PlanarHolding(playerShip, new Point3D(0, 0, 0), 0));
 		ed.setComponent(weapon, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(weapon, new Cooldown(0, 50));
 		ed.setComponent(weapon, new CapacityActivation("gun", false));
@@ -166,20 +180,9 @@ public class MainDev extends CosmoVania {
 		// camera
 		EntityId camId= ed.createEntity();
 		ed.setComponent(camId, new PlanarStance(new Point2D(1, 1), 0, 20, Point3D.UNIT_Z));
-		ed.setComponent(camId, new ChasingCamera(ModelManager.shipID, 3, 0, 0.5, 0.5));
+		ed.setComponent(camId, new ChasingCamera(playerShip, 3, 0, 0.5, 0.5));
 		ed.setComponent(camId, new PlanarMotionCapacity(1, AngleUtil.toRadians(500), 1, 0.1));
 		
-		// collisionatationneur
-		EntityId mechantcollisionneur = ed.createEntity();
-		ed.setComponent(mechantcollisionneur, new PlanarStance(new Point2D(10, 10), 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(mechantcollisionneur, new Model("human/adav/adav02b.mesh.xml", 0.01, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(mechantcollisionneur, new Physic(new CollisionShape(2), 0.8));
-		ed.setComponent(mechantcollisionneur, new PlanarWipping(Point2D.ORIGIN, 0.1));
-		ed.setComponent(mechantcollisionneur, new PlanarMotionCapacity(3, AngleUtil.toRadians(360), 10, 400));
-
-		
-				
-
 		EventManager.register(this);
 		
 		ModelManager.setNewBattlefield();

@@ -1,8 +1,8 @@
 package model.ES.processor.motion;
 
+import model.ES.component.debug.VelocityDebugger;
 import model.ES.component.planarMotion.PlanarMotionCapacity;
 import model.ES.component.planarMotion.PlanarStance;
-import model.ES.component.planarMotion.PlanarVelocityInertiaDebugger;
 import model.ES.component.planarMotion.PlanarWipping;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
@@ -56,9 +56,6 @@ public class planarWippingProc extends Processor {
 		setComp(e, new PlanarWipping(velocity, wipping.getDragging()));
 		setComp(e, new PlanarStance(stance.getCoord().getAddition(velocity.getMult(elapsedTime)), stance.getOrientation(), stance.getElevation(), stance.getUpVector()));
 
-		// debug
-		setComp(e, new PlanarVelocityInertiaDebugger(wipping.getVelocity().getDivision(elapsedTime), wipping.getAppliedVelocity().getDivision(elapsedTime), velocity.getDivision(elapsedTime)));
-		
 		StringBuilder sb = new StringBuilder(this.getClass().getSimpleName() + System.lineSeparator());
 		sb.append("    velocity length : "+ wipping.getVelocity().getLength() + System.lineSeparator());
 		sb.append("    appliedVelocity length : " + wipping.getAppliedVelocity().getLength() + System.lineSeparator());
