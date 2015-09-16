@@ -29,7 +29,7 @@ import model.ES.component.shipGear.RotationThruster;
 import model.ES.component.shipGear.Thruster;
 import model.ES.component.visuals.Model;
 import model.ES.component.visuals.ParticleCaster;
-import model.ES.processor.collision.BouncingProc;
+import model.ES.processor.collision.CollisionResolutionProc;
 import model.ES.processor.collision.CollisionProc;
 import model.ES.processor.command.PlayerCapacityControlProc;
 import model.ES.processor.command.PlayerMotionControlProc;
@@ -80,7 +80,7 @@ public class MainDev extends CosmoVania {
 //		stateManager.attach(new PlanarOrthogonalThrustProc());
 		stateManager.attach(new planarWippingProc());
 		stateManager.attach(new CollisionProc());
-		stateManager.attach(new BouncingProc());
+		stateManager.attach(new CollisionResolutionProc());
 		stateManager.attach(new BoneHoldingProc());
 //		stateManager.attach(new InertiaVisualisationProc());
 		stateManager.attach(new ChasingCameraProc(stateManager.getState(TopdownCtrl.class).getCameraManager()));
@@ -104,7 +104,7 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(ModelManager.shipID, new PlanarWipping(Point2D.ORIGIN, 0.1));
 		ed.setComponent(ModelManager.shipID, new PlanarMotionCapacity(3, AngleUtil.toRadians(360), 10, 100));
 		ed.setComponent(ModelManager.shipID, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(ModelManager.shipID, new Physic(new CollisionShape(1), new ArrayList<>()));
+		ed.setComponent(ModelManager.shipID, new Physic(new CollisionShape(1), 0.8));
 		ed.setComponent(ModelManager.shipID, new BounceOnCollision());
 		
 		
@@ -171,9 +171,12 @@ public class MainDev extends CosmoVania {
 		
 		// collisionatationneur
 		EntityId mechantcollisionneur = ed.createEntity();
-		ed.setComponent(mechantcollisionneur, new PlanarStance(new Point2D(20, 20), 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(mechantcollisionneur, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(mechantcollisionneur, new Physic(new CollisionShape(1), new ArrayList<>()));
+		ed.setComponent(mechantcollisionneur, new PlanarStance(new Point2D(10, 10), 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(mechantcollisionneur, new Model("human/adav/adav02b.mesh.xml", 0.01, 0, AngleUtil.toRadians(-90), 0));
+		ed.setComponent(mechantcollisionneur, new Physic(new CollisionShape(2), 0.8));
+		ed.setComponent(mechantcollisionneur, new PlanarWipping(Point2D.ORIGIN, 0.1));
+		ed.setComponent(mechantcollisionneur, new PlanarMotionCapacity(3, AngleUtil.toRadians(360), 10, 400));
+
 		
 				
 

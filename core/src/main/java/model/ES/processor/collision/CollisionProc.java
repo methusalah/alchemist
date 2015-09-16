@@ -1,5 +1,6 @@
 package model.ES.processor.collision;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import util.LogUtil;
@@ -10,6 +11,7 @@ import model.ES.component.collision.Physic;
 import model.ES.component.planarMotion.PlanarStance;
 
 import com.simsilica.es.Entity;
+import com.simsilica.es.EntityId;
 import com.simsilica.es.EntitySet;
 
 import controller.entityAppState.Processor;
@@ -26,20 +28,22 @@ public class CollisionProc extends Processor {
 		if(ModelManager.command.target == null)
 			return;
 		
-        for(EntitySet set : sets)
-        	for (Entity e1 : set)
-            	for (Entity e2 : set){
-            		if(e1 != e2)
-            			checkCollisionBetween(e1, e2); 
-            	}
+        for(EntitySet set : sets){
+        	List<Entity> entities = new ArrayList<>();
+        	for(Entity e : set)
+        		entities.add(e);
+        	for(int i = 0; i < set.size() - 1; i++)
+            	for(int j = i+1; j < set.size(); j++)
+        			checkCollisionBetween(entities.get(i), entities.get(j));
+        }
 	}
 
-	private void checkCollisionBetween(Entity e, Entity other) {
-		PlanarStance stance1 = e.get(PlanarStance.class);
-		PlanarStance stance2 = other.get(PlanarStance.class);
+	private void checkCollisionBetween(Entity e1, Entity e2) {
+		PlanarStance stance1 = e1.get(PlanarStance.class);
+		PlanarStance stance2 = e2.get(PlanarStance.class);
 		
-		Physic ph1 = e.get(Physic.class);
-		Physic ph2 = other.get(Physic.class);
+		Physic ph1 = e1.get(Physic.class);
+		Physic ph2 = e2.get(Physic.class);
 		
 		Point2D c1 = stance1.getCoord();
 		Point2D c2 = stance2.getCoord();
@@ -49,17 +53,13 @@ public class CollisionProc extends Processor {
 		double spacing = ph1.getShape().radius+ph2.getShape().radius; 
 		// collision test
 		if(d <= spacing){
-			// TODO make the collision test only once for each entity couple.
 			Point2D v = c2.getSubtraction(c1);
 			v = v.getScaled(ph1.getShape().radius-((spacing-d)/2));
 			Point2D collisionPoint = c1.getAddition(v);
 			
-			Point2D normal = v.getNormalized().getNegation();
-			List<Collision> collisions = ph1.getCurrentCollisions();
-			collisions.add(new Collision(other.getId(), collisionPoint, normal));
-			setComp(e, new Physic(ph1.getShape(), collisions));
-			
-			LogUtil.info("colissiooosiiosioiosioi");
+			Point2D normal = v.getNormalized();
+			EntityId collision = entityData.createEntity();
+			entityData.setComponent(collision, new Collision(e1.getId(), e2.getId(), collisionPoint, normal));
 		}
 	}
 }

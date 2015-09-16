@@ -56,9 +56,6 @@ public class planarWippingProc extends Processor {
 		setComp(e, new PlanarWipping(velocity, wipping.getDragging()));
 		setComp(e, new PlanarStance(stance.getCoord().getAddition(velocity.getMult(elapsedTime)), stance.getOrientation(), stance.getElevation(), stance.getUpVector()));
 
-		if(e.getId().getId() > 0)
-			LogUtil.info("    speed : "+ velocity.getLength());
-		
 		// debug
 		setComp(e, new PlanarVelocityInertiaDebugger(wipping.getVelocity().getDivision(elapsedTime), wipping.getAppliedVelocity().getDivision(elapsedTime), velocity.getDivision(elapsedTime)));
 		
