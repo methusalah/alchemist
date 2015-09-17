@@ -1,4 +1,4 @@
-package model.ES.component.collision;
+package model.ES.component.physic.collision;
 
 public class CollisionShape {
 	public final double radius;

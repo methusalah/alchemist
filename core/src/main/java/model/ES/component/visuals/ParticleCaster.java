@@ -76,6 +76,7 @@ public class ParticleCaster implements EntityComponent{
 		this.add = add;
 		this.startVariation = startVariation;
 		this.allAtOnce = allAtOnce;
+		this.actualPerSecond = perSecond;
 	}
 	
 	

@@ -1,4 +1,6 @@
-package model.ES.component.collision;
+package model.ES.component.physic;
+
+import model.ES.component.physic.collision.CollisionShape;
 
 import com.simsilica.es.EntityComponent;
 

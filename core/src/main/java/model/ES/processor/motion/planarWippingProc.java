@@ -1,6 +1,8 @@
 package model.ES.processor.motion;
 
-import model.ES.component.debug.VelocityDebugger;
+import java.awt.Color;
+
+import model.ES.component.debug.VelocityViewing;
 import model.ES.component.planarMotion.PlanarMotionCapacity;
 import model.ES.component.planarMotion.PlanarStance;
 import model.ES.component.planarMotion.PlanarWipping;
@@ -60,6 +62,11 @@ public class planarWippingProc extends Processor {
 		sb.append("    velocity length : "+ wipping.getVelocity().getLength() + System.lineSeparator());
 		sb.append("    appliedVelocity length : " + wipping.getAppliedVelocity().getLength() + System.lineSeparator());
 		app.getDebugger().add(sb.toString());
+		
+		// debug
+		VelocityViewing viewing = entityData.getComponent(e.getId(), VelocityViewing.class);
+		if(viewing != null)
+			viewing.updateVelocity("velocity", velocity, Color.gray, 10, 0.1, 2);
 
 	}
 	

@@ -1,33 +1,27 @@
 package view.drawingProcessors;
 
-import com.jme3.asset.AssetManager;
+import model.ES.component.debug.VelocityView;
+import model.ES.component.debug.VelocityViewing;
+import model.ES.component.planarMotion.PlanarStance;
+import util.LogUtil;
+import util.geometry.geom2d.Point2D;
+import view.SpatialPool;
+import view.material.MaterialManager;
+import view.math.TranslateUtil;
+import app.AppFacade;
+
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Line;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntitySet;
 
-import app.AppFacade;
 import controller.entityAppState.Processor;
-import model.ES.component.debug.VelocityDebugger;
-import model.ES.component.debug.VelocityDebug;
-import model.ES.component.planarMotion.PlanarStance;
-import util.geometry.geom2d.Point2D;
-import view.SpatialPool;
-import view.material.MaterialManager;
-import view.math.TranslateUtil;
 
 public class VelocityVisualisationProc extends Processor {
-	private AssetManager assetManager;
-	
 
 	@Override
-	protected void onInitialized() {
-		assetManager = app.getAssetManager();
-	}
-	
-	@Override
 	protected void registerSets() {
-		register(VelocityDebugger.class, PlanarStance.class);
+		register(VelocityViewing.class, PlanarStance.class);
 	}
 
 	@Override
@@ -38,21 +32,20 @@ public class VelocityVisualisationProc extends Processor {
 			}
 	}
 	
-	
 	private void manage(Entity e) {
 		PlanarStance stance = e.get(PlanarStance.class);
 		
-		for(VelocityDebug v : e.get(VelocityDebugger.class).velocities){
+		for(VelocityView v : e.get(VelocityViewing.class).velocities.values()){
 			if(!SpatialPool.velocities.containsKey(v)){
-				Geometry body = new Geometry("body");
+				Geometry body = new Geometry("velocity");
 				body.setMaterial(MaterialManager.getColor(TranslateUtil.toColorRGBA(v.color)));
 				SpatialPool.velocities.put(v, body);
 				AppFacade.getRootNode().attachChild(body);
 			}
 			Geometry g = (Geometry)SpatialPool.velocities.get(v);
 			Point2D end = stance.getCoord().getAddition(v.velocity);
-			Line l = new Line(TranslateUtil.toVector3f(stance.getCoord().get3D(0.2)), TranslateUtil.toVector3f(end.get3D(0.2)));
-			l.setLineWidth(3);
+			Line l = new Line(TranslateUtil.toVector3f(stance.getCoord().get3D(v.elevation)), TranslateUtil.toVector3f(end.get3D(v.elevation)));
+			l.setLineWidth(v.thickness);
 			g.setMesh(l);
 		}
 	}

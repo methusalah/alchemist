@@ -31,7 +31,8 @@ public class ModelProc extends Processor {
 	
 	@Override
 	protected void onEntityRemoved(Entity e, float elapsedTime) {
-		SpatialPool.models.remove(e.getId());
+		AppFacade.getRootNode().detachChild(SpatialPool.models.remove(e.getId()));
+		
 	}
 
 	@Override

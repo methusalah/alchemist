@@ -29,10 +29,10 @@ public class PlanarOrthogonalThrustProc extends Processor {
 	
 	private void manage(Entity e, float elapsedTime){
 		PlanarStance stance = e.get(PlanarStance.class);
-		PlanarNeededVelocity thrust = e.get(PlanarNeededVelocity.class);
+		PlanarNeededVelocity velocity = e.get(PlanarNeededVelocity.class);
 		PlanarWipping inertia = e.get(PlanarWipping.class);
 		
-		setComp(e, new PlanarWipping(inertia.getVelocity(), thrust.getDirection().getRotation(AngleUtil.RIGHT).getScaled(elapsedTime), inertia.getDragging()));
+		setComp(e, new PlanarWipping(inertia.getVelocity(), velocity.getDirection().getRotation(AngleUtil.RIGHT), inertia.getDragging()));
 		removeComp(e, PlanarNeededVelocity.class);
 		
 		StringBuilder sb = new StringBuilder(this.getClass().getSimpleName() + System.lineSeparator());

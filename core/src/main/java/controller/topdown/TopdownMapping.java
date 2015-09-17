@@ -33,7 +33,7 @@ public class TopdownMapping extends Mapping {
 		AppFacade.getInputManager().addMapping(SWITCH_CTRL_2, new KeyTrigger(KeyInput.KEY_F2));
 		AppFacade.getInputManager().addMapping(SWITCH_CTRL_3, new KeyTrigger(KeyInput.KEY_F3));
 		AppFacade.getInputManager().addMapping(SELECT, new MouseButtonTrigger(0));
-		AppFacade.getInputManager().addMapping(FORWARD, new MouseButtonTrigger(1), new KeyTrigger(KeyInput.KEY_Z));
+		AppFacade.getInputManager().addMapping(FORWARD, new KeyTrigger(KeyInput.KEY_Z));
 		AppFacade.getInputManager().addMapping(BACKWARD, new KeyTrigger(KeyInput.KEY_S));
 		AppFacade.getInputManager().addMapping(STRAFFE_LEFT, new KeyTrigger(KeyInput.KEY_Q));
 		AppFacade.getInputManager().addMapping(STRAFFE_RIGHT, new KeyTrigger(KeyInput.KEY_D));

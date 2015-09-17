@@ -30,16 +30,16 @@ public class ParticleCasterInPlaneProc extends Processor {
 		register(ParticleCaster.class, PlanarStance.class);
 	}
 
-//	@Override
-//	protected void onUpdated(float elapsedTime) {
-//		if(ModelManager.command.target == null)
-//			return;
-//		
-//        for(EntitySet set : sets)
-//        	for (Entity e : set){
-//        		manage(e, elapsedTime);
-//        	}
-//	}
+	@Override
+	protected void onUpdated(float elapsedTime) {
+		if(ModelManager.command.target == null)
+			return;
+		
+        for(EntitySet set : sets)
+        	for (Entity e : set){
+        		updateParticleEmitter(e, elapsedTime);
+        	}
+	}
 
 	@Override
 	protected void onEntityAdded(Entity e, float elapsedTime) {
@@ -85,14 +85,13 @@ public class ParticleCasterInPlaneProc extends Processor {
 		
 		AppFacade.getRootNode().attachChild(pe);
 		
-		onEntityUpdated(e, elapsedTime);
+		updateParticleEmitter(e, elapsedTime);
 
 		if(caster.isAllAtOnce())
 			pe.emitAllParticles();
 	}
 
-	@Override
-	protected void onEntityUpdated(Entity e, float elapsedTime) {
+	private void updateParticleEmitter(Entity e, float elapsedTime) {
 		Point3D pos, velocity;
 		if(e.get(PlanarStance.class) != null){
 			PlanarStance stance = e.get(PlanarStance.class);
@@ -142,7 +141,8 @@ public class ParticleCasterInPlaneProc extends Processor {
 
 	@Override
 	protected void onEntityRemoved(Entity e, float elapsedTime) {
-		
+		MyParticleEmitter pe = SpatialPool.emitters.get(e.getId());
+		AppFacade.getRootNode().detachChild(pe);
 	}
 
 	private ArrayList<Particle> getParticles(MyParticleEmitter pe){

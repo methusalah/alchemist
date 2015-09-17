@@ -6,9 +6,10 @@ import com.simsilica.es.EntityId;
 
 import util.geometry.geom2d.Point2D;
 
-public class VelocityDebug {
+public class VelocityView {
 	public Point2D velocity;
+	public double elevation = 0.2;
+	public int thickness = 1;
 	public Color color;
-	public EntityId eid;
 	public String name;
 }

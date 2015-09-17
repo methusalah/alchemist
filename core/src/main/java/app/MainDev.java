@@ -15,10 +15,10 @@ import controller.topdown.TopdownCtrl;
 import model.ModelManager;
 import model.ES.component.Cooldown;
 import model.ES.component.camera.ChasingCamera;
-import model.ES.component.collision.BounceOnCollision;
-import model.ES.component.collision.CollisionShape;
-import model.ES.component.collision.Physic;
-import model.ES.component.debug.VelocityDebugger;
+import model.ES.component.debug.VelocityViewing;
+import model.ES.component.physic.Physic;
+import model.ES.component.physic.collision.CollisionShape;
+import model.ES.component.physic.collision.EffectOnTouch;
 import model.ES.component.planarMotion.PlanarMotionCapacity;
 import model.ES.component.planarMotion.PlanarStance;
 import model.ES.component.planarMotion.PlanarWipping;
@@ -30,12 +30,17 @@ import model.ES.component.shipGear.RotationThruster;
 import model.ES.component.shipGear.Thruster;
 import model.ES.component.visuals.Model;
 import model.ES.component.visuals.ParticleCaster;
+import model.ES.processor.LifeTimeProc;
+import model.ES.processor.RemoveProc;
 import model.ES.processor.collision.CollisionResolutionProc;
 import model.ES.processor.collision.CollisionProc;
+import model.ES.processor.collision.TouchingDestructionProc;
+import model.ES.processor.collision.TouchingEffectProc;
 import model.ES.processor.command.PlayerCapacityControlProc;
 import model.ES.processor.command.PlayerMotionControlProc;
 import model.ES.processor.holder.BoneHoldingProc;
 import model.ES.processor.holder.PlanarHoldingProc;
+import model.ES.processor.motion.PlanarOrthogonalThrustProc;
 import model.ES.processor.motion.planarWippingProc;
 import model.ES.processor.motion.PlanarRotationProc;
 import model.ES.processor.motion.PlanarVelocityProc;
@@ -79,7 +84,6 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new ThrusterProc());
 		stateManager.attach(new PlanarRotationProc());
 		stateManager.attach(new PlanarVelocityProc());
-//		stateManager.attach(new PlanarOrthogonalThrustProc());
 		stateManager.attach(new planarWippingProc());
 		stateManager.attach(new CollisionProc());
 		stateManager.attach(new CollisionResolutionProc());
@@ -96,6 +100,11 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new ModelProc());
 		stateManager.attach(new PlacingModelProc());
 		stateManager.attach(new VelocityVisualisationProc());
+		stateManager.attach(new TouchingEffectProc());
+		stateManager.attach(new TouchingDestructionProc());
+
+		stateManager.attach(new LifeTimeProc());
+		stateManager.attach(new RemoveProc());
 		
 		EntityData ed = stateManager.getState(EntityDataAppState.class).getEntityData();
 		
@@ -107,7 +116,7 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(mechantcollisionneur, new Physic(new CollisionShape(2), 0.8));
 		ed.setComponent(mechantcollisionneur, new PlanarWipping(Point2D.ORIGIN, 0.1));
 		ed.setComponent(mechantcollisionneur, new PlanarMotionCapacity(3, AngleUtil.toRadians(360), 10, 400));
-		ed.setComponent(mechantcollisionneur, new VelocityDebugger());
+		ed.setComponent(mechantcollisionneur, new VelocityViewing());
 		
 
 		// ship
@@ -118,8 +127,8 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(playerShip, new PlanarMotionCapacity(3, AngleUtil.toRadians(360), 10, 100));
 		ed.setComponent(playerShip, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
 		ed.setComponent(playerShip, new Physic(new CollisionShape(1), 0.8));
-		ed.setComponent(playerShip, new BounceOnCollision());
-		ed.setComponent(playerShip, new VelocityDebugger());
+		ed.setComponent(playerShip, new EffectOnTouch());
+		ed.setComponent(playerShip, new VelocityViewing());
 		
 		
 		// rotation thrusters
