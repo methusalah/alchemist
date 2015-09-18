@@ -1,4 +1,4 @@
-package model.ES.processor.collision;
+package model.ES.processor.physic.collision;
 
 import model.ES.component.ToRemove;
 import model.ES.component.physic.collision.DestroyedOnTouch;

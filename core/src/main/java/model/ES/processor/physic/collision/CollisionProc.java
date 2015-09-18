@@ -1,4 +1,4 @@
-package model.ES.processor.collision;
+package model.ES.processor.physic.collision;
 
 import java.util.ArrayList;
 import java.util.List;
