@@ -1,7 +1,6 @@
 package app;
 
 import java.awt.Color;
-import java.util.ArrayList;
 
 import com.google.common.eventbus.Subscribe;
 import com.simsilica.es.EntityData;
@@ -15,14 +14,15 @@ import controller.topdown.TopdownCtrl;
 import model.ModelManager;
 import model.ES.component.Cooldown;
 import model.ES.component.camera.ChasingCamera;
+import model.ES.component.command.PlayerControl;
 import model.ES.component.debug.VelocityViewing;
-import model.ES.component.physic.Physic;
-import model.ES.component.physic.collision.CollisionShape;
-import model.ES.component.physic.collision.EffectOnTouch;
-import model.ES.component.planarMotion.PlanarMotionCapacity;
-import model.ES.component.planarMotion.PlanarStance;
-import model.ES.component.planarMotion.PlanarWipping;
-import model.ES.component.planarMotion.PlayerControl;
+import model.ES.component.motion.Dragging;
+import model.ES.component.motion.MotionCapacity;
+import model.ES.component.motion.Physic;
+import model.ES.component.motion.PlanarStance;
+import model.ES.component.motion.PlanarVelocityToApply;
+import model.ES.component.motion.collision.CollisionShape;
+import model.ES.component.motion.collision.EffectOnTouch;
 import model.ES.component.relation.PlanarHolding;
 import model.ES.component.shipGear.CapacityActivation;
 import model.ES.component.shipGear.Gun;
@@ -32,14 +32,17 @@ import model.ES.component.visuals.Model;
 import model.ES.component.visuals.ParticleCaster;
 import model.ES.processor.LifeTimeProc;
 import model.ES.processor.RemoveProc;
+import model.ES.processor.command.NeededRotationProc;
+import model.ES.processor.command.NeededThrustProc;
 import model.ES.processor.command.PlayerCapacityControlProc;
-import model.ES.processor.command.PlayerMotionControlProc;
+import model.ES.processor.command.PlayerOrthogonalThrustControlProc;
+import model.ES.processor.command.PlayerRotationControlProc;
+import model.ES.processor.command.PlayerThrustControlProc;
 import model.ES.processor.holder.BoneHoldingProc;
 import model.ES.processor.holder.PlanarHoldingProc;
-import model.ES.processor.motion.PlanarOrthogonalThrustProc;
-import model.ES.processor.motion.planarWippingProc;
-import model.ES.processor.motion.PlanarRotationProc;
-import model.ES.processor.motion.PlanarVelocityProc;
+import model.ES.processor.motion.DraggingProc;
+import model.ES.processor.motion.VelocityApplicationProc;
+import model.ES.processor.physic.PhysicForceProc;
 import model.ES.processor.physic.collision.CollisionProc;
 import model.ES.processor.physic.collision.CollisionResolutionProc;
 import model.ES.processor.physic.collision.TouchingDestructionProc;
@@ -79,18 +82,24 @@ public class MainDev extends CosmoVania {
 		currentAppState = stateManager.getState(EditorCtrl.class);
 		
 		stateManager.attach(new EntityDataAppState());
-		stateManager.attach(new PlayerMotionControlProc());
+		// commands
+		stateManager.attach(new PlayerRotationControlProc());
+		stateManager.attach(new PlayerThrustControlProc());
+//		stateManager.attach(new PlayerOrthogonalThrustControlProc());
 		stateManager.attach(new RotationThrusterProc());
 		stateManager.attach(new ThrusterProc());
-		stateManager.attach(new PlanarRotationProc());
-		stateManager.attach(new PlanarVelocityProc());
-		stateManager.attach(new planarWippingProc());
+		// forces
+		stateManager.attach(new NeededRotationProc());
+		stateManager.attach(new NeededThrustProc());
+		stateManager.attach(new DraggingProc());
+		stateManager.attach(new PhysicForceProc());
+		stateManager.attach(new VelocityApplicationProc());
+		// collisions
 		stateManager.attach(new CollisionProc());
 		stateManager.attach(new CollisionResolutionProc());
+		// relations	
 		stateManager.attach(new BoneHoldingProc());
-//		stateManager.attach(new InertiaVisualisationProc());
 		stateManager.attach(new ChasingCameraProc(stateManager.getState(TopdownCtrl.class).getCameraManager()));
-//		stateManager.attach(new ParticleCasterProc());
 		stateManager.attach(new PlanarHoldingProc());
 		stateManager.attach(new ParticleThrusterProc());
 		stateManager.attach(new ParticleCasterInPlaneProc());
@@ -113,22 +122,25 @@ public class MainDev extends CosmoVania {
 		EntityId mechantcollisionneur = ed.createEntity();
 		ed.setComponent(mechantcollisionneur, new PlanarStance(new Point2D(10, 10), 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(mechantcollisionneur, new Model("human/adav/adav02b.mesh.xml", 0.01, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(mechantcollisionneur, new Physic(new CollisionShape(2), 0.8));
-		ed.setComponent(mechantcollisionneur, new PlanarWipping(Point2D.ORIGIN, 0.1));
-		ed.setComponent(mechantcollisionneur, new PlanarMotionCapacity(3, AngleUtil.toRadians(360), 10, 400));
+		ed.setComponent(mechantcollisionneur, new Physic(Point2D.ORIGIN, 400, new CollisionShape(2), 0.8));
+		ed.setComponent(mechantcollisionneur, new Dragging(0.1));
+		ed.setComponent(mechantcollisionneur, new MotionCapacity(3, AngleUtil.toRadians(360), 10));
 		ed.setComponent(mechantcollisionneur, new VelocityViewing());
+		ed.setComponent(mechantcollisionneur, new PlanarVelocityToApply(Point2D.ORIGIN));
+		
 		
 
 		// ship
 		EntityId playerShip = ed.createEntity();
 		ed.setComponent(playerShip, new PlayerControl());
 		ed.setComponent(playerShip, new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
-		ed.setComponent(playerShip, new PlanarWipping(Point2D.ORIGIN, 0.1));
-		ed.setComponent(playerShip, new PlanarMotionCapacity(3, AngleUtil.toRadians(360), 10, 100));
+		ed.setComponent(playerShip, new Dragging(0.05));
+		ed.setComponent(playerShip, new MotionCapacity(3, AngleUtil.toRadians(360), 3));
 		ed.setComponent(playerShip, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(playerShip, new Physic(new CollisionShape(1), 0.8));
+		ed.setComponent(playerShip, new Physic(Point2D.ORIGIN, 100, new CollisionShape(0.5), 0.8));
 		ed.setComponent(playerShip, new EffectOnTouch());
 		ed.setComponent(playerShip, new VelocityViewing());
+		ed.setComponent(playerShip, new PlanarVelocityToApply(Point2D.ORIGIN));
 		
 		
 		// rotation thrusters
@@ -181,7 +193,7 @@ public class MainDev extends CosmoVania {
 		EntityId weapon = ed.createEntity();
 		ed.setComponent(weapon, new PlanarHolding(playerShip, new Point3D(0, 0, 0), 0));
 		ed.setComponent(weapon, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(weapon, new Cooldown(0, 50));
+		ed.setComponent(weapon, new Cooldown(0, 100));
 		ed.setComponent(weapon, new CapacityActivation("gun", false));
 		ed.setComponent(weapon, new PlayerControl());
 		ed.setComponent(weapon, new Gun());
@@ -190,7 +202,7 @@ public class MainDev extends CosmoVania {
 		EntityId camId= ed.createEntity();
 		ed.setComponent(camId, new PlanarStance(new Point2D(1, 1), 0, 20, Point3D.UNIT_Z));
 		ed.setComponent(camId, new ChasingCamera(playerShip, 3, 0, 0.5, 0.5));
-		ed.setComponent(camId, new PlanarMotionCapacity(1, AngleUtil.toRadians(500), 1, 0.1));
+		ed.setComponent(camId, new MotionCapacity(1, AngleUtil.toRadians(500), 1));
 		
 		EventManager.register(this);
 		

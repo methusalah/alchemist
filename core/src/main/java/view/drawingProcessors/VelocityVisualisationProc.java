@@ -2,7 +2,7 @@ package view.drawingProcessors;
 
 import model.ES.component.debug.VelocityView;
 import model.ES.component.debug.VelocityViewing;
-import model.ES.component.planarMotion.PlanarStance;
+import model.ES.component.motion.PlanarStance;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import view.SpatialPool;

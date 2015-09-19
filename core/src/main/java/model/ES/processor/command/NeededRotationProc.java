@@ -1,19 +1,19 @@
-package model.ES.processor.motion;
+package model.ES.processor.command;
 
-import model.ES.component.planarMotion.PlanarMotionCapacity;
-import model.ES.component.planarMotion.PlanarNeededRotation;
-import model.ES.component.planarMotion.PlanarStance;
+import model.ES.component.command.PlanarNeededRotation;
+import model.ES.component.motion.MotionCapacity;
+import model.ES.component.motion.PlanarStance;
 import util.math.AngleUtil;
 
 import com.simsilica.es.Entity;
 
 import controller.entityAppState.Processor;
 
-public class PlanarRotationProc extends Processor {
+public class NeededRotationProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(PlanarNeededRotation.class, PlanarMotionCapacity.class, PlanarStance.class);
+		register(PlanarNeededRotation.class, MotionCapacity.class, PlanarStance.class);
 	}
 	
 	@Override
@@ -28,7 +28,7 @@ public class PlanarRotationProc extends Processor {
 	
 	private void manage(Entity e, float elapsedTime){
 		PlanarNeededRotation neededRotation = e.get(PlanarNeededRotation.class);
-		PlanarMotionCapacity capacity = e.get(PlanarMotionCapacity.class);
+		MotionCapacity capacity = e.get(MotionCapacity.class);
 		PlanarStance stance = e.get(PlanarStance.class); 
 		
 		double maxRotation = capacity.getMaxRotationSpeed() * elapsedTime;

@@ -1,6 +1,6 @@
 package view.drawingProcessors;
 
-import model.ES.component.planarMotion.PlanarStance;
+import model.ES.component.motion.PlanarStance;
 import model.ES.component.visuals.Model;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;

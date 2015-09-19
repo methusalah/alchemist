@@ -1,8 +1,8 @@
 package model.ES.processor.physic.collision;
 
 import model.ES.component.ToRemove;
-import model.ES.component.physic.collision.DestroyedOnTouch;
-import model.ES.component.physic.collision.Touching;
+import model.ES.component.motion.collision.DestroyedOnTouch;
+import model.ES.component.motion.collision.Touching;
 
 import com.simsilica.es.Entity;
 

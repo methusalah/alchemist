@@ -1,7 +1,7 @@
 package controller.cameraManagement;
 
 import model.ModelManager;
-import model.ES.component.planarMotion.PlanarStance;
+import model.ES.component.motion.PlanarStance;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import app.AppFacade;

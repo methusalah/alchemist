@@ -1,19 +1,17 @@
 package model.ES.processor.shipGear;
 
-import model.ModelManager;
-import model.ES.component.planarMotion.PlanarNeededVelocity;
-import model.ES.component.relation.BoneHolding;
-import model.ES.component.relation.PlanarHolding;
-import model.ES.component.shipGear.RotationThruster;
-import model.ES.component.shipGear.Thruster;
-import util.LogUtil;
-import util.math.AngleUtil;
-
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 import com.simsilica.es.EntitySet;
 
 import controller.entityAppState.Processor;
+import model.ModelManager;
+import model.ES.component.command.PlanarNeededThrust;
+import model.ES.component.motion.PlanarStance;
+import model.ES.component.relation.BoneHolding;
+import model.ES.component.relation.PlanarHolding;
+import model.ES.component.shipGear.Thruster;
+import util.math.AngleUtil;
 
 public class ThrusterProc extends Processor {
 
@@ -45,10 +43,11 @@ public class ThrusterProc extends Processor {
 		else
 			throw new RuntimeException("Missing holder");
 
-		PlanarNeededVelocity thrust = entityData.getComponent(holder, PlanarNeededVelocity.class);
+		PlanarNeededThrust thrust = entityData.getComponent(holder, PlanarNeededThrust.class);
+		PlanarStance stance = entityData.getComponent(holder, PlanarStance.class);
 		double activationRate = 0;
 		if(thrust != null){
-			double diff = AngleUtil.getSmallestDifference(thrust.getDirection().getAngle(), thruster.getDirection().get2D().getAngle());
+			double diff = AngleUtil.getSmallestDifference(thrust.getDirection().getAngle()-stance.getOrientation(), thruster.getDirection().get2D().getAngle());
 			if(diff <= thruster.getActivationAngle()){
 				activationRate = 1;
 				if(!thruster.isOnOff())

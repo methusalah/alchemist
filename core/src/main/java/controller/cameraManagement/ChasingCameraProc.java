@@ -5,8 +5,8 @@ import util.geometry.geom2d.Point2D;
 import com.simsilica.es.Entity;
 
 import model.ES.component.camera.ChasingCamera;
-import model.ES.component.planarMotion.PlanarMotionCapacity;
-import model.ES.component.planarMotion.PlanarStance;
+import model.ES.component.motion.MotionCapacity;
+import model.ES.component.motion.PlanarStance;
 import controller.CameraManager;
 import controller.entityAppState.Processor;
 
@@ -35,7 +35,7 @@ public class ChasingCameraProc extends Processor {
 	
 	private void manage(Entity e, float elapsedTime){
 		PlanarStance stance = e.get(PlanarStance.class);
-		PlanarMotionCapacity capacity = e.get(PlanarMotionCapacity.class);
+		MotionCapacity capacity = e.get(MotionCapacity.class);
 		ChasingCamera cam = e.get(ChasingCamera.class);
 		PlanarStance targetStance = entityData.getComponent(cam.getEntityToChase(), PlanarStance.class);
 		

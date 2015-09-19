@@ -1,4 +1,4 @@
-package model.ES.component.planarMotion;
+package model.ES.component.command;
 
 import com.simsilica.es.EntityComponent;
 

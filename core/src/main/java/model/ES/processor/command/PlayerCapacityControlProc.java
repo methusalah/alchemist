@@ -1,10 +1,10 @@
 package model.ES.processor.command;
 
 import model.ModelManager;
-import model.ES.component.planarMotion.PlanarNeededRotation;
-import model.ES.component.planarMotion.PlanarStance;
-import model.ES.component.planarMotion.PlanarNeededVelocity;
-import model.ES.component.planarMotion.PlayerControl;
+import model.ES.component.command.PlanarNeededRotation;
+import model.ES.component.command.PlayerControl;
+import model.ES.component.motion.PlanarStance;
+import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.shipGear.CapacityActivation;
 import model.ES.component.shipGear.Gun;
 

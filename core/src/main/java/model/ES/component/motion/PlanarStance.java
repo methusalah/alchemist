@@ -1,4 +1,4 @@
-package model.ES.component.planarMotion;
+package model.ES.component.motion;
 
 
 import util.geometry.geom2d.Point2D;

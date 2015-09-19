@@ -3,9 +3,9 @@ package model.ES.processor.physic.collision;
 import java.awt.Color;
 
 import model.ES.component.LifeTime;
-import model.ES.component.physic.collision.EffectOnTouch;
-import model.ES.component.physic.collision.Touching;
-import model.ES.component.planarMotion.PlanarStance;
+import model.ES.component.motion.PlanarStance;
+import model.ES.component.motion.collision.EffectOnTouch;
+import model.ES.component.motion.collision.Touching;
 import model.ES.component.visuals.ParticleCaster;
 import util.geometry.geom3d.Point3D;
 

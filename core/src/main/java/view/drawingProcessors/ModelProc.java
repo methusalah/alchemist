@@ -5,7 +5,7 @@ import java.util.Map;
 
 import util.LogUtil;
 import view.SpatialPool;
-import model.ES.component.planarMotion.PlanarStance;
+import model.ES.component.motion.PlanarStance;
 import model.ES.component.visuals.Model;
 import app.AppFacade;
 

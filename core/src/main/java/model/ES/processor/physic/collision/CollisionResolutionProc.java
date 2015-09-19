@@ -7,10 +7,11 @@ import com.simsilica.es.Entity;
 import controller.entityAppState.Processor;
 import model.ES.component.debug.VelocityView;
 import model.ES.component.debug.VelocityViewing;
-import model.ES.component.physic.Physic;
-import model.ES.component.physic.collision.Collision;
-import model.ES.component.planarMotion.PlanarMotionCapacity;
-import model.ES.component.planarMotion.PlanarWipping;
+import model.ES.component.motion.MotionCapacity;
+import model.ES.component.motion.Physic;
+import model.ES.component.motion.PlanarVelocityToApply;
+import model.ES.component.motion.Dragging;
+import model.ES.component.motion.collision.Collision;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
@@ -24,18 +25,18 @@ public class CollisionResolutionProc extends Processor {
 	@Override
 	protected void onEntityAdded(Entity e, float elapsedTime) {
 		Collision col = e.get(Collision.class);
-		Entity A = entityData.getEntity(col.getA(), PlanarWipping.class, PlanarMotionCapacity.class, Physic.class);
-		Entity B = entityData.getEntity(col.getB(), PlanarWipping.class, PlanarMotionCapacity.class, Physic.class);
+		Entity A = entityData.getEntity(col.getA(), Physic.class, PlanarVelocityToApply.class);
+		Entity B = entityData.getEntity(col.getB(), Physic.class, PlanarVelocityToApply.class);
 		
 		Physic phA = A.get(Physic.class);
 		Physic phB = B.get(Physic.class);
 		
 		
-		Point2D velA = A.get(PlanarWipping.class).getVelocity(); 
-		Point2D velB = B.get(PlanarWipping.class).getVelocity();
+		Point2D velA = phA.getVelocity(); 
+		Point2D velB = phB.getVelocity();
 		
-		double massA = A.get(PlanarMotionCapacity.class).getMass();
-		double massB = B.get(PlanarMotionCapacity.class).getMass();
+		double massA = phA.getMass();
+		double massB = phB.getMass();
 		
 		
 		Point2D relative = velB.getSubtraction(velA);
@@ -51,8 +52,17 @@ public class CollisionResolutionProc extends Processor {
 			Point2D newVelA = velA.getAddition(impulse.getNegation().getMult(1/massA));
 			Point2D newVelB = velB.getAddition(impulse.getMult(1/massB));
 			
-			setComp(A, new PlanarWipping(newVelA, A.get(PlanarWipping.class).getDragging()));
-			setComp(B, new PlanarWipping(newVelB, B.get(PlanarWipping.class).getDragging()));
+//			PlanarVelocityToApply toApplyA = entityData.getComponent(A.getId(), PlanarVelocityToApply.class);
+//			if(toApplyA != null)
+//				newVelA = newVelA.getAddition(toApplyA.getVector());
+//			setComp(A, new PlanarVelocityToApply(newVelA));
+			setComp(A, new Physic(newVelA, phA.getMass(), phA.getShape(), phA.getRestitution()));
+
+//			PlanarVelocityToApply toApplyB = entityData.getComponent(B.getId(), PlanarVelocityToApply.class);
+//			if(toApplyB != null)
+//				newVelB = newVelB.getAddition(toApplyB.getVector());
+//			setComp(B, new PlanarVelocityToApply(newVelB));
+			setComp(B, new Physic(newVelB, phB.getMass(), phB.getShape(), phB.getRestitution()));
 
 			// debug
 			VelocityViewing viewing = entityData.getComponent(A.getId(), VelocityViewing.class);

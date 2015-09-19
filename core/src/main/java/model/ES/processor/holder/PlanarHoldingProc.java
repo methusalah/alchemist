@@ -4,7 +4,7 @@ import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 import model.ModelManager;
-import model.ES.component.planarMotion.PlanarStance;
+import model.ES.component.motion.PlanarStance;
 import model.ES.component.relation.BoneHolding;
 import model.ES.component.relation.PlanarHolding;
 import model.ES.component.spaceMotion.SpaceStance;
