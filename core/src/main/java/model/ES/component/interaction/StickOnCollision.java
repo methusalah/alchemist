@@ -1,4 +1,4 @@
-package model.ES.component.motion.collision;
+package model.ES.component.interaction;
 
 import com.simsilica.es.EntityComponent;
 

@@ -1,4 +1,4 @@
-package model.ES.component.motion.collision;
+package model.ES.component.interaction;
 
 import util.geometry.geom2d.Point2D;
 

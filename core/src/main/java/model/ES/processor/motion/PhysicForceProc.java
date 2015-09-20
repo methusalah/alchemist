@@ -1,4 +1,4 @@
-package model.ES.processor.physic;
+package model.ES.processor.motion;
 
 import com.simsilica.es.Entity;
 

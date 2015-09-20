@@ -8,7 +8,7 @@ import view.SpatialPool;
 import view.jme.MyParticleEmitter;
 import view.math.TranslateUtil;
 import model.ES.component.motion.PlanarStance;
-import model.ES.component.spaceMotion.SpaceStance;
+import model.ES.component.motion.SpaceStance;
 import model.ES.component.visuals.ParticleCaster;
 import app.AppFacade;
 

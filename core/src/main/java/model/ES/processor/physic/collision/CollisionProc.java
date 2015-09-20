@@ -6,10 +6,10 @@ import java.util.List;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import model.ModelManager;
+import model.ES.component.interaction.Touching;
 import model.ES.component.motion.Physic;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.collision.Collision;
-import model.ES.component.motion.collision.Touching;
 
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;

@@ -7,7 +7,7 @@ public class PhysicForce implements EntityComponent {
 	private final double radius;
 	private final double force;
 	
-	private PhysicForce(double range, double radius, double force) {
+	public PhysicForce(double range, double radius, double force) {
 		this.range = range;
 		this.radius = radius;
 		this.force = force;

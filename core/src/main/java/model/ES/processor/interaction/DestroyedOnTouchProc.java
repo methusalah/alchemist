@@ -1,14 +1,14 @@
-package model.ES.processor.physic.collision;
+package model.ES.processor.interaction;
 
 import model.ES.component.ToRemove;
-import model.ES.component.motion.collision.DestroyedOnTouch;
-import model.ES.component.motion.collision.Touching;
+import model.ES.component.interaction.DestroyedOnTouch;
+import model.ES.component.interaction.Touching;
 
 import com.simsilica.es.Entity;
 
 import controller.entityAppState.Processor;
 
-public class TouchingDestructionProc extends Processor {
+public class DestroyedOnTouchProc extends Processor {
 
 	@Override
 	protected void registerSets() {
