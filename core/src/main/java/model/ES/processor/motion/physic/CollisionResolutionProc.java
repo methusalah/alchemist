@@ -1,17 +1,17 @@
-package model.ES.processor.physic.collision;
+package model.ES.processor.motion.physic;
 
 import java.awt.Color;
 
 import com.simsilica.es.Entity;
 
 import controller.entityAppState.Processor;
-import model.ES.component.debug.VelocityView;
 import model.ES.component.debug.VelocityViewing;
 import model.ES.component.motion.MotionCapacity;
-import model.ES.component.motion.Physic;
 import model.ES.component.motion.PlanarVelocityToApply;
-import model.ES.component.motion.Dragging;
-import model.ES.component.motion.collision.Collision;
+import model.ES.component.motion.physic.Collisioning;
+import model.ES.component.motion.physic.Dragging;
+import model.ES.component.motion.physic.Physic;
+import model.ES.richData.VelocityView;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
@@ -19,12 +19,12 @@ public class CollisionResolutionProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(Collision.class);
+		register(Collisioning.class);
 	}
 	
 	@Override
 	protected void onEntityAdded(Entity e, float elapsedTime) {
-		Collision col = e.get(Collision.class);
+		Collisioning col = e.get(Collisioning.class);
 		Entity A = entityData.getEntity(col.getA(), Physic.class, PlanarVelocityToApply.class);
 		Entity B = entityData.getEntity(col.getB(), Physic.class, PlanarVelocityToApply.class);
 		
@@ -32,18 +32,18 @@ public class CollisionResolutionProc extends Processor {
 		Physic phB = B.get(Physic.class);
 		
 		
-		Point2D velA = phA.getVelocity(); 
-		Point2D velB = phB.getVelocity();
+		Point2D velA = phA.velocity; 
+		Point2D velB = phB.velocity;
 		
-		double massA = phA.getMass();
-		double massB = phB.getMass();
+		double massA = phA.stat.mass;
+		double massB = phB.stat.mass;
 		
 		
 		Point2D relative = velB.getSubtraction(velA);
 		double velAlongNormal = relative.getDotProduct(col.getNormal());
 		
 		if(velAlongNormal <= 0){
-			double epsilon = Math.min(phA.getRestitution(), phB.getRestitution());
+			double epsilon = Math.min(phA.stat.restitution, phB.stat.restitution);
 			double impulseScale = -(1+epsilon)*velAlongNormal;
 			impulseScale /= 1/massA + 1/massB;
 			
@@ -56,13 +56,13 @@ public class CollisionResolutionProc extends Processor {
 //			if(toApplyA != null)
 //				newVelA = newVelA.getAddition(toApplyA.getVector());
 //			setComp(A, new PlanarVelocityToApply(newVelA));
-			setComp(A, new Physic(newVelA, phA.getMass(), phA.getShape(), phA.getRestitution()));
+			setComp(A, new Physic(newVelA, phA.stat, phA.spawnerException));
 
 //			PlanarVelocityToApply toApplyB = entityData.getComponent(B.getId(), PlanarVelocityToApply.class);
 //			if(toApplyB != null)
 //				newVelB = newVelB.getAddition(toApplyB.getVector());
 //			setComp(B, new PlanarVelocityToApply(newVelB));
-			setComp(B, new Physic(newVelB, phB.getMass(), phB.getShape(), phB.getRestitution()));
+			setComp(B, new Physic(newVelB, phB.stat, phB.spawnerException));
 
 			// debug
 			VelocityViewing viewing = entityData.getComponent(A.getId(), VelocityViewing.class);

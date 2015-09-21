@@ -10,6 +10,8 @@ import util.geometry.geom2d.Point2D;
 
 import com.simsilica.es.EntityComponent;
 
+import model.ES.richData.VelocityView;
+
 public class VelocityViewing implements EntityComponent {
 	public Map<String, VelocityView> velocities = new HashMap<>();
 	

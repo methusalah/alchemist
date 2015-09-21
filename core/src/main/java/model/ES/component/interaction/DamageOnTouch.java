@@ -2,16 +2,12 @@ package model.ES.component.interaction;
 
 import com.simsilica.es.EntityComponent;
 
-public class DamageOnTouch implements EntityComponent {
-	private final int amount;
-	
-	public DamageOnTouch(int amount) {
-		this.amount = amount;
-	}
+import model.ES.richData.Damage;
 
-	public int getAmount() {
-		return amount;
+public class DamageOnTouch implements EntityComponent {
+	public final Damage damage;
+	
+	public DamageOnTouch(Damage damage) {
+		this.damage = damage;
 	}
-	
-	
 }

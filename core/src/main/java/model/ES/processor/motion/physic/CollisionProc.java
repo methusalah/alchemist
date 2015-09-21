@@ -1,4 +1,4 @@
-package model.ES.processor.physic.collision;
+package model.ES.processor.motion.physic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +7,9 @@ import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import model.ModelManager;
 import model.ES.component.interaction.Touching;
-import model.ES.component.motion.Physic;
 import model.ES.component.motion.PlanarStance;
-import model.ES.component.motion.collision.Collision;
+import model.ES.component.motion.physic.Collisioning;
+import model.ES.component.motion.physic.Physic;
 
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
@@ -48,29 +48,36 @@ public class CollisionProc extends Processor {
 		
 		Point2D c1 = stance1.getCoord();
 		Point2D c2 = stance2.getCoord();
-		
-		
+
 		double d = c1.getDistance(c2);
-		double spacing = ph1.getShape().radius+ph2.getShape().radius;
+		double spacing = ph1.stat.shape.radius+ph2.stat.shape.radius;
 		double penetration = spacing-d;
 		// collision test
 		if(penetration > 0){
-			Point2D v = c2.getSubtraction(c1);
-			v = v.getScaled(ph1.getShape().radius-((spacing-d)/2));
-			
-			Point2D normal = c2.getSubtraction(c1).getNormalized();
-			
-			// we create a new entity for managing the collision physics
-			EntityId collision = entityData.createEntity();
-			entityData.setComponent(collision, new Collision(e1.getId(), e2.getId(), spacing-d, normal));
-			
-			// we add touching component to each entity for other effects than physics
-			Point2D impactCoord = c1.getAddition(normal.getScaled(ph1.getShape().radius));
-			setComp(e1, new Touching(e2.getId(), impactCoord, normal));
-
-			normal = normal.getNegation();
-			impactCoord = c2.getAddition(normal.getScaled(ph2.getShape().radius));
-			setComp(e2, new Touching(e1.getId(), impactCoord, normal));
+			// spawner exception allows, for exemple, missiles to get out of a ship by ignoring collision. 
+			if(ph1.spawnerException != e2.getId() && ph2.spawnerException != e1.getId()){
+				Point2D v = c2.getSubtraction(c1);
+				v = v.getScaled(ph1.stat.shape.radius-((spacing-d)/2));
+				
+				Point2D normal = c2.getSubtraction(c1).getNormalized();
+				
+				// we create a new entity for managing the collision physics
+				EntityId collision = entityData.createEntity();
+				entityData.setComponent(collision, new Collisioning(e1.getId(), e2.getId(), spacing-d, normal));
+				
+				// we add touching component to each entity for other effects than physics
+				Point2D impactCoord = c1.getAddition(normal.getScaled(ph1.stat.shape.radius));
+				setComp(e1, new Touching(e2.getId(), impactCoord, normal));
+	
+				normal = normal.getNegation();
+				impactCoord = c2.getAddition(normal.getScaled(ph2.stat.shape.radius));
+				setComp(e2, new Touching(e1.getId(), impactCoord, normal));
+			}
+		} else {
+			if(ph1.spawnerException == e2.getId())
+				setComp(e1, new Physic(ph1.velocity, ph1.stat, null));
+			if(ph2.spawnerException == e1.getId())
+				setComp(e2, new Physic(ph2.velocity, ph2.stat, null));
 		}
 	}
 }

@@ -7,7 +7,7 @@ import com.jme3.effect.ParticleEmitter;
 import com.jme3.scene.Spatial;
 import com.simsilica.es.EntityId;
 
-import model.ES.component.debug.VelocityView;
+import model.ES.richData.VelocityView;
 import view.jme.MyParticleEmitter;
 
 public class SpatialPool {

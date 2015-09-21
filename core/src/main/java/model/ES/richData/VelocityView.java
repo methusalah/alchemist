@@ -1,4 +1,4 @@
-package model.ES.component.debug;
+package model.ES.richData;
 
 import java.awt.Color;
 

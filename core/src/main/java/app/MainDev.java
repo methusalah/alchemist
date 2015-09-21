@@ -17,13 +17,13 @@ import model.ES.component.camera.ChasingCamera;
 import model.ES.component.command.PlayerControl;
 import model.ES.component.debug.VelocityViewing;
 import model.ES.component.interaction.EffectOnTouch;
-import model.ES.component.motion.Dragging;
 import model.ES.component.motion.MotionCapacity;
-import model.ES.component.motion.Physic;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
-import model.ES.component.motion.collision.CollisionShape;
+import model.ES.component.motion.physic.Dragging;
+import model.ES.component.motion.physic.Physic;
 import model.ES.component.relation.PlanarHolding;
+import model.ES.component.shipGear.Attrition;
 import model.ES.component.shipGear.CapacityActivation;
 import model.ES.component.shipGear.Gun;
 import model.ES.component.shipGear.RotationThruster;
@@ -40,18 +40,23 @@ import model.ES.processor.command.PlayerRotationControlProc;
 import model.ES.processor.command.PlayerThrustControlProc;
 import model.ES.processor.holder.BoneHoldingProc;
 import model.ES.processor.holder.PlanarHoldingProc;
+import model.ES.processor.interaction.DamageOnTouchProc;
+import model.ES.processor.interaction.DamagingProc;
 import model.ES.processor.interaction.DestroyedOnTouchProc;
 import model.ES.processor.interaction.EffectOnTouchProc;
 import model.ES.processor.interaction.ShockwaveOnTouchProc;
-import model.ES.processor.motion.DraggingProc;
-import model.ES.processor.motion.PhysicForceProc;
 import model.ES.processor.motion.VelocityApplicationProc;
-import model.ES.processor.physic.collision.CollisionProc;
-import model.ES.processor.physic.collision.CollisionResolutionProc;
+import model.ES.processor.motion.physic.CollisionProc;
+import model.ES.processor.motion.physic.CollisionResolutionProc;
+import model.ES.processor.motion.physic.DraggingProc;
+import model.ES.processor.motion.physic.PhysicForceProc;
+import model.ES.processor.shipGear.AttritionProc;
 import model.ES.processor.shipGear.GunProc;
 import model.ES.processor.shipGear.ParticleThrusterProc;
 import model.ES.processor.shipGear.RotationThrusterProc;
 import model.ES.processor.shipGear.ThrusterProc;
+import model.ES.richData.CollisionShape;
+import model.ES.richData.PhysicStat;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
@@ -106,11 +111,15 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new ParticleCasterInPlaneProc());
 		stateManager.attach(new PlayerCapacityControlProc());
 		stateManager.attach(new GunProc());
+		stateManager.attach(new DamagingProc());
+		stateManager.attach(new AttritionProc());
+		
 
 		stateManager.attach(new ModelProc());
 		stateManager.attach(new PlacingModelProc());
 		stateManager.attach(new VelocityVisualisationProc());
 		stateManager.attach(new EffectOnTouchProc());
+		stateManager.attach(new DamageOnTouchProc());
 		stateManager.attach(new DestroyedOnTouchProc());
 		stateManager.attach(new ShockwaveOnTouchProc());
 		
@@ -120,44 +129,46 @@ public class MainDev extends CosmoVania {
 		EntityData ed = stateManager.getState(EntityDataAppState.class).getEntityData();
 		
 		
-		// collisionatationneur
-		EntityId mechantcollisionneur = ed.createEntity();
-		ed.setComponent(mechantcollisionneur, new PlanarStance(new Point2D(10, 10), 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(mechantcollisionneur, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(mechantcollisionneur, new Physic(Point2D.ORIGIN, 200, new CollisionShape(1), 0.8));
-		ed.setComponent(mechantcollisionneur, new Dragging(0.1));
-		ed.setComponent(mechantcollisionneur, new MotionCapacity(3, AngleUtil.toRadians(360), 10));
-		ed.setComponent(mechantcollisionneur, new VelocityViewing());
-		ed.setComponent(mechantcollisionneur, new PlanarVelocityToApply(Point2D.ORIGIN));
+		// collisioner
+		EntityId o1 = ed.createEntity();
+		ed.setComponent(o1, new PlanarStance(new Point2D(10, 10), 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(o1, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
+		ed.setComponent(o1, new Physic(Point2D.ORIGIN, new PhysicStat(200, new CollisionShape(1), 0.8), null));
+		ed.setComponent(o1, new Dragging(0.1));
+		ed.setComponent(o1, new MotionCapacity(3, AngleUtil.toRadians(360), 10));
+		ed.setComponent(o1, new VelocityViewing());
+		ed.setComponent(o1, new PlanarVelocityToApply(Point2D.ORIGIN));
+		ed.setComponent(o1, new Attrition(30, 30));
 
-		EntityId mechantcollisionneur2 = ed.createEntity();
-		ed.setComponent(mechantcollisionneur2, new PlanarStance(new Point2D(10, 8), 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(mechantcollisionneur2, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(mechantcollisionneur2, new Physic(Point2D.ORIGIN, 200, new CollisionShape(1), 0.8));
-		ed.setComponent(mechantcollisionneur2, new Dragging(0.1));
-		ed.setComponent(mechantcollisionneur2, new MotionCapacity(3, AngleUtil.toRadians(360), 10));
-		ed.setComponent(mechantcollisionneur2, new VelocityViewing());
-		ed.setComponent(mechantcollisionneur2, new PlanarVelocityToApply(Point2D.ORIGIN));
+		EntityId o2 = ed.createEntity();
+		ed.setComponent(o2, new PlanarStance(new Point2D(10, 8), 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(o2, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
+		ed.setComponent(o2, new Physic(Point2D.ORIGIN, new PhysicStat(200, new CollisionShape(1), 0.8), null));
+		ed.setComponent(o2, new Dragging(0.1));
+		ed.setComponent(o2, new MotionCapacity(3, AngleUtil.toRadians(360), 10));
+		ed.setComponent(o2, new VelocityViewing());
+		ed.setComponent(o2, new PlanarVelocityToApply(Point2D.ORIGIN));
+		ed.setComponent(o2, new Attrition(30, 30));
 
-		EntityId mechantcollisionneur3 = ed.createEntity();
-		ed.setComponent(mechantcollisionneur3, new PlanarStance(new Point2D(8, 10), 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(mechantcollisionneur3, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(mechantcollisionneur3, new Physic(Point2D.ORIGIN, 200, new CollisionShape(1), 0.8));
-		ed.setComponent(mechantcollisionneur3, new Dragging(0.1));
-		ed.setComponent(mechantcollisionneur3, new MotionCapacity(3, AngleUtil.toRadians(360), 10));
-		ed.setComponent(mechantcollisionneur3, new VelocityViewing());
-		ed.setComponent(mechantcollisionneur3, new PlanarVelocityToApply(Point2D.ORIGIN));
+		EntityId o3 = ed.createEntity();
+		ed.setComponent(o3, new PlanarStance(new Point2D(8, 10), 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(o3, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
+		ed.setComponent(o3, new Physic(Point2D.ORIGIN, new PhysicStat(200, new CollisionShape(1), 0.8), null));
+		ed.setComponent(o3, new Dragging(0.1));
+		ed.setComponent(o3, new MotionCapacity(3, AngleUtil.toRadians(360), 10));
+		ed.setComponent(o3, new VelocityViewing());
+		ed.setComponent(o3, new PlanarVelocityToApply(Point2D.ORIGIN));
+		ed.setComponent(o3, new Attrition(30, 30));
 
-		EntityId mechantcollisionneur4 = ed.createEntity();
-		ed.setComponent(mechantcollisionneur4, new PlanarStance(new Point2D(12, 12), 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(mechantcollisionneur4, new Model("human/adav/adav02b.mesh.xml", 0.01, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(mechantcollisionneur4, new Physic(Point2D.ORIGIN, 400, new CollisionShape(2), 0.8));
-		ed.setComponent(mechantcollisionneur4, new Dragging(0.1));
-		ed.setComponent(mechantcollisionneur4, new MotionCapacity(3, AngleUtil.toRadians(360), 10));
-		ed.setComponent(mechantcollisionneur4, new VelocityViewing());
-		ed.setComponent(mechantcollisionneur4, new PlanarVelocityToApply(Point2D.ORIGIN));
-		
-		
+		EntityId o4 = ed.createEntity();
+		ed.setComponent(o4, new PlanarStance(new Point2D(12, 12), 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(o4, new Model("human/adav/adav02b.mesh.xml", 0.01, 0, AngleUtil.toRadians(-90), 0));
+		ed.setComponent(o4, new Physic(Point2D.ORIGIN, new PhysicStat(400, new CollisionShape(2), 0.8), null));
+		ed.setComponent(o4, new Dragging(0.1));
+		ed.setComponent(o4, new MotionCapacity(3, AngleUtil.toRadians(360), 10));
+		ed.setComponent(o4, new VelocityViewing());
+		ed.setComponent(o4, new PlanarVelocityToApply(Point2D.ORIGIN));
+		ed.setComponent(o4, new Attrition(60, 60));
 
 		// ship
 		EntityId playerShip = ed.createEntity();
@@ -166,7 +177,7 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(playerShip, new Dragging(0.05));
 		ed.setComponent(playerShip, new MotionCapacity(3, AngleUtil.toRadians(360), 3));
 		ed.setComponent(playerShip, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(playerShip, new Physic(Point2D.ORIGIN, 100, new CollisionShape(0.5), 0.8));
+		ed.setComponent(playerShip, new Physic(Point2D.ORIGIN, new PhysicStat(100, new CollisionShape(0.5), 0.8), null));
 		ed.setComponent(playerShip, new EffectOnTouch());
 		ed.setComponent(playerShip, new VelocityViewing());
 		ed.setComponent(playerShip, new PlanarVelocityToApply(Point2D.ORIGIN));
@@ -225,7 +236,7 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(weapon, new Cooldown(0, 100));
 		ed.setComponent(weapon, new CapacityActivation("gun", false));
 		ed.setComponent(weapon, new PlayerControl());
-		ed.setComponent(weapon, new Gun());
+		ed.setComponent(weapon, new Gun(playerShip));
 
 		// camera
 		EntityId camId= ed.createEntity();

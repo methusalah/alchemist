@@ -1,16 +1,16 @@
-package model.ES.component.motion.collision;
+package model.ES.component.motion.physic;
 
 import util.geometry.geom2d.Point2D;
 
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityId;
 
-public class Collision implements EntityComponent {
+public class Collisioning implements EntityComponent {
 	private final EntityId a, b;
 	private final double penetration;
 	private final Point2D normal;
 	
-	public Collision(EntityId a, EntityId b, double penetration, Point2D normal) {
+	public Collisioning(EntityId a, EntityId b, double penetration, Point2D normal) {
 		this.a = a;
 		this.b = b;
 		this.penetration = penetration;

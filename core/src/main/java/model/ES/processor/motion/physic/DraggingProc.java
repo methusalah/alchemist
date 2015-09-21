@@ -1,11 +1,11 @@
-package model.ES.processor.motion;
+package model.ES.processor.motion.physic;
 
 import com.simsilica.es.Entity;
 
 import controller.entityAppState.Processor;
-import model.ES.component.motion.Dragging;
-import model.ES.component.motion.Physic;
 import model.ES.component.motion.PlanarVelocityToApply;
+import model.ES.component.motion.physic.Dragging;
+import model.ES.component.motion.physic.Physic;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.math.PrecisionUtil;
@@ -30,7 +30,7 @@ public class DraggingProc extends Processor {
 		Physic ph = e.get(Physic.class);
 		Dragging dragging = e.get(Dragging.class);
 		
-		Point2D actualVelocity = ph.getVelocity();
+		Point2D actualVelocity = ph.velocity;
 
 		double speed = actualVelocity.getLength();
 		if(speed < PrecisionUtil.APPROX)

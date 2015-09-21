@@ -1,4 +1,4 @@
-package model.ES.component.motion.collision;
+package model.ES.richData;
 
 public class CollisionShape {
 	public final double radius;

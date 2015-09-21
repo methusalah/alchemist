@@ -1,11 +1,11 @@
-package model.ES.processor.motion;
+package model.ES.processor.motion.physic;
 
 import com.simsilica.es.Entity;
 
 import controller.entityAppState.Processor;
-import model.ES.component.motion.Physic;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
+import model.ES.component.motion.physic.Physic;
 import model.ES.component.motion.physic.PhysicForce;
 import util.geometry.geom2d.Point2D;
 
