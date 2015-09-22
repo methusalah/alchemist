@@ -1,25 +1,10 @@
 package controller.topdown;
 
-import java.util.logging.Logger;
-
-import util.LogUtil;
+import model.ModelManager;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
-import util.geometry.geom2d.Point2D;
-import view.EditorView;
 import view.TopdownView;
-import model.CommandManager;
-import model.ModelManager;
-import app.AppFacade;
-import app.CosmoVania;
-
-import com.jme3.input.InputManager;
-import com.jme3.input.KeyInput;
-import com.jme3.input.controls.KeyTrigger;
-import com.jme3.input.controls.MouseButtonTrigger;
-
 import controller.InputInterpreter;
-import controller.editor.EditorCtrl;
 
 public class TopdownInputInterpreter extends InputInterpreter {
 
@@ -58,7 +43,6 @@ public class TopdownInputInterpreter extends InputInterpreter {
 	protected void onActionReleased(String name, float tpf) {
 		switch (name) {
 		case TopdownMapping.SWITCH_CTRL_1:
-			EventManager.post(new AppStateChangeEvent(EditorCtrl.class));
 			break;
 		case TopdownMapping.SWITCH_CTRL_2:
 			EventManager.post(new AppStateChangeEvent(TopdownCtrl.class));

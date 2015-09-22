@@ -1,40 +1,23 @@
 package view;
 
 import util.LogUtil;
-import util.annotation.GuiNodeRef;
-import util.annotation.RootNodeRef;
-import util.annotation.ViewPortRef;
 import util.event.EventManager;
 import util.event.MapResetEvent;
-import view.mapDrawing.LightDrawer;
-import view.mapDrawing.MapDrawer;
 import view.material.MaterialManager;
 import app.AppFacade;
-import app.CosmoVania;
 
 import com.google.common.eventbus.Subscribe;
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.jme3.asset.AssetManager;
 import com.jme3.math.ColorRGBA;
-import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 
 public class View {
-	protected final LightDrawer lightDrawer;
-	protected final MapDrawer mapDrawer;
-	
 	private Node plane = new Node("planeNode");
 	
 	public View() {
-		mapDrawer = new MapDrawer();
-		lightDrawer = new LightDrawer();
-
 		createSky();
-		AppFacade.getRootNode().attachChild(mapDrawer.mainNode);
 		EventManager.register(this);
 	}
 
@@ -74,8 +57,6 @@ public class View {
 
 	@Subscribe
 	public void firstRender(MapResetEvent e){
-		lightDrawer.Initialize();
-		mapDrawer.renderTiles();
 	}
 	
 	@Override

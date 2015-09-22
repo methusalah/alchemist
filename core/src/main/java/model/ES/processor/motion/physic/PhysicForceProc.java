@@ -23,13 +23,17 @@ public class PhysicForceProc extends Processor {
 			for(Entity phE : sets.get(1)){
 				PlanarStance impStance = impE.get(PlanarStance.class);
 				PlanarStance phStance = phE.get(PlanarStance.class);
+				
+				Physic ph = phE.get(Physic.class);
+				PhysicForce impulse = impE.get(PhysicForce.class);
+				if(impulse.exceptions.contains(ph.stat.type))
+					return;
 
 				Point2D vector = phStance.getCoord().getSubtraction(impStance.getCoord());
 				double distance = vector.getLength(); 
-				PhysicForce impulse = impE.get(PhysicForce.class);
-				if(distance < impulse.getRadius()){
-					double rate = 1-(distance/impulse.getRadius());
-					double force = impulse.getForce()*rate;
+				if(distance < impulse.radius){
+					double rate = 1-(distance/impulse.radius);
+					double force = impulse.radius*rate;
 					Point2D velocity = Point2D.ORIGIN.getTranslation(vector.getAngle(), force);
 					PlanarVelocityToApply v = phE.get(PlanarVelocityToApply.class);
 					velocity = velocity.getAddition(v.getVector());

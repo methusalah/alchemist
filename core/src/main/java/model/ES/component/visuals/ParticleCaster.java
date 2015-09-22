@@ -2,7 +2,6 @@ package model.ES.component.visuals;
 
 import java.awt.Color;
 
-import model.battlefield.actors.ParticleActor.Facing;
 
 import com.simsilica.es.EntityComponent;
 

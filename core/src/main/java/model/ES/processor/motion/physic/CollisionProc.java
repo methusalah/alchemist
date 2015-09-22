@@ -45,6 +45,9 @@ public class CollisionProc extends Processor {
 		
 		Physic ph1 = e1.get(Physic.class);
 		Physic ph2 = e2.get(Physic.class);
+
+		if(ph1.stat.exceptions.contains(ph2.stat.type) || ph2.stat.exceptions.contains(ph1.stat.type))
+			return;
 		
 		Point2D c1 = stance1.getCoord();
 		Point2D c2 = stance2.getCoord();

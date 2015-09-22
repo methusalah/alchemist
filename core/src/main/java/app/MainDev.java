@@ -2,16 +2,6 @@ package app;
 
 import java.awt.Color;
 
-import com.google.common.eventbus.Subscribe;
-import com.simsilica.es.EntityData;
-import com.simsilica.es.EntityId;
-
-import controller.Controller;
-import controller.cameraManagement.ChasingCameraProc;
-import controller.editor.EditorCtrl;
-import controller.entityAppState.EntityDataAppState;
-import controller.topdown.TopdownCtrl;
-import model.ModelManager;
 import model.ES.component.Cooldown;
 import model.ES.component.camera.ChasingCamera;
 import model.ES.component.command.PlayerControl;
@@ -35,7 +25,6 @@ import model.ES.processor.RemoveProc;
 import model.ES.processor.command.NeededRotationProc;
 import model.ES.processor.command.NeededThrustProc;
 import model.ES.processor.command.PlayerCapacityControlProc;
-import model.ES.processor.command.PlayerOrthogonalThrustControlProc;
 import model.ES.processor.command.PlayerRotationControlProc;
 import model.ES.processor.command.PlayerThrustControlProc;
 import model.ES.processor.holder.BoneHoldingProc;
@@ -68,6 +57,15 @@ import view.drawingProcessors.PlacingModelProc;
 import view.drawingProcessors.VelocityVisualisationProc;
 import view.material.MaterialManager;
 
+import com.google.common.eventbus.Subscribe;
+import com.simsilica.es.EntityData;
+import com.simsilica.es.EntityId;
+
+import controller.Controller;
+import controller.cameraManagement.ChasingCameraProc;
+import controller.entityAppState.EntityDataAppState;
+import controller.topdown.TopdownCtrl;
+
 public class MainDev extends CosmoVania {
 
 	private Controller currentAppState;
@@ -81,11 +79,8 @@ public class MainDev extends CosmoVania {
 		MaterialManager.setAssetManager(assetManager);
 
 		stateManager.attach(new TopdownCtrl());
-		stateManager.getState(TopdownCtrl.class).setEnabled(false);
-		
-		stateManager.attach(new EditorCtrl());
-		stateManager.getState(EditorCtrl.class).setEnabled(true);
-		currentAppState = stateManager.getState(EditorCtrl.class);
+		stateManager.getState(TopdownCtrl.class).setEnabled(true);
+		currentAppState = stateManager.getState(TopdownCtrl.class);
 		
 		stateManager.attach(new EntityDataAppState());
 		// commands
@@ -133,7 +128,7 @@ public class MainDev extends CosmoVania {
 		EntityId o1 = ed.createEntity();
 		ed.setComponent(o1, new PlanarStance(new Point2D(10, 10), 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(o1, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(o1, new Physic(Point2D.ORIGIN, new PhysicStat(200, new CollisionShape(1), 0.8), null));
+		ed.setComponent(o1, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
 		ed.setComponent(o1, new Dragging(0.1));
 		ed.setComponent(o1, new MotionCapacity(3, AngleUtil.toRadians(360), 10));
 		ed.setComponent(o1, new VelocityViewing());
@@ -143,7 +138,7 @@ public class MainDev extends CosmoVania {
 		EntityId o2 = ed.createEntity();
 		ed.setComponent(o2, new PlanarStance(new Point2D(10, 8), 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(o2, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(o2, new Physic(Point2D.ORIGIN, new PhysicStat(200, new CollisionShape(1), 0.8), null));
+		ed.setComponent(o2, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
 		ed.setComponent(o2, new Dragging(0.1));
 		ed.setComponent(o2, new MotionCapacity(3, AngleUtil.toRadians(360), 10));
 		ed.setComponent(o2, new VelocityViewing());
@@ -153,7 +148,7 @@ public class MainDev extends CosmoVania {
 		EntityId o3 = ed.createEntity();
 		ed.setComponent(o3, new PlanarStance(new Point2D(8, 10), 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(o3, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(o3, new Physic(Point2D.ORIGIN, new PhysicStat(200, new CollisionShape(1), 0.8), null));
+		ed.setComponent(o3, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
 		ed.setComponent(o3, new Dragging(0.1));
 		ed.setComponent(o3, new MotionCapacity(3, AngleUtil.toRadians(360), 10));
 		ed.setComponent(o3, new VelocityViewing());
@@ -163,7 +158,7 @@ public class MainDev extends CosmoVania {
 		EntityId o4 = ed.createEntity();
 		ed.setComponent(o4, new PlanarStance(new Point2D(12, 12), 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(o4, new Model("human/adav/adav02b.mesh.xml", 0.01, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(o4, new Physic(Point2D.ORIGIN, new PhysicStat(400, new CollisionShape(2), 0.8), null));
+		ed.setComponent(o4, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 400, new CollisionShape(2), 0.8), null));
 		ed.setComponent(o4, new Dragging(0.1));
 		ed.setComponent(o4, new MotionCapacity(3, AngleUtil.toRadians(360), 10));
 		ed.setComponent(o4, new VelocityViewing());
@@ -177,7 +172,7 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(playerShip, new Dragging(0.05));
 		ed.setComponent(playerShip, new MotionCapacity(3, AngleUtil.toRadians(360), 3));
 		ed.setComponent(playerShip, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(playerShip, new Physic(Point2D.ORIGIN, new PhysicStat(100, new CollisionShape(0.5), 0.8), null));
+		ed.setComponent(playerShip, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), 0.8), null));
 		ed.setComponent(playerShip, new EffectOnTouch());
 		ed.setComponent(playerShip, new VelocityViewing());
 		ed.setComponent(playerShip, new PlanarVelocityToApply(Point2D.ORIGIN));
@@ -245,8 +240,6 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(camId, new MotionCapacity(1, AngleUtil.toRadians(500), 1));
 		
 		EventManager.register(this);
-		
-		ModelManager.setNewBattlefield();
 	}
 
 	@Override
