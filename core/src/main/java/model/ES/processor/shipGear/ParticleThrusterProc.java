@@ -17,11 +17,6 @@ public class ParticleThrusterProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
-	
-	}
-	
-	@Override
 	protected void onEntityUpdated(Entity e, float elapsedTime) {
 		ParticleCaster caster = e.get(ParticleCaster.class);
 		RotationThruster rotationThruster = e.get(RotationThruster.class);

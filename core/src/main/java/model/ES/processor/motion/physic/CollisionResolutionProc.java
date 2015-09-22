@@ -52,22 +52,13 @@ public class CollisionResolutionProc extends Processor {
 			Point2D newVelA = velA.getAddition(impulse.getNegation().getMult(1/massA));
 			Point2D newVelB = velB.getAddition(impulse.getMult(1/massB));
 			
-//			PlanarVelocityToApply toApplyA = entityData.getComponent(A.getId(), PlanarVelocityToApply.class);
-//			if(toApplyA != null)
-//				newVelA = newVelA.getAddition(toApplyA.getVector());
-//			setComp(A, new PlanarVelocityToApply(newVelA));
 			setComp(A, new Physic(newVelA, phA.stat, phA.spawnerException));
-
-//			PlanarVelocityToApply toApplyB = entityData.getComponent(B.getId(), PlanarVelocityToApply.class);
-//			if(toApplyB != null)
-//				newVelB = newVelB.getAddition(toApplyB.getVector());
-//			setComp(B, new PlanarVelocityToApply(newVelB));
 			setComp(B, new Physic(newVelB, phB.stat, phB.spawnerException));
 
 			// debug
-			VelocityViewing viewing = entityData.getComponent(A.getId(), VelocityViewing.class);
-			if(viewing != null)
-				viewing.updateVelocity("impulse", newVelA, Color.red, 10, 0.2, 1);
+//			VelocityViewing viewing = entityData.getComponent(A.getId(), VelocityViewing.class);
+//			if(viewing != null)
+//				viewing.updateVelocity("impulse", newVelA, Color.red, 10, 0.2, 1);
 		}
 		entityData.removeEntity(e.getId());
 	}
