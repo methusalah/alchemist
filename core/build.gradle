@@ -29,7 +29,7 @@ dependencies {
 	compile 'org.bushe:eventbus:1.4'
 	compile 'com.google.guava:guava:18.0'
 	compile 'org.apache.commons:commons-lang3:3.3.2'
-	compile 'com.google.inject:guice:4.0'
+	//compile 'com.google.inject:guice:4.0'
 
 	compile 'com.fasterxml.jackson.core:jackson-core:2.5.3'
 	compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.3'

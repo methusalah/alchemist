@@ -269,7 +269,7 @@ public class MainDev extends CosmoVania {
 
 		// camera
 		EntityId camId= ed.createEntity();
-		ed.setComponent(camId, new PlanarStance(new Point2D(1, 1), 0, 20, Point3D.UNIT_Z));
+		ed.setComponent(camId, new PlanarStance(new Point2D(1, 1), 0, 30, Point3D.UNIT_Z));
 		ed.setComponent(camId, new ChasingCamera(playerShip, 3, 0, 0.5, 0.5));
 		ed.setComponent(camId, new MotionCapacity(1, AngleUtil.toRadians(500), 1));
 		

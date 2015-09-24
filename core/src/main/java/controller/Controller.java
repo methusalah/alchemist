@@ -6,9 +6,7 @@ package controller;
 
 import view.View;
 import app.AppFacade;
-import app.CosmoVania;
 
-import com.google.inject.Inject;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
