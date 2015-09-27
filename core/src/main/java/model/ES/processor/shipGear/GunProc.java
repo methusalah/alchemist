@@ -1,7 +1,9 @@
 package model.ES.processor.shipGear;
 
-import java.util.ArrayList;
+import com.simsilica.es.Entity;
+import com.simsilica.es.EntityId;
 
+import controller.entityAppState.Processor;
 import model.ES.component.Cooldown;
 import model.ES.component.LifeTime;
 import model.ES.component.interaction.DamageOnTouch;
@@ -11,7 +13,6 @@ import model.ES.component.interaction.ShockwaveOnTouch;
 import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
-import model.ES.component.motion.physic.Dragging;
 import model.ES.component.motion.physic.Physic;
 import model.ES.component.shipGear.CapacityActivation;
 import model.ES.component.shipGear.Gun;
@@ -22,11 +23,6 @@ import model.ES.richData.PhysicStat;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
-
-import com.simsilica.es.Entity;
-import com.simsilica.es.EntityId;
-
-import controller.entityAppState.Processor;
 
 public class GunProc extends Processor {
 

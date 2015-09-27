@@ -11,6 +11,8 @@ repositories {
 	mavenCentral()
 	//maven { url 'https://dl.bintray.com/brainless-studios/tonegodgui' }
 	maven { url "https://jitpack.io" }
+	maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url "https://oss.sonatype.org/content/repositories/releases/" }
 }
 
 dependencies {
@@ -40,6 +42,7 @@ dependencies {
 	compile 'com.github.brainless-studios:zay-es:-SNAPSHOT'
 	
 	compile 'org.codehaus.groovy:groovy-all:2.3.10'
+	compile "com.badlogicgames.gdx:gdx-ai:1.6.0"
 	
 }
 

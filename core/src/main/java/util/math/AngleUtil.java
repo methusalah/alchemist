@@ -1,5 +1,6 @@
 package util.math;
 
+import model.ES.component.command.PlanarNeededRotation;
 import util.geometry.geom2d.Point2D;
 
 public class AngleUtil {
@@ -47,6 +48,19 @@ public class AngleUtil {
 		if(Math.abs(orientedDiff) < PrecisionUtil.APPROX)
 			orientedDiff = 0;
 		return (int)Math.signum(orientedDiff);
+	}
+	
+	public static double getAngleFromAtoB(double A, double B){
+		int turn = getTurn(A, B);
+		if(turn == NONE)
+			return 0;
+		else {
+			double diff = AngleUtil.getSmallestDifference(A, B);
+			if(turn == COUNTERCLOCKWISE)
+				return diff;
+			else
+				return -diff;
+		}
 	}
 
 

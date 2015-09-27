@@ -27,6 +27,7 @@ import model.ES.component.visuals.ParticleCaster;
 import model.ES.processor.LifeTimeProc;
 import model.ES.processor.RemoveProc;
 import model.ES.processor.AI.AttackOnSightProc;
+import model.ES.processor.AI.BehaviorTreeProc;
 import model.ES.processor.command.NeededRotationProc;
 import model.ES.processor.command.NeededThrustProc;
 import model.ES.processor.command.PlayerCapacityControlProc;
@@ -68,6 +69,7 @@ import view.material.MaterialManager;
 import com.google.common.eventbus.Subscribe;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
+import com.sun.javafx.scene.control.behavior.BehaviorBase;
 
 import controller.Controller;
 import controller.cameraManagement.ChasingCameraProc;
@@ -119,7 +121,8 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new AttritionProc());
 
 		stateManager.attach(new SightProc());
-		stateManager.attach(new AttackOnSightProc());
+//		stateManager.attach(new AttackOnSightProc());
+		stateManager.attach(new BehaviorTreeProc());
 		
 
 		stateManager.attach(new ModelProc());
@@ -148,40 +151,40 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(o1, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
 		ed.setComponent(o1, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
 		ed.setComponent(o1, new Dragging(0.1));
-		ed.setComponent(o1, new MotionCapacity(2, AngleUtil.toRadians(200), 3));
+		ed.setComponent(o1, new MotionCapacity(2, AngleUtil.toRadians(300), 3));
 		ed.setComponent(o1, new PlanarVelocityToApply(Point2D.ORIGIN));
 		ed.setComponent(o1, new Attrition(30, 30));
-		ed.setComponent(o1, new Sighting(8, AngleUtil.toRadians(60), new ArrayList<>()));
+		ed.setComponent(o1, new Sighting(8, AngleUtil.toRadians(100), new ArrayList<>()));
 
-		EntityId o2 = ed.createEntity();
-		ed.setComponent(o2, new PlanarStance(new Point2D(10, 8), 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(o2, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(o2, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
-		ed.setComponent(o2, new Dragging(0.1));
-		ed.setComponent(o2, new MotionCapacity(2, AngleUtil.toRadians(200), 3));
-		ed.setComponent(o2, new PlanarVelocityToApply(Point2D.ORIGIN));
-		ed.setComponent(o2, new Attrition(30, 30));
-		ed.setComponent(o2, new Sighting(8, AngleUtil.toRadians(60), new ArrayList<>()));
-
-		EntityId o3 = ed.createEntity();
-		ed.setComponent(o3, new PlanarStance(new Point2D(8, 10), 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(o3, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(o3, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
-		ed.setComponent(o3, new Dragging(0.1));
-		ed.setComponent(o3, new MotionCapacity(2, AngleUtil.toRadians(200), 3));
-		ed.setComponent(o3, new PlanarVelocityToApply(Point2D.ORIGIN));
-		ed.setComponent(o3, new Attrition(30, 30));
-		ed.setComponent(o3, new Sighting(8, AngleUtil.toRadians(60), new ArrayList<>()));
-
-		EntityId o4 = ed.createEntity();
-		ed.setComponent(o4, new PlanarStance(new Point2D(12, 12), 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(o4, new Model("human/adav/adav02b.mesh.xml", 0.01, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(o4, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 400, new CollisionShape(2), 0.8), null));
-		ed.setComponent(o4, new Dragging(0.1));
-		ed.setComponent(o4, new MotionCapacity(2, AngleUtil.toRadians(200), 3));
-		ed.setComponent(o4, new PlanarVelocityToApply(Point2D.ORIGIN));
-		ed.setComponent(o4, new Attrition(60, 60));
-		ed.setComponent(o4, new Sighting(10, AngleUtil.toRadians(60), new ArrayList<>()));
+//		EntityId o2 = ed.createEntity();
+//		ed.setComponent(o2, new PlanarStance(new Point2D(10, 8), 0, 0, Point3D.UNIT_Z));
+//		ed.setComponent(o2, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
+//		ed.setComponent(o2, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
+//		ed.setComponent(o2, new Dragging(0.1));
+//		ed.setComponent(o2, new MotionCapacity(2, AngleUtil.toRadians(200), 3));
+//		ed.setComponent(o2, new PlanarVelocityToApply(Point2D.ORIGIN));
+//		ed.setComponent(o2, new Attrition(30, 30));
+//		ed.setComponent(o2, new Sighting(8, AngleUtil.toRadians(60), new ArrayList<>()));
+//
+//		EntityId o3 = ed.createEntity();
+//		ed.setComponent(o3, new PlanarStance(new Point2D(8, 10), 0, 0, Point3D.UNIT_Z));
+//		ed.setComponent(o3, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
+//		ed.setComponent(o3, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
+//		ed.setComponent(o3, new Dragging(0.1));
+//		ed.setComponent(o3, new MotionCapacity(2, AngleUtil.toRadians(200), 3));
+//		ed.setComponent(o3, new PlanarVelocityToApply(Point2D.ORIGIN));
+//		ed.setComponent(o3, new Attrition(30, 30));
+//		ed.setComponent(o3, new Sighting(8, AngleUtil.toRadians(60), new ArrayList<>()));
+//
+//		EntityId o4 = ed.createEntity();
+//		ed.setComponent(o4, new PlanarStance(new Point2D(12, 12), 0, 0, Point3D.UNIT_Z));
+//		ed.setComponent(o4, new Model("human/adav/adav02b.mesh.xml", 0.01, 0, AngleUtil.toRadians(-90), 0));
+//		ed.setComponent(o4, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 400, new CollisionShape(2), 0.8), null));
+//		ed.setComponent(o4, new Dragging(0.1));
+//		ed.setComponent(o4, new MotionCapacity(2, AngleUtil.toRadians(200), 3));
+//		ed.setComponent(o4, new PlanarVelocityToApply(Point2D.ORIGIN));
+//		ed.setComponent(o4, new Attrition(60, 60));
+//		ed.setComponent(o4, new Sighting(10, AngleUtil.toRadians(60), new ArrayList<>()));
 
 		// ship
 		EntityId playerShip = ed.createEntity();
