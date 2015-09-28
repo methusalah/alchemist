@@ -6,6 +6,7 @@ import com.badlogic.gdx.ai.btree.Task;
 import model.AI.blackboard.ShipBlackboard;
 import model.ES.component.interaction.senses.Touching;
 import model.ES.component.relation.Attackable;
+import model.ES.component.shipGear.Projectile;
 
 public class IsEnemyTouching extends LeafTask<ShipBlackboard> {
 
@@ -14,10 +15,12 @@ public class IsEnemyTouching extends LeafTask<ShipBlackboard> {
 		ShipBlackboard bb = getObject();
 		
 		Touching touching = bb.entityData.getComponent(bb.eid, Touching.class);
-		
 		if(touching != null)
 			if(bb.entityData.getComponent(touching.getTouched(), Attackable.class) != null){
 				bb.enemyDetected = touching.getTouched();
+				success();
+			} else if(bb.entityData.getComponent(touching.getTouched(), Projectile.class) != null){
+				bb.enemyDetected = bb.entityData.getComponent(touching.getTouched(), Projectile.class).sender;
 				success();
 			}
 		else

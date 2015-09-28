@@ -16,6 +16,7 @@ import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Physic;
 import model.ES.component.shipGear.CapacityActivation;
 import model.ES.component.shipGear.Gun;
+import model.ES.component.shipGear.Projectile;
 import model.ES.component.visuals.Model;
 import model.ES.richData.CollisionShape;
 import model.ES.richData.Damage;
@@ -54,6 +55,7 @@ public class GunProc extends Processor {
 			entityData.setComponent(firing, new EffectOnTouch());
 			entityData.setComponent(firing, new DamageOnTouch(new Damage(1)));
 			entityData.setComponent(firing, new LifeTime(System.currentTimeMillis(), 1000));
+			entityData.setComponent(firing, new Projectile(holder, stance.getCoord()));
 		}
 
 	}
