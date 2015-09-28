@@ -8,10 +8,13 @@ import model.AI.blackboard.ShipBlackboard;
 import util.LogUtil;
 import util.math.RandomUtil;
 
-public class Cooldown extends Decorator<ShipBlackboard> {
+public class CooldownTimer extends Decorator<ShipBlackboard> {
 	private static final String COOLDOWN_CHRONO = "cooldownChrono";
 	private static final String COOLDOWN_DURATION = "cooldownDuration";
 	
+	@TaskAttribute
+	public String id = "";
+
 	@TaskAttribute
 	public int duration = 200;
 
@@ -24,10 +27,10 @@ public class Cooldown extends Decorator<ShipBlackboard> {
 	
 	@Override
 	public void run() {
-		if(getObject().data.containsKey(COOLDOWN_CHRONO) && (long)getObject().data.get(COOLDOWN_CHRONO) + (double)getObject().data.get(COOLDOWN_DURATION) > System.currentTimeMillis())
+		if(getObject().data.containsKey(COOLDOWN_CHRONO + id) && (long)getObject().data.get(COOLDOWN_CHRONO + id) + (double)getObject().data.get(COOLDOWN_DURATION + id) > System.currentTimeMillis())
 			fail();
 		else{
-			getObject().data.remove(COOLDOWN_CHRONO);
+			getObject().data.remove(COOLDOWN_CHRONO + id);
 			super.start();
 			super.run();
 		}
@@ -46,7 +49,7 @@ public class Cooldown extends Decorator<ShipBlackboard> {
 	}
 	
 	private void initChrono(){
-		getObject().data.put(COOLDOWN_CHRONO, System.currentTimeMillis());
-		getObject().data.put(COOLDOWN_DURATION, range == 0? duration : duration + range*RandomUtil.next());
+		getObject().data.put(COOLDOWN_CHRONO + id, System.currentTimeMillis());
+		getObject().data.put(COOLDOWN_DURATION + id, range == 0? duration : duration + range*RandomUtil.next());
 	}
 }

@@ -28,12 +28,13 @@ public class GunProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(PlanarStance.class, Gun.class, Cooldown.class, CapacityActivation.class);
+		register(PlanarStance.class, Gun.class, Cooldown.class);
 	}
 	
 	@Override
 	protected void onEntityUpdated(Entity e, float elapsedTime) {
-		CapacityActivation activation = e.get(CapacityActivation.class);
+		EntityId holder = e.get(Gun.class).holder; 
+		CapacityActivation activation = entityData.getComponent(holder, CapacityActivation.class);
 		if(!activation.isActivated())
 			return;
 		

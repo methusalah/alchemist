@@ -15,6 +15,7 @@ public class ShipBlackboard {
 	public final EntityData entityData;
 	public final EntityId eid;
 	
+	public EntityId enemyInSight;
 	public EntityId enemy;
 	
 	public ShipBlackboard(EntityData entityData, EntityId eid) {

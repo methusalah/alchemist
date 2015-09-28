@@ -1,16 +1,14 @@
 package model.AI.task;
 
+import model.AI.blackboard.ShipBlackboard;
+import model.ES.component.relation.Attackable;
+import model.ES.component.senses.Sighting;
+
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
 import com.simsilica.es.EntityId;
 
-import model.AI.AttackState;
-import model.AI.blackboard.ShipBlackboard;
-import model.ES.component.command.PlayerControl;
-import model.ES.component.senses.Sighting;
-import util.LogUtil;
-
-public class EnemyInSight extends LeafTask<ShipBlackboard> {
+public class IsEnemyInSight extends LeafTask<ShipBlackboard> {
 
 	@Override
 	public void run() {
@@ -19,9 +17,9 @@ public class EnemyInSight extends LeafTask<ShipBlackboard> {
 		Sighting s = bb.entityData.getComponent(bb.eid, Sighting.class);
 		
 		for(EntityId inSight : s.entitiesInSight){
-			PlayerControl control = bb.entityData.getComponent(inSight, PlayerControl.class);
-			if(control != null){
-				bb.enemy = inSight;
+			Attackable attackable = bb.entityData.getComponent(inSight, Attackable.class);
+			if(attackable != null){
+				bb.enemyInSight = inSight;
 				success();
 				return;
 			}

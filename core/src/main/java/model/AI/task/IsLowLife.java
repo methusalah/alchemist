@@ -1,25 +1,22 @@
 package model.AI.task;
 
+import model.AI.blackboard.ShipBlackboard;
+import model.ES.component.shipGear.Attrition;
+
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
 import com.badlogic.gdx.ai.btree.annotation.TaskAttribute;
-import com.simsilica.es.EntityId;
 
-import model.AI.AttackState;
-import model.AI.blackboard.ShipBlackboard;
-import model.ES.component.command.PlayerControl;
-import model.ES.component.motion.PlanarStance;
-import model.ES.component.senses.Sighting;
-import util.LogUtil;
-
-public class TooClose extends LeafTask<ShipBlackboard> {
+public class IsLowLife extends LeafTask<ShipBlackboard> {
 
 	@TaskAttribute
 	public int dist = 3;
 	
 	@Override
 	public void run() {
-		if(getObject().getDistanceToEnemy() < dist){
+		ShipBlackboard bb = getObject();
+		Attrition attrition = bb.entityData.getComponent(bb.eid, Attrition.class);
+		if((double)attrition.actualHitpoints / attrition.maxHitpoints < 0.2){
 			success();
 		} else {
 			fail();

@@ -15,6 +15,7 @@ import com.simsilica.es.EntityId;
 import controller.entityAppState.Processor;
 import model.AI.blackboard.ShipBlackboard;
 import model.ES.component.motion.PlanarStance;
+import model.ES.component.relation.Attackable;
 import model.ES.component.senses.Sighting;
 import util.LogUtil;
 

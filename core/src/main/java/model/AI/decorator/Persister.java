@@ -7,7 +7,7 @@ import com.badlogic.gdx.ai.btree.annotation.TaskAttribute;
 import model.AI.blackboard.ShipBlackboard;
 import util.math.RandomUtil;
 
-public class Persistence extends Decorator<ShipBlackboard> {
+public class Persister extends Decorator<ShipBlackboard> {
 	private static final String CHRONO = "chrono";
 	private static final String DURATION = "duration";
 	

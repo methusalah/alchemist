@@ -14,6 +14,7 @@ import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.SpaceStance;
 import model.ES.component.motion.physic.Dragging;
 import model.ES.component.motion.physic.Physic;
+import model.ES.component.relation.Attackable;
 import model.ES.component.relation.PlanarHolding;
 import model.ES.component.senses.Sighting;
 import model.ES.component.shipGear.Attrition;
@@ -26,7 +27,6 @@ import model.ES.component.visuals.Model;
 import model.ES.component.visuals.ParticleCaster;
 import model.ES.processor.LifeTimeProc;
 import model.ES.processor.RemoveProc;
-import model.ES.processor.AI.AttackOnSightProc;
 import model.ES.processor.AI.BehaviorTreeProc;
 import model.ES.processor.command.NeededRotationProc;
 import model.ES.processor.command.NeededThrustProc;
@@ -121,7 +121,6 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new AttritionProc());
 
 		stateManager.attach(new SightProc());
-//		stateManager.attach(new AttackOnSightProc());
 		stateManager.attach(new BehaviorTreeProc());
 		
 
@@ -148,13 +147,24 @@ public class MainDev extends CosmoVania {
 		// collisioner
 		EntityId o1 = ed.createEntity();
 		ed.setComponent(o1, new PlanarStance(new Point2D(10, 10), 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(o1, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
+		ed.setComponent(o1, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
 		ed.setComponent(o1, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
 		ed.setComponent(o1, new Dragging(0.1));
 		ed.setComponent(o1, new MotionCapacity(2, AngleUtil.toRadians(300), 3));
 		ed.setComponent(o1, new PlanarVelocityToApply(Point2D.ORIGIN));
 		ed.setComponent(o1, new Attrition(30, 30));
 		ed.setComponent(o1, new Sighting(8, AngleUtil.toRadians(100), new ArrayList<>()));
+		ed.setComponent(o1, new CapacityActivation("gun", false));
+
+		attachThruster(ed, o1);
+
+
+		// weapon
+		EntityId o1weap = ed.createEntity();
+		ed.setComponent(o1weap, new PlanarHolding(o1, new Point3D(0, -0.3, 0), 0));
+		ed.setComponent(o1weap, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(o1weap, new Cooldown(0, 50));
+		ed.setComponent(o1weap, new Gun(o1));
 
 //		EntityId o2 = ed.createEntity();
 //		ed.setComponent(o2, new PlanarStance(new Point2D(10, 8), 0, 0, Point3D.UNIT_Z));
@@ -197,62 +207,16 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(playerShip, new EffectOnTouch());
 		ed.setComponent(playerShip, new VelocityViewing());
 		ed.setComponent(playerShip, new PlanarVelocityToApply(Point2D.ORIGIN));
-		
-		
-		// rotation thrusters
-		EntityId rotth1 = ed.createEntity();
-		ed.setComponent(rotth1, new PlanarHolding(playerShip, new Point3D(0.5, 0.2, 0), -AngleUtil.toRadians(20)));
-		ed.setComponent(rotth1, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(rotth1, new RotationThruster(true, AngleUtil.toRadians(5), 0, false));
-		ed.setComponent(rotth1, getCaster1());
+		ed.setComponent(playerShip, new Attackable());
+		ed.setComponent(playerShip, new CapacityActivation("gun", false));
 
-		EntityId rotth2 = ed.createEntity();
-		ed.setComponent(rotth2, new PlanarHolding(playerShip, new Point3D(0.5, -0.2, 0), -AngleUtil.toRadians(20)));
-		ed.setComponent(rotth2, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(rotth2, new RotationThruster(false, AngleUtil.toRadians(-5), 0, false));
-		ed.setComponent(rotth2, getCaster1());
-
-		// main thruster
-		EntityId rearth = ed.createEntity();
-		ed.setComponent(rearth, new PlanarHolding(playerShip, new Point3D(-0.7, 0, 0), AngleUtil.FLAT));
-		ed.setComponent(rearth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(rearth, new Thruster(new Point3D(1, 0, 0), AngleUtil.toRadians(90), 0, false));
-		ed.setComponent(rearth, getCaster2());
-		ed.setComponent(rearth, new Lighting(Color.orange, 3, 6, AngleUtil.toRadians(10), AngleUtil.toRadians(60), false, 0));
-
-		// front thrusters
-		EntityId frontleftth = ed.createEntity();
-		ed.setComponent(frontleftth, new PlanarHolding(playerShip, new Point3D(0.4, 0.15, 0), AngleUtil.toRadians(20)));
-		ed.setComponent(frontleftth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(frontleftth, new Thruster(new Point3D(-1, -1, 0), AngleUtil.toRadians(70), 0, true));
-		ed.setComponent(frontleftth, getCaster3());
-
-		EntityId frontrightth = ed.createEntity();
-		ed.setComponent(frontrightth, new PlanarHolding(playerShip, new Point3D(0.4, -0.15, 0), AngleUtil.toRadians(-20)));
-		ed.setComponent(frontrightth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(frontrightth, new Thruster(new Point3D(-1, 1, 0), AngleUtil.toRadians(70), 0, true));
-		ed.setComponent(frontrightth, getCaster3());
-
-		// lateral thrusters
-		EntityId rearleftth = ed.createEntity();
-		ed.setComponent(rearleftth, new PlanarHolding(playerShip, new Point3D(-0.34, 0.2, 0), AngleUtil.toRadians(110)));
-		ed.setComponent(rearleftth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(rearleftth, new Thruster(new Point3D(1, -1.5, 0), AngleUtil.toRadians(50), 0, true));
-		ed.setComponent(rearleftth, getCaster3());
-
-		EntityId rearrightth = ed.createEntity();
-		ed.setComponent(rearrightth, new PlanarHolding(playerShip, new Point3D(-0.34, -0.2, 0), AngleUtil.toRadians(-110)));
-		ed.setComponent(rearrightth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(rearrightth, new Thruster(new Point3D(1, 1.5, 0), AngleUtil.toRadians(50), 0, true));
-		ed.setComponent(rearrightth, getCaster3());
+		attachThruster(ed, playerShip);
 
 		// weapon
 		EntityId weaponLeft = ed.createEntity();
 		ed.setComponent(weaponLeft, new PlanarHolding(playerShip, new Point3D(0, 0.3, 0), 0));
 		ed.setComponent(weaponLeft, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(weaponLeft, new Cooldown(0, 100));
-		ed.setComponent(weaponLeft, new CapacityActivation("gun", false));
-		ed.setComponent(weaponLeft, new PlayerControl());
 		ed.setComponent(weaponLeft, new Gun(playerShip));
 
 		// weapon
@@ -260,8 +224,6 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(weaponRight, new PlanarHolding(playerShip, new Point3D(0, -0.3, 0), 0));
 		ed.setComponent(weaponRight, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(weaponRight, new Cooldown(0, 100));
-		ed.setComponent(weaponRight, new CapacityActivation("gun", false));
-		ed.setComponent(weaponRight, new PlayerControl());
 		ed.setComponent(weaponRight, new Gun(playerShip));
 
 		// light
@@ -358,6 +320,55 @@ public class MainDev extends CosmoVania {
 				true,
 				0,
 				false);
+	}
+	
+	private void attachThruster(EntityData ed, EntityId eid){
+		// rotation thrusters
+		EntityId rotth1 = ed.createEntity();
+		ed.setComponent(rotth1, new PlanarHolding(eid, new Point3D(0.5, 0.2, 0), -AngleUtil.toRadians(20)));
+		ed.setComponent(rotth1, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(rotth1, new RotationThruster(true, AngleUtil.toRadians(5), 0, false));
+		ed.setComponent(rotth1, getCaster1());
+
+		EntityId rotth2 = ed.createEntity();
+		ed.setComponent(rotth2, new PlanarHolding(eid, new Point3D(0.5, -0.2, 0), -AngleUtil.toRadians(20)));
+		ed.setComponent(rotth2, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(rotth2, new RotationThruster(false, AngleUtil.toRadians(-5), 0, false));
+		ed.setComponent(rotth2, getCaster1());
+
+		// main thruster
+		EntityId rearth = ed.createEntity();
+		ed.setComponent(rearth, new PlanarHolding(eid, new Point3D(-0.7, 0, 0), AngleUtil.FLAT));
+		ed.setComponent(rearth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(rearth, new Thruster(new Point3D(1, 0, 0), AngleUtil.toRadians(90), 0, false));
+		ed.setComponent(rearth, getCaster2());
+		ed.setComponent(rearth, new Lighting(Color.orange, 3, 6, AngleUtil.toRadians(10), AngleUtil.toRadians(60), false, 0));
+
+		// front thrusters
+		EntityId frontleftth = ed.createEntity();
+		ed.setComponent(frontleftth, new PlanarHolding(eid, new Point3D(0.4, 0.15, 0), AngleUtil.toRadians(20)));
+		ed.setComponent(frontleftth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(frontleftth, new Thruster(new Point3D(-1, -1, 0), AngleUtil.toRadians(70), 0, true));
+		ed.setComponent(frontleftth, getCaster3());
+
+		EntityId frontrightth = ed.createEntity();
+		ed.setComponent(frontrightth, new PlanarHolding(eid, new Point3D(0.4, -0.15, 0), AngleUtil.toRadians(-20)));
+		ed.setComponent(frontrightth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(frontrightth, new Thruster(new Point3D(-1, 1, 0), AngleUtil.toRadians(70), 0, true));
+		ed.setComponent(frontrightth, getCaster3());
+
+		// lateral thrusters
+		EntityId rearleftth = ed.createEntity();
+		ed.setComponent(rearleftth, new PlanarHolding(eid, new Point3D(-0.34, 0.2, 0), AngleUtil.toRadians(110)));
+		ed.setComponent(rearleftth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(rearleftth, new Thruster(new Point3D(1, -1.5, 0), AngleUtil.toRadians(50), 0, true));
+		ed.setComponent(rearleftth, getCaster3());
+
+		EntityId rearrightth = ed.createEntity();
+		ed.setComponent(rearrightth, new PlanarHolding(eid, new Point3D(-0.34, -0.2, 0), AngleUtil.toRadians(-110)));
+		ed.setComponent(rearrightth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		ed.setComponent(rearrightth, new Thruster(new Point3D(1, 1.5, 0), AngleUtil.toRadians(50), 0, true));
+		ed.setComponent(rearrightth, getCaster3());
 	}
 
 }

@@ -6,7 +6,7 @@ import com.badlogic.gdx.ai.btree.annotation.TaskAttribute;
 import model.AI.blackboard.ShipBlackboard;
 import util.math.RandomUtil;
 
-public class Reaction extends Decorator<ShipBlackboard> {
+public class slower extends Decorator<ShipBlackboard> {
 	private static final String CHRONO = "chrono";
 	private static final String DURATION = "duration";
 	
