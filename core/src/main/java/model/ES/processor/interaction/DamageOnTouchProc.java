@@ -8,7 +8,7 @@ import model.ES.component.LifeTime;
 import model.ES.component.interaction.DamageOnTouch;
 import model.ES.component.interaction.Damaging;
 import model.ES.component.interaction.EffectOnTouch;
-import model.ES.component.interaction.Touching;
+import model.ES.component.interaction.senses.Touching;
 import model.ES.component.motion.PlanarStance;
 import util.geometry.geom3d.Point3D;
 

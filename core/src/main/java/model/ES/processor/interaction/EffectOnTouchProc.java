@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import model.ES.component.LifeTime;
 import model.ES.component.interaction.EffectOnTouch;
-import model.ES.component.interaction.Touching;
+import model.ES.component.interaction.senses.Touching;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.visuals.ParticleCaster;
 import util.geometry.geom3d.Point3D;

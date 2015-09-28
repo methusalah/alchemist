@@ -1,4 +1,4 @@
-package model.ES.component.senses;
+package model.ES.component.interaction.senses;
 
 import java.util.List;
 

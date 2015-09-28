@@ -9,7 +9,7 @@ public class RecordEnemy extends LeafTask<ShipBlackboard>{
 	@Override
 	public void run() {
 		ShipBlackboard bb = getObject();
-		bb.enemy = bb.enemyInSight;
+		bb.enemy = bb.enemyDetected;
 		success();
 	}
 

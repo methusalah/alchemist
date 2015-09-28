@@ -2,7 +2,7 @@ package model.ES.processor.interaction;
 
 import model.ES.component.ToRemove;
 import model.ES.component.interaction.DestroyedOnTouch;
-import model.ES.component.interaction.Touching;
+import model.ES.component.interaction.senses.Touching;
 
 import com.simsilica.es.Entity;
 

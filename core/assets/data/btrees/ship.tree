@@ -12,6 +12,7 @@ import forgetEnemy : "model.AI.task.ForgetEnemy"
 import recordEnemy : "model.AI.task.RecordEnemy"
 
 import isEnemyInSight : "model.AI.task.IsEnemyInSight"
+import isEnemyTouching : "model.AI.task.IsEnemyTouching"
 import isEnemyRecorded : "model.AI.task.IsEnemyRecorded"
 import isTooClose : "model.AI.task.IsTooClose"
 import isTooFar : "model.AI.task.IsTooFar"
@@ -78,3 +79,7 @@ root
     sequence
       isEnemyInSight
       recordEnemy
+    sequence
+      isEnemyTouching
+      recordEnemy
+      

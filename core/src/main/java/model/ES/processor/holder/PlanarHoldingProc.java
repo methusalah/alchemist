@@ -36,15 +36,18 @@ public class PlanarHoldingProc extends Processor {
 	private void managePlanar(Entity e, float elapsedTime) {
 		PlanarHolding holded = e.get(PlanarHolding.class);
 		PlanarStance stance = entityData.getComponent(holded.getHolder(), PlanarStance.class);
-		Point2D newCoord = holded.getLocalPosition().get2D().getRotation(stance.getOrientation());
-		newCoord = newCoord.getAddition(stance.getCoord());
-		double newOrientation = AngleUtil.normalize(stance.getOrientation() + holded.getLocalOrientation());
-		
-		
-		setComp(e, new PlanarStance(newCoord,
-				newOrientation,
-				stance.getElevation() + holded.getLocalPosition().z,
-				stance.getUpVector()));
+		if(stance == null){
+			entityData.removeEntity(e.getId());
+		} else {
+			Point2D newCoord = holded.getLocalPosition().get2D().getRotation(stance.getOrientation());
+			newCoord = newCoord.getAddition(stance.getCoord());
+			double newOrientation = AngleUtil.normalize(stance.getOrientation() + holded.getLocalOrientation());
+			
+			setComp(e, new PlanarStance(newCoord,
+					newOrientation,
+					stance.getElevation() + holded.getLocalPosition().z,
+					stance.getUpVector()));
+		}
 	}
 
 	private void manageSpace(Entity e, float elapsedTime) {

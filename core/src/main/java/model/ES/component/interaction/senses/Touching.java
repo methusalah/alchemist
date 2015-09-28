@@ -1,4 +1,4 @@
-package model.ES.component.interaction;
+package model.ES.component.interaction.senses;
 
 import util.geometry.geom2d.Point2D;
 

@@ -3,8 +3,8 @@ package model.ES.processor.senses;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ES.component.interaction.senses.Sighting;
 import model.ES.component.motion.PlanarStance;
-import model.ES.component.senses.Sighting;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 

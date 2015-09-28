@@ -6,7 +6,7 @@ import java.util.List;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import model.ModelManager;
-import model.ES.component.interaction.Touching;
+import model.ES.component.interaction.senses.Touching;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.physic.Collisioning;
 import model.ES.component.motion.physic.Physic;
@@ -31,11 +31,15 @@ public class CollisionProc extends Processor {
 		
         for(EntitySet set : sets){
         	List<Entity> entities = new ArrayList<>();
-        	for(Entity e : set)
+        	for(Entity e : set){
         		entities.add(e);
-        	for(int i = 0; i < set.size() - 1; i++)
+        		removeComp(e, Touching.class);
+        	}
+        	for(int i = 0; i < set.size() - 1; i++){
+        		
             	for(int j = i+1; j < set.size(); j++)
         			checkCollisionBetween(entities.get(i), entities.get(j));
+        	}
         }
 	}
 

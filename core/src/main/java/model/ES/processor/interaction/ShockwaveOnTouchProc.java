@@ -6,7 +6,7 @@ import com.simsilica.es.EntityId;
 import controller.entityAppState.Processor;
 import model.ES.component.LifeTime;
 import model.ES.component.interaction.ShockwaveOnTouch;
-import model.ES.component.interaction.Touching;
+import model.ES.component.interaction.senses.Touching;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.physic.PhysicForce;
 import util.geometry.geom3d.Point3D;

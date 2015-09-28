@@ -1,8 +1,8 @@
 package model.AI.task;
 
 import model.AI.blackboard.ShipBlackboard;
+import model.ES.component.interaction.senses.Sighting;
 import model.ES.component.relation.Attackable;
-import model.ES.component.senses.Sighting;
 
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
@@ -19,7 +19,7 @@ public class IsEnemyInSight extends LeafTask<ShipBlackboard> {
 		for(EntityId inSight : s.entitiesInSight){
 			Attackable attackable = bb.entityData.getComponent(inSight, Attackable.class);
 			if(attackable != null){
-				bb.enemyInSight = inSight;
+				bb.enemyDetected = inSight;
 				success();
 				return;
 			}
