@@ -34,7 +34,7 @@ public class TopdownInputInterpreter extends InputInterpreter {
 			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(0, -1);
 			break;
 		case TopdownMapping.PRIMARY:
-			ModelManager.command.capacities.add("gun");
+			ModelManager.command.abilities.add("gun");
 			break;
 		}
 	}
@@ -49,9 +49,9 @@ public class TopdownInputInterpreter extends InputInterpreter {
 			break;
 
 		case TopdownMapping.PRIMARY:
-			for(int i = 0; i<ModelManager.command.capacities.size(); i++)
-				if(ModelManager.command.capacities.get(i).equals("gun")){
-					ModelManager.command.capacities.remove(i);
+			for(int i = 0; i<ModelManager.command.abilities.size(); i++)
+				if(ModelManager.command.abilities.get(i).equals("gun")){
+					ModelManager.command.abilities.remove(i);
 				}
 			break;
 		case TopdownMapping.SELECT:
