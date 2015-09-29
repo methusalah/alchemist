@@ -2,11 +2,11 @@ package model.ES.component.shipGear;
 
 import com.simsilica.es.EntityComponent;
 
-public class CapacityActivation implements EntityComponent{
+public class CapacityTrigger implements EntityComponent{
 	private final String flag;
 	private final boolean activated;
 	
-	public CapacityActivation(String flag, boolean activated) {
+	public CapacityTrigger(String flag, boolean activated) {
 		this.flag = flag;
 		this.activated = activated;
 	}

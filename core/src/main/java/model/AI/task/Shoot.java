@@ -9,7 +9,7 @@ import model.ES.component.command.PlanarNeededRotation;
 import model.ES.component.command.PlanarNeededThrust;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.physic.Physic;
-import model.ES.component.shipGear.CapacityActivation;
+import model.ES.component.shipGear.CapacityTrigger;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
@@ -21,7 +21,7 @@ public class Shoot extends LeafTask<ShipBlackboard> {
 	public void run() {
 		ShipBlackboard bb = getObject();
 		
-		bb.entityData.setComponent(bb.eid, new CapacityActivation("gun", true));
+		bb.entityData.setComponent(bb.eid, new CapacityTrigger("gun", true));
 		success();
 	}
 

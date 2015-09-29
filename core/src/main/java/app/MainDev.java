@@ -18,7 +18,7 @@ import model.ES.component.motion.physic.Physic;
 import model.ES.component.relation.Attackable;
 import model.ES.component.relation.PlanarHolding;
 import model.ES.component.shipGear.Attrition;
-import model.ES.component.shipGear.CapacityActivation;
+import model.ES.component.shipGear.CapacityTrigger;
 import model.ES.component.shipGear.Gun;
 import model.ES.component.shipGear.RotationThruster;
 import model.ES.component.shipGear.Thruster;
@@ -154,7 +154,7 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(o1, new PlanarVelocityToApply(Point2D.ORIGIN));
 		ed.setComponent(o1, new Attrition(30, 30));
 		ed.setComponent(o1, new Sighting(8, AngleUtil.toRadians(100), new ArrayList<>()));
-		ed.setComponent(o1, new CapacityActivation("gun", false));
+		ed.setComponent(o1, new CapacityTrigger("gun", false));
 
 		attachThruster(ed, o1);
 
@@ -208,7 +208,7 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(playerShip, new VelocityViewing());
 		ed.setComponent(playerShip, new PlanarVelocityToApply(Point2D.ORIGIN));
 		ed.setComponent(playerShip, new Attackable());
-		ed.setComponent(playerShip, new CapacityActivation("gun", false));
+		ed.setComponent(playerShip, new CapacityTrigger("gun", false));
 
 		attachThruster(ed, playerShip);
 

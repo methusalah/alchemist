@@ -14,7 +14,7 @@ import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Physic;
-import model.ES.component.shipGear.CapacityActivation;
+import model.ES.component.shipGear.CapacityTrigger;
 import model.ES.component.shipGear.Gun;
 import model.ES.component.shipGear.Projectile;
 import model.ES.component.visuals.Model;
@@ -35,7 +35,7 @@ public class GunProc extends Processor {
 	@Override
 	protected void onEntityUpdated(Entity e, float elapsedTime) {
 		EntityId holder = e.get(Gun.class).holder; 
-		CapacityActivation activation = entityData.getComponent(holder, CapacityActivation.class);
+		CapacityTrigger activation = entityData.getComponent(holder, CapacityTrigger.class);
 		if(!activation.isActivated())
 			return;
 		
