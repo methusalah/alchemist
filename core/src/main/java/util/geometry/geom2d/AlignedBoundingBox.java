@@ -160,5 +160,16 @@ public class AlignedBoundingBox extends BoundingShape {
 	public Point2D getCenter() {
 		return new Point2D(minX + width / 2, minY + height / 2);
 	}
+	
+	public double getWidth(){
+		return width;
+	}
+	public double getHeight(){
+		return height;
+	}
+	
+	public Point2D getLocation(){
+		return new Point2D(minX, minY);
+	}
 
 }
