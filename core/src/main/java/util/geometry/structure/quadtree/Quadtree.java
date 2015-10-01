@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.geometry.geom2d.AlignedBoundingBox;
+import util.geometry.geom2d.BoundingShape;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom2d.Rectangle;
 
@@ -57,9 +58,11 @@ public class Quadtree {
 	 * Determine which node the object belongs to. -1 means object cannot
 	 * completely fit within a child node and is part of the parent node
 	 */
-	private int getIndex(Rectangle pRect) {
+	private int getIndex(BoundingShape shape) {
 		int index = -1;
-		double verticalMidpoint = bounds.getX() + (bounds.getWidth() / 2);
+		
+		
+		double verticalMidpoint = bounds.getLocation().x + (bounds.getWidth() / 2);
 		double horizontalMidpoint = bounds.getY() + (bounds.getHeight() / 2);
 
 		// Object can completely fit within the top quadrants
@@ -69,7 +72,7 @@ public class Quadtree {
 		boolean bottomQuadrant = (pRect.getY() > horizontalMidpoint);
 
 		// Object can completely fit within the left quadrants
-		if (pRect.getX() < verticalMidpoint && pRect.getX() + pRect.getWidth() < verticalMidpoint) {
+		if (pRect.getX() < verticalMidpoint && pRect.getLocation().x + pRect.getWidth() < verticalMidpoint) {
 			if (topQuadrant) {
 				index = 1;
 			} else if (bottomQuadrant) {

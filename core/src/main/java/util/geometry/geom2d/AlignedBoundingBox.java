@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 import util.geometry.collections.EdgeRing;
 import util.geometry.collections.PointRing;
-import util.geometry.geom2d.algorithm.Collider;
-import util.math.PrecisionUtil;
 
 public class AlignedBoundingBox extends BoundingShape {
 
@@ -58,11 +56,6 @@ public class AlignedBoundingBox extends BoundingShape {
 
 	public boolean contains(Segment2D s) {
 		return contains(s.getStart()) && contains(s.getEnd());
-	}
-
-	@Override
-	public boolean collide(BoundingShape shape) {
-		return Collider.areColliding(this,  shape);
 	}
 
 	public boolean contains(Point2D p) {
