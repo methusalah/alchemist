@@ -60,34 +60,21 @@ public class Quadtree {
 	 */
 	private int getIndex(BoundingShape shape) {
 		int index = -1;
-		
-		
-		double verticalMidpoint = bounds.getLocation().x + (bounds.getWidth() / 2);
-		double horizontalMidpoint = bounds.getY() + (bounds.getHeight() / 2);
-
-		// Object can completely fit within the top quadrants
-		boolean topQuadrant = (pRect.getY() < horizontalMidpoint
-				&& pRect.getY() + pRect.getHeight() < horizontalMidpoint);
-		// Object can completely fit within the bottom quadrants
-		boolean bottomQuadrant = (pRect.getY() > horizontalMidpoint);
-
-		// Object can completely fit within the left quadrants
-		if (pRect.getX() < verticalMidpoint && pRect.getLocation().x + pRect.getWidth() < verticalMidpoint) {
-			if (topQuadrant) {
-				index = 1;
-			} else if (bottomQuadrant) {
-				index = 2;
-			}
-		}
-		// Object can completely fit within the right quadrants
-		else if (pRect.getX() > verticalMidpoint) {
-			if (topQuadrant) {
-				index = 0;
-			} else if (bottomQuadrant) {
-				index = 3;
-			}
-		}
-
+		int subWidth = (int) (bounds.getWidth() / 2);
+		int subHeight = (int) (bounds.getHeight() / 2);
+		Point2D corner = bounds.getLocation();
+		AlignedBoundingBox bounds1 = new AlignedBoundingBox(corner.getAddition(subWidth, 0), subWidth, subHeight);
+		if(bounds1.contains(shape))
+			return 1;
+		AlignedBoundingBox bounds2 = new AlignedBoundingBox(corner, subWidth, subHeight);
+		if(bounds2.contains(shape))
+			return 2;
+		AlignedBoundingBox bounds3 = new AlignedBoundingBox(corner.getAddition(0, subHeight), subWidth, subHeight);
+		if(bounds3.contains(shape))
+			return 3;
+		AlignedBoundingBox bounds4 = new AlignedBoundingBox(corner.getAddition(subWidth, subHeight), subWidth, subHeight);
+		if(bounds4.contains(shape))
+			return 4;
 		return index;
 	}
 
@@ -95,17 +82,17 @@ public class Quadtree {
 	 * Insert the object into the quadtree. If the node exceeds the capacity, it
 	 * will split and add all objects to their corresponding nodes.
 	 */
-	public void insert(Rectangle pRect) {
+	public void insert(BoundingShape shape) {
 		if (nodes[0] != null) {
-			int index = getIndex(pRect);
+			int index = getIndex(shape);
 
 			if (index != -1) {
-				nodes[index].insert(pRect);
+				nodes[index].insert(shape);
 				return;
 			}
 		}
 
-		objects.add(pRect);
+		objects.add(shape);
 
 		if (objects.size() > MAX_OBJECTS && level < MAX_LEVELS) {
 			if (nodes[0] == null) {
@@ -114,9 +101,9 @@ public class Quadtree {
 
 			int i = 0;
 			while (i < objects.size()) {
-				int index = getIndex(objects.get(i));
+				int index = getIndex((BoundingShape)objects.get(i));
 				if (index != -1) {
-					nodes[index].insert(objects.remove(i));
+					nodes[index].insert((BoundingShape)objects.remove(i));
 				} else {
 					i++;
 				}
@@ -127,10 +114,10 @@ public class Quadtree {
 	/*
 	 * Return all objects that could collide with the given object
 	 */
-	public List<Object> retrieve(List<Object> returnObjects, Rectangle pRect) {
-		int index = getIndex(pRect);
+	public List<Object> retrieve(List<Object> returnObjects, BoundingShape shape) {
+		int index = getIndex(shape);
 		if (index != -1 && nodes[0] != null) {
-			nodes[index].retrieve(returnObjects, pRect);
+			nodes[index].retrieve(returnObjects, shape);
 		}
 
 		returnObjects.addAll(objects);
