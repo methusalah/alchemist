@@ -7,6 +7,7 @@ import model.AI.blackboard.ShipBlackboard;
 import model.ES.component.command.PlanarNeededRotation;
 import model.ES.component.command.PlanarNeededThrust;
 import model.ES.component.motion.PlanarStance;
+import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 import util.math.RandomUtil;
 
@@ -35,7 +36,7 @@ public class FastDodge extends LeafTask<ShipBlackboard> {
 		if(neededRotation != 0)
 			bb.entityData.setComponent(bb.eid, new PlanarNeededRotation(neededRotation));
 
-		bb.entityData.setComponent(bb.eid, new PlanarNeededThrust(bb.getVectorToEnemy().getRotation((double)bb.data.get(DODGE_ANGLE))));
+		bb.entityData.setComponent(bb.eid, new PlanarNeededThrust(Point2D.UNIT_X.getRotation(stance.getOrientation()))); //bb.getVectorToEnemy().getRotation((double)bb.data.get(DODGE_ANGLE))));
 		success();
 	}
 

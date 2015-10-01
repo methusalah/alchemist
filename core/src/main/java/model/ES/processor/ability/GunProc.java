@@ -1,4 +1,4 @@
-package model.ES.processor.shipGear;
+package model.ES.processor.ability;
 
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
@@ -30,7 +30,7 @@ public class GunProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(PlanarStance.class, Gun.class, Cooldown.class, Trigger.class);
+		register(PlanarStance.class, Gun.class, Trigger.class, Cooldown.class);
 	}
 	
 	@Override
@@ -44,15 +44,12 @@ public class GunProc extends Processor {
 	}
 	
 	private void manage(Entity e, float elapsedTime) {
-		Cooldown cd = e.get(Cooldown.class);
-		if(System.currentTimeMillis()-cd.getStart() > cd.getDuration()){
+		Trigger trigger = e.get(Trigger.class);
+		if(trigger.triggered){
 			PlanarStance stance = e.get(PlanarStance.class);
-			Trigger trigger = e.get(Trigger.class);
-			setComp(e, new Cooldown(System.currentTimeMillis(), cd.getDuration()));
-			
 			EntityId firing = entityData.createEntity();
 			entityData.setComponent(firing, new PlanarStance(stance.getCoord().getTranslation(stance.getOrientation(), 0.2), stance.getOrientation(), stance.getElevation(), Point3D.UNIT_Z));
-			entityData.setComponent(firing, new MotionCapacity(7, 0, 1));
+			entityData.setComponent(firing, new MotionCapacity(7, 0, 1, 0, 0));
 			entityData.setComponent(firing, new PlanarVelocityToApply(Point2D.UNIT_X.getRotation(stance.getOrientation())));
 			entityData.setComponent(firing, new Model("human/hmissileT1/hmissileT1_02.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
 			entityData.setComponent(firing, new Physic(Point2D.ORIGIN, new PhysicStat("Missile", 0.1, new CollisionShape(0.1), 0, "Missile"), trigger.source));
@@ -62,6 +59,9 @@ public class GunProc extends Processor {
 			entityData.setComponent(firing, new DamageOnTouch(new Damage(1)));
 			entityData.setComponent(firing, new LifeTime(System.currentTimeMillis(), 1000));
 			entityData.setComponent(firing, new Projectile(trigger.source, stance.getCoord()));
+			
+			Cooldown cd = e.get(Cooldown.class);
+			setComp(e, new Cooldown(System.currentTimeMillis(), cd.duration));
 		}
 	}
 }

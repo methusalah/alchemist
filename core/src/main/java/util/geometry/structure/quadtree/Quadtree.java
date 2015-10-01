@@ -1,9 +1,11 @@
 package util.geometry.structure.quadtree;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
 import util.geometry.geom2d.AlignedBoundingBox;
+import util.geometry.geom2d.Point2D;
 import util.geometry.geom2d.Rectangle;
 
 public class Quadtree {
@@ -44,13 +46,11 @@ public class Quadtree {
 	private void split() {
 		int subWidth = (int) (bounds.getWidth() / 2);
 		int subHeight = (int) (bounds.getHeight() / 2);
-		int x = (int) bounds.getLocation().x;
-		int y = (int) bounds.getLocation().y;
-
-		nodes[0] = new Quadtree(level + 1, new Rectangle(x + subWidth, y, subWidth, subHeight));
-		nodes[1] = new Quadtree(level + 1, new Rectangle(x, y, subWidth, subHeight));
-		nodes[2] = new Quadtree(level + 1, new Rectangle(x, y + subHeight, subWidth, subHeight));
-		nodes[3] = new Quadtree(level + 1, new Rectangle(x + subWidth, y + subHeight, subWidth, subHeight));
+		Point2D corner = bounds.getLocation();
+		nodes[0] = new Quadtree(level + 1, new AlignedBoundingBox(corner.getAddition(subWidth, 0), subWidth, subHeight));
+		nodes[1] = new Quadtree(level + 1, new AlignedBoundingBox(corner, subWidth, subHeight));
+		nodes[2] = new Quadtree(level + 1, new AlignedBoundingBox(corner.getAddition(0, subHeight), subWidth, subHeight));
+		nodes[3] = new Quadtree(level + 1, new AlignedBoundingBox(corner.getAddition(subWidth, subHeight), subWidth, subHeight));
 	}
 
 	/*

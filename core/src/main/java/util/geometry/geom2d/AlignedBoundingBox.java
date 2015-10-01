@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import util.geometry.collections.EdgeRing;
 import util.geometry.collections.PointRing;
+import util.geometry.geom2d.algorithm.Collider;
 import util.math.PrecisionUtil;
 
 public class AlignedBoundingBox extends BoundingShape {
@@ -18,6 +19,13 @@ public class AlignedBoundingBox extends BoundingShape {
 
 	protected AlignedBoundingBox() {
 
+	}
+
+	public AlignedBoundingBox(Point2D corner, double width, double height) {
+		ArrayList<Point2D> points = new ArrayList<>();
+		points.add(corner);
+		points.add(corner.getAddition(width, height));
+		computeWith(points);
 	}
 
 	public AlignedBoundingBox(Point2D corner1, Point2D corner2) {
@@ -38,98 +46,38 @@ public class AlignedBoundingBox extends BoundingShape {
 		minY = points.get(0).y;
 
 		for (Point2D p : points) {
-			if (p.x < minX) {
-				minX = p.x;
-			}
-			if (p.x > maxX) {
-				maxX = p.x;
-			}
-			if (p.y < minY) {
-				minY = p.y;
-			}
-			if (p.y > maxY) {
-				maxY = p.y;
-			}
+			minX = Math.min(minX, p.x);
+			minY = Math.min(minY, p.y);
+
+			maxX = Math.max(maxX, p.x);
+			maxY = Math.max(maxY, p.y);
 		}
 		height = maxY - minY;
 		width = maxX - minX;
 	}
 
 	public boolean contains(Segment2D s) {
-		if (contains(s.getStart()) && contains(s.getEnd())) {
-			return true;
-		} else {
-			return false;
-		}
+		return contains(s.getStart()) && contains(s.getEnd());
 	}
 
 	@Override
 	public boolean collide(BoundingShape shape) {
-		if (shape instanceof BoundingCircle) {
-			return ((BoundingCircle) shape).collide(this);
-		}
-		if (shape instanceof AlignedBoundingBox) {
-			return collideABB((AlignedBoundingBox) shape);
-		}
-		throw new IllegalArgumentException(shape.getClass().getSimpleName() + " is not yet supported.");
-	}
-
-	private boolean collideABB(AlignedBoundingBox b) {
-		if (shareX(b) && shareY(b)) {
-			return true;
-		}
-		return false;
-
+		return Collider.areColliding(this,  shape);
 	}
 
 	public boolean contains(Point2D p) {
-		if (shareX(p) && shareY(p)) {
-			return true;
-		} else {
-			return false;
-		}
+		return  isInXBounds(p.x) && isInYBounds(p.y);
 	}
 
-	private boolean shareX(double x) {
-		if (x - maxX <= PrecisionUtil.APPROX && x - minX >= -PrecisionUtil.APPROX) {
-			return true;
-		} else {
-			return false;
-		}
+	public boolean isInXBounds(double x) {
+		return x > minX && x < maxX;
 	}
 
-	private boolean shareY(double y) {
-		if (y - maxY <= PrecisionUtil.APPROX && y - minY >= -PrecisionUtil.APPROX) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public boolean shareX(Point2D p) {
-		return shareX(p.x);
-	}
-
-	public boolean shareY(Point2D p) {
-		return shareY(p.y);
-	}
-
-	public boolean shareX(AlignedBoundingBox b) {
-		if (shareX(b.maxX) || shareX(b.minX) || b.shareX(maxX) || b.shareX(minX)) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean shareY(AlignedBoundingBox b) {
-		if (shareY(b.maxY) || shareY(b.minY) || b.shareY(maxY) || b.shareY(minY)) {
-			return true;
-		}
-		return false;
+	public boolean isInYBounds(double y) {
+		return y > minY && y < maxY;
 	}
 
 	private static DecimalFormat df = new DecimalFormat("0.00");
-
 	@Override
 	public String toString() {
 		return "BoundingBox [xmin=" + df.format(minX) + ", xmax=" + df.format(maxX) + ", ymin=" + df.format(minY) + ", ymax=" + df.format(maxY) + "]";
@@ -164,6 +112,7 @@ public class AlignedBoundingBox extends BoundingShape {
 	public double getWidth(){
 		return width;
 	}
+
 	public double getHeight(){
 		return height;
 	}
@@ -171,5 +120,4 @@ public class AlignedBoundingBox extends BoundingShape {
 	public Point2D getLocation(){
 		return new Point2D(minX, minY);
 	}
-
 }

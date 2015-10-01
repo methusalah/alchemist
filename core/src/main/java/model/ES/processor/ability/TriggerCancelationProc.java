@@ -1,16 +1,17 @@
-package model.ES.processor.shipGear;
+package model.ES.processor.ability;
+
+import model.ES.component.Cooldown;
+import model.ES.component.shipGear.Trigger;
 
 import com.simsilica.es.Entity;
 
 import controller.entityAppState.Processor;
-import model.ES.component.shipGear.Trigger;
-import util.LogUtil;
 
-public class ResetTriggerProc extends Processor {
+public class TriggerCancelationProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(Trigger.class);
+		register(Cooldown.class, Trigger.class);
 	}
 	
 	@Override
@@ -24,8 +25,9 @@ public class ResetTriggerProc extends Processor {
 	}
 	
 	private void manage(Entity e, float elapsedTime) {
+		Cooldown cd = e.get(Cooldown.class);
 		Trigger t = e.get(Trigger.class);
-		if(!t.isToggle)
-			entityData.removeComponent(e.getId(), Trigger.class);
+		if(t.triggered && cd.start + cd.duration > System.currentTimeMillis())
+			setComp(e, new Trigger(t.source, t.name, false));
 	}
 }

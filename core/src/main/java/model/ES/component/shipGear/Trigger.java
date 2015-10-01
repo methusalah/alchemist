@@ -7,10 +7,12 @@ import util.LogUtil;
 
 public class Trigger implements EntityComponent {
 	public final EntityId source;
-	public final boolean isToggle;
+	public final String name;
+	public final boolean triggered;
 	
-	public Trigger(EntityId source, boolean isToggle) {
+	public Trigger(EntityId source, String name, boolean triggered) {
 		this.source = source;
-		this.isToggle = isToggle;
+		this.name = name;
+		this.triggered = triggered;
 	}
 }

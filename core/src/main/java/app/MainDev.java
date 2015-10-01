@@ -16,19 +16,25 @@ import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.SpaceStance;
 import model.ES.component.motion.physic.Dragging;
 import model.ES.component.motion.physic.Physic;
-import model.ES.component.relation.AbilityLinks;
+import model.ES.component.relation.AbilityTriggerList;
 import model.ES.component.relation.Attackable;
 import model.ES.component.relation.PlanarHolding;
 import model.ES.component.shipGear.Attrition;
 import model.ES.component.shipGear.Gun;
 import model.ES.component.shipGear.RotationThruster;
 import model.ES.component.shipGear.Thruster;
+import model.ES.component.shipGear.Trigger;
+import model.ES.component.shipGear.TriggerPersistence;
 import model.ES.component.visuals.Lighting;
 import model.ES.component.visuals.Model;
 import model.ES.component.visuals.ParticleCaster;
 import model.ES.processor.LifeTimeProc;
 import model.ES.processor.RemoveProc;
 import model.ES.processor.AI.BehaviorTreeProc;
+import model.ES.processor.ability.AbilityTriggerResetProc;
+import model.ES.processor.ability.GunProc;
+import model.ES.processor.ability.TriggerCancelationProc;
+import model.ES.processor.ability.TriggerObserverProc;
 import model.ES.processor.command.NeededRotationProc;
 import model.ES.processor.command.NeededThrustProc;
 import model.ES.processor.command.PlayerAbilityControlProc;
@@ -48,13 +54,10 @@ import model.ES.processor.motion.physic.DraggingProc;
 import model.ES.processor.motion.physic.PhysicForceProc;
 import model.ES.processor.senses.SightProc;
 import model.ES.processor.shipGear.AttritionProc;
-import model.ES.processor.shipGear.GunProc;
 import model.ES.processor.shipGear.LightThrusterProc;
 import model.ES.processor.shipGear.ParticleThrusterProc;
-import model.ES.processor.shipGear.ResetTriggerProc;
 import model.ES.processor.shipGear.RotationThrusterProc;
 import model.ES.processor.shipGear.ThrusterProc;
-import model.ES.richData.AbilityTrigger;
 import model.ES.richData.CollisionShape;
 import model.ES.richData.PhysicStat;
 import util.event.AppStateChangeEvent;
@@ -72,7 +75,6 @@ import view.material.MaterialManager;
 import com.google.common.eventbus.Subscribe;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
-import com.sun.javafx.scene.control.behavior.BehaviorBase;
 
 import controller.Controller;
 import controller.cameraManagement.ChasingCameraProc;
@@ -118,11 +120,15 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new ParticleThrusterProc());
 		stateManager.attach(new LightThrusterProc());
 		stateManager.attach(new ParticleCasterInPlaneProc());
+		
 		// ability
 		stateManager.attach(new PlayerAbilityControlProc());
 		stateManager.attach(new BehaviorTreeProc());
+		stateManager.attach(new TriggerObserverProc());
+		stateManager.attach(new AbilityTriggerResetProc());
+
+		stateManager.attach(new TriggerCancelationProc());
 		stateManager.attach(new GunProc());
-		stateManager.attach(new ResetTriggerProc());
 
 		stateManager.attach(new DamagingProc());
 		stateManager.attach(new AttritionProc());
@@ -156,11 +162,11 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(o1, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
 		ed.setComponent(o1, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
 		ed.setComponent(o1, new Dragging(0.1));
-		ed.setComponent(o1, new MotionCapacity(2, AngleUtil.toRadians(300), 3));
+		ed.setComponent(o1, new MotionCapacity(2, AngleUtil.toRadians(300), 3, 0.1, 0.1));
 		ed.setComponent(o1, new PlanarVelocityToApply(Point2D.ORIGIN));
 		ed.setComponent(o1, new Attrition(30, 30));
 		ed.setComponent(o1, new Sighting(8, AngleUtil.toRadians(100), new ArrayList<>()));
-		ed.setComponent(o1, new AbilityLinks(new HashMap<>()));
+		ed.setComponent(o1, new AbilityTriggerList(new HashMap<>()));
 
 		attachThruster(ed, o1);
 
@@ -169,9 +175,10 @@ public class MainDev extends CosmoVania {
 		EntityId o1weap = ed.createEntity();
 		ed.setComponent(o1weap, new PlanarHolding(o1, new Point3D(0, -0.3, 0), 0));
 		ed.setComponent(o1weap, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(o1weap, new Cooldown(0, 50));
+		ed.setComponent(o1weap, new Cooldown(0, 1000));
+		ed.setComponent(o1weap, new TriggerPersistence(300, 0));
+		ed.setComponent(o1weap, new Trigger(o1, "gun", false));
 		ed.setComponent(o1weap, new Gun());
-		ed.getComponent(o1, AbilityLinks.class).entities.put("gun", o1weap);
 
 //		EntityId o2 = ed.createEntity();
 //		ed.setComponent(o2, new PlanarStance(new Point2D(10, 8), 0, 0, Point3D.UNIT_Z));
@@ -208,14 +215,14 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(playerShip, new PlayerControl());
 		ed.setComponent(playerShip, new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
 		ed.setComponent(playerShip, new Dragging(0.05));
-		ed.setComponent(playerShip, new MotionCapacity(3, AngleUtil.toRadians(360), 3));
+		ed.setComponent(playerShip, new MotionCapacity(3, AngleUtil.toRadians(360), 3, 1.5, 1.5));
 		ed.setComponent(playerShip, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
 		ed.setComponent(playerShip, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), 0.8), null));
 		ed.setComponent(playerShip, new EffectOnTouch());
 		ed.setComponent(playerShip, new VelocityViewing());
 		ed.setComponent(playerShip, new PlanarVelocityToApply(Point2D.ORIGIN));
 		ed.setComponent(playerShip, new Attackable());
-		ed.setComponent(playerShip, new AbilityLinks(new HashMap<>()));
+		ed.setComponent(playerShip, new AbilityTriggerList(new HashMap<>()));
 
 		attachThruster(ed, playerShip);
 
@@ -224,16 +231,16 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(weaponLeft, new PlanarHolding(playerShip, new Point3D(0, 0.3, 0), 0));
 		ed.setComponent(weaponLeft, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(weaponLeft, new Cooldown(0, 100));
+		ed.setComponent(weaponLeft, new Trigger(playerShip, "gun", false));
 		ed.setComponent(weaponLeft, new Gun());
-		ed.getComponent(playerShip, AbilityLinks.class).entities.put("gun", weaponLeft);
 
 		// weapon
 		EntityId weaponRight = ed.createEntity();
 		ed.setComponent(weaponRight, new PlanarHolding(playerShip, new Point3D(0, -0.3, 0), 0));
 		ed.setComponent(weaponRight, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(weaponRight, new Cooldown(0, 100));
+		ed.setComponent(weaponRight, new Trigger(playerShip, "gun", false));
 		ed.setComponent(weaponRight, new Gun());
-		ed.getComponent(playerShip, AbilityLinks.class).entities.put("gun", weaponRight);
 
 		// light
 		EntityId frontLight = ed.createEntity();
@@ -245,7 +252,7 @@ public class MainDev extends CosmoVania {
 		EntityId camId= ed.createEntity();
 		ed.setComponent(camId, new PlanarStance(new Point2D(1, 1), 0, 30, Point3D.UNIT_Z));
 		ed.setComponent(camId, new ChasingCamera(playerShip, 3, 0, 0.5, 0.5));
-		ed.setComponent(camId, new MotionCapacity(1, AngleUtil.toRadians(500), 1));
+		ed.setComponent(camId, new MotionCapacity(1, AngleUtil.toRadians(500), 1, 1, 1));
 		
 		EventManager.register(this);
 	}

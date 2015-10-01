@@ -1,14 +1,10 @@
 package model.AI.task;
 
-import java.util.Map;
+import model.AI.blackboard.ShipBlackboard;
+import model.ES.component.relation.AbilityTriggerList;
 
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
-import com.simsilica.es.EntityId;
-
-import model.AI.blackboard.ShipBlackboard;
-import model.ES.component.relation.AbilityLinks;
-import model.ES.component.shipGear.Trigger;
 
 public class Shoot extends LeafTask<ShipBlackboard> {
 
@@ -16,11 +12,7 @@ public class Shoot extends LeafTask<ShipBlackboard> {
 	public void run() {
 		ShipBlackboard bb = getObject();
 		
-		Map<String, EntityId> abilities = bb.entityData.getComponent(bb.eid, AbilityLinks.class).entities;
-		for(String abilityName : abilities.keySet())
-			if(abilityName.equals("gun"))
-				bb.entityData.setComponent(abilities.get(abilityName), new Trigger(bb.eid, false));
-			
+		bb.entityData.getComponent(bb.eid, AbilityTriggerList.class).triggers.put("gun", true);
 		success();
 	}
 

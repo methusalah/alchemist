@@ -31,7 +31,7 @@ public class NeededRotationProc extends Processor {
 		MotionCapacity capacity = e.get(MotionCapacity.class);
 		PlanarStance stance = e.get(PlanarStance.class); 
 		
-		double maxRotation = capacity.getMaxRotationSpeed() * elapsedTime;
+		double maxRotation = capacity.maxRotationSpeed * elapsedTime;
 		maxRotation = Math.min(Math.abs(neededRotation.getAngle()), maxRotation);
 		double possibleRotation = maxRotation*Math.signum(neededRotation.getAngle());
 		
@@ -42,7 +42,7 @@ public class NeededRotationProc extends Processor {
 		
 		StringBuilder sb = new StringBuilder(this.getClass().getSimpleName() + System.lineSeparator());
 		sb.append("    needed rotation : "+ AngleUtil.toDegrees(neededRotation.getAngle()) + System.lineSeparator());
-		sb.append("    rotation capacity : " + AngleUtil.toDegrees(possibleRotation) + " (rotation speed : "+ AngleUtil.toDegrees(capacity.getMaxRotationSpeed()) + ")" + System.lineSeparator());
+		sb.append("    rotation capacity : " + AngleUtil.toDegrees(possibleRotation) + " (rotation speed : "+ AngleUtil.toDegrees(capacity.maxRotationSpeed) + ")" + System.lineSeparator());
 		sb.append("    new orientation : " + AngleUtil.toDegrees(newStance.getOrientation()) + System.lineSeparator());
 		app.getDebugger().add(sb.toString());
 	}

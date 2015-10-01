@@ -35,7 +35,7 @@ public class VelocityApplicationProc extends Processor {
 		velocityToApply = velocityToApply.getMult(1/ph.stat.mass);
 		
 		Point2D newVelocity = ph.velocity.getAddition(velocityToApply);
-		newVelocity = newVelocity.getTruncation(capacity.getMaxSpeed());
+		newVelocity = newVelocity.getTruncation(capacity.maxSpeed);
 		Point2D newCoord = stance.getCoord().getAddition(newVelocity.getMult(elapsedTime));
 
 		setComp(e, new Physic(newVelocity, ph.stat, ph.spawnerException));
