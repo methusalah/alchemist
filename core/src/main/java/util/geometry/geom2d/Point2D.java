@@ -2,6 +2,11 @@ package util.geometry.geom2d;
 
 import java.text.DecimalFormat;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import util.geometry.geom3d.Point3D;
 import util.math.PrecisionUtil;
 
@@ -10,8 +15,8 @@ public class Point2D {
 	public static final Point2D UNIT_X = new Point2D(1, 0);
 	public static final Point2D UNIT_Y = new Point2D(0, 1);
 	public static final Point2D UNIT_XY = new Point2D(1, 1);
-	public double x;
-	public double y;
+	@JsonProperty
+	public double x, y;
 
 	public Point2D(){
 		
@@ -56,6 +61,7 @@ public class Point2D {
 		return (other.y - y) / (other.x - x);
 	}
 
+	@JsonIgnore
 	public Point2D getSubtraction(Point2D other) {
 		return new Point2D(x - other.x, y - other.y);
 	}
@@ -66,6 +72,7 @@ public class Point2D {
 		return Math.sqrt(dx * dx + dy * dy);
 	}
 	
+	@JsonIgnore
 	public Point2D getTransformed(Transform2D transform){
 		return transform.getTransformed(this);
 	}
@@ -76,22 +83,27 @@ public class Point2D {
 		return "(" + df.format(x) + ", " + df.format(y) + ")";
 	}
 
+	@JsonIgnore
 	public Point2D getTranslation(double angle, double distance) {
 		return new Point2D(x + (Math.cos(angle) * distance), y + (Math.sin(angle) * distance));
 	}
 
+	@JsonIgnore
 	public Point2D getAddition(Point2D other) {
 		return getAddition(other.x, other.y);
 	}
 
+	@JsonIgnore
 	public Point2D getAddition(double d) {
 		return getAddition(d, d);
 	}
 
+	@JsonIgnore
 	public Point2D getAddition(double x, double y) {
 		return new Point2D(this.x + x, this.y + y);
 	}
 
+	@JsonIgnore
 	public double getAngle() {
 		return Math.atan2(y, x);
 	}
@@ -107,27 +119,33 @@ public class Point2D {
 		return (x * other.x) + (y * other.y);
 	}
 
+	@JsonIgnore
 	public Point2D getMult(double factor) {
 		return new Point2D(x * factor, y * factor);
 	}
+	@JsonIgnore
 	public Point2D getMult(double factorX, double factorY) {
 		return new Point2D(x * factorX, y * factorY);
 	}
 
+	@JsonIgnore
 	public Point2D getMult(Point2D other) {
 		return new Point2D(x * other.x, y * other.y);
 	}
 
+	@JsonIgnore
 	public Point2D getRotation(double angle, Point2D pivot) {
 		double newX = pivot.x + (x - pivot.x) * Math.cos(angle) - (y - pivot.y) * Math.sin(angle);
 		double newY = pivot.y + (x - pivot.x) * Math.sin(angle) + (y - pivot.y) * Math.cos(angle);
 		return new Point2D(newX, newY);
 	}
 
+	@JsonIgnore
 	public Point2D getRotation(double angle) {
 		return getRotation(angle, ORIGIN);
 	}
 	
+	@JsonIgnore
 	public Point2D getNormalized(){
 		double length = getDistance(ORIGIN);
 		if(length == 0)
@@ -138,45 +156,55 @@ public class Point2D {
 	
 	
 
+	@JsonIgnore
 	public Point2D getDivision(double factor) {
 		return getDivision(factor, factor);
 	}
+	@JsonIgnore
 	public Point2D getDivision(Point2D other) {
 		return getDivision(other.x, other.y);
 	}
+	@JsonIgnore
 	public Point2D getDivision(double factorX, double factorY) {
 		return new Point2D(x / factorX, y / factorY);
 	}
 
 	
 	
+	@JsonIgnore
 	public Line2D getExtrudedLine(double angle) {
 		Point2D proj = getTranslation(angle, 1);
 		return new Line2D(this, proj);
 	}
 
+	@JsonIgnore
     public Point2D getNegation() {
         return new Point2D(-x, -y);
     }
 
+	@JsonIgnore
     public double getLength() {
         return getDistance(ORIGIN);
     }
     
+	@JsonIgnore
     public Point2D getTruncation(double val) {
         if(getLength() > val)
             return getNormalized().getMult(val);
         return new Point2D(this);
     }
 
+	@JsonIgnore
     public boolean isOrigin() {
         return x==0 && y==0;
     }
 
+	@JsonIgnore
     public Point2D getScaled(double scale) {
         return getNormalized().getMult(scale);
     }
     
+	@JsonIgnore
     public Point3D get3D(double z){
         return new Point3D(x, y, z);
     }

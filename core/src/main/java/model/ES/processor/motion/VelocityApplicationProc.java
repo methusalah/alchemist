@@ -36,10 +36,10 @@ public class VelocityApplicationProc extends Processor {
 		
 		Point2D newVelocity = ph.velocity.getAddition(velocityToApply);
 		newVelocity = newVelocity.getTruncation(capacity.maxSpeed);
-		Point2D newCoord = stance.getCoord().getAddition(newVelocity.getMult(elapsedTime));
+		Point2D newCoord = stance.coord.getAddition(newVelocity.getMult(elapsedTime));
 
 		setComp(e, new Physic(newVelocity, ph.stat, ph.spawnerException));
-		setComp(e, new PlanarStance(newCoord, stance.getOrientation(), stance.getElevation(), stance.getUpVector()));
+		setComp(e, new PlanarStance(newCoord, stance.orientation, stance.elevation, stance.upVector));
 		setComp(e, new PlanarVelocityToApply(Point2D.ORIGIN));
 	}
 	

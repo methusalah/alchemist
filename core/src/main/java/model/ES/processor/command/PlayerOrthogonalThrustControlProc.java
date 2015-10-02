@@ -30,7 +30,7 @@ public class PlayerOrthogonalThrustControlProc extends Processor {
         	for (Entity e : set){
         		PlanarStance stance = e.get(PlanarStance.class);
         		if(!ModelManager.command.thrust.isOrigin()
-        				&& stance.getCoord().getDistance(ModelManager.command.target) > 0.1){
+        				&& stance.coord.getDistance(ModelManager.command.target) > 0.1){
             		PlanarNeededThrust thrust = new PlanarNeededThrust(ModelManager.command.thrust.getRotation(AngleUtil.RIGHT));
             		setComp(e, thrust);
         		}

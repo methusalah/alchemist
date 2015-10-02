@@ -39,7 +39,7 @@ public class ChasingCameraProc extends Processor {
 		ChasingCamera cam = e.get(ChasingCamera.class);
 		PlanarStance targetStance = entityData.getComponent(cam.getEntityToChase(), PlanarStance.class);
 		
-		Point2D toTarget = targetStance.getCoord().getSubtraction(stance.getCoord());
+		Point2D toTarget = targetStance.coord.getSubtraction(stance.coord);
 		
 		double minBrakingDistance = (cam.getSpeed()*cam.getSpeed())/(cam.getDeceleration()*2);
 
@@ -53,17 +53,17 @@ public class ChasingCameraProc extends Processor {
 			
 		toTarget = toTarget.getScaled(newSpeed*elapsedTime);
 		
-		Point2D newCoord = stance.getCoord().getAddition(toTarget);
+		Point2D newCoord = stance.coord.getAddition(toTarget);
 		
 		
 		setComp(e, new ChasingCamera(cam.getEntityToChase(), cam.getMaxSpeed(), newSpeed, cam.getAcceleration(), cam.getDeceleration()));
-		setComp(e, new PlanarStance(newCoord, stance.getOrientation(), stance.getElevation(), stance.getUpVector()));
+		setComp(e, new PlanarStance(newCoord, stance.orientation, stance.elevation, stance.upVector));
 		
-		camManager.setLocation(newCoord.get3D(stance.getElevation()));
-		camManager.lookAt(targetStance.getCoord().get3D(targetStance.getElevation()));
+		camManager.setLocation(newCoord.get3D(stance.elevation));
+		camManager.lookAt(targetStance.coord.get3D(targetStance.elevation));
 		
 		StringBuilder sb = new StringBuilder(this.getClass().getSimpleName() + System.lineSeparator());
-		sb.append("    camera pos : "+ newCoord.get3D(stance.getElevation()) + System.lineSeparator());
+		sb.append("    camera pos : "+ newCoord.get3D(stance.elevation) + System.lineSeparator());
 		sb.append("    speed : " + newSpeed + System.lineSeparator());
 		sb.append("    accelerate : " + (minBrakingDistance >= toTarget.getLength()) + System.lineSeparator());
 		app.getDebugger().add(sb.toString());

@@ -28,7 +28,7 @@ public class ShipBlackboard {
 			throw new RuntimeException("enemy not set.");
 		PlanarStance stance = entityData.getComponent(eid, PlanarStance.class);
 		PlanarStance enemyStance = entityData.getComponent(enemy, PlanarStance.class);
-		return enemyStance.getCoord().getSubtraction(stance.getCoord());
+		return enemyStance.coord.getSubtraction(stance.coord);
 	}
 	
 	public double getDistanceToEnemy(){
@@ -36,6 +36,6 @@ public class ShipBlackboard {
 			throw new RuntimeException("enemy not set.");
 		PlanarStance stance = entityData.getComponent(eid, PlanarStance.class);
 		PlanarStance enemyStance = entityData.getComponent(enemy, PlanarStance.class);
-		return enemyStance.getCoord().getDistance(stance.getCoord());
+		return enemyStance.coord.getDistance(stance.coord);
 	}
 }

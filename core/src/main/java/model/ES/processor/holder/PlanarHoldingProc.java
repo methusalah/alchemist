@@ -39,26 +39,26 @@ public class PlanarHoldingProc extends Processor {
 		if(stance == null){
 			entityData.removeEntity(e.getId());
 		} else {
-			Point2D newCoord = holded.getLocalPosition().get2D().getRotation(stance.getOrientation());
-			newCoord = newCoord.getAddition(stance.getCoord());
-			double newOrientation = AngleUtil.normalize(stance.getOrientation() + holded.getLocalOrientation());
+			Point2D newCoord = holded.getLocalPosition().get2D().getRotation(stance.orientation);
+			newCoord = newCoord.getAddition(stance.coord);
+			double newOrientation = AngleUtil.normalize(stance.orientation + holded.getLocalOrientation());
 			
 			setComp(e, new PlanarStance(newCoord,
 					newOrientation,
-					stance.getElevation() + holded.getLocalPosition().z,
-					stance.getUpVector()));
+					stance.elevation + holded.getLocalPosition().z,
+					stance.upVector));
 		}
 	}
 
 	private void manageSpace(Entity e, float elapsedTime) {
 		PlanarHolding holded = e.get(PlanarHolding.class);
 		PlanarStance stance = entityData.getComponent(holded.getHolder(), PlanarStance.class);
-		Point2D newCoord = holded.getLocalPosition().get2D().getRotation(stance.getOrientation());
-		newCoord = newCoord.getAddition(stance.getCoord());
-		double newOrientation = AngleUtil.normalize(stance.getOrientation() + holded.getLocalOrientation());
+		Point2D newCoord = holded.getLocalPosition().get2D().getRotation(stance.orientation);
+		newCoord = newCoord.getAddition(stance.coord);
+		double newOrientation = AngleUtil.normalize(stance.orientation + holded.getLocalOrientation());
 		
 		
-		setComp(e, new SpaceStance(newCoord.get3D(stance.getElevation() + holded.getLocalPosition().z),
+		setComp(e, new SpaceStance(newCoord.get3D(stance.elevation + holded.getLocalPosition().z),
 				Point3D.UNIT_X.getRotationAroundZ(newOrientation)));
 	}
 }

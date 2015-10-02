@@ -27,9 +27,9 @@ public class AimEnemyLastPos extends LeafTask<ShipBlackboard> {
 		PlanarStance enemyStance = bb.entityData.getComponent(bb.enemy, PlanarStance.class);
 		Physic enemyPhysic = bb.entityData.getComponent(bb.enemy, Physic.class);
 		
-		Point2D toAim = enemyStance.getCoord().getAddition(enemyPhysic.velocity);
+		Point2D toAim = enemyStance.coord.getAddition(enemyPhysic.velocity);
 		
-		double neededRotation = AngleUtil.getAngleFromAtoB(stance.getOrientation(), toAim.getSubtraction(stance.getCoord()).getAngle());
+		double neededRotation = AngleUtil.getAngleFromAtoB(stance.orientation, toAim.getSubtraction(stance.coord).getAngle());
 		if(neededRotation != 0)
 			bb.entityData.setComponent(bb.eid, new PlanarNeededRotation(neededRotation));
 		

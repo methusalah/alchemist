@@ -43,8 +43,8 @@ public class VelocityVisualisationProc extends Processor {
 				AppFacade.getRootNode().attachChild(body);
 			}
 			Geometry g = (Geometry)SpatialPool.velocities.get(v);
-			Point2D end = stance.getCoord().getAddition(v.velocity);
-			Line l = new Line(TranslateUtil.toVector3f(stance.getCoord().get3D(v.elevation)), TranslateUtil.toVector3f(end.get3D(v.elevation)));
+			Point2D end = stance.coord.getAddition(v.velocity);
+			Line l = new Line(TranslateUtil.toVector3f(stance.coord.get3D(v.elevation)), TranslateUtil.toVector3f(end.get3D(v.elevation)));
 			l.setLineWidth(v.thickness);
 			g.setMesh(l);
 		}

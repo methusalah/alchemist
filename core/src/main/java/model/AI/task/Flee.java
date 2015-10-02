@@ -35,18 +35,18 @@ public class Flee extends LeafTask<ShipBlackboard> {
 			double evasionAngle;
 			Point2D vector = bb.getVectorToEnemy();
 			// if enemy is in front of agent
-			if(AngleUtil.getSmallestDifference(stance.getOrientation(), vector.getAngle()) < AngleUtil.toRadians(45))
-				evasionAngle = stance.getOrientation() - (AngleUtil.FLAT*RandomUtil.between(0.3, 1.3));
+			if(AngleUtil.getSmallestDifference(stance.orientation, vector.getAngle()) < AngleUtil.toRadians(45))
+				evasionAngle = stance.orientation - (AngleUtil.FLAT*RandomUtil.between(0.3, 1.3));
 			else
-				evasionAngle = stance.getOrientation();
+				evasionAngle = stance.orientation;
 			bb.data.put(EVASION_ANGLE, evasionAngle);
 		}
 		
 		double evasionAngle = (double)bb.data.get(EVASION_ANGLE);
-		double neededRotation = AngleUtil.getAngleFromAtoB(stance.getOrientation(), evasionAngle);
+		double neededRotation = AngleUtil.getAngleFromAtoB(stance.orientation, evasionAngle);
 		if(neededRotation != 0)
 			bb.entityData.setComponent(bb.eid, new PlanarNeededRotation(neededRotation));
-		bb.entityData.setComponent(bb.eid, new PlanarNeededThrust(Point2D.UNIT_X.getRotation(stance.getOrientation())));
+		bb.entityData.setComponent(bb.eid, new PlanarNeededThrust(Point2D.UNIT_X.getRotation(stance.orientation)));
 
 		success();
 	}

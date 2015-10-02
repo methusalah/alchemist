@@ -53,8 +53,8 @@ public class CollisionProc extends Processor {
 		if(ph1.stat.exceptions.contains(ph2.stat.type) || ph2.stat.exceptions.contains(ph1.stat.type))
 			return;
 		
-		Point2D c1 = stance1.getCoord();
-		Point2D c2 = stance2.getCoord();
+		Point2D c1 = stance1.coord;
+		Point2D c2 = stance2.coord;
 
 		double d = c1.getDistance(c2);
 		double spacing = ph1.stat.shape.radius+ph2.stat.shape.radius;

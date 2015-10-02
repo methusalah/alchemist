@@ -1,10 +1,13 @@
 package app;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.ES.component.Cooldown;
+import model.ES.component.Naming;
 import model.ES.component.camera.ChasingCamera;
 import model.ES.component.command.PlayerControl;
 import model.ES.component.debug.VelocityViewing;
@@ -60,6 +63,7 @@ import model.ES.processor.shipGear.RotationThrusterProc;
 import model.ES.processor.shipGear.ThrusterProc;
 import model.ES.richData.CollisionShape;
 import model.ES.richData.PhysicStat;
+import model.ES.serial.EntityBlueprint;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
@@ -72,6 +76,8 @@ import view.drawingProcessors.PlacingModelProc;
 import view.drawingProcessors.VelocityVisualisationProc;
 import view.material.MaterialManager;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.eventbus.Subscribe;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
@@ -180,81 +186,127 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(o1weap, new Trigger(o1, "gun", false));
 		ed.setComponent(o1weap, new Gun());
 
-//		EntityId o2 = ed.createEntity();
-//		ed.setComponent(o2, new PlanarStance(new Point2D(10, 8), 0, 0, Point3D.UNIT_Z));
-//		ed.setComponent(o2, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
-//		ed.setComponent(o2, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
-//		ed.setComponent(o2, new Dragging(0.1));
-//		ed.setComponent(o2, new MotionCapacity(2, AngleUtil.toRadians(200), 3));
-//		ed.setComponent(o2, new PlanarVelocityToApply(Point2D.ORIGIN));
-//		ed.setComponent(o2, new Attrition(30, 30));
-//		ed.setComponent(o2, new Sighting(8, AngleUtil.toRadians(60), new ArrayList<>()));
+//		// ship
+//		EntityId playerShip = ed.createEntity();
+//		ed.setComponent(playerShip, new PlayerControl());
+//		ed.setComponent(playerShip, new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
+//		ed.setComponent(playerShip, new Dragging(0.05));
+//		ed.setComponent(playerShip, new MotionCapacity(3, AngleUtil.toRadians(360), 3, 1.5, 1.5));
+//		ed.setComponent(playerShip, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
+//		ed.setComponent(playerShip, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), 0.8), null));
+//		ed.setComponent(playerShip, new EffectOnTouch());
+//		ed.setComponent(playerShip, new VelocityViewing());
+//		ed.setComponent(playerShip, new PlanarVelocityToApply(Point2D.ORIGIN));
+//		ed.setComponent(playerShip, new Attackable());
+//		ed.setComponent(playerShip, new AbilityTriggerList(new HashMap<>()));
 //
-//		EntityId o3 = ed.createEntity();
-//		ed.setComponent(o3, new PlanarStance(new Point2D(8, 10), 0, 0, Point3D.UNIT_Z));
-//		ed.setComponent(o3, new Model("human/adav/adav02b.mesh.xml", 0.005, 0, AngleUtil.toRadians(-90), 0));
-//		ed.setComponent(o3, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
-//		ed.setComponent(o3, new Dragging(0.1));
-//		ed.setComponent(o3, new MotionCapacity(2, AngleUtil.toRadians(200), 3));
-//		ed.setComponent(o3, new PlanarVelocityToApply(Point2D.ORIGIN));
-//		ed.setComponent(o3, new Attrition(30, 30));
-//		ed.setComponent(o3, new Sighting(8, AngleUtil.toRadians(60), new ArrayList<>()));
+//		attachThruster(ed, playerShip);
 //
-//		EntityId o4 = ed.createEntity();
-//		ed.setComponent(o4, new PlanarStance(new Point2D(12, 12), 0, 0, Point3D.UNIT_Z));
-//		ed.setComponent(o4, new Model("human/adav/adav02b.mesh.xml", 0.01, 0, AngleUtil.toRadians(-90), 0));
-//		ed.setComponent(o4, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 400, new CollisionShape(2), 0.8), null));
-//		ed.setComponent(o4, new Dragging(0.1));
-//		ed.setComponent(o4, new MotionCapacity(2, AngleUtil.toRadians(200), 3));
-//		ed.setComponent(o4, new PlanarVelocityToApply(Point2D.ORIGIN));
-//		ed.setComponent(o4, new Attrition(60, 60));
-//		ed.setComponent(o4, new Sighting(10, AngleUtil.toRadians(60), new ArrayList<>()));
-
-		// ship
-		EntityId playerShip = ed.createEntity();
-		ed.setComponent(playerShip, new PlayerControl());
-		ed.setComponent(playerShip, new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
-		ed.setComponent(playerShip, new Dragging(0.05));
-		ed.setComponent(playerShip, new MotionCapacity(3, AngleUtil.toRadians(360), 3, 1.5, 1.5));
-		ed.setComponent(playerShip, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(playerShip, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), 0.8), null));
-		ed.setComponent(playerShip, new EffectOnTouch());
-		ed.setComponent(playerShip, new VelocityViewing());
-		ed.setComponent(playerShip, new PlanarVelocityToApply(Point2D.ORIGIN));
-		ed.setComponent(playerShip, new Attackable());
-		ed.setComponent(playerShip, new AbilityTriggerList(new HashMap<>()));
-
-		attachThruster(ed, playerShip);
-
-		// weapon
-		EntityId weaponLeft = ed.createEntity();
-		ed.setComponent(weaponLeft, new PlanarHolding(playerShip, new Point3D(0, 0.3, 0), 0));
-		ed.setComponent(weaponLeft, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(weaponLeft, new Cooldown(0, 100));
-		ed.setComponent(weaponLeft, new Trigger(playerShip, "gun", false));
-		ed.setComponent(weaponLeft, new Gun());
-
-		// weapon
-		EntityId weaponRight = ed.createEntity();
-		ed.setComponent(weaponRight, new PlanarHolding(playerShip, new Point3D(0, -0.3, 0), 0));
-		ed.setComponent(weaponRight, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(weaponRight, new Cooldown(0, 100));
-		ed.setComponent(weaponRight, new Trigger(playerShip, "gun", false));
-		ed.setComponent(weaponRight, new Gun());
-
-		// light
-		EntityId frontLight = ed.createEntity();
-		ed.setComponent(frontLight, new PlanarHolding(playerShip, new Point3D(1, 0, 0), 0));
-		ed.setComponent(frontLight, new SpaceStance(Point3D.ORIGIN, Point3D.ORIGIN));
-		ed.setComponent(frontLight, new Lighting(Color.white, 4, 6, AngleUtil.toRadians(30), AngleUtil.toRadians(40), false, 1));
-
-		// camera
-		EntityId camId= ed.createEntity();
-		ed.setComponent(camId, new PlanarStance(new Point2D(1, 1), 0, 30, Point3D.UNIT_Z));
-		ed.setComponent(camId, new ChasingCamera(playerShip, 3, 0, 0.5, 0.5));
-		ed.setComponent(camId, new MotionCapacity(1, AngleUtil.toRadians(500), 1, 1, 1));
+//		// weapon
+//		EntityId weaponLeft = ed.createEntity();
+//		ed.setComponent(weaponLeft, new PlanarHolding(playerShip, new Point3D(0, 0.3, 0), 0));
+//		ed.setComponent(weaponLeft, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+//		ed.setComponent(weaponLeft, new Cooldown(0, 100));
+//		ed.setComponent(weaponLeft, new Trigger(playerShip, "gun", false));
+//		ed.setComponent(weaponLeft, new Gun());
+//
+//		// weapon
+//		EntityId weaponRight = ed.createEntity();
+//		ed.setComponent(weaponRight, new PlanarHolding(playerShip, new Point3D(0, -0.3, 0), 0));
+//		ed.setComponent(weaponRight, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+//		ed.setComponent(weaponRight, new Cooldown(0, 100));
+//		ed.setComponent(weaponRight, new Trigger(playerShip, "gun", false));
+//		ed.setComponent(weaponRight, new Gun());
+//
+//		// light
+//		EntityId frontLight = ed.createEntity();
+//		ed.setComponent(frontLight, new PlanarHolding(playerShip, new Point3D(1, 0, 0), 0));
+//		ed.setComponent(frontLight, new SpaceStance(Point3D.ORIGIN, Point3D.ORIGIN));
+//		ed.setComponent(frontLight, new Lighting(Color.white, 4, 6, AngleUtil.toRadians(30), AngleUtil.toRadians(40), false, 1));
+//
+//		// camera
+//		EntityId camId= ed.createEntity();
+//		ed.setComponent(camId, new PlanarStance(new Point2D(1, 1), 0, 30, Point3D.UNIT_Z));
+//		ed.setComponent(camId, new ChasingCamera(playerShip, 3, 0, 0.5, 0.5));
+//		ed.setComponent(camId, new MotionCapacity(1, AngleUtil.toRadians(500), 1, 1, 1));
 		
 		EventManager.register(this);
+		
+		EntityBlueprint weaponLeftBP = new EntityBlueprint();
+		weaponLeftBP.comps.add(new Naming("weapon left"));
+		weaponLeftBP.comps.add(new PlanarHolding(null, new Point3D(0, 0.3, 0), 0));
+		weaponLeftBP.comps.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		weaponLeftBP.comps.add(new Cooldown(0, 100));
+		weaponLeftBP.comps.add(new Trigger(null, "gun", false));
+		weaponLeftBP.comps.add(new Gun());
+
+		EntityBlueprint weaponRightBP = new EntityBlueprint();
+		weaponRightBP.comps.add(new Naming("weapon right"));
+		weaponRightBP.comps.add(new PlanarHolding(null, new Point3D(0, 0.3, 0), 0));
+		weaponRightBP.comps.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		weaponRightBP.comps.add(new Cooldown(0, 100));
+		weaponRightBP.comps.add(new Trigger(null, "gun", false));
+		weaponRightBP.comps.add(new Gun());
+		
+//		EntityBlueprint frontLightBP = new EntityBlueprint();
+//		frontLightBP.comps.add(new Naming("front light"));
+//		frontLightBP.comps.add(new PlanarHolding(null, new Point3D(1, 0, 0), 0));
+//		frontLightBP.comps.add(new SpaceStance(Point3D.ORIGIN, Point3D.ORIGIN));
+//		frontLightBP.comps.add(new Lighting(Color.white, 4, 6, AngleUtil.toRadians(30), AngleUtil.toRadians(40), false, 1));
+
+		// camera
+		EntityBlueprint camBP = new EntityBlueprint();
+		camBP.comps.add(new Naming("camera"));
+		camBP.comps.add(new PlanarStance(new Point2D(1, 1), 0, 30, Point3D.UNIT_Z));
+		camBP.comps.add(new ChasingCamera(null, 3, 0, 0.5, 0.5));
+		camBP.comps.add(new MotionCapacity(1, AngleUtil.toRadians(500), 1, 1, 1));
+		
+		EntityBlueprint shipBP = new EntityBlueprint();
+		shipBP.comps.add(new Naming("player ship"));
+		shipBP.comps.add(new PlayerControl());
+		shipBP.comps.add(new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
+		shipBP.comps.add(new Dragging(0.05));
+		shipBP.comps.add(new MotionCapacity(3, AngleUtil.toRadians(360), 3, 1.5, 1.5));
+		shipBP.comps.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
+		shipBP.comps.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), 0.8), null));
+		shipBP.comps.add(new EffectOnTouch());
+		shipBP.comps.add(new VelocityViewing());
+		shipBP.comps.add(new PlanarVelocityToApply(Point2D.ORIGIN));
+		shipBP.comps.add(new Attackable());
+		shipBP.comps.add(new AbilityTriggerList(new HashMap<>()));
+		shipBP.children.add(weaponLeftBP);
+		shipBP.children.add(weaponRightBP);
+//		shipBP.children.add(frontLightBP);
+		shipBP.children.add(camBP);
+		
+		
+
+
+		
+		
+		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+		try {
+			mapper.writeValue(new File("test.bp"), shipBP);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+//		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
+//		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+//		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+//		EntityBlueprint bp = null;
+//		try {
+//			bp = mapper.readValue(new File("test.bp"), EntityBlueprint.class);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		bp.create(ed, null);
+		
+		
 	}
 
 	@Override

@@ -43,8 +43,8 @@ public class LightProc extends Processor {
 			position = spaceStance.getPosition();
 			direction = spaceStance.getDirection();
 		} else {
-			position = planarStance.getCoord().get3D(planarStance.getElevation());
-			direction = Point3D.UNIT_X.getRotationAroundZ(planarStance.getOrientation());
+			position = planarStance.coord.get3D(planarStance.elevation);
+			direction = Point3D.UNIT_X.getRotationAroundZ(planarStance.orientation);
 		}
 		
 		if(l.distance == Double.POSITIVE_INFINITY){

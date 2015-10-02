@@ -29,7 +29,7 @@ public class PhysicForceProc extends Processor {
 				if(impulse.exceptions.contains(ph.stat.type))
 					return;
 
-				Point2D vector = phStance.getCoord().getSubtraction(impStance.getCoord());
+				Point2D vector = phStance.coord.getSubtraction(impStance.coord);
 				double distance = vector.getLength(); 
 				if(distance < impulse.radius){
 					double rate = 1-(distance/impulse.radius);

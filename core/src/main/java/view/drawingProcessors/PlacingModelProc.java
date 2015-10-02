@@ -41,12 +41,12 @@ public class PlacingModelProc extends Processor {
 		Spatial s = SpatialPool.models.get(e.getId());
 
 		// translation
-		s.setLocalTranslation(TranslateUtil.toVector3f(stance.getCoord().get3D(stance.getElevation())));
+		s.setLocalTranslation(TranslateUtil.toVector3f(stance.coord.get3D(stance.elevation)));
 
 		// rotation
 		Quaternion r = new Quaternion();
-		Point3D pu = stance.getUpVector();
-		Point3D pv = stance.getPlanarVector();
+		Point3D pu = stance.upVector;
+		Point3D pv = Point3D.UNIT_X.getRotationAroundZ(stance.orientation);
 		Vector3f u = TranslateUtil.toVector3f(pu).normalize();
 		Vector3f v = TranslateUtil.toVector3f(pv).normalize();
 		r.lookAt(v, u);

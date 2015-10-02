@@ -28,14 +28,14 @@ public class PlayerRotationControlProc extends Processor {
         for(EntitySet set : sets)
         	for (Entity e : set){
         		PlanarStance stance = e.get(PlanarStance.class);
-        		double angleToTarget = ModelManager.command.target.getSubtraction(stance.getCoord()).getAngle();
+        		double angleToTarget = ModelManager.command.target.getSubtraction(stance.coord).getAngle();
 
         		// rotation
         		double neededRotAngle = 0;
-        		Point2D front = stance.getCoord().getTranslation(stance.getOrientation(), 1);
-        		int turn = AngleUtil.getTurn(stance.getCoord(), front, ModelManager.command.target);
+        		Point2D front = stance.coord.getTranslation(stance.orientation, 1);
+        		int turn = AngleUtil.getTurn(stance.coord, front, ModelManager.command.target);
         		if(turn != AngleUtil.NONE){// || angleToTarget != stance.getOrientation()){
-        			double diff = AngleUtil.getSmallestDifference(stance.getOrientation(), angleToTarget);
+        			double diff = AngleUtil.getSmallestDifference(stance.orientation, angleToTarget);
         			if(turn >= 0)
         				neededRotAngle = diff;
         			else
