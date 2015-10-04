@@ -6,6 +6,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.common.eventbus.Subscribe;
+import com.simsilica.es.EntityData;
+import com.simsilica.es.EntityId;
+
+import controller.Controller;
+import controller.cameraManagement.ChasingCameraProc;
+import controller.entityAppState.EntityDataAppState;
+import controller.topdown.TopdownCtrl;
 import model.ES.component.Cooldown;
 import model.ES.component.Naming;
 import model.ES.component.camera.ChasingCamera;
@@ -24,11 +34,11 @@ import model.ES.component.relation.Attackable;
 import model.ES.component.relation.Parenting;
 import model.ES.component.relation.PlanarHolding;
 import model.ES.component.shipGear.Attrition;
-import model.ES.component.shipGear.Gun;
+import model.ES.component.shipGear.ProjectileLauncher;
 import model.ES.component.shipGear.RotationThruster;
 import model.ES.component.shipGear.Thruster;
 import model.ES.component.shipGear.Trigger;
-import model.ES.component.shipGear.TriggerPersistence;
+import model.ES.component.shipGear.TriggerRepeater;
 import model.ES.component.visuals.Lighting;
 import model.ES.component.visuals.Model;
 import model.ES.component.visuals.ParticleCaster;
@@ -36,9 +46,10 @@ import model.ES.processor.LifeTimeProc;
 import model.ES.processor.RemoveProc;
 import model.ES.processor.AI.BehaviorTreeProc;
 import model.ES.processor.ability.AbilityTriggerResetProc;
-import model.ES.processor.ability.GunProc;
+import model.ES.processor.ability.ProjectileLauncherProc;
 import model.ES.processor.ability.TriggerCancelationProc;
 import model.ES.processor.ability.TriggerObserverProc;
+import model.ES.processor.ability.TriggerRepeaterProc;
 import model.ES.processor.command.NeededRotationProc;
 import model.ES.processor.command.NeededThrustProc;
 import model.ES.processor.command.PlayerAbilityControlProc;
@@ -76,17 +87,6 @@ import view.drawingProcessors.ParticleCasterInPlaneProc;
 import view.drawingProcessors.PlacingModelProc;
 import view.drawingProcessors.VelocityVisualisationProc;
 import view.material.MaterialManager;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.google.common.eventbus.Subscribe;
-import com.simsilica.es.EntityData;
-import com.simsilica.es.EntityId;
-
-import controller.Controller;
-import controller.cameraManagement.ChasingCameraProc;
-import controller.entityAppState.EntityDataAppState;
-import controller.topdown.TopdownCtrl;
 
 public class MainDev extends CosmoVania {
 
@@ -133,9 +133,10 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new BehaviorTreeProc());
 		stateManager.attach(new TriggerObserverProc());
 		stateManager.attach(new AbilityTriggerResetProc());
-
 		stateManager.attach(new TriggerCancelationProc());
-		stateManager.attach(new GunProc());
+		stateManager.attach(new TriggerRepeaterProc());
+		
+		stateManager.attach(new ProjectileLauncherProc());
 
 		stateManager.attach(new DamagingProc());
 		stateManager.attach(new AttritionProc());
@@ -184,9 +185,9 @@ public class MainDev extends CosmoVania {
 		ed.setComponent(o1weap, new PlanarHolding(new Point3D(0, -0.3, 0), 0));
 		ed.setComponent(o1weap, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
 		ed.setComponent(o1weap, new Cooldown(0, 1000));
-		ed.setComponent(o1weap, new TriggerPersistence(300, 0));
+		ed.setComponent(o1weap, new TriggerRepeater(300, 60, 10, 0, 0));
 		ed.setComponent(o1weap, new Trigger("gun", false));
-		ed.setComponent(o1weap, new Gun());
+		ed.setComponent(o1weap, new ProjectileLauncher(AngleUtil.toRadians(10)));
 
 //		// ship
 //		EntityId playerShip = ed.createEntity();
@@ -234,64 +235,64 @@ public class MainDev extends CosmoVania {
 
 		
 		
-//		EventManager.register(this);
-//		
-//		EntityBlueprint weaponLeftBP = new EntityBlueprint();
-//		weaponLeftBP.comps.add(new Naming("weapon left"));
-//		weaponLeftBP.comps.add(new PlanarHolding(new Point3D(0, 0.3, 0), 0));
-//		weaponLeftBP.comps.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-//		weaponLeftBP.comps.add(new Cooldown(0, 100));
-//		weaponLeftBP.comps.add(new Trigger("gun", false));
-//		weaponLeftBP.comps.add(new Gun());
-//
-//		EntityBlueprint weaponRightBP = new EntityBlueprint();
-//		weaponRightBP.comps.add(new Naming("weapon right"));
-//		weaponRightBP.comps.add(new PlanarHolding(new Point3D(0, 0.3, 0), 0));
-//		weaponRightBP.comps.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-//		weaponRightBP.comps.add(new Cooldown(0, 100));
-//		weaponRightBP.comps.add(new Trigger("gun", false));
-//		weaponRightBP.comps.add(new Gun());
-//		
-////		EntityBlueprint frontLightBP = new EntityBlueprint();
-////		frontLightBP.comps.add(new Naming("front light"));
-////		frontLightBP.comps.add(new PlanarHolding(null, new Point3D(1, 0, 0), 0));
-////		frontLightBP.comps.add(new SpaceStance(Point3D.ORIGIN, Point3D.ORIGIN));
-////		frontLightBP.comps.add(new Lighting(Color.white, 4, 6, AngleUtil.toRadians(30), AngleUtil.toRadians(40), false, 1));
-//
-//		// camera
-//		EntityBlueprint camBP = new EntityBlueprint();
-//		camBP.comps.add(new Naming("camera"));
-//		camBP.comps.add(new PlanarStance(new Point2D(1, 1), 0, 30, Point3D.UNIT_Z));
-//		camBP.comps.add(new ChasingCamera(3, 0, 0.5, 0.5));
-//		camBP.comps.add(new MotionCapacity(1, AngleUtil.toRadians(500), 1, 1, 1));
-//		
-//		EntityBlueprint shipBP = new EntityBlueprint();
-//		shipBP.comps.add(new Naming("player ship"));
-//		shipBP.comps.add(new PlayerControl());
-//		shipBP.comps.add(new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
-//		shipBP.comps.add(new Dragging(0.05));
-//		shipBP.comps.add(new MotionCapacity(3, AngleUtil.toRadians(360), 3, 1.5, 1.5));
-//		shipBP.comps.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
-//		shipBP.comps.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), 0.8), null));
-//		shipBP.comps.add(new EffectOnTouch());
-//		shipBP.comps.add(new VelocityViewing());
-//		shipBP.comps.add(new PlanarVelocityToApply(Point2D.ORIGIN));
-//		shipBP.comps.add(new Attackable());
-//		shipBP.comps.add(new AbilityTriggerList(new HashMap<>()));
-//		shipBP.children.add(weaponLeftBP);
-//		shipBP.children.add(weaponRightBP);
-////		shipBP.children.add(frontLightBP);
-//		shipBP.children.add(camBP);
-//	
-//		
-//		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
-//		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-//		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-//		try {
-//			mapper.writeValue(new File("test.bp"), shipBP);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		EventManager.register(this);
+		
+		EntityBlueprint weaponLeftBP = new EntityBlueprint();
+		weaponLeftBP.comps.add(new Naming("weapon left"));
+		weaponLeftBP.comps.add(new PlanarHolding(new Point3D(0, 0.3, 0), 0));
+		weaponLeftBP.comps.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		weaponLeftBP.comps.add(new Cooldown(0, 100));
+		weaponLeftBP.comps.add(new Trigger("gun", false));
+		weaponLeftBP.comps.add(new ProjectileLauncher(AngleUtil.toRadians(2)));
+
+		EntityBlueprint weaponRightBP = new EntityBlueprint();
+		weaponRightBP.comps.add(new Naming("weapon right"));
+		weaponRightBP.comps.add(new PlanarHolding(new Point3D(0, -0.3, 0), 0));
+		weaponRightBP.comps.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		weaponRightBP.comps.add(new Cooldown(0, 100));
+		weaponRightBP.comps.add(new Trigger("gun", false));
+		weaponRightBP.comps.add(new ProjectileLauncher(AngleUtil.toRadians(2)));
+		
+//		EntityBlueprint frontLightBP = new EntityBlueprint();
+//		frontLightBP.comps.add(new Naming("front light"));
+//		frontLightBP.comps.add(new PlanarHolding(null, new Point3D(1, 0, 0), 0));
+//		frontLightBP.comps.add(new SpaceStance(Point3D.ORIGIN, Point3D.ORIGIN));
+//		frontLightBP.comps.add(new Lighting(Color.white, 4, 6, AngleUtil.toRadians(30), AngleUtil.toRadians(40), false, 1));
+
+		// camera
+		EntityBlueprint camBP = new EntityBlueprint();
+		camBP.comps.add(new Naming("camera"));
+		camBP.comps.add(new PlanarStance(new Point2D(1, 1), 0, 30, Point3D.UNIT_Z));
+		camBP.comps.add(new ChasingCamera(3, 0, 0.5, 0.5));
+		camBP.comps.add(new MotionCapacity(1, AngleUtil.toRadians(500), 1, 1, 1));
+		
+		EntityBlueprint shipBP = new EntityBlueprint();
+		shipBP.comps.add(new Naming("player ship"));
+		shipBP.comps.add(new PlayerControl());
+		shipBP.comps.add(new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
+		shipBP.comps.add(new Dragging(0.05));
+		shipBP.comps.add(new MotionCapacity(3, AngleUtil.toRadians(360), 3, 1.5, 1.5));
+		shipBP.comps.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
+		shipBP.comps.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), 0.8), null));
+		shipBP.comps.add(new EffectOnTouch());
+		shipBP.comps.add(new VelocityViewing());
+		shipBP.comps.add(new PlanarVelocityToApply(Point2D.ORIGIN));
+		shipBP.comps.add(new Attackable());
+		shipBP.comps.add(new AbilityTriggerList(new HashMap<>()));
+		shipBP.children.add(weaponLeftBP);
+		shipBP.children.add(weaponRightBP);
+//		shipBP.children.add(frontLightBP);
+		shipBP.children.add(camBP);
+	
+		
+		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+		try {
+			mapper.writeValue(new File("test.bp"), shipBP);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 
 		
@@ -299,7 +300,7 @@ public class MainDev extends CosmoVania {
 		
 		
 		
-		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
+//		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 		EntityBlueprint bp = null;

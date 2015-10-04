@@ -102,7 +102,8 @@
       "name" : "gun",
       "triggered" : false
     }, {
-      "class" : "model.ES.component.shipGear.Gun"
+      "class" : "model.ES.component.shipGear.ProjectileLauncher",
+      "precision" : 0.03490658503988659
     } ],
     "children" : [ ]
   }, {
@@ -113,7 +114,7 @@
       "class" : "model.ES.component.relation.PlanarHolding",
       "localPosition" : {
         "x" : 0.0,
-        "y" : 0.3,
+        "y" : -0.3,
         "z" : 0.0
       },
       "localOrientation" : 0.0
@@ -139,7 +140,8 @@
       "name" : "gun",
       "triggered" : false
     }, {
-      "class" : "model.ES.component.shipGear.Gun"
+      "class" : "model.ES.component.shipGear.ProjectileLauncher",
+      "precision" : 0.03490658503988659
     } ],
     "children" : [ ]
   }, {

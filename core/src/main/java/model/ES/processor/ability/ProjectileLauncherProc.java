@@ -15,23 +15,23 @@ import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Physic;
 import model.ES.component.relation.Parenting;
-import model.ES.component.shipGear.Gun;
 import model.ES.component.shipGear.Projectile;
+import model.ES.component.shipGear.ProjectileLauncher;
 import model.ES.component.shipGear.Trigger;
 import model.ES.component.visuals.Model;
 import model.ES.richData.CollisionShape;
 import model.ES.richData.Damage;
 import model.ES.richData.PhysicStat;
-import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
+import util.math.RandomUtil;
 
-public class GunProc extends Processor {
+public class ProjectileLauncherProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(PlanarStance.class, Gun.class, Trigger.class, Cooldown.class, Parenting.class);
+		register(PlanarStance.class, ProjectileLauncher.class, Trigger.class, Cooldown.class, Parenting.class);
 	}
 	
 	@Override
@@ -47,12 +47,14 @@ public class GunProc extends Processor {
 	private void manage(Entity e, float elapsedTime) {
 		Trigger trigger = e.get(Trigger.class);
 		Parenting p = e.get(Parenting.class);
+		ProjectileLauncher launcher = e.get(ProjectileLauncher.class);
 		if(trigger.triggered){
 			PlanarStance stance = e.get(PlanarStance.class);
 			EntityId firing = entityData.createEntity();
-			entityData.setComponent(firing, new PlanarStance(stance.coord.getTranslation(stance.orientation, 0.2), stance.orientation, stance.elevation, Point3D.UNIT_Z));
+			double orientation = stance.orientation + RandomUtil.between(-launcher.precision/2, launcher.precision/2);
+			entityData.setComponent(firing, new PlanarStance(stance.coord.getTranslation(stance.orientation, 0.2), orientation, stance.elevation, Point3D.UNIT_Z));
 			entityData.setComponent(firing, new MotionCapacity(7, 0, 1, 0, 0));
-			entityData.setComponent(firing, new PlanarVelocityToApply(Point2D.UNIT_X.getRotation(stance.orientation)));
+			entityData.setComponent(firing, new PlanarVelocityToApply(Point2D.UNIT_X.getRotation(orientation)));
 			entityData.setComponent(firing, new Model("human/hmissileT1/hmissileT1_02.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
 			entityData.setComponent(firing, new Physic(Point2D.ORIGIN, new PhysicStat("Missile", 0.1, new CollisionShape(0.1), 0, "Missile"), p.parent));
 			entityData.setComponent(firing, new DestroyedOnTouch());
