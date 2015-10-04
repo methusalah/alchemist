@@ -4,6 +4,7 @@ import model.ModelManager;
 import model.ES.component.command.PlanarNeededRotation;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.relation.BoneHolding;
+import model.ES.component.relation.Parenting;
 import model.ES.component.relation.PlanarHolding;
 import model.ES.component.shipGear.RotationThruster;
 import util.LogUtil;
@@ -15,13 +16,13 @@ import com.simsilica.es.EntityId;
 import com.simsilica.es.EntitySet;
 
 import controller.entityAppState.Processor;
+import javafx.scene.Parent;
 
 public class RotationThrusterProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(BoneHolding.class, RotationThruster.class);
-		register(PlanarHolding.class, RotationThruster.class);
+		register(RotationThruster.class, Parenting.class);
 	}
 	
 	@Override
@@ -37,27 +38,20 @@ public class RotationThrusterProc extends Processor {
 	
 	private void manage(Entity e, float elapsedTime) {
 		RotationThruster thruster = e.get(RotationThruster.class);
-
-		EntityId holder;
-		if(e.get(BoneHolding.class) != null)
-			holder = e.get(BoneHolding.class).getHolder();
-		else if(e.get(PlanarHolding.class) != null)
-			holder = e.get(PlanarHolding.class).getHolder();
-		else
-			throw new RuntimeException("Missing holder");
-		
+		Parenting parenting = e.get(Parenting.class);
+		EntityId holder = parenting.parent;
 		
 		PlanarNeededRotation rotation = entityData.getComponent(holder, PlanarNeededRotation.class);
 		double activationRate = 0;
 		if(rotation != null){
-			if(rotation.getAngle() > 0 && !thruster.isClockwise() 
-					|| rotation.getAngle() < 0 && thruster.isClockwise()){
+			if(rotation.angle > 0 && !thruster.clockwise 
+					|| rotation.angle < 0 && thruster.clockwise){
 				activationRate = 1;
-				if(!thruster.isOnOff() && Math.abs(rotation.getAngle()) < thruster.getMaxAngle())
-					activationRate = Math.abs(rotation.getAngle())/thruster.getMaxAngle();
+				if(!thruster.onOff && Math.abs(rotation.angle) < thruster.maxAngle)
+					activationRate = Math.abs(rotation.angle)/thruster.maxAngle;
 			}
 		}
-		setComp(e, new RotationThruster(thruster.isClockwise(), thruster.getMaxAngle(), activationRate, thruster.isOnOff()));
+		setComp(e, new RotationThruster(thruster.clockwise, thruster.maxAngle, activationRate, thruster.onOff));
 
 			
 	}

@@ -7,8 +7,6 @@ import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 
-import de.lessvoid.nifty.Nifty;
-
 public class AppFacade {
 
 	private static CosmoVania app;
@@ -43,10 +41,6 @@ public class AppFacade {
 	
 	public static CosmoVania getApp(){
 		return app;
-	}
-	
-	public static Nifty getNifty(){
-		return app.getNifty();
 	}
 	
 	public static AppStateManager getStateManager(){

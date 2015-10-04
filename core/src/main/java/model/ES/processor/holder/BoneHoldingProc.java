@@ -18,7 +18,7 @@ public class BoneHoldingProc extends Processor {
 	@Override
 	protected void onEntityUpdated(Entity e, float elapsedTime) {
 		BoneHolding holded = e.get(BoneHolding.class);
-		Skeleton sk = entityData.getComponent(holded.getHolder(), Skeleton.class);
-		setComp(e, new SpaceStance(sk.getPosition(holded.getPositionBoneName()), sk.getDirection(holded.getDirectionBoneName())));
+		Skeleton sk = entityData.getComponent(holded.holder, Skeleton.class);
+		setComp(e, new SpaceStance(sk.bonePositions.get(holded.positionBoneName), sk.boneDirections.get(holded.directionBoneName)));
 	}
 }

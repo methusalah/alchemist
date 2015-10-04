@@ -9,6 +9,7 @@ import model.ModelManager;
 import model.ES.component.command.PlanarNeededThrust;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.relation.BoneHolding;
+import model.ES.component.relation.Parenting;
 import model.ES.component.relation.PlanarHolding;
 import model.ES.component.shipGear.Thruster;
 import util.math.AngleUtil;
@@ -17,8 +18,7 @@ public class ThrusterProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(BoneHolding.class, Thruster.class);
-		register(PlanarHolding.class, Thruster.class);
+		register(Thruster.class, Parenting.class);
 	}
 
 	@Override
@@ -34,27 +34,21 @@ public class ThrusterProc extends Processor {
 
 	private void manage(Entity e, float elapsedTime) {
 		Thruster thruster = e.get(Thruster.class);
-		
-		EntityId holder;
-		if(e.get(BoneHolding.class) != null)
-			holder = e.get(BoneHolding.class).getHolder();
-		else if(e.get(PlanarHolding.class) != null)
-			holder = e.get(PlanarHolding.class).getHolder();
-		else
-			throw new RuntimeException("Missing holder");
+		Parenting parenting = e.get(Parenting.class);
+		EntityId holder = parenting.parent;
 
 		PlanarNeededThrust thrust = entityData.getComponent(holder, PlanarNeededThrust.class);
 		PlanarStance stance = entityData.getComponent(holder, PlanarStance.class);
 		double activationRate = 0;
 		if(thrust != null){
-			double diff = AngleUtil.getSmallestDifference(thrust.getDirection().getAngle()-stance.orientation, thruster.getDirection().get2D().getAngle());
-			if(diff <= thruster.getActivationAngle()){
+			double diff = AngleUtil.getSmallestDifference(thrust.getDirection().getAngle()-stance.orientation, thruster.direction.get2D().getAngle());
+			if(diff <= thruster.activationAngle){
 				activationRate = 1;
-				if(!thruster.isOnOff())
-					activationRate = 1-(diff/thruster.getActivationAngle());
+				if(!thruster.onOff)
+					activationRate = 1-(diff/thruster.activationAngle);
 			}
 		}
-		setComp(e, new Thruster(thruster.getDirection(), thruster.getActivationAngle(), activationRate, thruster.isOnOff()));
+		setComp(e, new Thruster(thruster.direction, thruster.activationAngle, activationRate, thruster.onOff));
 	}
 
 }

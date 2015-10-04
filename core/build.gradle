@@ -2,9 +2,9 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'eclipse'
 
-mainClassName = 'openrts.app.MainRTS'
+mainClassName = 'cosmovania.app.MainDev'
 if (!hasProperty('mainClass')) {
-	ext.mainClass = 'openrts.app.MainRTS'
+	ext.mainClass = 'cosmovania.app.MainDev'
 }
 
 repositories {
@@ -13,6 +13,8 @@ repositories {
 	maven { url "https://jitpack.io" }
 	maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    maven { url "http://dl.bintray.com/empirephoenix/VGS-OSS-Releases/" }
+    
 }
 
 dependencies {
@@ -24,14 +26,12 @@ dependencies {
 	compile "com.jme3:jme3-blender:$jmonkeyengine_version"
 	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version"
 	compile "com.jme3:jme3-lwjgl:$jmonkeyengine_version"
-	compile "com.jme3:jme3-niftygui:$jmonkeyengine_version"
 
 	compile 'org.slf4j:slf4j-simple:1.6.1'
 
 	compile 'org.bushe:eventbus:1.4'
 	compile 'com.google.guava:guava:18.0'
 	compile 'org.apache.commons:commons-lang3:3.3.2'
-	//compile 'com.google.inject:guice:4.0'
 
 	compile 'com.fasterxml.jackson.core:jackson-core:2.5.3'
 	compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.3'
@@ -40,10 +40,9 @@ dependencies {
 	
 	compile 'com.github.brainless-studios:tonegodgui:-SNAPSHOT'
 	compile 'com.github.brainless-studios:zay-es:-SNAPSHOT'
+	//compile 'com.github.brainless-studios:JME3-JFX:-SNAPSHOT'
 	
-	compile 'org.codehaus.groovy:groovy-all:2.3.10'
 	compile "com.badlogicgames.gdx:gdx-ai:1.6.0"
-	
 }
 
 
@@ -66,6 +65,6 @@ eclipse {
 
 	project { 
 		name = appName + "-core" 
-		natures 'org.springsource.ide.eclipse.gradle.core.nature', 'org.eclipse.jdt.groovy.core.groovyNature'
+		natures 'org.springsource.ide.eclipse.gradle.core.nature'
 	}
 }

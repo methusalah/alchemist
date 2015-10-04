@@ -39,9 +39,9 @@ public class ParticleCasterInSpaceProc extends Processor {
 		ParticleCaster caster = e.get(ParticleCaster.class);
 		MyParticleEmitter pe = SpatialPool.emitters.get(e.getId());
 
-		Point3D velocity = stance.getDirection().getScaled(caster.getInitialSpeed());
+		Point3D velocity = stance.direction.getScaled(caster.initialSpeed);
 		
-		pe.setLocalTranslation(TranslateUtil.toVector3f(stance.getPosition()));
+		pe.setLocalTranslation(TranslateUtil.toVector3f(stance.position));
 		pe.getParticleInfluencer().setInitialVelocity(TranslateUtil.toVector3f(velocity));
 
 

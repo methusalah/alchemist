@@ -19,7 +19,7 @@ public class LifeTimeProc extends Processor{
 		for(EntitySet set : sets)
 			for(Entity e : set){
 				LifeTime life = e.get(LifeTime.class);
-				if(life.getLifeStart()+life.getDuration() < System.currentTimeMillis())
+				if(life.lifeStart+life.duration < System.currentTimeMillis())
 					setComp(e, new ToRemove());
 			}
 				

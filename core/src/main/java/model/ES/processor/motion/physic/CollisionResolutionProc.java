@@ -25,8 +25,8 @@ public class CollisionResolutionProc extends Processor {
 	@Override
 	protected void onEntityAdded(Entity e, float elapsedTime) {
 		Collisioning col = e.get(Collisioning.class);
-		Entity A = entityData.getEntity(col.getA(), Physic.class, PlanarVelocityToApply.class);
-		Entity B = entityData.getEntity(col.getB(), Physic.class, PlanarVelocityToApply.class);
+		Entity A = entityData.getEntity(col.a, Physic.class, PlanarVelocityToApply.class);
+		Entity B = entityData.getEntity(col.b, Physic.class, PlanarVelocityToApply.class);
 		
 		Physic phA = A.get(Physic.class);
 		Physic phB = B.get(Physic.class);
@@ -40,14 +40,14 @@ public class CollisionResolutionProc extends Processor {
 		
 		
 		Point2D relative = velB.getSubtraction(velA);
-		double velAlongNormal = relative.getDotProduct(col.getNormal());
+		double velAlongNormal = relative.getDotProduct(col.normal);
 		
 		if(velAlongNormal <= 0){
 			double epsilon = Math.min(phA.stat.restitution, phB.stat.restitution);
 			double impulseScale = -(1+epsilon)*velAlongNormal;
 			impulseScale /= 1/massA + 1/massB;
 			
-			Point2D impulse = col.getNormal().getScaled(impulseScale);
+			Point2D impulse = col.normal.getScaled(impulseScale);
 			
 			Point2D newVelA = velA.getAddition(impulse.getNegation().getMult(1/massA));
 			Point2D newVelB = velB.getAddition(impulse.getMult(1/massB));

@@ -7,6 +7,7 @@ import com.simsilica.es.Entity;
 import model.ES.component.camera.ChasingCamera;
 import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
+import model.ES.component.relation.Parenting;
 import controller.CameraManager;
 import controller.entityAppState.Processor;
 
@@ -20,7 +21,7 @@ public class ChasingCameraProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(PlanarStance.class, ChasingCamera.class);
+		register(PlanarStance.class, ChasingCamera.class, Parenting.class);
 	}
 	
 	@Override
@@ -35,28 +36,28 @@ public class ChasingCameraProc extends Processor {
 	
 	private void manage(Entity e, float elapsedTime){
 		PlanarStance stance = e.get(PlanarStance.class);
-		MotionCapacity capacity = e.get(MotionCapacity.class);
 		ChasingCamera cam = e.get(ChasingCamera.class);
-		PlanarStance targetStance = entityData.getComponent(cam.getEntityToChase(), PlanarStance.class);
+		Parenting parenting = e.get(Parenting.class);
+		PlanarStance targetStance = entityData.getComponent(parenting.parent, PlanarStance.class);
 		
 		Point2D toTarget = targetStance.coord.getSubtraction(stance.coord);
 		
-		double minBrakingDistance = (cam.getSpeed()*cam.getSpeed())/(cam.getDeceleration()*2);
+		double minBrakingDistance = (cam.speed*cam.speed)/(cam.deceleration*2);
 
 		double newSpeed;
 		if(minBrakingDistance >= toTarget.getLength())
 			// deceleration
-			newSpeed = Math.max(0, cam.getSpeed()-cam.getDeceleration()*elapsedTime);
+			newSpeed = Math.max(0, cam.speed-cam.deceleration*elapsedTime);
 		else
 			// acceleration
-			newSpeed = Math.min(cam.getMaxSpeed(), cam.getSpeed()+cam.getAcceleration()*elapsedTime);
+			newSpeed = Math.min(cam.maxSpeed, cam.speed+cam.acceleration*elapsedTime);
 			
 		toTarget = toTarget.getScaled(newSpeed*elapsedTime);
 		
 		Point2D newCoord = stance.coord.getAddition(toTarget);
 		
 		
-		setComp(e, new ChasingCamera(cam.getEntityToChase(), cam.getMaxSpeed(), newSpeed, cam.getAcceleration(), cam.getDeceleration()));
+		setComp(e, new ChasingCamera(cam.maxSpeed, newSpeed, cam.acceleration, cam.deceleration));
 		setComp(e, new PlanarStance(newCoord, stance.orientation, stance.elevation, stance.upVector));
 		
 		camManager.setLocation(newCoord.get3D(stance.elevation));

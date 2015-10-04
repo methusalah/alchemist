@@ -47,47 +47,47 @@ public class ParticleCasterInPlaneProc extends Processor {
 		if(SpatialPool.emitters.containsKey(e.getId()))
 			throw new RuntimeException("Can't add the same particle caster twice.");
 		
-		MyParticleEmitter pe = new MyParticleEmitter("ParticleCaster for entity "+e.getId(), Type.Triangle, caster.getMaxCount());
+		MyParticleEmitter pe = new MyParticleEmitter("ParticleCaster for entity "+e.getId(), Type.Triangle, caster.maxCount);
 		SpatialPool.emitters.put(e.getId(), pe);
 
 		// material
 		Material m = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Particle.j3md");
-		m.setTexture("Texture", AppFacade.getAssetManager().loadTexture("textures/" + caster.getSpritePath()));
+		m.setTexture("Texture", AppFacade.getAssetManager().loadTexture("textures/" + caster.spritePath));
 		pe.setMaterial(m);
 
-		pe.setImagesX(caster.getNbCol());
-		pe.setImagesY(caster.getNbRow());
+		pe.setImagesX(caster.nbCol);
+		pe.setImagesY(caster.nbRow);
 
 		// particle fanning
-		pe.getParticleInfluencer().setVelocityVariation((float)caster.getFanning());
+		pe.getParticleInfluencer().setVelocityVariation((float)caster.fanning);
 
 		// particle size
-		pe.setStartSize((float)caster.getStartSize());
-		pe.setEndSize((float)caster.getEndSize());
+		pe.setStartSize((float)caster.startSize);
+		pe.setEndSize((float)caster.endSize);
 		
 		// particle life
-		pe.setLowLife((float)caster.getMinLife());
-		pe.setHighLife((float)caster.getMaxLife());
+		pe.setLowLife((float)caster.minLife);
+		pe.setHighLife((float)caster.maxLife);
 
 		// particle color
-		pe.setStartColor(TranslateUtil.toColorRGBA(caster.getStartColor()));
-		pe.setEndColor(TranslateUtil.toColorRGBA(caster.getEndColor()));
+		pe.setStartColor(TranslateUtil.toColorRGBA(caster.startColor));
+		pe.setEndColor(TranslateUtil.toColorRGBA(caster.endColor));
 		
 		// particle facing
-		switch(caster.getFacing()){
+		switch(caster.facing){
 		case Camera: break;
 		case Horizontal: pe.setFaceNormal(Vector3f.UNIT_Z); break;
 		case Velocity: pe.setFacingVelocity(true);
 		}
 		
 		//particle per seconds
-		pe.setParticlesPerSec((float)caster.getPerSecond());
+		pe.setParticlesPerSec((float)caster.perSecond);
 		
 		AppFacade.getRootNode().attachChild(pe);
 		
 		updateParticleEmitter(e, elapsedTime);
 
-		if(caster.isAllAtOnce())
+		if(caster.allAtOnce)
 			pe.emitAllParticles();
 	}
 
@@ -99,8 +99,8 @@ public class ParticleCasterInPlaneProc extends Processor {
 			velocity = Point3D.UNIT_X.getRotationAroundZ(stance.orientation);
 		} else if(e.get(SpaceStance.class) != null){ 
 			SpaceStance stance = e.get(SpaceStance.class);
-			pos = stance.getPosition();
-			velocity = stance.getDirection();
+			pos = stance.position;
+			velocity = stance.direction;
 		} else {
 			throw new RuntimeException("Stance missing for a caster.");
 		}
@@ -108,7 +108,7 @@ public class ParticleCasterInPlaneProc extends Processor {
 		ParticleCaster caster = e.get(ParticleCaster.class);
 		MyParticleEmitter pe = SpatialPool.emitters.get(e.getId());
 		
-		velocity = velocity.getScaled(caster.getInitialSpeed());
+		velocity = velocity.getScaled(caster.initialSpeed);
 		
 		pe.setLocalTranslation(TranslateUtil.toVector3f(pos));
 		pe.getParticleInfluencer().setInitialVelocity(TranslateUtil.toVector3f(velocity));

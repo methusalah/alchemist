@@ -50,9 +50,9 @@ public class ModelProc extends Processor {
 	
 	private void createModel(Entity e){
 		Model model = e.get(Model.class);
-		Spatial s = getPrototype(model.getPath()).clone();
-		s.scale((float)model.getScale());
-		model.setCreated();
+		Spatial s = getPrototype(model.path).clone();
+		s.scale((float)model.scale);
+		model.created = true;
 		SpatialPool.models.put(e.getId(), s);
 		AppFacade.getRootNode().attachChild(s);
 	}

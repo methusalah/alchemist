@@ -24,14 +24,14 @@ public class ParticleThrusterProc extends Processor {
 		
 		double activationRate;
 		if(rotationThruster != null)
-			activationRate = rotationThruster.getActivation();
+			activationRate = rotationThruster.activation;
 		else if(thruster != null)
-			activationRate = thruster.getActivation();
+			activationRate = thruster.activation;
 		else
 			throw new RuntimeException("thruster missing");
 		
 		
-		caster.actualPerSecond = (int)Math.round(caster.getPerSecond()*activationRate);
+		caster.actualPerSecond = (int)Math.round(caster.perSecond*activationRate);
 		setComp(e, caster);
 	}
 }

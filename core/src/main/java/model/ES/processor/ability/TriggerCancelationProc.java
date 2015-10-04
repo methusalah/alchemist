@@ -28,6 +28,6 @@ public class TriggerCancelationProc extends Processor {
 		Cooldown cd = e.get(Cooldown.class);
 		Trigger t = e.get(Trigger.class);
 		if(t.triggered && cd.start + cd.duration > System.currentTimeMillis())
-			setComp(e, new Trigger(t.source, t.name, false));
+			setComp(e, new Trigger(t.name, false));
 	}
 }

@@ -36,10 +36,10 @@ public class DraggingProc extends Processor {
 		if(speed < PrecisionUtil.APPROX)
 			actualVelocity = Point2D.ORIGIN;
 		else {
-			double dragForce = speed*speed * dragging.getDragging();
+			double dragForce = speed*speed * dragging.dragging;
 			Point2D dragVelocity = actualVelocity.getNegation().getScaled(dragForce);
 			PlanarVelocityToApply v = e.get(PlanarVelocityToApply.class);
-			dragVelocity = dragVelocity.getAddition(v.getVector());
+			dragVelocity = dragVelocity.getAddition(v.vector);
 			setComp(e, new PlanarVelocityToApply(dragVelocity));
 		}
 	}

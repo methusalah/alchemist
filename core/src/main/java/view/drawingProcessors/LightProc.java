@@ -40,8 +40,8 @@ public class LightProc extends Processor {
 		PlanarStance planarStance = e.get(PlanarStance.class);
 		Point3D position, direction;
 		if(spaceStance != null){
-			position = spaceStance.getPosition();
-			direction = spaceStance.getDirection();
+			position = spaceStance.position;
+			direction = spaceStance.direction;
 		} else {
 			position = planarStance.coord.get3D(planarStance.elevation);
 			direction = Point3D.UNIT_X.getRotationAroundZ(planarStance.orientation);

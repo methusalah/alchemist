@@ -36,7 +36,7 @@ public class PhysicForceProc extends Processor {
 					double force = impulse.radius*rate;
 					Point2D velocity = Point2D.ORIGIN.getTranslation(vector.getAngle(), force);
 					PlanarVelocityToApply v = phE.get(PlanarVelocityToApply.class);
-					velocity = velocity.getAddition(v.getVector());
+					velocity = velocity.getAddition(v.vector);
 					setComp(phE, new PlanarVelocityToApply(velocity));
 				}
 			}

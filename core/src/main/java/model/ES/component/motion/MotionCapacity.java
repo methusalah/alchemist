@@ -1,5 +1,6 @@
 package model.ES.component.motion;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
 
 public class MotionCapacity implements EntityComponent {
@@ -9,11 +10,11 @@ public class MotionCapacity implements EntityComponent {
 	public final double lateralThrustPower;
 	public final double frontalThrustPower;
 	
-	public MotionCapacity(double maxSpeed,
-			double maxRotationSpeed,
-			double thrustPower,
-			double lateralThrustPower,
-			double frontalThrustPower){
+	public MotionCapacity(@JsonProperty("maxSpeed")double maxSpeed,
+			@JsonProperty("maxRotationSpeed")double maxRotationSpeed,
+			@JsonProperty("thrustPower")double thrustPower,
+			@JsonProperty("lateralThrustPower")double lateralThrustPower,
+			@JsonProperty("frontalThrustPower")double frontalThrustPower){
 		this.maxRotationSpeed = maxRotationSpeed;
 		this.maxSpeed = maxSpeed;
 		this.thrustPower = thrustPower;
