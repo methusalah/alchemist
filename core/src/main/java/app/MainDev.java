@@ -75,7 +75,9 @@ import model.ES.processor.shipGear.RotationThrusterProc;
 import model.ES.processor.shipGear.ThrusterProc;
 import model.ES.richData.CollisionShape;
 import model.ES.richData.PhysicStat;
-import model.ES.serial.EntityBlueprint;
+import model.ES.serial.Blueprint;
+import model.ES.serial.BlueprintCreator;
+import model.ES.serial.BlueprintLibrary;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
@@ -157,6 +159,7 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new RemoveProc());
 		
 		EntityData ed = stateManager.getState(EntityDataAppState.class).getEntityData();
+		BlueprintCreator.setEntityData(ed);
 		
 		// sun light
 		EntityId sun = ed.createEntity();
@@ -237,21 +240,21 @@ public class MainDev extends CosmoVania {
 		
 		EventManager.register(this);
 		
-		EntityBlueprint weaponLeftBP = new EntityBlueprint();
-		weaponLeftBP.comps.add(new Naming("weapon left"));
-		weaponLeftBP.comps.add(new PlanarHolding(new Point3D(0, 0.3, 0), 0));
-		weaponLeftBP.comps.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		weaponLeftBP.comps.add(new Cooldown(0, 100));
-		weaponLeftBP.comps.add(new Trigger("gun", false));
-		weaponLeftBP.comps.add(new ProjectileLauncher(AngleUtil.toRadians(2)));
+		Blueprint weaponLeftBP = new Blueprint("weapon left");
+		weaponLeftBP.add(new Naming("weapon left"));
+		weaponLeftBP.add(new PlanarHolding(new Point3D(0, 0.3, 0), 0));
+		weaponLeftBP.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		weaponLeftBP.add(new Cooldown(0, 100));
+		weaponLeftBP.add(new Trigger("gun", false));
+		weaponLeftBP.add(new ProjectileLauncher(AngleUtil.toRadians(2)));
 
-		EntityBlueprint weaponRightBP = new EntityBlueprint();
-		weaponRightBP.comps.add(new Naming("weapon right"));
-		weaponRightBP.comps.add(new PlanarHolding(new Point3D(0, -0.3, 0), 0));
-		weaponRightBP.comps.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		weaponRightBP.comps.add(new Cooldown(0, 100));
-		weaponRightBP.comps.add(new Trigger("gun", false));
-		weaponRightBP.comps.add(new ProjectileLauncher(AngleUtil.toRadians(2)));
+		Blueprint weaponRightBP = new Blueprint("weapon right");
+		weaponRightBP.add(new Naming("weapon right"));
+		weaponRightBP.add(new PlanarHolding(new Point3D(0, -0.3, 0), 0));
+		weaponRightBP.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		weaponRightBP.add(new Cooldown(0, 100));
+		weaponRightBP.add(new Trigger("gun", false));
+		weaponRightBP.add(new ProjectileLauncher(AngleUtil.toRadians(2)));
 		
 //		EntityBlueprint frontLightBP = new EntityBlueprint();
 //		frontLightBP.comps.add(new Naming("front light"));
@@ -260,58 +263,36 @@ public class MainDev extends CosmoVania {
 //		frontLightBP.comps.add(new Lighting(Color.white, 4, 6, AngleUtil.toRadians(30), AngleUtil.toRadians(40), false, 1));
 
 		// camera
-		EntityBlueprint camBP = new EntityBlueprint();
-		camBP.comps.add(new Naming("camera"));
-		camBP.comps.add(new PlanarStance(new Point2D(1, 1), 0, 30, Point3D.UNIT_Z));
-		camBP.comps.add(new ChasingCamera(3, 0, 0.5, 0.5));
-		camBP.comps.add(new MotionCapacity(1, AngleUtil.toRadians(500), 1, 1, 1));
+		Blueprint camBP = new Blueprint("camera");
+		camBP.add(new Naming("camera"));
+		camBP.add(new PlanarStance(new Point2D(1, 1), 0, 30, Point3D.UNIT_Z));
+		camBP.add(new ChasingCamera(3, 0, 0.5, 0.5));
+		camBP.add(new MotionCapacity(1, AngleUtil.toRadians(500), 1, 1, 1));
 		
-		EntityBlueprint shipBP = new EntityBlueprint();
-		shipBP.comps.add(new Naming("player ship"));
-		shipBP.comps.add(new PlayerControl());
-		shipBP.comps.add(new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
-		shipBP.comps.add(new Dragging(0.05));
-		shipBP.comps.add(new MotionCapacity(3, AngleUtil.toRadians(360), 3, 1.5, 1.5));
-		shipBP.comps.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
-		shipBP.comps.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), 0.8), null));
-		shipBP.comps.add(new EffectOnTouch());
-		shipBP.comps.add(new VelocityViewing());
-		shipBP.comps.add(new PlanarVelocityToApply(Point2D.ORIGIN));
-		shipBP.comps.add(new Attackable());
-		shipBP.comps.add(new AbilityTriggerList(new HashMap<>()));
-		shipBP.children.add(weaponLeftBP);
-		shipBP.children.add(weaponRightBP);
+		Blueprint shipBP = new Blueprint("player ship");
+		shipBP.add(new Naming("player ship"));
+		shipBP.add(new PlayerControl());
+		shipBP.add(new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
+		shipBP.add(new Dragging(0.05));
+		shipBP.add(new MotionCapacity(3, AngleUtil.toRadians(360), 3, 1.5, 1.5));
+		shipBP.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
+		shipBP.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), 0.8), null));
+		shipBP.add(new EffectOnTouch());
+		shipBP.add(new VelocityViewing());
+		shipBP.add(new PlanarVelocityToApply(Point2D.ORIGIN));
+		shipBP.add(new Attackable());
+		shipBP.add(new AbilityTriggerList(new HashMap<>()));
+		shipBP.add("weapon left");
+		shipBP.add("weapon right");
 //		shipBP.children.add(frontLightBP);
-		shipBP.children.add(camBP);
+		shipBP.add("camera");
 	
+//		BlueprintLibrary.save(weaponLeftBP);
+//		BlueprintLibrary.save(weaponRightBP);
+//		BlueprintLibrary.save(camBP);
+//		BlueprintLibrary.save(shipBP);
 		
-		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-		try {
-			mapper.writeValue(new File("test.bp"), shipBP);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-
-		
-		
-		
-		
-		
-//		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-		EntityBlueprint bp = null;
-		try {
-			bp = mapper.readValue(new File("test.bp"), EntityBlueprint.class);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		bp.create(ed, null);
+		BlueprintCreator.create("player ship", null);
 	}
 
 	@Override
