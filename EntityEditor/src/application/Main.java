@@ -43,7 +43,6 @@ public class Main extends Application {
 		
 		root.setRight(loader.getRoot());
 		InspectorController ctrl = loader.getController();
-		ctrl.root = loader.getRoot();
 		ctrl.setBlueprint(BlueprintLibrary.get("player ship"));
 	}
 	

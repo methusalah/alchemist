@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+
+<HBox fx:id="root" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.FieldEditorCtrl">
+   <children>
+      <Label fx:id="title" text="Field Name">
+         <tooltip>
+            <Tooltip fx:id="tooltip" text="Empty Tooltip" />
+         </tooltip>
+      </Label>
+   </children>
+</HBox>
