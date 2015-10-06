@@ -1,21 +1,9 @@
 package app;
 
 import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.google.common.eventbus.Subscribe;
-import com.simsilica.es.EntityData;
-import com.simsilica.es.EntityId;
-
-import controller.Controller;
-import controller.cameraManagement.ChasingCameraProc;
-import controller.entityAppState.EntityDataAppState;
-import controller.topdown.TopdownCtrl;
 import model.ES.component.Cooldown;
 import model.ES.component.Naming;
 import model.ES.component.camera.ChasingCamera;
@@ -41,7 +29,7 @@ import model.ES.component.shipGear.Trigger;
 import model.ES.component.shipGear.TriggerRepeater;
 import model.ES.component.visuals.Lighting;
 import model.ES.component.visuals.Model;
-import model.ES.component.visuals.ParticleCaster;
+import model.ES.component.visuals.ParticleCasting;
 import model.ES.processor.LifeTimeProc;
 import model.ES.processor.RemoveProc;
 import model.ES.processor.AI.BehaviorTreeProc;
@@ -74,10 +62,13 @@ import model.ES.processor.shipGear.ParticleThrusterProc;
 import model.ES.processor.shipGear.RotationThrusterProc;
 import model.ES.processor.shipGear.ThrusterProc;
 import model.ES.richData.CollisionShape;
+import model.ES.richData.ColorData;
+import model.ES.richData.ParticleCaster;
 import model.ES.richData.PhysicStat;
 import model.ES.serial.Blueprint;
 import model.ES.serial.BlueprintCreator;
 import model.ES.serial.BlueprintLibrary;
+import util.LogUtil;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
@@ -89,6 +80,16 @@ import view.drawingProcessors.ParticleCasterInPlaneProc;
 import view.drawingProcessors.PlacingModelProc;
 import view.drawingProcessors.VelocityVisualisationProc;
 import view.material.MaterialManager;
+
+import com.google.common.eventbus.Subscribe;
+import com.simsilica.es.EntityComponent;
+import com.simsilica.es.EntityData;
+import com.simsilica.es.EntityId;
+
+import controller.Controller;
+import controller.cameraManagement.ChasingCameraProc;
+import controller.entityAppState.EntityDataAppState;
+import controller.topdown.TopdownCtrl;
 
 public class MainDev extends CosmoVania {
 
@@ -145,7 +146,6 @@ public class MainDev extends CosmoVania {
 
 		stateManager.attach(new SightProc());
 		
-
 		stateManager.attach(new ModelProc());
 		stateManager.attach(new PlacingModelProc());
 		stateManager.attach(new LightProc());
@@ -161,138 +161,13 @@ public class MainDev extends CosmoVania {
 		EntityData ed = stateManager.getState(EntityDataAppState.class).getEntityData();
 		BlueprintCreator.setEntityData(ed);
 		
-		// sun light
-		EntityId sun = ed.createEntity();
-		ed.setComponent(sun, new Lighting(Color.white, 1.5, Double.POSITIVE_INFINITY, 0, 0, true, 1));
-		ed.setComponent(sun, new SpaceStance(Point3D.ORIGIN, new Point3D(-1, -1, -1)));
-		
-
-		// collisioner
-		EntityId o1 = ed.createEntity();
-		ed.setComponent(o1, new PlanarStance(new Point2D(10, 10), 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(o1, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
-		ed.setComponent(o1, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
-		ed.setComponent(o1, new Dragging(0.1));
-		ed.setComponent(o1, new MotionCapacity(2, AngleUtil.toRadians(300), 3, 0.1, 0.1));
-		ed.setComponent(o1, new PlanarVelocityToApply(Point2D.ORIGIN));
-		ed.setComponent(o1, new Attrition(30, 30));
-		ed.setComponent(o1, new Sighting(8, AngleUtil.toRadians(100), new ArrayList<>()));
-		ed.setComponent(o1, new AbilityTriggerList(new HashMap<>()));
-
-		attachThruster(ed, o1);
-
-
-		// weapon
-		EntityId o1weap = ed.createEntity();
-		ed.setComponent(o1weap, new Parenting(o1));
-		ed.setComponent(o1weap, new PlanarHolding(new Point3D(0, -0.3, 0), 0));
-		ed.setComponent(o1weap, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(o1weap, new Cooldown(0, 1000));
-		ed.setComponent(o1weap, new TriggerRepeater(300, 60, 10, 0, 0));
-		ed.setComponent(o1weap, new Trigger("gun", false));
-		ed.setComponent(o1weap, new ProjectileLauncher(AngleUtil.toRadians(10)));
-
-//		// ship
-//		EntityId playerShip = ed.createEntity();
-//		ed.setComponent(playerShip, new PlayerControl());
-//		ed.setComponent(playerShip, new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
-//		ed.setComponent(playerShip, new Dragging(0.05));
-//		ed.setComponent(playerShip, new MotionCapacity(3, AngleUtil.toRadians(360), 3, 1.5, 1.5));
-//		ed.setComponent(playerShip, new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
-//		ed.setComponent(playerShip, new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), 0.8), null));
-//		ed.setComponent(playerShip, new EffectOnTouch());
-//		ed.setComponent(playerShip, new VelocityViewing());
-//		ed.setComponent(playerShip, new PlanarVelocityToApply(Point2D.ORIGIN));
-//		ed.setComponent(playerShip, new Attackable());
-//		ed.setComponent(playerShip, new AbilityTriggerList(new HashMap<>()));
-//
-//		attachThruster(ed, playerShip);
-//
-//		// weapon
-//		EntityId weaponLeft = ed.createEntity();
-//		ed.setComponent(weaponLeft, new PlanarHolding(playerShip, new Point3D(0, 0.3, 0), 0));
-//		ed.setComponent(weaponLeft, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-//		ed.setComponent(weaponLeft, new Cooldown(0, 100));
-//		ed.setComponent(weaponLeft, new Trigger(playerShip, "gun", false));
-//		ed.setComponent(weaponLeft, new Gun());
-//
-//		// weapon
-//		EntityId weaponRight = ed.createEntity();
-//		ed.setComponent(weaponRight, new PlanarHolding(playerShip, new Point3D(0, -0.3, 0), 0));
-//		ed.setComponent(weaponRight, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-//		ed.setComponent(weaponRight, new Cooldown(0, 100));
-//		ed.setComponent(weaponRight, new Trigger(playerShip, "gun", false));
-//		ed.setComponent(weaponRight, new Gun());
-//
-//		// light
-//		EntityId frontLight = ed.createEntity();
-//		ed.setComponent(frontLight, new PlanarHolding(playerShip, new Point3D(1, 0, 0), 0));
-//		ed.setComponent(frontLight, new SpaceStance(Point3D.ORIGIN, Point3D.ORIGIN));
-//		ed.setComponent(frontLight, new Lighting(Color.white, 4, 6, AngleUtil.toRadians(30), AngleUtil.toRadians(40), false, 1));
-//
-//		// camera
-//		EntityId camId= ed.createEntity();
-//		ed.setComponent(camId, new PlanarStance(new Point2D(1, 1), 0, 30, Point3D.UNIT_Z));
-//		ed.setComponent(camId, new ChasingCamera(playerShip, 3, 0, 0.5, 0.5));
-//		ed.setComponent(camId, new MotionCapacity(1, AngleUtil.toRadians(500), 1, 1, 1));
-
-		
+		serialiseBluePrints();
 		
 		EventManager.register(this);
 		
-		Blueprint weaponLeftBP = new Blueprint("weapon left");
-		weaponLeftBP.add(new Naming("weapon left"));
-		weaponLeftBP.add(new PlanarHolding(new Point3D(0, 0.3, 0), 0));
-		weaponLeftBP.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		weaponLeftBP.add(new Cooldown(0, 100));
-		weaponLeftBP.add(new Trigger("gun", false));
-		weaponLeftBP.add(new ProjectileLauncher(AngleUtil.toRadians(2)));
-
-		Blueprint weaponRightBP = new Blueprint("weapon right");
-		weaponRightBP.add(new Naming("weapon right"));
-		weaponRightBP.add(new PlanarHolding(new Point3D(0, -0.3, 0), 0));
-		weaponRightBP.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		weaponRightBP.add(new Cooldown(0, 100));
-		weaponRightBP.add(new Trigger("gun", false));
-		weaponRightBP.add(new ProjectileLauncher(AngleUtil.toRadians(2)));
-		
-//		EntityBlueprint frontLightBP = new EntityBlueprint();
-//		frontLightBP.comps.add(new Naming("front light"));
-//		frontLightBP.comps.add(new PlanarHolding(null, new Point3D(1, 0, 0), 0));
-//		frontLightBP.comps.add(new SpaceStance(Point3D.ORIGIN, Point3D.ORIGIN));
-//		frontLightBP.comps.add(new Lighting(Color.white, 4, 6, AngleUtil.toRadians(30), AngleUtil.toRadians(40), false, 1));
-
-		// camera
-		Blueprint camBP = new Blueprint("camera");
-		camBP.add(new Naming("camera"));
-		camBP.add(new PlanarStance(new Point2D(1, 1), 0, 30, Point3D.UNIT_Z));
-		camBP.add(new ChasingCamera(3, 0, 0.5, 0.5));
-		camBP.add(new MotionCapacity(1, AngleUtil.toRadians(500), 1, 1, 1));
-		
-		Blueprint shipBP = new Blueprint("player ship");
-		shipBP.add(new Naming("player ship"));
-		shipBP.add(new PlayerControl());
-		shipBP.add(new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
-		shipBP.add(new Dragging(0.05));
-		shipBP.add(new MotionCapacity(3, AngleUtil.toRadians(360), 3, 1.5, 1.5));
-		shipBP.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
-		shipBP.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), 0.8), null));
-		shipBP.add(new EffectOnTouch());
-		shipBP.add(new VelocityViewing());
-		shipBP.add(new PlanarVelocityToApply(Point2D.ORIGIN));
-		shipBP.add(new Attackable());
-		shipBP.add(new AbilityTriggerList(new HashMap<>()));
-		shipBP.add("weapon left");
-		shipBP.add("weapon right");
-//		shipBP.children.add(frontLightBP);
-		shipBP.add("camera");
-	
-//		BlueprintLibrary.save(weaponLeftBP);
-//		BlueprintLibrary.save(weaponRightBP);
-//		BlueprintLibrary.save(camBP);
-//		BlueprintLibrary.save(shipBP);
-		
 		BlueprintCreator.create("player ship", null);
+		BlueprintCreator.create("enemy", null);
+		BlueprintCreator.create("sun", null);
 	}
 
 	@Override
@@ -319,8 +194,8 @@ public class MainDev extends CosmoVania {
 				80,
 				0.1,
 				0.1,
-				new Color(255, 255, 255, 255),
-				new Color(255, 255, 255, 0),
+				new ColorData(255, 255, 255, 255),
+				new ColorData(255, 255, 255, 0),
 				0.1,
 				0.1,
 				0,
@@ -342,8 +217,8 @@ public class MainDev extends CosmoVania {
 				100,
 				0.4,
 				0.1,
-				new Color(1, 0.3f, 0.3f, 1),
-				new Color(0.5f, 0.5f, 0.5f, 1),
+				new ColorData(1, 0.3f, 0.3f, 1),
+				new ColorData(0.5f, 0.5f, 0.5f, 1),
 				0.1,
 				0.2,
 				0,
@@ -364,8 +239,8 @@ public class MainDev extends CosmoVania {
 				100,
 				0.1,
 				0.05,
-				new Color(1, 0.3f, 0.3f, 1),
-				new Color(0.5f, 0.5f, 0.5f, 1),
+				new ColorData(1, 0.3f, 0.3f, 1),
+				new ColorData(0.5f, 0.5f, 0.5f, 1),
 				0.05,
 				0.1,
 				0,
@@ -376,60 +251,158 @@ public class MainDev extends CosmoVania {
 				false);
 	}
 	
-	private void attachThruster(EntityData ed, EntityId eid){
-		// rotation thrusters
-		EntityId rotth1 = ed.createEntity();
-		ed.setComponent(rotth1, new Parenting(eid));
-		ed.setComponent(rotth1, new PlanarHolding(new Point3D(0.5, 0.2, 0), -AngleUtil.toRadians(20)));
-		ed.setComponent(rotth1, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(rotth1, new RotationThruster(true, AngleUtil.toRadians(5), 0, false));
-		ed.setComponent(rotth1, getCaster1());
+	private void serialiseBluePrints(){
+		Blueprint bp;
+		
+		// sun light
+		bp = new Blueprint("sun");
+		bp.add(new Lighting(new ColorData(255, 255, 255, 255), 1.5, Double.POSITIVE_INFINITY, 0, 0, true, 1));
+		bp.add(new SpaceStance(Point3D.ORIGIN, new Point3D(-1, -1, -1)));
+		BlueprintLibrary.save(bp);
 
-		EntityId rotth2 = ed.createEntity();
-		ed.setComponent(rotth2, new Parenting(eid));
-		ed.setComponent(rotth2, new PlanarHolding(new Point3D(0.5, -0.2, 0), -AngleUtil.toRadians(20)));
-		ed.setComponent(rotth2, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(rotth2, new RotationThruster(false, AngleUtil.toRadians(-5), 0, false));
-		ed.setComponent(rotth2, getCaster1());
+		// rotation thrusters
+		bp = new Blueprint("rotation thruster 1");
+		bp.add(new Naming("camera"));
+		bp.add(new PlanarHolding(new Point3D(0.5, 0.2, 0), -AngleUtil.toRadians(20)));
+		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		bp.add(new RotationThruster(true, AngleUtil.toRadians(5), 0, false));
+		bp.add(new ParticleCasting(getCaster1(), getCaster1().perSecond));
+		BlueprintLibrary.save(bp);
+
+		bp = new Blueprint("rotation thruster 2");
+		bp.add(new PlanarHolding(new Point3D(0.5, -0.2, 0), -AngleUtil.toRadians(20)));
+		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		bp.add(new RotationThruster(false, AngleUtil.toRadians(-5), 0, false));
+		bp.add(new ParticleCasting(getCaster1(), getCaster1().perSecond));
+		BlueprintLibrary.save(bp);
 
 		// main thruster
-		EntityId rearth = ed.createEntity();
-		ed.setComponent(rearth, new Parenting(eid));
-		ed.setComponent(rearth, new PlanarHolding(new Point3D(-0.7, 0, 0), AngleUtil.FLAT));
-		ed.setComponent(rearth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(rearth, new Thruster(new Point3D(1, 0, 0), AngleUtil.toRadians(90), 0, false));
-		ed.setComponent(rearth, getCaster2());
-		ed.setComponent(rearth, new Lighting(Color.orange, 3, 6, AngleUtil.toRadians(10), AngleUtil.toRadians(60), false, 0));
+		bp = new Blueprint("rear thruster");
+		bp.add(new PlanarHolding(new Point3D(-0.7, 0, 0), AngleUtil.FLAT));
+		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		bp.add(new Thruster(new Point3D(1, 0, 0), AngleUtil.toRadians(90), 0, false));
+		bp.add(new ParticleCasting(getCaster2(), getCaster2().perSecond));
+		bp.add(new Lighting(new ColorData(255, 255, 150, 150), 3, 6, AngleUtil.toRadians(10), AngleUtil.toRadians(60), false, 0));
+		BlueprintLibrary.save(bp);
 
 		// front thrusters
-		EntityId frontleftth = ed.createEntity();
-		ed.setComponent(frontleftth, new Parenting(eid));
-		ed.setComponent(frontleftth, new PlanarHolding(new Point3D(0.4, 0.15, 0), AngleUtil.toRadians(20)));
-		ed.setComponent(frontleftth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(frontleftth, new Thruster(new Point3D(-1, -1, 0), AngleUtil.toRadians(70), 0, true));
-		ed.setComponent(frontleftth, getCaster3());
+		bp = new Blueprint("frontal left thruster");
+		bp.add(new PlanarHolding(new Point3D(0.4, 0.15, 0), AngleUtil.toRadians(20)));
+		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		bp.add(new Thruster(new Point3D(-1, -1, 0), AngleUtil.toRadians(70), 0, true));
+		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
+		BlueprintLibrary.save(bp);
 
-		EntityId frontrightth = ed.createEntity();
-		ed.setComponent(frontrightth, new Parenting(eid));
-		ed.setComponent(frontrightth, new PlanarHolding(new Point3D(0.4, -0.15, 0), AngleUtil.toRadians(-20)));
-		ed.setComponent(frontrightth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(frontrightth, new Thruster(new Point3D(-1, 1, 0), AngleUtil.toRadians(70), 0, true));
-		ed.setComponent(frontrightth, getCaster3());
+		bp = new Blueprint("frontal right thruster");
+		bp.add(new PlanarHolding(new Point3D(0.4, -0.15, 0), AngleUtil.toRadians(-20)));
+		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		bp.add(new Thruster(new Point3D(-1, 1, 0), AngleUtil.toRadians(70), 0, true));
+		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
+		BlueprintLibrary.save(bp);
 
 		// lateral thrusters
-		EntityId rearleftth = ed.createEntity();
-		ed.setComponent(rearleftth, new Parenting(eid));
-		ed.setComponent(rearleftth, new PlanarHolding(new Point3D(-0.34, 0.2, 0), AngleUtil.toRadians(110)));
-		ed.setComponent(rearleftth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(rearleftth, new Thruster(new Point3D(1, -1.5, 0), AngleUtil.toRadians(50), 0, true));
-		ed.setComponent(rearleftth, getCaster3());
+		bp = new Blueprint("side left thruster");
+		bp.add(new PlanarHolding(new Point3D(-0.34, 0.2, 0), AngleUtil.toRadians(110)));
+		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		bp.add(new Thruster(new Point3D(1, -1.5, 0), AngleUtil.toRadians(50), 0, true));
+		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
+		BlueprintLibrary.save(bp);
 
-		EntityId rearrightth = ed.createEntity();
-		ed.setComponent(rearrightth, new Parenting(eid));
-		ed.setComponent(rearrightth, new PlanarHolding(new Point3D(-0.34, -0.2, 0), AngleUtil.toRadians(-110)));
-		ed.setComponent(rearrightth, new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		ed.setComponent(rearrightth, new Thruster(new Point3D(1, 1.5, 0), AngleUtil.toRadians(50), 0, true));
-		ed.setComponent(rearrightth, getCaster3());
+		bp = new Blueprint("side right thruster");
+		bp.add(new PlanarHolding(new Point3D(-0.34, -0.2, 0), AngleUtil.toRadians(-110)));
+		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		bp.add(new Thruster(new Point3D(1, 1.5, 0), AngleUtil.toRadians(50), 0, true));
+		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
+		BlueprintLibrary.save(bp);
+		
+		// enemy
+		bp = new Blueprint("enemy");
+		bp.add(new PlanarStance(new Point2D(10, 10), 0, 0, Point3D.UNIT_Z));
+		bp.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
+		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
+		bp.add(new Dragging(0.1));
+		bp.add(new MotionCapacity(2, AngleUtil.toRadians(300), 3, 0.1, 0.1));
+		bp.add(new PlanarVelocityToApply(Point2D.ORIGIN));
+		bp.add(new Attrition(30, 30));
+		bp.add(new Sighting(8, AngleUtil.toRadians(100), new ArrayList<>()));
+		bp.add(new AbilityTriggerList(new HashMap<>()));
+		bp.add("enemy weapon");
+		bp.add("rear thruster");
+		bp.add("frontal left thruster");
+		bp.add("frontal right thruster");
+		bp.add("side left thruster");
+		bp.add("side right thruster");
+		BlueprintLibrary.save(bp);
+		
+		// enemy weapon
+		bp = new Blueprint("enemy weapon");
+		bp.add(new PlanarHolding(new Point3D(0, -0.3, 0), 0));
+		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		bp.add(new Cooldown(0, 1000));
+		bp.add(new TriggerRepeater(300, 60, 10, 0, 0));
+		bp.add(new Trigger("gun", false));
+		bp.add(new ProjectileLauncher(AngleUtil.toRadians(10)));
+		BlueprintLibrary.save(bp);
+
+		// player weapons
+		bp = new Blueprint("weapon left");
+		bp.add(new Naming("weapon left"));
+		bp.add(new PlanarHolding(new Point3D(0, 0.3, 0), 0));
+		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		bp.add(new Cooldown(0, 100));
+		bp.add(new Trigger("gun", false));
+		bp.add(new ProjectileLauncher(AngleUtil.toRadians(2)));
+		BlueprintLibrary.save(bp);
+
+		bp = new Blueprint("weapon right");
+		bp.add(new Naming("weapon right"));
+		bp.add(new PlanarHolding(new Point3D(0, -0.3, 0), 0));
+		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		bp.add(new Cooldown(0, 100));
+		bp.add(new Trigger("gun", false));
+		bp.add(new ProjectileLauncher(AngleUtil.toRadians(2)));
+		BlueprintLibrary.save(bp);
+		
+		// front light
+		bp = new Blueprint("front light");
+		bp.add(new Naming("front light"));
+		bp.add(new PlanarHolding(new Point3D(1, 0, 0), 0));
+		bp.add(new SpaceStance(Point3D.ORIGIN, Point3D.ORIGIN));
+		bp.add(new Lighting(new ColorData(255, 255, 255, 255), 4, 6, AngleUtil.toRadians(30), AngleUtil.toRadians(40), false, 1));
+		BlueprintLibrary.save(bp);
+
+		// camera
+		bp = new Blueprint("camera");
+		bp.add(new Naming("camera"));
+		bp.add(new PlanarStance(new Point2D(1, 1), 0, 30, Point3D.UNIT_Z));
+		bp.add(new ChasingCamera(3, 0, 0.5, 0.5));
+		bp.add(new MotionCapacity(1, AngleUtil.toRadians(500), 1, 1, 1));
+		BlueprintLibrary.save(bp);
+		
+		bp = new Blueprint("player ship");
+		bp.add(new Naming("player ship"));
+		bp.add(new PlayerControl());
+		bp.add(new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
+		bp.add(new Dragging(0.05));
+		bp.add(new MotionCapacity(3, AngleUtil.toRadians(360), 3, 1.5, 1.5));
+		bp.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
+		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), 0.8), null));
+		bp.add(new EffectOnTouch());
+		bp.add(new VelocityViewing());
+		bp.add(new PlanarVelocityToApply(Point2D.ORIGIN));
+		bp.add(new Attackable());
+		bp.add(new AbilityTriggerList(new HashMap<>()));
+		bp.add("weapon left");
+		bp.add("weapon right");
+		bp.add("camera");
+		bp.add("front light");
+		bp.add("rotation thruster 1");
+		bp.add("rotation thruster 2");
+		bp.add("rear thruster");
+		bp.add("frontal left thruster");
+		bp.add("frontal right thruster");
+		bp.add("side left thruster");
+		bp.add("side right thruster");
+		BlueprintLibrary.save(bp);
 	}
-
 }

@@ -69,5 +69,5 @@
     "class" : "model.ES.component.relation.AbilityTriggerList",
     "triggers" : { }
   } ],
-  "children" : [ "weapon left", "weapon right", "camera" ]
+  "children" : [ "weapon left", "weapon right", "camera", "front light", "rotation thruster 1", "rotation thruster 2", "rear thruster", "frontal left thruster", "frontal right thruster", "side left thruster", "side right thruster" ]
 }

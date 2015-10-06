@@ -1,11 +1,8 @@
-package model.ES.component.visuals;
-
-import java.awt.Color;
+package model.ES.richData;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.simsilica.es.EntityComponent;
 
-public class ParticleCaster implements EntityComponent{
+public class ParticleCaster {
 	public static enum Facing {
 		Horizontal, Velocity, Camera
 	}
@@ -19,8 +16,8 @@ public class ParticleCaster implements EntityComponent{
 	public final int perSecond;
 	public final double startSize;
 	public final double endSize;
-	public final Color startColor;
-	public final Color endColor;
+	public final ColorData startColor;
+	public final ColorData endColor;
 	public final double minLife;
 	public final double maxLife;
 	public final double rotationSpeed;
@@ -29,8 +26,6 @@ public class ParticleCaster implements EntityComponent{
 	public final boolean add;
 	public final double startVariation;
 	public final boolean allAtOnce;
-	
-	public int actualPerSecond;
 	
 	public ParticleCaster(@JsonProperty("spritePath")String spritePath,
 			@JsonProperty("nbCol")int nbCol,
@@ -42,8 +37,8 @@ public class ParticleCaster implements EntityComponent{
 			@JsonProperty("perSecond")int perSecond,
 			@JsonProperty("startSize")double startSize,
 			@JsonProperty("endSize")double endSize,
-			@JsonProperty("startColor")Color startColor,
-			@JsonProperty("endColor")Color endColor,
+			@JsonProperty("startColor")ColorData startColor,
+			@JsonProperty("endColor")ColorData endColor,
 			@JsonProperty("minLife")double minLife,
 			@JsonProperty("maxLife")double maxLife,
 			@JsonProperty("rotationSpeed")double rotationSpeed,
@@ -51,8 +46,7 @@ public class ParticleCaster implements EntityComponent{
 			@JsonProperty("facing")Facing facing,
 			@JsonProperty("add")boolean add,
 			@JsonProperty("startVariation")double startVariation,
-			@JsonProperty("allAtOnce")boolean allAtOnce
-			) {
+			@JsonProperty("allAtOnce")boolean allAtOnce) {
 		this.spritePath = spritePath;
 		this.nbCol = nbCol;
 		this.nbRow = nbRow;
@@ -73,7 +67,5 @@ public class ParticleCaster implements EntityComponent{
 		this.add = add;
 		this.startVariation = startVariation;
 		this.allAtOnce = allAtOnce;
-		this.actualPerSecond = perSecond;
 	}
-
 }

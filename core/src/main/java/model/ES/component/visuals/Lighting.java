@@ -1,12 +1,12 @@
 package model.ES.component.visuals;
 
-import java.awt.Color;
+import model.ES.richData.ColorData;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
 
 public class Lighting implements EntityComponent {
-	public final Color color;
+	public final ColorData color;
 	public final double intensity;
 	public final double distance;
 	public final double innerAngle;
@@ -14,7 +14,7 @@ public class Lighting implements EntityComponent {
 	public final boolean shadowCaster;
 	public final double activationRate;
 	
-	public Lighting(@JsonProperty("color")Color color,
+	public Lighting(@JsonProperty("color")ColorData color,
 			@JsonProperty("intensity")double intensity,
 			@JsonProperty("distance")double distance,
 			@JsonProperty("innerAngle")double innerAngle,

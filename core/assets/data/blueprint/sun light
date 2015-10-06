@@ -1,0 +1,31 @@
+{
+  "name" : "sun light",
+  "comps" : [ {
+    "class" : "model.ES.component.visuals.Lighting",
+    "color" : {
+      "a" : 255,
+      "r" : 255,
+      "g" : 255,
+      "b" : 255
+    },
+    "intensity" : 1.5,
+    "distance" : "Infinity",
+    "innerAngle" : 0.0,
+    "outerAngle" : 0.0,
+    "shadowCaster" : true,
+    "activationRate" : 1.0
+  }, {
+    "class" : "model.ES.component.motion.SpaceStance",
+    "position" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 0.0
+    },
+    "direction" : {
+      "x" : -1.0,
+      "y" : -1.0,
+      "z" : -1.0
+    }
+  } ],
+  "children" : [ ]
+}

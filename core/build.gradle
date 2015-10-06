@@ -31,6 +31,7 @@ dependencies {
 
 	compile 'org.bushe:eventbus:1.4'
 	compile 'com.google.guava:guava:18.0'
+	//compile 'org.reflections:reflections:0.9.5-RC2'
 	compile 'org.apache.commons:commons-lang3:3.3.2'
 
 	compile 'com.fasterxml.jackson.core:jackson-core:2.5.3'

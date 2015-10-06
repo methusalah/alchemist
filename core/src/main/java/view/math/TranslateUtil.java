@@ -2,6 +2,7 @@ package view.math;
 
 import java.awt.Color;
 
+import model.ES.richData.ColorData;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.MyMesh;
 import util.geometry.geom3d.Point3D;
@@ -31,6 +32,13 @@ public class TranslateUtil {
 		float g = color.getGreen() / 255f;
 		float b = color.getBlue() / 255f;
 		float a = color.getAlpha() / 255f;
+		return new ColorRGBA(r, g, b, a);
+	}
+	public static ColorRGBA toColorRGBA(ColorData color) {
+		float r = color.r / 255f;
+		float g = color.g / 255f;
+		float b = color.b / 255f;
+		float a = color.a / 255f;
 		return new ColorRGBA(r, g, b, a);
 	}
 

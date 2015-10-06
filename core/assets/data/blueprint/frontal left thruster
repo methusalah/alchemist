@@ -1,0 +1,71 @@
+{
+  "name" : "frontal left thruster",
+  "comps" : [ {
+    "class" : "model.ES.component.relation.PlanarHolding",
+    "localPosition" : {
+      "x" : 0.4,
+      "y" : 0.15,
+      "z" : 0.0
+    },
+    "localOrientation" : 0.3490658503988659
+  }, {
+    "class" : "model.ES.component.motion.PlanarStance",
+    "coord" : {
+      "x" : 0.0,
+      "y" : 0.0
+    },
+    "orientation" : 0.0,
+    "elevation" : 0.0,
+    "upVector" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 1.0
+    }
+  }, {
+    "class" : "model.ES.component.shipGear.Thruster",
+    "direction" : {
+      "x" : -1.0,
+      "y" : -1.0,
+      "z" : 0.0
+    },
+    "activationAngle" : 1.2217304763960306,
+    "activation" : 0.0,
+    "onOff" : true
+  }, {
+    "class" : "model.ES.component.visuals.ParticleCasting",
+    "caster" : {
+      "spritePath" : "particles/flame.png",
+      "nbCol" : 2,
+      "nbRow" : 2,
+      "initialSpeed" : 4.0,
+      "fanning" : 0.0,
+      "randomSprite" : false,
+      "maxCount" : 300,
+      "perSecond" : 100,
+      "startSize" : 0.1,
+      "endSize" : 0.05,
+      "startColor" : {
+        "a" : 255,
+        "r" : 77,
+        "g" : 77,
+        "b" : 255
+      },
+      "endColor" : {
+        "a" : 128,
+        "r" : 128,
+        "g" : 128,
+        "b" : 255
+      },
+      "minLife" : 0.05,
+      "maxLife" : 0.1,
+      "rotationSpeed" : 0.0,
+      "gravity" : false,
+      "facing" : "Camera",
+      "add" : true,
+      "startVariation" : 0.0,
+      "allAtOnce" : false
+    },
+    "actualPerSecond" : 100
+  } ],
+  "children" : [ ]
+}

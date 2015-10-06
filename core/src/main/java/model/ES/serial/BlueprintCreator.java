@@ -1,5 +1,6 @@
 package model.ES.serial;
 
+import util.LogUtil;
 import model.ES.component.relation.Parenting;
 
 import com.simsilica.es.EntityComponent;
@@ -16,6 +17,7 @@ public class BlueprintCreator {
 	public static EntityId create(String bluePrintName, EntityId parent){
 		Blueprint bp = BlueprintLibrary.get(bluePrintName);
 		assert bp != null : bluePrintName + " blueprint can't be found.";
+		LogUtil.info("blue print to create : "+bluePrintName+" "+bp);
 		
 		EntityId res = entityData.createEntity();
 		for(EntityComponent comp : bp.getComps())

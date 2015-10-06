@@ -9,7 +9,7 @@ import view.jme.MyParticleEmitter;
 import view.math.TranslateUtil;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.SpaceStance;
-import model.ES.component.visuals.ParticleCaster;
+import model.ES.component.visuals.ParticleCasting;
 import app.AppFacade;
 
 import com.jme3.effect.Particle;
@@ -25,7 +25,7 @@ public class ParticleCasterInSpaceProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(ParticleCaster.class, SpaceStance.class);
+		register(ParticleCasting.class, SpaceStance.class);
 	}
 	
 	@Override
@@ -36,10 +36,10 @@ public class ParticleCasterInSpaceProc extends Processor {
 	@Override
 	protected void onEntityUpdated(Entity e, float elapsedTime) {
 		SpaceStance stance = e.get(SpaceStance.class);
-		ParticleCaster caster = e.get(ParticleCaster.class);
+		ParticleCasting casting = e.get(ParticleCasting.class);
 		MyParticleEmitter pe = SpatialPool.emitters.get(e.getId());
 
-		Point3D velocity = stance.direction.getScaled(caster.initialSpeed);
+		Point3D velocity = stance.direction.getScaled(casting.caster.initialSpeed);
 		
 		pe.setLocalTranslation(TranslateUtil.toVector3f(stance.position));
 		pe.getParticleInfluencer().setInitialVelocity(TranslateUtil.toVector3f(velocity));

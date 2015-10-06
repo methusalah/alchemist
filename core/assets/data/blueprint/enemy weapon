@@ -1,0 +1,44 @@
+{
+  "name" : "enemy weapon",
+  "comps" : [ {
+    "class" : "model.ES.component.relation.PlanarHolding",
+    "localPosition" : {
+      "x" : 0.0,
+      "y" : -0.3,
+      "z" : 0.0
+    },
+    "localOrientation" : 0.0
+  }, {
+    "class" : "model.ES.component.motion.PlanarStance",
+    "coord" : {
+      "x" : 0.0,
+      "y" : 0.0
+    },
+    "orientation" : 0.0,
+    "elevation" : 0.0,
+    "upVector" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 1.0
+    }
+  }, {
+    "class" : "model.ES.component.Cooldown",
+    "start" : 0,
+    "duration" : 1000.0
+  }, {
+    "class" : "model.ES.component.shipGear.TriggerRepeater",
+    "period" : 60,
+    "periodRange" : 10,
+    "start" : 0,
+    "nextPeriod" : 0,
+    "maxDuration" : 300
+  }, {
+    "class" : "model.ES.component.shipGear.Trigger",
+    "name" : "gun",
+    "triggered" : false
+  }, {
+    "class" : "model.ES.component.shipGear.ProjectileLauncher",
+    "precision" : 0.17453292519943295
+  } ],
+  "children" : [ ]
+}
