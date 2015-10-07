@@ -1,10 +1,13 @@
 package view;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 
 import com.simsilica.es.EntityComponent;
 
+import application.Main;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,6 +17,7 @@ import javafx.scene.paint.Color;
 import model.ES.richData.ColorData;
 import model.ES.serial.EditorInfo;
 import util.LogUtil;
+import view.typeEditor.DoubleEditorCtrl;
 
 public class FieldEditorCtrl {
 	@FXML
@@ -51,15 +55,15 @@ public class FieldEditorCtrl {
 			}
 			root.getChildren().add(cp);
 		} else if(double.class.isAssignableFrom(f.getType())){
-			LogUtil.info("double value added");
-			double value = -1;
+			FXMLLoader l = new FXMLLoader(Main.class.getResource("/view/typeEditor/DoubleEditor.fxml"));
 			try {
-				value = f.getDouble(comp);
-			} catch (IllegalArgumentException | IllegalAccessException e) {
+				l.load();
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			TextField tf = new TextField(""+value);
-			root.getChildren().add(tf);
+			LogUtil.info("loader : "+l.getController());
+			((DoubleEditorCtrl)l.getController()).setField(comp, f);
+			root.getChildren().add(l.getRoot());
 		}
 		
 		title.setText(uiName.isEmpty()? f.getName() : uiName);

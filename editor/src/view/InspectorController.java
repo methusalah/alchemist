@@ -34,6 +34,7 @@ public class InspectorController {
 	}
 	
 	private Node getComponentEditor(EntityComponent comp){
+		
 		TitledPane compPane = new TitledPane();
 		compPane.setExpanded(false);
 		compPane.setAnimated(false);

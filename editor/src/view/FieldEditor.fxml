@@ -5,10 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-
 <HBox fx:id="root" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.FieldEditorCtrl">
    <children>
-      <Label fx:id="title" text="Field Name">
+      <Label fx:id="title" prefWidth="150.0" text="Field Name">
          <tooltip>
             <Tooltip fx:id="tooltip" text="Empty Tooltip" />
          </tooltip>
