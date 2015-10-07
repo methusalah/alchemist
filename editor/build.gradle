@@ -1,0 +1,36 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+mainClassName = 'Main'
+if (!hasProperty('mainClass')) {
+	ext.mainClass = 'Main'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile project(':core')
+}
+
+
+sourceSets {
+	main {
+		java { srcDir 'src' }
+		resources { srcDir 'assets' }
+	}
+
+}
+
+eclipse {
+	jdt {
+		sourceCompatibility = 1.8
+		targetCompatibility = 1.8
+	}
+
+	project { 
+		name = appName + "-editor" 
+	}
+}

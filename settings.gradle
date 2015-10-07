@@ -1,4 +1,5 @@
 rootProject.name = 'CosmoVania'
-
 include 'core'
 
+
+include 'editor'
