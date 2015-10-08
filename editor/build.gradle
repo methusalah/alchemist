@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
 	compile project(':core')
+	compile 'org.controlsfx:controlsfx:8.0.5'
 }
 
 

@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import util.LogUtil;
-import util.event.ComponentFieldChange;
+import util.event.ComponentPropertyChanged;
 import util.event.EventManager;
 
 import com.simsilica.es.EntityComponent;
@@ -34,6 +34,6 @@ public class BooleanEditorCtrl {
 	}
 	
 	public void changeValue(){
-		EventManager.post(new ComponentFieldChange(comp, field.getName(), value.isSelected()));
+		EventManager.post(new ComponentPropertyChanged(comp, field.getName(), value.isSelected()));
 	}
 }

@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import util.event.ComponentFieldChange;
+import util.event.ComponentPropertyChanged;
 import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
@@ -45,6 +45,6 @@ public class Point3DEditorCtrl {
 		double x = Double.parseDouble(xValue.getText());
 		double y = Double.parseDouble(yValue.getText());
 		double z = Double.parseDouble(zValue.getText());
-		EventManager.post(new ComponentFieldChange(comp, field.getName(), new Point3D(x, y, z)));
+		EventManager.post(new ComponentPropertyChanged(comp, field.getName(), new Point3D(x, y, z)));
 	}
 }

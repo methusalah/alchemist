@@ -4,7 +4,13 @@
     "class" : "model.ES.component.Naming",
     "name" : "player ship"
   }, {
-    "class" : "model.ES.component.command.PlayerControl"
+    "class" : "model.ES.component.command.PlayerControl",
+    "color" : {
+      "a" : 255,
+      "r" : 150,
+      "g" : 0,
+      "b" : 0
+    }
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {

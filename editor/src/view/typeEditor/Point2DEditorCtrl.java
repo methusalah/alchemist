@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import util.event.ComponentFieldChange;
+import util.event.ComponentPropertyChanged;
 import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
 
@@ -39,6 +39,6 @@ public class Point2DEditorCtrl {
 	public void changeValue(){
 		double x = Double.parseDouble(xValue.getText());
 		double y = Double.parseDouble(yValue.getText());
-		EventManager.post(new ComponentFieldChange(comp, field.getName(), new Point2D(x, y)));
+		EventManager.post(new ComponentPropertyChanged(comp, field.getName(), new Point2D(x, y)));
 	}
 }

@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import util.LogUtil;
-import util.event.ComponentFieldChange;
+import util.event.ComponentPropertyChanged;
 import util.event.EventManager;
 
 import com.simsilica.es.EntityComponent;
@@ -34,6 +34,6 @@ public class StringEditorCtrl {
 	}
 	
 	public void changeValue(){
-		EventManager.post(new ComponentFieldChange(comp, field.getName(), value.getText()));
+		EventManager.post(new ComponentPropertyChanged(comp, field.getName(), value.getText()));
 	}
 }

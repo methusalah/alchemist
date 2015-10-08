@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
 import model.ES.richData.ColorData;
-import util.event.ComponentFieldChange;
+import util.event.ComponentPropertyChanged;
 import util.event.EventManager;
 
 import com.simsilica.es.EntityComponent;
@@ -36,7 +36,7 @@ public class ColorDataEditorCtrl {
 	
 	public void changeValue(){
 		Color c = picker.getValue();
-		EventManager.post(new ComponentFieldChange(comp, field.getName(), new ColorData((int)Math.round(c.getOpacity()*255),
+		EventManager.post(new ComponentPropertyChanged(comp, field.getName(), new ColorData((int)Math.round(c.getOpacity()*255),
 				(int)Math.round(c.getRed()*255),
 				(int)Math.round(c.getGreen()*255),
 				(int)Math.round(c.getBlue()*255))));

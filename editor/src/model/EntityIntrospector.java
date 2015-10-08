@@ -1,11 +1,13 @@
 package model;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
-import util.event.ComponentFieldChange;
+import util.LogUtil;
+import util.event.ComponentPropertyChanged;
 import util.event.EventManager;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -40,7 +42,7 @@ public class EntityIntrospector {
 	}
 	
 	@Subscribe
-	public void updateComponent(ComponentFieldChange event){
+	public void updateComponent(ComponentPropertyChanged event){
 		// In this piece of code, we can't just change the component's field because it imutable
 		// we serialize the whole component into a jsontree, change the value in the tree, then
 		// deserialize in a new component, that we will be able to attach to entity the proper way
@@ -59,8 +61,17 @@ public class EntityIntrospector {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		
-		entityData.setComponent(eid, comp);
+	
+		LogUtil.info("comp "+comp);
+		for(Field f : comp.getClass().getFields()){
+			try {
+				LogUtil.info("    field "+ f.get(comp));
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+			
+//		entityData.setComponent(eid, comp);
 	}
 	
 	public void addComponentToScan(Class<? extends EntityComponent> compClass){
