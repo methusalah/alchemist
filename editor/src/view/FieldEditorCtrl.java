@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 
 import com.simsilica.es.EntityComponent;
 
-import application.Main;
+import application.MainEditor;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ColorPicker;
@@ -17,7 +17,14 @@ import javafx.scene.paint.Color;
 import model.ES.richData.ColorData;
 import model.ES.serial.EditorInfo;
 import util.LogUtil;
+import util.geometry.geom2d.Point2D;
+import util.geometry.geom3d.Point3D;
+import view.typeEditor.BooleanEditorCtrl;
+import view.typeEditor.ColorDataEditorCtrl;
 import view.typeEditor.DoubleEditorCtrl;
+import view.typeEditor.Point2DEditorCtrl;
+import view.typeEditor.Point3DEditorCtrl;
+import view.typeEditor.StringEditorCtrl;
 
 public class FieldEditorCtrl {
 	@FXML
@@ -43,26 +50,64 @@ public class FieldEditorCtrl {
 			info = f.getAnnotation(EditorInfo.class).info();
 		}
 		
-		LogUtil.info("type "+f.getType());
 		if(ColorData.class.isAssignableFrom(f.getType())){
-			ColorPicker cp = new ColorPicker();
-			ColorData c = null;
-			try {
-				c = (ColorData)f.get(comp);
-				cp.setValue(new Color(c.a, c.r, c.g, c.b));
-			} catch (IllegalArgumentException | IllegalAccessException e) {
-				e.printStackTrace();
-			}
-			root.getChildren().add(cp);
-		} else if(double.class.isAssignableFrom(f.getType())){
-			FXMLLoader l = new FXMLLoader(Main.class.getResource("/view/typeEditor/DoubleEditor.fxml"));
+			FXMLLoader l = new FXMLLoader(MainEditor.class.getResource("/view/typeEditor/ColorDataEditor.fxml"));
 			try {
 				l.load();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			LogUtil.info("loader : "+l.getController());
+			((ColorDataEditorCtrl)l.getController()).setField(comp, f);
+			root.getChildren().add(l.getRoot());
+			
+		} else if(boolean.class.isAssignableFrom(f.getType())){
+			FXMLLoader l = new FXMLLoader(MainEditor.class.getResource("/view/typeEditor/BooleanEditor.fxml"));
+			try {
+				l.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			((BooleanEditorCtrl)l.getController()).setField(comp, f);
+			root.getChildren().add(l.getRoot());
+			
+		} else if(String.class.isAssignableFrom(f.getType())){
+			FXMLLoader l = new FXMLLoader(MainEditor.class.getResource("/view/typeEditor/StringEditor.fxml"));
+			try {
+				l.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			((StringEditorCtrl)l.getController()).setField(comp, f);
+			root.getChildren().add(l.getRoot());
+			
+		} else if(double.class.isAssignableFrom(f.getType())){
+			FXMLLoader l = new FXMLLoader(MainEditor.class.getResource("/view/typeEditor/DoubleEditor.fxml"));
+			try {
+				l.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			((DoubleEditorCtrl)l.getController()).setField(comp, f);
+			root.getChildren().add(l.getRoot());
+			
+		} else if(Point2D.class.isAssignableFrom(f.getType())){
+			FXMLLoader l = new FXMLLoader(MainEditor.class.getResource("/view/typeEditor/Point2DEditor.fxml"));
+			try {
+				l.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			((Point2DEditorCtrl)l.getController()).setField(comp, f);
+			root.getChildren().add(l.getRoot());
+			
+		} else if(Point3D.class.isAssignableFrom(f.getType())){
+			FXMLLoader l = new FXMLLoader(MainEditor.class.getResource("/view/typeEditor/Point3DEditor.fxml"));
+			try {
+				l.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			((Point3DEditorCtrl)l.getController()).setField(comp, f);
 			root.getChildren().add(l.getRoot());
 		}
 		

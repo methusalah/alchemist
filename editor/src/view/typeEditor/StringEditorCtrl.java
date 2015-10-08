@@ -10,7 +10,7 @@ import util.event.EventManager;
 
 import com.simsilica.es.EntityComponent;
 
-public class DoubleEditorCtrl {
+public class StringEditorCtrl {
 	private EntityComponent comp;
 	private Field field;
 	
@@ -26,13 +26,14 @@ public class DoubleEditorCtrl {
 		this.comp = comp;
 		this.field = field;
 		try {
-			value.setText(Double.toString(field.getDouble(comp)));
+			LogUtil.info("alue : "+value);
+			value.setText((String)field.get(comp));
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public void changeValue(){
-		EventManager.post(new ComponentFieldChange(comp, field.getName(), Double.parseDouble(value.getText())));
+		EventManager.post(new ComponentFieldChange(comp, field.getName(), value.getText()));
 	}
 }

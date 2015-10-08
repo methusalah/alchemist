@@ -5,9 +5,10 @@ import java.lang.reflect.Field;
 
 import com.simsilica.es.EntityComponent;
 
-import application.Main;
+import application.MainEditor;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
@@ -27,7 +28,7 @@ public class InspectorController {
 	}
 	
 	public void setBlueprint(Blueprint blueprint){
-		title.setText("inspector");
+		title.setText("Inspector");
 		for(EntityComponent comp : blueprint.getComps()){
 			vbox.getChildren().add(getComponentEditor(comp));
 		}
@@ -40,6 +41,7 @@ public class InspectorController {
 		compPane.setAnimated(false);
 		compPane.setText(comp.getClass().getSimpleName());
 		VBox compDetail = new VBox();
+		vbox.setPadding(new Insets(5));
 		compPane.setContent(compDetail);
 		for(Field field : comp.getClass().getFields()){
 			compDetail.getChildren().add(getFieldEditor(comp, field));
@@ -49,7 +51,7 @@ public class InspectorController {
 	
 	private Node getFieldEditor(EntityComponent comp, Field f){
 		FXMLLoader l = new FXMLLoader();
-		l.setLocation(Main.class.getResource("/view/FieldEditor.fxml"));
+		l.setLocation(MainEditor.class.getResource("/view/FieldEditor.fxml"));
 		try {
 			l.load();
 		} catch (IOException e) {

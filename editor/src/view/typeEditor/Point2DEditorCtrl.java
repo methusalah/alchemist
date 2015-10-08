@@ -4,18 +4,21 @@ import java.lang.reflect.Field;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import util.LogUtil;
 import util.event.ComponentFieldChange;
 import util.event.EventManager;
+import util.geometry.geom2d.Point2D;
 
 import com.simsilica.es.EntityComponent;
 
-public class DoubleEditorCtrl {
+public class Point2DEditorCtrl {
 	private EntityComponent comp;
 	private Field field;
 	
 	@FXML
-	private TextField value;
+	private TextField xValue;
+
+	@FXML
+	private TextField yValue;
 
 	@FXML
 	private void initialize() {
@@ -26,13 +29,16 @@ public class DoubleEditorCtrl {
 		this.comp = comp;
 		this.field = field;
 		try {
-			value.setText(Double.toString(field.getDouble(comp)));
+			xValue.setText(Double.toString(((Point2D)field.get(comp)).x));
+			yValue.setText(Double.toString(((Point2D)field.get(comp)).y));
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public void changeValue(){
-		EventManager.post(new ComponentFieldChange(comp, field.getName(), Double.parseDouble(value.getText())));
+		double x = Double.parseDouble(xValue.getText());
+		double y = Double.parseDouble(yValue.getText());
+		EventManager.post(new ComponentFieldChange(comp, field.getName(), new Point2D(x, y)));
 	}
 }

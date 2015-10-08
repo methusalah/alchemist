@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vbox" prefHeight="201.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.InspectorController">
+<VBox fx:id="vbox" minWidth="400.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.InspectorController">
    <children>
-      <Label id="title" fx:id="title" prefHeight="37.0" prefWidth="306.0" style="-fx-background-color: #bbbbff;" text="Label">
+      <Label id="title" fx:id="title" maxWidth="1.7976931348623157E308" style="-fx-background-color: #bbbbff;" text="Label">
          <font>
             <Font size="18.0" />
          </font>

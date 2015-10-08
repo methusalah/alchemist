@@ -2,28 +2,35 @@ package application;
 	
 import java.io.IOException;
 
+import com.simsilica.es.base.DefaultEntityData;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.EntityIntrospector;
 import model.ES.serial.BlueprintLibrary;
 import util.LogUtil;
 import view.InspectorController;
 
 
-public class Main extends Application {
+public class MainEditor extends Application {
 	private Stage primaryStage;
 	BorderPane root;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		LogUtil.init();
+		DefaultEntityData ed = new DefaultEntityData();
+		
+		
+		EntityIntrospector m = new EntityIntrospector(ed);
 		this.primaryStage = primaryStage;
-		primaryStage.setTitle("Entity Blueprint Editor");
+		primaryStage.setTitle("Entity Editor");
 		
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/view/Overview.fxml")); 
+		loader.setLocation(MainEditor.class.getResource("/view/Overview.fxml")); 
 		try {
 			root = (BorderPane) loader.load();
 			Scene scene = new Scene(root);
@@ -33,8 +40,10 @@ public class Main extends Application {
 			e1.printStackTrace();
 		}
 		
+		
+		
 		loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/view/Inspector.fxml"));
+		loader.setLocation(MainEditor.class.getResource("/view/Inspector.fxml"));
 		try {
 			loader.load();
 		} catch (IOException e) {
