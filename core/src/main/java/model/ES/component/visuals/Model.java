@@ -28,5 +28,26 @@ public class Model implements EntityComponent {
 		this.pitchFix = pitchFix;
 		this.rollFix = rollFix;
 	}
+	public boolean isCreated() {
+		return created;
+	}
+	public void setCreated(boolean created) {
+		this.created = created;
+	}
+	public String getPath() {
+		return path;
+	}
+	public double getScale() {
+		return scale;
+	}
+	public double getYawFix() {
+		return yawFix;
+	}
+	public double getPitchFix() {
+		return pitchFix;
+	}
+	public double getRollFix() {
+		return rollFix;
+	}
 
 }

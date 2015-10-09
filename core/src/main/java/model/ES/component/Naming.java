@@ -9,4 +9,8 @@ public class Naming implements EntityComponent {
 	public Naming(@JsonProperty("name")String name) {
 		this.name = name;
 	}
+
+	public String getName() {
+		return name;
+	}
 }

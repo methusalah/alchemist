@@ -19,4 +19,16 @@ public class Physic implements EntityComponent {
 		this.stat = physicStat;
 		this.spawnerException = spawnerException;
 	}
+
+	public Point2D getVelocity() {
+		return velocity;
+	}
+
+	public PhysicStat getStat() {
+		return stat;
+	}
+
+	public EntityId getSpawnerException() {
+		return spawnerException;
+	}
 }

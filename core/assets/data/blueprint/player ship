@@ -10,7 +10,8 @@
       "r" : 150,
       "g" : 0,
       "b" : 0
-    }
+    },
+    "doubles" : [ 1.0, 3.0, 8.0 ]
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
@@ -23,6 +24,9 @@
       "x" : 0.0,
       "y" : 0.0,
       "z" : 1.0
+    },
+    "angletest" : {
+      "value" : 75.0
     }
   }, {
     "class" : "model.ES.component.motion.physic.Dragging",

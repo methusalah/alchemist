@@ -9,4 +9,8 @@ public class Dragging implements EntityComponent {
 	public Dragging(@JsonProperty("dragging")double dragging) {
 		this.dragging = dragging;
 	}
+
+	public double getDragging() {
+		return dragging;
+	}
 }

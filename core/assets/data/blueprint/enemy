@@ -12,6 +12,9 @@
       "x" : 0.0,
       "y" : 0.0,
       "z" : 1.0
+    },
+    "angletest" : {
+      "value" : 75.0
     }
   }, {
     "class" : "model.ES.component.visuals.Model",

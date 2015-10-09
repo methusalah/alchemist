@@ -6,16 +6,10 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.controlsfx.control.PropertySheet;
-import org.controlsfx.control.PropertySheet.Item;
-import org.controlsfx.property.BeanProperty;
-import org.controlsfx.property.BeanPropertyUtils;
-import org.controlsfx.property.editor.AbstractPropertyEditor;
-import org.controlsfx.property.editor.DefaultPropertyEditorFactory;
-import org.controlsfx.property.editor.Editors;
-import org.controlsfx.property.editor.PropertyEditor;
+
 
 import com.simsilica.es.EntityComponent;
 
@@ -37,8 +31,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import model.ES.richData.ColorData;
+import model.ES.richData.PhysicStat;
 import model.ES.serial.Blueprint;
 import util.LogUtil;
+import view.controls.PropertyEditor;
+import view.controls.PropertyEditorFactory;
 
 public class InspectorController {
 	@FXML
@@ -63,56 +60,24 @@ public class InspectorController {
 		compPane.setExpanded(false);
 		compPane.setAnimated(false);
 		compPane.setText(comp.getClass().getSimpleName());
-//		VBox compDetail = new VBox();
-//		vbox.setPadding(new Insets(5));
-//		compPane.setContent(compDetail);
+		VBox compDetail = new VBox();
+		vbox.setPadding(new Insets(5));
+		compPane.setContent(compDetail);
+		BeanInfo bi = null;
+		try {
+			bi = Introspector.getBeanInfo(comp.getClass(), Object.class);
+		} catch (IntrospectionException e) {
+			e.printStackTrace();
+		}
+		for(PropertyDescriptor pd : bi.getPropertyDescriptors()){
+			PropertyEditor editor = PropertyEditorFactory.getEditorFor(comp, pd);
+			if(editor != null)
+				compDetail.getChildren().add(editor);
+		}
+			
 //		for(Field field : comp.getClass().getFields()){
 //			compDetail.getChildren().add(getFieldEditor(comp, field));
 //		}
-
-		
-		
-		
-        ObservableList<Item> list = FXCollections.observableArrayList();
-        try {
-            BeanInfo beanInfo = Introspector.getBeanInfo(comp.getClass(), Object.class);
-            for (PropertyDescriptor p : beanInfo.getPropertyDescriptors()) {
-                    list.add(new ComponentProperty(comp, p));
-                }
-        } catch (IntrospectionException e) {
-            e.printStackTrace();
-        }
-        
-		PropertySheet sheet = new PropertySheet(list);
-		
-		SimpleObjectProperty<Callback<PropertySheet.Item, PropertyEditor<?>>> propertyEditorFactory = new SimpleObjectProperty<>(this, "propertyEditor", new DefaultPropertyEditorFactory());
-		sheet.setPropertyEditorFactory(new Callback<PropertySheet.Item, PropertyEditor<?>>() {
-		    @Override
-		    public PropertyEditor<?> call(PropertySheet.Item param) {
-		        if(param.getValue() instanceof ColorData) {
-		        	return new AbstractPropertyEditor<ColorData, ColorPicker>(param, new ColorPicker()) {
-
-		                @Override protected ObservableValue<ColorData> getObservableValue() {
-		                	Color c = getEditor().valueProperty().getValue();
-		                	ColorData cd = new ColorData((int)Math.round(c.getOpacity()*255),
-		                			(int)Math.round(c.getRed()),
-		                			(int)Math.round(c.getGreen()),
-		                			(int)Math.round(c.getBlue()));
-		                	return getObservableValue(cd);
-		                }
-
-		                @Override public void setValue(ColorData value) {
-		                    getEditor().setValue((ColorData) value);
-		                }
-		            };		        }
-
-		        return propertyEditorFactory.get().call(param);
-		    }
-		});
-		
-		sheet.setModeSwitcherVisible(false);
-		sheet.setSearchBoxVisible(false);
-		compPane.setContent(sheet);
 
 		return compPane;
 	}

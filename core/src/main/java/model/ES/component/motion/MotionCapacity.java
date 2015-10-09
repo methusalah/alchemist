@@ -21,4 +21,24 @@ public class MotionCapacity implements EntityComponent {
 		this.lateralThrustPower = lateralThrustPower;
 		this.frontalThrustPower = frontalThrustPower;
 	}
+
+	public double getMaxSpeed() {
+		return maxSpeed;
+	}
+
+	public double getMaxRotationSpeed() {
+		return maxRotationSpeed;
+	}
+
+	public double getThrustPower() {
+		return thrustPower;
+	}
+
+	public double getLateralThrustPower() {
+		return lateralThrustPower;
+	}
+
+	public double getFrontalThrustPower() {
+		return frontalThrustPower;
+	}
 }
