@@ -4,14 +4,14 @@ import com.simsilica.es.EntityComponent;
 
 public class ComponentPropertyChanged extends Event {
 	public final EntityComponent comp;
-	public final String fieldName;
+	public final String propertyName;
 	public final Object newValue;
 	
 	public ComponentPropertyChanged(EntityComponent comp,
 			String fieldName,
 			Object newValue) {
 		this.comp = comp;
-		this.fieldName = fieldName;
+		this.propertyName = fieldName;
 		this.newValue = newValue;
 	}
 }

@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import util.LogUtil;
 import util.event.ComponentPropertyChanged;
+import util.event.EntityRenamedEvent;
 import util.event.EntitySelectionChanged;
 import util.event.EventManager;
 import view.InspectorView;
@@ -24,19 +25,17 @@ import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 import com.sun.media.jfxmedia.logging.Logger;
 
-public class EntityIntrospector {
+import model.ES.component.Naming;
 
+public class Inspector {
 	private final EntityData entityData;
 	private List<Class<? extends EntityComponent>> componentClasses = new ArrayList<>();
-	private final InspectorView view;
 	
 	private EntityId eid;
 	private List<EntityComponent> comps;
 	
-	public EntityIntrospector(EntityData entityData, InspectorView view) {
+	public Inspector(EntityData entityData) {
 		this.entityData = entityData;
-		this.view = view;
-		EventManager.register(this);
 	}
 	
 	public void inspect(EntityId eid){
@@ -47,39 +46,30 @@ public class EntityIntrospector {
 			if(comp != null)
 				comps.add(comp);
 		}
-		view.loadComponents(comps);
 	}
 	
-	@Subscribe
-	public void changeEntity(EntitySelectionChanged event){
-		inspect(event.eid);
-	}
-	
-
-	
-	@Subscribe
-	public void updateComponent(ComponentPropertyChanged event){
+	public void updateComponent(EntityComponent comp, String propertyName, Object value){
 		// In this piece of code, we can't just change the component's field because it's imutable
 		// we serialize the whole component into a jsontree, change the value in the tree, then
 		// deserialize in a new component, that we will be able to attach to entity the proper way
 		ObjectMapper mapper = new ObjectMapper();
-		JsonNode n = mapper.valueToTree(event.comp);
+		JsonNode n = mapper.valueToTree(comp);
 		Iterator<Entry<String, JsonNode>> i = n.fields();
 		while (i.hasNext()) {
 			Entry<String, JsonNode> entry = (Entry<String, JsonNode>) i.next();
-			if(entry.getKey().equals(event.fieldName)){
-				entry.setValue(mapper.valueToTree(event.newValue));
+			if(entry.getKey().equals(propertyName)){
+				entry.setValue(mapper.valueToTree(value));
 				break;
 			}
 		}
 		
-		EntityComponent comp = null;
+		EntityComponent newComp = null;
 		try {
-			comp = new ObjectMapper().treeToValue(n, event.comp.getClass());
-			LogUtil.info("comp "+comp);
-			for(Field f : comp.getClass().getFields()){
+			newComp = new ObjectMapper().treeToValue(n, comp.getClass());
+			LogUtil.info("comp "+newComp);
+			for(Field f : newComp.getClass().getFields()){
 				try {
-					LogUtil.info("    field "+f.getType()+" / "+ f.get(comp));
+					LogUtil.info("    field "+f.getType()+" / "+ f.get(newComp));
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
@@ -89,10 +79,21 @@ public class EntityIntrospector {
 		}
 	
 			
-//		entityData.setComponent(eid, comp);
+		entityData.setComponent(eid, newComp);
+		inspect(eid);
+		if(comp instanceof Naming)
+			EventManager.post(new EntityRenamedEvent(eid, value.toString()));
+	}
+	
+	public void updateName(EntityId eid, String newName){
+		entityData.setComponent(eid, new Naming(newName));
 	}
 	
 	public void addComponentToScan(Class<? extends EntityComponent> compClass){
 		componentClasses.add(compClass);
+	}
+
+	public List<EntityComponent> getComponents() {
+		return comps;
 	}
 }

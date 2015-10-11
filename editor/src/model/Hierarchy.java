@@ -27,15 +27,27 @@ public class Hierarchy {
 		}
 	}
 	
+	public void createNewEntity(String Name){
+		EntityId newEntityId = entityData.createEntity();
+		entityData.setComponent(newEntityId, new Naming(Name));
+		addEntity(newEntityId);
+	}
+	
 	private void addEntity(EntityId eid){
 		Naming naming = entityData.getComponent(eid, Naming.class);
+		EntityNode n = new EntityNode(eid, naming.name);
+		allNodes.put(eid, n);
+
 		Parenting parenting = entityData.getComponent(eid, Parenting.class);
 		if(parenting == null){
-			EntityNode n = new EntityNode(eid, naming.name);
 			baseNodes.add(n);
-			allNodes.put(eid, n);
-		} else
+		} else {
 			allNodes.get(parenting.parent).children.add(new EntityNode(eid, naming.name));
+		}
 	}
-
+	
+	public void updateName(EntityId eid){
+		Naming naming = entityData.getComponent(eid, Naming.class);
+		allNodes.get(eid).setName(naming.name);
+	}
 }

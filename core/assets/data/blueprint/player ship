@@ -42,13 +42,13 @@
     "frontalThrustPower" : 1.5
   }, {
     "class" : "model.ES.component.visuals.Model",
-    "path" : "human/adav/planard.j3o",
-    "scale" : 0.8,
+    "path" : "human/adav/adav02b.mesh.xml",
+    "scale" : 0.0025,
     "yawFix" : {
       "value" : 0.0
     },
     "pitchFix" : {
-      "value" : 0.0
+      "value" : -1.5707963267948966
     },
     "rollFix" : {
       "value" : 0.0

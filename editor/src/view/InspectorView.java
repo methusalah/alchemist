@@ -30,6 +30,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
+import model.ES.component.Naming;
 import model.ES.richData.ColorData;
 import model.ES.richData.PhysicStat;
 import model.ES.serial.Blueprint;
@@ -39,22 +40,30 @@ import view.controls.propertyEditor.PropertyEditorFactory;
 
 public class InspectorView extends VBox{
 	VBox compControl;
+	Label title;
+	Label info;
 	
 	public InspectorView() {
 		setPrefWidth(400);
-		Label title = new Label("Inspector");
+		title = new Label("Inspector");
 		title.setMinHeight(40);
 		title.setMaxWidth(Double.MAX_VALUE);
 		title.setStyle("-fx-background-color: lightblue");
 		getChildren().add(title);
+		
+		info = new Label("");
+		getChildren().add(info);
 		
 		compControl = new VBox();
 		getChildren().add(compControl);
 	}
 	
 	public void loadComponents(List<EntityComponent> comps){
+		info.setText("");
 		compControl.getChildren().clear();
 		for(EntityComponent comp : comps){
+			if(comp instanceof Naming)
+				info.setText("Name : "+((Naming)comp).name);
 			compControl.getChildren().add(getComponentEditor(comp));
 			LogUtil.info("load comp "+comps);
 		}
@@ -80,6 +89,10 @@ public class InspectorView extends VBox{
 				compDetail.getChildren().add(editor);
 		}
 		return compPane;
+	}
+	
+	public void updateEntityName(String name){
+		info.setText("Name : "+name);
 		
 	}
 	

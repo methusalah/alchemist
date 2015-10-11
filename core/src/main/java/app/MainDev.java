@@ -375,7 +375,7 @@ public class MainDev extends CosmoVania {
 		// camera
 		bp = new Blueprint("camera");
 		bp.add(new Naming("camera"));
-		bp.add(new PlanarStance(new Point2D(1, 1), 0, 30, Point3D.UNIT_Z));
+		bp.add(new PlanarStance(new Point2D(1, 1), 0, 25, Point3D.UNIT_Z));
 		bp.add(new ChasingCamera(3, 0, 0.5, 0.5));
 		bp.add(new MotionCapacity(1, AngleUtil.toRadians(500), 1, 1, 1));
 		BlueprintLibrary.save(bp);
@@ -386,7 +386,7 @@ public class MainDev extends CosmoVania {
 		bp.add(new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
 		bp.add(new Dragging(0.05));
 		bp.add(new MotionCapacity(3, AngleUtil.toRadians(360), 3, 1.5, 1.5));
-		bp.add(new Model("human/adav/planard.j3o", 0.8, new Angle(0), new Angle(0), new Angle(0)));
+		bp.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, new Angle(0), new Angle(-AngleUtil.RIGHT), new Angle(0)));
 		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), 0.8), null));
 		bp.add(new EffectOnTouch());
 		bp.add(new VelocityViewing());
