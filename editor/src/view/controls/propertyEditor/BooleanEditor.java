@@ -1,4 +1,4 @@
-package view.controls;
+package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
@@ -19,14 +19,10 @@ public class BooleanEditor extends PropertyEditor{
 	}
 
 	@Override
-	protected void createEditorIn(Pane p) {
-		HBox box = new HBox(5);
-		box.setAlignment(Pos.CENTER_LEFT);
-		p.getChildren().add(box);
-		
+	protected void createEditor() {
 		valueBox = new CheckBox();
 		valueBox.addEventHandler(ActionEvent.ACTION, actionHandler);
-		box.getChildren().add(valueBox);
+		setCenter(valueBox);
 	}
 
 	@Override

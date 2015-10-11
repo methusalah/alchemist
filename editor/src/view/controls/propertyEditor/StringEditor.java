@@ -1,4 +1,4 @@
-package view.controls;
+package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
@@ -21,17 +21,15 @@ public class StringEditor extends PropertyEditor{
 	}
 
 	@Override
-	protected void createEditorIn(Pane p) {
-		p.setMaxWidth(Double.MAX_VALUE);
+	protected void createEditor() {
 		HBox box = new HBox(5);
 		box.setMaxWidth(Double.MAX_VALUE);
 		box.setAlignment(Pos.CENTER_LEFT);
-		p.getChildren().add(box);
 		
 		valueField = new TextField();
 		valueField.setMaxWidth(Double.MAX_VALUE);
 		valueField.addEventHandler(ActionEvent.ACTION, actionHandler);
-		box.getChildren().add(valueField);
+		setCenter(valueField);
 	}
 
 	@Override

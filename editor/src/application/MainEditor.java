@@ -10,9 +10,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.EntityIntrospector;
-import model.ES.serial.BlueprintLibrary;
+import model.Hierarchy;
+import model.ES.component.Naming;
+import model.ES.component.motion.PlanarStance;
+import model.ES.serial.BlueprintCreator;
 import util.LogUtil;
-import view.InspectorController;
+import view.HierarchyView;
+import view.InspectorView;
 
 
 public class MainEditor extends Application {
@@ -23,9 +27,23 @@ public class MainEditor extends Application {
 	public void start(Stage primaryStage) {
 		LogUtil.init();
 		DefaultEntityData ed = new DefaultEntityData();
+		BlueprintCreator.setEntityData(ed);
+		BlueprintCreator.create("player ship", null);
+		BlueprintCreator.create("enemy", null);
+		BlueprintCreator.create("sun", null);
+
+		InspectorView iv = new InspectorView();
+		HierarchyView hv = new HierarchyView();
 		
 		
-		EntityIntrospector m = new EntityIntrospector(ed);
+		
+		EntityIntrospector i = new EntityIntrospector(ed, iv);
+		i.addComponentToScan(Naming.class);
+		i.addComponentToScan(PlanarStance.class);
+		Hierarchy h = new Hierarchy(ed);
+		
+		i.inspect(h.baseNodes.get(0).parent);
+		
 		this.primaryStage = primaryStage;
 		primaryStage.setTitle("Entity Editor");
 		
@@ -39,20 +57,11 @@ public class MainEditor extends Application {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+
+		root.setRight(iv);
 		
-		
-		
-		loader = new FXMLLoader();
-		loader.setLocation(MainEditor.class.getResource("/view/Inspector.fxml"));
-		try {
-			loader.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		root.setRight(loader.getRoot());
-		InspectorController ctrl = loader.getController();
-		ctrl.setBlueprint(BlueprintLibrary.get("player ship"));
+		hv.update(h.baseNodes);
+		root.setLeft(hv);
 	}
 	
 	public static void main(String[] args) {

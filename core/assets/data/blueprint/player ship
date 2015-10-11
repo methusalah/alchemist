@@ -11,6 +11,11 @@
       "g" : 0,
       "b" : 0
     },
+    "angledelamortquitue" : {
+      "value" : 3.0
+    },
+    "listdetest" : [ "bonjour", "aurevoir", "ca va?" ],
+    "listdeboule" : [ true, false, true ],
     "doubles" : [ 1.0, 3.0, 8.0 ]
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
@@ -24,9 +29,6 @@
       "x" : 0.0,
       "y" : 0.0,
       "z" : 1.0
-    },
-    "angletest" : {
-      "value" : 75.0
     }
   }, {
     "class" : "model.ES.component.motion.physic.Dragging",
@@ -40,11 +42,17 @@
     "frontalThrustPower" : 1.5
   }, {
     "class" : "model.ES.component.visuals.Model",
-    "path" : "human/adav/adav02b.mesh.xml",
-    "scale" : 0.0025,
-    "yawFix" : 0.0,
-    "pitchFix" : -1.5707963267948966,
-    "rollFix" : 0.0,
+    "path" : "human/adav/planard.j3o",
+    "scale" : 0.8,
+    "yawFix" : {
+      "value" : 0.0
+    },
+    "pitchFix" : {
+      "value" : 0.0
+    },
+    "rollFix" : {
+      "value" : 0.0
+    },
     "created" : false
   }, {
     "class" : "model.ES.component.motion.physic.Physic",
@@ -77,7 +85,11 @@
     "class" : "model.ES.component.relation.Attackable"
   }, {
     "class" : "model.ES.component.relation.AbilityTriggerList",
-    "triggers" : { }
+    "triggers" : {
+      "aurevoir" : false,
+      "bonjour" : true,
+      "ça va ?" : true
+    }
   } ],
   "children" : [ "weapon left", "weapon right", "camera", "front light", "rotation thruster 1", "rotation thruster 2", "rear thruster", "frontal left thruster", "frontal right thruster", "side left thruster", "side right thruster" ]
 }

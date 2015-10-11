@@ -1,22 +1,15 @@
-package view.controls;
+package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
-import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import com.simsilica.es.EntityComponent;
 
-import javafx.fxml.FXMLLoader;
 import model.ES.richData.Angle;
 import model.ES.richData.ColorData;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
-import view.typeEditor.BooleanEditorCtrl;
-import view.typeEditor.ColorDataEditorCtrl;
-import view.typeEditor.DoubleEditorCtrl;
-import view.typeEditor.Point2DEditorCtrl;
-import view.typeEditor.Point3DEditorCtrl;
-import view.typeEditor.StringEditorCtrl;
-import application.MainEditor;
 
 public class PropertyEditorFactory {
 
@@ -45,6 +38,12 @@ public class PropertyEditorFactory {
 		}
 		if(pd.getPropertyType() == Angle.class){
 			return new AngleEditor(comp, pd);
+		}
+		if(pd.getPropertyType() == List.class){
+			return new ListEditor(comp, pd);
+		}
+		if(pd.getPropertyType() == Map.class){
+			return new MapEditor(comp, pd);
 		}
 		return null;
 	}

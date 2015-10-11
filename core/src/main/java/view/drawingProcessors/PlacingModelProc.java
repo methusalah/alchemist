@@ -54,7 +54,7 @@ public class PlacingModelProc extends Processor {
 		// we correct the pitch of the unit because the direction is always flatten
 		// this is only to follow the terrain relief
 		double angle = Math.acos(pu.getDotProduct(pv) / (pu.getNorm() * pv.getNorm()));
-		r = r.mult(new Quaternion().fromAngles((float) (-angle+AngleUtil.RIGHT+model.pitchFix), (float) (model.rollFix), (float) (model.yawFix)));
+		r = r.mult(new Quaternion().fromAngles((float) (-angle+AngleUtil.RIGHT+model.pitchFix.getValue()), (float) (model.rollFix.getValue()), (float) (model.yawFix.getValue())));
 
 		s.setLocalRotation(r);
 	}

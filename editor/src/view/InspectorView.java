@@ -9,9 +9,9 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
+import com.google.common.eventbus.Subscribe;
 import com.simsilica.es.EntityComponent;
+import com.sun.java_cup.internal.runtime.virtual_parse_stack;
 
 import application.MainEditor;
 import javafx.beans.InvalidationListener;
@@ -34,34 +34,38 @@ import model.ES.richData.ColorData;
 import model.ES.richData.PhysicStat;
 import model.ES.serial.Blueprint;
 import util.LogUtil;
-import view.controls.PropertyEditor;
-import view.controls.PropertyEditorFactory;
+import view.controls.propertyEditor.PropertyEditor;
+import view.controls.propertyEditor.PropertyEditorFactory;
 
-public class InspectorController {
-	@FXML
-	private Label title;
-	@FXML
-	private VBox vbox;
+public class InspectorView extends VBox{
+	VBox compControl;
 	
-	@FXML
-    private void initialize() {
+	public InspectorView() {
+		setPrefWidth(400);
+		Label title = new Label("Inspector");
+		title.setMinHeight(40);
+		title.setMaxWidth(Double.MAX_VALUE);
+		title.setStyle("-fx-background-color: lightblue");
+		getChildren().add(title);
 		
+		compControl = new VBox();
+		getChildren().add(compControl);
 	}
 	
-	public void setBlueprint(Blueprint blueprint){
-		title.setText("Inspector");
-		for(EntityComponent comp : blueprint.getComps()){
-			vbox.getChildren().add(getComponentEditor(comp));
+	public void loadComponents(List<EntityComponent> comps){
+		compControl.getChildren().clear();
+		for(EntityComponent comp : comps){
+			compControl.getChildren().add(getComponentEditor(comp));
+			LogUtil.info("load comp "+comps);
 		}
 	}
 	
-	private Node getComponentEditor(EntityComponent comp){
+	private TitledPane getComponentEditor(EntityComponent comp){
 		TitledPane compPane = new TitledPane();
 		compPane.setExpanded(false);
 		compPane.setAnimated(false);
 		compPane.setText(comp.getClass().getSimpleName());
 		VBox compDetail = new VBox();
-		vbox.setPadding(new Insets(5));
 		compPane.setContent(compDetail);
 		BeanInfo bi = null;
 		try {
@@ -69,32 +73,14 @@ public class InspectorController {
 		} catch (IntrospectionException e) {
 			e.printStackTrace();
 		}
+		LogUtil.info("comp " + comp);
 		for(PropertyDescriptor pd : bi.getPropertyDescriptors()){
 			PropertyEditor editor = PropertyEditorFactory.getEditorFor(comp, pd);
 			if(editor != null)
 				compDetail.getChildren().add(editor);
 		}
-			
-//		for(Field field : comp.getClass().getFields()){
-//			compDetail.getChildren().add(getFieldEditor(comp, field));
-//		}
-
 		return compPane;
-	}
-	
-	private Node getFieldEditor(EntityComponent comp, Field f){
-		FXMLLoader l = new FXMLLoader();
-		l.setLocation(MainEditor.class.getResource("/view/FieldEditor.fxml"));
-		try {
-			l.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		FieldEditorCtrl ctrl = l.getController();
 		
-		ctrl.setField(comp, f);
-		return l.getRoot();
 	}
 	
-
 }

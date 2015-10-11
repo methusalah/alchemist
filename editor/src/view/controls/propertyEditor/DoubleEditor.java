@@ -1,4 +1,4 @@
-package view.controls;
+package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
@@ -12,34 +12,31 @@ import util.geometry.geom2d.Point2D;
 
 import com.simsilica.es.EntityComponent;
 
-public class IntegerEditor extends PropertyEditor{
+public class DoubleEditor extends PropertyEditor{
 	
 	TextField valueField;
 	
-	public IntegerEditor(EntityComponent comp, PropertyDescriptor pd) {
+	public DoubleEditor(EntityComponent comp, PropertyDescriptor pd) {
 		super(comp, pd);
 	}
 
 	@Override
-	protected void createEditorIn(Pane p) {
-		HBox box = new HBox(5);
-		box.setAlignment(Pos.CENTER_LEFT);
-		p.getChildren().add(box);
-		
+	protected void createEditor() {
 		valueField = new TextField();
+		valueField.setMaxWidth(100);
 		valueField.addEventHandler(ActionEvent.ACTION, actionHandler);
-		box.getChildren().add(valueField);
+		setCenter(valueField);
 	}
 
 	@Override
 	protected Object getPropertyValue() {
-		return Integer.parseInt(valueField.getText());  
+		return Double.parseDouble(valueField.getText());  
 	}
 
 	@Override
 	protected void setPropertyValue(Object o) {
-		int v = (Integer)o;
-		valueField.setText(Integer.toString(v));
+		double v = (Double)o;
+		valueField.setText(df.format(v));
 	}
 	
 	

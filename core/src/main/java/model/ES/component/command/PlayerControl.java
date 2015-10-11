@@ -11,9 +11,17 @@ import model.ES.richData.ColorData;
 public class PlayerControl implements EntityComponent{
 	public ColorData color = new ColorData(255, 150, 0, 0);
 	public Angle angledelamortquitue = new Angle(3);
-	public Angle getAngledelamortquitue() {
-		return angledelamortquitue;
-	}
+	public List<String> listdetest = new ArrayList<String>() {{
+		add("bonjour");
+		add("aurevoir");
+		add("ca va?");
+	}};
+
+	public List<Boolean> listdeboule = new ArrayList<Boolean>() {{
+		add(true);
+		add(false);
+		add(true);
+	}};
 
 	public List<Double>  doubles = new ArrayList<Double>() {{
 	    add(1d);
@@ -29,7 +37,15 @@ public class PlayerControl implements EntityComponent{
 		return color;
 	}
 
-	public void setDoubles(List<Double> doubles) {
-		this.doubles = doubles;
+	public Angle getAngledelamortquitue() {
+		return angledelamortquitue;
+	}
+
+	public List<String> getListdetest() {
+		return listdetest;
+	}
+
+	public List<Boolean> getListdeboule() {
+		return listdeboule;
 	}
 }

@@ -61,6 +61,7 @@ import model.ES.processor.shipGear.LightThrusterProc;
 import model.ES.processor.shipGear.ParticleThrusterProc;
 import model.ES.processor.shipGear.RotationThrusterProc;
 import model.ES.processor.shipGear.ThrusterProc;
+import model.ES.richData.Angle;
 import model.ES.richData.CollisionShape;
 import model.ES.richData.ColorData;
 import model.ES.richData.ParticleCaster;
@@ -257,7 +258,7 @@ public class MainDev extends CosmoVania {
 		// sun light
 		bp = new Blueprint("sun");
 		bp.add(new Lighting(new ColorData(255, 255, 255, 255), 1.5, Double.POSITIVE_INFINITY, 0, 0, true, 1));
-		bp.add(new SpaceStance(Point3D.ORIGIN, new Point3D(-1, -1, -1)));
+		bp.add(new SpaceStance(Point3D.ORIGIN, new Point3D(-1, -1, -3)));
 		BlueprintLibrary.save(bp);
 
 		// rotation thrusters
@@ -318,7 +319,7 @@ public class MainDev extends CosmoVania {
 		// enemy
 		bp = new Blueprint("enemy");
 		bp.add(new PlanarStance(new Point2D(10, 10), 0, 0, Point3D.UNIT_Z));
-		bp.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
+		bp.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, new Angle(0), new Angle(AngleUtil.toRadians(-90)), new Angle(0)));
 		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
 		bp.add(new Dragging(0.1));
 		bp.add(new MotionCapacity(2, AngleUtil.toRadians(300), 3, 0.1, 0.1));
@@ -385,7 +386,7 @@ public class MainDev extends CosmoVania {
 		bp.add(new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
 		bp.add(new Dragging(0.05));
 		bp.add(new MotionCapacity(3, AngleUtil.toRadians(360), 3, 1.5, 1.5));
-		bp.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
+		bp.add(new Model("human/adav/planard.j3o", 0.8, new Angle(0), new Angle(0), new Angle(0)));
 		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), 0.8), null));
 		bp.add(new EffectOnTouch());
 		bp.add(new VelocityViewing());

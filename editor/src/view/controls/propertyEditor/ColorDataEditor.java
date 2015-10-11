@@ -1,4 +1,4 @@
-package view.controls;
+package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
@@ -22,14 +22,11 @@ public class ColorDataEditor extends PropertyEditor{
 	}
 
 	@Override
-	protected void createEditorIn(Pane p) {
-		HBox box = new HBox(5);
-		box.setAlignment(Pos.CENTER_LEFT);
-		p.getChildren().add(box);
-		
+	protected void createEditor() {
 		picker = new ColorPicker();
+		picker.setPrefWidth(100);
 		picker.addEventHandler(ActionEvent.ACTION, actionHandler);
-		box.getChildren().add(picker);
+		setCenter(picker);
 	}
 
 	@Override

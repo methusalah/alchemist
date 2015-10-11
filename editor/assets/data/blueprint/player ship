@@ -4,7 +4,16 @@
     "class" : "model.ES.component.Naming",
     "name" : "player ship"
   }, {
-    "class" : "model.ES.component.command.PlayerControl"
+    "class" : "model.ES.component.command.PlayerControl",
+    "color" : {
+      "a" : 255,
+      "r" : 150,
+      "g" : 0,
+      "b" : 0
+    },
+    "angledelamortquitue" : {
+      "value" : 3.0
+    }
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
@@ -32,9 +41,15 @@
     "class" : "model.ES.component.visuals.Model",
     "path" : "human/adav/adav02b.mesh.xml",
     "scale" : 0.0025,
-    "yawFix" : 0.0,
-    "pitchFix" : -1.5707963267948966,
-    "rollFix" : 0.0,
+    "yawFix" : {
+      "value" : 0.0
+    },
+    "pitchFix" : {
+      "value" : -1.5707963267948966
+    },
+    "rollFix" : {
+      "value" : 0.0
+    },
     "created" : false
   }, {
     "class" : "model.ES.component.motion.physic.Physic",
@@ -69,5 +84,5 @@
     "class" : "model.ES.component.relation.AbilityTriggerList",
     "triggers" : { }
   } ],
-  "children" : [ "weapon left", "weapon right", "camera" ]
+  "children" : [ "weapon left", "weapon right", "camera", "front light", "rotation thruster 1", "rotation thruster 2", "rear thruster", "frontal left thruster", "frontal right thruster", "side left thruster", "side right thruster" ]
 }

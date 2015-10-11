@@ -3,25 +3,27 @@ package model.ES.component.visuals;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
 
+import model.ES.richData.Angle;
+
 public class Model implements EntityComponent {
 	public final String path;
 	public final double scale;
-	public final double yawFix;
-	public final double pitchFix;
-	public final double rollFix;
+	public final Angle yawFix;
+	public final Angle pitchFix;
+	public final Angle rollFix;
 	public boolean created = false;
 	
 	public Model(String path) {
 		this(path, 1);
 	}
 	public Model(String path, double scale) {
-		this(path, scale, 0, 0, 0);
+		this(path, scale, new Angle(0), new Angle(0), new Angle(0));
 	}
 	public Model(@JsonProperty("path")String path,
 			@JsonProperty("scale")double scale,
-			@JsonProperty("yawFix")double yawFix,
-			@JsonProperty("pitchFix")double pitchFix,
-			@JsonProperty("rollFix")double rollFix) {
+			@JsonProperty("yawFix")Angle yawFix,
+			@JsonProperty("pitchFix")Angle pitchFix,
+			@JsonProperty("rollFix")Angle rollFix) {
 		this.path = path;
 		this.scale = scale;
 		this.yawFix = yawFix;
@@ -40,13 +42,13 @@ public class Model implements EntityComponent {
 	public double getScale() {
 		return scale;
 	}
-	public double getYawFix() {
+	public Angle getYawFix() {
 		return yawFix;
 	}
-	public double getPitchFix() {
+	public Angle getPitchFix() {
 		return pitchFix;
 	}
-	public double getRollFix() {
+	public Angle getRollFix() {
 		return rollFix;
 	}
 

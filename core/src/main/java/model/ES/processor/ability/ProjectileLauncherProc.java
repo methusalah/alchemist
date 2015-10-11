@@ -19,6 +19,7 @@ import model.ES.component.shipGear.Projectile;
 import model.ES.component.shipGear.ProjectileLauncher;
 import model.ES.component.shipGear.Trigger;
 import model.ES.component.visuals.Model;
+import model.ES.richData.Angle;
 import model.ES.richData.CollisionShape;
 import model.ES.richData.Damage;
 import model.ES.richData.PhysicStat;
@@ -55,7 +56,7 @@ public class ProjectileLauncherProc extends Processor {
 			entityData.setComponent(firing, new PlanarStance(stance.coord.getTranslation(stance.orientation, 0.2), orientation, stance.elevation, Point3D.UNIT_Z));
 			entityData.setComponent(firing, new MotionCapacity(7, 0, 1, 0, 0));
 			entityData.setComponent(firing, new PlanarVelocityToApply(Point2D.UNIT_X.getRotation(orientation)));
-			entityData.setComponent(firing, new Model("human/hmissileT1/hmissileT1_02.mesh.xml", 0.0025, 0, AngleUtil.toRadians(-90), 0));
+			entityData.setComponent(firing, new Model("human/hmissileT1/hmissileT1_02.mesh.xml", 0.0025, new Angle(0), new Angle(AngleUtil.toRadians(-90)), new Angle(0)));
 			entityData.setComponent(firing, new Physic(Point2D.ORIGIN, new PhysicStat("Missile", 0.1, new CollisionShape(0.1), 0, "Missile"), p.parent));
 			entityData.setComponent(firing, new DestroyedOnTouch());
 			entityData.setComponent(firing, new ShockwaveOnTouch(100, 2, 10));
