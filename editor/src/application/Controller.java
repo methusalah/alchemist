@@ -32,6 +32,7 @@ public class Controller {
 	@Subscribe
 	public void updateComponentEvent(ComponentPropertyChanged event){
 		model.inspector.updateComponent(event.comp, event.propertyName, event.newValue);
+		view.inspectorView.loadComponents(model.inspector.getComponents());
 	}
 	
 	@Subscribe
@@ -47,7 +48,7 @@ public class Controller {
 		
 		// then we update the views
 		model.hierarchy.updateName(event.eid);
-//		view.hierarchyView.update(model.hierarchy.baseNodes);
+		view.hierarchyView.update(model.hierarchy.baseNodes);
 		view.inspectorView.updateEntityName(event.newName);
 		
 		

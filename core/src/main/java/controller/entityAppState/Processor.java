@@ -20,12 +20,9 @@ public abstract class Processor extends AbstractAppState {
 	protected EntityData entityData;
 	protected List<EntitySet> sets = new ArrayList<>();
 	
-	protected CosmoVania app;
-	
 	@Override
 	public final void initialize(AppStateManager stateManager, Application app) {
 		super.initialize(stateManager, app);
-		this.app = (CosmoVania)app;
         entityData = stateManager.getState(EntityDataAppState.class).getEntityData();
 
         registerSets();

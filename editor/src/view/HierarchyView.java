@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -17,7 +14,6 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.VBox;
 import model.EntityNode;
-import util.LogUtil;
 import util.event.EntityCreationEvent;
 import util.event.EntitySelectionChanged;
 import util.event.EventManager;
@@ -25,6 +21,8 @@ import util.event.EventManager;
 public class HierarchyView extends VBox{
 	TreeView<EntityNode> tree;
 	private Map<EntityNode, Boolean> expandMemory = new HashMap<>();
+	private EntityNode selectionMemory;
+	
 	
 	public HierarchyView() {
 		setPrefWidth(300);
@@ -44,8 +42,10 @@ public class HierarchyView extends VBox{
 		});
 		
 		getChildren().add(btnAdd);
-		
-		
+	}
+	
+	public void update(List<EntityNode> nodes){
+		getChildren().remove(tree);
 		tree = new TreeView<>();
 		getChildren().add(tree);
 		tree.getSelectionModel().selectedItemProperty().addListener( new ChangeListener<TreeItem<EntityNode>>() {
@@ -54,43 +54,40 @@ public class HierarchyView extends VBox{
 			public void changed(ObservableValue<? extends TreeItem<EntityNode>> observable, TreeItem<EntityNode> oldValue, TreeItem<EntityNode> newValue) {
 				if(newValue.getValue() != null)
 					EventManager.post(new EntitySelectionChanged(newValue.getValue().parent));
+				selectionMemory = newValue.getValue();
 			}
 	      });
-	}
-	
-	public void update(List<EntityNode> nodes){
 		TreeItem<EntityNode> root = new TreeItem<EntityNode>();
+		tree.setRoot(root);
 		root.setExpanded(true);
 		for(EntityNode n : nodes)
 			addItem(root, n);
-		tree.setRoot(root);
 	}
 	
-	public void updateNames(){
-		updateName(tree.getRoot());
-	}
-	
-	private void updateName(TreeItem<EntityNode> node){
-		EntityNode en = node.getValue();
-		node.setValue(null);
-		node.setValue(en);
-		for(TreeItem<EntityNode> child : node.getChildren())
-			updateName(child);
-	}
+//	public void updateNames(){
+//		updateName(tree.getRoot());
+//	}
+//	
+//	private void updateName(TreeItem<EntityNode> node){
+//		EntityNode en = node.getValue();
+//		node.setValue(null);
+//		node.setValue(en);
+//		for(TreeItem<EntityNode> child : node.getChildren())
+//			updateName(child);
+//	}
 	
 	private void addItem(TreeItem<EntityNode> parentItem, EntityNode node){
 		TreeItem<EntityNode> item = new TreeItem<EntityNode>(node);
 		
 		// We ask the item to register the expand value at event in a memory
 		// to expand the tree in the same way next time it will be refresh
-		item.valueProperty().addListener(new InvalidationListener() {
-			
+		item.valueProperty().addListener(new ChangeListener<EntityNode>() {
+
 			@Override
-			public void invalidated(Observable observable) {
+			public void changed(
+					ObservableValue<? extends EntityNode> observable, EntityNode oldValue, EntityNode newValue) {
 				item.setValue(null);
-				item.setValue((EntityNode)observable);
-				LogUtil.info("handled");
-			
+				item.setValue(newValue);
 			}
 		});
 		
@@ -104,7 +101,10 @@ public class HierarchyView extends VBox{
 			expandMemory.put(node, false);
 		item.setExpanded(expandMemory.get(node));
 		
+		
 		parentItem.getChildren().add(item);
+		if(node == selectionMemory)
+			tree.getSelectionModel().select(item);
 		for(EntityNode childNode : node.children){
 			addItem(item, childNode);
 			

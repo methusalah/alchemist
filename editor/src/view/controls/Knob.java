@@ -47,13 +47,13 @@ public class Knob extends Pane {
 		Point2D controlCenter = new Point2D(p.getX(), p.getY());
 		
 		Point2D vec = mouse.getSubtraction(controlCenter);
-		setOrientation(AngleUtil.toDegrees(vec.getAngle()));
+		setOrientation(AngleUtil.toDegrees(-vec.getAngle()));
 		this.fireEvent(new ActionEvent(this, null));
 	}
 	
 	public void setOrientation(double value){
+		setRotate(-value);
 		orientation = value;
-		setRotate(orientation);
 	}
 	public double getOrientation(){
 		return orientation;

@@ -1,6 +1,0 @@
-Turrent StdTurret {
-    speed 200
-    idleSpeed 20
-    onIdle ResetOnMove
-    boneName "BTurret01" 
-} 

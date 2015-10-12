@@ -1,5 +1,6 @@
 package app;
 
+import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.input.InputManager;
@@ -9,9 +10,9 @@ import com.jme3.scene.Node;
 
 public class AppFacade {
 
-	private static CosmoVania app;
+	private static SimpleApplication app;
 	
-	public static void setApp(CosmoVania application){
+	public static void setApp(SimpleApplication application){
 		app = application;
 	}
 	
@@ -39,7 +40,7 @@ public class AppFacade {
 		return app.getCamera();
 	}
 	
-	public static CosmoVania getApp(){
+	public static SimpleApplication getApp(){
 		return app;
 	}
 	

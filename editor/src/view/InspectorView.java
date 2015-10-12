@@ -7,10 +7,13 @@ import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.common.eventbus.Subscribe;
 import com.simsilica.es.EntityComponent;
+import com.simsilica.es.EntityId;
 import com.sun.java_cup.internal.runtime.virtual_parse_stack;
 
 import application.MainEditor;
@@ -30,6 +33,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
+import model.EntityNode;
 import model.ES.component.Naming;
 import model.ES.richData.ColorData;
 import model.ES.richData.PhysicStat;
@@ -42,6 +46,11 @@ public class InspectorView extends VBox{
 	VBox compControl;
 	Label title;
 	Label info;
+	
+	private EntityId eid;
+	private Map<EntityComponent, TitledPane>
+	
+	private Map<Class<? extends EntityComponent>, Boolean> expandMemory = new HashMap<>();
 	
 	public InspectorView() {
 		setPrefWidth(400);
@@ -58,20 +67,37 @@ public class InspectorView extends VBox{
 		getChildren().add(compControl);
 	}
 	
-	public void loadComponents(List<EntityComponent> comps){
+	public void loadComponents(EntityId eid, List<EntityComponent> comps){
+		
 		info.setText("");
 		compControl.getChildren().clear();
 		for(EntityComponent comp : comps){
 			if(comp instanceof Naming)
 				info.setText("Name : "+((Naming)comp).name);
-			compControl.getChildren().add(getComponentEditor(comp));
+			if(this.eid == eid)
+				
+			else
+				compControl.getChildren().add(getComponentEditor(comp));
 			LogUtil.info("load comp "+comps);
 		}
+		
+		this.eid = eid;
 	}
 	
 	private TitledPane getComponentEditor(EntityComponent comp){
 		TitledPane compPane = new TitledPane();
-		compPane.setExpanded(false);
+		
+		// expand memory
+		compPane.expandedProperty().addListener(new ChangeListener<Boolean>() {
+		    @Override
+		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+		        expandMemory.put(comp.getClass(), newValue);
+		    }
+		});
+		if(!expandMemory.containsKey(comp.getClass()))
+			expandMemory.put(comp.getClass(), false);
+		compPane.setExpanded(expandMemory.get(comp.getClass()));
+
 		compPane.setAnimated(false);
 		compPane.setText(comp.getClass().getSimpleName());
 		VBox compDetail = new VBox();

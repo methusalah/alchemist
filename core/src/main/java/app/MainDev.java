@@ -1,6 +1,5 @@
 package app;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,7 +18,6 @@ import model.ES.component.motion.physic.Dragging;
 import model.ES.component.motion.physic.Physic;
 import model.ES.component.relation.AbilityTriggerList;
 import model.ES.component.relation.Attackable;
-import model.ES.component.relation.Parenting;
 import model.ES.component.relation.PlanarHolding;
 import model.ES.component.shipGear.Attrition;
 import model.ES.component.shipGear.ProjectileLauncher;
@@ -83,9 +81,7 @@ import view.drawingProcessors.VelocityVisualisationProc;
 import view.material.MaterialManager;
 
 import com.google.common.eventbus.Subscribe;
-import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
-import com.simsilica.es.EntityId;
 
 import controller.Controller;
 import controller.cameraManagement.ChasingCameraProc;
@@ -102,6 +98,7 @@ public class MainDev extends CosmoVania {
 
 	@Override
 	public void simpleInitApp() {
+		LogUtil.init();
 		MaterialManager.setAssetManager(assetManager);
 
 		stateManager.attach(new TopdownCtrl());
@@ -126,7 +123,7 @@ public class MainDev extends CosmoVania {
 		stateManager.attach(new CollisionResolutionProc());
 		// relations	
 		stateManager.attach(new BoneHoldingProc());
-		stateManager.attach(new ChasingCameraProc(stateManager.getState(TopdownCtrl.class).getCameraManager()));
+		stateManager.attach(new ChasingCameraProc(getCamera()));
 		stateManager.attach(new PlanarHoldingProc());
 		stateManager.attach(new ParticleThrusterProc());
 		stateManager.attach(new LightThrusterProc());
@@ -162,7 +159,7 @@ public class MainDev extends CosmoVania {
 		EntityData ed = stateManager.getState(EntityDataAppState.class).getEntityData();
 		BlueprintCreator.setEntityData(ed);
 		
-		serialiseBluePrints();
+		//serialiseBluePrints();
 		
 		EventManager.register(this);
 		

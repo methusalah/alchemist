@@ -70,7 +70,6 @@ public abstract class PropertyEditor extends BorderPane {
 	protected abstract void setPropertyValue(Object o);
 	
 	protected void setChanged(ActionEvent event){
-		LogUtil.info("setchanged");
 		EventManager.post(new ComponentPropertyChanged(comp, pd.getName(), getPropertyValue()));
 	}
 }

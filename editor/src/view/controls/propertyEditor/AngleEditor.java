@@ -37,7 +37,7 @@ public class AngleEditor extends PropertyEditor{
 
 	@Override
 	protected Object getPropertyValue() {
-		return new Angle(knob.getOrientation());
+		return new Angle(AngleUtil.toRadians(knob.getOrientation()));
 	}
 
 	@Override

@@ -1,7 +1,5 @@
 package controller.entityAppState;
 
-import util.LogUtil;
-
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -20,6 +18,10 @@ public class EntityDataAppState extends AbstractAppState {
     
     public EntityDataAppState() {
         entityData = new DefaultEntityData();
+    }
+
+    public EntityDataAppState(EntityData entityData) {
+        this.entityData = entityData;
     }
     
     @Override

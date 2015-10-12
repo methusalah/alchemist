@@ -96,4 +96,8 @@ public class Inspector {
 	public List<EntityComponent> getComponents() {
 		return comps;
 	}
+
+	public EntityId getEid() {
+		return eid;
+	}
 }

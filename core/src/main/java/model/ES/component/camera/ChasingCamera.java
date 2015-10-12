@@ -19,4 +19,21 @@ public class ChasingCamera implements EntityComponent {
 		this.acceleration = acceleration;
 		this.deceleration = deceleration;
 	}
+
+	public double getMaxSpeed() {
+		return maxSpeed;
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public double getAcceleration() {
+		return acceleration;
+	}
+
+	public double getDeceleration() {
+		return deceleration;
+	}
+	
 }

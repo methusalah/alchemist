@@ -44,6 +44,5 @@ public class NeededRotationProc extends Processor {
 		sb.append("    needed rotation : "+ AngleUtil.toDegrees(neededRotation.angle) + System.lineSeparator());
 		sb.append("    rotation capacity : " + AngleUtil.toDegrees(possibleRotation) + " (rotation speed : "+ AngleUtil.toDegrees(capacity.maxRotationSpeed) + ")" + System.lineSeparator());
 		sb.append("    new orientation : " + AngleUtil.toDegrees(newStance.orientation) + System.lineSeparator());
-		app.getDebugger().add(sb.toString());
 	}
 }
