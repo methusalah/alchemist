@@ -35,7 +35,7 @@ public class ThrusterProc extends Processor {
 	private void manage(Entity e, float elapsedTime) {
 		Thruster thruster = e.get(Thruster.class);
 		Parenting parenting = e.get(Parenting.class);
-		EntityId holder = parenting.parent;
+		EntityId holder = parenting.getParent();
 
 		PlanarNeededThrust thrust = entityData.getComponent(holder, PlanarNeededThrust.class);
 		PlanarStance stance = entityData.getComponent(holder, PlanarStance.class);

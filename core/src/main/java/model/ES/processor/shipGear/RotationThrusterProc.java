@@ -39,7 +39,7 @@ public class RotationThrusterProc extends Processor {
 	private void manage(Entity e, float elapsedTime) {
 		RotationThruster thruster = e.get(RotationThruster.class);
 		Parenting parenting = e.get(Parenting.class);
-		EntityId holder = parenting.parent;
+		EntityId holder = parenting.getParent();
 		
 		PlanarNeededRotation rotation = entityData.getComponent(holder, PlanarNeededRotation.class);
 		double activationRate = 0;

@@ -2,6 +2,7 @@ package model;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.system.AppSettings;
 import com.jme3x.jfx.injfx.JmeForImageView;
 import com.simsilica.es.base.DefaultEntityData;
 
@@ -140,8 +141,19 @@ public class Model {
 		
 		jme = new JmeForImageView();
 		jme.enqueue((app) -> createScene(app, ed));
+		jme.enqueue((app) -> setFPS(app));
 	}
 	
+	static boolean setFPS(SimpleApplication app){
+		AppSettings settings = new AppSettings(false);
+		settings.setFullscreen(false);
+		settings.setUseInput(false);
+		settings.setFrameRate(0);
+		settings.setCustomRenderer(com.jme3x.jfx.injfx.JmeContextOffscreenSurface.class);
+		app.setSettings(settings);
+		app.restart();
+		return true;
+	}
 	static boolean createScene(SimpleApplication app, DefaultEntityData ed) {
 		AppStateManager stateManager = app.getStateManager();
 		

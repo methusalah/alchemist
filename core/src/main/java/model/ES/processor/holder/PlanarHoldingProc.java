@@ -38,7 +38,7 @@ public class PlanarHoldingProc extends Processor {
 		PlanarHolding holded = e.get(PlanarHolding.class);
 		Parenting parenting = e.get(Parenting.class);
 		
-		PlanarStance stance = entityData.getComponent(parenting.parent, PlanarStance.class);
+		PlanarStance stance = entityData.getComponent(parenting.getParent(), PlanarStance.class);
 		if(stance == null){
 			entityData.removeEntity(e.getId());
 		} else {
@@ -57,7 +57,7 @@ public class PlanarHoldingProc extends Processor {
 		PlanarHolding holded = e.get(PlanarHolding.class);
 		Parenting parenting = e.get(Parenting.class);
 
-		PlanarStance stance = entityData.getComponent(parenting.parent, PlanarStance.class);
+		PlanarStance stance = entityData.getComponent(parenting.getParent(), PlanarStance.class);
 		Point2D newCoord = holded.localPosition.get2D().getRotation(stance.orientation);
 		newCoord = newCoord.getAddition(stance.coord);
 		double newOrientation = AngleUtil.normalize(stance.orientation + holded.localOrientation);

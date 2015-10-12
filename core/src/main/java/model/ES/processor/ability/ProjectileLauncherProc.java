@@ -57,13 +57,13 @@ public class ProjectileLauncherProc extends Processor {
 			entityData.setComponent(firing, new MotionCapacity(7, 0, 1, 0, 0));
 			entityData.setComponent(firing, new PlanarVelocityToApply(Point2D.UNIT_X.getRotation(orientation)));
 			entityData.setComponent(firing, new Model("human/hmissileT1/hmissileT1_02.mesh.xml", 0.0025, new Angle(0), new Angle(AngleUtil.toRadians(-90)), new Angle(0)));
-			entityData.setComponent(firing, new Physic(Point2D.ORIGIN, new PhysicStat("Missile", 0.1, new CollisionShape(0.1), 0, "Missile"), p.parent));
+			entityData.setComponent(firing, new Physic(Point2D.ORIGIN, new PhysicStat("Missile", 0.1, new CollisionShape(0.1), 0, "Missile"), p.getParent()));
 			entityData.setComponent(firing, new DestroyedOnTouch());
 			entityData.setComponent(firing, new ShockwaveOnTouch(100, 2, 10));
 			entityData.setComponent(firing, new EffectOnTouch());
 			entityData.setComponent(firing, new DamageOnTouch(new Damage(1)));
 			entityData.setComponent(firing, new LifeTime(System.currentTimeMillis(), 1000));
-			entityData.setComponent(firing, new Projectile(p.parent, stance.coord));
+			entityData.setComponent(firing, new Projectile(p.getParent(), stance.coord));
 			
 			Cooldown cd = e.get(Cooldown.class);
 			setComp(e, new Cooldown(System.currentTimeMillis(), cd.duration));

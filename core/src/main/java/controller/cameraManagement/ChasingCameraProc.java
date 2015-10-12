@@ -41,7 +41,7 @@ public class ChasingCameraProc extends Processor {
 		PlanarStance stance = e.get(PlanarStance.class);
 		ChasingCamera chasing = e.get(ChasingCamera.class);
 		Parenting parenting = e.get(Parenting.class);
-		PlanarStance targetStance = entityData.getComponent(parenting.parent, PlanarStance.class);
+		PlanarStance targetStance = entityData.getComponent(parenting.getParent(), PlanarStance.class);
 		
 		Point2D toTarget = targetStance.coord.getSubtraction(stance.coord);
 		

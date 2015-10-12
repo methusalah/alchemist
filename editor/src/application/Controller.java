@@ -1,7 +1,13 @@
 package application;
 
 import com.google.common.eventbus.Subscribe;
+import com.jme3.cinematic.TimeLine;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.util.Duration;
 import model.Model;
 import util.event.ComponentPropertyChanged;
 import util.event.EntityCreationEvent;
@@ -21,6 +27,18 @@ public class Controller {
 		
 		view.hierarchyView.update(model.hierarchy.baseNodes);
 		EventManager.register(this);
+	
+		Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+
+		    @Override
+		    public void handle(ActionEvent event) {
+		    	if(model.inspector.getComponents()!= null){
+		    		model.inspector.inspect(model.inspector.getEid());
+		    		view.inspectorView.inspectSameEntity(model.inspector.getComponents());
+		    	}
+		    }
+		}));
+		fiveSecondsWonder.play();
 	}
 	
 	@Subscribe

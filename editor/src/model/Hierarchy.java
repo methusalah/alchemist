@@ -42,7 +42,7 @@ public class Hierarchy {
 		if(parenting == null){
 			baseNodes.add(n);
 		} else {
-			allNodes.get(parenting.parent).children.add(new EntityNode(eid, naming.name));
+			allNodes.get(parenting.getParent()).children.add(new EntityNode(eid, naming.name));
 		}
 	}
 	

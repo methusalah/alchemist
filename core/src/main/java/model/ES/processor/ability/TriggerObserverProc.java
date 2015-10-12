@@ -20,7 +20,7 @@ public class TriggerObserverProc extends Processor {
 		for(Entity e : sets.get(0)){
 			Trigger t = e.get(Trigger.class);
 			Parenting p = e.get(Parenting.class);
-			AbilityTriggerList parentTriggers = entityData.getComponent(p.parent, AbilityTriggerList.class);
+			AbilityTriggerList parentTriggers = entityData.getComponent(p.getParent(), AbilityTriggerList.class);
 			if(parentTriggers.triggers.containsKey(t.name) && parentTriggers.triggers.get(t.name))
 				setComp(e, new Trigger(t.name, true));
 			else
