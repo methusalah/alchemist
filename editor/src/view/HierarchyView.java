@@ -1,8 +1,6 @@
 package view;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,12 +15,13 @@ import model.EntityNode;
 import util.event.EntityCreationEvent;
 import util.event.EntitySelectionChanged;
 import util.event.EventManager;
+import view.controls.EntityNodeItem;
 
 public class HierarchyView extends VBox{
 	TreeView<EntityNode> tree;
-	private Map<EntityNode, Boolean> expandMemory = new HashMap<>();
-	private EntityNode selectionMemory;
-	
+
+	EntityNodeItem toSelect;
+
 	
 	public HierarchyView() {
 		setPrefWidth(300);
@@ -54,60 +53,26 @@ public class HierarchyView extends VBox{
 			public void changed(ObservableValue<? extends TreeItem<EntityNode>> observable, TreeItem<EntityNode> oldValue, TreeItem<EntityNode> newValue) {
 				if(newValue.getValue() != null)
 					EventManager.post(new EntitySelectionChanged(newValue.getValue().parent));
-				selectionMemory = newValue.getValue();
+				UIConfig.selectedEntityNode = newValue.getValue();
 			}
-	      });
-		TreeItem<EntityNode> root = new TreeItem<EntityNode>();
-		tree.setRoot(root);
+		});
+		EntityNodeItem root = new EntityNodeItem(null);
 		root.setExpanded(true);
+		toSelect = null;
 		for(EntityNode n : nodes)
 			addItem(root, n);
+		tree.setRoot(root);
+		if(toSelect != null)
+			tree.getSelectionModel().select(toSelect);
 	}
 	
-//	public void updateNames(){
-//		updateName(tree.getRoot());
-//	}
-//	
-//	private void updateName(TreeItem<EntityNode> node){
-//		EntityNode en = node.getValue();
-//		node.setValue(null);
-//		node.setValue(en);
-//		for(TreeItem<EntityNode> child : node.getChildren())
-//			updateName(child);
-//	}
-	
-	private void addItem(TreeItem<EntityNode> parentItem, EntityNode node){
-		TreeItem<EntityNode> item = new TreeItem<EntityNode>(node);
-		
-		// We ask the item to register the expand value at event in a memory
-		// to expand the tree in the same way next time it will be refresh
-		item.valueProperty().addListener(new ChangeListener<EntityNode>() {
-
-			@Override
-			public void changed(
-					ObservableValue<? extends EntityNode> observable, EntityNode oldValue, EntityNode newValue) {
-				item.setValue(null);
-				item.setValue(newValue);
-			}
-		});
-		
-		item.expandedProperty().addListener(new ChangeListener<Boolean>() {
-		    @Override
-		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-		        expandMemory.put(node, newValue);
-		    }
-		});
-		if(!expandMemory.containsKey(node))
-			expandMemory.put(node, false);
-		item.setExpanded(expandMemory.get(node));
-		
-		
-		parentItem.getChildren().add(item);
-		if(node == selectionMemory)
-			tree.getSelectionModel().select(item);
+	private void addItem(EntityNodeItem parent, EntityNode node){
+		EntityNodeItem i = new EntityNodeItem(node);
+		parent.getChildren().add(i);
+		if(node == UIConfig.selectedEntityNode)
+			toSelect = i;
 		for(EntityNode childNode : node.children){
-			addItem(item, childNode);
-			
+			addItem(i, childNode);
 		}
 	}
 

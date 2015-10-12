@@ -45,22 +45,22 @@ public class ChasingCameraProc extends Processor {
 		
 		Point2D toTarget = targetStance.coord.getSubtraction(stance.coord);
 		
-		double minBrakingDistance = (chasing.speed*chasing.speed)/(chasing.deceleration*2);
+		double minBrakingDistance = (chasing.getSpeed()*chasing.getSpeed())/(chasing.getDeceleration()*2);
 
 		double newSpeed;
 		if(minBrakingDistance >= toTarget.getLength())
 			// deceleration
-			newSpeed = Math.max(0, chasing.speed-chasing.deceleration*elapsedTime);
+			newSpeed = Math.max(0, chasing.getSpeed()-chasing.getDeceleration()*elapsedTime);
 		else
 			// acceleration
-			newSpeed = Math.min(chasing.maxSpeed, chasing.speed+chasing.acceleration*elapsedTime);
+			newSpeed = Math.min(chasing.getMaxSpeed(), chasing.getSpeed()+chasing.getAcceleration()*elapsedTime);
 			
 		toTarget = toTarget.getScaled(newSpeed*elapsedTime);
 		
 		Point2D newCoord = stance.coord.getAddition(toTarget);
 		
 		
-		setComp(e, new ChasingCamera(chasing.maxSpeed, newSpeed, chasing.acceleration, chasing.deceleration));
+		setComp(e, new ChasingCamera(chasing.getMaxSpeed(), newSpeed, chasing.getAcceleration(), chasing.getDeceleration()));
 		setComp(e, new PlanarStance(newCoord, stance.orientation, stance.elevation, stance.upVector));
 		
 		cam.setLocation(TranslateUtil.toVector3f(newCoord.get3D(stance.elevation)));

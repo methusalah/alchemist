@@ -1,6 +1,9 @@
 {
   "name" : "sun light",
   "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "sun light"
+  }, {
     "class" : "model.ES.component.visuals.Lighting",
     "color" : {
       "a" : 255,

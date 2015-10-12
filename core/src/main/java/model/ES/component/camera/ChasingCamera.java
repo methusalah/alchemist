@@ -10,6 +10,9 @@ public class ChasingCamera implements EntityComponent {
 	public final double acceleration;
 	public final double deceleration;
 	
+	public ChasingCamera(){
+		this(0, 0, 0, 0);
+	}
 	public ChasingCamera(@JsonProperty("maxSpeed")double maxSpeed,
 			@JsonProperty("speed")double speed,
 			@JsonProperty("acceleration")double acceleration,

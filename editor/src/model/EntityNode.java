@@ -12,9 +12,7 @@ import util.LogUtil;
 
 public class EntityNode implements ObservableObjectValue<EntityNode>{
 	List<ChangeListener<? super EntityNode>> changeListeners = new ArrayList<>();
-	List<InvalidationListener> InvalidationListeners = new ArrayList<>();
-	
-	
+
 	public EntityId parent;
 	private String name; 
 	public List<EntityNode> children = new ArrayList<>();
@@ -28,11 +26,6 @@ public class EntityNode implements ObservableObjectValue<EntityNode>{
 		this.name = name;
 		for(ChangeListener<? super EntityNode> l : changeListeners)
 			l.changed(this, null, this);
-		
-		for(InvalidationListener l : InvalidationListeners){
-			l.invalidated(this);
-			LogUtil.info("eventing");
-		}
 	}
 	
 	public String getName() {
@@ -61,14 +54,10 @@ public class EntityNode implements ObservableObjectValue<EntityNode>{
 
 	@Override
 	public void addListener(InvalidationListener arg0) {
-		LogUtil.info("register");
-		
-		InvalidationListeners.add(arg0);
 	}
 
 	@Override
 	public void removeListener(InvalidationListener arg0) {
-		InvalidationListeners.remove(arg0);
 	}
 
 	@Override

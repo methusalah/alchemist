@@ -53,7 +53,7 @@ public class Inspector {
 		// we serialize the whole component into a jsontree, change the value in the tree, then
 		// deserialize in a new component, that we will be able to attach to entity the proper way
 		ObjectMapper mapper = new ObjectMapper();
-		JsonNode n = mapper.valueToTree(comp);
+		JsonNode n = mapper.valueToTree(entityData.getComponent(eid, comp.getClass()));
 		Iterator<Entry<String, JsonNode>> i = n.fields();
 		while (i.hasNext()) {
 			Entry<String, JsonNode> entry = (Entry<String, JsonNode>) i.next();

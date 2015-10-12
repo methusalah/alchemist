@@ -55,19 +55,20 @@ public abstract class PropertyEditor extends BorderPane {
 			setAlignment(getBottom(), Pos.CENTER_LEFT);
 		if(getRight()!=null)
 			setAlignment(getRight(), Pos.CENTER_LEFT);
-
-		try {
-			setPropertyValue(pd.getReadMethod().invoke(comp, new Object[0]));
-		} catch (IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		updateValue(comp);
 	}
 	
 	protected abstract void createEditor();
 	protected abstract Object getPropertyValue();
 	protected abstract void setPropertyValue(Object o);
+	
+	public void updateValue(EntityComponent comp){
+		try {
+			setPropertyValue(pd.getReadMethod().invoke(comp, new Object[0]));
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	protected void setChanged(ActionEvent event){
 		EventManager.post(new ComponentPropertyChanged(comp, pd.getName(), getPropertyValue()));
