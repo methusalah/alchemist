@@ -46,7 +46,7 @@ public class PlacingModelProc extends Processor {
 		// rotation
 		Quaternion r = new Quaternion();
 		Point3D pu = stance.upVector;
-		Point3D pv = Point3D.UNIT_X.getRotationAroundZ(stance.orientation);
+		Point3D pv = Point3D.UNIT_X.getRotationAroundZ(stance.orientation.getValue());
 		Vector3f u = TranslateUtil.toVector3f(pu).normalize();
 		Vector3f v = TranslateUtil.toVector3f(pv).normalize();
 		r.lookAt(v, u);

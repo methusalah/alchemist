@@ -3,6 +3,7 @@ package model.ES.processor.command;
 import model.ES.component.command.PlanarNeededRotation;
 import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
+import util.math.Angle;
 import util.math.AngleUtil;
 
 import com.simsilica.es.Entity;
@@ -35,14 +36,9 @@ public class NeededRotationProc extends Processor {
 		maxRotation = Math.min(Math.abs(neededRotation.angle), maxRotation);
 		double possibleRotation = maxRotation*Math.signum(neededRotation.angle);
 		
-		PlanarStance newStance = new PlanarStance(stance.coord, stance.orientation + possibleRotation, stance.elevation, stance.upVector);
+		PlanarStance newStance = new PlanarStance(stance.coord, new Angle(stance.orientation.getValue() + possibleRotation), stance.elevation, stance.upVector);
 		
 		setComp(e, newStance);
 		removeComp(e, PlanarNeededRotation.class);
-		
-		StringBuilder sb = new StringBuilder(this.getClass().getSimpleName() + System.lineSeparator());
-		sb.append("    needed rotation : "+ AngleUtil.toDegrees(neededRotation.angle) + System.lineSeparator());
-		sb.append("    rotation capacity : " + AngleUtil.toDegrees(possibleRotation) + " (rotation speed : "+ AngleUtil.toDegrees(capacity.maxRotationSpeed) + ")" + System.lineSeparator());
-		sb.append("    new orientation : " + AngleUtil.toDegrees(newStance.orientation) + System.lineSeparator());
 	}
 }

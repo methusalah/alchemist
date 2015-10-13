@@ -1,6 +1,7 @@
 package model.ES.component.visuals;
 
 import model.ES.richData.ColorData;
+import util.math.Fraction;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
@@ -12,7 +13,7 @@ public class Lighting implements EntityComponent {
 	public final double innerAngle;
 	public final double outerAngle;
 	public final boolean shadowCaster;
-	public final double activationRate;
+	public final Fraction activation;
 	
 	public Lighting(@JsonProperty("color")ColorData color,
 			@JsonProperty("intensity")double intensity,
@@ -20,14 +21,14 @@ public class Lighting implements EntityComponent {
 			@JsonProperty("innerAngle")double innerAngle,
 			@JsonProperty("outerAngle")double outerAngle,
 			@JsonProperty("shadowCaster")boolean shadowCaster,
-			@JsonProperty("activationRate")double activationRate) {
+			@JsonProperty("activation")Fraction activation) {
 		this.color = color;
 		this.intensity = intensity;
 		this.distance = distance;
 		this.innerAngle = innerAngle;
 		this.outerAngle = outerAngle;
 		this.shadowCaster = shadowCaster;
-		this.activationRate = activationRate;
+		this.activation = activation;
 	}
 
 	public ColorData getColor() {
@@ -54,7 +55,7 @@ public class Lighting implements EntityComponent {
 		return shadowCaster;
 	}
 
-	public double getActivationRate() {
-		return activationRate;
+	public Fraction getActivation() {
+		return activation;
 	}
 }

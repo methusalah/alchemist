@@ -96,7 +96,7 @@ public class ParticleCasterInPlaneProc extends Processor {
 		if(e.get(PlanarStance.class) != null){
 			PlanarStance stance = e.get(PlanarStance.class);
 			pos = stance.coord.get3D(stance.elevation);
-			velocity = Point3D.UNIT_X.getRotationAroundZ(stance.orientation);
+			velocity = Point3D.UNIT_X.getRotationAroundZ(stance.orientation.getValue());
 		} else if(e.get(SpaceStance.class) != null){ 
 			SpaceStance stance = e.get(SpaceStance.class);
 			pos = stance.position;

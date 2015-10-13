@@ -13,6 +13,7 @@ import model.ES.component.relation.Parenting;
 import model.ES.component.relation.PlanarHolding;
 import model.ES.component.shipGear.Thruster;
 import util.math.AngleUtil;
+import util.math.Fraction;
 
 public class ThrusterProc extends Processor {
 
@@ -38,14 +39,14 @@ public class ThrusterProc extends Processor {
 		PlanarStance stance = entityData.getComponent(holder, PlanarStance.class);
 		double activationRate = 0;
 		if(thrust != null && !thrust.getDirection().isOrigin()){
-			double diff = AngleUtil.getSmallestDifference(thrust.getDirection().getAngle()-stance.orientation, thruster.direction.get2D().getAngle());
-			if(diff <= thruster.activationAngle){
+			double diff = AngleUtil.getSmallestDifference(thrust.getDirection().getAngle()-stance.orientation.getValue(), thruster.direction.get2D().getAngle());
+			if(diff <= thruster.activationAngle.getValue()){
 				activationRate = 1;
 				if(!thruster.onOff)
-					activationRate = 1-(diff/thruster.activationAngle);
+					activationRate = 1-(diff/thruster.activationAngle.getValue());
 			}
 		}
-		setComp(e, new Thruster(thruster.direction, thruster.activationAngle, activationRate, thruster.onOff));
+		setComp(e, new Thruster(thruster.direction, thruster.activationAngle, new Fraction(activationRate), thruster.onOff));
 	}
 
 }

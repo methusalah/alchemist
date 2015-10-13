@@ -2,6 +2,11 @@ package app;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import model.ES.component.Cooldown;
 import model.ES.component.Naming;
@@ -60,7 +65,6 @@ import model.ES.processor.shipGear.LightThrusterProc;
 import model.ES.processor.shipGear.ParticleThrusterProc;
 import model.ES.processor.shipGear.RotationThrusterProc;
 import model.ES.processor.shipGear.ThrusterProc;
-import model.ES.richData.Angle;
 import model.ES.richData.CollisionShape;
 import model.ES.richData.ColorData;
 import model.ES.richData.ParticleCaster;
@@ -73,7 +77,9 @@ import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
+import util.math.Angle;
 import util.math.AngleUtil;
+import util.math.Fraction;
 import view.drawingProcessors.LightProc;
 import view.drawingProcessors.ModelProc;
 import view.drawingProcessors.ParticleCasterInPlaneProc;
@@ -91,6 +97,8 @@ import controller.topdown.TopdownCtrl;
 
 public class MainGame extends CosmoVania {
 	private Controller currentAppState;
+	private Thread logicThread;
+	public EntityData ed;
 	
 	public static void main(String[] args) {
 		LogUtil.init();
@@ -112,53 +120,56 @@ public class MainGame extends CosmoVania {
 		stateManager.attach(new PlayerRotationControlProc());
 		stateManager.attach(new PlayerThrustControlProc());
 //		stateManager.attach(new PlayerOrthogonalThrustControlProc());
-		stateManager.attach(new RotationThrusterProc());
-		stateManager.attach(new ThrusterProc());
-		// forces
-		stateManager.attach(new NeededRotationProc());
-		stateManager.attach(new NeededThrustProc());
-		stateManager.attach(new DraggingProc());
-		stateManager.attach(new PhysicForceProc());
-		stateManager.attach(new VelocityApplicationProc());
-		// collisions
-		stateManager.attach(new CollisionProc());
-		stateManager.attach(new CollisionResolutionProc());
-		// relations	
-		stateManager.attach(new BoneHoldingProc());
+
+//		stateManager.attach(new RotationThrusterProc());
+//		stateManager.attach(new ThrusterProc());
+//		// forces
+//		stateManager.attach(new NeededRotationProc());
+//		stateManager.attach(new NeededThrustProc());
+//		stateManager.attach(new DraggingProc());
+//		stateManager.attach(new PhysicForceProc());
+//		stateManager.attach(new VelocityApplicationProc());
+//		// collisions
+//		stateManager.attach(new CollisionProc());
+//		stateManager.attach(new CollisionResolutionProc());
+//		// relations	
+//		stateManager.attach(new BoneHoldingProc());
+//		stateManager.attach(new ChasingCameraProc(getCamera()));
+//		stateManager.attach(new PlanarHoldingProc());
+//		stateManager.attach(new ParticleThrusterProc());
+//		stateManager.attach(new LightThrusterProc());
+//		
+//		// ability
+//		stateManager.attach(new PlayerAbilityControlProc());
+//		stateManager.attach(new BehaviorTreeProc());
+//		stateManager.attach(new TriggerObserverProc());
+//		stateManager.attach(new AbilityTriggerResetProc());
+//		stateManager.attach(new TriggerCancelationProc());
+//		stateManager.attach(new TriggerRepeaterProc());
+//		
+//		stateManager.attach(new ProjectileLauncherProc());
+//
+//		stateManager.attach(new DamagingProc());
+//		stateManager.attach(new AttritionProc());
+//
+//		stateManager.attach(new SightProc());
+//		
+//		stateManager.attach(new EffectOnTouchProc());
+//		stateManager.attach(new DamageOnTouchProc());
+//		stateManager.attach(new DestroyedOnTouchProc());
+//		stateManager.attach(new ShockwaveOnTouchProc());
+//		
+//		stateManager.attach(new LifeTimeProc());
+//		stateManager.attach(new RemoveProc());
+//		
 		stateManager.attach(new ChasingCameraProc(getCamera()));
-		stateManager.attach(new PlanarHoldingProc());
-		stateManager.attach(new ParticleThrusterProc());
-		stateManager.attach(new LightThrusterProc());
 		stateManager.attach(new ParticleCasterInPlaneProc());
-		
-		// ability
-		stateManager.attach(new PlayerAbilityControlProc());
-		stateManager.attach(new BehaviorTreeProc());
-		stateManager.attach(new TriggerObserverProc());
-		stateManager.attach(new AbilityTriggerResetProc());
-		stateManager.attach(new TriggerCancelationProc());
-		stateManager.attach(new TriggerRepeaterProc());
-		
-		stateManager.attach(new ProjectileLauncherProc());
-
-		stateManager.attach(new DamagingProc());
-		stateManager.attach(new AttritionProc());
-
-		stateManager.attach(new SightProc());
-		
 		stateManager.attach(new ModelProc());
 		stateManager.attach(new PlacingModelProc());
 		stateManager.attach(new LightProc());
 		stateManager.attach(new VelocityVisualisationProc());
-		stateManager.attach(new EffectOnTouchProc());
-		stateManager.attach(new DamageOnTouchProc());
-		stateManager.attach(new DestroyedOnTouchProc());
-		stateManager.attach(new ShockwaveOnTouchProc());
-		
-		stateManager.attach(new LifeTimeProc());
-		stateManager.attach(new RemoveProc());
-		
-		EntityData ed = stateManager.getState(EntityDataAppState.class).getEntityData();
+
+		ed = stateManager.getState(EntityDataAppState.class).getEntityData();
 		BlueprintCreator.setEntityData(ed);
 		
 		serialiseBluePrints();
@@ -168,6 +179,18 @@ public class MainGame extends CosmoVania {
 		BlueprintCreator.create("player ship", null);
 		BlueprintCreator.create("enemy", null);
 		BlueprintCreator.create("sun", null);
+		
+		//create the Thread for the game logic
+//        scheduler = Executors.newSingleThreadScheduledExecutor();
+//        ScheduledFuture<?> handle = scheduler.scheduleAtFixedRate(new LogicThread(this), 0, 20, TimeUnit.MILLISECONDS);
+//        try {
+//        	handle.get();
+//        } catch (ExecutionException | InterruptedException e) {
+//        	e.printStackTrace();
+//        	//Exception rootException = (Exception) e.getCause();
+//        }
+		logicThread = new Thread(new LogicThread(this));
+		logicThread.start();
 	}
 
 	@Override
@@ -257,23 +280,23 @@ public class MainGame extends CosmoVania {
 		// sun light
 		bp = new Blueprint("sun");
 		bp.add(new Naming("Sun"));
-		bp.add(new Lighting(new ColorData(255, 255, 255, 255), 1.5, Double.POSITIVE_INFINITY, 0, 0, true, 1));
+		bp.add(new Lighting(new ColorData(255, 255, 255, 255), 1.5, Double.POSITIVE_INFINITY, 0, 0, true, new Fraction(1)));
 		bp.add(new SpaceStance(Point3D.ORIGIN, new Point3D(-1, -1, -3)));
 		BlueprintLibrary.save(bp);
 
 		// rotation thrusters
 		bp = new Blueprint("rotation thruster 1");
 		bp.add(new Naming("rotation thruster 1"));
-		bp.add(new PlanarHolding(new Point3D(0.5, 0.2, 0), -AngleUtil.toRadians(20)));
-		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		bp.add(new PlanarHolding(new Point3D(0.5, 0.2, 0), new Angle(-AngleUtil.toRadians(20))));
+		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new RotationThruster(true, AngleUtil.toRadians(5), 0, false));
 		bp.add(new ParticleCasting(getCaster1(), getCaster1().perSecond));
 		BlueprintLibrary.save(bp);
 
 		bp = new Blueprint("rotation thruster 2");
 		bp.add(new Naming("rotation thruster 2"));
-		bp.add(new PlanarHolding(new Point3D(0.5, -0.2, 0), -AngleUtil.toRadians(20)));
-		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		bp.add(new PlanarHolding(new Point3D(0.5, -0.2, 0), new Angle(-AngleUtil.toRadians(20))));
+		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new RotationThruster(false, AngleUtil.toRadians(-5), 0, false));
 		bp.add(new ParticleCasting(getCaster1(), getCaster1().perSecond));
 		BlueprintLibrary.save(bp);
@@ -281,53 +304,53 @@ public class MainGame extends CosmoVania {
 		// main thruster
 		bp = new Blueprint("rear thruster");
 		bp.add(new Naming("rear thruster"));
-		bp.add(new PlanarHolding(new Point3D(-0.7, 0, 0), AngleUtil.FLAT));
-		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		bp.add(new Thruster(new Point3D(1, 0, 0), AngleUtil.toRadians(90), 0, false));
+		bp.add(new PlanarHolding(new Point3D(-0.7, 0, 0), new Angle(AngleUtil.FLAT)));
+		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
+		bp.add(new Thruster(new Point3D(1, 0, 0), new Angle(AngleUtil.toRadians(90)), new Fraction(0), false));
 		bp.add(new ParticleCasting(getCaster2(), getCaster2().perSecond));
-		bp.add(new Lighting(new ColorData(255, 255, 150, 150), 3, 6, AngleUtil.toRadians(10), AngleUtil.toRadians(60), false, 0));
+		bp.add(new Lighting(new ColorData(255, 255, 150, 150), 3, 6, AngleUtil.toRadians(10), AngleUtil.toRadians(60), false, new Fraction(0)));
 		BlueprintLibrary.save(bp);
 
 		// front thrusters
 		bp = new Blueprint("frontal left thruster");
 		bp.add(new Naming("frontal left thruster"));
-		bp.add(new PlanarHolding(new Point3D(0.4, 0.15, 0), AngleUtil.toRadians(20)));
-		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		bp.add(new Thruster(new Point3D(-1, -1, 0), AngleUtil.toRadians(70), 0, true));
+		bp.add(new PlanarHolding(new Point3D(0.4, 0.15, 0), new Angle(AngleUtil.toRadians(20))));
+		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
+		bp.add(new Thruster(new Point3D(-1, -1, 0), new Angle(AngleUtil.toRadians(70)), new Fraction(0), true));
 		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
 		BlueprintLibrary.save(bp);
 
 		bp = new Blueprint("frontal right thruster");
 		bp.add(new Naming("frontal right thruster"));
-		bp.add(new PlanarHolding(new Point3D(0.4, -0.15, 0), AngleUtil.toRadians(-20)));
-		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		bp.add(new Thruster(new Point3D(-1, 1, 0), AngleUtil.toRadians(70), 0, true));
+		bp.add(new PlanarHolding(new Point3D(0.4, -0.15, 0), new Angle(AngleUtil.toRadians(-20))));
+		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
+		bp.add(new Thruster(new Point3D(-1, 1, 0), new Angle(AngleUtil.toRadians(70)), new Fraction(0), true));
 		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
 		BlueprintLibrary.save(bp);
 
 		// lateral thrusters
 		bp = new Blueprint("side left thruster");
 		bp.add(new Naming("side left thruster"));
-		bp.add(new PlanarHolding(new Point3D(-0.34, 0.2, 0), AngleUtil.toRadians(110)));
-		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		bp.add(new Thruster(new Point3D(1, -1.5, 0), AngleUtil.toRadians(50), 0, true));
+		bp.add(new PlanarHolding(new Point3D(-0.34, 0.2, 0), new Angle(AngleUtil.toRadians(110))));
+		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
+		bp.add(new Thruster(new Point3D(1, -1.5, 0), new Angle(AngleUtil.toRadians(50)), new Fraction(0), true));
 		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
 		BlueprintLibrary.save(bp);
 
 		bp = new Blueprint("side right thruster");
 		bp.add(new Naming("side right thruster"));
-		bp.add(new PlanarHolding(new Point3D(-0.34, -0.2, 0), AngleUtil.toRadians(-110)));
-		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
-		bp.add(new Thruster(new Point3D(1, 1.5, 0), AngleUtil.toRadians(50), 0, true));
+		bp.add(new PlanarHolding(new Point3D(-0.34, -0.2, 0), new Angle(AngleUtil.toRadians(-110))));
+		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
+		bp.add(new Thruster(new Point3D(1, 1.5, 0), new Angle(AngleUtil.toRadians(50)), new Fraction(0), true));
 		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
 		BlueprintLibrary.save(bp);
 		
 		// enemy
 		bp = new Blueprint("enemy");
 		bp.add(new Naming("enemy"));
-		bp.add(new PlanarStance(new Point2D(10, 10), 0, 0, Point3D.UNIT_Z));
+		bp.add(new PlanarStance(new Point2D(10, 10), new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, new Angle(0), new Angle(AngleUtil.toRadians(-90)), new Angle(0)));
-		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), 0.8), null));
+		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), new Fraction(0.8)), null));
 		bp.add(new Dragging(0.1));
 		bp.add(new MotionCapacity(2, AngleUtil.toRadians(300), 3, 0.1, 0.1));
 		bp.add(new PlanarVelocityToApply(Point2D.ORIGIN));
@@ -345,45 +368,45 @@ public class MainGame extends CosmoVania {
 		// enemy weapon
 		bp = new Blueprint("enemy weapon");
 		bp.add(new Naming("enemy weapon"));
-		bp.add(new PlanarHolding(new Point3D(0, -0.3, 0), 0));
-		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		bp.add(new PlanarHolding(new Point3D(0, -0.3, 0), new Angle(0)));
+		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Cooldown(0, 1000));
 		bp.add(new TriggerRepeater(300, 60, 10, 0, 0));
 		bp.add(new Trigger("gun", false));
-		bp.add(new ProjectileLauncher(AngleUtil.toRadians(10)));
+		bp.add(new ProjectileLauncher(new Fraction(0.97)));
 		BlueprintLibrary.save(bp);
 
 		// player weapons
 		bp = new Blueprint("weapon left");
 		bp.add(new Naming("weapon left"));
-		bp.add(new PlanarHolding(new Point3D(0, 0.3, 0), 0));
-		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		bp.add(new PlanarHolding(new Point3D(0, 0.3, 0), new Angle(0)));
+		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Cooldown(0, 100));
 		bp.add(new Trigger("gun", false));
-		bp.add(new ProjectileLauncher(AngleUtil.toRadians(2)));
+		bp.add(new ProjectileLauncher(new Fraction(0.995)));
 		BlueprintLibrary.save(bp);
 
 		bp = new Blueprint("weapon right");
 		bp.add(new Naming("weapon right"));
-		bp.add(new PlanarHolding(new Point3D(0, -0.3, 0), 0));
-		bp.add(new PlanarStance(Point2D.ORIGIN, 0, 0, Point3D.UNIT_Z));
+		bp.add(new PlanarHolding(new Point3D(0, -0.3, 0), new Angle(0)));
+		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Cooldown(0, 100));
 		bp.add(new Trigger("gun", false));
-		bp.add(new ProjectileLauncher(AngleUtil.toRadians(2)));
+		bp.add(new ProjectileLauncher(new Fraction(0.995)));
 		BlueprintLibrary.save(bp);
 		
 		// front light
 		bp = new Blueprint("front light");
 		bp.add(new Naming("front light"));
-		bp.add(new PlanarHolding(new Point3D(1, 0, 0), 0));
+		bp.add(new PlanarHolding(new Point3D(1, 0, 0), new Angle(0)));
 		bp.add(new SpaceStance(Point3D.ORIGIN, Point3D.ORIGIN));
-		bp.add(new Lighting(new ColorData(255, 255, 255, 255), 4, 6, AngleUtil.toRadians(30), AngleUtil.toRadians(40), false, 1));
+		bp.add(new Lighting(new ColorData(255, 255, 255, 255), 4, 6, AngleUtil.toRadians(30), AngleUtil.toRadians(40), false, new Fraction(1)));
 		BlueprintLibrary.save(bp);
 
 		// camera
 		bp = new Blueprint("camera");
 		bp.add(new Naming("camera"));
-		bp.add(new PlanarStance(new Point2D(1, 1), 0, 25, Point3D.UNIT_Z));
+		bp.add(new PlanarStance(new Point2D(1, 1), new Angle(0), 25, Point3D.UNIT_Z));
 		bp.add(new ChasingCamera(3, 0, 0.5, 0.5));
 		bp.add(new MotionCapacity(1, AngleUtil.toRadians(500), 1, 1, 1));
 		BlueprintLibrary.save(bp);
@@ -391,11 +414,11 @@ public class MainGame extends CosmoVania {
 		bp = new Blueprint("player ship");
 		bp.add(new Naming("player ship"));
 		bp.add(new PlayerControl());
-		bp.add(new PlanarStance(new Point2D(1, 1), 0, 0.5, Point3D.UNIT_Z));
+		bp.add(new PlanarStance(new Point2D(1, 1), new Angle(0), 0.5, Point3D.UNIT_Z));
 		bp.add(new Dragging(0.05));
 		bp.add(new MotionCapacity(3, AngleUtil.toRadians(360), 3, 1.5, 1.5));
 		bp.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, new Angle(0), new Angle(-AngleUtil.RIGHT), new Angle(0)));
-		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), 0.8), null));
+		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), new Fraction(0.8)), null));
 		bp.add(new EffectOnTouch());
 		bp.add(new VelocityViewing());
 		bp.add(new PlanarVelocityToApply(Point2D.ORIGIN));
@@ -415,4 +438,11 @@ public class MainGame extends CosmoVania {
 		bp.add("side right thruster");
 		BlueprintLibrary.save(bp);
 	}
+	
+	@Override
+    public void destroy() {
+        super.destroy();
+        //Shutdown the thread when the game is closed
+        logicThread.interrupt();
+    }
 }

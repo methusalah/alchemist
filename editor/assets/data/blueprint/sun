@@ -16,7 +16,9 @@
     "innerAngle" : 0.0,
     "outerAngle" : 0.0,
     "shadowCaster" : true,
-    "activationRate" : 1.0
+    "activation" : {
+      "value" : 1.0
+    }
   }, {
     "class" : "model.ES.component.motion.SpaceStance",
     "position" : {

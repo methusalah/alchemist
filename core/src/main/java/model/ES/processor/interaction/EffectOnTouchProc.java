@@ -8,6 +8,7 @@ import model.ES.component.visuals.ParticleCasting;
 import model.ES.richData.ColorData;
 import model.ES.richData.ParticleCaster;
 import util.geometry.geom3d.Point3D;
+import util.math.Angle;
 import view.math.TranslateUtil;
 
 import com.simsilica.es.Entity;
@@ -27,7 +28,7 @@ public class EffectOnTouchProc extends Processor {
 		EntityId eid = entityData.createEntity();
 		ParticleCaster caster = getCaster1(); 
 		entityData.setComponent(eid, new ParticleCasting(caster, caster.perSecond));
-		entityData.setComponent(eid, new PlanarStance(e.get(Touching.class).getCoord(), 0, 0.5, Point3D.UNIT_Z));
+		entityData.setComponent(eid, new PlanarStance(e.get(Touching.class).getCoord(), new Angle(0), 0.5, Point3D.UNIT_Z));
 		entityData.setComponent(eid, new LifeTime(System.currentTimeMillis(), 100));
 	}
 

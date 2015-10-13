@@ -8,7 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import model.ES.richData.Angle;
+import util.math.Angle;
 import util.math.AngleUtil;
 import view.controls.Knob;
 

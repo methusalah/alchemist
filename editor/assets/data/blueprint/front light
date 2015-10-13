@@ -10,7 +10,9 @@
       "y" : 0.0,
       "z" : 0.0
     },
-    "localOrientation" : 0.0
+    "localOrientation" : {
+      "value" : 0.0
+    }
   }, {
     "class" : "model.ES.component.motion.SpaceStance",
     "position" : {
@@ -36,7 +38,9 @@
     "innerAngle" : 0.5235987755982988,
     "outerAngle" : 0.6981317007977318,
     "shadowCaster" : false,
-    "activationRate" : 1.0
+    "activation" : {
+      "value" : 1.0
+    }
   } ],
   "children" : [ ]
 }

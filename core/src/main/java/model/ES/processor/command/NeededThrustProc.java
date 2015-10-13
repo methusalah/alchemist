@@ -33,11 +33,11 @@ public class NeededThrustProc extends Processor {
 		PlanarStance stance = e.get(PlanarStance.class);
 		
 		// orient the velocity according to the origin to scale its X and Y components
-		Point2D originalVel = thrust.getDirection().getRotation(-stance.orientation);
+		Point2D originalVel = thrust.getDirection().getRotation(-stance.orientation.getValue());
 		double velX = originalVel.x * (originalVel.x > 0? capacity.thrustPower : capacity.frontalThrustPower);
 		double velY = originalVel.y * capacity.lateralThrustPower;
 		
-		Point2D velocity = new Point2D(velX, velY).getRotation(stance.orientation);
+		Point2D velocity = new Point2D(velX, velY).getRotation(stance.orientation.getValue());
 
 		// adding the thrust velocity to the velocity to apply.
 		PlanarVelocityToApply v = e.get(PlanarVelocityToApply.class);

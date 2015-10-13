@@ -32,11 +32,11 @@ public class FastDodge extends LeafTask<ShipBlackboard> {
 			int direction = RandomUtil.next() > 0.5?1:-1; 
 			bb.data.put(DODGE_ANGLE, AngleUtil.RIGHT*RandomUtil.between(0.8,  1.2)*direction);
 		}
-		double neededRotation = AngleUtil.getAngleFromAtoB(stance.orientation, (double)bb.data.get(DODGE_ANGLE));
+		double neededRotation = AngleUtil.getAngleFromAtoB(stance.orientation.getValue(), (double)bb.data.get(DODGE_ANGLE));
 		if(neededRotation != 0)
 			bb.entityData.setComponent(bb.eid, new PlanarNeededRotation(neededRotation));
 
-		bb.entityData.setComponent(bb.eid, new PlanarNeededThrust(Point2D.UNIT_X.getRotation(stance.orientation)));
+		bb.entityData.setComponent(bb.eid, new PlanarNeededThrust(Point2D.UNIT_X.getRotation(stance.orientation.getValue())));
 		success();
 	}
 

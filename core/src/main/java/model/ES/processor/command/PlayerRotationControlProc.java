@@ -32,10 +32,10 @@ public class PlayerRotationControlProc extends Processor {
 
         		// rotation
         		double neededRotAngle = 0;
-        		Point2D front = stance.coord.getTranslation(stance.orientation, 1);
+        		Point2D front = stance.coord.getTranslation(stance.orientation.getValue(), 1);
         		int turn = AngleUtil.getTurn(stance.coord, front, ModelManager.command.target);
         		if(turn != AngleUtil.NONE){// || angleToTarget != stance.getOrientation()){
-        			double diff = AngleUtil.getSmallestDifference(stance.orientation, angleToTarget);
+        			double diff = AngleUtil.getSmallestDifference(stance.orientation.getValue(), angleToTarget);
         			if(turn >= 0)
         				neededRotAngle = diff;
         			else

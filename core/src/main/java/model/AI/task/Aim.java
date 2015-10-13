@@ -29,7 +29,7 @@ public class Aim extends LeafTask<ShipBlackboard> {
 		
 		Point2D toAim = enemyStance.coord.getAddition(enemyPhysic.velocity);
 		
-		double neededRotation = AngleUtil.getAngleFromAtoB(stance.orientation, toAim.getSubtraction(stance.coord).getAngle());
+		double neededRotation = AngleUtil.getAngleFromAtoB(stance.orientation.getValue(), toAim.getSubtraction(stance.coord).getAngle());
 		if(neededRotation != 0)
 			bb.entityData.setComponent(bb.eid, new PlanarNeededRotation(neededRotation));
 		

@@ -26,7 +26,7 @@ public class ParticleThrusterProc extends Processor {
 		if(rotationThruster != null)
 			activationRate = rotationThruster.activation;
 		else if(thruster != null)
-			activationRate = thruster.activation;
+			activationRate = thruster.activation.getValue();
 		else
 			throw new RuntimeException("thruster missing");
 		

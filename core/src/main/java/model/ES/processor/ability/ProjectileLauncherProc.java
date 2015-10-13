@@ -19,13 +19,14 @@ import model.ES.component.shipGear.Projectile;
 import model.ES.component.shipGear.ProjectileLauncher;
 import model.ES.component.shipGear.Trigger;
 import model.ES.component.visuals.Model;
-import model.ES.richData.Angle;
 import model.ES.richData.CollisionShape;
 import model.ES.richData.Damage;
 import model.ES.richData.PhysicStat;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
+import util.math.Angle;
 import util.math.AngleUtil;
+import util.math.Fraction;
 import util.math.RandomUtil;
 
 public class ProjectileLauncherProc extends Processor {
@@ -52,17 +53,17 @@ public class ProjectileLauncherProc extends Processor {
 		if(trigger.triggered){
 			PlanarStance stance = e.get(PlanarStance.class);
 			EntityId firing = entityData.createEntity();
-			double orientation = stance.orientation + RandomUtil.between(-launcher.precision/2, launcher.precision/2);
-			entityData.setComponent(firing, new PlanarStance(stance.coord.getTranslation(stance.orientation, 0.2), orientation, stance.elevation, Point3D.UNIT_Z));
+			double orientation = stance.orientation.getValue() + ((RandomUtil.next()-0.5)*(1-launcher.getPrecision().getValue()))*AngleUtil.FULL;
+			entityData.setComponent(firing, new PlanarStance(stance.coord.getTranslation(stance.orientation.getValue(), 0.2), new Angle(orientation), stance.elevation, Point3D.UNIT_Z));
 			entityData.setComponent(firing, new MotionCapacity(7, 0, 1, 0, 0));
 			entityData.setComponent(firing, new PlanarVelocityToApply(Point2D.UNIT_X.getRotation(orientation)));
 			entityData.setComponent(firing, new Model("human/hmissileT1/hmissileT1_02.mesh.xml", 0.0025, new Angle(0), new Angle(AngleUtil.toRadians(-90)), new Angle(0)));
-			entityData.setComponent(firing, new Physic(Point2D.ORIGIN, new PhysicStat("Missile", 0.1, new CollisionShape(0.1), 0, "Missile"), p.getParent()));
+			entityData.setComponent(firing, new Physic(Point2D.ORIGIN, new PhysicStat("Missile", 0.1, new CollisionShape(0.1), new Fraction(0), "Missile"), p.getParent()));
 			entityData.setComponent(firing, new DestroyedOnTouch());
 			entityData.setComponent(firing, new ShockwaveOnTouch(100, 2, 10));
 			entityData.setComponent(firing, new EffectOnTouch());
 			entityData.setComponent(firing, new DamageOnTouch(new Damage(1)));
-			entityData.setComponent(firing, new LifeTime(System.currentTimeMillis(), 1000));
+			entityData.setComponent(firing, new LifeTime(System.currentTimeMillis(), 4000));
 			entityData.setComponent(firing, new Projectile(p.getParent(), stance.coord));
 			
 			Cooldown cd = e.get(Cooldown.class);

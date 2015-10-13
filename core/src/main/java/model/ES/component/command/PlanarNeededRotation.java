@@ -10,7 +10,8 @@ public class PlanarNeededRotation implements EntityComponent {
 	public final double angle;
 	
 	public PlanarNeededRotation(@JsonProperty("angle")double angle) {
-		LogUtil.warning("You should not ask for a null rotation.");
+		if(angle == 0)
+			LogUtil.warning("You should not ask for a null rotation.");
 		this.angle = angle;
 	}
 

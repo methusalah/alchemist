@@ -10,14 +10,18 @@
       "y" : -0.2,
       "z" : 0.0
     },
-    "localOrientation" : -0.3490658503988659
+    "localOrientation" : {
+      "value" : -0.3490658503988659
+    }
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
       "x" : 0.0,
       "y" : 0.0
     },
-    "orientation" : 0.0,
+    "orientation" : {
+      "value" : 0.0
+    },
     "elevation" : 0.0,
     "upVector" : {
       "x" : 0.0,

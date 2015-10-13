@@ -7,10 +7,11 @@ import java.util.Map;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityId;
 
-import model.ES.richData.Angle;
 import model.ES.richData.ColorData;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
+import util.math.Angle;
+import util.math.Fraction;
 
 public class PropertyEditorFactory {
 
@@ -48,6 +49,9 @@ public class PropertyEditorFactory {
 		}
 		if(pd.getPropertyType() == EntityId.class){
 			return new EntityIdEditor(comp, pd);
+		}
+		if(pd.getPropertyType() == Fraction.class){
+			return new FractionEditor(comp, pd);
 		}
 		return null;
 	}

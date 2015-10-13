@@ -43,7 +43,7 @@ public class CollisionResolutionProc extends Processor {
 		double velAlongNormal = relative.getDotProduct(col.normal);
 		
 		if(velAlongNormal <= 0){
-			double epsilon = Math.min(phA.stat.restitution, phB.stat.restitution);
+			double epsilon = Math.min(phA.stat.restitution.getValue(), phB.stat.restitution.getValue());
 			double impulseScale = -(1+epsilon)*velAlongNormal;
 			impulseScale /= 1/massA + 1/massB;
 			

@@ -4,19 +4,19 @@ package model.ES.component.motion;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
 
-import model.ES.richData.Angle;
 import model.ES.serial.EditorInfo;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
+import util.math.Angle;
 
 public class PlanarStance implements EntityComponent{
 	public final Point2D coord;
-	public final double orientation;
+	public final Angle orientation;
 	public final double elevation; 
 	public final Point3D upVector;
 	
 	public PlanarStance(@JsonProperty("coord")Point2D coord,
-			@JsonProperty("orientation")double orientation,
+			@JsonProperty("orientation")Angle orientation,
 			@JsonProperty("elevation")double elevation,
 			@JsonProperty("upVector")Point3D upVector) {
 		this.coord = coord;
@@ -29,7 +29,7 @@ public class PlanarStance implements EntityComponent{
 		return coord;
 	}
 
-	public double getOrientation() {
+	public Angle getOrientation() {
 		return orientation;
 	}
 	

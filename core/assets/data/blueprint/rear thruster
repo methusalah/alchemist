@@ -10,14 +10,18 @@
       "y" : 0.0,
       "z" : 0.0
     },
-    "localOrientation" : 3.141592653589793
+    "localOrientation" : {
+      "value" : 3.141592653589793
+    }
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
       "x" : 0.0,
       "y" : 0.0
     },
-    "orientation" : 0.0,
+    "orientation" : {
+      "value" : 0.0
+    },
     "elevation" : 0.0,
     "upVector" : {
       "x" : 0.0,
@@ -31,8 +35,12 @@
       "y" : 0.0,
       "z" : 0.0
     },
-    "activationAngle" : 1.5707963267948966,
-    "activation" : 0.0,
+    "activationAngle" : {
+      "value" : 1.5707963267948966
+    },
+    "activation" : {
+      "value" : 0.0
+    },
     "onOff" : false
   }, {
     "class" : "model.ES.component.visuals.ParticleCasting",
@@ -82,7 +90,9 @@
     "innerAngle" : 0.17453292519943295,
     "outerAngle" : 1.0471975511965976,
     "shadowCaster" : false,
-    "activationRate" : 0.0
+    "activation" : {
+      "value" : 0.0
+    }
   } ],
   "children" : [ ]
 }

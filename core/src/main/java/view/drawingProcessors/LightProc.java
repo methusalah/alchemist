@@ -44,7 +44,7 @@ public class LightProc extends Processor {
 			direction = spaceStance.direction;
 		} else {
 			position = planarStance.coord.get3D(planarStance.elevation);
-			direction = Point3D.UNIT_X.getRotationAroundZ(planarStance.orientation);
+			direction = Point3D.UNIT_X.getRotationAroundZ(planarStance.orientation.getValue());
 		}
 		
 		if(l.distance == Double.POSITIVE_INFINITY){
@@ -64,7 +64,7 @@ public class LightProc extends Processor {
 		}
 		DirectionalLight light = (DirectionalLight)SpatialPool.lights.get(e.getId());
 		
-		light.setColor(TranslateUtil.toColorRGBA(l.color).mult((float)(l.intensity*l.activationRate)));
+		light.setColor(TranslateUtil.toColorRGBA(l.color).mult((float)(l.intensity*l.activation.getValue())));
 		light.setDirection(TranslateUtil.toVector3f(direction));
 	}
 	
@@ -76,7 +76,7 @@ public class LightProc extends Processor {
 		}
 		PointLight light = (PointLight)SpatialPool.lights.get(e.getId());
 
-		light.setColor(TranslateUtil.toColorRGBA(l.color).mult((float)(l.intensity*l.activationRate)));
+		light.setColor(TranslateUtil.toColorRGBA(l.color).mult((float)(l.intensity*l.activation.getValue())));
 		light.setPosition(TranslateUtil.toVector3f(position));
 		light.setRadius((float)l.distance);
 	}
@@ -88,7 +88,7 @@ public class LightProc extends Processor {
 		}
 		SpotLight light = (SpotLight)SpatialPool.lights.get(e.getId());
 		
-		light.setColor(TranslateUtil.toColorRGBA(l.color).mult((float)(l.intensity*l.activationRate)));
+		light.setColor(TranslateUtil.toColorRGBA(l.color).mult((float)(l.intensity*l.activation.getValue())));
 		light.setSpotRange((float)l.distance);
 		light.setPosition(TranslateUtil.toVector3f(position));
 		light.setDirection(TranslateUtil.toVector3f(direction));

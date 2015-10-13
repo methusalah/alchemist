@@ -42,7 +42,7 @@ public class SightProc extends Processor {
 		
 		Point2D vector = stance.coord.getSubtraction(watcherStance.coord); 
 		if(vector.getLength() < sighting.range)
-			if(AngleUtil.getSmallestDifference(vector.getAngle(), watcherStance.orientation) < sighting.angle/2)
+			if(AngleUtil.getSmallestDifference(vector.getAngle(), watcherStance.orientation.getValue()) < sighting.angle/2)
 				return true;
 		return false;
 	}

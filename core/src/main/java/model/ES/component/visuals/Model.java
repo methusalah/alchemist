@@ -3,7 +3,7 @@ package model.ES.component.visuals;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
 
-import model.ES.richData.Angle;
+import util.math.Angle;
 
 public class Model implements EntityComponent {
 	public final String path;

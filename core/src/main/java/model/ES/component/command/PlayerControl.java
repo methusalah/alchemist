@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.simsilica.es.EntityComponent;
 
-import model.ES.richData.Angle;
 import model.ES.richData.ColorData;
+import util.math.Angle;
 
 public class PlayerControl implements EntityComponent{
 	public ColorData color = new ColorData(255, 150, 0, 0);

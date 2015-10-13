@@ -10,14 +10,18 @@
       "y" : -0.2,
       "z" : 0.0
     },
-    "localOrientation" : -1.9198621771937625
+    "localOrientation" : {
+      "value" : -1.9198621771937625
+    }
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
       "x" : 0.0,
       "y" : 0.0
     },
-    "orientation" : 0.0,
+    "orientation" : {
+      "value" : 0.0
+    },
     "elevation" : 0.0,
     "upVector" : {
       "x" : 0.0,
@@ -31,8 +35,12 @@
       "y" : 1.5,
       "z" : 0.0
     },
-    "activationAngle" : 0.8726646259971648,
-    "activation" : 0.0,
+    "activationAngle" : {
+      "value" : 0.8726646259971648
+    },
+    "activation" : {
+      "value" : 0.0
+    },
     "onOff" : true
   }, {
     "class" : "model.ES.component.visuals.ParticleCasting",

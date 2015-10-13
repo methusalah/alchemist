@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.CosmoVania;
+import app.MainGame;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
@@ -23,7 +24,8 @@ public abstract class Processor extends AbstractAppState {
 	@Override
 	public final void initialize(AppStateManager stateManager, Application app) {
 		super.initialize(stateManager, app);
-        entityData = stateManager.getState(EntityDataAppState.class).getEntityData();
+//        entityData = stateManager.getState(EntityDataAppState.class).getEntityData();
+        entityData = ((MainGame)app).ed;
 
         registerSets();
         for(EntitySet set : sets)

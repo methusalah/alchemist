@@ -12,6 +12,7 @@ import model.ES.component.relation.PlanarHolding;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
+import util.math.Angle;
 import util.math.AngleUtil;
 
 public class PlanarHoldingProc extends Processor {
@@ -40,12 +41,12 @@ public class PlanarHoldingProc extends Processor {
 		if(stance == null){
 			entityData.removeEntity(e.getId());
 		} else {
-			Point2D newCoord = holded.localPosition.get2D().getRotation(stance.orientation);
+			Point2D newCoord = holded.localPosition.get2D().getRotation(stance.orientation.getValue());
 			newCoord = newCoord.getAddition(stance.coord);
-			double newOrientation = AngleUtil.normalize(stance.orientation + holded.localOrientation);
+			double newOrientation = AngleUtil.normalize(stance.orientation.getValue() + holded.localOrientation.getValue());
 			
 			setComp(e, new PlanarStance(newCoord,
-					newOrientation,
+					new Angle(newOrientation),
 					stance.elevation + holded.localPosition.z,
 					stance.upVector));
 		}
@@ -56,9 +57,9 @@ public class PlanarHoldingProc extends Processor {
 		Parenting parenting = e.get(Parenting.class);
 
 		PlanarStance stance = entityData.getComponent(parenting.getParent(), PlanarStance.class);
-		Point2D newCoord = holded.localPosition.get2D().getRotation(stance.orientation);
+		Point2D newCoord = holded.localPosition.get2D().getRotation(stance.orientation.getValue());
 		newCoord = newCoord.getAddition(stance.coord);
-		double newOrientation = AngleUtil.normalize(stance.orientation + holded.localOrientation);
+		double newOrientation = AngleUtil.normalize(stance.orientation.getValue() + holded.localOrientation.getValue());
 		
 		
 		setComp(e, new SpaceStance(newCoord.get3D(stance.elevation + holded.localPosition.z),
