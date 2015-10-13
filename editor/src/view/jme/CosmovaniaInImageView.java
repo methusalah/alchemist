@@ -4,7 +4,7 @@ import java.util.concurrent.Future;
 import java.util.function.Function;
 
 import javafx.scene.image.ImageView;
-import app.MainDev;
+import app.MainGame;
 
 import com.jme3.app.DebugKeysAppState;
 import com.jme3.system.AppSettings;
@@ -29,7 +29,7 @@ import com.jme3x.jfx.injfx.SceneProcessorCopyToImageView;
 
 public class CosmovaniaInImageView {
 
-	private static MainDev makeJmeApplication(int framerate) {
+	private static MainGame makeJmeApplication(int framerate) {
 		AppSettings settings = new AppSettings(true);
 
 		// important to use those settings
@@ -38,7 +38,7 @@ public class CosmovaniaInImageView {
 		settings.setFrameRate(Math.max(1, Math.min(60, framerate)));
 		settings.setCustomRenderer(com.jme3x.jfx.injfx.JmeContextOffscreenSurface.class);
 
-		MainDev app = new MainDev(){
+		MainGame app = new MainGame(){
 			@Override
 			public void simpleInitApp() {
 				// to prevent a NPE (due to setUseInput(null)) on Application.stop()
@@ -50,13 +50,13 @@ public class CosmovaniaInImageView {
 		return app;
 	}
 
-	private MainDev jmeApp0;
+	private MainGame jmeApp0;
 	private SceneProcessorCopyToImageView jmeAppDisplayBinder = new SceneProcessorCopyToImageView();
 
 	/**
 	 * Lazy creation of the wrapped SimpleApplication.
 	 */
-	private MainDev findOrCreate() {
+	private MainGame findOrCreate() {
 		if (jmeApp0 == null) {
 			jmeApp0 = makeJmeApplication(30);
 			jmeApp0.start();
@@ -96,8 +96,8 @@ public class CosmovaniaInImageView {
 	 *
 	 * @param f(jmeApp) the action to apply
 	 */
-	public <R> Future<R> enqueue(Function<MainDev,R> f) {
-		MainDev jmeApp = findOrCreate();
+	public <R> Future<R> enqueue(Function<MainGame,R> f) {
+		MainGame jmeApp = findOrCreate();
 		return jmeApp.enqueue(() -> {return f.apply(jmeApp);});
 	}
 

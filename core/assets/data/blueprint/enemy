@@ -1,6 +1,9 @@
 {
   "name" : "enemy",
   "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "enemy"
+  }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
       "x" : 10.0,

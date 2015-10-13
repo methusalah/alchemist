@@ -141,7 +141,7 @@ public class Model {
 		
 		jme = new JmeForImageView();
 		jme.enqueue((app) -> createScene(app, ed));
-		jme.enqueue((app) -> setFPS(app));
+//		jme.enqueue((app) -> setFPS(app));
 	}
 	
 	static boolean setFPS(SimpleApplication app){

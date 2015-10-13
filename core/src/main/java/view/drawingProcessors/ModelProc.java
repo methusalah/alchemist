@@ -5,6 +5,7 @@ import java.util.Map;
 
 import util.LogUtil;
 import view.SpatialPool;
+import model.ES.component.Naming;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.visuals.Model;
 import app.AppFacade;
@@ -53,7 +54,7 @@ public class ModelProc extends Processor {
 			AppFacade.getRootNode().detachChild(SpatialPool.models.get(e.getId()));
 		
 		Model model = e.get(Model.class);
-		LogUtil.info("model creation "+model.path);
+		LogUtil.info("model creation "+model.path + " for entity "+e.getId());
 		Spatial s = getPrototype(model.path).clone();
 		s.scale((float)model.scale);
 		model.created = true;

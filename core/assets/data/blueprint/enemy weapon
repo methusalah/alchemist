@@ -1,6 +1,9 @@
 {
   "name" : "enemy weapon",
   "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "enemy weapon"
+  }, {
     "class" : "model.ES.component.relation.PlanarHolding",
     "localPosition" : {
       "x" : 0.0,

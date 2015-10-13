@@ -1,6 +1,9 @@
 {
   "name" : "rotation thruster 2",
   "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "rotation thruster 2"
+  }, {
     "class" : "model.ES.component.relation.PlanarHolding",
     "localPosition" : {
       "x" : 0.5,

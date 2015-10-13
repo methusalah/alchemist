@@ -36,7 +36,7 @@ public class DoubleEditor extends PropertyEditor{
 	@Override
 	protected void setPropertyValue(Object o) {
 		double v = (Double)o;
-		valueField.setText(df.format(v));
+		valueField.setText(Double.toString(v));
 	}
 	
 	

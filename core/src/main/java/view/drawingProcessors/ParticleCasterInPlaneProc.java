@@ -8,6 +8,7 @@ import view.SpatialPool;
 import view.jme.MyParticleEmitter;
 import view.math.TranslateUtil;
 import model.ModelManager;
+import model.ES.component.Naming;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.SpaceStance;
 import model.ES.component.visuals.ParticleCasting;
@@ -44,11 +45,14 @@ public class ParticleCasterInPlaneProc extends Processor {
 	@Override
 	protected void onEntityAdded(Entity e, float elapsedTime) {
 		ParticleCasting casting = e.get(ParticleCasting.class);
-		if(SpatialPool.emitters.containsKey(e.getId()))
-			throw new RuntimeException("Can't add the same particle caster twice.");
+		Naming n = entityData.getComponent(e.getId(), Naming.class);
+		if(SpatialPool.emitters.containsKey(e.getId())){
+			throw new RuntimeException("Can't add the same particle caster twice."+n.name);
+		}
 		
 		MyParticleEmitter pe = new MyParticleEmitter("ParticleCaster for entity "+e.getId(), Type.Triangle, casting.caster.maxCount);
 		SpatialPool.emitters.put(e.getId(), pe);
+		LogUtil.info(e.getId().getId()+" put " + SpatialPool.emitters.size());
 
 		// material
 		Material m = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Particle.j3md");

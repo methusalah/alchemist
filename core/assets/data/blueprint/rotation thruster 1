@@ -2,7 +2,7 @@
   "name" : "rotation thruster 1",
   "comps" : [ {
     "class" : "model.ES.component.Naming",
-    "name" : "camera"
+    "name" : "rotation thruster 1"
   }, {
     "class" : "model.ES.component.relation.PlanarHolding",
     "localPosition" : {

@@ -3,6 +3,7 @@ package view.controls.propertyEditor;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
+import java.util.Locale;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,17 +12,13 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.OverrunStyle;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import util.LogUtil;
 import util.event.ComponentPropertyChanged;
 import util.event.EventManager;
 
 import com.simsilica.es.EntityComponent;
 
 public abstract class PropertyEditor extends BorderPane {
-	protected static final DecimalFormat df = new DecimalFormat("0.###");
+	protected final DecimalFormat df;
 
 	EntityComponent comp;
 	PropertyDescriptor pd;
@@ -35,6 +32,9 @@ public abstract class PropertyEditor extends BorderPane {
 
 	
 	public PropertyEditor(EntityComponent comp, PropertyDescriptor pd) {
+		df = (DecimalFormat)DecimalFormat.getNumberInstance(Locale.ENGLISH);
+		df.setMinimumFractionDigits(2);
+		
 		this.comp = comp;
 		this.pd = pd;
 		setPrefHeight(25);
