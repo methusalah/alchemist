@@ -17,5 +17,17 @@ public class Sighting implements EntityComponent{
 		this.angle = angle;
 		this.entitiesInSight = entitiesInSight;
 	}
+
+	public double getRange() {
+		return range;
+	}
+
+	public double getAngle() {
+		return angle;
+	}
+
+	public List<EntityId> getEntitiesInSight() {
+		return entitiesInSight;
+	}
 	
 }

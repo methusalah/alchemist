@@ -14,4 +14,16 @@ public class Damaging implements EntityComponent{
 		this.source = source;
 		this.target = target;
 	}
+
+	public EntityId getSource() {
+		return source;
+	}
+
+	public EntityId getTarget() {
+		return target;
+	}
+
+	public Damage getDamage() {
+		return damage;
+	}
 }

@@ -10,4 +10,12 @@ public class Attrition implements EntityComponent {
 		this.maxHitpoints = maxHitpoints;
 		this.actualHitpoints = actualHitpoints;
 	}
+
+	public int getMaxHitpoints() {
+		return maxHitpoints;
+	}
+
+	public int getActualHitpoints() {
+		return actualHitpoints;
+	}
 }

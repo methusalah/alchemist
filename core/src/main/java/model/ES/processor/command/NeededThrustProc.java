@@ -43,6 +43,6 @@ public class NeededThrustProc extends Processor {
 		PlanarVelocityToApply v = e.get(PlanarVelocityToApply.class);
 		velocity = velocity.getAddition(v.vector);
 		setComp(e, new PlanarVelocityToApply(velocity));
-		removeComp(e, PlanarNeededThrust.class);
+//		removeComp(e, PlanarNeededThrust.class);
 	}
 }

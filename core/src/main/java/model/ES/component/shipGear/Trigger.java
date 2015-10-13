@@ -14,4 +14,12 @@ public class Trigger implements EntityComponent {
 		this.name = name;
 		this.triggered = triggered;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public boolean isTriggered() {
+		return triggered;
+	}
 }

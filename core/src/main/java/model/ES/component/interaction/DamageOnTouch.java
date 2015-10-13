@@ -10,4 +10,8 @@ public class DamageOnTouch implements EntityComponent {
 	public DamageOnTouch(Damage damage) {
 		this.damage = damage;
 	}
+
+	public Damage getDamage() {
+		return damage;
+	}
 }

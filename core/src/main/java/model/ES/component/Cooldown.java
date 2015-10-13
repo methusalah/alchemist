@@ -11,4 +11,12 @@ public class Cooldown implements EntityComponent{
 		this.start = start;
 		this.duration = duration;
 	}
+
+	public long getStart() {
+		return start;
+	}
+
+	public double getDuration() {
+		return duration;
+	}
 }

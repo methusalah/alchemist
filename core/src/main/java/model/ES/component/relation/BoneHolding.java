@@ -16,4 +16,16 @@ public class BoneHolding implements EntityComponent{
 		this.positionBoneName = positionBoneName;
 		this.directionBoneName = directionBoneName;
 	}
+
+	public EntityId getHolder() {
+		return holder;
+	}
+
+	public String getPositionBoneName() {
+		return positionBoneName;
+	}
+
+	public String getDirectionBoneName() {
+		return directionBoneName;
+	}
 }

@@ -18,4 +18,20 @@ public class RotationThruster implements EntityComponent {
 		this.maxAngle = maxAngle;
 		this.onOff = onOff;
 	}
+
+	public boolean isClockwise() {
+		return clockwise;
+	}
+
+	public double getMaxAngle() {
+		return maxAngle;
+	}
+
+	public double getActivation() {
+		return activation;
+	}
+
+	public boolean isOnOff() {
+		return onOff;
+	}
 }

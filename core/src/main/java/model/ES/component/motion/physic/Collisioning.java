@@ -20,4 +20,20 @@ public class Collisioning implements EntityComponent {
 		this.penetration = penetration;
 		this.normal = normal;
 	}
+
+	public EntityId getA() {
+		return a;
+	}
+
+	public EntityId getB() {
+		return b;
+	}
+
+	public double getPenetration() {
+		return penetration;
+	}
+
+	public Point2D getNormal() {
+		return normal;
+	}
 }

@@ -13,4 +13,12 @@ public class SpaceStance implements EntityComponent{
 		this.position = position;
 		this.direction = direction;
 	}
+
+	public Point3D getPosition() {
+		return position;
+	}
+
+	public Point3D getDirection() {
+		return direction;
+	}
 }

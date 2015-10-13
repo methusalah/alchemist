@@ -82,6 +82,12 @@
       "y" : 0.0
     }
   }, {
+    "class" : "model.ES.component.command.PlanarNeededThrust",
+    "direction" : {
+      "x" : 0.0,
+      "y" : 0.0
+    }
+  }, {
     "class" : "model.ES.component.relation.Attackable"
   }, {
     "class" : "model.ES.component.relation.AbilityTriggerList",

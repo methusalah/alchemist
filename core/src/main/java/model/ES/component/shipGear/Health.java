@@ -10,4 +10,12 @@ public class Health implements EntityComponent{
 		this.max = max;
 		this.value = value;
 	}
+
+	public int getMax() {
+		return max;
+	}
+
+	public int getValue() {
+		return value;
+	}
 }

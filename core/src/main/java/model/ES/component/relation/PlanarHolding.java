@@ -15,4 +15,12 @@ public class PlanarHolding implements EntityComponent {
 		this.localPosition = localPosition;
 		this.localOrientation = localOrientation;
 	}
+
+	public Point3D getLocalPosition() {
+		return localPosition;
+	}
+
+	public double getLocalOrientation() {
+		return localOrientation;
+	}
 }

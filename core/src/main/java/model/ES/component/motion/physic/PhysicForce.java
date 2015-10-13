@@ -23,4 +23,24 @@ public class PhysicForce implements EntityComponent {
 		this.force = force;
 		this.exceptions = new ArrayList<>(Arrays.asList(exceptions));
 	}
+
+
+	public double getRange() {
+		return range;
+	}
+
+
+	public double getRadius() {
+		return radius;
+	}
+
+
+	public double getForce() {
+		return force;
+	}
+
+
+	public List<String> getExceptions() {
+		return exceptions;
+	}
 }

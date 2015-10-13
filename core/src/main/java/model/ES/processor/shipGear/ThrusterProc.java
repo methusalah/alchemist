@@ -37,7 +37,7 @@ public class ThrusterProc extends Processor {
 		PlanarNeededThrust thrust = entityData.getComponent(holder, PlanarNeededThrust.class);
 		PlanarStance stance = entityData.getComponent(holder, PlanarStance.class);
 		double activationRate = 0;
-		if(thrust != null){
+		if(thrust != null && !thrust.getDirection().isOrigin()){
 			double diff = AngleUtil.getSmallestDifference(thrust.getDirection().getAngle()-stance.orientation, thruster.direction.get2D().getAngle());
 			if(diff <= thruster.activationAngle){
 				activationRate = 1;

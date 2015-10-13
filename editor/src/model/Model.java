@@ -14,6 +14,8 @@ import model.ES.component.LifeTime;
 import model.ES.component.Naming;
 import model.ES.component.ToRemove;
 import model.ES.component.camera.ChasingCamera;
+import model.ES.component.command.PlanarNeededRotation;
+import model.ES.component.command.PlanarNeededThrust;
 import model.ES.component.command.PlayerControl;
 import model.ES.component.interaction.DamageOnTouch;
 import model.ES.component.interaction.Damaging;
@@ -116,6 +118,8 @@ public class Model {
 		inspector.addComponentToScan(PhysicForce.class);
 		inspector.addComponentToScan(MotionCapacity.class);
 		inspector.addComponentToScan(PlanarVelocityToApply.class);
+		inspector.addComponentToScan(PlanarNeededThrust.class);
+		inspector.addComponentToScan(PlanarNeededRotation.class);
 		inspector.addComponentToScan(AbilityTriggerList.class);
 		inspector.addComponentToScan(Attackable.class);
 		inspector.addComponentToScan(BoneHolding.class);

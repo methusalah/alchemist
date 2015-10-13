@@ -6,6 +6,7 @@ import java.util.HashMap;
 import model.ES.component.Cooldown;
 import model.ES.component.Naming;
 import model.ES.component.camera.ChasingCamera;
+import model.ES.component.command.PlanarNeededThrust;
 import model.ES.component.command.PlayerControl;
 import model.ES.component.debug.VelocityViewing;
 import model.ES.component.interaction.EffectOnTouch;
@@ -398,6 +399,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new EffectOnTouch());
 		bp.add(new VelocityViewing());
 		bp.add(new PlanarVelocityToApply(Point2D.ORIGIN));
+		bp.add(new PlanarNeededThrust(Point2D.ORIGIN));
 		bp.add(new Attackable());
 		bp.add(new AbilityTriggerList(new HashMap<>()));
 		bp.add("weapon left");

@@ -29,4 +29,32 @@ public class Lighting implements EntityComponent {
 		this.shadowCaster = shadowCaster;
 		this.activationRate = activationRate;
 	}
+
+	public ColorData getColor() {
+		return color;
+	}
+
+	public double getIntensity() {
+		return intensity;
+	}
+
+	public double getDistance() {
+		return distance;
+	}
+
+	public double getInnerAngle() {
+		return innerAngle;
+	}
+
+	public double getOuterAngle() {
+		return outerAngle;
+	}
+
+	public boolean isShadowCaster() {
+		return shadowCaster;
+	}
+
+	public double getActivationRate() {
+		return activationRate;
+	}
 }

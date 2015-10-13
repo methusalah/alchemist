@@ -14,4 +14,12 @@ public class Projectile implements EntityComponent {
 		this.sender = sender;
 		this.spawningCoord = spawningCoord;
 	}
+
+	public EntityId getSender() {
+		return sender;
+	}
+
+	public Point2D getSpawningCoord() {
+		return spawningCoord;
+	}
 }

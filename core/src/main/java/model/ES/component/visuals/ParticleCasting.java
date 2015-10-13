@@ -14,4 +14,12 @@ public class ParticleCasting implements EntityComponent{
 		this.actualPerSecond = actualPerSecond;
 	}
 
+	public ParticleCaster getCaster() {
+		return caster;
+	}
+
+	public int getActualPerSecond() {
+		return actualPerSecond;
+	}
+
 }

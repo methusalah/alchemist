@@ -18,4 +18,24 @@ public class TriggerRepeater implements EntityComponent {
 		this.start = start;
 		this.nextPeriod = nextPeriod;
 	}
+
+	public long getStart() {
+		return start;
+	}
+
+	public long getNextPeriod() {
+		return nextPeriod;
+	}
+
+	public int getMaxDuration() {
+		return maxDuration;
+	}
+
+	public int getPeriod() {
+		return period;
+	}
+
+	public int getPeriodRange() {
+		return periodRange;
+	}
 }

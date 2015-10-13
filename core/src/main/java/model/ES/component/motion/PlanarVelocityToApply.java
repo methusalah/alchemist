@@ -11,4 +11,8 @@ public class PlanarVelocityToApply implements EntityComponent {
 	public PlanarVelocityToApply(@JsonProperty("vector")Point2D vector) {
 		this.vector = vector;
 	}
+
+	public Point2D getVector() {
+		return vector;
+	}
 }

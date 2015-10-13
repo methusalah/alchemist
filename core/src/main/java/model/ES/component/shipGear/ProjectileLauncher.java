@@ -10,4 +10,8 @@ public class ProjectileLauncher implements EntityComponent{
 	public ProjectileLauncher(@JsonProperty("precision")double precision) {
 		this.precision = precision;
 	}
+
+	public double getPrecision() {
+		return precision;
+	}
 }

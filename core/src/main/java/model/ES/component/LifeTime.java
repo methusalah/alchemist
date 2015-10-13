@@ -12,4 +12,12 @@ public class LifeTime implements EntityComponent {
 		this.duration = duration;
 	}
 
+	public long getLifeStart() {
+		return lifeStart;
+	}
+
+	public double getDuration() {
+		return duration;
+	}
+
 }

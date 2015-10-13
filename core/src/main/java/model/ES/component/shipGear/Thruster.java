@@ -20,4 +20,20 @@ public class Thruster implements EntityComponent {
 		this.activationAngle = activationAngle;
 		this.onOff = onOff;
 	}
+
+	public Point3D getDirection() {
+		return direction;
+	}
+
+	public double getActivationAngle() {
+		return activationAngle;
+	}
+
+	public double getActivation() {
+		return activation;
+	}
+
+	public boolean isOnOff() {
+		return onOff;
+	}
 }
