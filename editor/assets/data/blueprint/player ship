@@ -13,7 +13,10 @@
     },
     "angledelamortquitue" : {
       "value" : 3.0
-    }
+    },
+    "listdetest" : [ "bonjour", "aurevoir", "ca va?" ],
+    "listdeboule" : [ true, false, true ],
+    "doubles" : [ 1.0, 3.0, 8.0 ]
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
@@ -82,7 +85,11 @@
     "class" : "model.ES.component.relation.Attackable"
   }, {
     "class" : "model.ES.component.relation.AbilityTriggerList",
-    "triggers" : { }
+    "triggers" : {
+      "aurevoir" : false,
+      "bonjour" : true,
+      "ça va ?" : true
+    }
   } ],
   "children" : [ "weapon left", "weapon right", "camera", "front light", "rotation thruster 1", "rotation thruster 2", "rear thruster", "frontal left thruster", "frontal right thruster", "side left thruster", "side right thruster" ]
 }

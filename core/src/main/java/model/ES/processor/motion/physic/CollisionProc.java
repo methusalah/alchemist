@@ -26,9 +26,6 @@ public class CollisionProc extends Processor {
 	
 	@Override
 	protected void onUpdated(float elapsedTime) {
-		if(ModelManager.command.target == null)
-			return;
-		
         for(EntitySet set : sets){
         	List<Entity> entities = new ArrayList<>();
         	for(Entity e : set){

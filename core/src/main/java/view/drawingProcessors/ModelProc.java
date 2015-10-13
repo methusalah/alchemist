@@ -3,17 +3,12 @@ package view.drawingProcessors;
 import java.util.HashMap;
 import java.util.Map;
 
-import util.LogUtil;
-import view.SpatialPool;
-import model.ES.component.Naming;
-import model.ES.component.motion.PlanarStance;
 import model.ES.component.visuals.Model;
+import view.SpatialPool;
 import app.AppFacade;
 
-import com.jme3.asset.AssetManager;
 import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
-import com.simsilica.es.EntityId;
 
 import controller.entityAppState.Processor;
 
@@ -54,7 +49,6 @@ public class ModelProc extends Processor {
 			AppFacade.getRootNode().detachChild(SpatialPool.models.get(e.getId()));
 		
 		Model model = e.get(Model.class);
-		LogUtil.info("model creation "+model.path + " for entity "+e.getId());
 		Spatial s = getPrototype(model.path).clone();
 		s.scale((float)model.scale);
 		model.created = true;

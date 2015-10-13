@@ -73,7 +73,11 @@
     "entitiesInSight" : [ ]
   }, {
     "class" : "model.ES.component.relation.AbilityTriggerList",
-    "triggers" : { }
+    "triggers" : {
+      "aurevoir" : false,
+      "bonjour" : true,
+      "ça va ?" : true
+    }
   } ],
   "children" : [ "enemy weapon", "rear thruster", "frontal left thruster", "frontal right thruster", "side left thruster", "side right thruster" ]
 }

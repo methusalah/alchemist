@@ -1,6 +1,9 @@
 {
   "name" : "side left thruster",
   "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "side left thruster"
+  }, {
     "class" : "model.ES.component.relation.PlanarHolding",
     "localPosition" : {
       "x" : -0.34,

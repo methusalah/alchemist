@@ -23,9 +23,6 @@ public class ThrusterProc extends Processor {
 
 	@Override
 	protected void onUpdated(float elapsedTime) {
-		if(ModelManager.command.target == null)
-			return;
-		
         for(EntitySet set : sets)
         	for (Entity e : set){
         		manage(e, elapsedTime);

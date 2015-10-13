@@ -1,22 +1,14 @@
 package model.ES.processor.shipGear;
 
-import model.ModelManager;
 import model.ES.component.command.PlanarNeededRotation;
-import model.ES.component.motion.PlanarVelocityToApply;
-import model.ES.component.relation.BoneHolding;
 import model.ES.component.relation.Parenting;
-import model.ES.component.relation.PlanarHolding;
 import model.ES.component.shipGear.RotationThruster;
-import util.LogUtil;
-import util.math.AngleUtil;
-import util.math.PrecisionUtil;
 
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 import com.simsilica.es.EntitySet;
 
 import controller.entityAppState.Processor;
-import javafx.scene.Parent;
 
 public class RotationThrusterProc extends Processor {
 
@@ -27,9 +19,6 @@ public class RotationThrusterProc extends Processor {
 	
 	@Override
 	protected void onUpdated(float elapsedTime) {
-		if(ModelManager.command.target == null)
-			return;
-		
         for(EntitySet set : sets)
         	for (Entity e : set){
         		manage(e, elapsedTime);

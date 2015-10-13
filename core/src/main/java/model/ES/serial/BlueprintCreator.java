@@ -1,5 +1,7 @@
 package model.ES.serial;
 
+import util.LogUtil;
+import model.ES.component.Naming;
 import model.ES.component.relation.Parenting;
 
 import com.simsilica.es.EntityComponent;
@@ -18,6 +20,7 @@ public class BlueprintCreator {
 		assert bp != null : bluePrintName + " blueprint can't be found.";
 		
 		EntityId res = entityData.createEntity();
+		
 		for(EntityComponent comp : bp.getComps()){
 			entityData.setComponent(res, comp);
 		}
@@ -25,6 +28,11 @@ public class BlueprintCreator {
 			EntityId child = create(childBPName, res);
 			entityData.setComponent(child, new Parenting(res));
 		}
+		Naming n = entityData.getComponent(res, Naming.class);
+		if(n != null)
+			LogUtil.info("creation of "+bluePrintName+" (#"+res.getId()+") named '"+n.name+"' with parent #"+parent);
+		else
+			LogUtil.info("creation of "+bluePrintName+" (#"+res.getId()+") without naming with parent #"+parent);
 		return res;
 	}
 }

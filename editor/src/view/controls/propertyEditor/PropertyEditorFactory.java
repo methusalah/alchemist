@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.simsilica.es.EntityComponent;
+import com.simsilica.es.EntityId;
 
 import model.ES.richData.Angle;
 import model.ES.richData.ColorData;
@@ -44,6 +45,9 @@ public class PropertyEditorFactory {
 		}
 		if(pd.getPropertyType() == Map.class){
 			return new MapEditor(comp, pd);
+		}
+		if(pd.getPropertyType() == EntityId.class){
+			return new EntityIdEditor(comp, pd);
 		}
 		return null;
 	}

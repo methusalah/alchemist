@@ -1,6 +1,9 @@
 {
   "name" : "frontal right thruster",
   "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "frontal right thruster"
+  }, {
     "class" : "model.ES.component.relation.PlanarHolding",
     "localPosition" : {
       "x" : 0.4,

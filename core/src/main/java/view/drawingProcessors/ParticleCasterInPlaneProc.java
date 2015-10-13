@@ -33,9 +33,6 @@ public class ParticleCasterInPlaneProc extends Processor {
 
 	@Override
 	protected void onUpdated(float elapsedTime) {
-		if(ModelManager.command.target == null)
-			return;
-		
         for(EntitySet set : sets)
         	for (Entity e : set){
         		updateParticleEmitter(e, elapsedTime);
@@ -52,7 +49,6 @@ public class ParticleCasterInPlaneProc extends Processor {
 		
 		MyParticleEmitter pe = new MyParticleEmitter("ParticleCaster for entity "+e.getId(), Type.Triangle, casting.caster.maxCount);
 		SpatialPool.emitters.put(e.getId(), pe);
-		LogUtil.info(e.getId().getId()+" put " + SpatialPool.emitters.size());
 
 		// material
 		Material m = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Particle.j3md");

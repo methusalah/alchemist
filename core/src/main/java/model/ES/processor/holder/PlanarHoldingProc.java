@@ -9,6 +9,7 @@ import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.SpaceStance;
 import model.ES.component.relation.Parenting;
 import model.ES.component.relation.PlanarHolding;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
@@ -23,9 +24,6 @@ public class PlanarHoldingProc extends Processor {
 
 	@Override
 	protected void onUpdated(float elapsedTime) {
-		if(ModelManager.command.target == null)
-			return;
-		
     	for (Entity e : sets.get(0)){
     		managePlanar(e, elapsedTime);
     	}
