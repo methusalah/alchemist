@@ -39,8 +39,8 @@ dependencies {
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
 	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.5.0'
 	
-	compile 'com.github.brainless-studios:tonegodgui:-SNAPSHOT'
-	compile 'com.github.brainless-studios:zay-es:-SNAPSHOT'
+	//compile 'com.github.brainless-studios:tonegodgui:-SNAPSHOT'
+	//compile 'com.github.brainless-studios:zay-es:-SNAPSHOT'
 	//compile 'com.github.brainless-studios:JME3-JFX:-SNAPSHOT'
 	
 	compile "com.badlogicgames.gdx:gdx-ai:1.6.0"
