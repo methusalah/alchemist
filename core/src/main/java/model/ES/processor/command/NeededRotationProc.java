@@ -8,7 +8,8 @@ import util.math.AngleUtil;
 
 import com.simsilica.es.Entity;
 
-import controller.entityAppState.Processor;
+import controller.ECS.LogicThread;
+import controller.ECS.Processor;
 
 public class NeededRotationProc extends Processor {
 	
@@ -18,21 +19,12 @@ public class NeededRotationProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime){
-		manage(e, elapsedTime);
-	}
-
-	@Override
-	protected void onEntityUpdated(Entity e, float elapsedTime){
-		manage(e, elapsedTime);
-	}
-	
-	private void manage(Entity e, float elapsedTime){
+	protected void onEntityEachTick(Entity e) {
 		PlanarNeededRotation neededRotation = e.get(PlanarNeededRotation.class);
 		MotionCapacity capacity = e.get(MotionCapacity.class);
 		PlanarStance stance = e.get(PlanarStance.class); 
 		
-		double maxRotation = capacity.maxRotationSpeed * elapsedTime;
+		double maxRotation = capacity.maxRotationSpeed * LogicThread.TIME_PER_FRAME;
 		maxRotation = Math.min(Math.abs(neededRotation.angle), maxRotation);
 		double possibleRotation = maxRotation*Math.signum(neededRotation.angle);
 		

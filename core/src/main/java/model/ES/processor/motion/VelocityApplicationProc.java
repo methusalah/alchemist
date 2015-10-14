@@ -2,7 +2,8 @@ package model.ES.processor.motion;
 
 import com.simsilica.es.Entity;
 
-import controller.entityAppState.Processor;
+import controller.ECS.LogicThread;
+import controller.ECS.Processor;
 import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
@@ -17,16 +18,7 @@ public class VelocityApplicationProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
-		manage(e, elapsedTime);
-	}
-
-	@Override
-	protected void onEntityUpdated(Entity e, float elapsedTime){
-		manage(e, elapsedTime);
-	}
-	
-	private void manage(Entity e, float elapsedTime){
+	protected void onEntityEachTick(Entity e) {
 		Physic ph = e.get(Physic.class);
 		PlanarStance stance = e.get(PlanarStance.class);
 		MotionCapacity capacity = e.get(MotionCapacity.class);
@@ -35,8 +27,8 @@ public class VelocityApplicationProc extends Processor {
 		velocityToApply = velocityToApply.getMult(1/ph.stat.mass);
 		
 		Point2D newVelocity = ph.velocity.getAddition(velocityToApply);
-		newVelocity = newVelocity.getTruncation(capacity.maxSpeed);
-		Point2D newCoord = stance.coord.getAddition(newVelocity.getMult(elapsedTime));
+		//newVelocity = newVelocity.getTruncation(capacity.maxSpeed);
+		Point2D newCoord = stance.coord.getAddition(newVelocity.getMult(LogicThread.TIME_PER_FRAME));
 
 		setComp(e, new Physic(newVelocity, ph.stat, ph.spawnerException));
 		setComp(e, new PlanarStance(newCoord, stance.orientation, stance.elevation, stance.upVector));

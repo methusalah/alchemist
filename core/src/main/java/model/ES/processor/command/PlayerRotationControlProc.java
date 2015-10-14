@@ -11,7 +11,7 @@ import util.math.AngleUtil;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntitySet;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 
 public class PlayerRotationControlProc extends Processor {
 	
@@ -21,31 +21,28 @@ public class PlayerRotationControlProc extends Processor {
 	}
 	
 	@Override
-	protected void onUpdated(float elapsedTime) {
+	protected void onEntityEachTick(Entity e) {
 		if(ModelManager.command.target == null)
 			return;
 		
-        for(EntitySet set : sets)
-        	for (Entity e : set){
-        		PlanarStance stance = e.get(PlanarStance.class);
-        		double angleToTarget = ModelManager.command.target.getSubtraction(stance.coord).getAngle();
+		PlanarStance stance = e.get(PlanarStance.class);
+		double angleToTarget = ModelManager.command.target.getSubtraction(stance.coord).getAngle();
 
-        		// rotation
-        		double neededRotAngle = 0;
-        		Point2D front = stance.coord.getTranslation(stance.orientation.getValue(), 1);
-        		int turn = AngleUtil.getTurn(stance.coord, front, ModelManager.command.target);
-        		if(turn != AngleUtil.NONE){// || angleToTarget != stance.getOrientation()){
-        			double diff = AngleUtil.getSmallestDifference(stance.orientation.getValue(), angleToTarget);
-        			if(turn >= 0)
-        				neededRotAngle = diff;
-        			else
-        				neededRotAngle = -diff;
-        		}
-        		
-        		if(Math.abs(neededRotAngle) > 0.01){
-        			PlanarNeededRotation neededRotation = new PlanarNeededRotation(neededRotAngle);
-            		setComp(e, neededRotation);
-        		}
-        	}
+		// rotation
+		double neededRotAngle = 0;
+		Point2D front = stance.coord.getTranslation(stance.orientation.getValue(), 1);
+		int turn = AngleUtil.getTurn(stance.coord, front, ModelManager.command.target);
+		if(turn != AngleUtil.NONE){// || angleToTarget != stance.getOrientation()){
+			double diff = AngleUtil.getSmallestDifference(stance.orientation.getValue(), angleToTarget);
+			if(turn >= 0)
+				neededRotAngle = diff;
+			else
+				neededRotAngle = -diff;
+		}
+		
+		if(Math.abs(neededRotAngle) > 0.01){
+			PlanarNeededRotation neededRotation = new PlanarNeededRotation(neededRotAngle);
+    		setComp(e, neededRotation);
+		}
 	}
 }

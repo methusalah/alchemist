@@ -12,7 +12,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 
 public class PlacingModelProc extends Processor {
 
@@ -21,18 +21,8 @@ public class PlacingModelProc extends Processor {
 		register(Model.class, PlanarStance.class);
 	}
 	
-	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
-		manage(e, elapsedTime);
-	}
-	
-	@Override
-	protected void onEntityUpdated(Entity e, float elapsedTime) {
-		manage(e, elapsedTime);
-	}
-	
-	private void manage(Entity e, float elapsedTime) {
+	protected void onEntityEachTick(Entity e) {
 		Model model = e.get(Model.class);
 		if(!model.created)
 			return;

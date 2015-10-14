@@ -1,7 +1,5 @@
 package view;
 
-import app.AppFacade;
-
 
 public class TopdownView extends View {
 

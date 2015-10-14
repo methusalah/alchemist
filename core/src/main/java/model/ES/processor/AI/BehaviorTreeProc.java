@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.StreamUtils;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 import model.AI.blackboard.ShipBlackboard;
 import model.ES.component.interaction.senses.Sighting;
 import model.ES.component.motion.PlanarStance;
@@ -28,7 +28,7 @@ public class BehaviorTreeProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
+	protected void onEntityAdded(Entity e) {
 		Reader reader = null;
 		try {
 			reader = new FileReader("assets/data/btrees/ship.tree");
@@ -43,7 +43,7 @@ public class BehaviorTreeProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityUpdated(Entity e, float elapsedTime) {
+	protected void onEntityUpdated(Entity e) {
 		bTrees.get(e.getId()).step();
 	}
 }

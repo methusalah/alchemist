@@ -2,7 +2,7 @@ package model.ES.processor.command;
 
 import com.simsilica.es.Entity;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 import model.ES.component.command.PlanarNeededThrust;
 import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
@@ -18,22 +18,13 @@ public class NeededThrustProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime){
-		manage(e, elapsedTime);
-	}
-
-	@Override
-	protected void onEntityUpdated(Entity e, float elapsedTime){
-		manage(e, elapsedTime);
-	}
-	
-	private void manage(Entity e, float elapsedTime){
+	protected void onEntityEachTick(Entity e) {
 		PlanarNeededThrust thrust = e.get(PlanarNeededThrust.class);
 		MotionCapacity capacity = e.get(MotionCapacity.class);
 		PlanarStance stance = e.get(PlanarStance.class);
 		
 		// orient the velocity according to the origin to scale its X and Y components
-		Point2D originalVel = thrust.getDirection().getRotation(-stance.orientation.getValue());
+		Point2D originalVel = thrust.getDirection().getRotation(-stance.orientation.getValue()).getNormalized();
 		double velX = originalVel.x * (originalVel.x > 0? capacity.thrustPower : capacity.frontalThrustPower);
 		double velY = originalVel.y * capacity.lateralThrustPower;
 		

@@ -2,6 +2,7 @@ package view;
 
 import java.io.IOException;
 
+import model.JmeForImageViewParam;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,11 +15,11 @@ import application.MainEditor;
 
 import com.jme3x.jfx.injfx.JmeForImageView;
 
-public class View {
+public class OverviewController {
 	public final InspectorView inspectorView;
 	public final HierarchyView hierarchyView;
 	
-	public View(Stage stage, JmeForImageView jme) {
+	public OverviewController(Stage stage, JmeForImageView jme) {
 		inspectorView = new InspectorView();
 		hierarchyView = new HierarchyView();
 		stage.setTitle("Entity Editor");

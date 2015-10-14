@@ -4,7 +4,7 @@ import model.ES.component.relation.AbilityTriggerList;
 
 import com.simsilica.es.Entity;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 
 public class AbilityTriggerResetProc extends Processor {
 
@@ -15,13 +15,7 @@ public class AbilityTriggerResetProc extends Processor {
 	
 	
 	@Override
-	protected void onUpdated(float elapsedTime) {
-		for(Entity e : sets.get(0)){
-			reset(e, elapsedTime);
-		}
-	}
-
-	private void reset(Entity e, float elapsedTime) {
+	protected void onEntityEachTick(Entity e) {
 		AbilityTriggerList triggers = e.get(AbilityTriggerList.class);
 		triggers.triggers.clear();
 	}

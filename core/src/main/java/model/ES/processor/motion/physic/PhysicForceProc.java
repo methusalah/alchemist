@@ -2,7 +2,7 @@ package model.ES.processor.motion.physic;
 
 import com.simsilica.es.Entity;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Physic;
@@ -18,7 +18,7 @@ public class PhysicForceProc extends Processor {
 	}
 	
 	@Override
-	protected void onUpdated(float elapsedTime) {
+	protected void onUpdated() {
 		for(Entity impE : sets.get(0))
 			for(Entity phE : sets.get(1)){
 				PlanarStance impStance = impE.get(PlanarStance.class);
@@ -33,7 +33,7 @@ public class PhysicForceProc extends Processor {
 				double distance = vector.getLength(); 
 				if(distance < impulse.radius){
 					double rate = 1-(distance/impulse.radius);
-					double force = impulse.radius*rate;
+					double force = impulse.force*rate;
 					Point2D velocity = Point2D.ORIGIN.getTranslation(vector.getAngle(), force);
 					PlanarVelocityToApply v = phE.get(PlanarVelocityToApply.class);
 					velocity = velocity.getAddition(v.vector);

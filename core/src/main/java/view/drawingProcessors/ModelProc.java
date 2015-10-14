@@ -10,7 +10,7 @@ import app.AppFacade;
 import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 
 public class ModelProc extends Processor {
 	Map<String, Spatial> modelPrototypes = new HashMap<>();
@@ -21,30 +21,12 @@ public class ModelProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
-		createModel(e);
-	}
-	
-	@Override
-	protected void onEntityRemoved(Entity e, float elapsedTime) {
+	protected void onEntityRemoved(Entity e) {
 		AppFacade.getRootNode().detachChild(SpatialPool.models.remove(e.getId()));
-		
 	}
 
 	@Override
-	protected void onEntityUpdated(Entity e, float elapsedTime) {
-		createModel(e);
-	}
-	
-	private Spatial getPrototype(String modelPath){
-		if (!modelPrototypes.containsKey(modelPath)) {
-			Spatial s = AppFacade.getAssetManager().loadModel("models/" + modelPath);
-			modelPrototypes.put(modelPath, s);
-		}
-		return modelPrototypes.get(modelPath);
-	}
-	
-	private void createModel(Entity e){
+	protected void onEntityEachTick(Entity e) {
 		if(SpatialPool.models.containsKey(e.getId()))
 			AppFacade.getRootNode().detachChild(SpatialPool.models.get(e.getId()));
 		
@@ -55,4 +37,13 @@ public class ModelProc extends Processor {
 		SpatialPool.models.put(e.getId(), s);
 		AppFacade.getRootNode().attachChild(s);
 	}
+	
+	private Spatial getPrototype(String modelPath){
+		if (!modelPrototypes.containsKey(modelPath)) {
+			Spatial s = AppFacade.getAssetManager().loadModel("models/" + modelPath);
+			modelPrototypes.put(modelPath, s);
+		}
+		return modelPrototypes.get(modelPath);
+	}
+	
 }

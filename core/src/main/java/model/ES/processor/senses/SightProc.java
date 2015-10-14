@@ -11,7 +11,7 @@ import util.math.AngleUtil;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 
 public class SightProc extends Processor {
 
@@ -22,19 +22,19 @@ public class SightProc extends Processor {
 	}
 
 	@Override
-	protected void onUpdated(float elapsedTime) {
+	protected void onUpdated() {
 		for(Entity watcher : sets.get(0)){
 			Sighting sighting = watcher.get(Sighting.class);
 			List<EntityId> entitiesInSight = new ArrayList<>();
 			for(Entity other : sets.get(1)){
-				if(isInSight(watcher, other, elapsedTime))
+				if(isInSight(watcher, other))
 					entitiesInSight.add(other.getId());
 			}
 			setComp(watcher, new Sighting(sighting.range, sighting.angle, entitiesInSight));
 		}
 	}
 
-	private boolean isInSight(Entity watcher, Entity other, float elapsedTime) {
+	private boolean isInSight(Entity watcher, Entity other) {
 		Sighting sighting = watcher.get(Sighting.class);
 		PlanarStance watcherStance = watcher.get(PlanarStance.class);
 		

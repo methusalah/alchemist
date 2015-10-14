@@ -41,7 +41,7 @@
     "spawnerException" : null,
     "stat" : {
       "type" : "Ship",
-      "mass" : 200.0,
+      "mass" : 100.0,
       "shape" : {
         "radius" : 1.0
       },
@@ -52,14 +52,13 @@
     }
   }, {
     "class" : "model.ES.component.motion.physic.Dragging",
-    "dragging" : 0.1
+    "dragging" : 0.5
   }, {
     "class" : "model.ES.component.motion.MotionCapacity",
-    "maxSpeed" : 2.0,
-    "maxRotationSpeed" : 5.235987755982989,
-    "thrustPower" : 3.0,
-    "lateralThrustPower" : 0.1,
-    "frontalThrustPower" : 0.1
+    "maxRotationSpeed" : 12.566370614359172,
+    "thrustPower" : 30.0,
+    "lateralThrustPower" : 10.0,
+    "frontalThrustPower" : 10.0
   }, {
     "class" : "model.ES.component.motion.PlanarVelocityToApply",
     "vector" : {

@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import com.simsilica.es.Entity;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 import model.ES.component.debug.VelocityViewing;
 import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarVelocityToApply;
@@ -23,7 +23,7 @@ public class CollisionResolutionProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
+	protected void onEntityAdded(Entity e) {
 		Collisioning col = e.get(Collisioning.class);
 		Entity A = entityData.getEntity(col.a, Physic.class, PlanarVelocityToApply.class);
 		Entity B = entityData.getEntity(col.b, Physic.class, PlanarVelocityToApply.class);

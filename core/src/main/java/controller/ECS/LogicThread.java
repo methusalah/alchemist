@@ -1,7 +1,4 @@
-package app;
-
-import com.jme3.app.Application;
-import com.jme3.app.state.AppStateManager;
+package controller.ECS;
 
 import model.ES.processor.LifeTimeProc;
 import model.ES.processor.RemoveProc;
@@ -32,19 +29,22 @@ import model.ES.processor.shipGear.LightThrusterProc;
 import model.ES.processor.shipGear.ParticleThrusterProc;
 import model.ES.processor.shipGear.RotationThrusterProc;
 import model.ES.processor.shipGear.ThrusterProc;
-import model.ES.serial.BlueprintCreator;
-import util.LogUtil;
+
+import com.jme3.app.SimpleApplication;
+import com.jme3.app.state.AppStateManager;
+import com.simsilica.es.EntityData;
+
+import controller.cameraManagement.ChasingCameraProc;
 
 public class LogicThread implements Runnable {
-    private final float tpf = 0.02f;
+    public static final double TIME_PER_FRAME = 0.02;
     private AppStateManager stateManager;
-    Application app;
  
-    public LogicThread(Application app) {
-        stateManager = new AppStateManager(app);
-        this.app = app;
- 
-        //add the logic AppStates to this thread
+    public LogicThread(EntityData ed) {
+    	stateManager = new AppStateManager(null);
+
+    	stateManager.attach(new EntityDataAppState(ed));
+		stateManager.attach(new ChasingCameraProc());
 		stateManager.attach(new RotationThrusterProc());
 		stateManager.attach(new ThrusterProc());
 		// forces
@@ -90,7 +90,7 @@ public class LogicThread implements Runnable {
 	public void run() {
 		while (!Thread.currentThread().isInterrupted()) {
 			long time = System.currentTimeMillis();
-			stateManager.update(tpf);
+			stateManager.update((float)TIME_PER_FRAME);
 			try {
 				long nextTick = time+20;
 				long towait = nextTick - System.currentTimeMillis();

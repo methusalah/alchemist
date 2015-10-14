@@ -6,7 +6,7 @@ import model.ES.component.interaction.senses.Touching;
 
 import com.simsilica.es.Entity;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 
 public class DestroyedOnTouchProc extends Processor {
 
@@ -17,15 +17,7 @@ public class DestroyedOnTouchProc extends Processor {
 	}
 
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
-		manage(e, elapsedTime);
-	}
-	@Override
-	protected void onEntityUpdated(Entity e, float elapsedTime) {
-		manage(e, elapsedTime);
-	}
-
-	private void manage(Entity e, float elapsedTime) {
+	protected void onEntityEachTick(Entity e) {
 		setComp(e, new ToRemove());
 	}
 

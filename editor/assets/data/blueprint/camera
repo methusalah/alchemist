@@ -20,13 +20,22 @@
     }
   }, {
     "class" : "model.ES.component.camera.ChasingCamera",
-    "maxSpeed" : 3.0,
+    "maxSpeed" : 1.7976931348623157E308,
     "speed" : 0.0,
-    "acceleration" : 0.5,
-    "deceleration" : 0.5
+    "acceleration" : 5.0,
+    "deceleration" : 5.0,
+    "pos" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 0.0
+    },
+    "target" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 0.0
+    }
   }, {
     "class" : "model.ES.component.motion.MotionCapacity",
-    "maxSpeed" : 1.0,
     "maxRotationSpeed" : 8.726646259971647,
     "thrustPower" : 1.0,
     "lateralThrustPower" : 1.0,

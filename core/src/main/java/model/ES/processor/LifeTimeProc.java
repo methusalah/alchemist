@@ -5,7 +5,7 @@ import com.simsilica.es.EntitySet;
 
 import model.ES.component.LifeTime;
 import model.ES.component.ToRemove;
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 
 public class LifeTimeProc extends Processor{
 
@@ -15,15 +15,9 @@ public class LifeTimeProc extends Processor{
 	}
 	
 	@Override
-	protected void onUpdated(float elapsedTime) {
-		for(EntitySet set : sets)
-			for(Entity e : set){
-				LifeTime life = e.get(LifeTime.class);
-				if(life.lifeStart+life.duration < System.currentTimeMillis())
-					setComp(e, new ToRemove());
-			}
-				
+	protected void onEntityEachTick(Entity e) {
+		LifeTime life = e.get(LifeTime.class);
+		if(life.lifeStart+life.duration < System.currentTimeMillis())
+			setComp(e, new ToRemove());
 	}
-
-	
 }

@@ -14,7 +14,7 @@ import view.math.TranslateUtil;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 
 public class EffectOnTouchProc extends Processor {
 
@@ -24,7 +24,7 @@ public class EffectOnTouchProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
+	protected void onEntityAdded(Entity e) {
 		EntityId eid = entityData.createEntity();
 		ParticleCaster caster = getCaster1(); 
 		entityData.setComponent(eid, new ParticleCasting(caster, caster.perSecond));

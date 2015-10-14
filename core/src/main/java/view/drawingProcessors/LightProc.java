@@ -14,7 +14,7 @@ import app.AppFacade;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.SpaceStance;
 import model.ES.component.visuals.Lighting;
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 
 public class LightProc extends Processor {
 
@@ -25,16 +25,7 @@ public class LightProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
-		manage(e, elapsedTime);
-	}
-	
-	@Override
-	protected void onEntityUpdated(Entity e, float elapsedTime) {
-		manage(e, elapsedTime);
-	}
-	
-	private void manage(Entity e, float elapsedTime){
+	protected void onEntityEachTick(Entity e) {
 		Lighting l = e.get(Lighting.class);
 		SpaceStance spaceStance = e.get(SpaceStance.class);
 		PlanarStance planarStance = e.get(PlanarStance.class);

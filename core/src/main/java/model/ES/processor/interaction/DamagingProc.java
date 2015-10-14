@@ -3,7 +3,7 @@ package model.ES.processor.interaction;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntitySet;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 import model.ES.component.interaction.Damaging;
 import model.ES.component.shipGear.Attrition;
 
@@ -15,7 +15,7 @@ public class DamagingProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
+	protected void onEntityAdded(Entity e) {
 		Damaging dmg = e.get(Damaging.class);
 		Attrition targetStats = entityData.getComponent(dmg.target, Attrition.class);
 		if(targetStats != null){

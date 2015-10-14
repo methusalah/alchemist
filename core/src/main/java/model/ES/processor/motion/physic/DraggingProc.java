@@ -2,7 +2,7 @@ package model.ES.processor.motion.physic;
 
 import com.simsilica.es.Entity;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Dragging;
 import model.ES.component.motion.physic.Physic;
@@ -17,16 +17,7 @@ public class DraggingProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
-		manage(e, elapsedTime);
-	}
-
-	@Override
-	protected void onEntityUpdated(Entity e, float elapsedTime){
-		manage(e, elapsedTime);
-	}
-	
-	private void manage(Entity e, float elapsedTime){
+	protected void onEntityEachTick(Entity e) {
 		Physic ph = e.get(Physic.class);
 		Dragging dragging = e.get(Dragging.class);
 		

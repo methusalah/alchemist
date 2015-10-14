@@ -13,7 +13,7 @@ import util.math.AngleUtil;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntitySet;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 
 public class PlayerThrustControlProc extends Processor {
 	
@@ -23,22 +23,14 @@ public class PlayerThrustControlProc extends Processor {
 	}
 	
 	@Override
-	protected void onUpdated(float elapsedTime) {
+	protected void onEntityEachTick(Entity e) {
 		if(ModelManager.command.target == null)
 			return;
 		
-        for(EntitySet set : sets)
-        	for (Entity e : set){
-        		PlanarStance stance = e.get(PlanarStance.class);
-        		if(stance.coord.getDistance(ModelManager.command.target) > 0.1){
-            		PlanarNeededThrust thrust = new PlanarNeededThrust(ModelManager.command.thrust.getRotation(stance.orientation.getValue()));
-            		setComp(e, thrust);
-        		}
-//        		if(!ModelManager.command.thrust.isOrigin()
-//        				&& stance.coord.getDistance(ModelManager.command.target) > 0.1){
-//            		PlanarNeededThrust thrust = new PlanarNeededThrust(ModelManager.command.thrust.getRotation(stance.orientation));
-//            		setComp(e, thrust);
-//        		}
-        	}
+		PlanarStance stance = e.get(PlanarStance.class);
+		if(stance.coord.getDistance(ModelManager.command.target) > 0.1){
+    		PlanarNeededThrust thrust = new PlanarNeededThrust(ModelManager.command.thrust.getRotation(stance.orientation.getValue()));
+    		setComp(e, thrust);
+		}
 	}
 }

@@ -15,7 +15,7 @@ import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 import com.simsilica.es.EntitySet;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 
 public class CollisionProc extends Processor {
 	
@@ -25,7 +25,7 @@ public class CollisionProc extends Processor {
 	}
 	
 	@Override
-	protected void onUpdated(float elapsedTime) {
+	protected void onUpdated() {
         for(EntitySet set : sets){
         	List<Entity> entities = new ArrayList<>();
         	for(Entity e : set){

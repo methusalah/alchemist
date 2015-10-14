@@ -29,7 +29,7 @@ public class TopdownCtrl extends Controller {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
-		AppFacade.getInputManager().setCursorVisible(true);
+		//AppFacade.getInputManager().setCursorVisible(true);
 	}
 	
 	private TopdownView getView(){

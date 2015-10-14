@@ -3,7 +3,7 @@ package model.ES.processor.holder;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntitySet;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 import model.ModelManager;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.SpaceStance;
@@ -24,16 +24,16 @@ public class PlanarHoldingProc extends Processor {
 	}
 
 	@Override
-	protected void onUpdated(float elapsedTime) {
+	protected void onUpdated() {
     	for (Entity e : sets.get(0)){
-    		managePlanar(e, elapsedTime);
+    		managePlanar(e);
     	}
     	for (Entity e : sets.get(1)){
-    		manageSpace(e, elapsedTime);
+    		manageSpace(e);
     	}
 	}
 
-	private void managePlanar(Entity e, float elapsedTime) {
+	private void managePlanar(Entity e) {
 		PlanarHolding holded = e.get(PlanarHolding.class);
 		Parenting parenting = e.get(Parenting.class);
 		
@@ -52,7 +52,7 @@ public class PlanarHoldingProc extends Processor {
 		}
 	}
 
-	private void manageSpace(Entity e, float elapsedTime) {
+	private void manageSpace(Entity e) {
 		PlanarHolding holded = e.get(PlanarHolding.class);
 		Parenting parenting = e.get(Parenting.class);
 

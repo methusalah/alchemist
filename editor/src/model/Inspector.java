@@ -14,6 +14,8 @@ import util.event.EntityRenamedEvent;
 import util.event.EntitySelectionChanged;
 import util.event.EventManager;
 import view.InspectorView;
+import app.AppFacade;
+import app.MainGame;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;

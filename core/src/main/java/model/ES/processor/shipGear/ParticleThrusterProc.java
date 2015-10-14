@@ -6,7 +6,7 @@ import model.ES.component.visuals.ParticleCasting;
 
 import com.simsilica.es.Entity;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 
 public class ParticleThrusterProc extends Processor {
 
@@ -17,7 +17,7 @@ public class ParticleThrusterProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityUpdated(Entity e, float elapsedTime) {
+	protected void onEntityUpdated(Entity e) {
 		ParticleCasting casting = e.get(ParticleCasting.class);
 		RotationThruster rotationThruster = e.get(RotationThruster.class);
 		Thruster thruster = e.get(Thruster.class);

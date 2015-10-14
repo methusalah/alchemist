@@ -1,7 +1,9 @@
 package controller.cameraManagement;
 
 import util.geometry.geom2d.Point2D;
+import util.geometry.geom3d.Point3D;
 import view.math.TranslateUtil;
+import app.AppFacade;
 
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
@@ -12,15 +14,10 @@ import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.relation.Parenting;
 import controller.CameraManager;
-import controller.entityAppState.Processor;
+import controller.ECS.LogicThread;
+import controller.ECS.Processor;
 
 public class ChasingCameraProc extends Processor {
-	
-	private final Camera cam;
-
-	public ChasingCameraProc(Camera cam) {
-		this.cam = cam;
-	}
 	
 	@Override
 	protected void registerSets() {
@@ -28,16 +25,7 @@ public class ChasingCameraProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime){
-		manage(e, elapsedTime);
-	}
-
-	@Override
-	protected void onEntityUpdated(Entity e, float elapsedTime){
-		manage(e, elapsedTime);
-	}
-	
-	private void manage(Entity e, float elapsedTime){
+	protected void onEntityEachTick(Entity e) {
 		PlanarStance stance = e.get(PlanarStance.class);
 		ChasingCamera chasing = e.get(ChasingCamera.class);
 		Parenting parenting = e.get(Parenting.class);
@@ -50,26 +38,19 @@ public class ChasingCameraProc extends Processor {
 		double newSpeed;
 		if(minBrakingDistance >= toTarget.getLength())
 			// deceleration
-			newSpeed = Math.max(0, chasing.getSpeed()-chasing.getDeceleration()*elapsedTime);
+			newSpeed = Math.max(0, chasing.getSpeed()-chasing.getDeceleration()*LogicThread.TIME_PER_FRAME);
 		else
 			// acceleration
-			newSpeed = Math.min(chasing.getMaxSpeed(), chasing.getSpeed()+chasing.getAcceleration()*elapsedTime);
+			newSpeed = Math.min(chasing.getMaxSpeed(), chasing.getSpeed()+chasing.getAcceleration()*LogicThread.TIME_PER_FRAME);
 			
-		toTarget = toTarget.getScaled(newSpeed*elapsedTime);
+		toTarget = toTarget.getScaled(newSpeed*LogicThread.TIME_PER_FRAME);
 		
 		Point2D newCoord = stance.coord.getAddition(toTarget);
+		Point3D pos = newCoord.get3D(stance.elevation);
+		Point3D target = targetStance.coord.get3D(targetStance.elevation);
 		
-		
-		setComp(e, new ChasingCamera(chasing.getMaxSpeed(), newSpeed, chasing.getAcceleration(), chasing.getDeceleration()));
+		setComp(e, new ChasingCamera(chasing.getMaxSpeed(), newSpeed, chasing.getAcceleration(), chasing.getDeceleration(), pos, target));
 		setComp(e, new PlanarStance(newCoord, stance.orientation, stance.elevation, stance.upVector));
-		
-		cam.setLocation(TranslateUtil.toVector3f(newCoord.get3D(stance.elevation)));
-		cam.lookAt(TranslateUtil.toVector3f(targetStance.coord.get3D(targetStance.elevation)), Vector3f.UNIT_Y);
-		
-		StringBuilder sb = new StringBuilder(this.getClass().getSimpleName() + System.lineSeparator());
-		sb.append("    camera pos : "+ newCoord.get3D(stance.elevation) + System.lineSeparator());
-		sb.append("    speed : " + newSpeed + System.lineSeparator());
-		sb.append("    accelerate : " + (minBrakingDistance >= toTarget.getLength()) + System.lineSeparator());
 	}
 
 }

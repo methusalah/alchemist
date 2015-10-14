@@ -3,7 +3,7 @@ package model.ES.processor.interaction;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 import model.ES.component.LifeTime;
 import model.ES.component.interaction.ShockwaveOnTouch;
 import model.ES.component.interaction.senses.Touching;
@@ -19,7 +19,7 @@ public class ShockwaveOnTouchProc extends Processor{
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
+	protected void onEntityAdded(Entity e) {
 		ShockwaveOnTouch shock = e.get(ShockwaveOnTouch.class);
 		EntityId eid = entityData.createEntity();
 		entityData.setComponent(eid, new PhysicForce(0, shock.getRadius(), shock.getForce(), "Missile"));

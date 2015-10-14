@@ -2,7 +2,7 @@ package model.ES.processor.ability;
 
 import com.simsilica.es.Entity;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 import model.ES.component.shipGear.Trigger;
 import model.ES.component.shipGear.TriggerRepeater;
 import util.math.RandomUtil;
@@ -15,16 +15,7 @@ public class TriggerRepeaterProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityUpdated(Entity e, float elapsedTime) {
-		manage(e, elapsedTime);
-	}
-
-	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
-		manage(e, elapsedTime);
-	}
-	
-	private void manage(Entity e, float elapsedTime) {
+	protected void onEntityEachTick(Entity e) {
 		Trigger trigger = e.get(Trigger.class);
 		TriggerRepeater r = e.get(TriggerRepeater.class);
 		

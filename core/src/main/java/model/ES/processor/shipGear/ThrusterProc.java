@@ -4,7 +4,7 @@ import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 import com.simsilica.es.EntitySet;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 import model.ModelManager;
 import model.ES.component.command.PlanarNeededThrust;
 import model.ES.component.motion.PlanarStance;
@@ -23,14 +23,7 @@ public class ThrusterProc extends Processor {
 	}
 
 	@Override
-	protected void onUpdated(float elapsedTime) {
-        for(EntitySet set : sets)
-        	for (Entity e : set){
-        		manage(e, elapsedTime);
-        	}
-	}
-
-	private void manage(Entity e, float elapsedTime) {
+	protected void onEntityEachTick(Entity e) {
 		Thruster thruster = e.get(Thruster.class);
 		Parenting parenting = e.get(Parenting.class);
 		EntityId holder = parenting.getParent();

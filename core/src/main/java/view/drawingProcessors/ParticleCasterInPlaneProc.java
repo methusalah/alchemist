@@ -22,7 +22,7 @@ import com.jme3.math.Vector3f;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntitySet;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 
 public class ParticleCasterInPlaneProc extends Processor {
 
@@ -32,66 +32,7 @@ public class ParticleCasterInPlaneProc extends Processor {
 	}
 
 	@Override
-	protected void onUpdated(float elapsedTime) {
-        for(EntitySet set : sets)
-        	for (Entity e : set){
-        		updateParticleEmitter(e, elapsedTime);
-        	}
-	}
-
-	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
-		ParticleCasting casting = e.get(ParticleCasting.class);
-		Naming n = entityData.getComponent(e.getId(), Naming.class);
-		if(SpatialPool.emitters.containsKey(e.getId())){
-			throw new RuntimeException("Can't add the same particle caster twice."+n.name);
-		}
-		
-		MyParticleEmitter pe = new MyParticleEmitter("ParticleCaster for entity "+e.getId(), Type.Triangle, casting.caster.maxCount);
-		SpatialPool.emitters.put(e.getId(), pe);
-
-		// material
-		Material m = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Particle.j3md");
-		m.setTexture("Texture", AppFacade.getAssetManager().loadTexture("textures/" + casting.caster.spritePath));
-		pe.setMaterial(m);
-
-		pe.setImagesX(casting.caster.nbCol);
-		pe.setImagesY(casting.caster.nbRow);
-
-		// particle fanning
-		pe.getParticleInfluencer().setVelocityVariation((float)casting.caster.fanning);
-
-		// particle size
-		pe.setStartSize((float)casting.caster.startSize);
-		pe.setEndSize((float)casting.caster.endSize);
-		
-		// particle life
-		pe.setLowLife((float)casting.caster.minLife);
-		pe.setHighLife((float)casting.caster.maxLife);
-
-		// particle color
-		pe.setStartColor(TranslateUtil.toColorRGBA(casting.caster.startColor));
-		pe.setEndColor(TranslateUtil.toColorRGBA(casting.caster.endColor));
-		
-		// particle facing
-		switch(casting.caster.facing){
-		case Camera: break;
-		case Horizontal: pe.setFaceNormal(Vector3f.UNIT_Z); break;
-		case Velocity: pe.setFacingVelocity(true);
-		}
-		
-		//particle per seconds
-		pe.setParticlesPerSec((float)casting.actualPerSecond);
-		
-		AppFacade.getRootNode().attachChild(pe);
-		
-		updateParticleEmitter(e, elapsedTime);
-
-		if(casting.caster.allAtOnce)
-			pe.emitAllParticles();
-	}
-
-	private void updateParticleEmitter(Entity e, float elapsedTime) {
+	protected void onEntityEachTick(Entity e) {
 		Point3D pos, velocity;
 		if(e.get(PlanarStance.class) != null){
 			PlanarStance stance = e.get(PlanarStance.class);
@@ -140,7 +81,59 @@ public class ParticleCasterInPlaneProc extends Processor {
 	}
 
 	@Override
-	protected void onEntityRemoved(Entity e, float elapsedTime) {
+	protected void onEntityAdded(Entity e) {
+		ParticleCasting casting = e.get(ParticleCasting.class);
+		Naming n = entityData.getComponent(e.getId(), Naming.class);
+		if(SpatialPool.emitters.containsKey(e.getId())){
+			throw new RuntimeException("Can't add the same particle caster twice."+n.name);
+		}
+		
+		MyParticleEmitter pe = new MyParticleEmitter("ParticleCaster for entity "+e.getId(), Type.Triangle, casting.caster.maxCount);
+		SpatialPool.emitters.put(e.getId(), pe);
+
+		// material
+		Material m = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Particle.j3md");
+		m.setTexture("Texture", AppFacade.getAssetManager().loadTexture("textures/" + casting.caster.spritePath));
+		pe.setMaterial(m);
+
+		pe.setImagesX(casting.caster.nbCol);
+		pe.setImagesY(casting.caster.nbRow);
+
+		// particle fanning
+		pe.getParticleInfluencer().setVelocityVariation((float)casting.caster.fanning);
+
+		// particle size
+		pe.setStartSize((float)casting.caster.startSize);
+		pe.setEndSize((float)casting.caster.endSize);
+		
+		// particle life
+		pe.setLowLife((float)casting.caster.minLife);
+		pe.setHighLife((float)casting.caster.maxLife);
+
+		// particle color
+		pe.setStartColor(TranslateUtil.toColorRGBA(casting.caster.startColor));
+		pe.setEndColor(TranslateUtil.toColorRGBA(casting.caster.endColor));
+		
+		// particle facing
+		switch(casting.caster.facing){
+		case Camera: break;
+		case Horizontal: pe.setFaceNormal(Vector3f.UNIT_Z); break;
+		case Velocity: pe.setFacingVelocity(true);
+		}
+		
+		//particle per seconds
+		pe.setParticlesPerSec((float)casting.actualPerSecond);
+		
+		AppFacade.getRootNode().attachChild(pe);
+		
+		onEntityEachTick(e);
+
+		if(casting.caster.allAtOnce)
+			pe.emitAllParticles();
+	}
+
+	@Override
+	protected void onEntityRemoved(Entity e) {
 		MyParticleEmitter pe = SpatialPool.emitters.get(e.getId());
 		AppFacade.getRootNode().detachChild(pe);
 	}

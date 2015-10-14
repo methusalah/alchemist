@@ -1,4 +1,4 @@
-package controller.entityAppState;
+package controller.ECS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +24,12 @@ public abstract class Processor extends AbstractAppState {
 	@Override
 	public final void initialize(AppStateManager stateManager, Application app) {
 		super.initialize(stateManager, app);
-//        entityData = stateManager.getState(EntityDataAppState.class).getEntityData();
-        entityData = ((MainGame)app).ed;
+        entityData = stateManager.getState(EntityDataAppState.class).entityData;
 
         registerSets();
         for(EntitySet set : sets)
 	        for (Entity e : set)
-	            onEntityAdded(e, 0.001f);
+	            onEntityAdded(e);
         onInitialized();
 	}
 	
@@ -39,26 +38,30 @@ public abstract class Processor extends AbstractAppState {
     	if(!isEnabled())
     		return;
     	
-        for(EntitySet set : sets)
+        for(EntitySet set : sets){
 	        if (set.applyChanges()) {
 	            for (Entity e : set.getChangedEntities()) {
-	            	onEntityUpdated(e, elapsedTime);
+	            	onEntityUpdated(e);
 	            }
 	            for (Entity e : set.getAddedEntities()) {
-	            	onEntityAdded(e, elapsedTime);
+	            	onEntityAdded(e);
 	            }
 	            for (Entity e : set.getRemovedEntities()) {
-	            	onEntityRemoved(e, elapsedTime);
+	            	onEntityRemoved(e);
 	            }
 	        }
-        onUpdated(elapsedTime);
+            for (Entity e : set) {
+            	onEntityEachTick(e);
+            }
+        }
+        onUpdated();
     }
 
     @Override
     public final void cleanup() {
         for(EntitySet set : sets)
         	for (Entity e : set)
-        		onEntityRemoved(e, 0.001f);
+        		onEntityRemoved(e);
         onCleanup();
         for(EntitySet set : sets)
         	set.release();
@@ -96,28 +99,35 @@ public abstract class Processor extends AbstractAppState {
      *
      * @param tpf
      */
-    protected void onUpdated(float elapsedTime){}
+    protected void onUpdated(){}
 
     /**
      * Called when an entity is added.
      *
      * @param e entity to add.
      */
-    protected void onEntityAdded(Entity e, float elapsedTime){}
+    protected void onEntityAdded(Entity e){}
 
     /**
      * Called when an entity got an update.
      *
      * @param e updated entity.
      */
-    protected void onEntityUpdated(Entity e, float elapsedTime){}
+    protected void onEntityUpdated(Entity e){}
 
     /**
      * Called when an entity is removed.
      *
      * @param e removed entity.
      */
-    protected void onEntityRemoved(Entity e, float elapsedTime){}
+    protected void onEntityRemoved(Entity e){}
+
+    /**
+     * Called each frame for each entity.
+     *
+     * @param e removed entity.
+     */
+    protected void onEntityEachTick(Entity e){}
 
     /**
      * Called when the system is removed, used to clean his mess.

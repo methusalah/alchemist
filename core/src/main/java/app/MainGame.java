@@ -80,6 +80,7 @@ import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 import util.math.AngleUtil;
 import util.math.Fraction;
+import view.drawingProcessors.CameraPlacingProc;
 import view.drawingProcessors.LightProc;
 import view.drawingProcessors.ModelProc;
 import view.drawingProcessors.ParticleCasterInPlaneProc;
@@ -89,108 +90,44 @@ import view.material.MaterialManager;
 
 import com.google.common.eventbus.Subscribe;
 import com.simsilica.es.EntityData;
+import com.simsilica.es.base.DefaultEntityData;
 
 import controller.Controller;
+import controller.ECS.EntityDataAppState;
+import controller.ECS.EntitySystem;
 import controller.cameraManagement.ChasingCameraProc;
-import controller.entityAppState.EntityDataAppState;
 import controller.topdown.TopdownCtrl;
 
 public class MainGame extends CosmoVania {
 	private Controller currentAppState;
-	private Thread logicThread;
-	public EntityData ed;
 	
 	public static void main(String[] args) {
+		new MainGame();
+	}
+	
+	public MainGame() {
 		LogUtil.init();
-		CosmoVania app = new MainGame();
-		AppFacade.setApp(app);
-		app.start();
+		AppFacade.setApp(this);
+		start();
 	}
 
 	@Override
 	public void simpleInitApp() {
 		MaterialManager.setAssetManager(assetManager);
+    	EntityData ed = new DefaultEntityData();
+		BlueprintCreator.setEntityData(ed);
+		
+		serialiseBluePrints();
+		BlueprintCreator.create("player ship", null);
+		BlueprintCreator.create("enemy", null);
+		BlueprintCreator.create("sun", null);
 
+		
 		stateManager.attach(new TopdownCtrl());
 		stateManager.getState(TopdownCtrl.class).setEnabled(true);
 		currentAppState = stateManager.getState(TopdownCtrl.class);
 		
-		stateManager.attach(new EntityDataAppState());
-		// commands
-		stateManager.attach(new PlayerRotationControlProc());
-		stateManager.attach(new PlayerThrustControlProc());
-//		stateManager.attach(new PlayerOrthogonalThrustControlProc());
-
-//		stateManager.attach(new RotationThrusterProc());
-//		stateManager.attach(new ThrusterProc());
-//		// forces
-//		stateManager.attach(new NeededRotationProc());
-//		stateManager.attach(new NeededThrustProc());
-//		stateManager.attach(new DraggingProc());
-//		stateManager.attach(new PhysicForceProc());
-//		stateManager.attach(new VelocityApplicationProc());
-//		// collisions
-//		stateManager.attach(new CollisionProc());
-//		stateManager.attach(new CollisionResolutionProc());
-//		// relations	
-//		stateManager.attach(new BoneHoldingProc());
-//		stateManager.attach(new ChasingCameraProc(getCamera()));
-//		stateManager.attach(new PlanarHoldingProc());
-//		stateManager.attach(new ParticleThrusterProc());
-//		stateManager.attach(new LightThrusterProc());
-//		
-//		// ability
-//		stateManager.attach(new PlayerAbilityControlProc());
-//		stateManager.attach(new BehaviorTreeProc());
-//		stateManager.attach(new TriggerObserverProc());
-//		stateManager.attach(new AbilityTriggerResetProc());
-//		stateManager.attach(new TriggerCancelationProc());
-//		stateManager.attach(new TriggerRepeaterProc());
-//		
-//		stateManager.attach(new ProjectileLauncherProc());
-//
-//		stateManager.attach(new DamagingProc());
-//		stateManager.attach(new AttritionProc());
-//
-//		stateManager.attach(new SightProc());
-//		
-//		stateManager.attach(new EffectOnTouchProc());
-//		stateManager.attach(new DamageOnTouchProc());
-//		stateManager.attach(new DestroyedOnTouchProc());
-//		stateManager.attach(new ShockwaveOnTouchProc());
-//		
-//		stateManager.attach(new LifeTimeProc());
-//		stateManager.attach(new RemoveProc());
-//		
-		stateManager.attach(new ChasingCameraProc(getCamera()));
-		stateManager.attach(new ParticleCasterInPlaneProc());
-		stateManager.attach(new ModelProc());
-		stateManager.attach(new PlacingModelProc());
-		stateManager.attach(new LightProc());
-		stateManager.attach(new VelocityVisualisationProc());
-
-		ed = stateManager.getState(EntityDataAppState.class).getEntityData();
-		BlueprintCreator.setEntityData(ed);
-		
-		serialiseBluePrints();
-		
-		EventManager.register(this);
-		
-		BlueprintCreator.create("player ship", null);
-		BlueprintCreator.create("enemy", null);
-		BlueprintCreator.create("sun", null);
-		
-		//create the Thread for the game logic
-//        scheduler = Executors.newSingleThreadScheduledExecutor();
-//        ScheduledFuture<?> handle = scheduler.scheduleAtFixedRate(new LogicThread(this), 0, 20, TimeUnit.MILLISECONDS);
-//        try {
-//        	handle.get();
-//        } catch (ExecutionException | InterruptedException e) {
-//        	e.printStackTrace();
-//        	//Exception rootException = (Exception) e.getCause();
-//        }
-		logicThread = new Thread(new LogicThread(this));
-		logicThread.start();
+		stateManager.attach(new EntitySystem(ed));
 	}
 
 	@Override
@@ -350,9 +287,9 @@ public class MainGame extends CosmoVania {
 		bp.add(new Naming("enemy"));
 		bp.add(new PlanarStance(new Point2D(10, 10), new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, new Angle(0), new Angle(AngleUtil.toRadians(-90)), new Angle(0)));
-		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 200, new CollisionShape(1), new Fraction(0.8)), null));
-		bp.add(new Dragging(0.1));
-		bp.add(new MotionCapacity(2, AngleUtil.toRadians(300), 3, 0.1, 0.1));
+		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(1), new Fraction(0.8)), null));
+		bp.add(new Dragging(0.5));
+		bp.add(new MotionCapacity(AngleUtil.toRadians(720), 30, 10, 10));
 		bp.add(new PlanarVelocityToApply(Point2D.ORIGIN));
 		bp.add(new Attrition(30, 30));
 		bp.add(new Sighting(8, AngleUtil.toRadians(100), new ArrayList<>()));
@@ -407,16 +344,16 @@ public class MainGame extends CosmoVania {
 		bp = new Blueprint("camera");
 		bp.add(new Naming("camera"));
 		bp.add(new PlanarStance(new Point2D(1, 1), new Angle(0), 25, Point3D.UNIT_Z));
-		bp.add(new ChasingCamera(3, 0, 0.5, 0.5));
-		bp.add(new MotionCapacity(1, AngleUtil.toRadians(500), 1, 1, 1));
+		bp.add(new ChasingCamera(Double.MAX_VALUE, 0, 5, 5, Point3D.ORIGIN, Point3D.ORIGIN));
+		bp.add(new MotionCapacity(AngleUtil.toRadians(500), 1, 1, 1));
 		BlueprintLibrary.save(bp);
 		
 		bp = new Blueprint("player ship");
 		bp.add(new Naming("player ship"));
 		bp.add(new PlayerControl());
 		bp.add(new PlanarStance(new Point2D(1, 1), new Angle(0), 0.5, Point3D.UNIT_Z));
-		bp.add(new Dragging(0.05));
-		bp.add(new MotionCapacity(3, AngleUtil.toRadians(360), 3, 1.5, 1.5));
+		bp.add(new Dragging(0.5));
+		bp.add(new MotionCapacity(AngleUtil.toRadians(720), 30, 10, 10));
 		bp.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, new Angle(0), new Angle(-AngleUtil.RIGHT), new Angle(0)));
 		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), new Fraction(0.8)), null));
 		bp.add(new EffectOnTouch());
@@ -438,11 +375,4 @@ public class MainGame extends CosmoVania {
 		bp.add("side right thruster");
 		BlueprintLibrary.save(bp);
 	}
-	
-	@Override
-    public void destroy() {
-        super.destroy();
-        //Shutdown the thread when the game is closed
-        logicThread.interrupt();
-    }
 }

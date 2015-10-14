@@ -2,7 +2,7 @@ package model.ES.processor.shipGear;
 
 import com.simsilica.es.Entity;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 import model.ES.component.shipGear.Thruster;
 import model.ES.component.visuals.Lighting;
 
@@ -14,7 +14,7 @@ public class LightThrusterProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityUpdated(Entity e, float elapsedTime) {
+	protected void onEntityUpdated(Entity e) {
 		Lighting l = e.get(Lighting.class);
 		Thruster thruster = e.get(Thruster.class);
 		

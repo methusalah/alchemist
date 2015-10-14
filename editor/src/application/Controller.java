@@ -15,14 +15,14 @@ import util.event.EntityCreationEvent;
 import util.event.EntityRenamedEvent;
 import util.event.EntitySelectionChanged;
 import util.event.EventManager;
-import view.View;
+import view.OverviewController;
 
 public class Controller {
 
 	private final Model model;
-	private final View view;
+	private final OverviewController view;
 	
-	public Controller(Model model, View view) {
+	public Controller(Model model, OverviewController view) {
 		this.model = model;
 		this.view = view;
 		

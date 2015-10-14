@@ -15,7 +15,7 @@ import com.jme3.scene.shape.Line;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntitySet;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 
 public class VelocityVisualisationProc extends Processor {
 
@@ -25,7 +25,7 @@ public class VelocityVisualisationProc extends Processor {
 	}
 
 	@Override
-	protected void onUpdated(float elapsedTime) {
+	protected void onUpdated() {
 		for(EntitySet set : sets)
 			for(Entity e : set){
 				manage(e);

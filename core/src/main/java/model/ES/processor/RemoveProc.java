@@ -5,7 +5,7 @@ import util.LogUtil;
 import com.simsilica.es.Entity;
 
 import model.ES.component.ToRemove;
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 
 public class RemoveProc extends Processor {
 
@@ -15,7 +15,7 @@ public class RemoveProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
+	protected void onEntityAdded(Entity e) {
 		entityData.removeEntity(e.getId());
 	}
 

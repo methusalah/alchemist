@@ -1,4 +1,4 @@
-package controller.entityAppState;
+package controller.ECS;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
@@ -13,11 +13,10 @@ import com.simsilica.es.base.DefaultEntityData;
  * @author Eike Foede, roah
  */
 public class EntityDataAppState extends AbstractAppState {
-
-    private EntityData entityData;
-    
+	EntityData entityData;
+	
     public EntityDataAppState() {
-        entityData = new DefaultEntityData();
+    	entityData = new DefaultEntityData();
     }
 
     public EntityDataAppState(EntityData entityData) {

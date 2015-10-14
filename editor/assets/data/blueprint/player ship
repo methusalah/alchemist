@@ -34,14 +34,13 @@
     }
   }, {
     "class" : "model.ES.component.motion.physic.Dragging",
-    "dragging" : 0.05
+    "dragging" : 0.5
   }, {
     "class" : "model.ES.component.motion.MotionCapacity",
-    "maxSpeed" : 3.0,
-    "maxRotationSpeed" : 6.283185307179586,
-    "thrustPower" : 3.0,
-    "lateralThrustPower" : 1.5,
-    "frontalThrustPower" : 1.5
+    "maxRotationSpeed" : 12.566370614359172,
+    "thrustPower" : 30.0,
+    "lateralThrustPower" : 10.0,
+    "frontalThrustPower" : 10.0
   }, {
     "class" : "model.ES.component.visuals.Model",
     "path" : "human/adav/adav02b.mesh.xml",

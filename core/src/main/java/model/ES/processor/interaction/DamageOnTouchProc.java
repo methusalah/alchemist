@@ -3,7 +3,7 @@ package model.ES.processor.interaction;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
-import controller.entityAppState.Processor;
+import controller.ECS.Processor;
 import model.ES.component.LifeTime;
 import model.ES.component.interaction.DamageOnTouch;
 import model.ES.component.interaction.Damaging;
@@ -20,7 +20,7 @@ public class DamageOnTouchProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e, float elapsedTime) {
+	protected void onEntityAdded(Entity e) {
 		DamageOnTouch dmg = e.get(DamageOnTouch.class);
 		Touching touching = e.get(Touching.class);
 		EntityId eid = entityData.createEntity();
