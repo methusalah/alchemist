@@ -3,9 +3,9 @@ apply plugin: 'application'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
 
-mainClassName = 'Main'
+mainClassName = 'application.MainEditor'
 if (!hasProperty('mainClass')) {
-	ext.mainClass = 'Main'
+	ext.mainClass = 'application.MainEditor'
 }
 
 repositories {
