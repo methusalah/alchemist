@@ -17,10 +17,10 @@ public class DamagingProc extends Processor {
 	@Override
 	protected void onEntityAdded(Entity e) {
 		Damaging dmg = e.get(Damaging.class);
-		Attrition targetStats = entityData.getComponent(dmg.target, Attrition.class);
-		if(targetStats != null){
-			int remaining = targetStats.actualHitpoints - dmg.damage.amount;
-			entityData.setComponent(dmg.target, new Attrition(targetStats.maxHitpoints, remaining));
+		Attrition attrition = entityData.getComponent(dmg.target, Attrition.class);
+		if(attrition != null){
+			int remaining = attrition.actualHitpoints - dmg.damage.amount;
+			entityData.setComponent(dmg.target, new Attrition(attrition.maxHitpoints, remaining));
 		}
 	}
 }

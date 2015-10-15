@@ -10,11 +10,13 @@ import javafx.event.EventHandler;
 import javafx.util.Duration;
 import model.Model;
 import util.LogUtil;
+import util.event.AddComponentEvent;
 import util.event.ComponentPropertyChanged;
 import util.event.EntityCreationEvent;
 import util.event.EntityRenamedEvent;
 import util.event.EntitySelectionChanged;
 import util.event.EventManager;
+import util.event.ParentingChangedEvent;
 import view.OverviewController;
 
 public class Controller {
@@ -27,38 +29,47 @@ public class Controller {
 		this.view = view;
 		
 		view.hierarchyView.update(model.hierarchy.baseNodes);
+		view.inspectorView.setComponentNames(model.inspector.getComponentNames());
 		EventManager.register(this);
 	}
 	
 	@Subscribe
-	public void EntitySelectionChangedEvent(EntitySelectionChanged event){
-		model.inspector.inspect(event.eid);
+	public void handleEntitySelectionChangedEvent(EntitySelectionChanged e){
+		model.inspector.inspect(e.eid);
 		view.inspectorView.inspectNewEntity(model.inspector.getComponents());
 	}
 	
 	@Subscribe
-	public void updateComponentEvent(ComponentPropertyChanged event){
-		model.inspector.updateComponent(event.comp, event.propertyName, event.newValue);
+	public void handleUpdateComponentEvent(ComponentPropertyChanged e){
+		model.inspector.updateComponent(e.comp, e.propertyName, e.newValue);
 		view.inspectorView.inspectSameEntity(model.inspector.getComponents());
 	}
 	
 	@Subscribe
-	public void entityCreationEvent(EntityCreationEvent event){
+	public void handleEntityCreationEvent(EntityCreationEvent e){
 		model.hierarchy.createNewEntity("Unamed Entity");
 		view.hierarchyView.update(model.hierarchy.baseNodes);
 	}
 	
 	@Subscribe
-	public void entityRenamedEvent(EntityRenamedEvent event){
+	public void handleEntityRenamedEvent(EntityRenamedEvent e){
 		// wathever the source of the modification, we change the naming of the entity
-		model.inspector.updateName(event.eid, event.newName);
+		model.inspector.updateName(e.eid, e.newName);
 		
 		// then we update the views
-		model.hierarchy.updateName(event.eid);
-		view.inspectorView.updateEntityName(event.newName);
-		
-		
+		model.hierarchy.updateName(e.eid);
+		view.inspectorView.updateEntityName(e.newName);
+	}
+
+	@Subscribe
+	public void handleAddComponentEvent(AddComponentEvent e){
+		model.inspector.addComponent(e.compName);
+		view.inspectorView.inspectSameEntity(model.inspector.getComponents());
 	}
 	
-
+	@Subscribe
+	public void handleParentingChangedEvent(ParentingChangedEvent e){
+		model.hierarchy.updateParenting(e.child, e.newParent);
+		view.hierarchyView.update(model.hierarchy.baseNodes);
+	}
 }

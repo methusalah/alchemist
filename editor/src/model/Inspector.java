@@ -2,36 +2,28 @@ package model;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import model.ES.component.Naming;
 import util.LogUtil;
-import util.event.ComponentPropertyChanged;
 import util.event.EntityRenamedEvent;
-import util.event.EntitySelectionChanged;
 import util.event.EventManager;
-import view.InspectorView;
-import app.AppFacade;
-import app.MainGame;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.google.common.eventbus.Subscribe;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
-import com.sun.media.jfxmedia.logging.Logger;
-
-import model.ES.component.Naming;
 
 public class Inspector {
 	private final EntityData entityData;
-	private List<Class<? extends EntityComponent>> componentClasses = new ArrayList<>();
+	private Map<String, Class<? extends EntityComponent>> componentClasses = new HashMap<>();
 	
 	private EntityId eid;
 	private List<EntityComponent> comps;
@@ -43,7 +35,7 @@ public class Inspector {
 	public void inspect(EntityId eid){
 		this.eid = eid;
 		comps = new ArrayList<>();
-		for(Class<? extends EntityComponent> componentClass : componentClasses){
+		for(Class<? extends EntityComponent> componentClass : componentClasses.values()){
 			EntityComponent comp = entityData.getComponent(eid, componentClass);
 			if(comp != null)
 				comps.add(comp);
@@ -92,7 +84,13 @@ public class Inspector {
 	}
 	
 	public void addComponentToScan(Class<? extends EntityComponent> compClass){
-		componentClasses.add(compClass);
+		componentClasses.put(compClass.getSimpleName(), compClass);
+	}
+
+	public List<String> getComponentNames(){
+		List<String> res = new ArrayList<String>(componentClasses.keySet());
+		Collections.sort(res);
+		return res;
 	}
 
 	public List<EntityComponent> getComponents() {
@@ -102,4 +100,15 @@ public class Inspector {
 	public EntityId getEid() {
 		return eid;
 	}
+	
+	public void addComponent(String componentName){
+		try {
+			EntityComponent comp = componentClasses.get(componentName).newInstance();
+			entityData.setComponent(eid, comp);
+			comps.add(comp);
+		} catch (InstantiationException | IllegalAccessException e) {
+			LogUtil.warning("Can't instanciate component "+componentName);
+		}
+	}
+	
 }

@@ -18,8 +18,6 @@ repositories {
 }
 
 dependencies {
-	compile fileTree(dir: 'lib', include: ['*.jar'])
-
 	compile "com.jme3:jme3-core:$jmonkeyengine_version"
 	compile "com.jme3:jme3-effects:$jmonkeyengine_version" 
 	compile "com.jme3:jme3-networking:$jmonkeyengine_version"
@@ -44,6 +42,7 @@ dependencies {
 	//compile 'com.github.brainless-studios:JME3-JFX:-SNAPSHOT'
 	
 	compile "com.badlogicgames.gdx:gdx-ai:1.6.0"
+	compile fileTree(dir: 'lib', include: ['*.jar'])
 }
 
 

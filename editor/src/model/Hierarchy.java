@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import util.LogUtil;
+
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
@@ -21,10 +23,7 @@ public class Hierarchy {
 	public Hierarchy(EntityData entityData) {
 		this.entityData = entityData;
 		
-		EntitySet set = entityData.getEntities(Naming.class);
-		for(Entity e : set){
-			addEntity(e.getId());
-		}
+		createEntityHierarchy();
 	}
 	
 	public void createNewEntity(String Name){
@@ -37,17 +36,38 @@ public class Hierarchy {
 		Naming naming = entityData.getComponent(eid, Naming.class);
 		EntityNode n = new EntityNode(eid, naming.name);
 		allNodes.put(eid, n);
+	}
+	private void linkEntity(EntityId eid){
+		EntityNode n = allNodes.get(eid);
 
 		Parenting parenting = entityData.getComponent(eid, Parenting.class);
 		if(parenting == null){
 			baseNodes.add(n);
 		} else {
-			allNodes.get(parenting.getParent()).children.add(new EntityNode(eid, naming.name));
+			allNodes.get(parenting.getParent()).children.add(n);
 		}
 	}
 	
 	public void updateName(EntityId eid){
 		Naming naming = entityData.getComponent(eid, Naming.class);
 		allNodes.get(eid).setName(naming.name);
+	}
+	
+	public void updateParenting(EntityId eid, EntityId parentid){
+		entityData.setComponent(eid, new Parenting(parentid));
+		LogUtil.info("update parenting of "+entityData.getComponent(eid, Naming.class).name +" to "+entityData.getComponent(parentid, Naming.class).name );
+		createEntityHierarchy();
+	}
+	
+	public void createEntityHierarchy(){
+		allNodes.clear();
+		baseNodes.clear();
+		EntitySet set = entityData.getEntities(Naming.class);
+		for(Entity e : set){
+			addEntity(e.getId());
+		}
+		for(Entity e : set){
+			linkEntity(e.getId());
+		}
 	}
 }

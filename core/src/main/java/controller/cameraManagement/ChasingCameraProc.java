@@ -31,6 +31,9 @@ public class ChasingCameraProc extends Processor {
 		Parenting parenting = e.get(Parenting.class);
 		PlanarStance targetStance = entityData.getComponent(parenting.getParent(), PlanarStance.class);
 		
+		if(targetStance == null)
+			return;
+		
 		Point2D toTarget = targetStance.coord.getSubtraction(stance.coord);
 		
 		double minBrakingDistance = (chasing.getSpeed()*chasing.getSpeed())/(chasing.getDeceleration()*2);

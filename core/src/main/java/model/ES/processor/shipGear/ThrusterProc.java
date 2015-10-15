@@ -28,11 +28,12 @@ public class ThrusterProc extends Processor {
 		Parenting parenting = e.get(Parenting.class);
 		EntityId holder = parenting.getParent();
 
-		PlanarNeededThrust thrust = entityData.getComponent(holder, PlanarNeededThrust.class);
-		PlanarStance stance = entityData.getComponent(holder, PlanarStance.class);
+		PlanarNeededThrust parentThrust = entityData.getComponent(holder, PlanarNeededThrust.class);
+		PlanarStance parentStance = entityData.getComponent(holder, PlanarStance.class);
+		
 		double activationRate = 0;
-		if(thrust != null && !thrust.getDirection().isOrigin()){
-			double diff = AngleUtil.getSmallestDifference(thrust.getDirection().getAngle()-stance.orientation.getValue(), thruster.direction.get2D().getAngle());
+		if(parentThrust != null && !parentThrust.getDirection().isOrigin()){
+			double diff = AngleUtil.getSmallestDifference(parentThrust.getDirection().getAngle()-parentStance.orientation.getValue(), thruster.direction.get2D().getAngle());
 			if(diff <= thruster.activationAngle.getValue()){
 				activationRate = 1;
 				if(!thruster.onOff)

@@ -3,6 +3,7 @@ package view.controls;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TreeItem;
+import javafx.scene.input.DragEvent;
 import model.EntityNode;
 import view.UIConfig;
 
@@ -32,8 +33,6 @@ public class EntityNodeItem extends TreeItem<EntityNode> {
 		});
 		
 		setExpanded(UIConfig.expandedEntityNodes.contains(getValue()));
-
-
 	}
 
 }
