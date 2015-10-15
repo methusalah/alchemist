@@ -24,42 +24,36 @@ public class OverviewController {
 		hierarchyView = new HierarchyView();
 		stage.setTitle("Entity Editor");
 		
-		BorderPane root;
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(MainEditor.class.getResource("/view/Overview.fxml")); 
-		try {
-			root = (BorderPane) loader.load();
-			Scene scene = new Scene(root);
-			
-			Pane p = new Pane();
-			p.setMaxWidth(Double.MAX_VALUE);
-			p.setMaxHeight(Double.MAX_VALUE);
-			p.setStyle("-fx-background-color: red");
-			root.setCenter(p);
-			
-			ImageView image = new ImageView();
-			image.fitHeightProperty().bind(p.heightProperty());
-			image.fitWidthProperty().bind(p.widthProperty());
-			image.setStyle("-fx-background-color: blue");
-			p.getChildren().add(image);
+		BorderPane root = new BorderPane();
+		Scene scene = new Scene(root);
+		root.setPrefSize(1600, 960);
+		
+		Pane p = new Pane();
+		p.setMaxWidth(Double.MAX_VALUE);
+		p.setMaxHeight(Double.MAX_VALUE);
+		p.setStyle("-fx-background-color: red");
+		root.setCenter(p);
+		
+		ImageView image = new ImageView();
+		image.fitHeightProperty().bind(p.heightProperty());
+		image.fitWidthProperty().bind(p.widthProperty());
+		image.setStyle("-fx-background-color: blue");
+		p.getChildren().add(image);
 
-			jme.bind(image);
+		jme.bind(image);
 
-			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			      public void handle(WindowEvent e){
-					jme.stop(true);
-			      }
-			});
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		      public void handle(WindowEvent e){
+				jme.stop(true);
+		      }
+		});
 
 //			bindOtherControls(jme, controller);
-			
-			stage.setScene(scene);
-			stage.show();
-			root.setRight(inspectorView);
-			root.setLeft(hierarchyView);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		
+		stage.setScene(scene);
+		stage.show();
+		root.setRight(inspectorView);
+		root.setLeft(hierarchyView);
 	}
 	
 	
