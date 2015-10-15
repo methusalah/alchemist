@@ -6,6 +6,10 @@ import com.simsilica.es.EntityComponent;
 public class Dragging implements EntityComponent {
 	public final double dragging;
 	
+	public Dragging() {
+		dragging = 0;
+	}
+	
 	public Dragging(@JsonProperty("dragging")double dragging) {
 		this.dragging = dragging;
 	}

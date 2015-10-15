@@ -19,7 +19,6 @@ dependencies {
 	compile fileTree(dir: 'lib', include: ['*.jar'])
 
 	compile project(':core')
-	compile 'org.controlsfx:controlsfx:8.0.5'
 }
 
 

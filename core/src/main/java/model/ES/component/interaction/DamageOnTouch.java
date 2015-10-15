@@ -7,6 +7,10 @@ import model.ES.richData.Damage;
 public class DamageOnTouch implements EntityComponent {
 	public final Damage damage;
 	
+	public DamageOnTouch() {
+		damage = new Damage(0);
+	}
+	
 	public DamageOnTouch(Damage damage) {
 		this.damage = damage;
 	}

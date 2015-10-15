@@ -25,8 +25,8 @@ public class NeededRotationProc extends Processor {
 		PlanarStance stance = e.get(PlanarStance.class); 
 		
 		double maxRotation = capacity.maxRotationSpeed * LogicThread.TIME_PER_FRAME;
-		maxRotation = Math.min(Math.abs(neededRotation.angle), maxRotation);
-		double possibleRotation = maxRotation*Math.signum(neededRotation.angle);
+		maxRotation = Math.min(Math.abs(neededRotation.angle.getValue()), maxRotation);
+		double possibleRotation = maxRotation*Math.signum(neededRotation.angle.getValue());
 		
 		PlanarStance newStance = new PlanarStance(stance.coord, new Angle(stance.orientation.getValue() + possibleRotation), stance.elevation, stance.upVector);
 		

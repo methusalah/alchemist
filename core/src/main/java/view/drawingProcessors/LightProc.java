@@ -48,7 +48,7 @@ public class LightProc extends Processor {
 	}
 
 	private void manageDirectional(Entity e, Lighting l, Point3D position, Point3D direction){
-		if(!SpatialPool.lights.containsKey(e.getId())){
+		if(!SpatialPool.lights.containsKey(e.getId()) || !(SpatialPool.lights.get(e.getId()) instanceof DirectionalLight)){
 			DirectionalLight light = new DirectionalLight();
 			SpatialPool.lights.put(e.getId(), light);
 			AppFacade.getRootNode().addLight(light);
@@ -60,7 +60,7 @@ public class LightProc extends Processor {
 	}
 	
 	private void managePoint(Entity e, Lighting l, Point3D position, Point3D direction){
-		if(!SpatialPool.lights.containsKey(e.getId())){
+		if(!SpatialPool.lights.containsKey(e.getId()) || !(SpatialPool.lights.get(e.getId()) instanceof PointLight)){
 			PointLight light = new PointLight();
 			SpatialPool.lights.put(e.getId(), light);
 			AppFacade.getRootNode().addLight(light);
@@ -72,7 +72,7 @@ public class LightProc extends Processor {
 		light.setRadius((float)l.distance);
 	}
 	private void manageSpot(Entity e, Lighting l, Point3D position, Point3D direction){
-		if(!SpatialPool.lights.containsKey(e.getId())){
+		if(!SpatialPool.lights.containsKey(e.getId()) || !(SpatialPool.lights.get(e.getId()) instanceof SpotLight)){
 			SpotLight light = new SpotLight();
 			SpatialPool.lights.put(e.getId(), light);
 			AppFacade.getRootNode().addLight(light);

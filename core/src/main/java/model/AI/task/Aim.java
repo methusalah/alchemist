@@ -10,6 +10,7 @@ import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.physic.Physic;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
+import util.math.Angle;
 import util.math.AngleUtil;
 import util.math.RandomUtil;
 
@@ -31,7 +32,7 @@ public class Aim extends LeafTask<ShipBlackboard> {
 		
 		double neededRotation = AngleUtil.getAngleFromAtoB(stance.orientation.getValue(), toAim.getSubtraction(stance.coord).getAngle());
 		if(neededRotation != 0)
-			bb.entityData.setComponent(bb.eid, new PlanarNeededRotation(neededRotation));
+			bb.entityData.setComponent(bb.eid, new PlanarNeededRotation(new Angle(neededRotation)));
 		
 		success();
 	}

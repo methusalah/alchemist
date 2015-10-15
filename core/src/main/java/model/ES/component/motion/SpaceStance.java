@@ -9,6 +9,11 @@ public class SpaceStance implements EntityComponent{
 	public final Point3D position;
 	public final Point3D direction;
 	
+	public SpaceStance() {
+		position = Point3D.ORIGIN;
+		direction = Point3D.ORIGIN;
+	}
+	
 	public SpaceStance(@JsonProperty("position")Point3D position, @JsonProperty("direction")Point3D direction) {
 		this.position = position;
 		this.direction = direction;

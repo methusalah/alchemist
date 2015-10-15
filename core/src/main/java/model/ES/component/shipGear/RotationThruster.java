@@ -9,6 +9,13 @@ public class RotationThruster implements EntityComponent {
 	public final double activation;
 	public final boolean onOff;
 	
+	public RotationThruster() {
+		clockwise = false;
+		maxAngle = 0;
+		activation = 0;
+		onOff = false;
+	}
+	
 	public RotationThruster(@JsonProperty("clockwise")boolean clockwise,
 			@JsonProperty("maxAngle")double maxAngle,
 			@JsonProperty("activation")double activation,

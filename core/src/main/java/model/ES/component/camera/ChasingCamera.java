@@ -14,6 +14,14 @@ public class ChasingCamera implements EntityComponent {
 	public final Point3D pos;
 	public final Point3D target;
 	
+	public ChasingCamera() {
+		maxSpeed = 0;
+		speed = 0;
+		acceleration = 0;
+		deceleration = 0;
+		pos = Point3D.ORIGIN;
+		target = Point3D.ORIGIN;
+	}
 	public ChasingCamera(@JsonProperty("maxSpeed")double maxSpeed,
 			@JsonProperty("speed")double speed,
 			@JsonProperty("acceleration")double acceleration,

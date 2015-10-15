@@ -13,6 +13,13 @@ public class Thruster implements EntityComponent {
 	public final Fraction activation;
 	public final boolean onOff;
 	
+	public Thruster() {
+		direction = Point3D.ORIGIN;
+		activationAngle = new Angle(0);
+		activation = new Fraction(0);
+		onOff = true;
+	}
+	
 	public Thruster(@JsonProperty("direction")Point3D direction,
 			@JsonProperty("activationAngle")Angle activationAngle,
 			@JsonProperty("activation")Fraction activation,

@@ -10,6 +10,11 @@ public class Projectile implements EntityComponent {
 	public final EntityId sender;
 	public final Point2D spawningCoord;
 	
+	public Projectile() {
+		sender = null;
+		spawningCoord = Point2D.ORIGIN;
+	}
+	
 	public Projectile(@JsonProperty("sender")EntityId sender, @JsonProperty("spawningCoord")Point2D spawningCoord) {
 		this.sender = sender;
 		this.spawningCoord = spawningCoord;

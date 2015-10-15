@@ -14,6 +14,9 @@ import model.ES.richData.VelocityView;
 
 public class VelocityViewing implements EntityComponent {
 	public Map<String, VelocityView> velocities = new HashMap<>();
+
+	public VelocityViewing() {
+	}
 	
 	public void updateVelocity(String name, Point2D vel, Color color, double factor, double elevation, int thickness){
 		if(!velocities.containsKey(name)){

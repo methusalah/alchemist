@@ -12,6 +12,12 @@ public class Skeleton implements EntityComponent{
 	public final HashMap<String, Point3D> boneDirections;
 	public final boolean initialized;
 	
+	public Skeleton() {
+		bonePositions = new HashMap<>();
+		boneDirections = new HashMap<>();
+		initialized = false;
+	}
+	
 	public Skeleton(@JsonProperty("bonePositions")HashMap<String, Point3D> bonePositions,
 			@JsonProperty("boneDirections")HashMap<String, Point3D> boneDirections,
 			@JsonProperty("initialized")boolean initialized) {

@@ -9,6 +9,9 @@ import util.math.Fraction;
 public class ProjectileLauncher implements EntityComponent{
 	private final Fraction precision;
 	
+	public ProjectileLauncher() {
+		precision = new Fraction(0);
+	}
 	public ProjectileLauncher(@JsonProperty("precision")Fraction precision) {
 		this.precision = precision;
 	}

@@ -11,6 +11,13 @@ public class Collisioning implements EntityComponent {
 	public final double penetration;
 	public final Point2D normal;
 	
+	public Collisioning() {
+		a = null;
+		b = null;
+		penetration = 0;
+		normal = Point2D.ORIGIN;
+	}
+	
 	public Collisioning(@JsonProperty("a")EntityId a,
 			@JsonProperty("b")EntityId b,
 			@JsonProperty("penetration")double penetration,

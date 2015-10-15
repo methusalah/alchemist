@@ -7,6 +7,14 @@ public class TriggerRepeater implements EntityComponent {
 	public final long start, nextPeriod;
 	public final int maxDuration, period, periodRange;
 	
+	public TriggerRepeater() {
+		start = 0;
+		nextPeriod = 0;
+		maxDuration = 0;
+		period = 0;
+		periodRange = 0;
+	}
+	
 	public TriggerRepeater(@JsonProperty("duration")int maxDuration,
 			@JsonProperty("period")int period,
 			@JsonProperty("periodRange")int periodRange,

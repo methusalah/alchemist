@@ -9,6 +9,12 @@ public class BoneHolding implements EntityComponent{
 	public final String positionBoneName;
 	public final String directionBoneName;
 	
+	public BoneHolding() {
+		holder = null;
+		positionBoneName = "";
+		directionBoneName = "";
+	}
+	
 	public BoneHolding(@JsonProperty("holder")EntityId holder,
 			@JsonProperty("positionBoneName")String positionBoneName,
 			@JsonProperty("directionBoneName")String directionBoneName) {

@@ -13,6 +13,16 @@ public class Model implements EntityComponent {
 	public final Angle rollFix;
 	public boolean created = false;
 	
+	
+	public Model() {
+		path = "";
+		scale = 1;
+		yawFix = new Angle(0);
+		pitchFix = new Angle(0);
+		rollFix = new Angle(0);
+		created = false;
+	}
+	
 	public Model(String path) {
 		this(path, 1);
 	}

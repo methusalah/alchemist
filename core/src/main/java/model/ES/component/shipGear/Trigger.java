@@ -10,6 +10,11 @@ public class Trigger implements EntityComponent {
 	public final String name;
 	public final boolean triggered;
 	
+	public Trigger() {
+		name = "";
+		triggered = false;
+	}
+
 	public Trigger(@JsonProperty("name")String name, @JsonProperty("triggered")boolean triggered) {
 		this.name = name;
 		this.triggered = triggered;

@@ -6,6 +6,9 @@ import com.simsilica.es.EntityComponent;
 public class Naming implements EntityComponent {
 	public final String name;
 	
+	public Naming() {
+		name = "Unnamed";
+	}
 	public Naming(@JsonProperty("name")String name) {
 		this.name = name;
 	}

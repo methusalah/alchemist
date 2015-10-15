@@ -1,25 +1,20 @@
 package view;
 
-import java.io.IOException;
+import com.jme3x.jfx.injfx.JmeForImageView;
 
-import model.JmeForImageViewParam;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import application.MainEditor;
 
-import com.jme3x.jfx.injfx.JmeForImageView;
-
-public class OverviewController {
+public class Overview {
 	public final InspectorView inspectorView;
 	public final HierarchyView hierarchyView;
 	
-	public OverviewController(Stage stage, JmeForImageView jme) {
+	public Overview(Stage stage, JmeForImageView jme) {
 		inspectorView = new InspectorView();
 		hierarchyView = new HierarchyView();
 		stage.setTitle("Entity Editor");

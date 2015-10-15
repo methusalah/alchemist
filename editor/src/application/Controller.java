@@ -13,18 +13,19 @@ import util.LogUtil;
 import util.event.AddComponentEvent;
 import util.event.ComponentPropertyChanged;
 import util.event.EntityCreationEvent;
+import util.event.EntityDeletionEvent;
 import util.event.EntityRenamedEvent;
 import util.event.EntitySelectionChanged;
 import util.event.EventManager;
 import util.event.ParentingChangedEvent;
-import view.OverviewController;
+import view.Overview;
 
 public class Controller {
 
 	private final Model model;
-	private final OverviewController view;
+	private final Overview view;
 	
-	public Controller(Model model, OverviewController view) {
+	public Controller(Model model, Overview view) {
 		this.model = model;
 		this.view = view;
 		
@@ -70,6 +71,12 @@ public class Controller {
 	@Subscribe
 	public void handleParentingChangedEvent(ParentingChangedEvent e){
 		model.hierarchy.updateParenting(e.child, e.newParent);
+		view.hierarchyView.update(model.hierarchy.baseNodes);
+	}
+
+	@Subscribe
+	public void handleEntityDeletionEvent(EntityDeletionEvent e){
+		model.hierarchy.removeEntity(e.eid);
 		view.hierarchyView.update(model.hierarchy.baseNodes);
 	}
 }

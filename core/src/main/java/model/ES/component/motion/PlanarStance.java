@@ -15,6 +15,13 @@ public class PlanarStance implements EntityComponent{
 	public final double elevation; 
 	public final Point3D upVector;
 	
+	public PlanarStance() {
+		coord = Point2D.ORIGIN;
+		orientation = new Angle(0);
+		elevation = 0;
+		upVector = Point3D.ORIGIN;
+	}
+	
 	public PlanarStance(@JsonProperty("coord")Point2D coord,
 			@JsonProperty("orientation")Angle orientation,
 			@JsonProperty("elevation")double elevation,

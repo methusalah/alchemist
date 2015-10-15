@@ -40,8 +40,32 @@ public class EntityTreeView extends TreeView<EntityNode> {
 			}
 		});
 		
+		configureCellFactoryForDragAndDrop();
+		
+		EntityNodeItem root = new EntityNodeItem(null);
+		root.setExpanded(true);
+		toSelect = null;
+		for(EntityNode n : nodes)
+			addItem(root, n);
+		setRoot(root);
+		if(toSelect != null)
+			getSelectionModel().select(toSelect);
+	}
+	
+	private void addItem(EntityNodeItem parent, EntityNode node){
+		EntityNodeItem i = new EntityNodeItem(node);
+		parent.getChildren().add(i);
+		if(node == UIConfig.selectedEntityNode)
+			toSelect = i;
+		for(EntityNode childNode : node.children){
+			addItem(i, childNode);
+		}
+	}
+	
+	private void configureCellFactoryForDragAndDrop(){
 		setCellFactory(new Callback<TreeView<EntityNode>, TreeCell<EntityNode>>() {
-	        @Override
+
+			@Override
 	        public TreeCell<EntityNode> call(TreeView<EntityNode> stringTreeView) {
 	            TreeCell<EntityNode> cell = new TreeCell<EntityNode>() {
 	                protected void updateItem(EntityNode item, boolean empty) {
@@ -53,7 +77,8 @@ public class EntityTreeView extends TreeView<EntityNode> {
 	            };
 
 	            cell.setOnDragDetected(new EventHandler<MouseEvent>() {
-	                @Override
+	                
+	            	@Override
 	                public void handle(MouseEvent mouseEvent) {
 	                	EntityNode i = cell.getItem();
 	                	
@@ -67,7 +92,9 @@ public class EntityTreeView extends TreeView<EntityNode> {
 	            });
 	            
 	            cell.setOnDragEntered(new EventHandler<DragEvent>() {
-	                public void handle(DragEvent event) {
+
+	            	@Override
+	            	public void handle(DragEvent event) {
 	                /* the drag-and-drop gesture entered the target */
 	                /* show to the user that it is an actual gesture target */
 	                     if (event.getGestureSource() != cell &&
@@ -79,7 +106,9 @@ public class EntityTreeView extends TreeView<EntityNode> {
 	                }
 	            });
 	            cell.setOnDragExited(new EventHandler<DragEvent>() {
-	                public void handle(DragEvent event) {
+
+	            	@Override
+	            	public void handle(DragEvent event) {
 	                /* the drag-and-drop gesture entered the target */
 	                /* show to the user that it is an actual gesture target */
 	                     if (event.getGestureSource() != cell &&
@@ -93,6 +122,8 @@ public class EntityTreeView extends TreeView<EntityNode> {
 	            
 	            
 	            cell.setOnDragOver(new EventHandler<DragEvent>() {
+	            	
+	            	@Override
 	                public void handle(DragEvent event) {
 	                    /* data is dragged over the target */
 	                    /* accept it only if it is not dragged from the same node 
@@ -120,28 +151,8 @@ public class EntityTreeView extends TreeView<EntityNode> {
 						}
 					}
 				});
-
 	            return cell;
 	        }
 	    });
-		
-		EntityNodeItem root = new EntityNodeItem(null);
-		root.setExpanded(true);
-		toSelect = null;
-		for(EntityNode n : nodes)
-			addItem(root, n);
-		setRoot(root);
-		if(toSelect != null)
-			getSelectionModel().select(toSelect);
-	}
-	
-	private void addItem(EntityNodeItem parent, EntityNode node){
-		EntityNodeItem i = new EntityNodeItem(node);
-		parent.getChildren().add(i);
-		if(node == UIConfig.selectedEntityNode)
-			toSelect = i;
-		for(EntityNode childNode : node.children){
-			addItem(i, childNode);
-		}
 	}
 }

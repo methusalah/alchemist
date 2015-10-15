@@ -13,6 +13,7 @@ import com.simsilica.es.EntityId;
 import com.simsilica.es.EntitySet;
 
 import model.ES.component.Naming;
+import model.ES.component.ToRemove;
 import model.ES.component.relation.Parenting;
 
 public class Hierarchy {
@@ -31,12 +32,18 @@ public class Hierarchy {
 		entityData.setComponent(newEntityId, new Naming(Name));
 		addEntity(newEntityId);
 	}
+
+	public void removeEntity(EntityId eid){
+		entityData.removeEntity(eid);
+		createEntityHierarchy();
+	}
 	
 	private void addEntity(EntityId eid){
 		Naming naming = entityData.getComponent(eid, Naming.class);
 		EntityNode n = new EntityNode(eid, naming.name);
 		allNodes.put(eid, n);
 	}
+	
 	private void linkEntity(EntityId eid){
 		EntityNode n = allNodes.get(eid);
 

@@ -6,6 +6,7 @@ import model.ES.component.command.PlayerControl;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
 import util.geometry.geom2d.Point2D;
+import util.math.Angle;
 import util.math.AngleUtil;
 
 import com.simsilica.es.Entity;
@@ -41,7 +42,7 @@ public class PlayerRotationControlProc extends Processor {
 		}
 		
 		if(Math.abs(neededRotAngle) > 0.01){
-			PlanarNeededRotation neededRotation = new PlanarNeededRotation(neededRotAngle);
+			PlanarNeededRotation neededRotation = new PlanarNeededRotation(new Angle(neededRotAngle));
     		setComp(e, neededRotation);
 		}
 	}

@@ -13,6 +13,12 @@ public class PhysicForce implements EntityComponent {
 	public final double force;
 	public final List<String> exceptions;
 
+	public PhysicForce() {
+		range = 0;
+		radius = 0;
+		force = 0;
+		exceptions = new ArrayList<>();
+	}
 	
 	public PhysicForce(@JsonProperty("range")double range,
 			@JsonProperty("radius")double radius,

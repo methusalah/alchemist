@@ -7,6 +7,11 @@ public class LifeTime implements EntityComponent {
 	public final long lifeStart;
 	public final double duration;
 	
+	public LifeTime() {
+		lifeStart = 0;
+		duration = 0;
+	}
+	
 	public LifeTime(@JsonProperty("lifeStart")long lifeStart, @JsonProperty("duration")double duration) {
 		this.lifeStart = lifeStart;
 		this.duration = duration;

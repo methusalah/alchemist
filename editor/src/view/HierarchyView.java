@@ -23,6 +23,7 @@ import javafx.util.Callback;
 import model.EntityNode;
 import util.LogUtil;
 import util.event.EntityCreationEvent;
+import util.event.EntityDeletionEvent;
 import util.event.EntitySelectionChanged;
 import util.event.EventManager;
 import view.controls.EntityNodeItem;
@@ -38,7 +39,8 @@ public class HierarchyView extends VBox{
 		title.setMaxWidth(Double.MAX_VALUE);
 		title.setStyle("-fx-background-color: lightblue");
 		getChildren().add(title);
-		
+
+		// add button
 		Button btnAdd = new Button("Add entity");
 		btnAdd.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -47,8 +49,19 @@ public class HierarchyView extends VBox{
 				EventManager.post(new EntityCreationEvent());
 			}
 		});
-		
 		getChildren().add(btnAdd);
+
+		// remove button
+		Button btnRemove = new Button("Remove entity");
+		btnRemove.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				if(tree != null && tree.getSelectionModel().getSelectedItem() != null)
+				EventManager.post(new EntityDeletionEvent(tree.getSelectionModel().getSelectedItem().getValue().parent));
+			}
+		});
+		getChildren().add(btnRemove);
 	}
 	
 	public void update(List<EntityNode> nodes){

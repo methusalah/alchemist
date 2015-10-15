@@ -9,6 +9,12 @@ public class Damaging implements EntityComponent{
 	public final EntityId source, target;
 	public final Damage damage;
 	
+	public Damaging() {
+		source = null;
+		target = null;
+		damage = new Damage(0);
+	}
+	
 	public Damaging(EntityId source, EntityId target, Damage damage) {
 		this.damage = damage;
 		this.source = source;

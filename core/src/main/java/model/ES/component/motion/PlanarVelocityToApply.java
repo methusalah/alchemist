@@ -8,6 +8,10 @@ import com.simsilica.es.EntityComponent;
 public class PlanarVelocityToApply implements EntityComponent {
 	public final Point2D vector;
 	
+	public PlanarVelocityToApply() {
+		vector = Point2D.ORIGIN;
+	}
+	
 	public PlanarVelocityToApply(@JsonProperty("vector")Point2D vector) {
 		this.vector = vector;
 	}

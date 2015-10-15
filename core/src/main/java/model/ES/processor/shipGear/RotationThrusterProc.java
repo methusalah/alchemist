@@ -26,11 +26,11 @@ public class RotationThrusterProc extends Processor {
 		PlanarNeededRotation rotation = entityData.getComponent(holder, PlanarNeededRotation.class);
 		double activationRate = 0;
 		if(rotation != null){
-			if(rotation.angle > 0 && !thruster.clockwise 
-					|| rotation.angle < 0 && thruster.clockwise){
+			if(rotation.angle.getValue() > 0 && !thruster.clockwise 
+					|| rotation.angle.getValue() < 0 && thruster.clockwise){
 				activationRate = 1;
-				if(!thruster.onOff && Math.abs(rotation.angle) < thruster.maxAngle)
-					activationRate = Math.abs(rotation.angle)/thruster.maxAngle;
+				if(!thruster.onOff && Math.abs(rotation.angle.getValue()) < thruster.maxAngle)
+					activationRate = Math.abs(rotation.angle.getValue())/thruster.maxAngle;
 			}
 		}
 		setComp(e, new RotationThruster(thruster.clockwise, thruster.maxAngle, activationRate, thruster.onOff));

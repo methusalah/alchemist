@@ -15,6 +15,16 @@ public class Lighting implements EntityComponent {
 	public final boolean shadowCaster;
 	public final Fraction activation;
 	
+	public Lighting() {
+		color = new ColorData(0, 0, 0, 0);
+		intensity = 0;
+		distance = 0;
+		innerAngle = 0;
+		outerAngle = 0;
+		shadowCaster = false;
+		activation = new Fraction(0);
+	}
+	
 	public Lighting(@JsonProperty("color")ColorData color,
 			@JsonProperty("intensity")double intensity,
 			@JsonProperty("distance")double distance,

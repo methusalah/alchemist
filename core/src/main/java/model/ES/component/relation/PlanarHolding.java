@@ -11,6 +11,11 @@ public class PlanarHolding implements EntityComponent {
 	public final Point3D localPosition;
 	public final Angle localOrientation;
 	
+	public PlanarHolding() {
+		localPosition = Point3D.ORIGIN;
+		localOrientation = new Angle(0);
+	}
+	
 	public PlanarHolding(@JsonProperty("localPosition")Point3D localPosition,
 			@JsonProperty("localOrientation")Angle localOrientation) {
 		this.localPosition = localPosition;

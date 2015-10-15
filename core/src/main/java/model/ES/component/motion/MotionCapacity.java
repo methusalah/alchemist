@@ -9,6 +9,13 @@ public class MotionCapacity implements EntityComponent {
 	public final double lateralThrustPower;
 	public final double frontalThrustPower;
 	
+	public MotionCapacity() {
+		maxRotationSpeed = 0;
+		thrustPower = 0;
+		lateralThrustPower = 0;
+		frontalThrustPower = 0;
+	}
+	
 	public MotionCapacity(@JsonProperty("maxRotationSpeed")double maxRotationSpeed,
 			@JsonProperty("thrustPower")double thrustPower,
 			@JsonProperty("lateralThrustPower")double lateralThrustPower,

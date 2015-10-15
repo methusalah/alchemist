@@ -38,18 +38,17 @@ public class PlanarHoldingProc extends Processor {
 		Parenting parenting = e.get(Parenting.class);
 		
 		PlanarStance stance = entityData.getComponent(parenting.getParent(), PlanarStance.class);
-		if(stance == null){
-			entityData.removeEntity(e.getId());
-		} else {
-			Point2D newCoord = holded.localPosition.get2D().getRotation(stance.orientation.getValue());
-			newCoord = newCoord.getAddition(stance.coord);
-			double newOrientation = AngleUtil.normalize(stance.orientation.getValue() + holded.localOrientation.getValue());
-			
-			setComp(e, new PlanarStance(newCoord,
-					new Angle(newOrientation),
-					stance.elevation + holded.localPosition.z,
-					stance.upVector));
-		}
+		if(stance == null)
+			return;
+
+		Point2D newCoord = holded.localPosition.get2D().getRotation(stance.orientation.getValue());
+		newCoord = newCoord.getAddition(stance.coord);
+		double newOrientation = AngleUtil.normalize(stance.orientation.getValue() + holded.localOrientation.getValue());
+		
+		setComp(e, new PlanarStance(newCoord,
+				new Angle(newOrientation),
+				stance.elevation + holded.localPosition.z,
+				stance.upVector));
 	}
 
 	private void manageSpace(Entity e) {
@@ -57,6 +56,9 @@ public class PlanarHoldingProc extends Processor {
 		Parenting parenting = e.get(Parenting.class);
 
 		PlanarStance stance = entityData.getComponent(parenting.getParent(), PlanarStance.class);
+		if(stance == null)
+			return;
+		
 		Point2D newCoord = holded.localPosition.get2D().getRotation(stance.orientation.getValue());
 		newCoord = newCoord.getAddition(stance.coord);
 		double newOrientation = AngleUtil.normalize(stance.orientation.getValue() + holded.localOrientation.getValue());

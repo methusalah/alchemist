@@ -10,6 +10,12 @@ public class Touching implements EntityComponent {
 	private final Point2D coord;
 	private final Point2D normal;
 	
+	public Touching() {
+		touched = null;
+		coord = Point2D.ORIGIN;
+		normal = Point2D.ORIGIN;
+	}
+
 	public Touching(EntityId touched, Point2D coord, Point2D normal) {
 		this.touched = touched;
 		this.coord = coord;

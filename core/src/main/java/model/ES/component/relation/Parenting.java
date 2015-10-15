@@ -7,6 +7,10 @@ import com.simsilica.es.EntityId;
 public class Parenting implements EntityComponent {
 	private final EntityId parent;
 	
+	public Parenting() {
+		parent = null;
+	}
+	
 	public Parenting(@JsonProperty("parent")EntityId parent) {
 		this.parent = parent;
 	}

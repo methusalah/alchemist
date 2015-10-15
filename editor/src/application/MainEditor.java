@@ -4,19 +4,19 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Model;
 import util.LogUtil;
-import view.OverviewController;
+import view.Overview;
 
 
 public class MainEditor extends Application {
 	Model model;
 	Controller controller;
-	OverviewController view;
+	Overview view;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		LogUtil.init();
 		model = new Model();
-		view = new OverviewController(primaryStage, model.jme);
+		view = new Overview(primaryStage, model.jme);
 		controller = new Controller(model, view);
 	}
 	
