@@ -125,7 +125,7 @@ public class MainGame extends CosmoVania {
 		
 		serialiseBluePrints();
 		BlueprintCreator.create("player ship", null);
-		int zoneWidth = 50;
+		int zoneWidth = 80;
 		ed.setComponent(BlueprintCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
 		ed.setComponent(BlueprintCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
 		ed.setComponent(BlueprintCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
