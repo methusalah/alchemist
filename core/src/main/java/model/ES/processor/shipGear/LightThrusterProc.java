@@ -10,7 +10,7 @@ public class LightThrusterProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(Lighting.class, Thruster.class);
+		registerDefault(Lighting.class, Thruster.class);
 	}
 	
 	@Override

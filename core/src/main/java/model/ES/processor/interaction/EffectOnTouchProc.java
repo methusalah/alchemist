@@ -21,7 +21,7 @@ public class EffectOnTouchProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(EffectOnTouch.class, Touching.class);
+		registerDefault(EffectOnTouch.class, Touching.class);
 	}
 	
 	@Override

@@ -21,7 +21,7 @@ public class ChasingCameraProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(PlanarStance.class, ChasingCamera.class, Parenting.class);
+		registerDefault(PlanarStance.class, ChasingCamera.class, Parenting.class);
 	}
 	
 	@Override

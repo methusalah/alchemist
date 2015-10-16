@@ -13,14 +13,14 @@ public class TriggerObserverProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(Trigger.class, Parenting.class);
-		register(AbilityTriggerList.class);
+		register("triggered", Trigger.class, Parenting.class);
+		register("triggering", AbilityTriggerList.class);
 	}
 
 	@Override
 	protected void onUpdated() {
-		for(Entity child : sets.get(0)){
-			Entity parent = sets.get(1).getEntity(child.get(Parenting.class).getParent());
+		for(Entity child : getSet("triggered")){
+			Entity parent = getSet("triggering").getEntity(child.get(Parenting.class).getParent());
 			if(parent != null){
 				Trigger t = child.get(Trigger.class);
 				AbilityTriggerList parentTriggers = parent.get(AbilityTriggerList.class);

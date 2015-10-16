@@ -14,7 +14,7 @@ public class NeededThrustProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(PlanarStance.class, PlanarNeededThrust.class, MotionCapacity.class, PlanarVelocityToApply.class);
+		registerDefault(PlanarStance.class, PlanarNeededThrust.class, MotionCapacity.class, PlanarVelocityToApply.class);
 	}
 	
 	@Override

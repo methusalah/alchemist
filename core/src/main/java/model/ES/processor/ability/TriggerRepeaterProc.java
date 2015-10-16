@@ -11,7 +11,7 @@ public class TriggerRepeaterProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(Trigger.class, TriggerRepeater.class);
+		registerDefault(Trigger.class, TriggerRepeater.class);
 	}
 	
 	@Override

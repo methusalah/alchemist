@@ -12,8 +12,8 @@ public class ParticleThrusterProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(ParticleCasting.class, RotationThruster.class);
-		register(ParticleCasting.class, Thruster.class);
+		registerDefault(ParticleCasting.class, RotationThruster.class);
+		registerDefault(ParticleCasting.class, Thruster.class);
 	}
 	
 	@Override

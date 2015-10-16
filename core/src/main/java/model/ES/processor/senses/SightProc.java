@@ -17,16 +17,16 @@ public class SightProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(Sighting.class, PlanarStance.class);
-		register(PlanarStance.class);
+		register("watcher", Sighting.class, PlanarStance.class);
+		register("watchable", PlanarStance.class);
 	}
 
 	@Override
 	protected void onUpdated() {
-		for(Entity watcher : sets.get(0)){
+		for(Entity watcher : getSet("watcher")){
 			Sighting sighting = watcher.get(Sighting.class);
 			List<EntityId> entitiesInSight = new ArrayList<>();
-			for(Entity other : sets.get(1)){
+			for(Entity other : getSet("watchable")){
 				if(isInSight(watcher, other))
 					entitiesInSight.add(other.getId());
 			}

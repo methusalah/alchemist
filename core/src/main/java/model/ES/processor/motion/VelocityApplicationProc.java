@@ -14,7 +14,7 @@ import util.geometry.geom2d.Point2D;
 public class VelocityApplicationProc extends Processor {
 	@Override
 	protected void registerSets() {
-		register(PlanarStance.class, Physic.class, PlanarVelocityToApply.class, MotionCapacity.class);
+		registerDefault(PlanarStance.class, Physic.class, PlanarVelocityToApply.class, MotionCapacity.class);
 	}
 	
 	@Override

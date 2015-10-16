@@ -41,5 +41,5 @@
     "lateralThrustPower" : 1.0,
     "frontalThrustPower" : 1.0
   } ],
-  "children" : [ ]
+  "children" : [ "nebula" ]
 }

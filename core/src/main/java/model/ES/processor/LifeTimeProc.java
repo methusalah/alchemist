@@ -11,7 +11,7 @@ public class LifeTimeProc extends Processor{
 
 	@Override
 	protected void registerSets() {
-		register(LifeTime.class);
+		registerDefault(LifeTime.class);
 	}
 	
 	@Override

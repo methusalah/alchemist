@@ -10,7 +10,7 @@ public class AttritionProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(Attrition.class);
+		registerDefault(Attrition.class);
 	}
 	
 	@Override

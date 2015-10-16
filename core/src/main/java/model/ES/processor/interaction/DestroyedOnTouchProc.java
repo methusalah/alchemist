@@ -12,7 +12,7 @@ public class DestroyedOnTouchProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(DestroyedOnTouch.class, Touching.class);
+		registerDefault(DestroyedOnTouch.class, Touching.class);
 
 	}
 

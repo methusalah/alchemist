@@ -11,7 +11,7 @@ public class ParentingCleanerProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(Parenting.class);
+		registerDefault(Parenting.class);
 	}
 	
 	@Override

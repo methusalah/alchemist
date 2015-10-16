@@ -18,7 +18,7 @@ public class PlacingModelProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(Model.class, PlanarStance.class);
+		registerDefault(Model.class, PlanarStance.class);
 	}
 	
 	@Override

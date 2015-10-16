@@ -19,7 +19,7 @@ public class ThrusterProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(Thruster.class, Parenting.class);
+		registerDefault(Thruster.class, Parenting.class);
 	}
 
 	@Override

@@ -28,7 +28,7 @@ public class ParticleCasterInPlaneProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(ParticleCasting.class, PlanarStance.class);
+		registerDefault(ParticleCasting.class, PlanarStance.class);
 	}
 
 	@Override

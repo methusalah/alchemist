@@ -18,7 +18,7 @@ public class ModelProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(Model.class);
+		registerDefault(Model.class);
 	}
 	
 	@Override
@@ -27,7 +27,12 @@ public class ModelProc extends Processor {
 	}
 
 	@Override
-	protected void onEntityEachTick(Entity e) {
+	protected void onEntityAdded(Entity e) {
+		onEntityUpdated(e);
+	}
+	
+	@Override
+	protected void onEntityUpdated(Entity e) {
 		if(SpatialPool.models.containsKey(e.getId()))
 			AppFacade.getRootNode().detachChild(SpatialPool.models.get(e.getId()));
 		
@@ -50,7 +55,7 @@ public class ModelProc extends Processor {
 			try{
 				Spatial s = AppFacade.getAssetManager().loadModel("models/" + modelPath);
 				modelPrototypes.put(modelPath, s);
-			} catch (IllegalStateException e) {
+			} catch (Exception e) {
 				LogUtil.warning("Model not found : models/" + modelPath);
 				return null;
 			}

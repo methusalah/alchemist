@@ -24,7 +24,7 @@ public class BehaviorTreeProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(Sighting.class, PlanarStance.class);
+		registerDefault(Sighting.class, PlanarStance.class);
 	}
 	
 	@Override
