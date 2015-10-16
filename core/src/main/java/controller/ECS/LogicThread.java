@@ -1,9 +1,13 @@
 package controller.ECS;
 
+import util.LogUtil;
+import model.ES.component.Naming;
 import model.ES.processor.LifeTimeProc;
+import model.ES.processor.ParentingCleanerProc;
 import model.ES.processor.RemoveProc;
 import model.ES.processor.AI.BehaviorTreeProc;
 import model.ES.processor.ability.AbilityTriggerResetProc;
+import model.ES.processor.ability.BoostProc;
 import model.ES.processor.ability.ProjectileLauncherProc;
 import model.ES.processor.ability.TriggerCancelationProc;
 import model.ES.processor.ability.TriggerObserverProc;
@@ -71,6 +75,7 @@ public class LogicThread implements Runnable {
 		stateManager.attach(new TriggerRepeaterProc());
 		
 		stateManager.attach(new ProjectileLauncherProc());
+		stateManager.attach(new BoostProc());
 
 		stateManager.attach(new DamagingProc());
 		stateManager.attach(new AttritionProc());
@@ -84,6 +89,7 @@ public class LogicThread implements Runnable {
 		
 		stateManager.attach(new LifeTimeProc());
 		stateManager.attach(new RemoveProc());
+		stateManager.attach(new ParentingCleanerProc());
     }
 
     @Override
@@ -94,6 +100,7 @@ public class LogicThread implements Runnable {
 			try {
 				long nextTick = time+20;
 				long towait = nextTick - System.currentTimeMillis();
+//				LogUtil.info("nb entity" + stateManager.getState(EntityDataAppState.class).entityData.getEntities(Naming.class).size());
 				if(towait > 0)
 					Thread.sleep(towait);
 //				((CosmoVania)app).

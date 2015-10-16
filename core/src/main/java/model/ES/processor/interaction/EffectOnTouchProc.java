@@ -1,6 +1,7 @@
 package model.ES.processor.interaction;
 
 import model.ES.component.LifeTime;
+import model.ES.component.Naming;
 import model.ES.component.interaction.EffectOnTouch;
 import model.ES.component.interaction.senses.Touching;
 import model.ES.component.motion.PlanarStance;
@@ -27,6 +28,7 @@ public class EffectOnTouchProc extends Processor {
 	protected void onEntityAdded(Entity e) {
 		EntityId eid = entityData.createEntity();
 		ParticleCaster caster = getCaster1(); 
+		entityData.setComponent(eid, new Naming("particle"));
 		entityData.setComponent(eid, new ParticleCasting(caster, caster.perSecond));
 		entityData.setComponent(eid, new PlanarStance(e.get(Touching.class).getCoord(), new Angle(0), 0.5, Point3D.UNIT_Z));
 		entityData.setComponent(eid, new LifeTime(System.currentTimeMillis(), 100));

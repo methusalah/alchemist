@@ -53,8 +53,7 @@
     },
     "rollFix" : {
       "value" : 0.0
-    },
-    "created" : false
+    }
   }, {
     "class" : "model.ES.component.motion.physic.Physic",
     "velocity" : {
@@ -100,5 +99,5 @@
       "ça va ?" : true
     }
   } ],
-  "children" : [ "weapon left", "weapon right", "camera", "front light", "rotation thruster 1", "rotation thruster 2", "rear thruster", "frontal left thruster", "frontal right thruster", "side left thruster", "side right thruster" ]
+  "children" : [ "weapon left", "weapon right", "camera", "front light", "rotation thruster 1", "rotation thruster 2", "rear thruster", "frontal left thruster", "frontal right thruster", "side left thruster", "side right thruster", "boost" ]
 }

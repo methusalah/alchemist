@@ -2,6 +2,8 @@ package model.AI.task;
 
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
+import com.badlogic.gdx.ai.btree.annotation.TaskAttribute;
+import com.sun.org.apache.bcel.internal.generic.IFNE;
 
 import model.AI.blackboard.ShipBlackboard;
 import model.ES.component.command.PlanarNeededRotation;
@@ -16,10 +18,9 @@ import util.math.RandomUtil;
 
 public class Aim extends LeafTask<ShipBlackboard> {
 
-	@Override
-	public void start() {
-	}
-	
+	@TaskAttribute
+	public double accuracy = 0.9;
+
 	@Override
 	public void run() {
 		ShipBlackboard bb = getObject();
@@ -31,6 +32,9 @@ public class Aim extends LeafTask<ShipBlackboard> {
 		Point2D toAim = enemyStance.coord.getAddition(enemyPhysic.velocity);
 		
 		double neededRotation = AngleUtil.getAngleFromAtoB(stance.orientation.getValue(), toAim.getSubtraction(stance.coord).getAngle());
+		
+		bb.enemyIsInMyRedDot = neededRotation < AngleUtil.FLAT*(1-accuracy);
+			
 		if(neededRotation != 0)
 			bb.entityData.setComponent(bb.eid, new PlanarNeededRotation(new Angle(neededRotation)));
 		

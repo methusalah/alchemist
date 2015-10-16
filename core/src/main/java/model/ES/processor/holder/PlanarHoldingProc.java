@@ -37,18 +37,18 @@ public class PlanarHoldingProc extends Processor {
 		PlanarHolding holded = e.get(PlanarHolding.class);
 		Parenting parenting = e.get(Parenting.class);
 		
-		PlanarStance stance = entityData.getComponent(parenting.getParent(), PlanarStance.class);
-		if(stance == null)
+		PlanarStance parentStance = entityData.getComponent(parenting.getParent(), PlanarStance.class);
+		if(parentStance == null)
 			return;
 
-		Point2D newCoord = holded.localPosition.get2D().getRotation(stance.orientation.getValue());
-		newCoord = newCoord.getAddition(stance.coord);
-		double newOrientation = AngleUtil.normalize(stance.orientation.getValue() + holded.localOrientation.getValue());
+		Point2D newCoord = holded.localPosition.get2D().getRotation(parentStance.orientation.getValue());
+		newCoord = newCoord.getAddition(parentStance.coord);
+		double newOrientation = AngleUtil.normalize(parentStance.orientation.getValue() + holded.localOrientation.getValue());
 		
 		setComp(e, new PlanarStance(newCoord,
 				new Angle(newOrientation),
-				stance.elevation + holded.localPosition.z,
-				stance.upVector));
+				parentStance.elevation + holded.localPosition.z,
+				parentStance.upVector));
 	}
 
 	private void manageSpace(Entity e) {

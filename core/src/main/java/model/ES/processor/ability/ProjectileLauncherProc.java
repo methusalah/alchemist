@@ -6,6 +6,7 @@ import com.simsilica.es.EntityId;
 import controller.ECS.Processor;
 import model.ES.component.Cooldown;
 import model.ES.component.LifeTime;
+import model.ES.component.Naming;
 import model.ES.component.interaction.DamageOnTouch;
 import model.ES.component.interaction.DestroyedOnTouch;
 import model.ES.component.interaction.EffectOnTouch;
@@ -44,6 +45,7 @@ public class ProjectileLauncherProc extends Processor {
 		if(trigger.triggered){
 			PlanarStance stance = e.get(PlanarStance.class);
 			EntityId firing = entityData.createEntity();
+			entityData.setComponent(firing, new Naming("projectile"));
 			double orientation = stance.orientation.getValue() + ((RandomUtil.next()-0.5)*(1-launcher.getPrecision().getValue()))*AngleUtil.FULL;
 			entityData.setComponent(firing, new PlanarStance(stance.coord.getTranslation(stance.orientation.getValue(), 0.2), new Angle(orientation), stance.elevation, Point3D.UNIT_Z));
 			entityData.setComponent(firing, new MotionCapacity(0, 1, 0, 0));

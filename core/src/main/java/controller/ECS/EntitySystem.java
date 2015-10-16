@@ -2,6 +2,7 @@ package controller.ECS;
 
 import model.ES.processor.command.PlayerRotationControlProc;
 import model.ES.processor.command.PlayerThrustControlProc;
+import util.LogUtil;
 import view.drawingProcessors.CameraPlacingProc;
 import view.drawingProcessors.LightProc;
 import view.drawingProcessors.ModelProc;
@@ -37,12 +38,11 @@ public class EntitySystem extends AbstractAppState{
 
 		logicThread = new Thread(new LogicThread(ed));
 		logicThread.start();
-		
 	}
 	
-	public void stateDetached(AppStateManager stateManager) {
+	@Override
+	public void cleanup() {
 		logicThread.interrupt();
-		super.stateDetached(stateManager);
 	}
 	
 }

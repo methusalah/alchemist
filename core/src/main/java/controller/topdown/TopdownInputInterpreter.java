@@ -1,6 +1,7 @@
 package controller.topdown;
 
 import model.ModelManager;
+import util.LogUtil;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import view.TopdownView;
@@ -36,6 +37,9 @@ public class TopdownInputInterpreter extends InputInterpreter {
 		case TopdownMapping.PRIMARY:
 			ModelManager.command.abilities.add("gun");
 			break;
+		case TopdownMapping.SECONDARY:
+			ModelManager.command.abilities.add("boost");
+			break;
 		}
 	}
 
@@ -51,6 +55,12 @@ public class TopdownInputInterpreter extends InputInterpreter {
 		case TopdownMapping.PRIMARY:
 			for(int i = 0; i<ModelManager.command.abilities.size(); i++)
 				if(ModelManager.command.abilities.get(i).equals("gun")){
+					ModelManager.command.abilities.remove(i);
+				}
+			break;
+		case TopdownMapping.SECONDARY:
+			for(int i = 0; i<ModelManager.command.abilities.size(); i++)
+				if(ModelManager.command.abilities.get(i).equals("boost")){
 					ModelManager.command.abilities.remove(i);
 				}
 			break;

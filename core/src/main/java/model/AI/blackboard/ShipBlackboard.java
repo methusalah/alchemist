@@ -18,6 +18,8 @@ public class ShipBlackboard {
 	public EntityId enemyDetected;
 	public EntityId enemy;
 	
+	public boolean enemyIsInMyRedDot = false;
+	
 	public ShipBlackboard(EntityData entityData, EntityId eid) {
 		this.entityData = entityData;
 		this.eid = eid;

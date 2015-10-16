@@ -30,7 +30,7 @@ public class Hierarchy {
 	public void createNewEntity(String Name){
 		EntityId newEntityId = entityData.createEntity();
 		entityData.setComponent(newEntityId, new Naming(Name));
-		addEntity(newEntityId);
+		createEntityHierarchy();
 	}
 
 	public void removeEntity(EntityId eid){

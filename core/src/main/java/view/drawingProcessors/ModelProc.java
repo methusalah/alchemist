@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.ES.component.visuals.Model;
+import util.LogUtil;
 import view.SpatialPool;
 import app.AppFacade;
 
@@ -31,17 +32,28 @@ public class ModelProc extends Processor {
 			AppFacade.getRootNode().detachChild(SpatialPool.models.get(e.getId()));
 		
 		Model model = e.get(Model.class);
-		Spatial s = getPrototype(model.path).clone();
-		s.scale((float)model.scale);
-		model.created = true;
-		SpatialPool.models.put(e.getId(), s);
-		AppFacade.getRootNode().attachChild(s);
+		
+		Spatial s = getPrototype(model.path);
+		
+		if(s != null){
+			s = s.clone();
+			s.scale((float)model.scale);
+			SpatialPool.models.put(e.getId(), s);
+			AppFacade.getRootNode().attachChild(s);
+		}
 	}
 	
-	private Spatial getPrototype(String modelPath){
+	private Spatial getPrototype(String modelPath) throws IllegalStateException {
+		if(modelPath.isEmpty())
+			return null;
 		if (!modelPrototypes.containsKey(modelPath)) {
-			Spatial s = AppFacade.getAssetManager().loadModel("models/" + modelPath);
-			modelPrototypes.put(modelPath, s);
+			try{
+				Spatial s = AppFacade.getAssetManager().loadModel("models/" + modelPath);
+				modelPrototypes.put(modelPath, s);
+			} catch (IllegalStateException e) {
+				LogUtil.warning("Model not found : models/" + modelPath);
+				return null;
+			}
 		}
 		return modelPrototypes.get(modelPath);
 	}

@@ -24,11 +24,12 @@ public class PlacingModelProc extends Processor {
 	@Override
 	protected void onEntityEachTick(Entity e) {
 		Model model = e.get(Model.class);
-		if(!model.created)
+		Spatial s = SpatialPool.models.get(e.getId());
+		
+		if(s == null)
 			return;
 		
 		PlanarStance stance = e.get(PlanarStance.class);
-		Spatial s = SpatialPool.models.get(e.getId());
 
 		// translation
 		s.setLocalTranslation(TranslateUtil.toVector3f(stance.coord.get3D(stance.elevation)));

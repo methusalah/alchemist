@@ -6,6 +6,8 @@ import java.util.List;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import model.ModelManager;
+import model.ES.component.Naming;
+import model.ES.component.ToRemove;
 import model.ES.component.interaction.senses.Touching;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.physic.Collisioning;
@@ -67,7 +69,10 @@ public class CollisionProc extends Processor {
 				
 				// we create a new entity for managing the collision physics
 				EntityId collision = entityData.createEntity();
+				entityData.setComponent(collision, new Naming("collision"));
 				entityData.setComponent(collision, new Collisioning(e1.getId(), e2.getId(), spacing-d, normal));
+				entityData.setComponent(collision, new ToRemove());
+				
 				
 				// we add touching component to each entity for other effects than physics
 				Point2D impactCoord = c1.getAddition(normal.getScaled(ph1.stat.shape.radius));

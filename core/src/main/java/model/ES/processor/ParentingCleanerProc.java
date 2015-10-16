@@ -1,21 +1,23 @@
 package model.ES.processor;
 
 import model.ES.component.ToRemove;
+import model.ES.component.relation.Parenting;
 
 import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
 
-public class RemoveProc extends Processor {
+public class ParentingCleanerProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(ToRemove.class);
+		register(Parenting.class);
 	}
 	
 	@Override
 	protected void onEntityAdded(Entity e) {
-		entityData.removeEntity(e.getId());
+		if(entityData.getEntity(e.get(Parenting.class).getParent()) == null)
+			setComp(e, new ToRemove());
 	}
 
 }

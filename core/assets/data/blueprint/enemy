@@ -30,8 +30,7 @@
     },
     "rollFix" : {
       "value" : 0.0
-    },
-    "created" : false
+    }
   }, {
     "class" : "model.ES.component.motion.physic.Physic",
     "velocity" : {

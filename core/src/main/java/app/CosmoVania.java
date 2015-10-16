@@ -22,10 +22,11 @@ public abstract class CosmoVania extends SimpleApplication implements PhysicsTic
 	public void start() {
 		// set some default settings in-case
 		// settings dialog is not shown
-		if (settings == null) {
+		if (true){//settings == null) {
 			setSettings(new AppSettings(true));
 			settings.setWidth(1024);
 			settings.setHeight(768);
+			settings.setFrameRate(50);
 			try {
 				settings.load("openrts.example");
 			} catch (BackingStoreException e) {

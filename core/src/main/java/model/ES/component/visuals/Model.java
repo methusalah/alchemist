@@ -11,7 +11,6 @@ public class Model implements EntityComponent {
 	public final Angle yawFix;
 	public final Angle pitchFix;
 	public final Angle rollFix;
-	public boolean created = false;
 	
 	
 	public Model() {
@@ -20,7 +19,6 @@ public class Model implements EntityComponent {
 		yawFix = new Angle(0);
 		pitchFix = new Angle(0);
 		rollFix = new Angle(0);
-		created = false;
 	}
 	
 	public Model(String path) {
@@ -39,12 +37,6 @@ public class Model implements EntityComponent {
 		this.yawFix = yawFix;
 		this.pitchFix = pitchFix;
 		this.rollFix = rollFix;
-	}
-	public boolean isCreated() {
-		return created;
-	}
-	public void setCreated(boolean created) {
-		this.created = created;
 	}
 	public String getPath() {
 		return path;
