@@ -42,12 +42,14 @@ import model.ES.component.visuals.ParticleCasting;
 import model.ES.component.visuals.Skeleton;
 import model.ES.component.visuals.Sprite;
 import model.ES.serial.BlueprintCreator;
+import util.LogUtil;
 import app.AppFacade;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 import com.jme3x.jfx.injfx.JmeForImageView;
 import com.simsilica.es.EntityData;
+import com.simsilica.es.StringIndex;
 import com.simsilica.es.base.DefaultEntityData;
 
 import controller.ECS.EntityDataAppState;
@@ -64,7 +66,6 @@ public class Model {
 		BlueprintCreator.create("player ship", null);
 		BlueprintCreator.create("enemy", null);
 		BlueprintCreator.create("sun", null);
-
 		
 		inspector = new Inspector(ed);
 		inspector.addComponentToScan(Naming.class);

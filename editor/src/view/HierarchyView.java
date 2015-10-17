@@ -58,7 +58,7 @@ public class HierarchyView extends VBox{
 			@Override
 			public void handle(ActionEvent event) {
 				if(tree != null && tree.getSelectionModel().getSelectedItem() != null)
-				EventManager.post(new EntityDeletionEvent(tree.getSelectionModel().getSelectedItem().getValue().parent));
+				EventManager.post(new EntityDeletionEvent(tree.getSelectionModel().getSelectedItem().getValue().entityId));
 			}
 		});
 		getChildren().add(btnRemove);
