@@ -23,7 +23,6 @@ public class SpritePlacingProc extends Processor {
 	@Override
 	protected void onEntityEachTick(Entity e) {
 		Spatial s = SpatialPool.models.get(e.getId());
-		
 		if(s == null)
 			return;
 		
@@ -31,7 +30,6 @@ public class SpritePlacingProc extends Processor {
 
 		// translation
 		s.setLocalTranslation(TranslateUtil.toVector3f(stance.coord.get3D(stance.elevation)));
-
 		// rotation
 		Quaternion r = new Quaternion();
 		Point3D pu = stance.upVector;

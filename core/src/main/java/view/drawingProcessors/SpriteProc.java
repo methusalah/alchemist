@@ -5,6 +5,7 @@ import java.util.Map;
 
 import util.LogUtil;
 import view.SpatialPool;
+import view.jme.CenteredQuad;
 import view.material.MaterialManager;
 import app.AppFacade;
 
@@ -59,7 +60,7 @@ public class SpriteProc extends Processor {
 		if (!spritePrototypes.containsKey(spritePath)) {
 			try{
 				Geometry g = new Geometry("Sprite");
-				g.setMesh(new Box(0.5f, 0.5f, 0.05f));
+				g.setMesh(new CenteredQuad(1, 1));
 				g.setMaterial(MaterialManager.getLightingTexture("textures/"+spritePath));
 				spritePrototypes.put(spritePath, g);
 			} catch (IllegalStateException e) {
