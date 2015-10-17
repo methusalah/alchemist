@@ -14,6 +14,7 @@ import recordEnemy : "model.AI.task.RecordEnemy"
 import isEnemyInSight : "model.AI.task.IsEnemyInSight"
 import isEnemyTouching : "model.AI.task.IsEnemyTouching"
 import isEnemyRecorded : "model.AI.task.IsEnemyRecorded"
+import isEnemyDead : "model.AI.task.IsEnemyDead"
 import isTooClose : "model.AI.task.IsTooClose"
 import isTooFar : "model.AI.task.IsTooFar"
 import isLowLife : "model.AI.task.IsLowLife"
@@ -34,6 +35,9 @@ root
     sequence
       isEnemyRecorded
       selector
+        sequence
+          isEnemyDead
+          forgetEnemy
         sequence
           isLowLife
           persister duration:3000 range:1000

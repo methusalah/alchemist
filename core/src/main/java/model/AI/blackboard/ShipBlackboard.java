@@ -18,7 +18,7 @@ public class ShipBlackboard {
 	public EntityId enemyDetected;
 	public EntityId enemy;
 	
-	public boolean enemyIsInMyRedDot = false;
+	public boolean enemyShootable = false;
 	
 	public ShipBlackboard(EntityData entityData, EntityId eid) {
 		this.entityData = entityData;

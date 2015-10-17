@@ -33,7 +33,7 @@ public class Aim extends LeafTask<ShipBlackboard> {
 		
 		double neededRotation = AngleUtil.getAngleFromAtoB(stance.orientation.getValue(), toAim.getSubtraction(stance.coord).getAngle());
 		
-		bb.enemyIsInMyRedDot = neededRotation < AngleUtil.FLAT*(1-accuracy);
+		bb.enemyShootable = neededRotation < AngleUtil.FLAT*(1-accuracy);
 			
 		if(neededRotation != 0)
 			bb.entityData.setComponent(bb.eid, new PlanarNeededRotation(new Angle(neededRotation)));

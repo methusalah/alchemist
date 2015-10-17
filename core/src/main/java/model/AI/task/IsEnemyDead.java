@@ -1,17 +1,16 @@
 package model.AI.task;
 
-import model.AI.blackboard.ShipBlackboard;
-
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
 
-public class IsEnemyAimed extends LeafTask<ShipBlackboard> {
-	
+import model.AI.blackboard.ShipBlackboard;
+import model.ES.component.motion.PlanarStance;
+
+public class IsEnemyDead extends LeafTask<ShipBlackboard> {
+
 	@Override
 	public void run() {
-		ShipBlackboard bb = getObject();
-
-		if(bb.enemyShootable)
+		if(getObject().entityData.getComponent(getObject().enemy, PlanarStance.class) == null)
 			success();
 		else
 			fail();
@@ -21,4 +20,5 @@ public class IsEnemyAimed extends LeafTask<ShipBlackboard> {
 	protected Task<ShipBlackboard> copyTo(Task<ShipBlackboard> task) {
 		return task;
 	}
+
 }
