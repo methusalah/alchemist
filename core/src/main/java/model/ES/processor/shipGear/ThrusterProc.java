@@ -6,12 +6,14 @@ import com.simsilica.es.EntitySet;
 
 import controller.ECS.Processor;
 import model.ModelManager;
+import model.ES.component.Naming;
 import model.ES.component.command.PlanarNeededThrust;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.relation.BoneHolding;
 import model.ES.component.relation.Parenting;
 import model.ES.component.relation.PlanarHolding;
 import model.ES.component.shipGear.Thruster;
+import util.LogUtil;
 import util.math.AngleUtil;
 import util.math.Fraction;
 
