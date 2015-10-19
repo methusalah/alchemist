@@ -1,6 +1,7 @@
 package model.ES.processor.holder;
 
 import com.simsilica.es.Entity;
+import com.simsilica.es.EntityId;
 import com.simsilica.es.EntitySet;
 
 import controller.ECS.Processor;
@@ -19,16 +20,17 @@ public class PlanarHoldingProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(PlanarHolding.class, PlanarStance.class, Parenting.class);
-		register(PlanarHolding.class, SpaceStance.class, Parenting.class);
+		register("planarHolded", PlanarHolding.class, PlanarStance.class, Parenting.class);
+		register("spaceHolded", PlanarHolding.class, SpaceStance.class, Parenting.class);
+		register("holders", PlanarStance.class);
 	}
 
 	@Override
 	protected void onUpdated() {
-    	for (Entity e : sets.get(0)){
+    	for (Entity e : getSet("planarHolded")){
     		managePlanar(e);
     	}
-    	for (Entity e : sets.get(1)){
+    	for (Entity e : getSet("spaceHolded")){
     		manageSpace(e);
     	}
 	}
@@ -37,7 +39,10 @@ public class PlanarHoldingProc extends Processor {
 		PlanarHolding holded = e.get(PlanarHolding.class);
 		Parenting parenting = e.get(Parenting.class);
 		
-		PlanarStance parentStance = entityData.getComponent(parenting.getParent(), PlanarStance.class);
+		Entity parent = getSet("holders").getEntity(parenting.getParent());
+		if(parent == null)
+			return;
+		PlanarStance parentStance = parent.get(PlanarStance.class);
 		if(parentStance == null)
 			return;
 
@@ -55,16 +60,19 @@ public class PlanarHoldingProc extends Processor {
 		PlanarHolding holded = e.get(PlanarHolding.class);
 		Parenting parenting = e.get(Parenting.class);
 
-		PlanarStance stance = entityData.getComponent(parenting.getParent(), PlanarStance.class);
-		if(stance == null)
+		Entity parent = getSet("holders").getEntity(parenting.getParent());
+		if(parent == null)
+			return;
+		PlanarStance parentStance = parent.get(PlanarStance.class);
+		if(parentStance == null)
 			return;
 		
-		Point2D newCoord = holded.localPosition.get2D().getRotation(stance.orientation.getValue());
-		newCoord = newCoord.getAddition(stance.coord);
-		double newOrientation = AngleUtil.normalize(stance.orientation.getValue() + holded.localOrientation.getValue());
+		Point2D newCoord = holded.localPosition.get2D().getRotation(parentStance.orientation.getValue());
+		newCoord = newCoord.getAddition(parentStance.coord);
+		double newOrientation = AngleUtil.normalize(parentStance.orientation.getValue() + holded.localOrientation.getValue());
 		
 		
-		setComp(e, new SpaceStance(newCoord.get3D(stance.elevation + holded.localPosition.z),
+		setComp(e, new SpaceStance(newCoord.get3D(parentStance.elevation + holded.localPosition.z),
 				Point3D.UNIT_X.getRotationAroundZ(newOrientation)));
 	}
 }

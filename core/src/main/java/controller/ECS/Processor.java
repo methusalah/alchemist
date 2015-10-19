@@ -1,7 +1,9 @@
 package controller.ECS;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import app.CosmoVania;
 import app.MainGame;
@@ -19,7 +21,7 @@ import com.simsilica.es.EntitySet;
 public abstract class Processor extends AbstractAppState {
 	
 	protected EntityData entityData;
-	protected List<EntitySet> sets = new ArrayList<>();
+	private Map<String, EntitySet> sets = new HashMap<>();
 	
 	@Override
 	public final void initialize(AppStateManager stateManager, Application app) {
@@ -27,7 +29,7 @@ public abstract class Processor extends AbstractAppState {
         entityData = stateManager.getState(EntityDataAppState.class).entityData;
 
         registerSets();
-        for(EntitySet set : sets)
+        for(EntitySet set : sets.values())
 	        for (Entity e : set)
 	            onEntityAdded(e);
         onInitialized();
@@ -38,7 +40,7 @@ public abstract class Processor extends AbstractAppState {
     	if(!isEnabled())
     		return;
     	
-        for(EntitySet set : sets){
+        for(EntitySet set : sets.values()){
 	        if (set.applyChanges()) {
 	            for (Entity e : set.getChangedEntities()) {
 	            	onEntityUpdated(e);
@@ -59,25 +61,33 @@ public abstract class Processor extends AbstractAppState {
 
     @Override
     public final void cleanup() {
-        for(EntitySet set : sets)
+        for(EntitySet set : sets.values())
         	for (Entity e : set)
         		onEntityRemoved(e);
         onCleanup();
-        for(EntitySet set : sets)
+        for(EntitySet set : sets.values())
         	set.release();
         super.cleanup();
     }
 
     @SafeVarargs
-	protected final void register(Class<? extends EntityComponent>... compClass){
-    	sets.add(entityData.getEntities(compClass));
+	protected final void registerDefault(Class<? extends EntityComponent>... compClass){
+    	sets.put("", entityData.getEntities(compClass));
     }
 
     @SafeVarargs
-	protected final void register(ComponentFilter filter, Class<? extends EntityComponent>... compClass){
-    	sets.add(entityData.getEntities(filter, compClass));
+	protected final void register(String setName, Class<? extends EntityComponent>... compClass){
+    	sets.put(setName, entityData.getEntities(compClass));
     }
     
+    protected EntitySet getDefaultSet(){
+    	return sets.get("");
+    }
+    
+    protected EntitySet getSet(String setName){
+    	return sets.get(setName);
+    }
+
     protected final void setComp(Entity e, EntityComponent comp){
 		entityData.setComponent(e.getId(), comp);
     }

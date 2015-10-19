@@ -1,25 +1,19 @@
 package model.ES.processor.motion.physic;
 
-import java.awt.Color;
-
 import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
-import model.ES.component.debug.VelocityViewing;
-import model.ES.component.motion.MotionCapacity;
+import model.ES.component.ToRemove;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Collisioning;
-import model.ES.component.motion.physic.Dragging;
 import model.ES.component.motion.physic.Physic;
-import model.ES.richData.VelocityView;
-import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
 public class CollisionResolutionProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(Collisioning.class);
+		registerDefault(Collisioning.class);
 	}
 	
 	@Override
@@ -31,13 +25,11 @@ public class CollisionResolutionProc extends Processor {
 		Physic phA = A.get(Physic.class);
 		Physic phB = B.get(Physic.class);
 		
-		
 		Point2D velA = phA.velocity; 
 		Point2D velB = phB.velocity;
 		
 		double massA = phA.stat.mass;
 		double massB = phB.stat.mass;
-		
 		
 		Point2D relative = velB.getSubtraction(velA);
 		double velAlongNormal = relative.getDotProduct(col.normal);
@@ -60,7 +52,7 @@ public class CollisionResolutionProc extends Processor {
 //			if(viewing != null)
 //				viewing.updateVelocity("impulse", newVelA, Color.red, 10, 0.2, 1);
 		}
-		entityData.removeEntity(e.getId());
+		setComp(e, new ToRemove());
 	}
 }
 

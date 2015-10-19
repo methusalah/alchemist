@@ -18,6 +18,7 @@ import util.event.EntityRenamedEvent;
 import util.event.EntitySelectionChanged;
 import util.event.EventManager;
 import util.event.ParentingChangedEvent;
+import util.event.RemoveComponentEvent;
 import view.Overview;
 
 public class Controller {
@@ -66,6 +67,12 @@ public class Controller {
 	public void handleAddComponentEvent(AddComponentEvent e){
 		model.inspector.addComponent(e.compName);
 		view.inspectorView.inspectSameEntity(model.inspector.getComponents());
+	}
+
+	@Subscribe
+	public void handleRemoveComponentEvent(RemoveComponentEvent e){
+		model.inspector.removeComponent(e.compClass);
+		view.inspectorView.inspectNewEntity(model.inspector.getComponents());
 	}
 	
 	@Subscribe

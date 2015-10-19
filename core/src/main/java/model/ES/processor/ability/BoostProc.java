@@ -35,7 +35,7 @@ public class BoostProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(Boost.class, Trigger.class, Parenting.class);
+		registerDefault(Boost.class, Trigger.class, Parenting.class);
 	}
 	
 	@Override

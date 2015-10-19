@@ -18,7 +18,7 @@ public class PlayerRotationControlProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(PlanarStance.class, PlayerControl.class);
+		registerDefault(PlanarStance.class, PlayerControl.class);
 	}
 	
 	@Override

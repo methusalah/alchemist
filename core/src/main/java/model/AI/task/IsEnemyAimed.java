@@ -11,12 +11,10 @@ public class IsEnemyAimed extends LeafTask<ShipBlackboard> {
 	public void run() {
 		ShipBlackboard bb = getObject();
 
-		if(bb.enemyIsInMyRedDot){
+		if(bb.enemyShootable)
 			success();
-			return;
-		}
-		fail();
-
+		else
+			fail();
 	}
 
 	@Override

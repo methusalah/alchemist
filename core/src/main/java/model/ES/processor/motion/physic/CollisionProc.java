@@ -23,23 +23,21 @@ public class CollisionProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(Physic.class, PlanarStance.class);
+		registerDefault(Physic.class, PlanarStance.class);
 	}
 	
 	@Override
 	protected void onUpdated() {
-        for(EntitySet set : sets){
-        	List<Entity> entities = new ArrayList<>();
-        	for(Entity e : set){
-        		entities.add(e);
-        		removeComp(e, Touching.class);
-        	}
-        	for(int i = 0; i < set.size() - 1; i++){
-        		
-            	for(int j = i+1; j < set.size(); j++)
-        			checkCollisionBetween(entities.get(i), entities.get(j));
-        	}
-        }
+    	List<Entity> entities = new ArrayList<>();
+    	for(Entity e : getDefaultSet()){
+    		entities.add(e);
+    		removeComp(e, Touching.class);
+    	}
+    	for(int i = 0; i < getDefaultSet().size() - 1; i++){
+    		
+        	for(int j = i+1; j < getDefaultSet().size(); j++)
+    			checkCollisionBetween(entities.get(i), entities.get(j));
+    	}
 	}
 
 	private void checkCollisionBetween(Entity e1, Entity e2) {

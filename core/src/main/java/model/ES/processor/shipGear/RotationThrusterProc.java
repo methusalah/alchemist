@@ -14,7 +14,7 @@ public class RotationThrusterProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(RotationThruster.class, Parenting.class);
+		registerDefault(RotationThruster.class, Parenting.class);
 	}
 	
 	@Override

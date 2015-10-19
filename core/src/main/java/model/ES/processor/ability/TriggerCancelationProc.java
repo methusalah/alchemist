@@ -11,7 +11,7 @@ public class TriggerCancelationProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(Cooldown.class, Trigger.class);
+		registerDefault(Cooldown.class, Trigger.class);
 	}
 	
 	@Override

@@ -23,7 +23,6 @@ public class Hierarchy {
 
 	public Hierarchy(EntityData entityData) {
 		this.entityData = entityData;
-		
 		createEntityHierarchy();
 	}
 	
@@ -35,6 +34,9 @@ public class Hierarchy {
 
 	public void removeEntity(EntityId eid){
 		entityData.removeEntity(eid);
+		for(EntityNode childNode : allNodes.get(eid).children){
+			entityData.removeEntity(childNode.entityId);
+		}
 		createEntityHierarchy();
 	}
 	

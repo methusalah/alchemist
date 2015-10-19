@@ -19,7 +19,7 @@ public class DamageOnTouchProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(DamageOnTouch.class, Touching.class);
+		registerDefault(DamageOnTouch.class, Touching.class);
 	}
 	
 	@Override
@@ -29,7 +29,5 @@ public class DamageOnTouchProc extends Processor {
 		EntityId eid = entityData.createEntity();
 		entityData.setComponent(eid, new Naming("damaging"));
 		entityData.setComponent(eid, new Damaging(e.getId(), touching.getTouched(), dmg.damage));
-		entityData.setComponent(eid, new ToRemove());
-		
 	}
 }

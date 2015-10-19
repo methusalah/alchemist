@@ -7,8 +7,12 @@ import view.drawingProcessors.CameraPlacingProc;
 import view.drawingProcessors.LightProc;
 import view.drawingProcessors.ModelProc;
 import view.drawingProcessors.ParticleCasterInPlaneProc;
-import view.drawingProcessors.PlacingModelProc;
+import view.drawingProcessors.ModelPlacingProc;
+import view.drawingProcessors.SpritePlacingProc;
+import view.drawingProcessors.SpriteProc;
+import view.drawingProcessors.ModelRotationProc;
 import view.drawingProcessors.VelocityVisualisationProc;
+import view.drawingProcessors.audio.ThrusterAudioProc;
 
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -31,8 +35,16 @@ public class EntitySystem extends AbstractAppState{
 //		stateManager.attach(new PlayerOrthogonalThrustControlProc());
 		stateManager.attach(new CameraPlacingProc());
 		stateManager.attach(new ParticleCasterInPlaneProc());
+		
+		stateManager.attach(new ThrusterAudioProc());
+
 		stateManager.attach(new ModelProc());
-		stateManager.attach(new PlacingModelProc());
+		stateManager.attach(new SpriteProc());
+		
+		stateManager.attach(new ModelPlacingProc());
+		stateManager.attach(new SpritePlacingProc());
+		
+		stateManager.attach(new ModelRotationProc());
 		stateManager.attach(new LightProc());
 		stateManager.attach(new VelocityVisualisationProc());
 

@@ -19,7 +19,7 @@ public class PlanarStance implements EntityComponent{
 		coord = Point2D.ORIGIN;
 		orientation = new Angle(0);
 		elevation = 0;
-		upVector = Point3D.ORIGIN;
+		upVector = Point3D.UNIT_Z;
 	}
 	
 	public PlanarStance(@JsonProperty("coord")Point2D coord,

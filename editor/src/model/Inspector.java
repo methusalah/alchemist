@@ -110,5 +110,16 @@ public class Inspector {
 			LogUtil.warning("Can't instanciate component "+componentName);
 		}
 	}
-	
+	public void removeComponent(Class<? extends EntityComponent> componentClass){
+		EntityComponent comp = null;
+		for(EntityComponent c : comps)
+			if(c.getClass() == componentClass){
+				comp = c;
+				break;
+			}
+		if(comp == null)
+			throw new IllegalArgumentException("trying to remove a component ("+componentClass.getSimpleName()+") that doesn't exist on current entity");
+		comps.remove(comp);
+		entityData.removeComponent(eid, componentClass);
+	}
 }

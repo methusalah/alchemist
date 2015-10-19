@@ -34,7 +34,7 @@ public class ProjectileLauncherProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(PlanarStance.class, ProjectileLauncher.class, Trigger.class, Cooldown.class, Parenting.class);
+		registerDefault(PlanarStance.class, ProjectileLauncher.class, Trigger.class, Cooldown.class, Parenting.class);
 	}
 	
 	@Override

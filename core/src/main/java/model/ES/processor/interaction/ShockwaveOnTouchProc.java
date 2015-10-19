@@ -16,7 +16,7 @@ import util.math.Angle;
 public class ShockwaveOnTouchProc extends Processor{
 	@Override
 	protected void registerSets() {
-		register(ShockwaveOnTouch.class, Touching.class);
+		registerDefault(ShockwaveOnTouch.class, Touching.class);
 	}
 	
 	@Override

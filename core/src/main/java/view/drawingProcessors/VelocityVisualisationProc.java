@@ -21,18 +21,11 @@ public class VelocityVisualisationProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(VelocityViewing.class, PlanarStance.class);
+		registerDefault(VelocityViewing.class, PlanarStance.class);
 	}
 
 	@Override
-	protected void onUpdated() {
-		for(EntitySet set : sets)
-			for(Entity e : set){
-				manage(e);
-			}
-	}
-	
-	private void manage(Entity e) {
+	protected void onEntityEachTick(Entity e) {
 		PlanarStance stance = e.get(PlanarStance.class);
 		
 		for(VelocityView v : e.get(VelocityViewing.class).velocities.values()){

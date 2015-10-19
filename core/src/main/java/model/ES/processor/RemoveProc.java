@@ -10,7 +10,7 @@ public class RemoveProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(ToRemove.class);
+		registerDefault(ToRemove.class);
 	}
 	
 	@Override

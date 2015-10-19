@@ -14,7 +14,7 @@ public class CameraPlacingProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(ChasingCamera.class);
+		registerDefault(ChasingCamera.class);
 	}
 	
 	@Override

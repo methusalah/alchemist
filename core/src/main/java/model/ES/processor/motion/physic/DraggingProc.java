@@ -13,7 +13,7 @@ import util.math.PrecisionUtil;
 public class DraggingProc extends Processor {
 	@Override
 	protected void registerSets() {
-		register(Dragging.class, Physic.class, PlanarVelocityToApply.class);
+		registerDefault(Dragging.class, Physic.class, PlanarVelocityToApply.class);
 	}
 	
 	@Override

@@ -15,7 +15,7 @@ public class PlayerAbilityControlProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(AbilityTriggerList.class, PlayerControl.class);
+		registerDefault(AbilityTriggerList.class, PlayerControl.class);
 	}
 	
 	@Override

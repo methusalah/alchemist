@@ -1,5 +1,6 @@
 package view.drawingProcessors;
 
+import util.LogUtil;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
 import view.SpatialPool;
@@ -11,6 +12,7 @@ import com.jme3.light.SpotLight;
 import com.simsilica.es.Entity;
 
 import app.AppFacade;
+import model.ES.component.Naming;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.SpaceStance;
 import model.ES.component.visuals.Lighting;
@@ -20,8 +22,8 @@ public class LightProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(SpaceStance.class, Lighting.class);
-		register(PlanarStance.class, Lighting.class);
+		register("space", SpaceStance.class, Lighting.class);
+		register("planar", PlanarStance.class, Lighting.class);
 	}
 	
 	@Override

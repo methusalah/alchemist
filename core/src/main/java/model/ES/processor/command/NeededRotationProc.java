@@ -15,7 +15,7 @@ public class NeededRotationProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		register(PlanarNeededRotation.class, MotionCapacity.class, PlanarStance.class);
+		registerDefault(PlanarNeededRotation.class, MotionCapacity.class, PlanarStance.class);
 	}
 	
 	@Override

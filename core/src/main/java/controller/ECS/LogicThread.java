@@ -1,7 +1,9 @@
 package controller.ECS;
 
-import util.LogUtil;
-import model.ES.component.Naming;
+import com.jme3.app.state.AppStateManager;
+import com.simsilica.es.EntityData;
+
+import controller.cameraManagement.ChasingCameraProc;
 import model.ES.processor.LifeTimeProc;
 import model.ES.processor.ParentingCleanerProc;
 import model.ES.processor.RemoveProc;
@@ -33,12 +35,6 @@ import model.ES.processor.shipGear.LightThrusterProc;
 import model.ES.processor.shipGear.ParticleThrusterProc;
 import model.ES.processor.shipGear.RotationThrusterProc;
 import model.ES.processor.shipGear.ThrusterProc;
-
-import com.jme3.app.SimpleApplication;
-import com.jme3.app.state.AppStateManager;
-import com.simsilica.es.EntityData;
-
-import controller.cameraManagement.ChasingCameraProc;
 
 public class LogicThread implements Runnable {
     public static final double TIME_PER_FRAME = 0.02;

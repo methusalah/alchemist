@@ -37,15 +37,19 @@ import model.ES.component.shipGear.Thruster;
 import model.ES.component.shipGear.Trigger;
 import model.ES.component.shipGear.TriggerRepeater;
 import model.ES.component.visuals.Lighting;
+import model.ES.component.visuals.ModelRotation;
 import model.ES.component.visuals.ParticleCasting;
 import model.ES.component.visuals.Skeleton;
+import model.ES.component.visuals.Sprite;
 import model.ES.serial.BlueprintCreator;
+import util.LogUtil;
 import app.AppFacade;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 import com.jme3x.jfx.injfx.JmeForImageView;
 import com.simsilica.es.EntityData;
+import com.simsilica.es.StringIndex;
 import com.simsilica.es.base.DefaultEntityData;
 
 import controller.ECS.EntityDataAppState;
@@ -62,13 +66,13 @@ public class Model {
 		BlueprintCreator.create("player ship", null);
 		BlueprintCreator.create("enemy", null);
 		BlueprintCreator.create("sun", null);
-
 		
 		inspector = new Inspector(ed);
 		inspector.addComponentToScan(Naming.class);
 		inspector.addComponentToScan(PlanarStance.class);
 		inspector.addComponentToScan(PlayerControl.class);
 		inspector.addComponentToScan(model.ES.component.visuals.Model.class);
+		inspector.addComponentToScan(Sprite.class);
 		inspector.addComponentToScan(ChasingCamera.class);
 		inspector.addComponentToScan(Sighting.class);
 		inspector.addComponentToScan(Touching.class);
@@ -105,6 +109,7 @@ public class Model {
 		inspector.addComponentToScan(Cooldown.class);
 		inspector.addComponentToScan(LifeTime.class);
 		inspector.addComponentToScan(ToRemove.class);
+		inspector.addComponentToScan(ModelRotation.class);
 		
 		hierarchy = new Hierarchy(ed);
 		

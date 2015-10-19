@@ -13,14 +13,14 @@ public class PhysicForceProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(PlanarStance.class, PhysicForce.class);
-		register(PlanarStance.class, Physic.class, PlanarVelocityToApply.class);
+		register("force", PlanarStance.class, PhysicForce.class);
+		register("influenced", PlanarStance.class, Physic.class, PlanarVelocityToApply.class);
 	}
 	
 	@Override
 	protected void onUpdated() {
-		for(Entity impE : sets.get(0))
-			for(Entity phE : sets.get(1)){
+		for(Entity impE : getSet("force"))
+			for(Entity phE : getSet("influenced")){
 				PlanarStance impStance = impE.get(PlanarStance.class);
 				PlanarStance phStance = phE.get(PlanarStance.class);
 				

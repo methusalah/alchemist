@@ -13,12 +13,12 @@ import util.LogUtil;
 public class EntityNode implements ObservableObjectValue<EntityNode>{
 	List<ChangeListener<? super EntityNode>> changeListeners = new ArrayList<>();
 
-	public EntityId parent;
+	public EntityId entityId;
 	private String name; 
 	public List<EntityNode> children = new ArrayList<>();
 	
 	public EntityNode(EntityId parent, String name) {
-		this.parent = parent;
+		this.entityId = parent;
 		this.name = name;
 	}
 	

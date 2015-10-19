@@ -35,7 +35,7 @@ public class EntityTreeView extends TreeView<EntityNode> {
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<EntityNode>> observable, TreeItem<EntityNode> oldValue, TreeItem<EntityNode> newValue) {
 				if(newValue.getValue() != null)
-					EventManager.post(new EntitySelectionChanged(newValue.getValue().parent));
+					EventManager.post(new EntitySelectionChanged(newValue.getValue().entityId));
 				UIConfig.selectedEntityNode = newValue.getValue();
 			}
 		});
@@ -84,7 +84,7 @@ public class EntityTreeView extends TreeView<EntityNode> {
 	                	
 	                	Dragboard db = cell.startDragAndDrop(TransferMode.ANY);
 	                    ClipboardContent content = new ClipboardContent();
-	                    content.putString("EntityId"+i.parent.getId());
+	                    content.putString("EntityId"+i.entityId.getId());
 	                    db.setContent(content);
 	                    
 	                    mouseEvent.consume();
@@ -146,7 +146,7 @@ public class EntityTreeView extends TreeView<EntityNode> {
 							String message = event.getDragboard().getString();
 							if(message.contains("EntityId")){
 								EntityId childId= new EntityId(Long.parseLong(message.replace("EntityId", "")));
-								EventManager.post(new ParentingChangedEvent(childId, cell.getItem().parent));
+								EventManager.post(new ParentingChangedEvent(childId, cell.getItem().entityId));
 							}
 						}
 					}

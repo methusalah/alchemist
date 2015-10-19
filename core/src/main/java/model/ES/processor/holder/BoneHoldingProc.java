@@ -12,7 +12,7 @@ public class BoneHoldingProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register(BoneHolding.class, SpaceStance.class);
+		registerDefault(BoneHolding.class, SpaceStance.class);
 	}
 	
 	@Override
