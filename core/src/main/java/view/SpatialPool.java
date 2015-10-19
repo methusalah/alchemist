@@ -3,6 +3,7 @@ package view;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.jme3.audio.AudioNode;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.light.Light;
 import com.jme3.scene.Spatial;
@@ -22,6 +23,8 @@ public class SpatialPool {
 	public static final Map<EntityId, MyParticleEmitter> emitters = new HashMap<>();
 	public static final Map<EntityId, Light> lights = new HashMap<>();
 	public static final Map<VelocityView, Spatial> velocities = new HashMap<>();
+	public static final Map<EntityId, AudioNode> playingSounds = new HashMap<>();
+
 	
 	private SpatialPool(){
 		

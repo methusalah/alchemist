@@ -9,16 +9,17 @@ import com.simsilica.es.EntityId;
 
 import app.AppFacade;
 import controller.ECS.Processor;
+import model.ES.commonLogic.ThrusterControlling;
 import model.ES.component.audio.ThrusterAudioSource;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.relation.Parenting;
 import model.ES.component.shipGear.Thruster;
 import model.ES.component.shipGear.ThrusterControl;
 import util.LogUtil;
+import view.SpatialPool;
 
 public class ThrusterAudioProc extends Processor {
 	Map<String, AudioNode> sounds = new HashMap<>();
-	Map<EntityId, AudioNode> playingSounds = new HashMap<>();
 
 	@Override
 	protected void registerSets() {
@@ -30,7 +31,7 @@ public class ThrusterAudioProc extends Processor {
 		ThrusterAudioSource source = e.get(ThrusterAudioSource.class);
 		
 		boolean playing = source.getStartTime() != 0;
-		Thruster t = entityData.getComponent(findThruster(e.getId()), Thruster.class);
+		Thruster t = entityData.getComponent(ThrusterControlling.findThruster(e.getId(), entityData), Thruster.class);
 		
 		if(playing){
 			if(t.activation.getValue() > 0){
@@ -47,7 +48,6 @@ public class ThrusterAudioProc extends Processor {
 	
 	private void play(Entity e, ThrusterAudioSource source){
 		if(source.getLoopTime() != 0 && source.getLoopTime() < System.currentTimeMillis()){
-			LogUtil.info("loop ! " + System.currentTimeMillis());
 			source.setLoopTime(0);
 			AudioNode audio = getAudioNode(source.getLoopPath());
 			
@@ -65,9 +65,7 @@ public class ThrusterAudioProc extends Processor {
 		long t = System.currentTimeMillis();
 		source.setStartTime(t);
 		AudioNode audio = getAudioNode(source.getStartPath());
-		source.setLoopTime(t + (long)audio.getAudioData().getDuration()*1000);
-		LogUtil.info("duration : " + audio.getAudioData().getDuration()*1000 + " / " +System.currentTimeMillis());
-		LogUtil.info("looptime : " + source.getLoopTime());
+		source.setLoopTime(t + (long)(audio.getAudioData().getDuration()*1000));
 		
 		audio.setLooping(false);
 		audio.setVolume((float)source.getVolume().getValue());
@@ -91,17 +89,6 @@ public class ThrusterAudioProc extends Processor {
 		playSound(e, audio);
 	}
 	
-	private EntityId findThruster(EntityId controlled){
-		Parenting p = entityData.getComponent(controlled, Parenting.class);
-		if(p == null)
-			LogUtil.warning("Can't find parent thruster.");
-		
-		if(entityData.getComponent(p.getParent(), Thruster.class) != null)
-			return p.getParent();
-		else
-			return findThruster(p.getParent());
-	}
-	
 	protected AudioNode getAudioNode(String soundPath) {
 		if (!sounds.containsKey(soundPath)) {
 			sounds.put(soundPath, new AudioNode(AppFacade.getAssetManager(), "sounds/" + soundPath));
@@ -111,13 +98,11 @@ public class ThrusterAudioProc extends Processor {
 	}
 	
 	private void playSound(Entity e, AudioNode a){
-		AudioNode current = playingSounds.get(e.getId());
+		AudioNode current = SpatialPool.playingSounds.get(e.getId());
 		if(current != null)
 			current.stop();
 		a.play();
-		playingSounds.put(e.getId(), a);
-
-		
+		SpatialPool.playingSounds.put(e.getId(), a);
 	}
 
 }
