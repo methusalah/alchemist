@@ -57,6 +57,7 @@ public class ProjectileLauncherProc extends Processor {
 			entityData.setComponent(firing, new EffectOnTouch());
 			entityData.setComponent(firing, new DamageOnTouch(new Damage(1)));
 			entityData.setComponent(firing, new LifeTime(System.currentTimeMillis(), 4000));
+			// TODO locate aggressor better in the hierarchy
 			entityData.setComponent(firing, new Projectile(p.getParent(), stance.coord));
 			
 			Cooldown cd = e.get(Cooldown.class);

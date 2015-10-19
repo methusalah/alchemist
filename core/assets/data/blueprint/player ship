@@ -34,7 +34,7 @@
     }
   }, {
     "class" : "model.ES.component.motion.physic.Dragging",
-    "dragging" : 0.5
+    "dragging" : 0.4
   }, {
     "class" : "model.ES.component.motion.MotionCapacity",
     "maxRotationSpeed" : 12.566370614359172,

@@ -199,7 +199,7 @@ public class MainGame extends CosmoVania {
 				0.1,
 				0.1,
 				new ColorData(255, 255, 255, 255),
-				new ColorData(255, 255, 255, 0),
+				new ColorData(255, 255, 255, 255),
 				0.1,
 				0.1,
 				0,
@@ -221,8 +221,8 @@ public class MainGame extends CosmoVania {
 				100,
 				0.4,
 				0.1,
-				new ColorData(1, 0.3f, 0.3f, 1),
-				new ColorData(0.5f, 0.5f, 0.5f, 1),
+				new ColorData(1f, 1f, 1f, 1f),
+				new ColorData(0, 1f, 0.5f, 0),
 				0.1,
 				0.2,
 				0,
@@ -243,8 +243,8 @@ public class MainGame extends CosmoVania {
 				100,
 				0.1,
 				0.05,
-				new ColorData(1, 0.3f, 0.3f, 1),
-				new ColorData(0.5f, 0.5f, 0.5f, 1),
+				new ColorData(1f, 1f, 1f, 1f),
+				new ColorData(0, 1f, 0.5f, 0),
 				0.05,
 				0.1,
 				0,
@@ -270,16 +270,16 @@ public class MainGame extends CosmoVania {
 		bp.add(new Naming("rotation thruster 1"));
 		bp.add(new PlanarStanceControl(new Point3D(0.5, 0.2, 0), new Angle(-AngleUtil.toRadians(20))));
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
-		bp.add(new RotationThruster(true, AngleUtil.toRadians(5), 0, false));
-		bp.add(new ParticleCasting(getCaster1(), getCaster1().perSecond));
+		bp.add(new RotationThruster(true, AngleUtil.toRadians(5), new Fraction(0), false));
+		bp.add(new ParticleCasting(getCaster1(), 0));
 		BlueprintLibrary.save(bp);
 
 		bp = new Blueprint("rotation thruster 2");
 		bp.add(new Naming("rotation thruster 2"));
 		bp.add(new PlanarStanceControl(new Point3D(0.5, -0.2, 0), new Angle(-AngleUtil.toRadians(20))));
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
-		bp.add(new RotationThruster(false, AngleUtil.toRadians(-5), 0, false));
-		bp.add(new ParticleCasting(getCaster1(), getCaster1().perSecond));
+		bp.add(new RotationThruster(false, AngleUtil.toRadians(-5), new Fraction(0), false));
+		bp.add(new ParticleCasting(getCaster1(), 0));
 		BlueprintLibrary.save(bp);
 
 		// main thruster
@@ -436,7 +436,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new Naming("player ship"));
 		bp.add(new PlayerControl());
 		bp.add(new PlanarStance(new Point2D(1, 1), new Angle(0), 0.5, Point3D.UNIT_Z));
-		bp.add(new Dragging(0.5));
+		bp.add(new Dragging(0.4));
 		bp.add(new MotionCapacity(AngleUtil.toRadians(720), 30, 10, 10));
 		bp.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, new Angle(0), new Angle(-AngleUtil.RIGHT), new Angle(0)));
 		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), new Fraction(0.8)), null));

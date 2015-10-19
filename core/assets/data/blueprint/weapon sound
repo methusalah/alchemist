@@ -1,0 +1,42 @@
+{
+  "name" : "weapon sound",
+  "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "weapon sound"
+  }, {
+    "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+    "localPosition" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 0.0
+    },
+    "localOrientation" : {
+      "value" : 0.0
+    }
+  }, {
+    "class" : "model.ES.component.motion.PlanarStance",
+    "coord" : {
+      "x" : 0.0,
+      "y" : 0.0
+    },
+    "orientation" : {
+      "value" : 0.0
+    },
+    "elevation" : 0.0,
+    "upVector" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 1.0
+    }
+  }, {
+    "class" : "model.ES.component.hierarchy.AbilityControl"
+  }, {
+    "class" : "model.ES.component.audio.AudioSource",
+    "path" : "monoshot1.wav",
+    "loop" : false,
+    "volume" : {
+      "value" : 1.0
+    }
+  } ],
+  "children" : [ ]
+}
