@@ -6,6 +6,11 @@ import com.simsilica.es.EntityId;
 import controller.ECS.Processor;
 import model.ES.component.Cooldown;
 import model.ES.component.LifeTime;
+import model.ES.component.assets.Ability;
+import model.ES.component.assets.Boost;
+import model.ES.component.assets.Projectile;
+import model.ES.component.assets.ProjectileLauncher;
+import model.ES.component.hierarchy.Parenting;
 import model.ES.component.interaction.DamageOnTouch;
 import model.ES.component.interaction.DestroyedOnTouch;
 import model.ES.component.interaction.EffectOnTouch;
@@ -14,11 +19,6 @@ import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Physic;
-import model.ES.component.relation.Parenting;
-import model.ES.component.shipGear.Boost;
-import model.ES.component.shipGear.Projectile;
-import model.ES.component.shipGear.ProjectileLauncher;
-import model.ES.component.shipGear.Trigger;
 import model.ES.component.visuals.Model;
 import model.ES.richData.CollisionShape;
 import model.ES.richData.Damage;
@@ -35,12 +35,12 @@ public class BoostProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		registerDefault(Boost.class, Trigger.class, Parenting.class);
+		registerDefault(Boost.class, Ability.class, Parenting.class);
 	}
 	
 	@Override
 	protected void onEntityEachTick(Entity e) {
-		Trigger trigger = e.get(Trigger.class);
+		Ability trigger = e.get(Ability.class);
 		Parenting p = e.get(Parenting.class);
 		Boost boost = e.get(Boost.class);
 		

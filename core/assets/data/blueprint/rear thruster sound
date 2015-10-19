@@ -4,7 +4,7 @@
     "class" : "model.ES.component.Naming",
     "name" : "rear thruster sound"
   }, {
-    "class" : "model.ES.component.relation.PlanarHolding",
+    "class" : "model.ES.component.hierarchy.PlanarStanceControl",
     "localPosition" : {
       "x" : 0.0,
       "y" : 0.0,
@@ -29,7 +29,7 @@
       "z" : 1.0
     }
   }, {
-    "class" : "model.ES.component.shipGear.ThrusterControl"
+    "class" : "model.ES.component.hierarchy.ThrusterControl"
   }, {
     "class" : "model.ES.component.audio.ThrusterAudioSource",
     "startPath" : "thruster_start.wav",

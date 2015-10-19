@@ -9,12 +9,12 @@ import com.simsilica.es.EntityId;
 
 import app.AppFacade;
 import controller.ECS.Processor;
-import model.ES.commonLogic.ThrusterControlling;
+import model.ES.commonLogic.Controlling;
+import model.ES.component.assets.Thruster;
 import model.ES.component.audio.ThrusterAudioSource;
+import model.ES.component.hierarchy.Parenting;
+import model.ES.component.hierarchy.ThrusterControl;
 import model.ES.component.motion.PlanarStance;
-import model.ES.component.relation.Parenting;
-import model.ES.component.shipGear.Thruster;
-import model.ES.component.shipGear.ThrusterControl;
 import util.LogUtil;
 import view.SpatialPool;
 
@@ -31,7 +31,7 @@ public class ThrusterAudioProc extends Processor {
 		ThrusterAudioSource source = e.get(ThrusterAudioSource.class);
 		
 		boolean playing = source.getStartTime() != 0;
-		Thruster t = entityData.getComponent(ThrusterControlling.findThruster(e.getId(), entityData), Thruster.class);
+		Thruster t = Controlling.getControl(Thruster.class, e.getId(), entityData);
 		
 		if(playing){
 			if(t.activation.getValue() > 0){

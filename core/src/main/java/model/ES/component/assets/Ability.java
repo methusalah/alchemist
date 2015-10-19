@@ -1,4 +1,4 @@
-package model.ES.component.shipGear;
+package model.ES.component.assets;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
@@ -6,16 +6,16 @@ import com.simsilica.es.EntityId;
 
 import util.LogUtil;
 
-public class Trigger implements EntityComponent {
+public class Ability implements EntityComponent {
 	public final String name;
 	public final boolean triggered;
 	
-	public Trigger() {
+	public Ability() {
 		name = "";
 		triggered = false;
 	}
 
-	public Trigger(@JsonProperty("name")String name, @JsonProperty("triggered")boolean triggered) {
+	public Ability(@JsonProperty("name")String name, @JsonProperty("triggered")boolean triggered) {
 		this.name = name;
 		this.triggered = triggered;
 	}

@@ -1,4 +1,4 @@
-package model.ES.component.relation;
+package model.ES.component.assets;
 
 import com.simsilica.es.EntityComponent;
 

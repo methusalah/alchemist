@@ -1,22 +1,21 @@
 package model.ES.processor.ability;
 
-import model.ES.component.relation.AbilityTriggerList;
-
 import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
+import model.ES.component.assets.AbilityTrigger;
 
 public class AbilityTriggerResetProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		registerDefault(AbilityTriggerList.class);
+		registerDefault(AbilityTrigger.class);
 	}
 	
 	
 	@Override
 	protected void onEntityEachTick(Entity e) {
-		AbilityTriggerList triggers = e.get(AbilityTriggerList.class);
+		AbilityTrigger triggers = e.get(AbilityTrigger.class);
 		triggers.triggers.clear();
 	}
 }

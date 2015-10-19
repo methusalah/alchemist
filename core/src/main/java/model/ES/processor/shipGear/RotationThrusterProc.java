@@ -1,8 +1,8 @@
 package model.ES.processor.shipGear;
 
+import model.ES.component.assets.RotationThruster;
 import model.ES.component.command.PlanarNeededRotation;
-import model.ES.component.relation.Parenting;
-import model.ES.component.shipGear.RotationThruster;
+import model.ES.component.hierarchy.Parenting;
 
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;

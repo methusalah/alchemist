@@ -3,20 +3,20 @@ package model.ES.processor.ability;
 import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
-import model.ES.component.shipGear.Trigger;
-import model.ES.component.shipGear.TriggerRepeater;
+import model.ES.component.assets.Ability;
+import model.ES.component.assets.TriggerRepeater;
 import util.math.RandomUtil;
 
 public class TriggerRepeaterProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		registerDefault(Trigger.class, TriggerRepeater.class);
+		registerDefault(Ability.class, TriggerRepeater.class);
 	}
 	
 	@Override
 	protected void onEntityEachTick(Entity e) {
-		Trigger trigger = e.get(Trigger.class);
+		Ability trigger = e.get(Ability.class);
 		TriggerRepeater r = e.get(TriggerRepeater.class);
 		
 		if(trigger.triggered){
@@ -26,7 +26,7 @@ public class TriggerRepeaterProc extends Processor {
 		} else {
 			if(r.start + r.maxDuration > System.currentTimeMillis()){
 				if(r.nextPeriod < System.currentTimeMillis()){
-					setComp(e, new Trigger(trigger.name, true));
+					setComp(e, new Ability(trigger.name, true));
 					long nextPeriod = System.currentTimeMillis() + r.period + RandomUtil.between(0, r.periodRange);
 					setComp(e, new TriggerRepeater(r.maxDuration, r.period, r.periodRange, r.start, nextPeriod));
 				}

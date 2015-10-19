@@ -1,13 +1,13 @@
 {
-  "name" : "enemy weapon",
+  "name" : "rear thruster sound",
   "comps" : [ {
     "class" : "model.ES.component.Naming",
-    "name" : "enemy weapon"
+    "name" : "rear thruster sound"
   }, {
     "class" : "model.ES.component.hierarchy.PlanarMotionControl",
     "localPosition" : {
       "x" : 0.0,
-      "y" : -0.3,
+      "y" : 0.0,
       "z" : 0.0
     },
     "localOrientation" : {
@@ -29,25 +29,17 @@
       "z" : 1.0
     }
   }, {
-    "class" : "model.ES.component.Cooldown",
-    "start" : 0,
-    "duration" : 1000.0
+    "class" : "model.ES.component.hierarchy.ThrusterControl"
   }, {
-    "class" : "model.ES.component.assets.TriggerRepeater",
-    "period" : 60,
-    "periodRange" : 10,
-    "start" : 0,
-    "nextPeriod" : 0,
-    "maxDuration" : 300
-  }, {
-    "class" : "model.ES.component.assets.Ability",
-    "name" : "gun",
-    "triggered" : false
-  }, {
-    "class" : "model.ES.component.assets.ProjectileLauncher",
-    "precision" : {
-      "value" : 0.97
-    }
+    "class" : "model.ES.component.audio.ThrusterAudioSource",
+    "startPath" : "thruster_start.wav",
+    "loopPath" : "thruster_loop.wav",
+    "endPath" : "thruster_stop.wav",
+    "volume" : {
+      "value" : 1.0
+    },
+    "startTime" : 0,
+    "loopTime" : 0
   } ],
   "children" : [ ]
 }

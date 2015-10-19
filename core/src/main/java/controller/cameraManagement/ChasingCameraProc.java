@@ -10,9 +10,9 @@ import com.jme3.renderer.Camera;
 import com.simsilica.es.Entity;
 
 import model.ES.component.camera.ChasingCamera;
+import model.ES.component.hierarchy.Parenting;
 import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
-import model.ES.component.relation.Parenting;
 import controller.CameraManager;
 import controller.ECS.LogicThread;
 import controller.ECS.Processor;

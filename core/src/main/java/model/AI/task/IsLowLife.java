@@ -1,7 +1,7 @@
 package model.AI.task;
 
 import model.AI.blackboard.ShipBlackboard;
-import model.ES.component.shipGear.Attrition;
+import model.ES.component.assets.Attrition;
 
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;

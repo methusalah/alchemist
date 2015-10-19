@@ -2,7 +2,7 @@ package model.ES.serial;
 
 import util.LogUtil;
 import model.ES.component.Naming;
-import model.ES.component.relation.Parenting;
+import model.ES.component.hierarchy.Parenting;
 
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
@@ -17,7 +17,8 @@ public class BlueprintCreator {
 	
 	public static EntityId create(String bluePrintName, EntityId parent){
 		Blueprint bp = BlueprintLibrary.get(bluePrintName);
-		assert bp != null : bluePrintName + " blueprint can't be found.";
+		if(bp == null)
+			LogUtil.info(bluePrintName + " blueprint can't be found.");
 		
 		EntityId res = entityData.createEntity();
 		

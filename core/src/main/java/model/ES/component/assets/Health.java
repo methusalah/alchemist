@@ -1,4 +1,4 @@
-package model.ES.component.shipGear;
+package model.ES.component.assets;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;

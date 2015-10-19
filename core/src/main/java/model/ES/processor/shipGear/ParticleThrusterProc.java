@@ -1,7 +1,7 @@
 package model.ES.processor.shipGear;
 
-import model.ES.component.shipGear.RotationThruster;
-import model.ES.component.shipGear.Thruster;
+import model.ES.component.assets.RotationThruster;
+import model.ES.component.assets.Thruster;
 import model.ES.component.visuals.ParticleCasting;
 
 import com.simsilica.es.Entity;

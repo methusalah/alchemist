@@ -4,7 +4,7 @@
     "class" : "model.ES.component.Naming",
     "name" : "rotation thruster 1"
   }, {
-    "class" : "model.ES.component.relation.PlanarHolding",
+    "class" : "model.ES.component.hierarchy.PlanarMotionControl",
     "localPosition" : {
       "x" : 0.5,
       "y" : 0.2,
@@ -29,7 +29,7 @@
       "z" : 1.0
     }
   }, {
-    "class" : "model.ES.component.shipGear.RotationThruster",
+    "class" : "model.ES.component.assets.RotationThruster",
     "clockwise" : true,
     "maxAngle" : 0.08726646259971647,
     "activation" : 0.0,

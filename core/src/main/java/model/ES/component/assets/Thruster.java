@@ -1,4 +1,4 @@
-package model.ES.component.shipGear;
+package model.ES.component.assets;
 
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;

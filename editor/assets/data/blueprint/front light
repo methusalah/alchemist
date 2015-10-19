@@ -4,7 +4,7 @@
     "class" : "model.ES.component.Naming",
     "name" : "front light"
   }, {
-    "class" : "model.ES.component.relation.PlanarHolding",
+    "class" : "model.ES.component.hierarchy.PlanarMotionControl",
     "localPosition" : {
       "x" : 1.0,
       "y" : 0.0,

@@ -4,7 +4,7 @@
     "class" : "model.ES.component.Naming",
     "name" : "enemy weapon"
   }, {
-    "class" : "model.ES.component.relation.PlanarHolding",
+    "class" : "model.ES.component.hierarchy.PlanarStanceControl",
     "localPosition" : {
       "x" : 0.0,
       "y" : -0.3,
@@ -33,18 +33,20 @@
     "start" : 0,
     "duration" : 1000.0
   }, {
-    "class" : "model.ES.component.shipGear.TriggerRepeater",
+    "class" : "model.ES.component.assets.TriggerRepeater",
     "period" : 60,
     "periodRange" : 10,
     "start" : 0,
     "nextPeriod" : 0,
     "maxDuration" : 300
   }, {
-    "class" : "model.ES.component.shipGear.Trigger",
+    "class" : "model.ES.component.assets.Ability",
     "name" : "gun",
     "triggered" : false
   }, {
-    "class" : "model.ES.component.shipGear.ProjectileLauncher",
+    "class" : "model.ES.component.hierarchy.AbilityTriggerControl"
+  }, {
+    "class" : "model.ES.component.assets.ProjectileLauncher",
     "precision" : {
       "value" : 0.97
     }

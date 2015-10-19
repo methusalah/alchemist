@@ -90,9 +90,9 @@
       "y" : 0.0
     }
   }, {
-    "class" : "model.ES.component.relation.Attackable"
+    "class" : "model.ES.component.assets.Attackable"
   }, {
-    "class" : "model.ES.component.relation.AbilityTriggerList",
+    "class" : "model.ES.component.assets.AbilityTrigger",
     "triggers" : {
       "aurevoir" : false,
       "bonjour" : true,
