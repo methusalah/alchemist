@@ -19,14 +19,14 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class BlueprintLibrary {
 	private static String path = "assets/data/blueprint/";
 	private static ObjectMapper mapper = new ObjectMapper();
-	private static Map<String, Blueprint> blueprints = new HashMap<>();
+	private static Map<String, EntityPrototype> blueprints = new HashMap<>();
 
 	static {
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 		for(File f : getFilesDeeply(path))
 			try {
-				Blueprint bp = mapper.readValue(f, Blueprint.class);
+				EntityPrototype bp = mapper.readValue(f, EntityPrototype.class);
 				blueprints.put(bp.name, bp); 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -37,7 +37,7 @@ public class BlueprintLibrary {
 	private BlueprintLibrary(){
 	}
 	
-	public static void save(Blueprint bp){
+	public static void save(EntityPrototype bp){
 		try {
 			mapper.writeValue(new File(path+bp.name), bp);
 		} catch (IOException e) {
@@ -62,11 +62,11 @@ public class BlueprintLibrary {
 		return res;
 	}
 	
-	public static Blueprint get(String name){
+	public static EntityPrototype get(String name){
 		return blueprints.get(name);
 	}
 	
-	public static List<Blueprint> getAll(){
-		return new ArrayList<Blueprint>(blueprints.values());
+	public static List<EntityPrototype> getAll(){
+		return new ArrayList<EntityPrototype>(blueprints.values());
 	}
 }

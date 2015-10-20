@@ -1,11 +1,11 @@
 package util.event;
 
-import com.simsilica.es.EntityId;
+import model.EntityPresenter;
 
 public class EntitySelectionChanged extends Event {
-	public final EntityId eid;
+	public final EntityPresenter ep;
 	
-	public EntitySelectionChanged(EntityId eid) {
-		this.eid = eid;
+	public EntitySelectionChanged(EntityPresenter ep) {
+		this.ep = ep;
 	}
 }

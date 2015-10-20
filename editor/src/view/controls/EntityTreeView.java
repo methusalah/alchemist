@@ -4,12 +4,6 @@ import java.util.List;
 
 import com.simsilica.es.EntityId;
 
-import util.LogUtil;
-import util.event.EntitySelectionChanged;
-import util.event.EventManager;
-import util.event.ParentingChangedEvent;
-import view.UIConfig;
-import model.EntityNode;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -21,21 +15,23 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.paint.Color;
 import javafx.util.Callback;
+import model.EntityPresenter;
+import util.event.EntitySelectionChanged;
+import util.event.EventManager;
+import util.event.ParentingChangedEvent;
+import view.UIConfig;
 
-public class EntityTreeView extends TreeView<EntityNode> {
+public class EntityTreeView extends TreeView<EntityPresenter> {
 	EntityNodeItem toSelect;
 
-	public EntityTreeView(List<EntityNode> nodes) {
-		getSelectionModel().selectedItemProperty().addListener( new ChangeListener<TreeItem<EntityNode>>() {
+	public EntityTreeView(List<EntityPresenter> nodes) {
+		getSelectionModel().selectedItemProperty().addListener( new ChangeListener<TreeItem<EntityPresenter>>() {
 
 			@Override
-			public void changed(ObservableValue<? extends TreeItem<EntityNode>> observable, TreeItem<EntityNode> oldValue, TreeItem<EntityNode> newValue) {
+			public void changed(ObservableValue<? extends TreeItem<EntityPresenter>> observable, TreeItem<EntityPresenter> oldValue, TreeItem<EntityPresenter> newValue) {
 				if(newValue.getValue() != null)
-					EventManager.post(new EntitySelectionChanged(newValue.getValue().entityId));
+					EventManager.post(new EntitySelectionChanged(newValue.getValue()));
 				UIConfig.selectedEntityNode = newValue.getValue();
 			}
 		});
@@ -45,30 +41,30 @@ public class EntityTreeView extends TreeView<EntityNode> {
 		EntityNodeItem root = new EntityNodeItem(null);
 		root.setExpanded(true);
 		toSelect = null;
-		for(EntityNode n : nodes)
+		for(EntityPresenter n : nodes)
 			addItem(root, n);
 		setRoot(root);
 		if(toSelect != null)
 			getSelectionModel().select(toSelect);
 	}
 	
-	private void addItem(EntityNodeItem parent, EntityNode node){
+	private void addItem(EntityNodeItem parent, EntityPresenter node){
 		EntityNodeItem i = new EntityNodeItem(node);
 		parent.getChildren().add(i);
 		if(node == UIConfig.selectedEntityNode)
 			toSelect = i;
-		for(EntityNode childNode : node.children){
+		for(EntityPresenter childNode : node.childrenListProperty()){
 			addItem(i, childNode);
 		}
 	}
 	
 	private void configureCellFactoryForDragAndDrop(){
-		setCellFactory(new Callback<TreeView<EntityNode>, TreeCell<EntityNode>>() {
+		setCellFactory(new Callback<TreeView<EntityPresenter>, TreeCell<EntityPresenter>>() {
 
 			@Override
-	        public TreeCell<EntityNode> call(TreeView<EntityNode> stringTreeView) {
-	            TreeCell<EntityNode> cell = new TreeCell<EntityNode>() {
-	                protected void updateItem(EntityNode item, boolean empty) {
+	        public TreeCell<EntityPresenter> call(TreeView<EntityPresenter> stringTreeView) {
+	            TreeCell<EntityPresenter> cell = new TreeCell<EntityPresenter>() {
+	                protected void updateItem(EntityPresenter item, boolean empty) {
 	                    super.updateItem(item, empty);
 	                    if (item != null) {
 	                        setText(item.toString());
@@ -80,11 +76,11 @@ public class EntityTreeView extends TreeView<EntityNode> {
 	                
 	            	@Override
 	                public void handle(MouseEvent mouseEvent) {
-	                	EntityNode i = cell.getItem();
+	                	EntityPresenter i = cell.getItem();
 	                	
 	                	Dragboard db = cell.startDragAndDrop(TransferMode.ANY);
 	                    ClipboardContent content = new ClipboardContent();
-	                    content.putString("EntityId"+i.entityId.getId());
+	                    content.putString("EntityId"+i.getEntityId().getId());
 	                    db.setContent(content);
 	                    
 	                    mouseEvent.consume();
@@ -146,7 +142,7 @@ public class EntityTreeView extends TreeView<EntityNode> {
 							String message = event.getDragboard().getString();
 							if(message.contains("EntityId")){
 								EntityId childId= new EntityId(Long.parseLong(message.replace("EntityId", "")));
-								EventManager.post(new ParentingChangedEvent(childId, cell.getItem().entityId));
+								EventManager.post(new ParentingChangedEvent(childId, cell.getItem().getEntityId()));
 							}
 						}
 					}

@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.Model;
 
 import com.jme3x.jfx.injfx.JmeForImageView;
 
@@ -15,8 +16,8 @@ public class Overview {
 	public final ResourceView resourceView;
 	public final SceneView sceneView;
 	
-	public Overview(Stage stage, JmeForImageView jme) {
-		inspectorView = new InspectorView();
+	public Overview(Stage stage, JmeForImageView jme, Model model) {
+		inspectorView = new InspectorView(model.selectionProperty);
 		hierarchyView = new HierarchyView();
 		resourceView = new ResourceView();
 		sceneView = new SceneView(jme);

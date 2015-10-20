@@ -16,7 +16,7 @@ public class BlueprintCreator {
 	}
 	
 	public static EntityId create(String bluePrintName, EntityId parent){
-		Blueprint bp = BlueprintLibrary.get(bluePrintName);
+		EntityPrototype bp = BlueprintLibrary.get(bluePrintName);
 		if(bp == null)
 			LogUtil.info(bluePrintName + " blueprint can't be found.");
 		

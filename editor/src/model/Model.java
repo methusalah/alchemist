@@ -57,6 +57,8 @@ import com.simsilica.es.base.DefaultEntityData;
 
 import controller.ECS.EntityDataAppState;
 import controller.ECS.EntitySystem;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 
 public class Model {
 	public final Inspector inspector;
@@ -64,14 +66,18 @@ public class Model {
 	public final ResourceExplorer resourceExplorer;
 	public final JmeForImageView jme;
 	
+	public final ObjectProperty<EntityPresenter> selectionProperty = new SimpleObjectProperty<>();
+	
 	public Model() {
+		
 		EntityData ed = new DefaultEntityData();
 		BlueprintCreator.setEntityData(ed);
 		BlueprintCreator.create("player ship", null);
 		BlueprintCreator.create("enemy", null);
 		BlueprintCreator.create("sun", null);
 		
-		inspector = new Inspector(ed);
+		inspector = new Inspector(ed, selectionProperty);
+		
 		inspector.addComponentToScan(Naming.class);
 		inspector.addComponentToScan(PlanarStance.class);
 		inspector.addComponentToScan(PlayerControl.class);

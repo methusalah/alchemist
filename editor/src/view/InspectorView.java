@@ -7,6 +7,10 @@ import java.util.Optional;
 
 import com.simsilica.es.EntityComponent;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -14,8 +18,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
+import model.EntityPresenter;
 import model.ES.component.Naming;
 import util.event.AddComponentEvent;
 import util.event.EventManager;
@@ -28,10 +32,32 @@ public class InspectorView extends VBox{
 	Label info;
 	Button addCompButton;
 	
-	
 	Map<Class<? extends EntityComponent>, ComponentEditor> editors = new HashMap<>();
 	
-	public InspectorView() {
+	public InspectorView(ObjectProperty<EntityPresenter> selection) {
+		selection.addListener(new ChangeListener<EntityPresenter>() {
+			
+			@Override
+			public void changed(ObservableValue<? extends EntityPresenter> observable, EntityPresenter oldValue,
+					EntityPresenter newValue) {
+				inspectNewEntity(newValue);
+				newValue.componentListProperty().addListener(new ListChangeListener<EntityComponent>() {
+					
+					@Override
+					public void onChanged(Change<? extends EntityComponent> arg0) {
+						inspectSameEntity(newValue);
+					}
+				});
+				newValue.nameProperty().addListener(new ChangeListener<String>() {
+
+					@Override
+					public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+						info.setText("Name : "+newValue);
+					}
+				});
+			}
+		});
+		
 		setMinWidth(300);
 		setMaxWidth(500);
 		
@@ -73,11 +99,11 @@ public class InspectorView extends VBox{
 		getChildren().add(addCompButton);
 	}
 	
-	public void inspectNewEntity(List<EntityComponent> comps){
+	private void inspectNewEntity(EntityPresenter ep){
 		info.setText("");
 		compControl.getChildren().clear();
 		editors.clear();
-		for(EntityComponent comp : comps){
+		for(EntityComponent comp : ep.componentListProperty()){
 			if(comp instanceof Naming)
 				info.setText("Name : "+((Naming)comp).name);
 			ComponentEditor editor = new ComponentEditor(comp);
@@ -91,25 +117,23 @@ public class InspectorView extends VBox{
 		this.compNames = compNames;
 	}
 	
-	public void inspectSameEntity(List<EntityComponent> comps){
-		info.setText("");
-		for(EntityComponent comp : comps){
-			if(comp instanceof Naming)
-				info.setText("Name : "+((Naming)comp).name);
+	private void inspectSameEntity(EntityPresenter ep){
+		Map<Class<? extends EntityComponent>, ComponentEditor> unneededEditors = new HashMap<>(editors);
+		
+		for(EntityComponent comp : ep.componentListProperty()){
 			ComponentEditor editor = editors.get(comp.getClass());
-			if(editor != null)
+			if(editor != null){
 				editor.updateComponent(comp);
-			else {
+				unneededEditors.remove(comp.getClass());
+			} else {
 				editor = new ComponentEditor(comp);
 				editors.put(comp.getClass(), editor);
 				compControl.getChildren().add(editor);
 			}
 		}
+		compControl.getChildren().removeAll(unneededEditors.values());
+		for(Class<? extends EntityComponent> compClass : unneededEditors.keySet()){
+			editors.remove(compClass);
+		}
 	}
-
-	public void updateEntityName(String name){
-		info.setText("Name : "+name);
-		
-	}
-	
 }

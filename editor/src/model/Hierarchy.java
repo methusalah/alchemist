@@ -5,21 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import util.LogUtil;
-
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 import com.simsilica.es.EntitySet;
 
 import model.ES.component.Naming;
-import model.ES.component.ToRemove;
 import model.ES.component.hierarchy.Parenting;
+import util.LogUtil;
 
 public class Hierarchy {
 	private final EntityData entityData;
-	public final List<EntityNode> baseNodes = new ArrayList<>();
-	private final Map<EntityId, EntityNode> allNodes = new HashMap<>();
+	public final List<EntityPresenter> baseNodes = new ArrayList<>();
+	private final Map<EntityId, EntityPresenter> allNodes = new HashMap<>();
 
 	public Hierarchy(EntityData entityData) {
 		this.entityData = entityData;
@@ -34,32 +32,32 @@ public class Hierarchy {
 
 	public void removeEntity(EntityId eid){
 		entityData.removeEntity(eid);
-		for(EntityNode childNode : allNodes.get(eid).children){
-			entityData.removeEntity(childNode.entityId);
+		for(EntityPresenter childNode : allNodes.get(eid).childrenListProperty()){
+			entityData.removeEntity(childNode.getEntityId());
 		}
 		createEntityHierarchy();
 	}
 	
 	private void addEntity(EntityId eid){
 		Naming naming = entityData.getComponent(eid, Naming.class);
-		EntityNode n = new EntityNode(eid, naming.name);
+		EntityPresenter n = new EntityPresenter(eid, naming.name);
 		allNodes.put(eid, n);
 	}
 	
 	private void linkEntity(EntityId eid){
-		EntityNode n = allNodes.get(eid);
+		EntityPresenter n = allNodes.get(eid);
 
 		Parenting parenting = entityData.getComponent(eid, Parenting.class);
 		if(parenting == null){
 			baseNodes.add(n);
 		} else {
-			allNodes.get(parenting.getParent()).children.add(n);
+			allNodes.get(parenting.getParent()).childrenListProperty().add(n);
 		}
 	}
 	
 	public void updateName(EntityId eid){
 		Naming naming = entityData.getComponent(eid, Naming.class);
-		allNodes.get(eid).setName(naming.name);
+		allNodes.get(eid).nameProperty().setValue(naming.name);
 	}
 	
 	public void updateParenting(EntityId eid, EntityId parentid){

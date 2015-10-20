@@ -2,32 +2,16 @@ package view;
 
 import java.util.List;
 
-import com.sun.javafx.scene.control.skin.LabeledText;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
-import model.EntityNode;
-import util.LogUtil;
+import model.EntityPresenter;
 import util.event.EntityCreationEvent;
 import util.event.EntityDeletionEvent;
-import util.event.EntitySelectionChanged;
 import util.event.EventManager;
-import view.controls.EntityNodeItem;
 import view.controls.EntityTreeView;
 
 public class HierarchyView extends VBox{
@@ -61,13 +45,13 @@ public class HierarchyView extends VBox{
 			@Override
 			public void handle(ActionEvent event) {
 				if(tree != null && tree.getSelectionModel().getSelectedItem() != null)
-				EventManager.post(new EntityDeletionEvent(tree.getSelectionModel().getSelectedItem().getValue().entityId));
+				EventManager.post(new EntityDeletionEvent(tree.getSelectionModel().getSelectedItem().getValue().getEntityId()));
 			}
 		});
 		getChildren().add(btnRemove);
 	}
 	
-	public void update(List<EntityNode> nodes){
+	public void update(List<EntityPresenter> nodes){
 		getChildren().remove(tree);
 		tree = new EntityTreeView(nodes);
 		tree.setMaxHeight(Double.MAX_VALUE);

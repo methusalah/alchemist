@@ -16,7 +16,7 @@ public class MainEditor extends Application {
 	public void start(Stage primaryStage) {
 		LogUtil.init();
 		model = new Model();
-		view = new Overview(primaryStage, model.jme);
+		view = new Overview(primaryStage, model.jme, model);
 		controller = new Controller(model, view);
 	}
 	

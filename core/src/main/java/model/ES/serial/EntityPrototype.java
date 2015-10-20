@@ -15,21 +15,21 @@ import com.simsilica.es.EntityId;
 
 import model.ES.component.hierarchy.Parenting;
 
-public class Blueprint {
+public class EntityPrototype {
 	public final String name;
 
 	@JsonTypeInfo(use=Id.CLASS, include=As.PROPERTY, property="class")
 	private final List<EntityComponent> comps;
 	
 	private final List<String> children;
-	
+
 	/**
 	 * For deserialization purpose only.	
 	 * @param name
 	 * @param comps
 	 * @param children
 	 */
-	public Blueprint(@JsonProperty("name")String name,
+	public EntityPrototype(@JsonProperty("name")String name,
 			@JsonProperty("comps")List<EntityComponent> comps,
 			@JsonProperty("children")List<String> children) {
 		this.name = name;
@@ -37,7 +37,7 @@ public class Blueprint {
 		this.children = children;
 	}
 
-	public Blueprint(String name) {
+	public EntityPrototype(String name) {
 		this.name = name;
 		comps = new ArrayList<>();
 		children = new ArrayList<>();

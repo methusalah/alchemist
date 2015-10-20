@@ -38,20 +38,18 @@ public class Controller {
 	
 	@Subscribe
 	public void handleEntitySelectionChangedEvent(EntitySelectionChanged e){
-		model.inspector.inspect(e.eid);
-		view.inspectorView.inspectNewEntity(model.inspector.getComponents());
+		model.selectionProperty.setValue(e.ep);
 	}
 	
 	@Subscribe
 	public void handleUpdateComponentEvent(ComponentPropertyChanged e){
 		model.inspector.updateComponent(e.comp, e.propertyName, e.newValue);
-		view.inspectorView.inspectSameEntity(model.inspector.getComponents());
 	}
 	
 	@Subscribe
 	public void handleEntityCreationEvent(EntityCreationEvent e){
 		model.hierarchy.createNewEntity("Unamed Entity");
-		view.hierarchyView.update(model.hierarchy.baseNodes);
+		//view.hierarchyView.update(model.hierarchy.baseNodes);
 	}
 	
 	@Subscribe
@@ -61,30 +59,27 @@ public class Controller {
 		
 		// then we update the views
 		model.hierarchy.updateName(e.eid);
-		view.inspectorView.updateEntityName(e.newName);
 	}
 
 	@Subscribe
 	public void handleAddComponentEvent(AddComponentEvent e){
 		model.inspector.addComponent(e.compName);
-		view.inspectorView.inspectSameEntity(model.inspector.getComponents());
 	}
 
 	@Subscribe
 	public void handleRemoveComponentEvent(RemoveComponentEvent e){
 		model.inspector.removeComponent(e.compClass);
-		view.inspectorView.inspectNewEntity(model.inspector.getComponents());
 	}
 	
 	@Subscribe
 	public void handleParentingChangedEvent(ParentingChangedEvent e){
 		model.hierarchy.updateParenting(e.child, e.newParent);
-		view.hierarchyView.update(model.hierarchy.baseNodes);
+		//view.hierarchyView.update(model.hierarchy.baseNodes);
 	}
 
 	@Subscribe
 	public void handleEntityDeletionEvent(EntityDeletionEvent e){
 		model.hierarchy.removeEntity(e.eid);
-		view.hierarchyView.update(model.hierarchy.baseNodes);
+		//view.hierarchyView.update(model.hierarchy.baseNodes);
 	}
 }
