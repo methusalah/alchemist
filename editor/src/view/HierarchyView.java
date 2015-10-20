@@ -8,6 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
@@ -33,7 +34,9 @@ public class HierarchyView extends VBox{
 	EntityTreeView tree;
 
 	public HierarchyView() {
-		setPrefWidth(300);
+		setMinWidth(300);
+		setMaxHeight(Double.MAX_VALUE);
+		setPadding(new Insets(3));
 		Label title = new Label("Hierarchy");
 		title.setMinHeight(40);
 		title.setMaxWidth(Double.MAX_VALUE);
@@ -67,6 +70,7 @@ public class HierarchyView extends VBox{
 	public void update(List<EntityNode> nodes){
 		getChildren().remove(tree);
 		tree = new EntityTreeView(nodes);
+		tree.setMaxHeight(Double.MAX_VALUE);
 		getChildren().add(tree);
 	}
 }

@@ -7,6 +7,7 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import util.LogUtil;
@@ -45,6 +46,7 @@ public class BlueprintLibrary {
 		blueprints.put(bp.name, bp);
 	}
 
+	
 	private static ArrayList<File> getFilesDeeply(String folderPath) {
 		ArrayList<File> res = new ArrayList<>();
 		File folder = new File(folderPath);
@@ -62,5 +64,9 @@ public class BlueprintLibrary {
 	
 	public static Blueprint get(String name){
 		return blueprints.get(name);
+	}
+	
+	public static List<Blueprint> getAll(){
+		return new ArrayList<Blueprint>(blueprints.values());
 	}
 }

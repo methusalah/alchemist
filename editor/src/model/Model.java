@@ -58,6 +58,7 @@ import controller.ECS.EntitySystem;
 public class Model {
 	public final Inspector inspector;
 	public final Hierarchy hierarchy;
+	public final ResourceExplorer resourceExplorer;
 	public final JmeForImageView jme;
 	
 	public Model() {
@@ -112,6 +113,7 @@ public class Model {
 		inspector.addComponentToScan(ModelRotation.class);
 		
 		hierarchy = new Hierarchy(ed);
+		resourceExplorer = new ResourceExplorer();
 		
 		jme = new JmeForImageView();
 		jme.enqueue((app) -> createScene(app, ed));

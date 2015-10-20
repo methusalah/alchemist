@@ -32,6 +32,7 @@ public class Controller {
 		
 		view.hierarchyView.update(model.hierarchy.baseNodes);
 		view.inspectorView.setComponentNames(model.inspector.getComponentNames());
+		view.resourceView.setBlueprints(model.resourceExplorer.getBlueprintsName());
 		EventManager.register(this);
 	}
 	

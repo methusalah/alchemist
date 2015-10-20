@@ -32,7 +32,9 @@ public class InspectorView extends VBox{
 	Map<Class<? extends EntityComponent>, ComponentEditor> editors = new HashMap<>();
 	
 	public InspectorView() {
-		setPrefWidth(400);
+		setMinWidth(300);
+		setMaxWidth(500);
+		
 		title = new Label("Inspector");
 		title.setMinHeight(40);
 		title.setMaxWidth(Double.MAX_VALUE);
