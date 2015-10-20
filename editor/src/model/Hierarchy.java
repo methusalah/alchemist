@@ -14,7 +14,7 @@ import com.simsilica.es.EntitySet;
 
 import model.ES.component.Naming;
 import model.ES.component.ToRemove;
-import model.ES.component.relation.Parenting;
+import model.ES.component.hierarchy.Parenting;
 
 public class Hierarchy {
 	private final EntityData entityData;

@@ -1,7 +1,7 @@
 package model.ES.processor.ability;
 
 import model.ES.component.Cooldown;
-import model.ES.component.shipGear.Trigger;
+import model.ES.component.assets.Ability;
 
 import com.simsilica.es.Entity;
 
@@ -11,14 +11,14 @@ public class TriggerCancelationProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		registerDefault(Cooldown.class, Trigger.class);
+		registerDefault(Cooldown.class, Ability.class);
 	}
 	
 	@Override
 	protected void onEntityEachTick(Entity e) {
 		Cooldown cd = e.get(Cooldown.class);
-		Trigger t = e.get(Trigger.class);
+		Ability t = e.get(Ability.class);
 		if(t.triggered && cd.start + cd.duration > System.currentTimeMillis())
-			setComp(e, new Trigger(t.name, false));
+			setComp(e, new Ability(t.name, false));
 	}
 }

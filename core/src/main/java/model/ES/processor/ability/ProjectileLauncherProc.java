@@ -7,6 +7,10 @@ import controller.ECS.Processor;
 import model.ES.component.Cooldown;
 import model.ES.component.LifeTime;
 import model.ES.component.Naming;
+import model.ES.component.assets.Ability;
+import model.ES.component.assets.Projectile;
+import model.ES.component.assets.ProjectileLauncher;
+import model.ES.component.hierarchy.Parenting;
 import model.ES.component.interaction.DamageOnTouch;
 import model.ES.component.interaction.DestroyedOnTouch;
 import model.ES.component.interaction.EffectOnTouch;
@@ -15,10 +19,6 @@ import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Physic;
-import model.ES.component.relation.Parenting;
-import model.ES.component.shipGear.Projectile;
-import model.ES.component.shipGear.ProjectileLauncher;
-import model.ES.component.shipGear.Trigger;
 import model.ES.component.visuals.Model;
 import model.ES.richData.CollisionShape;
 import model.ES.richData.Damage;
@@ -34,12 +34,12 @@ public class ProjectileLauncherProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		registerDefault(PlanarStance.class, ProjectileLauncher.class, Trigger.class, Cooldown.class, Parenting.class);
+		registerDefault(PlanarStance.class, ProjectileLauncher.class, Ability.class, Cooldown.class, Parenting.class);
 	}
 	
 	@Override
 	protected void onEntityEachTick(Entity e) {
-		Trigger trigger = e.get(Trigger.class);
+		Ability trigger = e.get(Ability.class);
 		Parenting p = e.get(Parenting.class);
 		ProjectileLauncher launcher = e.get(ProjectileLauncher.class);
 		if(trigger.triggered){
@@ -57,6 +57,7 @@ public class ProjectileLauncherProc extends Processor {
 			entityData.setComponent(firing, new EffectOnTouch());
 			entityData.setComponent(firing, new DamageOnTouch(new Damage(1)));
 			entityData.setComponent(firing, new LifeTime(System.currentTimeMillis(), 4000));
+			// TODO locate aggressor better in the hierarchy
 			entityData.setComponent(firing, new Projectile(p.getParent(), stance.coord));
 			
 			Cooldown cd = e.get(Cooldown.class);

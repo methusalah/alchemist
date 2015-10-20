@@ -1,13 +1,13 @@
 {
-  "name" : "weapon right",
+  "name" : "weapon sound",
   "comps" : [ {
     "class" : "model.ES.component.Naming",
-    "name" : "weapon right"
+    "name" : "weapon sound"
   }, {
     "class" : "model.ES.component.hierarchy.PlanarStanceControl",
     "localPosition" : {
       "x" : 0.0,
-      "y" : -0.3,
+      "y" : 0.0,
       "z" : 0.0
     },
     "localOrientation" : {
@@ -29,20 +29,14 @@
       "z" : 1.0
     }
   }, {
-    "class" : "model.ES.component.Cooldown",
-    "start" : 0,
-    "duration" : 100.0
+    "class" : "model.ES.component.hierarchy.AbilityControl"
   }, {
-    "class" : "model.ES.component.assets.Ability",
-    "name" : "gun",
-    "triggered" : false
-  }, {
-    "class" : "model.ES.component.hierarchy.AbilityTriggerControl"
-  }, {
-    "class" : "model.ES.component.assets.ProjectileLauncher",
-    "precision" : {
-      "value" : 0.995
+    "class" : "model.ES.component.audio.AudioSource",
+    "path" : "monoshot1.wav",
+    "loop" : false,
+    "volume" : {
+      "value" : 1.0
     }
   } ],
-  "children" : [ "weapon sound" ]
+  "children" : [ ]
 }

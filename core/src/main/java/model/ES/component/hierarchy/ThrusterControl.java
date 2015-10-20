@@ -1,4 +1,4 @@
-package model.ES.component.shipGear;
+package model.ES.component.hierarchy;
 
 import com.simsilica.es.EntityComponent;
 

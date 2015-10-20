@@ -1,7 +1,7 @@
 package model.ES.processor;
 
 import model.ES.component.ToRemove;
-import model.ES.component.relation.Parenting;
+import model.ES.component.hierarchy.Parenting;
 
 import com.simsilica.es.Entity;
 

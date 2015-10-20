@@ -1,8 +1,9 @@
 package model.ES.processor.shipGear;
 
-import model.ES.component.shipGear.RotationThruster;
-import model.ES.component.shipGear.Thruster;
+import model.ES.component.assets.RotationThruster;
+import model.ES.component.assets.Thruster;
 import model.ES.component.visuals.ParticleCasting;
+import util.LogUtil;
 
 import com.simsilica.es.Entity;
 
@@ -12,8 +13,8 @@ public class ParticleThrusterProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		registerDefault(ParticleCasting.class, RotationThruster.class);
-		registerDefault(ParticleCasting.class, Thruster.class);
+		register("rotation", ParticleCasting.class, RotationThruster.class);
+		register("standard", ParticleCasting.class, Thruster.class);
 	}
 	
 	@Override
@@ -24,12 +25,11 @@ public class ParticleThrusterProc extends Processor {
 		
 		double activationRate;
 		if(rotationThruster != null)
-			activationRate = rotationThruster.activation;
+			activationRate = rotationThruster.activation.getValue();
 		else if(thruster != null)
 			activationRate = thruster.activation.getValue();
 		else
 			throw new RuntimeException("thruster missing");
-		
 		
 		setComp(e, new ParticleCasting(casting.caster, (int)Math.round(casting.caster.perSecond*activationRate)));
 	}

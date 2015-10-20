@@ -65,7 +65,7 @@
       "y" : 0.0
     }
   }, {
-    "class" : "model.ES.component.shipGear.Attrition",
+    "class" : "model.ES.component.assets.Attrition",
     "maxHitpoints" : 30,
     "actualHitpoints" : 30
   }, {
@@ -74,7 +74,7 @@
     "angle" : 1.7453292519943295,
     "entitiesInSight" : [ ]
   }, {
-    "class" : "model.ES.component.relation.AbilityTriggerList",
+    "class" : "model.ES.component.assets.AbilityTrigger",
     "triggers" : {
       "aurevoir" : false,
       "bonjour" : true,

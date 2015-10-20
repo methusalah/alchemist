@@ -5,8 +5,8 @@ import com.simsilica.es.EntitySet;
 
 import controller.ECS.Processor;
 import model.ES.component.ToRemove;
+import model.ES.component.assets.Attrition;
 import model.ES.component.interaction.Damaging;
-import model.ES.component.shipGear.Attrition;
 
 public class DamagingProc extends Processor {
 

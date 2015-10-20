@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import model.ES.component.relation.Parenting;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
@@ -14,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
+
+import model.ES.component.hierarchy.Parenting;
 
 public class Blueprint {
 	public final String name;

@@ -10,11 +10,25 @@ import java.util.concurrent.TimeUnit;
 
 import model.ES.component.Cooldown;
 import model.ES.component.Naming;
+import model.ES.component.assets.AbilityTrigger;
+import model.ES.component.assets.Ability;
+import model.ES.component.assets.Attackable;
+import model.ES.component.assets.Attrition;
+import model.ES.component.assets.Boost;
+import model.ES.component.assets.ProjectileLauncher;
+import model.ES.component.assets.RotationThruster;
+import model.ES.component.assets.Thruster;
+import model.ES.component.assets.TriggerRepeater;
+import model.ES.component.audio.AudioSource;
 import model.ES.component.audio.ThrusterAudioSource;
 import model.ES.component.camera.ChasingCamera;
 import model.ES.component.command.PlanarNeededThrust;
 import model.ES.component.command.PlayerControl;
 import model.ES.component.debug.VelocityViewing;
+import model.ES.component.hierarchy.AbilityControl;
+import model.ES.component.hierarchy.AbilityTriggerControl;
+import model.ES.component.hierarchy.PlanarStanceControl;
+import model.ES.component.hierarchy.ThrusterControl;
 import model.ES.component.interaction.EffectOnTouch;
 import model.ES.component.interaction.senses.Sighting;
 import model.ES.component.motion.MotionCapacity;
@@ -23,17 +37,6 @@ import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.SpaceStance;
 import model.ES.component.motion.physic.Dragging;
 import model.ES.component.motion.physic.Physic;
-import model.ES.component.relation.AbilityTriggerList;
-import model.ES.component.relation.Attackable;
-import model.ES.component.relation.PlanarHolding;
-import model.ES.component.shipGear.Attrition;
-import model.ES.component.shipGear.Boost;
-import model.ES.component.shipGear.ProjectileLauncher;
-import model.ES.component.shipGear.RotationThruster;
-import model.ES.component.shipGear.Thruster;
-import model.ES.component.shipGear.ThrusterControl;
-import model.ES.component.shipGear.Trigger;
-import model.ES.component.shipGear.TriggerRepeater;
 import model.ES.component.visuals.Lighting;
 import model.ES.component.visuals.Model;
 import model.ES.component.visuals.ModelRotation;
@@ -196,7 +199,7 @@ public class MainGame extends CosmoVania {
 				0.1,
 				0.1,
 				new ColorData(255, 255, 255, 255),
-				new ColorData(255, 255, 255, 0),
+				new ColorData(255, 255, 255, 255),
 				0.1,
 				0.1,
 				0,
@@ -218,8 +221,8 @@ public class MainGame extends CosmoVania {
 				100,
 				0.4,
 				0.1,
-				new ColorData(1, 0.3f, 0.3f, 1),
-				new ColorData(0.5f, 0.5f, 0.5f, 1),
+				new ColorData(1f, 1f, 1f, 1f),
+				new ColorData(0, 1f, 0.5f, 0),
 				0.1,
 				0.2,
 				0,
@@ -240,8 +243,8 @@ public class MainGame extends CosmoVania {
 				100,
 				0.1,
 				0.05,
-				new ColorData(1, 0.3f, 0.3f, 1),
-				new ColorData(0.5f, 0.5f, 0.5f, 1),
+				new ColorData(1f, 1f, 1f, 1f),
+				new ColorData(0, 1f, 0.5f, 0),
 				0.05,
 				0.1,
 				0,
@@ -265,24 +268,24 @@ public class MainGame extends CosmoVania {
 		// rotation thrusters
 		bp = new Blueprint("rotation thruster 1");
 		bp.add(new Naming("rotation thruster 1"));
-		bp.add(new PlanarHolding(new Point3D(0.5, 0.2, 0), new Angle(-AngleUtil.toRadians(20))));
+		bp.add(new PlanarStanceControl(new Point3D(0.5, 0.2, 0), new Angle(-AngleUtil.toRadians(20))));
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
-		bp.add(new RotationThruster(true, AngleUtil.toRadians(5), 0, false));
-		bp.add(new ParticleCasting(getCaster1(), getCaster1().perSecond));
+		bp.add(new RotationThruster(true, AngleUtil.toRadians(5), new Fraction(0), false));
+		bp.add(new ParticleCasting(getCaster1(), 0));
 		BlueprintLibrary.save(bp);
 
 		bp = new Blueprint("rotation thruster 2");
 		bp.add(new Naming("rotation thruster 2"));
-		bp.add(new PlanarHolding(new Point3D(0.5, -0.2, 0), new Angle(-AngleUtil.toRadians(20))));
+		bp.add(new PlanarStanceControl(new Point3D(0.5, -0.2, 0), new Angle(-AngleUtil.toRadians(20))));
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
-		bp.add(new RotationThruster(false, AngleUtil.toRadians(-5), 0, false));
-		bp.add(new ParticleCasting(getCaster1(), getCaster1().perSecond));
+		bp.add(new RotationThruster(false, AngleUtil.toRadians(-5), new Fraction(0), false));
+		bp.add(new ParticleCasting(getCaster1(), 0));
 		BlueprintLibrary.save(bp);
 
 		// main thruster
 		bp = new Blueprint("rear thruster");
 		bp.add(new Naming("rear thruster"));
-		bp.add(new PlanarHolding(new Point3D(-0.7, 0, 0), new Angle(AngleUtil.FLAT)));
+		bp.add(new PlanarStanceControl(new Point3D(-0.7, 0, 0), new Angle(AngleUtil.FLAT)));
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Thruster(new Point3D(1, 0, 0), new Angle(AngleUtil.toRadians(90)), new Fraction(0), false));
 		bp.add(new ParticleCasting(getCaster2(), getCaster2().perSecond));
@@ -293,7 +296,7 @@ public class MainGame extends CosmoVania {
 		// main thruster sound
 		bp = new Blueprint("rear thruster sound");
 		bp.add(new Naming("rear thruster sound"));
-		bp.add(new PlanarHolding(new Point3D(0, 0, 0), new Angle(0)));
+		bp.add(new PlanarStanceControl(new Point3D(0, 0, 0), new Angle(0)));
 		bp.add(new PlanarStance());
 		bp.add(new ThrusterControl());
 		bp.add(new ThrusterAudioSource("thruster_start.wav", "thruster_loop.wav", "thruster_stop.wav", new Fraction(1)));
@@ -303,7 +306,7 @@ public class MainGame extends CosmoVania {
 		// front thrusters
 		bp = new Blueprint("frontal left thruster");
 		bp.add(new Naming("frontal left thruster"));
-		bp.add(new PlanarHolding(new Point3D(0.4, 0.15, 0), new Angle(AngleUtil.toRadians(20))));
+		bp.add(new PlanarStanceControl(new Point3D(0.4, 0.15, 0), new Angle(AngleUtil.toRadians(20))));
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Thruster(new Point3D(-1, -1, 0), new Angle(AngleUtil.toRadians(70)), new Fraction(0), true));
 		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
@@ -311,7 +314,7 @@ public class MainGame extends CosmoVania {
 
 		bp = new Blueprint("frontal right thruster");
 		bp.add(new Naming("frontal right thruster"));
-		bp.add(new PlanarHolding(new Point3D(0.4, -0.15, 0), new Angle(AngleUtil.toRadians(-20))));
+		bp.add(new PlanarStanceControl(new Point3D(0.4, -0.15, 0), new Angle(AngleUtil.toRadians(-20))));
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Thruster(new Point3D(-1, 1, 0), new Angle(AngleUtil.toRadians(70)), new Fraction(0), true));
 		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
@@ -320,7 +323,7 @@ public class MainGame extends CosmoVania {
 		// lateral thrusters
 		bp = new Blueprint("side left thruster");
 		bp.add(new Naming("side left thruster"));
-		bp.add(new PlanarHolding(new Point3D(-0.34, 0.2, 0), new Angle(AngleUtil.toRadians(110))));
+		bp.add(new PlanarStanceControl(new Point3D(-0.34, 0.2, 0), new Angle(AngleUtil.toRadians(110))));
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Thruster(new Point3D(1, -1.5, 0), new Angle(AngleUtil.toRadians(50)), new Fraction(0), true));
 		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
@@ -328,7 +331,7 @@ public class MainGame extends CosmoVania {
 
 		bp = new Blueprint("side right thruster");
 		bp.add(new Naming("side right thruster"));
-		bp.add(new PlanarHolding(new Point3D(-0.34, -0.2, 0), new Angle(AngleUtil.toRadians(-110))));
+		bp.add(new PlanarStanceControl(new Point3D(-0.34, -0.2, 0), new Angle(AngleUtil.toRadians(-110))));
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Thruster(new Point3D(1, 1.5, 0), new Angle(AngleUtil.toRadians(50)), new Fraction(0), true));
 		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
@@ -345,7 +348,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new PlanarVelocityToApply(Point2D.ORIGIN));
 		bp.add(new Attrition(30, 30));
 		bp.add(new Sighting(8, AngleUtil.toRadians(100), new ArrayList<>()));
-		bp.add(new AbilityTriggerList(new HashMap<>()));
+		bp.add(new AbilityTrigger(new HashMap<>()));
 		bp.add("enemy weapon");
 		bp.add("rear thruster");
 		bp.add("frontal left thruster");
@@ -357,37 +360,50 @@ public class MainGame extends CosmoVania {
 		// enemy weapon
 		bp = new Blueprint("enemy weapon");
 		bp.add(new Naming("enemy weapon"));
-		bp.add(new PlanarHolding(new Point3D(0, -0.3, 0), new Angle(0)));
+		bp.add(new PlanarStanceControl(new Point3D(0, -0.3, 0), new Angle(0)));
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Cooldown(0, 1000));
 		bp.add(new TriggerRepeater(300, 60, 10, 0, 0));
-		bp.add(new Trigger("gun", false));
+		bp.add(new Ability("gun", false));
+		bp.add(new AbilityTriggerControl());
 		bp.add(new ProjectileLauncher(new Fraction(0.97)));
 		BlueprintLibrary.save(bp);
 
 		// player weapons
 		bp = new Blueprint("weapon left");
 		bp.add(new Naming("weapon left"));
-		bp.add(new PlanarHolding(new Point3D(0, 0.3, 0), new Angle(0)));
+		bp.add(new PlanarStanceControl(new Point3D(0, 0.3, 0), new Angle(0)));
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Cooldown(0, 100));
-		bp.add(new Trigger("gun", false));
+		bp.add(new Ability("gun", false));
+		bp.add(new AbilityTriggerControl());
 		bp.add(new ProjectileLauncher(new Fraction(0.995)));
 		BlueprintLibrary.save(bp);
 
 		bp = new Blueprint("weapon right");
 		bp.add(new Naming("weapon right"));
-		bp.add(new PlanarHolding(new Point3D(0, -0.3, 0), new Angle(0)));
+		bp.add(new PlanarStanceControl(new Point3D(0, -0.3, 0), new Angle(0)));
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Cooldown(0, 100));
-		bp.add(new Trigger("gun", false));
+		bp.add(new Ability("gun", false));
+		bp.add(new AbilityTriggerControl());
 		bp.add(new ProjectileLauncher(new Fraction(0.995)));
+		bp.add("weapon sound");
 		BlueprintLibrary.save(bp);
 		
+		// weapon sound
+		bp = new Blueprint("weapon sound");
+		bp.add(new Naming("weapon sound"));
+		bp.add(new PlanarStanceControl(new Point3D(0, 0, 0), new Angle(0)));
+		bp.add(new PlanarStance());
+		bp.add(new AbilityControl());
+		bp.add(new AudioSource("monoshot1.wav", false, new Fraction(1)));
+		BlueprintLibrary.save(bp);
+
 		// front light
 		bp = new Blueprint("front light");
 		bp.add(new Naming("front light"));
-		bp.add(new PlanarHolding(new Point3D(1, 0, 0), new Angle(0)));
+		bp.add(new PlanarStanceControl(new Point3D(1, 0, 0), new Angle(0)));
 		bp.add(new SpaceStance(Point3D.ORIGIN, Point3D.ORIGIN));
 		bp.add(new Lighting(new ColorData(255, 255, 255, 255), 4, 6, AngleUtil.toRadians(30), AngleUtil.toRadians(40), false, new Fraction(1)));
 		BlueprintLibrary.save(bp);
@@ -397,7 +413,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new Naming("nebula"));
 		bp.add(new PlanarStance());
 		bp.add(new Sprite("red_nebula.jpg", 100));
-		bp.add(new PlanarHolding(new Point3D(0, 0, -30), new Angle(0)));
+		bp.add(new PlanarStanceControl(new Point3D(0, 0, -30), new Angle(0)));
 		BlueprintLibrary.save(bp);
 
 		// camera
@@ -413,14 +429,14 @@ public class MainGame extends CosmoVania {
 		bp = new Blueprint("boost");
 		bp.add(new Naming("boost"));
 		bp.add(new Boost(120));
-		bp.add(new Trigger("boost", false));
+		bp.add(new Ability("boost", false));
 		BlueprintLibrary.save(bp);
 		
 		bp = new Blueprint("player ship");
 		bp.add(new Naming("player ship"));
 		bp.add(new PlayerControl());
 		bp.add(new PlanarStance(new Point2D(1, 1), new Angle(0), 0.5, Point3D.UNIT_Z));
-		bp.add(new Dragging(0.5));
+		bp.add(new Dragging(0.4));
 		bp.add(new MotionCapacity(AngleUtil.toRadians(720), 30, 10, 10));
 		bp.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, new Angle(0), new Angle(-AngleUtil.RIGHT), new Angle(0)));
 		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), new Fraction(0.8)), null));
@@ -429,7 +445,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new PlanarVelocityToApply(Point2D.ORIGIN));
 		bp.add(new PlanarNeededThrust(Point2D.ORIGIN));
 		bp.add(new Attackable());
-		bp.add(new AbilityTriggerList(new HashMap<>()));
+		bp.add(new AbilityTrigger(new HashMap<>()));
 		bp.add("weapon left");
 		bp.add("weapon right");
 		bp.add("camera");

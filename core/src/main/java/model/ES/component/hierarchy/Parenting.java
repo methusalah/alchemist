@@ -1,4 +1,4 @@
-package model.ES.component.relation;
+package model.ES.component.hierarchy;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;

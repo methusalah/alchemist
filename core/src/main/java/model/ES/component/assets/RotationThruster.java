@@ -1,24 +1,26 @@
-package model.ES.component.shipGear;
+package model.ES.component.assets;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
 
+import util.math.Fraction;
+
 public class RotationThruster implements EntityComponent {
 	public final boolean clockwise;
 	public final double maxAngle;
-	public final double activation;
+	public final Fraction activation;
 	public final boolean onOff;
 	
 	public RotationThruster() {
 		clockwise = false;
 		maxAngle = 0;
-		activation = 0;
+		activation = new Fraction(0);
 		onOff = false;
 	}
 	
 	public RotationThruster(@JsonProperty("clockwise")boolean clockwise,
 			@JsonProperty("maxAngle")double maxAngle,
-			@JsonProperty("activation")double activation,
+			@JsonProperty("activation")Fraction activation,
 			@JsonProperty("onOff")boolean onOff) {
 		this.clockwise = clockwise;
 		this.activation = activation;
@@ -34,7 +36,7 @@ public class RotationThruster implements EntityComponent {
 		return maxAngle;
 	}
 
-	public double getActivation() {
+	public Fraction getActivation() {
 		return activation;
 	}
 

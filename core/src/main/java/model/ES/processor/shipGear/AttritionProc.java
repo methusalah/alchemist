@@ -4,7 +4,7 @@ import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
 import model.ES.component.ToRemove;
-import model.ES.component.shipGear.Attrition;
+import model.ES.component.assets.Attrition;
 
 public class AttritionProc extends Processor {
 

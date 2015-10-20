@@ -90,14 +90,14 @@
       "y" : 0.0
     }
   }, {
-    "class" : "model.ES.component.relation.Attackable"
+    "class" : "model.ES.component.assets.Attackable"
   }, {
-    "class" : "model.ES.component.relation.AbilityTriggerList",
+    "class" : "model.ES.component.assets.AbilityTriggerList",
     "triggers" : {
       "aurevoir" : false,
       "bonjour" : true,
       "ça va ?" : true
     }
   } ],
-  "children" : [ "weapon left", "weapon right", "camera", "front light", "rotation thruster 1", "rotation thruster 2", "rear thruster", "frontal left thruster", "frontal right thruster", "side left thruster", "side right thruster" ]
+  "children" : [ "weapon left", "weapon right", "camera", "front light", "rotation thruster 1", "rotation thruster 2", "rear thruster", "frontal left thruster", "frontal right thruster", "side left thruster", "side right thruster", "boost" ]
 }

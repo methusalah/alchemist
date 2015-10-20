@@ -1,35 +1,34 @@
 package model.ES.processor.ability;
 
 
-import model.ES.component.relation.AbilityTriggerList;
-import model.ES.component.relation.Parenting;
-import model.ES.component.shipGear.Trigger;
+import model.ES.component.assets.AbilityTrigger;
+import model.ES.commonLogic.Controlling;
+import model.ES.component.assets.Ability;
+import model.ES.component.hierarchy.AbilityTriggerControl;
+import model.ES.component.hierarchy.Parenting;
 
 import com.simsilica.es.Entity;
-
 import controller.ECS.Processor;
 
 public class TriggerObserverProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register("triggered", Trigger.class, Parenting.class);
-		register("triggering", AbilityTriggerList.class);
+		register("triggered", Ability.class, AbilityTriggerControl.class, Parenting.class);
 	}
 
+	
 	@Override
-	protected void onUpdated() {
-		for(Entity child : getSet("triggered")){
-			Entity parent = getSet("triggering").getEntity(child.get(Parenting.class).getParent());
-			if(parent != null){
-				Trigger t = child.get(Trigger.class);
-				AbilityTriggerList parentTriggers = parent.get(AbilityTriggerList.class);
-				
-				if(parentTriggers.triggers.containsKey(t.name) && parentTriggers.triggers.get(t.name))
-					setComp(child, new Trigger(t.name, true));
-				else
-					setComp(child, new Trigger(t.name, false));
-			}
-		}
+	protected void onEntityEachTick(Entity e) {
+		Ability a = e.get(Ability.class);
+		AbilityTrigger trigger = Controlling.getControl(AbilityTrigger.class, e.getId(), entityData);
+		
+		if(trigger == null)
+			return;
+			
+		if(trigger.triggers.containsKey(a.name) && trigger.triggers.get(a.name))
+			setComp(e, new Ability(a.name, true));
+		else
+			setComp(e, new Ability(a.name, false));
 	}
 }

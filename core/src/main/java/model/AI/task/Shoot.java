@@ -1,7 +1,7 @@
 package model.AI.task;
 
 import model.AI.blackboard.ShipBlackboard;
-import model.ES.component.relation.AbilityTriggerList;
+import model.ES.component.assets.AbilityTrigger;
 
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
@@ -12,7 +12,7 @@ public class Shoot extends LeafTask<ShipBlackboard> {
 	public void run() {
 		ShipBlackboard bb = getObject();
 		
-		bb.entityData.getComponent(bb.eid, AbilityTriggerList.class).triggers.put("gun", true);
+		bb.entityData.getComponent(bb.eid, AbilityTrigger.class).triggers.put("gun", true);
 		success();
 	}
 

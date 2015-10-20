@@ -6,10 +6,11 @@ import com.simsilica.es.EntitySet;
 
 import controller.ECS.Processor;
 import model.ModelManager;
+import model.ES.commonLogic.Controlling;
+import model.ES.component.hierarchy.Parenting;
+import model.ES.component.hierarchy.PlanarStanceControl;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.SpaceStance;
-import model.ES.component.relation.Parenting;
-import model.ES.component.relation.PlanarHolding;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
@@ -20,9 +21,8 @@ public class PlanarHoldingProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register("planarHolded", PlanarHolding.class, PlanarStance.class, Parenting.class);
-		register("spaceHolded", PlanarHolding.class, SpaceStance.class, Parenting.class);
-		register("holders", PlanarStance.class);
+		register("planarHolded", PlanarStanceControl.class, PlanarStance.class, Parenting.class);
+		register("spaceHolded", PlanarStanceControl.class, SpaceStance.class, Parenting.class);
 	}
 
 	@Override
@@ -36,13 +36,9 @@ public class PlanarHoldingProc extends Processor {
 	}
 
 	private void managePlanar(Entity e) {
-		PlanarHolding holded = e.get(PlanarHolding.class);
-		Parenting parenting = e.get(Parenting.class);
+		PlanarStanceControl holded = e.get(PlanarStanceControl.class);
 		
-		Entity parent = getSet("holders").getEntity(parenting.getParent());
-		if(parent == null)
-			return;
-		PlanarStance parentStance = parent.get(PlanarStance.class);
+		PlanarStance parentStance = Controlling.getControl(PlanarStance.class, e.getId(), entityData);
 		if(parentStance == null)
 			return;
 
@@ -57,13 +53,9 @@ public class PlanarHoldingProc extends Processor {
 	}
 
 	private void manageSpace(Entity e) {
-		PlanarHolding holded = e.get(PlanarHolding.class);
-		Parenting parenting = e.get(Parenting.class);
+		PlanarStanceControl holded = e.get(PlanarStanceControl.class);
 
-		Entity parent = getSet("holders").getEntity(parenting.getParent());
-		if(parent == null)
-			return;
-		PlanarStance parentStance = parent.get(PlanarStance.class);
+		PlanarStance parentStance = Controlling.getControl(PlanarStance.class, e.getId(), entityData);
 		if(parentStance == null)
 			return;
 		

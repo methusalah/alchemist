@@ -1,8 +1,8 @@
 package model.AI.task;
 
 import model.AI.blackboard.ShipBlackboard;
+import model.ES.component.assets.Attackable;
 import model.ES.component.interaction.senses.Sighting;
-import model.ES.component.relation.Attackable;
 
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
