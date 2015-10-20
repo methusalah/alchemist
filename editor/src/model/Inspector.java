@@ -34,12 +34,17 @@ public class Inspector {
 	
 	public void inspect(EntityId eid){
 		this.eid = eid;
-		comps = new ArrayList<>();
+		comps = getScannableComponents(eid);
+	}
+	
+	public List<EntityComponent> getScannableComponents(EntityId eid){
+		List<EntityComponent> res = new ArrayList<>();
 		for(Class<? extends EntityComponent> componentClass : componentClasses.values()){
 			EntityComponent comp = entityData.getComponent(eid, componentClass);
 			if(comp != null)
-				comps.add(comp);
+				res.add(comp);
 		}
+		return res;
 	}
 	
 	public void updateComponent(EntityComponent comp, String propertyName, Object value){
