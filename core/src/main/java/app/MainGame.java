@@ -9,6 +9,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import model.ES.component.Cooldown;
+import model.ES.component.LifeTime;
 import model.ES.component.Naming;
 import model.ES.component.assets.AbilityTrigger;
 import model.ES.component.assets.Ability;
@@ -131,7 +132,7 @@ public class MainGame extends CosmoVania {
 		serialiseBluePrints();
 		BlueprintCreator.create("player ship", null);
 		int zoneWidth = 80;
-//		ed.setComponent(BlueprintCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
+		ed.setComponent(BlueprintCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
 //		ed.setComponent(BlueprintCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
 //		ed.setComponent(BlueprintCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
 //		ed.setComponent(BlueprintCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
@@ -254,6 +255,29 @@ public class MainGame extends CosmoVania {
 				0,
 				false);
 	}
+
+	private ParticleCaster getEXPLOSION(){
+		return new ParticleCaster("particles/explosion01.png",
+				7,
+				7,
+				0,
+				0,
+				false,
+				200,
+				400,
+				0.2,
+				0.2,
+				new ColorData(0.8f, 1f, 1f, 1f),
+				new ColorData(0.4, 1f, 1f, 1),
+				0.8,
+				0.8,
+				0,
+				false,
+				ParticleCaster.Facing.Camera,
+				true,
+				0.6,
+				false);
+	}
 	
 	private void serialiseBluePrints(){
 		Blueprint bp;
@@ -337,6 +361,14 @@ public class MainGame extends CosmoVania {
 		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
 		BlueprintLibrary.save(bp);
 		
+		// enemy explosion
+		bp = new Blueprint("enemy explosion");
+		bp.add(new Naming("enemy explosion"));
+		bp.add(new PlanarStance());
+		bp.add(new LifeTime(0, 600));
+		bp.add(new ParticleCasting(getEXPLOSION(), getEXPLOSION().perSecond));
+		BlueprintLibrary.save(bp);
+		
 		// enemy
 		bp = new Blueprint("enemy");
 		bp.add(new Naming("enemy"));
@@ -346,7 +378,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new Dragging(0.5));
 		bp.add(new MotionCapacity(AngleUtil.toRadians(720), 30, 10, 10));
 		bp.add(new PlanarVelocityToApply(Point2D.ORIGIN));
-		bp.add(new Attrition(30, 30));
+		bp.add(new Attrition(30, 30, "enemy explosion"));
 		bp.add(new Sighting(8, AngleUtil.toRadians(100), new ArrayList<>()));
 		bp.add(new AbilityTrigger(new HashMap<>()));
 		bp.add("enemy weapon");
@@ -469,7 +501,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new Model("rock01.jpg", 1, new Angle(0), new Angle(0), new Angle(0)));
 		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("asteroid", 1000, new CollisionShape(2), new Fraction(0.5)), null));
 		bp.add(new PlanarVelocityToApply(Point2D.ORIGIN));
-		bp.add(new Attrition(500, 500));
+		bp.add(new Attrition(50, 50, "enemy explosion"));
 		BlueprintLibrary.save(bp);
 	}
 }

@@ -23,7 +23,7 @@
     "path" : "red_nebula.jpg",
     "size" : 100.0
   }, {
-    "class" : "model.ES.component.hierarchy.PlanarMotionControl",
+    "class" : "model.ES.component.hierarchy.PlanarStanceControl",
     "localPosition" : {
       "x" : 0.0,
       "y" : 0.0,

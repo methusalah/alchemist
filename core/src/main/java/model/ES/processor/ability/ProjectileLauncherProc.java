@@ -49,7 +49,11 @@ public class ProjectileLauncherProc extends Processor {
 			double orientation = stance.orientation.getValue() + ((RandomUtil.next()-0.5)*(1-launcher.getPrecision().getValue()))*AngleUtil.FULL;
 			entityData.setComponent(firing, new PlanarStance(stance.coord.getTranslation(stance.orientation.getValue(), 0.2), new Angle(orientation), stance.elevation, Point3D.UNIT_Z));
 			entityData.setComponent(firing, new MotionCapacity(0, 1, 0, 0));
+			
+			// application of the velocity of the parent to the projectile
 			entityData.setComponent(firing, new PlanarVelocityToApply(Point2D.UNIT_X.getRotation(orientation)));
+			
+			
 			entityData.setComponent(firing, new Model("human/hmissileT1/hmissileT1_02.mesh.xml", 0.0025, new Angle(0), new Angle(AngleUtil.toRadians(-90)), new Angle(0)));
 			entityData.setComponent(firing, new Physic(Point2D.ORIGIN, new PhysicStat("Missile", 0.1, new CollisionShape(0.1), new Fraction(0), "Missile"), p.getParent()));
 			entityData.setComponent(firing, new DestroyedOnTouch());

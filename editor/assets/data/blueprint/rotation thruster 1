@@ -4,7 +4,7 @@
     "class" : "model.ES.component.Naming",
     "name" : "rotation thruster 1"
   }, {
-    "class" : "model.ES.component.hierarchy.PlanarMotionControl",
+    "class" : "model.ES.component.hierarchy.PlanarStanceControl",
     "localPosition" : {
       "x" : 0.5,
       "y" : 0.2,
@@ -32,7 +32,9 @@
     "class" : "model.ES.component.assets.RotationThruster",
     "clockwise" : true,
     "maxAngle" : 0.08726646259971647,
-    "activation" : 0.0,
+    "activation" : {
+      "value" : 0.0
+    },
     "onOff" : false
   }, {
     "class" : "model.ES.component.visuals.ParticleCasting",
@@ -57,7 +59,7 @@
         "a" : 255,
         "r" : 255,
         "g" : 255,
-        "b" : 0
+        "b" : 255
       },
       "minLife" : 0.1,
       "maxLife" : 0.1,
@@ -68,7 +70,7 @@
       "startVariation" : 0.0,
       "allAtOnce" : false
     },
-    "actualPerSecond" : 80
+    "actualPerSecond" : 0
   } ],
   "children" : [ ]
 }

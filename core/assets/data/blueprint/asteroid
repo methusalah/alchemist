@@ -66,8 +66,9 @@
     }
   }, {
     "class" : "model.ES.component.assets.Attrition",
-    "maxHitpoints" : 500,
-    "actualHitpoints" : 500
+    "maxHitpoints" : 50,
+    "actualHitpoints" : 50,
+    "spawnOnDeath" : "enemy explosion"
   } ],
   "children" : [ ]
 }

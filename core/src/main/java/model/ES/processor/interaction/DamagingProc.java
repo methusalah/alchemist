@@ -21,7 +21,7 @@ public class DamagingProc extends Processor {
 		Attrition attrition = entityData.getComponent(dmg.target, Attrition.class);
 		if(attrition != null){
 			int remaining = attrition.actualHitpoints - dmg.damage.amount;
-			entityData.setComponent(dmg.target, new Attrition(attrition.maxHitpoints, remaining));
+			entityData.setComponent(dmg.target, new Attrition(attrition.maxHitpoints, remaining, attrition.getSpawnOnDeath()));
 		}
 		setComp(e, new ToRemove());
 	}

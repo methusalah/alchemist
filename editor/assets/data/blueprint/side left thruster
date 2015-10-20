@@ -4,7 +4,7 @@
     "class" : "model.ES.component.Naming",
     "name" : "side left thruster"
   }, {
-    "class" : "model.ES.component.hierarchy.PlanarMotionControl",
+    "class" : "model.ES.component.hierarchy.PlanarStanceControl",
     "localPosition" : {
       "x" : -0.34,
       "y" : 0.2,
@@ -57,15 +57,15 @@
       "endSize" : 0.05,
       "startColor" : {
         "a" : 255,
-        "r" : 77,
-        "g" : 77,
+        "r" : 255,
+        "g" : 255,
         "b" : 255
       },
       "endColor" : {
-        "a" : 128,
-        "r" : 128,
+        "a" : 0,
+        "r" : 255,
         "g" : 128,
-        "b" : 255
+        "b" : 0
       },
       "minLife" : 0.05,
       "maxLife" : 0.1,

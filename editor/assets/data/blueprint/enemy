@@ -74,7 +74,7 @@
     "angle" : 1.7453292519943295,
     "entitiesInSight" : [ ]
   }, {
-    "class" : "model.ES.component.assets.AbilityTriggerList",
+    "class" : "model.ES.component.assets.AbilityTrigger",
     "triggers" : {
       "aurevoir" : false,
       "bonjour" : true,

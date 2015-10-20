@@ -4,7 +4,7 @@
     "class" : "model.ES.component.Naming",
     "name" : "rear thruster sound"
   }, {
-    "class" : "model.ES.component.hierarchy.PlanarMotionControl",
+    "class" : "model.ES.component.hierarchy.PlanarStanceControl",
     "localPosition" : {
       "x" : 0.0,
       "y" : 0.0,

@@ -1,6 +1,8 @@
 package view.drawingProcessors;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import util.LogUtil;
 import util.geometry.geom3d.Point3D;
@@ -14,9 +16,11 @@ import model.ES.component.motion.SpaceStance;
 import model.ES.component.visuals.ParticleCasting;
 import app.AppFacade;
 
+import com.badlogic.gdx.utils.Array;
 import com.jme3.effect.Particle;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.effect.ParticleMesh.Type;
+import com.jme3.effect.shapes.EmitterSphereShape;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.simsilica.es.Entity;
@@ -26,9 +30,22 @@ import controller.ECS.Processor;
 
 public class ParticleCasterInPlaneProc extends Processor {
 
+	List<MyParticleEmitter> toRemove = new ArrayList<MyParticleEmitter>(); 
+	
 	@Override
 	protected void registerSets() {
 		registerDefault(ParticleCasting.class, PlanarStance.class);
+	}
+	
+	@Override
+	protected void onUpdated() {
+		List<MyParticleEmitter> detached = new ArrayList<>();
+		for(MyParticleEmitter pe : toRemove)
+			if(pe.getParticles().length == 0){
+				AppFacade.getRootNode().detachChild(pe);
+				detached.add(pe);
+			}
+		toRemove.removeAll(detached);
 	}
 
 	@Override
@@ -120,7 +137,10 @@ public class ParticleCasterInPlaneProc extends Processor {
 		case Horizontal: pe.setFaceNormal(Vector3f.UNIT_Z); break;
 		case Velocity: pe.setFacingVelocity(true);
 		}
-		
+
+		if(casting.caster.startVariation != 0) {
+			pe.setShape(new EmitterSphereShape(Vector3f.ZERO, (float)casting.caster.startVariation));
+		}
 		//particle per seconds
 		pe.setParticlesPerSec((float)casting.actualPerSecond);
 		
@@ -135,7 +155,8 @@ public class ParticleCasterInPlaneProc extends Processor {
 	@Override
 	protected void onEntityRemoved(Entity e) {
 		MyParticleEmitter pe = SpatialPool.emitters.get(e.getId());
-		AppFacade.getRootNode().detachChild(pe);
+		pe.setParticlesPerSec(0);
+		toRemove.add(pe);
 	}
 
 	private ArrayList<Particle> getParticles(MyParticleEmitter pe){

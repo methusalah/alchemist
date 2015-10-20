@@ -34,7 +34,7 @@
     }
   }, {
     "class" : "model.ES.component.motion.physic.Dragging",
-    "dragging" : 0.5
+    "dragging" : 0.4
   }, {
     "class" : "model.ES.component.motion.MotionCapacity",
     "maxRotationSpeed" : 12.566370614359172,
@@ -92,7 +92,7 @@
   }, {
     "class" : "model.ES.component.assets.Attackable"
   }, {
-    "class" : "model.ES.component.assets.AbilityTriggerList",
+    "class" : "model.ES.component.assets.AbilityTrigger",
     "triggers" : {
       "aurevoir" : false,
       "bonjour" : true,
