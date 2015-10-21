@@ -48,13 +48,7 @@ public class InspectorView extends VBox{
 						inspectSameEntity(newValue);
 					}
 				});
-				newValue.nameProperty().addListener(new ChangeListener<String>() {
-
-					@Override
-					public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-						info.setText("Name : "+newValue);
-					}
-				});
+				info.textProperty().bind(newValue.nameProperty());
 			}
 		});
 		
@@ -100,12 +94,9 @@ public class InspectorView extends VBox{
 	}
 	
 	private void inspectNewEntity(EntityPresenter ep){
-		info.setText("");
 		compControl.getChildren().clear();
 		editors.clear();
 		for(EntityComponent comp : ep.componentListProperty()){
-			if(comp instanceof Naming)
-				info.setText("Name : "+((Naming)comp).name);
 			ComponentEditor editor = new ComponentEditor(comp);
 			editors.put(comp.getClass(), editor);
 			compControl.getChildren().add(editor);
@@ -117,7 +108,15 @@ public class InspectorView extends VBox{
 		this.compNames = compNames;
 	}
 	
+	/**
+	 * Update the component in the component editor to avoid editor to be recreated each time
+	 * 
+	 * Usefull for the value that are modified in real time like slider
+	 * 
+	 * @param ep
+	 */
 	private void inspectSameEntity(EntityPresenter ep){
+		
 		Map<Class<? extends EntityComponent>, ComponentEditor> unneededEditors = new HashMap<>(editors);
 		
 		for(EntityComponent comp : ep.componentListProperty()){

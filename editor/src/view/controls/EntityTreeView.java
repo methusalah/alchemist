@@ -1,9 +1,5 @@
 package view.controls;
 
-import java.util.List;
-
-import com.simsilica.es.EntityId;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -22,10 +18,12 @@ import util.event.EventManager;
 import util.event.ParentingChangedEvent;
 import view.UIConfig;
 
+import com.simsilica.es.EntityId;
+
 public class EntityTreeView extends TreeView<EntityPresenter> {
 	EntityNodeItem toSelect;
 
-	public EntityTreeView(List<EntityPresenter> nodes) {
+	public EntityTreeView(EntityPresenter rootPresenter) {
 		getSelectionModel().selectedItemProperty().addListener( new ChangeListener<TreeItem<EntityPresenter>>() {
 
 			@Override
@@ -38,10 +36,10 @@ public class EntityTreeView extends TreeView<EntityPresenter> {
 		
 		configureCellFactoryForDragAndDrop();
 		
-		EntityNodeItem root = new EntityNodeItem(null);
+		EntityNodeItem root = new EntityNodeItem(rootPresenter);
 		root.setExpanded(true);
 		toSelect = null;
-		for(EntityPresenter n : nodes)
+		for(EntityPresenter n : rootPresenter.childrenListProperty())
 			addItem(root, n);
 		setRoot(root);
 		if(toSelect != null)
@@ -64,11 +62,18 @@ public class EntityTreeView extends TreeView<EntityPresenter> {
 			@Override
 	        public TreeCell<EntityPresenter> call(TreeView<EntityPresenter> stringTreeView) {
 	            TreeCell<EntityPresenter> cell = new TreeCell<EntityPresenter>() {
+	            	
+	            	@Override
 	                protected void updateItem(EntityPresenter item, boolean empty) {
 	                    super.updateItem(item, empty);
 	                    if (item != null) {
-	                        setText(item.toString());
-	                    }
+	                    	textProperty().bind(item.nameProperty());
+	                    } else {
+	                    	textProperty().unbind();
+	                        setText(null);
+			                setGraphic(null);
+			            }
+	                    	
 	                }
 	            };
 

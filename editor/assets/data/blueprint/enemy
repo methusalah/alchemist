@@ -67,7 +67,8 @@
   }, {
     "class" : "model.ES.component.assets.Attrition",
     "maxHitpoints" : 30,
-    "actualHitpoints" : 30
+    "actualHitpoints" : 30,
+    "spawnOnDeath" : "enemy explosion"
   }, {
     "class" : "model.ES.component.interaction.senses.Sighting",
     "range" : 8.0,

@@ -19,6 +19,7 @@ import util.event.EntitySelectionChanged;
 import util.event.EventManager;
 import util.event.ParentingChangedEvent;
 import util.event.RemoveComponentEvent;
+import util.event.SaveEntityEvent;
 import view.Overview;
 
 public class Controller {
@@ -30,9 +31,9 @@ public class Controller {
 		this.model = model;
 		this.view = view;
 		
-		view.hierarchyView.update(model.hierarchy.baseNodes);
+		view.hierarchyView.setRootPresenter(model.hierarchy.getRootEntityPresenter());
 		view.inspectorView.setComponentNames(model.inspector.getComponentNames());
-		view.resourceView.setBlueprints(model.resourceExplorer.getBlueprintNames());
+		view.resourceView.setBlueprintList(model.resourceExplorer.blueprintNameListProperty());
 		EventManager.register(this);
 	}
 	
@@ -48,7 +49,7 @@ public class Controller {
 	
 	@Subscribe
 	public void handleEntityCreationEvent(EntityCreationEvent e){
-		model.hierarchy.createNewEntity("Unamed Entity");
+		model.hierarchy.createNewEntity();
 		//view.hierarchyView.update(model.hierarchy.baseNodes);
 	}
 	
@@ -56,9 +57,6 @@ public class Controller {
 	public void handleEntityRenamedEvent(EntityRenamedEvent e){
 		// wathever the source of the modification, we change the naming of the entity
 		model.inspector.updateName(e.eid, e.newName);
-		
-		// then we update the views
-		model.hierarchy.updateName(e.eid);
 	}
 
 	@Subscribe
@@ -81,5 +79,10 @@ public class Controller {
 	public void handleEntityDeletionEvent(EntityDeletionEvent e){
 		model.hierarchy.removeEntity(e.eid);
 		//view.hierarchyView.update(model.hierarchy.baseNodes);
+	}
+	
+	@Subscribe
+	public void handleSaveEntityEvent(SaveEntityEvent e){
+		model.resourceExplorer.saveEntity(model.hierarchy.getPresenter(e.eid));
 	}
 }

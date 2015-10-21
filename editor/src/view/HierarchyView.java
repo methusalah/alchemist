@@ -51,9 +51,9 @@ public class HierarchyView extends VBox{
 		getChildren().add(btnRemove);
 	}
 	
-	public void update(List<EntityPresenter> nodes){
+	public void setRootPresenter(EntityPresenter root){
 		getChildren().remove(tree);
-		tree = new EntityTreeView(nodes);
+		tree = new EntityTreeView(root);
 		tree.setMaxHeight(Double.MAX_VALUE);
 		getChildren().add(tree);
 	}

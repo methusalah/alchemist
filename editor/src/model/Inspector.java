@@ -76,14 +76,14 @@ public class Inspector {
 		EntityComponent newComp = null;
 		try {
 			newComp = new ObjectMapper().treeToValue(n, comp.getClass());
-			LogUtil.info("comp "+newComp);
-			for(Field f : newComp.getClass().getFields()){
-				try {
-					LogUtil.info("    field "+f.getType()+" / "+ f.get(newComp));
-				} catch (IllegalArgumentException | IllegalAccessException e) {
-					e.printStackTrace();
-				}
-			}
+//			LogUtil.info("comp "+newComp);
+//			for(Field f : newComp.getClass().getFields()){
+//				try {
+//					LogUtil.info("    field "+f.getType()+" / "+ f.get(newComp));
+//				} catch (IllegalArgumentException | IllegalAccessException e) {
+//					e.printStackTrace();
+//				}
+//			}
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}

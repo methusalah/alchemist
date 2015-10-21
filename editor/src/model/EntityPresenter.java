@@ -13,6 +13,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableObjectValue;
+import javafx.collections.FXCollections;
 import util.LogUtil;
 
 public class EntityPresenter {
@@ -20,8 +21,8 @@ public class EntityPresenter {
 
 	private final EntityId entityId;
 	private final StringProperty name = new SimpleStringProperty();
-	private final ListProperty<EntityComponent> componentList = new SimpleListProperty<>();
-	private final ListProperty<EntityPresenter> childrenList = new SimpleListProperty<>();
+	private final ListProperty<EntityComponent> componentList = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private final ListProperty<EntityPresenter> childrenList = new SimpleListProperty<>(FXCollections.observableArrayList());
 	
 	public EntityPresenter(EntityId id, String name) {
 		this.entityId = id;

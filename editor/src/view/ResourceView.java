@@ -1,21 +1,23 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import util.event.EventManager;
-import util.event.ParentingChangedEvent;
-import util.event.SaveEntityEvent;
-
-import com.simsilica.es.EntityId;
-
+import model.Blueprint;
+import model.EntityPresenter;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.MapProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ListChangeListener.Change;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.TreeItem;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -23,6 +25,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import util.event.EntitySelectionChanged;
+import util.event.EventManager;
+import util.event.SaveEntityEvent;
+import view.controls.EntityNodeItem;
+
+import com.simsilica.es.EntityId;
 
 public class ResourceView extends VBox {
 	
@@ -30,6 +38,7 @@ public class ResourceView extends VBox {
 	
 	
 	public ResourceView() {
+		
 		setMaxHeight(Double.MAX_VALUE);
 		setPadding(new Insets(3));
 		
@@ -46,8 +55,8 @@ public class ResourceView extends VBox {
 		getChildren().add(list);
 	}
 	
-	public void setBlueprints(List<String> blueprintsName){
-		list.setItems(FXCollections.observableArrayList(blueprintsName));
+	public void setBlueprintList(ListProperty<String> blueprintList){
+		list.itemsProperty().bind(blueprintList);
 	}
 	
 	private void configureCellFactoryForDragAndDrop(ListView<String> list){
@@ -55,7 +64,20 @@ public class ResourceView extends VBox {
 
 			@Override
 	        public ListCell<String> call(ListView<String> list) {
-				ListCell<String> cell = new ListCell<String>();
+				ListCell<String> cell = new ListCell<String>() {
+					
+	            	@Override
+	                protected void updateItem(String item, boolean empty) {
+	                    super.updateItem(item, empty);
+	                    if (item != null) {
+	                    	setText(item);
+	                    } else {
+	                        setText(null);
+			                setGraphic(null);
+			            }
+	                    	
+	                }
+				};
 
 	            cell.setOnDragDetected(new EventHandler<MouseEvent>() {
 	                
@@ -134,6 +156,19 @@ public class ResourceView extends VBox {
 	            return cell;
 	        }
 	    });
+        list.setOnDragOver(new EventHandler<DragEvent>() {
+    	
+    	@Override
+        public void handle(DragEvent event) {
+            if (event.getGestureSource() != list &&
+                    event.getDragboard().hasString()) {
+                /* allow for both copying and moving, whatever user chooses */
+                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+            }
+            event.consume();
+        }
+    });
+
 		list.setOnDragDropped(new EventHandler<DragEvent>() {
 
 			@Override

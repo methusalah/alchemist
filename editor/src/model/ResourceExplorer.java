@@ -7,44 +7,51 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.MapProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleMapProperty;
+import javafx.collections.FXCollections;
+import util.LogUtil;
+import util.exception.TechnicalException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.simsilica.es.EntityId;
-
-import model.ES.serial.EntityPrototype;
-import util.exception.TechnicalException;
-import model.ES.serial.BlueprintLibrary;
 
 public class ResourceExplorer {
 	private static String path = "assets/data/blueprint/";
-	private static ObjectMapper mapper = new ObjectMapper();
-	private static Map<String, Blueprint> blueprints = new HashMap<>();
+	private final ObjectMapper mapper = new ObjectMapper();
+	private final Map<String, Blueprint> blueprintMap;
+	private final ListProperty<String> blueprintNameList;
 
 	public ResourceExplorer() {
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+		blueprintMap = new HashMap<>();
+		blueprintNameList = new SimpleListProperty<String>(FXCollections.observableArrayList());
 		loadBlueprints();
 	}
 	
-	public List<String> getBlueprintNames(){
-		return new ArrayList<>(blueprints.keySet());
+	public ListProperty<String> blueprintNameListProperty(){
+		LogUtil.info("c(est bien "+blueprintNameList.size());
+		return blueprintNameList;
 	}
 	
-	public static void saveEntity(EntityPresenter ep){
+	public void saveEntity(EntityPresenter ep){
 		Blueprint bp = new Blueprint(ep);
 		try {
 			mapper.writeValue(new File(path + bp.getName()), bp);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		blueprints.put(bp.getName(), bp);
+		addBlueprint(bp);
 	}
 	
 	private void loadBlueprints(){
 		for(File f : getFilesDeeply(path))
 			try {
 				Blueprint bp = mapper.readValue(f, Blueprint.class);
-				blueprints.put(bp.getName(), bp); 
+				addBlueprint(bp); 
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -63,6 +70,12 @@ public class ResourceExplorer {
 				res.add(f);
 		}
 		return res;
+	}
+	
+	private void addBlueprint(Blueprint bp){
+		blueprintMap.put(bp.getName(), bp);
+		blueprintNameList.add(bp.getName());
+		LogUtil.info("added "+bp.getName());
 	}
 
 	
