@@ -16,7 +16,7 @@ import util.exception.TechnicalException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-public class BlueprintLibrary {
+public class PrototypeLibrary {
 	private static String path = "assets/data/blueprint/";
 	private static ObjectMapper mapper = new ObjectMapper();
 	private static Map<String, EntityPrototype> blueprints = new HashMap<>();
@@ -34,7 +34,7 @@ public class BlueprintLibrary {
 		
 	}
 	
-	private BlueprintLibrary(){
+	private PrototypeLibrary(){
 	}
 	
 	public static void save(EntityPrototype bp){

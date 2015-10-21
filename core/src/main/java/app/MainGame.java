@@ -79,8 +79,8 @@ import model.ES.richData.ColorData;
 import model.ES.richData.ParticleCaster;
 import model.ES.richData.PhysicStat;
 import model.ES.serial.EntityPrototype;
-import model.ES.serial.BlueprintCreator;
-import model.ES.serial.BlueprintLibrary;
+import model.ES.serial.PrototypeCreator;
+import model.ES.serial.PrototypeLibrary;
 import util.LogUtil;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
@@ -127,12 +127,12 @@ public class MainGame extends CosmoVania {
 	public void simpleInitApp() {
 		MaterialManager.initBaseMaterials();
 		EntityData ed = new DefaultEntityData();
-		BlueprintCreator.setEntityData(ed);
+		PrototypeCreator.setEntityData(ed);
 		
 		serialiseBluePrints();
-		BlueprintCreator.create("player ship", null);
+		PrototypeCreator.create("player ship", null);
 		int zoneWidth = 80;
-		ed.setComponent(BlueprintCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
+		ed.setComponent(PrototypeCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
 //		ed.setComponent(BlueprintCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
 //		ed.setComponent(BlueprintCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
 //		ed.setComponent(BlueprintCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
@@ -152,10 +152,10 @@ public class MainGame extends CosmoVania {
 //		ed.setComponent(BlueprintCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
 //		ed.setComponent(BlueprintCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
 //		ed.setComponent(BlueprintCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
-		BlueprintCreator.create("sun", null);
+		PrototypeCreator.create("sun", null);
 		
 		for(int i = 0; i < 50; i++){
-			EntityId eid = BlueprintCreator.create("asteroid", null);
+			EntityId eid = PrototypeCreator.create("asteroid", null);
 			Point2D coord = new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth);
 			Angle a = new Angle(RandomUtil.next()*AngleUtil.FULL);
 			ed.setComponent(eid, new PlanarStance(coord, a, 0.5, Point3D.UNIT_Z));
@@ -287,7 +287,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new Naming("Sun"));
 		bp.add(new Lighting(new ColorData(255, 255, 255, 255), 1.5, Double.POSITIVE_INFINITY, 0, 0, true, new Fraction(1)));
 		bp.add(new SpaceStance(Point3D.ORIGIN, new Point3D(-1, -1, -3)));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 
 		// rotation thrusters
 		bp = new EntityPrototype("rotation thruster 1");
@@ -296,7 +296,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new RotationThruster(true, AngleUtil.toRadians(5), new Fraction(0), false));
 		bp.add(new ParticleCasting(getCaster1(), 0));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 
 		bp = new EntityPrototype("rotation thruster 2");
 		bp.add(new Naming("rotation thruster 2"));
@@ -304,7 +304,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new RotationThruster(false, AngleUtil.toRadians(-5), new Fraction(0), false));
 		bp.add(new ParticleCasting(getCaster1(), 0));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 
 		// main thruster
 		bp = new EntityPrototype("rear thruster");
@@ -315,7 +315,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new ParticleCasting(getCaster2(), getCaster2().perSecond));
 		bp.add(new Lighting(new ColorData(255, 255, 150, 150), 3, 6, AngleUtil.toRadians(10), AngleUtil.toRadians(60), false, new Fraction(0)));
 		bp.add("rear thruster sound");
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 
 		// main thruster sound
 		bp = new EntityPrototype("rear thruster sound");
@@ -324,7 +324,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new PlanarStance());
 		bp.add(new ThrusterControl());
 		bp.add(new ThrusterAudioSource("thruster_start.wav", "thruster_loop.wav", "thruster_stop.wav", new Fraction(1)));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 		
 
 		// front thrusters
@@ -334,7 +334,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Thruster(new Point3D(-1, -1, 0), new Angle(AngleUtil.toRadians(70)), new Fraction(0), true));
 		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 
 		bp = new EntityPrototype("frontal right thruster");
 		bp.add(new Naming("frontal right thruster"));
@@ -342,7 +342,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Thruster(new Point3D(-1, 1, 0), new Angle(AngleUtil.toRadians(70)), new Fraction(0), true));
 		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 
 		// lateral thrusters
 		bp = new EntityPrototype("side left thruster");
@@ -351,7 +351,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Thruster(new Point3D(1, -1.5, 0), new Angle(AngleUtil.toRadians(50)), new Fraction(0), true));
 		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 
 		bp = new EntityPrototype("side right thruster");
 		bp.add(new Naming("side right thruster"));
@@ -359,7 +359,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Thruster(new Point3D(1, 1.5, 0), new Angle(AngleUtil.toRadians(50)), new Fraction(0), true));
 		bp.add(new ParticleCasting(getCaster3(), getCaster3().perSecond));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 		
 		// enemy explosion
 		bp = new EntityPrototype("enemy explosion");
@@ -367,7 +367,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new PlanarStance());
 		bp.add(new LifeTime(0, 600));
 		bp.add(new ParticleCasting(getEXPLOSION(), getEXPLOSION().perSecond));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 		
 		// enemy
 		bp = new EntityPrototype("enemy");
@@ -387,7 +387,7 @@ public class MainGame extends CosmoVania {
 		bp.add("frontal right thruster");
 		bp.add("side left thruster");
 		bp.add("side right thruster");
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 		
 		// enemy weapon
 		bp = new EntityPrototype("enemy weapon");
@@ -399,7 +399,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new Ability("gun", false));
 		bp.add(new AbilityTriggerControl());
 		bp.add(new ProjectileLauncher(new Fraction(0.97)));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 
 		// player weapons
 		bp = new EntityPrototype("weapon left");
@@ -410,7 +410,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new Ability("gun", false));
 		bp.add(new AbilityTriggerControl());
 		bp.add(new ProjectileLauncher(new Fraction(0.995)));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 
 		bp = new EntityPrototype("weapon right");
 		bp.add(new Naming("weapon right"));
@@ -421,7 +421,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new AbilityTriggerControl());
 		bp.add(new ProjectileLauncher(new Fraction(0.995)));
 		bp.add("weapon sound");
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 		
 		// weapon sound
 		bp = new EntityPrototype("weapon sound");
@@ -430,7 +430,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new PlanarStance());
 		bp.add(new AbilityControl());
 		bp.add(new AudioSource("monoshot1.wav", false, new Fraction(1)));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 
 		// front light
 		bp = new EntityPrototype("front light");
@@ -438,7 +438,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new PlanarStanceControl(new Point3D(1, 0, 0), new Angle(0)));
 		bp.add(new SpaceStance(Point3D.ORIGIN, Point3D.ORIGIN));
 		bp.add(new Lighting(new ColorData(255, 255, 255, 255), 4, 6, AngleUtil.toRadians(30), AngleUtil.toRadians(40), false, new Fraction(1)));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 
 		// nebula
 		bp = new EntityPrototype("nebula");
@@ -446,7 +446,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new PlanarStance());
 		bp.add(new Sprite("red_nebula.jpg", 100));
 		bp.add(new PlanarStanceControl(new Point3D(0, 0, -30), new Angle(0)));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 
 		// camera
 		bp = new EntityPrototype("camera");
@@ -455,14 +455,14 @@ public class MainGame extends CosmoVania {
 		bp.add(new ChasingCamera(Double.MAX_VALUE, 0, 5, 5, Point3D.ORIGIN, Point3D.ORIGIN));
 		bp.add(new MotionCapacity(AngleUtil.toRadians(500), 1, 1, 1));
 		bp.add("nebula");
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 		
 		// boost
 		bp = new EntityPrototype("boost");
 		bp.add(new Naming("boost"));
 		bp.add(new Boost(120));
 		bp.add(new Ability("boost", false));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 		
 		bp = new EntityPrototype("player ship");
 		bp.add(new Naming("player ship"));
@@ -490,7 +490,7 @@ public class MainGame extends CosmoVania {
 		bp.add("side left thruster");
 		bp.add("side right thruster");
 		bp.add("boost");
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 		
 		// asteroid
 		bp = new EntityPrototype("asteroid");
@@ -502,6 +502,6 @@ public class MainGame extends CosmoVania {
 		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("asteroid", 1000, new CollisionShape(2), new Fraction(0.5)), null));
 		bp.add(new PlanarVelocityToApply(Point2D.ORIGIN));
 		bp.add(new Attrition(50, 50, "enemy explosion"));
-		BlueprintLibrary.save(bp);
+		PrototypeLibrary.save(bp);
 	}
 }

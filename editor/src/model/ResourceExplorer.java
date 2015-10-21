@@ -3,6 +3,7 @@ package model;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,19 +23,18 @@ public class ResourceExplorer {
 	private static String path = "assets/data/blueprint/";
 	private final ObjectMapper mapper = new ObjectMapper();
 	private final Map<String, Blueprint> blueprintMap;
-	private final ListProperty<String> blueprintNameList;
+	private final ListProperty<Blueprint> blueprintList;
 
 	public ResourceExplorer() {
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 		blueprintMap = new HashMap<>();
-		blueprintNameList = new SimpleListProperty<String>(FXCollections.observableArrayList());
+		blueprintList = new SimpleListProperty<Blueprint>(FXCollections.observableArrayList());
 		loadBlueprints();
 	}
 	
-	public ListProperty<String> blueprintNameListProperty(){
-		LogUtil.info("c(est bien "+blueprintNameList.size());
-		return blueprintNameList;
+	public ListProperty<Blueprint> blueprintListProperty(){
+		return blueprintList;
 	}
 	
 	public void saveEntity(EntityPresenter ep){
@@ -74,8 +74,7 @@ public class ResourceExplorer {
 	
 	private void addBlueprint(Blueprint bp){
 		blueprintMap.put(bp.getName(), bp);
-		blueprintNameList.add(bp.getName());
-		LogUtil.info("added "+bp.getName());
+		blueprintList.add(bp);
 	}
 
 	

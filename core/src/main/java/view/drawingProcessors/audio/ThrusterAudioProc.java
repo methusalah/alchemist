@@ -32,6 +32,8 @@ public class ThrusterAudioProc extends Processor {
 		
 		boolean playing = source.getStartTime() != 0;
 		Thruster t = Controlling.getControl(Thruster.class, e.getId(), entityData);
+		if(t == null)
+			return;
 		
 		if(playing){
 			if(t.activation.getValue() > 0){

@@ -57,5 +57,17 @@ public class Blueprint {
 		return Collections.unmodifiableList(children);
 	}
 	
+	public EntityPresenter getEntityPresenter(EntityData ed){
+		EntityId eid = ed.createEntity();
+		EntityPresenter res = new EntityPresenter(eid, getName());
+		for(EntityComponent comp : getComps()){
+			ed.setComponent(eid, comp);
+		}
+		for(Blueprint childBP : getChildren()){
+			res.childrenListProperty().add(childBP.getEntityPresenter(ed));
+		}
+		return res;
+	}
+	
 	
 }

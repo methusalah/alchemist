@@ -44,7 +44,7 @@ import model.ES.component.visuals.ModelRotation;
 import model.ES.component.visuals.ParticleCasting;
 import model.ES.component.visuals.Skeleton;
 import model.ES.component.visuals.Sprite;
-import model.ES.serial.BlueprintCreator;
+import model.ES.serial.PrototypeCreator;
 import util.LogUtil;
 import app.AppFacade;
 
@@ -69,12 +69,16 @@ public class Model {
 	public final ObjectProperty<EntityPresenter> selectionProperty = new SimpleObjectProperty<>();
 	
 	public Model() {
+		// TODO
+		// max value
+		// destruction of removed lights
+		
 		
 		EntityData ed = new DefaultEntityData();
-		BlueprintCreator.setEntityData(ed);
-		BlueprintCreator.create("player ship", null);
-		BlueprintCreator.create("enemy", null);
-		BlueprintCreator.create("sun", null);
+		PrototypeCreator.setEntityData(ed);
+//		PrototypeCreator.create("player ship", null);
+//		PrototypeCreator.create("enemy", null);
+		PrototypeCreator.create("sun", null);
 		
 		inspector = new Inspector(ed, selectionProperty);
 		

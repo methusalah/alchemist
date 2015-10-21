@@ -13,6 +13,7 @@ import util.LogUtil;
 import util.event.AddComponentEvent;
 import util.event.ComponentPropertyChanged;
 import util.event.EntityCreationEvent;
+import util.event.EntityCreationFromBlueprintEvent;
 import util.event.EntityDeletionEvent;
 import util.event.EntityRenamedEvent;
 import util.event.EntitySelectionChanged;
@@ -33,7 +34,7 @@ public class Controller {
 		
 		view.hierarchyView.setRootPresenter(model.hierarchy.getRootEntityPresenter());
 		view.inspectorView.setComponentNames(model.inspector.getComponentNames());
-		view.resourceView.setBlueprintList(model.resourceExplorer.blueprintNameListProperty());
+		view.resourceView.setBlueprintList(model.resourceExplorer.blueprintListProperty());
 		EventManager.register(this);
 	}
 	
@@ -50,15 +51,13 @@ public class Controller {
 	@Subscribe
 	public void handleEntityCreationEvent(EntityCreationEvent e){
 		model.hierarchy.createNewEntity();
-		//view.hierarchyView.update(model.hierarchy.baseNodes);
-	}
-	
-	@Subscribe
-	public void handleEntityRenamedEvent(EntityRenamedEvent e){
-		// wathever the source of the modification, we change the naming of the entity
-		model.inspector.updateName(e.eid, e.newName);
 	}
 
+	@Subscribe
+	public void handleEntityCreationFromBlueprintEvent(EntityCreationFromBlueprintEvent e){
+		model.hierarchy.createNewEntityFromBlueprint(e.getBp());
+	}
+	
 	@Subscribe
 	public void handleAddComponentEvent(AddComponentEvent e){
 		model.inspector.addComponent(e.compName);
@@ -72,17 +71,15 @@ public class Controller {
 	@Subscribe
 	public void handleParentingChangedEvent(ParentingChangedEvent e){
 		model.hierarchy.updateParenting(e.child, e.newParent);
-		//view.hierarchyView.update(model.hierarchy.baseNodes);
 	}
 
 	@Subscribe
 	public void handleEntityDeletionEvent(EntityDeletionEvent e){
-		model.hierarchy.removeEntity(e.eid);
-		//view.hierarchyView.update(model.hierarchy.baseNodes);
+		model.hierarchy.removeEntity(e.getEp());
 	}
 	
 	@Subscribe
 	public void handleSaveEntityEvent(SaveEntityEvent e){
-		model.resourceExplorer.saveEntity(model.hierarchy.getPresenter(e.eid));
+		model.resourceExplorer.saveEntity(e.ep);
 	}
 }

@@ -8,6 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.TreeItem;
 import model.EntityPresenter;
+import model.ES.component.ToRemove;
 import util.LogUtil;
 import view.UIConfig;
 
@@ -23,15 +24,11 @@ public class EntityNodeItem extends TreeItem<EntityPresenter> {
 					while(c.next()){
 						if(c.wasAdded()){
 							for(EntityPresenter added : c.getAddedSubList()){
-								getChildren().add(new EntityNodeItem(added));
+								addChild(added);
 							}
 						} else if (c.wasRemoved()){
 							for(EntityPresenter removed : c.getRemoved()){
-								List<TreeItem<EntityPresenter>> toRemove = new ArrayList<>();
-								for(TreeItem<EntityPresenter> item : getChildren())
-									if(item.getValue() == removed)
-										toRemove.add(item);
-								getChildren().removeAll(toRemove);
+								removeChild(removed);
 							}
 						}
 					}
@@ -52,6 +49,33 @@ public class EntityNodeItem extends TreeItem<EntityPresenter> {
 		});
 		
 		setExpanded(UIConfig.expandedEntityNodes.contains(getValue()));
+	}
+	
+	private void addChild(EntityPresenter ep){
+		EntityNodeItem newChild = new EntityNodeItem(ep); 
+		getChildren().add(newChild);
+		for(EntityPresenter child : ep.childrenListProperty())
+			newChild.addChild(child);
+	}
+	
+	private void removeChild(EntityPresenter ep){
+		LogUtil.info("remove from node");
+		EntityNodeItem toRemove = null;
+		for(TreeItem<EntityPresenter> node : getChildren())
+			if(node.getValue() == ep){
+				toRemove = (EntityNodeItem)node;
+				break;
+			}
+		if(toRemove != null){
+			getChildren().remove(toRemove);
+			toRemove.removeAllChildren();
+		}
+	}
+
+	private void removeAllChildren(){
+		for(TreeItem<EntityPresenter> child : getChildren())
+			((EntityNodeItem)child).removeAllChildren();
+		getChildren().clear();
 	}
 
 }

@@ -1,13 +1,13 @@
 package util.event;
 
-import com.simsilica.es.EntityId;
+import model.EntityPresenter;
 
 
 public class ParentingChangedEvent extends Event {
-	public final EntityId child;
-	public final EntityId newParent;
+	public final EntityPresenter child;
+	public final EntityPresenter newParent;
 	
-	public ParentingChangedEvent(EntityId child, EntityId newParent) {
+	public ParentingChangedEvent(EntityPresenter child, EntityPresenter newParent) {
 		this.child = child;
 		this.newParent = newParent;
 	}

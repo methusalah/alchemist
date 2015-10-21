@@ -1,12 +1,12 @@
 package util.event;
 
-import com.simsilica.es.EntityId;
+import model.EntityPresenter;
 
 
 public class SaveEntityEvent extends Event {
-	public final EntityId eid;
+	public final EntityPresenter ep;
 	
-	public SaveEntityEvent(EntityId eid) {
-		this.eid = eid;
+	public SaveEntityEvent(EntityPresenter ep) {
+		this.ep = ep;
 	}
 }

@@ -12,45 +12,42 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.util.Callback;
+import model.Blueprint;
 import model.EntityPresenter;
+import util.LogUtil;
+import util.event.EntityCreationFromBlueprintEvent;
 import util.event.EntitySelectionChanged;
 import util.event.EventManager;
 import util.event.ParentingChangedEvent;
+import view.Dragpool;
 import view.UIConfig;
 
 import com.simsilica.es.EntityId;
 
 public class EntityTreeView extends TreeView<EntityPresenter> {
-	EntityNodeItem toSelect;
-
 	public EntityTreeView(EntityPresenter rootPresenter) {
 		getSelectionModel().selectedItemProperty().addListener( new ChangeListener<TreeItem<EntityPresenter>>() {
 
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<EntityPresenter>> observable, TreeItem<EntityPresenter> oldValue, TreeItem<EntityPresenter> newValue) {
+				LogUtil.info(newValue.toString());
 				if(newValue.getValue() != null)
 					EventManager.post(new EntitySelectionChanged(newValue.getValue()));
-				UIConfig.selectedEntityNode = newValue.getValue();
 			}
 		});
 		
 		configureCellFactoryForDragAndDrop();
 		
 		EntityNodeItem root = new EntityNodeItem(rootPresenter);
-		root.setExpanded(true);
-		toSelect = null;
+		setShowRoot(false);
 		for(EntityPresenter n : rootPresenter.childrenListProperty())
 			addItem(root, n);
 		setRoot(root);
-		if(toSelect != null)
-			getSelectionModel().select(toSelect);
 	}
 	
 	private void addItem(EntityNodeItem parent, EntityPresenter node){
 		EntityNodeItem i = new EntityNodeItem(node);
 		parent.getChildren().add(i);
-		if(node == UIConfig.selectedEntityNode)
-			toSelect = i;
 		for(EntityPresenter childNode : node.childrenListProperty()){
 			addItem(i, childNode);
 		}
@@ -67,9 +64,11 @@ public class EntityTreeView extends TreeView<EntityPresenter> {
 	                protected void updateItem(EntityPresenter item, boolean empty) {
 	                    super.updateItem(item, empty);
 	                    if (item != null) {
+	                    	LogUtil.info("update "+ item.nameProperty().getValue());
 	                    	textProperty().bind(item.nameProperty());
 	                    } else {
 	                    	textProperty().unbind();
+	                    	LogUtil.info("unbind");
 	                        setText(null);
 			                setGraphic(null);
 			            }
@@ -81,11 +80,12 @@ public class EntityTreeView extends TreeView<EntityPresenter> {
 	                
 	            	@Override
 	                public void handle(MouseEvent mouseEvent) {
+	            		Dragpool.setContent(cell.getItem());
 	                	EntityPresenter i = cell.getItem();
 	                	
 	                	Dragboard db = cell.startDragAndDrop(TransferMode.ANY);
 	                    ClipboardContent content = new ClipboardContent();
-	                    content.putString("EntityId"+i.getEntityId().getId());
+	                    content.putString("");
 	                    db.setContent(content);
 	                    
 	                    mouseEvent.consume();
@@ -96,8 +96,6 @@ public class EntityTreeView extends TreeView<EntityPresenter> {
 
 	            	@Override
 	            	public void handle(DragEvent event) {
-	                /* the drag-and-drop gesture entered the target */
-	                /* show to the user that it is an actual gesture target */
 	                     if (event.getGestureSource() != cell &&
 	                             event.getDragboard().hasString()) {
 	                         cell.setStyle("-fx-background-color: lightgrey");
@@ -110,8 +108,6 @@ public class EntityTreeView extends TreeView<EntityPresenter> {
 
 	            	@Override
 	            	public void handle(DragEvent event) {
-	                /* the drag-and-drop gesture entered the target */
-	                /* show to the user that it is an actual gesture target */
 	                     if (event.getGestureSource() != cell &&
 	                             event.getDragboard().hasString()) {
 	                         cell.setStyle("-fx-background-color: white");
@@ -126,13 +122,8 @@ public class EntityTreeView extends TreeView<EntityPresenter> {
 	            	
 	            	@Override
 	                public void handle(DragEvent event) {
-	                    /* data is dragged over the target */
-	                    /* accept it only if it is not dragged from the same node 
-	                     * and if it has a string data */
-	                    if (event.getGestureSource() != cell &&
-	                            event.getDragboard().hasString()) {
-	                        /* allow for both copying and moving, whatever user chooses */
-	                        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+	                    if (event.getGestureSource() != cell && !Dragpool.isEmpty()) {
+                    		event.acceptTransferModes(TransferMode.ANY);
 	                    }
 	                    event.consume();
 	                }
@@ -143,11 +134,11 @@ public class EntityTreeView extends TreeView<EntityPresenter> {
 
 					@Override
 					public void handle(DragEvent event) {
-						if (event.getDragboard().hasString()) {
-							String message = event.getDragboard().getString();
-							if(message.contains("EntityId")){
-								EntityId childId= new EntityId(Long.parseLong(message.replace("EntityId", "")));
-								EventManager.post(new ParentingChangedEvent(childId, cell.getItem().getEntityId()));
+						if(!Dragpool.isEmpty()) {
+	                    	if(Dragpool.containsType(EntityPresenter.class)){
+								EventManager.post(new ParentingChangedEvent(Dragpool.grabContent(EntityPresenter.class), cell.getItem()));
+							} else if(Dragpool.containsType(Blueprint.class)){
+								EventManager.post(new EntityCreationFromBlueprintEvent(Dragpool.grabContent(Blueprint.class), cell.getItem()));
 							}
 						}
 					}

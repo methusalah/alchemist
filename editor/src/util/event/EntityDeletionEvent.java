@@ -1,11 +1,17 @@
 package util.event;
 
-import com.simsilica.es.EntityId;
+import model.EntityPresenter;
 
 public class EntityDeletionEvent extends Event {
-	public final EntityId eid;
+	private final EntityPresenter ep;
 	
-	public EntityDeletionEvent(EntityId eid) {
-		this.eid = eid;
+	public EntityDeletionEvent(EntityPresenter ep) {
+		this.ep = ep;
 	}
+
+	public EntityPresenter getEp() {
+		return ep;
+	}
+	
+
 }

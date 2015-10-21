@@ -1,6 +1,5 @@
 package model;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,12 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import model.ES.component.Naming;
-import util.LogUtil;
-import util.event.EntityRenamedEvent;
-import util.event.EventManager;
-import util.event.modelEvent.InspectionChangedEvent;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -26,6 +19,10 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import model.ES.component.Naming;
+import util.LogUtil;
+import util.event.EventManager;
+import util.event.modelEvent.InspectionChangedEvent;
 
 public class Inspector {
 	private final EntityData entityData;
@@ -76,18 +73,9 @@ public class Inspector {
 		EntityComponent newComp = null;
 		try {
 			newComp = new ObjectMapper().treeToValue(n, comp.getClass());
-//			LogUtil.info("comp "+newComp);
-//			for(Field f : newComp.getClass().getFields()){
-//				try {
-//					LogUtil.info("    field "+f.getType()+" / "+ f.get(newComp));
-//				} catch (IllegalArgumentException | IllegalAccessException e) {
-//					e.printStackTrace();
-//				}
-//			}
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-	
 			
 		entityData.setComponent(ep.getEntityId(), newComp);
 		inspect();

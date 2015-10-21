@@ -5,6 +5,7 @@ import java.util.Map;
 
 import model.ES.component.Naming;
 import model.ES.component.hierarchy.Parenting;
+import model.ES.serial.PrototypeCreator;
 import util.LogUtil;
 
 import com.simsilica.es.Entity;
@@ -38,27 +39,32 @@ public class Hierarchy {
 		rootEntityPresenter.childrenListProperty().add(ep);
 		presenters.put(newEntityId, ep);
 	}
-	
-	public void removeEntity(EntityId eid){
-		LogUtil.info("deletion");
-		// update presenters		
-		removePresenterFromParent(getPresenter(eid));
-		
-		// update entityData
-		entityData.removeEntity(eid);
-		for(EntityPresenter childNode : getPresenter(eid).childrenListProperty()){
-			entityData.removeEntity(childNode.getEntityId());
-		}
+
+	public void createNewEntityFromBlueprint(Blueprint bp){
+		EntityPresenter ep = bp.getEntityPresenter(entityData);
+		rootEntityPresenter.childrenListProperty().add(ep);
+		presenters.put(ep.getEntityId(), ep);
 	}
 	
-	public void updateParenting(EntityId eid, EntityId parentid){
-		EntityPresenter ep = getPresenter(eid);
-		// update presenters
+	public void removeEntity(EntityPresenter ep){
+		// update presenters		
 		removePresenterFromParent(ep);
-		getPresenter(parentid).childrenListProperty().add(ep);
+		presenters.remove(ep.getEntityId());
+		
+		// update entityData
+		for(EntityPresenter childNode : ep.childrenListProperty()){
+			entityData.removeEntity(childNode.getEntityId());
+		}
+		entityData.removeEntity(ep.getEntityId());
+	}
+	
+	public void updateParenting(EntityPresenter child, EntityPresenter parent){
+		// update presenters
+		removePresenterFromParent(child);
+		parent.childrenListProperty().add(child);
 
 		// update entityData
-		entityData.setComponent(eid, new Parenting(parentid));
+		entityData.setComponent(child.getEntityId(), new Parenting(parent.getEntityId()));
 	}
 	
 	public EntityPresenter getPresenter(EntityId eid){
@@ -70,7 +76,8 @@ public class Hierarchy {
 			Parenting parenting = entityData.getComponent(ep.getEntityId(), Parenting.class);
 			if(parenting != null){
 				getPresenter(parenting.getParent()).childrenListProperty().remove(ep);
-			}
+			} else
+				rootEntityPresenter.childrenListProperty().remove(ep);
 		}
 	}
 	

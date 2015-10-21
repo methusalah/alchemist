@@ -25,164 +25,99 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import util.event.EntityCreationFromBlueprintEvent;
 import util.event.EntitySelectionChanged;
 import util.event.EventManager;
+import util.event.ParentingChangedEvent;
 import util.event.SaveEntityEvent;
 import view.controls.EntityNodeItem;
 
 import com.simsilica.es.EntityId;
 
 public class ResourceView extends VBox {
-	
-	ListView<String> list;
-	
-	
+
+	ListView<Blueprint> list;
+
 	public ResourceView() {
-		
+
 		setMaxHeight(Double.MAX_VALUE);
 		setPadding(new Insets(3));
-		
+
 		Label title = new Label("Resources");
 		title.setMinHeight(40);
 		title.setMaxWidth(Double.MAX_VALUE);
 		title.setStyle("-fx-background-color: lightblue");
 		getChildren().add(title);
-		
-		list = new ListView<String>();
+
+		list = new ListView<Blueprint>();
 		list.setMaxHeight(Double.MAX_VALUE);
 		configureCellFactoryForDragAndDrop(list);
-		
+
 		getChildren().add(list);
 	}
-	
-	public void setBlueprintList(ListProperty<String> blueprintList){
+
+	public void setBlueprintList(ListProperty<Blueprint> blueprintList) {
 		list.itemsProperty().bind(blueprintList);
 	}
-	
-	private void configureCellFactoryForDragAndDrop(ListView<String> list){
-		list.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+
+	private void configureCellFactoryForDragAndDrop(ListView<Blueprint> list) {
+		list.setCellFactory(new Callback<ListView<Blueprint>, ListCell<Blueprint>>() {
 
 			@Override
-	        public ListCell<String> call(ListView<String> list) {
-				ListCell<String> cell = new ListCell<String>() {
-					
-	            	@Override
-	                protected void updateItem(String item, boolean empty) {
-	                    super.updateItem(item, empty);
-	                    if (item != null) {
-	                    	setText(item);
-	                    } else {
-	                        setText(null);
-			                setGraphic(null);
-			            }
-	                    	
-	                }
+			public ListCell<Blueprint> call(ListView<Blueprint> list) {
+				ListCell<Blueprint> cell = new ListCell<Blueprint>() {
+
+					@Override
+					protected void updateItem(Blueprint item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item != null) {
+							setText(item.getName());
+						} else {
+							setText(null);
+							setGraphic(null);
+						}
+
+					}
 				};
 
-	            cell.setOnDragDetected(new EventHandler<MouseEvent>() {
-	                
-	            	@Override
-	                public void handle(MouseEvent mouseEvent) {
-	                	String i = cell.getItem();
+				cell.setOnDragDetected(new EventHandler<MouseEvent>() {
+
+					@Override
+					public void handle(MouseEvent mouseEvent) {
+						Dragpool.setContent(cell.getItem());
+						
 	                	Dragboard db = cell.startDragAndDrop(TransferMode.ANY);
 	                    ClipboardContent content = new ClipboardContent();
-	                    content.putString("Resource"+i);
+	                    content.putString("");
 	                    db.setContent(content);
-	                    
-	                    mouseEvent.consume();
-	                }
-	            });
-	            
-//	            cell.setOnDragEntered(new EventHandler<DragEvent>() {
-//
-//	            	@Override
-//	            	public void handle(DragEvent event) {
-//	                /* the drag-and-drop gesture entered the target */
-//	                /* show to the user that it is an actual gesture target */
-//	                     if (event.getGestureSource() != cell &&
-//	                             event.getDragboard().hasString()) {
-//	                         cell.setStyle("-fx-background-color: lightgrey");
-//	                     }
-//	                            
-//	                     event.consume();
-//	                }
-//	            });
-//	            
-//	            cell.setOnDragExited(new EventHandler<DragEvent>() {
-//
-//	            	@Override
-//	            	public void handle(DragEvent event) {
-//	                /* the drag-and-drop gesture entered the target */
-//	                /* show to the user that it is an actual gesture target */
-//	                     if (event.getGestureSource() != cell &&
-//	                             event.getDragboard().hasString()) {
-//	                         cell.setStyle("-fx-background-color: white");
-//	                     }
-//	                            
-//	                     event.consume();
-//	                }
-//	            });
-//	            
-//	            cell.setOnDragOver(new EventHandler<DragEvent>() {
-//	            	
-//	            	@Override
-//	                public void handle(DragEvent event) {
-//	                    /* data is dragged over the target */
-//	                    /* accept it only if it is not dragged from the same node 
-//	                     * and if it has a string data */
-//	                    if (event.getGestureSource() != cell &&
-//	                            event.getDragboard().hasString()) {
-//	                        /* allow for both copying and moving, whatever user chooses */
-//	                        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-//	                    }
-//	                    event.consume();
-//	                }
-//	            });
-	            
-//	            cell.setOnDragDropped(new EventHandler<DragEvent>() {
-//
-//					@Override
-//					public void handle(DragEvent event) {
-//						if (event.getDragboard().hasString()) {
-//							String message = event.getDragboard().getString();
-//							if(message.contains("Resource")){
-//								
-//								EntityId childId= new EntityId(Long.parseLong(message.replace("EntityId", "")));
-//								EventManager.post(new ParentingChangedEvent(childId, cell.getItem().entityId));
-//							}
-//						}
-//					}
-//				});
-	            return cell;
-	        }
-	    });
-        list.setOnDragOver(new EventHandler<DragEvent>() {
-    	
-    	@Override
-        public void handle(DragEvent event) {
-            if (event.getGestureSource() != list &&
-                    event.getDragboard().hasString()) {
-                /* allow for both copying and moving, whatever user chooses */
-                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-            }
-            event.consume();
-        }
-    });
+
+						mouseEvent.consume();
+					}
+				});
+				return cell;
+			}
+		});
+		
+		list.setOnDragOver(new EventHandler<DragEvent>() {
+
+			@Override
+			public void handle(DragEvent event) {
+				if (Dragpool.containsType(EntityPresenter.class)) {
+					event.acceptTransferModes(TransferMode.ANY);
+				}
+				event.consume();
+			}
+		});
 
 		list.setOnDragDropped(new EventHandler<DragEvent>() {
 
 			@Override
 			public void handle(DragEvent event) {
-				if (event.getDragboard().hasString()) {
-					String message = event.getDragboard().getString();
-					if(message.contains("EntityId")){
-						EntityId childId= new EntityId(Long.parseLong(message.replace("EntityId", "")));
-						EventManager.post(new SaveEntityEvent(childId));
-					}
+				if (Dragpool.containsType(EntityPresenter.class)) {
+					EventManager.post(new SaveEntityEvent((EntityPresenter) Dragpool.grabContent(EntityPresenter.class)));
 				}
 			}
 		});
 	}
-	
 
 }

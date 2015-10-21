@@ -8,7 +8,7 @@ import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
-public class BlueprintCreator {
+public class PrototypeCreator {
 	private static EntityData entityData;
 
 	public static void setEntityData(EntityData ed){
@@ -16,7 +16,7 @@ public class BlueprintCreator {
 	}
 	
 	public static EntityId create(String bluePrintName, EntityId parent){
-		EntityPrototype bp = BlueprintLibrary.get(bluePrintName);
+		EntityPrototype bp = PrototypeLibrary.get(bluePrintName);
 		if(bp == null)
 			LogUtil.info(bluePrintName + " blueprint can't be found.");
 		

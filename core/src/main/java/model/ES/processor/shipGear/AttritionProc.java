@@ -8,7 +8,7 @@ import model.ES.component.LifeTime;
 import model.ES.component.ToRemove;
 import model.ES.component.assets.Attrition;
 import model.ES.component.motion.PlanarStance;
-import model.ES.serial.BlueprintCreator;
+import model.ES.serial.PrototypeCreator;
 
 public class AttritionProc extends Processor {
 
@@ -23,7 +23,7 @@ public class AttritionProc extends Processor {
 		if(a.actualHitpoints <= 0){
 			setComp(e, new ToRemove());
 			if(a.getSpawnOnDeath() != null){
-				EntityId spawned = BlueprintCreator.create(a.getSpawnOnDeath(), null);
+				EntityId spawned = PrototypeCreator.create(a.getSpawnOnDeath(), null);
 				if(entityData.getComponent(spawned, LifeTime.class) != null)
 					entityData.setComponent(spawned, new LifeTime(System.currentTimeMillis(), entityData.getComponent(spawned, LifeTime.class).getDuration()));
 				
