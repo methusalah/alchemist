@@ -79,9 +79,6 @@ public class Inspector {
 			
 		entityData.setComponent(ep.getEntityId(), newComp);
 		inspect();
-		if(comp instanceof Naming){
-			ep.nameProperty().setValue((String)value);
-		}
 	}
 	
 	public void updateName(EntityId eid, String newName){

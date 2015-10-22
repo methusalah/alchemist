@@ -55,7 +55,7 @@ public class Controller {
 
 	@Subscribe
 	public void handleEntityCreationFromBlueprintEvent(EntityCreationFromBlueprintEvent e){
-		model.hierarchy.createNewEntityFromBlueprint(e.getBp());
+		model.hierarchy.createNewEntity(e.getBp());
 	}
 	
 	@Subscribe

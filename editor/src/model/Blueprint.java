@@ -60,19 +60,17 @@ public class Blueprint {
 		return children;
 	}
 	
-	public EntityPresenter getEntityPresenter(EntityData ed, EntityPresenter parent){
+	public void createEntity(EntityData ed, EntityId parent){
 		EntityId eid = ed.createEntity();
-		EntityPresenter res = new EntityPresenter(eid, getName());
 		for(EntityComponent comp : getComps()){
 			ed.setComponent(eid, comp);
 		}
 		if(parent != null)
-			ed.setComponent(res.getEntityId(), new Parenting(parent.getEntityId()));
+			ed.setComponent(eid, new Parenting(parent));
 		
 		for(Blueprint childBP : getChildren()){
-			res.childrenListProperty().add(childBP.getEntityPresenter(ed, res));
+			childBP.createEntity(ed, eid);
 		}
-		return res;
 	}
 	
 	

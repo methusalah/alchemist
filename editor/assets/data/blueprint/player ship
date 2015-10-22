@@ -6,7 +6,7 @@
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
-      "x" : -20.0,
+      "x" : 0.0,
       "y" : 0.0
     },
     "orientation" : {
@@ -33,19 +33,18 @@
     }
   } ],
   "children" : [ {
-    "name" : "camera",
-    "comps" : [ ],
-    "children" : [ {
-      "name" : "bonjokhgv*",
-      "comps" : [ {
-        "class" : "model.ES.component.Naming",
-        "name" : "bonjokhgv*"
-      } ],
-      "children" : [ ]
-    }, {
-      "name" : "bonjo",
-      "comps" : [ ],
-      "children" : [ ]
-    } ]
+    "name" : "poue",
+    "comps" : [ {
+      "class" : "model.ES.component.Naming",
+      "name" : "poue"
+    } ],
+    "children" : [ ]
+  }, {
+    "name" : "test",
+    "comps" : [ {
+      "class" : "model.ES.component.Naming",
+      "name" : "test"
+    } ],
+    "children" : [ ]
   } ]
 }

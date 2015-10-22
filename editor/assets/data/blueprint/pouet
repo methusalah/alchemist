@@ -1,0 +1,15 @@
+{
+  "name" : "pouet",
+  "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "pouet"
+  } ],
+  "children" : [ {
+    "name" : "tagada",
+    "comps" : [ {
+      "class" : "model.ES.component.Naming",
+      "name" : "tagada"
+    } ],
+    "children" : [ ]
+  } ]
+}

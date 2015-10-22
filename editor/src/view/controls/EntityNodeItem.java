@@ -1,15 +1,10 @@
 package view.controls;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.TreeItem;
 import model.EntityPresenter;
-import model.ES.component.ToRemove;
-import util.LogUtil;
 import view.UIConfig;
 
 public class EntityNodeItem extends TreeItem<EntityPresenter> {
@@ -59,7 +54,6 @@ public class EntityNodeItem extends TreeItem<EntityPresenter> {
 	}
 	
 	private void removeChild(EntityPresenter ep){
-		LogUtil.info("remove from node");
 		EntityNodeItem toRemove = null;
 		for(TreeItem<EntityPresenter> node : getChildren())
 			if(node.getValue() == ep){

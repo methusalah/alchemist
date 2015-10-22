@@ -1,5 +1,6 @@
 package model;
 
+import model.ECS.PostingEntityData;
 import model.ES.component.Cooldown;
 import model.ES.component.LifeTime;
 import model.ES.component.Naming;
@@ -74,7 +75,8 @@ public class Model {
 		// destruction of removed lights
 		
 		
-		EntityData ed = new DefaultEntityData();
+		EntityData ed = new PostingEntityData();
+		
 //		PrototypeCreator.setEntityData(ed);
 //		PrototypeCreator.create("player ship", null);
 //		PrototypeCreator.create("enemy", null);

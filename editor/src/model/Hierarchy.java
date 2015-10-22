@@ -3,12 +3,18 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
+import model.ECS.event.ComponentSetEvent;
+import model.ECS.event.EntityAddedEvent;
+import model.ECS.event.EntityRemovedEvent;
 import model.ES.component.Naming;
 import model.ES.component.hierarchy.Parenting;
 import model.ES.serial.PrototypeCreator;
 import util.LogUtil;
+import util.event.EventManager;
 
+import com.google.common.eventbus.Subscribe;
 import com.simsilica.es.Entity;
+import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 import com.simsilica.es.EntitySet;
@@ -21,7 +27,7 @@ public class Hierarchy {
 	public Hierarchy(EntityData entityData) {
 		this.entityData = entityData;
 		rootEntityPresenter = new EntityPresenter(null, "root");
-		createEntityHierarchy();
+		EventManager.register(this);
 	}
 	
 	public EntityPresenter getRootEntityPresenter() {
@@ -29,35 +35,15 @@ public class Hierarchy {
 	}
 
 	public void createNewEntity(){
-		String name = "Unamed entity";
-		// update entityData
-		EntityId newEntityId = entityData.createEntity();
-		entityData.setComponent(newEntityId, new Naming(name));
-
-		//update presenters
-		EntityPresenter ep = new EntityPresenter(newEntityId, name);
-		rootEntityPresenter.childrenListProperty().add(ep);
-		addEntityPresenter(ep);
+		EntityId eid = entityData.createEntity();
+		entityData.setComponent(eid, new Naming("Unamed entity"));
 	}
 
-	public void createNewEntityFromBlueprint(Blueprint bp){
-		EntityPresenter ep = bp.getEntityPresenter(entityData, null);
-		rootEntityPresenter.childrenListProperty().add(ep);
-		addEntityPresenter(ep);
-	}
-	
-	private void addEntityPresenter(EntityPresenter ep){
-		presenters.put(ep.getEntityId(), ep);
-		for(EntityPresenter child : ep.childrenListProperty())
-			addEntityPresenter(child);
+	public void createNewEntity(Blueprint bp){
+		bp.createEntity(entityData, null);
 	}
 	
 	public void removeEntity(EntityPresenter ep){
-		// update presenters		
-		removePresenterFromParent(ep);
-		presenters.remove(ep.getEntityId());
-		
-		// update entityData
 		for(EntityPresenter childNode : ep.childrenListProperty()){
 			entityData.removeEntity(childNode.getEntityId());
 		}
@@ -65,11 +51,6 @@ public class Hierarchy {
 	}
 	
 	public void updateParenting(EntityPresenter child, EntityPresenter parent){
-		// update presenters
-		removePresenterFromParent(child);
-		parent.childrenListProperty().add(child);
-
-		// update entityData
 		entityData.setComponent(child.getEntityId(), new Parenting(parent.getEntityId()));
 	}
 	
@@ -77,41 +58,68 @@ public class Hierarchy {
 		return presenters.get(eid);
 	}
 	
-	private void removePresenterFromParent(EntityPresenter ep){
-		if(ep != rootEntityPresenter){
-			Parenting parenting = entityData.getComponent(ep.getEntityId(), Parenting.class);
-			if(parenting != null){
-				EntityPresenter parentPresenter = getPresenter(parenting.getParent());
-				LogUtil.info("removing from parent "+parentPresenter);
-				if(parentPresenter != null)
-					parentPresenter.childrenListProperty().remove(ep);
-			} else
-				rootEntityPresenter.childrenListProperty().remove(ep);
-		}
-	}
-	
-	private void createEntityHierarchy(){
-		presenters.clear();
-		EntitySet set = entityData.getEntities(Naming.class);
-		for(Entity e : set){
-			addEntity(e.getId());
-		}
-		for(Entity e : set){
-			linkEntity(e.getId());
-		}
-	}
-	
-	private void addEntity(EntityId eid){
-		Naming naming = entityData.getComponent(eid, Naming.class);
-		EntityPresenter n = new EntityPresenter(eid, naming.name);
-		presenters.put(eid, n);
-	}
-	
-	private void linkEntity(EntityId eid){
-		EntityPresenter n = presenters.get(eid);
+//	private void createEntityHierarchy(){
+//		presenters.clear();
+//		EntitySet set = entityData.getEntities(Naming.class);
+//		for(Entity e : set){
+//			addEntity(e.getId());
+//		}
+//		for(Entity e : set){
+//			linkEntity(e.getId());
+//		}
+//	}
+//	
+//	private void addEntity(EntityId eid){
+//		Naming naming = entityData.getComponent(eid, Naming.class);
+//		EntityPresenter n = new EntityPresenter(eid, naming.name);
+//		presenters.put(eid, n);
+//	}
+//	
+//	private void linkEntity(EntityId eid){
+//		EntityPresenter n = presenters.get(eid);
+//
+//		Parenting parenting = entityData.getComponent(eid, Parenting.class);
+//		EntityPresenter parent = parenting == null? rootEntityPresenter : presenters.get(parenting.getParent());
+//		parent.childrenListProperty().add(n);
+//	}
 
-		Parenting parenting = entityData.getComponent(eid, Parenting.class);
-		EntityPresenter parent = parenting == null? rootEntityPresenter : presenters.get(parenting.getParent());
-		parent.childrenListProperty().add(n);
+	private void removePresenterFromParent(EntityPresenter ep, Parenting parenting){
+		if(parenting != null){
+			EntityPresenter parentPresenter = getPresenter(parenting.getParent());
+			if(parentPresenter != null)
+				parentPresenter.childrenListProperty().remove(ep);
+		} else
+			rootEntityPresenter.childrenListProperty().remove(ep);
 	}
+	
+	@Subscribe
+	public void handleComponentSetEvent(ComponentSetEvent e){
+		if(e.getCompClass() == Parenting.class){
+			removePresenterFromParent(getPresenter(e.getEntityId()), (Parenting)e.getLastComp());
+			if(e.getNewComp() != null){
+				// The entity has a new parent. We register the entity in the new parent's presenter's children list
+				EntityPresenter newParent = presenters.get(((Parenting)e.getNewComp()).getParent());
+				newParent.childrenListProperty().add(getPresenter(e.getEntityId()));
+			}
+		} else if(e.getCompClass() == Naming.class){
+			if(e.getNewComp() != null)
+				getPresenter(e.getEntityId()).nameProperty().setValue(((Naming)e.getNewComp()).getName());
+		}
+
+	}
+
+	@Subscribe
+	public void handleEntityAddedEvent(EntityAddedEvent e){
+		EntityPresenter ep = new EntityPresenter(e.getEntityId(), "Just created. Should not be seen.");
+		rootEntityPresenter.childrenListProperty().add(ep);
+		presenters.put(ep.getEntityId(), ep);
+	}
+
+	@Subscribe
+	public void handleEntityRemovedEvent(EntityRemovedEvent e){
+		Parenting parenting = entityData.getComponent(e.getEntityId(), Parenting.class);
+		removePresenterFromParent(getPresenter(e.getEntityId()), parenting);
+		presenters.remove(e.getEntityId());
+	}
+
 }

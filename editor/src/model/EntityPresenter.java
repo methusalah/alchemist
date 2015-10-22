@@ -3,18 +3,21 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.eventbus.Subscribe;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityId;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
+import model.ECS.event.ComponentSetEvent;
+import model.ES.component.Naming;
+import model.ES.component.hierarchy.Parenting;
 import util.LogUtil;
+import util.event.EventManager;
 
 public class EntityPresenter {
 	List<ChangeListener<? super EntityPresenter>> changeListeners = new ArrayList<>();
