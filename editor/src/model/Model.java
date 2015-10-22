@@ -75,10 +75,10 @@ public class Model {
 		
 		
 		EntityData ed = new DefaultEntityData();
-		PrototypeCreator.setEntityData(ed);
+//		PrototypeCreator.setEntityData(ed);
 //		PrototypeCreator.create("player ship", null);
 //		PrototypeCreator.create("enemy", null);
-		PrototypeCreator.create("sun", null);
+//		PrototypeCreator.create("sun", null);
 		
 		inspector = new Inspector(ed, selectionProperty);
 		

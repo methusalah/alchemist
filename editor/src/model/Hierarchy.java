@@ -37,13 +37,19 @@ public class Hierarchy {
 		//update presenters
 		EntityPresenter ep = new EntityPresenter(newEntityId, name);
 		rootEntityPresenter.childrenListProperty().add(ep);
-		presenters.put(newEntityId, ep);
+		addEntityPresenter(ep);
 	}
 
 	public void createNewEntityFromBlueprint(Blueprint bp){
-		EntityPresenter ep = bp.getEntityPresenter(entityData);
+		EntityPresenter ep = bp.getEntityPresenter(entityData, null);
 		rootEntityPresenter.childrenListProperty().add(ep);
+		addEntityPresenter(ep);
+	}
+	
+	private void addEntityPresenter(EntityPresenter ep){
 		presenters.put(ep.getEntityId(), ep);
+		for(EntityPresenter child : ep.childrenListProperty())
+			addEntityPresenter(child);
 	}
 	
 	public void removeEntity(EntityPresenter ep){
@@ -75,7 +81,10 @@ public class Hierarchy {
 		if(ep != rootEntityPresenter){
 			Parenting parenting = entityData.getComponent(ep.getEntityId(), Parenting.class);
 			if(parenting != null){
-				getPresenter(parenting.getParent()).childrenListProperty().remove(ep);
+				EntityPresenter parentPresenter = getPresenter(parenting.getParent());
+				LogUtil.info("removing from parent "+parentPresenter);
+				if(parentPresenter != null)
+					parentPresenter.childrenListProperty().remove(ep);
 			} else
 				rootEntityPresenter.childrenListProperty().remove(ep);
 		}

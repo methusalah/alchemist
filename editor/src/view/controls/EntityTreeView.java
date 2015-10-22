@@ -76,6 +76,7 @@ public class EntityTreeView extends TreeView<EntityPresenter> {
 	                }
 	            };
 
+	            
 	            cell.setOnDragDetected(new EventHandler<MouseEvent>() {
 	                
 	            	@Override

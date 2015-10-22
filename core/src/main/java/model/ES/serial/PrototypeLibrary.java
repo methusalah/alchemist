@@ -24,14 +24,13 @@ public class PrototypeLibrary {
 	static {
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-		for(File f : getFilesDeeply(path))
-			try {
-				EntityPrototype bp = mapper.readValue(f, EntityPrototype.class);
-				blueprints.put(bp.name, bp); 
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		
+//		for(File f : getFilesDeeply(path))
+//			try {
+//				EntityPrototype bp = mapper.readValue(f, EntityPrototype.class);
+//				blueprints.put(bp.name, bp); 
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 	}
 	
 	private PrototypeLibrary(){

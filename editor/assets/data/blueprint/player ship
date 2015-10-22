@@ -1,0 +1,51 @@
+{
+  "name" : "player ship",
+  "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "player ship"
+  }, {
+    "class" : "model.ES.component.motion.PlanarStance",
+    "coord" : {
+      "x" : -20.0,
+      "y" : 0.0
+    },
+    "orientation" : {
+      "value" : 0.0
+    },
+    "elevation" : 0.0,
+    "upVector" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 1.0
+    }
+  }, {
+    "class" : "model.ES.component.visuals.Model",
+    "path" : "human/adav/adav02b.mesh.xml",
+    "scale" : 0.0025,
+    "yawFix" : {
+      "value" : 0.0
+    },
+    "pitchFix" : {
+      "value" : -1.5707963267948966
+    },
+    "rollFix" : {
+      "value" : 0.0
+    }
+  } ],
+  "children" : [ {
+    "name" : "camera",
+    "comps" : [ ],
+    "children" : [ {
+      "name" : "bonjokhgv*",
+      "comps" : [ {
+        "class" : "model.ES.component.Naming",
+        "name" : "bonjokhgv*"
+      } ],
+      "children" : [ ]
+    }, {
+      "name" : "bonjo",
+      "comps" : [ ],
+      "children" : [ ]
+    } ]
+  } ]
+}

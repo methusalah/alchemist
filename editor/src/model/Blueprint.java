@@ -37,7 +37,10 @@ public class Blueprint {
 	}
 	
 	public Blueprint(EntityPresenter ep){
-		this.comps = ep.componentListProperty();
+		comps = new ArrayList<>();
+		for(EntityComponent comp : ep.componentListProperty())
+			if(!(comp instanceof Parenting))
+				comps.add(comp);
 		this.name = ep.nameProperty().getValue();
 		children = new ArrayList<>();
 		for(EntityPresenter child : ep.childrenListProperty())
@@ -50,21 +53,24 @@ public class Blueprint {
 	}
 
 	public List<EntityComponent> getComps() {
-		return Collections.unmodifiableList(comps);
+		return comps;
 	}
 
 	public List<Blueprint> getChildren() {
-		return Collections.unmodifiableList(children);
+		return children;
 	}
 	
-	public EntityPresenter getEntityPresenter(EntityData ed){
+	public EntityPresenter getEntityPresenter(EntityData ed, EntityPresenter parent){
 		EntityId eid = ed.createEntity();
 		EntityPresenter res = new EntityPresenter(eid, getName());
 		for(EntityComponent comp : getComps()){
 			ed.setComponent(eid, comp);
 		}
+		if(parent != null)
+			ed.setComponent(res.getEntityId(), new Parenting(parent.getEntityId()));
+		
 		for(Blueprint childBP : getChildren()){
-			res.childrenListProperty().add(childBP.getEntityPresenter(ed));
+			res.childrenListProperty().add(childBP.getEntityPresenter(ed, res));
 		}
 		return res;
 	}
