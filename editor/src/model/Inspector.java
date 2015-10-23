@@ -11,15 +11,19 @@ import java.util.Map.Entry;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.eventbus.Subscribe;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import model.ECS.event.ComponentSetEvent;
 import model.ES.component.Naming;
+import model.ES.component.hierarchy.Parenting;
 import util.LogUtil;
 import util.event.EventManager;
 import util.event.modelEvent.InspectionChangedEvent;
@@ -43,6 +47,8 @@ public class Inspector {
 				inspect();
 			}
 		});
+		
+		EventManager.register(this);
 	}
 	
 	private void inspect(){
@@ -119,5 +125,17 @@ public class Inspector {
 
 	public EntityPresenter getEntityPresenter() {
 		return ep;
+	}
+	
+	@Subscribe
+	public void handleComponentSetEvent(ComponentSetEvent e){
+		if(ep != null && e.getEntityId() == ep.getEntityId())
+			Platform.runLater(new Runnable() {
+	
+				@Override
+				public void run() {
+						inspect();
+				}
+			});
 	}
 }
