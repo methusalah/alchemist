@@ -143,7 +143,14 @@ public class Model {
 		AppStateManager stateManager = app.getStateManager();
 		
 		stateManager.attach(new EntityDataAppState(ed));
-		stateManager.attach(new EntitySystem(ed));
+		
+		EntitySystem es = new EntitySystem(ed);
+		stateManager.attach(es);
+		es.initVisuals(true);
+		es.initAudio(false);
+		es.initCommand(false);
+		es.initLogic(false);
+		
 		return true;
 	}
 }

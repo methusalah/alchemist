@@ -2,17 +2,20 @@ package app;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
+import com.google.common.eventbus.Subscribe;
+import com.simsilica.es.EntityData;
+import com.simsilica.es.EntityId;
+import com.simsilica.es.base.DefaultEntityData;
+
+import controller.Controller;
+import controller.ECS.EntitySystem;
+import controller.topdown.TopdownCtrl;
 import model.ES.component.Cooldown;
 import model.ES.component.LifeTime;
 import model.ES.component.Naming;
-import model.ES.component.assets.AbilityTrigger;
 import model.ES.component.assets.Ability;
+import model.ES.component.assets.AbilityTrigger;
 import model.ES.component.assets.Attackable;
 import model.ES.component.assets.Attrition;
 import model.ES.component.assets.Boost;
@@ -36,6 +39,7 @@ import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.SpaceStance;
+import model.ES.component.motion.physic.CircleCollisionShape;
 import model.ES.component.motion.physic.Dragging;
 import model.ES.component.motion.physic.Physic;
 import model.ES.component.visuals.Lighting;
@@ -43,72 +47,20 @@ import model.ES.component.visuals.Model;
 import model.ES.component.visuals.ModelRotation;
 import model.ES.component.visuals.ParticleCasting;
 import model.ES.component.visuals.Sprite;
-import model.ES.processor.LifeTimeProc;
-import model.ES.processor.RemoveProc;
-import model.ES.processor.AI.BehaviorTreeProc;
-import model.ES.processor.ability.AbilityTriggerResetProc;
-import model.ES.processor.ability.ProjectileLauncherProc;
-import model.ES.processor.ability.TriggerCancelationProc;
-import model.ES.processor.ability.TriggerObserverProc;
-import model.ES.processor.ability.TriggerRepeaterProc;
-import model.ES.processor.command.NeededRotationProc;
-import model.ES.processor.command.NeededThrustProc;
-import model.ES.processor.command.PlayerAbilityControlProc;
-import model.ES.processor.command.PlayerRotationControlProc;
-import model.ES.processor.command.PlayerThrustControlProc;
-import model.ES.processor.holder.BoneHoldingProc;
-import model.ES.processor.holder.PlanarHoldingProc;
-import model.ES.processor.interaction.DamageOnTouchProc;
-import model.ES.processor.interaction.DamagingProc;
-import model.ES.processor.interaction.DestroyedOnTouchProc;
-import model.ES.processor.interaction.EffectOnTouchProc;
-import model.ES.processor.interaction.ShockwaveOnTouchProc;
-import model.ES.processor.motion.VelocityApplicationProc;
-import model.ES.processor.motion.physic.CollisionProc;
-import model.ES.processor.motion.physic.CollisionResolutionProc;
-import model.ES.processor.motion.physic.DraggingProc;
-import model.ES.processor.motion.physic.PhysicForceProc;
-import model.ES.processor.senses.SightProc;
-import model.ES.processor.shipGear.AttritionProc;
-import model.ES.processor.shipGear.LightThrusterProc;
-import model.ES.processor.shipGear.ParticleThrusterProc;
-import model.ES.processor.shipGear.RotationThrusterProc;
-import model.ES.processor.shipGear.ThrusterProc;
-import model.ES.richData.CollisionShape;
 import model.ES.richData.ColorData;
 import model.ES.richData.ParticleCaster;
-import model.ES.richData.PhysicStat;
 import model.ES.serial.EntityPrototype;
 import model.ES.serial.PrototypeCreator;
 import model.ES.serial.PrototypeLibrary;
 import util.LogUtil;
 import util.event.AppStateChangeEvent;
-import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 import util.math.AngleUtil;
 import util.math.Fraction;
 import util.math.RandomUtil;
-import view.drawingProcessors.CameraPlacingProc;
-import view.drawingProcessors.LightProc;
-import view.drawingProcessors.ModelProc;
-import view.drawingProcessors.ParticleCasterInPlaneProc;
-import view.drawingProcessors.ModelPlacingProc;
-import view.drawingProcessors.VelocityVisualisationProc;
 import view.material.MaterialManager;
-
-import com.google.common.eventbus.Subscribe;
-import com.jme3.system.Annotations.Destructive;
-import com.simsilica.es.EntityData;
-import com.simsilica.es.EntityId;
-import com.simsilica.es.base.DefaultEntityData;
-
-import controller.Controller;
-import controller.ECS.EntityDataAppState;
-import controller.ECS.EntitySystem;
-import controller.cameraManagement.ChasingCameraProc;
-import controller.topdown.TopdownCtrl;
 
 public class MainGame extends CosmoVania {
 	private Controller currentAppState;
@@ -161,7 +113,7 @@ public class MainGame extends CosmoVania {
 			ed.setComponent(eid, new PlanarStance(coord, a, 0.5, Point3D.UNIT_Z));
 			
 			double scale = RandomUtil.between(0.5, 3);
-			ed.setComponent(eid, new Physic(Point2D.ORIGIN, new PhysicStat("asteroid", 200*scale, new CollisionShape(2*scale), new Fraction(0.5)), null));
+			ed.setComponent(eid, new Physic(Point2D.ORIGIN, "asteroid", new ArrayList<>(), 200*scale, new Fraction(0.5), null));
 			ed.setComponent(eid, new Model("rock0"+(RandomUtil.nextInt(5)+1)+".obj", scale, new Angle(RandomUtil.between(-AngleUtil.FLAT, AngleUtil.FLAT)), new Angle(RandomUtil.between(-AngleUtil.FLAT, AngleUtil.FLAT)), new Angle(RandomUtil.between(-AngleUtil.FLAT, AngleUtil.FLAT))));
 			
 			ed.setComponent(eid, new ModelRotation(RandomUtil.between(50, 200), 0, 0));
@@ -172,7 +124,13 @@ public class MainGame extends CosmoVania {
 		stateManager.getState(TopdownCtrl.class).setEnabled(true);
 		currentAppState = stateManager.getState(TopdownCtrl.class);
 		
-		stateManager.attach(new EntitySystem(ed));
+		
+		EntitySystem es = new EntitySystem(ed);
+		stateManager.attach(es);
+		es.initVisuals(true);
+		es.initAudio(true);
+		es.initCommand(true);
+		es.initLogic(true);
 	}
 
 	@Override
@@ -374,7 +332,8 @@ public class MainGame extends CosmoVania {
 		bp.add(new Naming("enemy"));
 		bp.add(new PlanarStance(new Point2D(10, 10), new Angle(0), 0, Point3D.UNIT_Z));
 		bp.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, new Angle(0), new Angle(AngleUtil.toRadians(-90)), new Angle(0)));
-		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(1), new Fraction(0.8)), null));
+		bp.add(new Physic(Point2D.ORIGIN, "Ship", new ArrayList<>(), 100, new Fraction(0.8), null));
+		bp.add(new CircleCollisionShape(0.5));
 		bp.add(new Dragging(0.5));
 		bp.add(new MotionCapacity(AngleUtil.toRadians(720), 30, 10, 10));
 		bp.add(new PlanarVelocityToApply(Point2D.ORIGIN));
@@ -471,7 +430,8 @@ public class MainGame extends CosmoVania {
 		bp.add(new Dragging(0.4));
 		bp.add(new MotionCapacity(AngleUtil.toRadians(720), 30, 10, 10));
 		bp.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, new Angle(0), new Angle(-AngleUtil.RIGHT), new Angle(0)));
-		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("Ship", 100, new CollisionShape(0.5), new Fraction(0.8)), null));
+		bp.add(new Physic(Point2D.ORIGIN, "Ship", new ArrayList<>(), 100, new Fraction(0.8), null));
+		bp.add(new CircleCollisionShape(0.5));
 		bp.add(new EffectOnTouch());
 		bp.add(new VelocityViewing());
 		bp.add(new PlanarVelocityToApply(Point2D.ORIGIN));
@@ -497,9 +457,11 @@ public class MainGame extends CosmoVania {
 		bp.add(new Naming("asteroid"));
 		bp.add(new PlanarStance());
 		bp.add(new Dragging(0.7));
+		bp.add(new CircleCollisionShape(2));
 		bp.add(new MotionCapacity(AngleUtil.toRadians(720), 30, 10, 10));
 		bp.add(new Model("rock01.jpg", 1, new Angle(0), new Angle(0), new Angle(0)));
-		bp.add(new Physic(Point2D.ORIGIN, new PhysicStat("asteroid", 1000, new CollisionShape(2), new Fraction(0.5)), null));
+		bp.add(new Physic(Point2D.ORIGIN, "asteroid", new ArrayList<>(), 1000, new Fraction(0.5), null));
+		
 		bp.add(new PlanarVelocityToApply(Point2D.ORIGIN));
 		bp.add(new Attrition(50, 50, "enemy explosion"));
 		PrototypeLibrary.save(bp);

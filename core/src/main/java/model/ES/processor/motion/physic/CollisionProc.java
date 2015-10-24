@@ -10,6 +10,7 @@ import model.ES.component.Naming;
 import model.ES.component.ToRemove;
 import model.ES.component.interaction.senses.Touching;
 import model.ES.component.motion.PlanarStance;
+import model.ES.component.motion.physic.CircleCollisionShape;
 import model.ES.component.motion.physic.Collisioning;
 import model.ES.component.motion.physic.Physic;
 
@@ -23,7 +24,7 @@ public class CollisionProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		registerDefault(Physic.class, PlanarStance.class);
+		registerDefault(Physic.class, PlanarStance.class, CircleCollisionShape.class);
 	}
 	
 	@Override
@@ -34,7 +35,6 @@ public class CollisionProc extends Processor {
     		removeComp(e, Touching.class);
     	}
     	for(int i = 0; i < getDefaultSet().size() - 1; i++){
-    		
         	for(int j = i+1; j < getDefaultSet().size(); j++)
     			checkCollisionBetween(entities.get(i), entities.get(j));
     	}
@@ -47,21 +47,24 @@ public class CollisionProc extends Processor {
 		Physic ph1 = e1.get(Physic.class);
 		Physic ph2 = e2.get(Physic.class);
 
-		if(ph1.stat.exceptions.contains(ph2.stat.type) || ph2.stat.exceptions.contains(ph1.stat.type))
+		CircleCollisionShape shape1 = e1.get(CircleCollisionShape.class);
+		CircleCollisionShape shape2 = e2.get(CircleCollisionShape.class);
+
+		if(ph1.getExceptions().contains(ph2.getType()) || ph2.getExceptions().contains(ph1.getType()))
 			return;
 		
 		Point2D c1 = stance1.coord;
 		Point2D c2 = stance2.coord;
 
 		double d = c1.getDistance(c2);
-		double spacing = ph1.stat.shape.radius+ph2.stat.shape.radius;
+		double spacing = shape1.getRadius()+shape2.getRadius();
 		double penetration = spacing-d;
 		// collision test
 		if(penetration > 0){
 			// spawner exception allows, for exemple, missiles to get out of a ship by ignoring collision. 
-			if(ph1.spawnerException != e2.getId() && ph2.spawnerException != e1.getId()){
+			if(ph1.getSpawnerException() != e2.getId() && ph2.getSpawnerException() != e1.getId()){
 				Point2D v = c2.getSubtraction(c1);
-				v = v.getScaled(ph1.stat.shape.radius-((spacing-d)/2));
+				v = v.getScaled(shape1.getRadius()-((spacing-d)/2));
 				
 				Point2D normal = c2.getSubtraction(c1).getNormalized();
 				
@@ -73,18 +76,18 @@ public class CollisionProc extends Processor {
 				
 				
 				// we add touching component to each entity for other effects than physics
-				Point2D impactCoord = c1.getAddition(normal.getScaled(ph1.stat.shape.radius));
+				Point2D impactCoord = c1.getAddition(normal.getScaled(shape1.getRadius()));
 				setComp(e1, new Touching(e2.getId(), impactCoord, normal));
 	
 				normal = normal.getNegation();
-				impactCoord = c2.getAddition(normal.getScaled(ph2.stat.shape.radius));
+				impactCoord = c2.getAddition(normal.getScaled(shape2.getRadius()));
 				setComp(e2, new Touching(e1.getId(), impactCoord, normal));
 			}
 		} else {
-			if(ph1.spawnerException == e2.getId())
-				setComp(e1, new Physic(ph1.velocity, ph1.stat, null));
-			if(ph2.spawnerException == e1.getId())
-				setComp(e2, new Physic(ph2.velocity, ph2.stat, null));
+			if(ph1.getSpawnerException() == e2.getId())
+				setComp(e1, new Physic(ph1.getVelocity(), ph1.getType(), ph1.getExceptions(), ph1.getMass(), ph1.getRestitution(), null));
+			if(ph2.getSpawnerException() == e1.getId())
+				setComp(e2, new Physic(ph2.getVelocity(), ph2.getType(), ph2.getExceptions(), ph2.getMass(), ph2.getRestitution(), null));
 		}
 	}
 }

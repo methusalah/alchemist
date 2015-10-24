@@ -15,48 +15,92 @@ import view.drawingProcessors.VelocityVisualisationProc;
 import view.drawingProcessors.audio.AbilityAudioProc;
 import view.drawingProcessors.audio.ThrusterAudioProc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jme3.app.state.AbstractAppState;
+import com.jme3.app.state.AppState;
 import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.EntityData;
 
 public class EntitySystem extends AbstractAppState{
 	private final EntityData ed;
+	private AppStateManager stateManager;
 	private Thread logicThread;
+	
+	List<AppState> visualStates = new ArrayList<>();
+	List<AppState> audioStates = new ArrayList<>();
+	List<AppState> commandStates = new ArrayList<>();
+	List<AppState> logicStates = new ArrayList<>();
 
 	public EntitySystem(EntityData ed) {
 		this.ed = ed;
+		visualStates.add(new ParticleCasterInPlaneProc());
+		visualStates.add(new ModelProc());
+		visualStates.add(new SpriteProc());
+		
+		visualStates.add(new ModelPlacingProc());
+		visualStates.add(new SpritePlacingProc());
+		
+		visualStates.add(new ModelRotationProc());
+		visualStates.add(new LightProc());
+		visualStates.add(new VelocityVisualisationProc());
+		
+		
+		audioStates.add(new ThrusterAudioProc());
+		audioStates.add(new AbilityAudioProc());
+		
+		commandStates.add(new PlayerRotationControlProc());
+		commandStates.add(new PlayerThrustControlProc());
+		commandStates.add(new CameraPlacingProc());
 	}
 	
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
+		this.stateManager = stateManager;
 		stateManager.attach(new EntityDataAppState(ed));
-		// commands
-		stateManager.attach(new PlayerRotationControlProc());
-		stateManager.attach(new PlayerThrustControlProc());
-//		stateManager.attach(new PlayerOrthogonalThrustControlProc());
-		stateManager.attach(new CameraPlacingProc());
-		stateManager.attach(new ParticleCasterInPlaneProc());
-		
-		stateManager.attach(new ThrusterAudioProc());
-		stateManager.attach(new AbilityAudioProc());
+	}
+	
+	public void initVisuals(boolean value){
+		for(AppState as : visualStates)
+			if(value)
+				stateManager.attach(as);
+			else
+				stateManager.detach(as);
+	}
 
-		stateManager.attach(new ModelProc());
-		stateManager.attach(new SpriteProc());
-		
-		stateManager.attach(new ModelPlacingProc());
-		stateManager.attach(new SpritePlacingProc());
-		
-		stateManager.attach(new ModelRotationProc());
-		stateManager.attach(new LightProc());
-		stateManager.attach(new VelocityVisualisationProc());
+	public void initCommand(boolean value){
+		for(AppState as : commandStates)
+			if(value)
+				stateManager.attach(as);
+			else
+				stateManager.detach(as);
+	}
 
-		logicThread = new Thread(new LogicThread(ed));
-		logicThread.start();
+	public void initAudio(boolean value){
+		for(AppState as : audioStates)
+			if(value)
+				stateManager.attach(as);
+			else
+				stateManager.detach(as);
+	}
+
+	public void initLogic(boolean value){
+		if(value){
+			if(logicThread == null || !logicThread.isAlive()){
+				logicThread = new Thread(new LogicThread(ed));
+				logicThread.start();
+			}
+		} else
+			if(logicThread != null && logicThread.isAlive())
+				logicThread.interrupt();
+				
 	}
 	
 	@Override
 	public void cleanup() {
-		logicThread.interrupt();
+		if(logicThread != null && logicThread.isAlive())
+			logicThread.interrupt();
 	}
 	
 }

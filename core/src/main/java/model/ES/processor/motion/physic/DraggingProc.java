@@ -21,7 +21,7 @@ public class DraggingProc extends Processor {
 		Physic ph = e.get(Physic.class);
 		Dragging dragging = e.get(Dragging.class);
 		
-		Point2D actualVelocity = ph.velocity;
+		Point2D actualVelocity = ph.getVelocity();
 
 		double speed = actualVelocity.getLength();
 		if(speed < PrecisionUtil.APPROX)

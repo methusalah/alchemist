@@ -2,18 +2,13 @@ package model.ES.processor.shipGear;
 
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
-import com.simsilica.es.EntitySet;
 
 import controller.ECS.Processor;
-import model.ModelManager;
-import model.ES.component.Naming;
+import model.ES.commonLogic.Controlling;
 import model.ES.component.assets.Thruster;
 import model.ES.component.command.PlanarNeededThrust;
-import model.ES.component.hierarchy.BoneHolding;
 import model.ES.component.hierarchy.Parenting;
-import model.ES.component.hierarchy.PlanarStanceControl;
 import model.ES.component.motion.PlanarStance;
-import util.LogUtil;
 import util.math.AngleUtil;
 import util.math.Fraction;
 
@@ -30,8 +25,8 @@ public class ThrusterProc extends Processor {
 		Parenting parenting = e.get(Parenting.class);
 		EntityId holder = parenting.getParent();
 
-		PlanarNeededThrust parentThrust = entityData.getComponent(holder, PlanarNeededThrust.class);
-		PlanarStance parentStance = entityData.getComponent(holder, PlanarStance.class);
+		PlanarNeededThrust parentThrust = Controlling.getControl(PlanarNeededThrust.class, e.getId(), entityData);
+		PlanarStance parentStance = Controlling.getControl(PlanarStance.class, e.getId(), entityData);
 		
 		double activationRate = 0;
 		if(parentThrust != null && !parentThrust.getDirection().isOrigin()){

@@ -1,0 +1,56 @@
+{
+  "name" : "thruster",
+  "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "thruster"
+  }, {
+    "class" : "model.ES.component.assets.Thruster",
+    "direction" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 0.0
+    },
+    "activationAngle" : {
+      "value" : 0.0
+    },
+    "activation" : {
+      "value" : 0.0
+    },
+    "onOff" : true
+  } ],
+  "children" : [ {
+    "name" : "thruster sound",
+    "comps" : [ {
+      "class" : "model.ES.component.Naming",
+      "name" : "thruster sound"
+    }, {
+      "class" : "model.ES.component.motion.PlanarStance",
+      "coord" : {
+        "x" : 0.0,
+        "y" : 0.0
+      },
+      "orientation" : {
+        "value" : 0.0
+      },
+      "elevation" : 0.0,
+      "upVector" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "z" : 1.0
+      }
+    }, {
+      "class" : "model.ES.component.hierarchy.ThrusterControl"
+    }, {
+      "class" : "model.ES.component.audio.ThrusterAudioSource",
+      "startPath" : "thruster_start.wav",
+      "loopPath" : "thruster_loop.wav",
+      "endPath" : "thruster_stop.wav",
+      "volume" : {
+        "value" : 1.0
+      },
+      "startTime" : 0,
+      "loopTime" : 0
+    } ],
+    "children" : [ ]
+  } ]
+}

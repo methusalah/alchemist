@@ -22,6 +22,9 @@
     "class" : "model.ES.component.motion.physic.Dragging",
     "dragging" : 0.7
   }, {
+    "class" : "model.ES.component.motion.physic.CircleCollisionShape",
+    "radius" : 2.0
+  }, {
     "class" : "model.ES.component.motion.MotionCapacity",
     "maxRotationSpeed" : 12.566370614359172,
     "thrustPower" : 30.0,
@@ -46,18 +49,13 @@
       "x" : 0.0,
       "y" : 0.0
     },
-    "spawnerException" : null,
-    "stat" : {
-      "type" : "asteroid",
-      "mass" : 1000.0,
-      "shape" : {
-        "radius" : 2.0
-      },
-      "restitution" : {
-        "value" : 0.5
-      },
-      "exceptions" : [ ]
-    }
+    "type" : "asteroid",
+    "exceptions" : [ ],
+    "mass" : 1000.0,
+    "restitution" : {
+      "value" : 0.5
+    },
+    "spawnerException" : null
   }, {
     "class" : "model.ES.component.motion.PlanarVelocityToApply",
     "vector" : {

@@ -26,7 +26,7 @@ public class PhysicForceProc extends Processor {
 				
 				Physic ph = phE.get(Physic.class);
 				PhysicForce impulse = impE.get(PhysicForce.class);
-				if(impulse.exceptions.contains(ph.stat.type))
+				if(impulse.exceptions.contains(ph.getType()))
 					return;
 
 				Point2D vector = phStance.coord.getSubtraction(impStance.coord);

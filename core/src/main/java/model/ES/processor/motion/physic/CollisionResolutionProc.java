@@ -25,17 +25,17 @@ public class CollisionResolutionProc extends Processor {
 		Physic phA = A.get(Physic.class);
 		Physic phB = B.get(Physic.class);
 		
-		Point2D velA = phA.velocity; 
-		Point2D velB = phB.velocity;
+		Point2D velA = phA.getVelocity(); 
+		Point2D velB = phB.getVelocity();
 		
-		double massA = phA.stat.mass;
-		double massB = phB.stat.mass;
+		double massA = phA.getMass();
+		double massB = phB.getMass();
 		
 		Point2D relative = velB.getSubtraction(velA);
 		double velAlongNormal = relative.getDotProduct(col.normal);
 		
 		if(velAlongNormal <= 0){
-			double epsilon = Math.min(phA.stat.restitution.getValue(), phB.stat.restitution.getValue());
+			double epsilon = Math.min(phA.getRestitution().getValue(), phB.getRestitution().getValue());
 			double impulseScale = -(1+epsilon)*velAlongNormal;
 			impulseScale /= 1/massA + 1/massB;
 			
@@ -44,13 +44,8 @@ public class CollisionResolutionProc extends Processor {
 			Point2D newVelA = velA.getAddition(impulse.getNegation().getMult(1/massA));
 			Point2D newVelB = velB.getAddition(impulse.getMult(1/massB));
 			
-			setComp(A, new Physic(newVelA, phA.stat, phA.spawnerException));
-			setComp(B, new Physic(newVelB, phB.stat, phB.spawnerException));
-
-			// debug
-//			VelocityViewing viewing = entityData.getComponent(A.getId(), VelocityViewing.class);
-//			if(viewing != null)
-//				viewing.updateVelocity("impulse", newVelA, Color.red, 10, 0.2, 1);
+			setComp(A, new Physic(newVelA, phA.getType(), phA.getExceptions(), phA.getMass(), phA.getRestitution(), phA.getSpawnerException()));
+			setComp(B, new Physic(newVelB, phB.getType(), phB.getExceptions(), phB.getMass(), phB.getRestitution(), phB.getSpawnerException()));
 		}
 		setComp(e, new ToRemove());
 	}

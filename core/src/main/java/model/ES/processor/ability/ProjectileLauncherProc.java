@@ -1,5 +1,8 @@
 package model.ES.processor.ability;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
@@ -18,11 +21,10 @@ import model.ES.component.interaction.ShockwaveOnTouch;
 import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
+import model.ES.component.motion.physic.CircleCollisionShape;
 import model.ES.component.motion.physic.Physic;
 import model.ES.component.visuals.Model;
-import model.ES.richData.CollisionShape;
 import model.ES.richData.Damage;
-import model.ES.richData.PhysicStat;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
@@ -55,7 +57,10 @@ public class ProjectileLauncherProc extends Processor {
 			
 			
 			entityData.setComponent(firing, new Model("human/hmissileT1/hmissileT1_02.mesh.xml", 0.0025, new Angle(0), new Angle(AngleUtil.toRadians(-90)), new Angle(0)));
-			entityData.setComponent(firing, new Physic(Point2D.ORIGIN, new PhysicStat("Missile", 0.1, new CollisionShape(0.1), new Fraction(0), "Missile"), p.getParent()));
+			List<String> exceptions = new ArrayList<>();
+			exceptions.add("Missile");
+			entityData.setComponent(firing, new Physic(Point2D.ORIGIN, "Missile", exceptions, 0.1, new Fraction(0), p.getParent()));
+			entityData.setComponent(firing, new CircleCollisionShape(0.1));
 			entityData.setComponent(firing, new DestroyedOnTouch());
 			entityData.setComponent(firing, new ShockwaveOnTouch(100, 4, 20));
 			entityData.setComponent(firing, new EffectOnTouch());
