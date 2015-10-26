@@ -355,7 +355,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new Physic(Point2D.UNIT_X, "debris", exceptions, 1, new Fraction(0.4), null));
 		bp.add(new CircleCollisionShape(0.1));
 		bp.add(new Model("human/adav/adav02b.mesh.xml", 0.0005, new Angle(0), new Angle(AngleUtil.toRadians(-90)), new Angle(0)));
-//		bp.add("debris particle");
+		bp.add("debris particle");
 		PrototypeLibrary.save(bp);
 
 		// debris particle
