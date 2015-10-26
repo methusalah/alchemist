@@ -1,0 +1,17 @@
+{
+  "name" : "boost",
+  "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "boost"
+  }, {
+    "class" : "model.ES.component.assets.Boost",
+    "force" : 120.0
+  }, {
+    "class" : "model.ES.component.assets.Ability",
+    "name" : "boost",
+    "triggered" : false
+  }, {
+    "class" : "model.ES.component.hierarchy.AbilityTriggerControl"
+  } ],
+  "children" : [ ]
+}
