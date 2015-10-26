@@ -1,6 +1,7 @@
 package model.ES.serial;
 
 import util.LogUtil;
+import model.ES.component.LifeTime;
 import model.ES.component.Naming;
 import model.ES.component.hierarchy.Parenting;
 
@@ -34,6 +35,10 @@ public class PrototypeCreator {
 			LogUtil.info("creation of "+bluePrintName+" (#"+res.getId()+") named '"+n.name+"' with parent #"+parent);
 		else
 			LogUtil.info("creation of "+bluePrintName+" (#"+res.getId()+") without naming with parent #"+parent);
+		
+		if(entityData.getComponent(res, LifeTime.class) != null)
+			entityData.setComponent(res, new LifeTime(System.currentTimeMillis(), entityData.getComponent(res, LifeTime.class).getDuration()));
+
 		return res;
 	}
 }

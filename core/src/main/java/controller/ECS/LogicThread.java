@@ -11,6 +11,7 @@ import model.ES.processor.AI.BehaviorTreeProc;
 import model.ES.processor.ability.AbilityTriggerResetProc;
 import model.ES.processor.ability.BoostProc;
 import model.ES.processor.ability.ProjectileLauncherProc;
+import model.ES.processor.ability.SpawningProc;
 import model.ES.processor.ability.TriggerCancelationProc;
 import model.ES.processor.ability.TriggerObserverProc;
 import model.ES.processor.ability.TriggerRepeaterProc;
@@ -24,6 +25,7 @@ import model.ES.processor.interaction.DamagingProc;
 import model.ES.processor.interaction.DestroyedOnTouchProc;
 import model.ES.processor.interaction.EffectOnTouchProc;
 import model.ES.processor.interaction.ShockwaveOnTouchProc;
+import model.ES.processor.motion.RandomVelocityApplicationProc;
 import model.ES.processor.motion.VelocityApplicationProc;
 import model.ES.processor.motion.physic.CollisionProc;
 import model.ES.processor.motion.physic.CollisionResolutionProc;
@@ -52,6 +54,7 @@ public class LogicThread implements Runnable {
 		stateManager.attach(new NeededThrustProc());
 		stateManager.attach(new DraggingProc());
 		stateManager.attach(new PhysicForceProc());
+		stateManager.attach(new RandomVelocityApplicationProc());
 		stateManager.attach(new VelocityApplicationProc());
 		// collisions
 		stateManager.attach(new CollisionProc());
@@ -70,6 +73,7 @@ public class LogicThread implements Runnable {
 		stateManager.attach(new TriggerCancelationProc());
 		stateManager.attach(new TriggerRepeaterProc());
 		
+		stateManager.attach(new SpawningProc());
 		stateManager.attach(new ProjectileLauncherProc());
 		stateManager.attach(new BoostProc());
 

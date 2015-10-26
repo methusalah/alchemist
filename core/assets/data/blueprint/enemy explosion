@@ -57,6 +57,11 @@
       "allAtOnce" : false
     },
     "actualPerSecond" : 400
+  }, {
+    "class" : "model.ES.component.assets.Spawning",
+    "blueprintName" : "debris",
+    "toSpawn" : 3,
+    "toSpawnRange" : 7
   } ],
   "children" : [ ]
 }

@@ -2,6 +2,7 @@ package view;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.system.AppSettings;
 import com.jme3x.jfx.injfx.JmeForImageView;
 
 import controller.ECS.EntitySystem;
@@ -61,6 +62,15 @@ public class SceneView extends VBox {
 		es.initCommand(true);
 		es.initLogic(true);
 		
+		AppSettings settings = new AppSettings(true);
+		// important to use those settings
+		settings.setFullscreen(false);
+		settings.setUseInput(true);
+		settings.setFrameRate(30);
+		settings.setCustomRenderer(com.jme3x.jfx.injfx.JmeContextOffscreenSurface.class);
+		app.setSettings(settings);
+		
+		app.restart();
 		return true;
 	}
 	
