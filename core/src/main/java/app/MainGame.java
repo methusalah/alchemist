@@ -475,6 +475,7 @@ public class MainGame extends CosmoVania {
 		bp.add(new Naming("boost"));
 		bp.add(new Boost(120));
 		bp.add(new Ability("boost", false));
+		bp.add(new AbilityTriggerControl());
 		PrototypeLibrary.save(bp);
 		
 		bp = new EntityPrototype("player ship");
