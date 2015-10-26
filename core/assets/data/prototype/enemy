@@ -49,7 +49,7 @@
     "radius" : 0.5
   }, {
     "class" : "model.ES.component.motion.physic.Dragging",
-    "dragging" : 0.5
+    "dragging" : 0.8
   }, {
     "class" : "model.ES.component.motion.MotionCapacity",
     "maxRotationSpeed" : 12.566370614359172,

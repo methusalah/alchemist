@@ -1,0 +1,73 @@
+{
+  "name" : "debris particle",
+  "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "debris particle"
+  }, {
+    "class" : "model.ES.component.motion.PlanarStance",
+    "coord" : {
+      "x" : 0.0,
+      "y" : 0.0
+    },
+    "orientation" : {
+      "value" : 0.0
+    },
+    "elevation" : 0.0,
+    "upVector" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 1.0
+    }
+  }, {
+    "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+    "active" : true,
+    "localPosition" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 0.0
+    },
+    "localOrientation" : {
+      "value" : 0.0
+    }
+  }, {
+    "class" : "model.ES.component.visuals.ParticleCaster",
+    "spritePath" : "particles/flame.png",
+    "nbCol" : 2,
+    "nbRow" : 2,
+    "initialSpeed" : 0.0,
+    "fanning" : 0.0,
+    "randomSprite" : false,
+    "maxCount" : 1000,
+    "perSecond" : 50,
+    "startSize" : 0.05,
+    "endSize" : 0.25,
+    "startColor" : {
+      "a" : 204,
+      "r" : 26,
+      "g" : 26,
+      "b" : 26
+    },
+    "endColor" : {
+      "a" : 51,
+      "r" : 128,
+      "g" : 128,
+      "b" : 128
+    },
+    "minLife" : 1.0,
+    "maxLife" : 2.0,
+    "rotationSpeed" : 0.0,
+    "gravity" : false,
+    "facing" : "Camera",
+    "add" : false,
+    "startVariation" : 0.05,
+    "allAtOnce" : false,
+    "actualPerSecond" : {
+      "value" : 1.0
+    }
+  }, {
+    "class" : "model.ES.component.LifeTime",
+    "lifeStart" : 0,
+    "duration" : 1000.0
+  } ],
+  "children" : [ ]
+}
