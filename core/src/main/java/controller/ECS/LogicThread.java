@@ -31,6 +31,7 @@ import model.ES.processor.motion.physic.CollisionProc;
 import model.ES.processor.motion.physic.CollisionResolutionProc;
 import model.ES.processor.motion.physic.DraggingProc;
 import model.ES.processor.motion.physic.PhysicForceProc;
+import model.ES.processor.motion.physic.RandomDraggingProc;
 import model.ES.processor.senses.SightProc;
 import model.ES.processor.shipGear.AttritionProc;
 import model.ES.processor.shipGear.LightThrusterProc;
@@ -52,6 +53,7 @@ public class LogicThread implements Runnable {
 		// forces
 		stateManager.attach(new NeededRotationProc());
 		stateManager.attach(new NeededThrustProc());
+		stateManager.attach(new RandomDraggingProc());
 		stateManager.attach(new DraggingProc());
 		stateManager.attach(new PhysicForceProc());
 		stateManager.attach(new RandomVelocityApplicationProc());
@@ -72,6 +74,7 @@ public class LogicThread implements Runnable {
 		stateManager.attach(new AbilityTriggerResetProc());
 		stateManager.attach(new TriggerCancelationProc());
 		stateManager.attach(new TriggerRepeaterProc());
+		
 		
 		stateManager.attach(new SpawningProc());
 		stateManager.attach(new ProjectileLauncherProc());

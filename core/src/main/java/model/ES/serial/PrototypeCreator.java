@@ -31,10 +31,6 @@ public class PrototypeCreator {
 			entityData.setComponent(child, new Parenting(res));
 		}
 		Naming n = entityData.getComponent(res, Naming.class);
-		if(n != null)
-			LogUtil.info("creation of "+bluePrintName+" (#"+res.getId()+") named '"+n.name+"' with parent #"+parent);
-		else
-			LogUtil.info("creation of "+bluePrintName+" (#"+res.getId()+") without naming with parent #"+parent);
 		
 		if(entityData.getComponent(res, LifeTime.class) != null)
 			entityData.setComponent(res, new LifeTime(System.currentTimeMillis(), entityData.getComponent(res, LifeTime.class).getDuration()));

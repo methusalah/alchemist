@@ -11,7 +11,7 @@ public class Controlling {
 	public static <T extends EntityComponent> T getControl(Class<T> controlClass, EntityId controlled, EntityData ed){
 		Parenting p = ed.getComponent(controlled, Parenting.class);
 		if(p == null){
-			LogUtil.warning("Can't find parent with controlling component '"+controlClass.getSimpleName()+"'.");
+			//LogUtil.warning("Can't find parent with controlling component '"+controlClass.getSimpleName()+"'.");
 			return null;
 		}
 		

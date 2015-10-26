@@ -40,41 +40,6 @@
       "value" : 0.0
     },
     "onOff" : false
-  }, {
-    "class" : "model.ES.component.visuals.ParticleCaster",
-    "spritePath" : "particles/flame.png",
-    "nbCol" : 2,
-    "nbRow" : 2,
-    "initialSpeed" : 1.0,
-    "fanning" : 0.1,
-    "randomSprite" : false,
-    "maxCount" : 200,
-    "perSecond" : 80,
-    "startSize" : 0.1,
-    "endSize" : 0.1,
-    "startColor" : {
-      "a" : 255,
-      "r" : 255,
-      "g" : 255,
-      "b" : 255
-    },
-    "endColor" : {
-      "a" : 255,
-      "r" : 255,
-      "g" : 255,
-      "b" : 255
-    },
-    "minLife" : 0.1,
-    "maxLife" : 0.1,
-    "rotationSpeed" : 0.0,
-    "gravity" : false,
-    "facing" : "Camera",
-    "add" : true,
-    "startVariation" : 0.0,
-    "allAtOnce" : false,
-    "actualPerSecond" : {
-      "value" : 1.0
-    }
   } ],
-  "children" : [ ]
+  "children" : [ "rotation thruster particle" ]
 }

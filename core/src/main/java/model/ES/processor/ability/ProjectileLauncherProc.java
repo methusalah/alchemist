@@ -67,14 +67,14 @@ public class ProjectileLauncherProc extends Processor {
 				entityData.setComponent(firing, new MotionCapacity(0, 1, 0, 0));
 				
 				// application of the velocity of the parent to the projectile
-				entityData.setComponent(firing, new PlanarVelocityToApply(new Point2D(1.5, 0).getRotation(orientation)));
+				entityData.setComponent(firing, new PlanarVelocityToApply(new Point2D(15, 0).getRotation(orientation)));
 				EntityId p = entityData.getComponent(e.getId(), Parenting.class).getParent();
 				
 				
 				entityData.setComponent(firing, new Model("human/hmissileT1/hmissileT1_02.mesh.xml", 0.0025, new Angle(0), new Angle(AngleUtil.toRadians(-90)), new Angle(0)));
 				List<String> exceptions = new ArrayList<>();
 				exceptions.add("Missile");
-				entityData.setComponent(firing, new Physic(Point2D.ORIGIN, "Missile", exceptions, 0.1, new Fraction(0), p));
+				entityData.setComponent(firing, new Physic(Point2D.ORIGIN, "Missile", exceptions, 1, new Fraction(0), p));
 				entityData.setComponent(firing, new CircleCollisionShape(0.1));
 				entityData.setComponent(firing, new DestroyedOnTouch());
 				entityData.setComponent(firing, new ShockwaveOnTouch(100, 4, 20));

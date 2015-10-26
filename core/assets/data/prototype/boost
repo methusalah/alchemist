@@ -10,6 +10,9 @@
     "class" : "model.ES.component.assets.Ability",
     "name" : "boost",
     "triggered" : false
+  }, {
+    "class" : "model.ES.component.hierarchy.AbilityTriggerControl",
+    "active" : true
   } ],
   "children" : [ ]
 }

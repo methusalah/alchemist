@@ -46,6 +46,7 @@ import model.ES.component.motion.SpaceStance;
 import model.ES.component.motion.physic.CircleCollisionShape;
 import model.ES.component.motion.physic.Dragging;
 import model.ES.component.motion.physic.Physic;
+import model.ES.component.motion.physic.RandomDragging;
 import model.ES.component.visuals.Lighting;
 import model.ES.component.visuals.Model;
 import model.ES.component.visuals.ModelRotation;
@@ -252,12 +253,12 @@ public class MainGame extends CosmoVania {
 				0,
 				false,
 				1000,
-				30,
-				0.1,
-				0.2,
+				50,
+				0.05,
+				0.25,
 				new ColorData(0.8f, 0.1f, 0.1f, 0.1f),
 				new ColorData(0.2f, 0.5f, 0.5f, 0.5f),
-				1.5,
+				1,
 				2,
 				0,
 				false,
@@ -278,6 +279,15 @@ public class MainGame extends CosmoVania {
 		proto.add(new SpaceStance(Point3D.ORIGIN, new Point3D(-1, -1, -3)));
 		PrototypeLibrary.save(proto);
 
+		// rotation thruster particle
+		proto = new EntityPrototype("rotation thruster particle");
+		proto.add(new Naming("rotation thruster particle"));
+		proto.add(new PlanarStanceControl(true, new Point3D(0, 0, 0), new Angle(0)));
+		proto.add(new PlanarStance());
+		proto.add(new ThrusterControl());
+		proto.add(getCaster1());
+		PrototypeLibrary.save(proto);
+
 		// rotation thrusters
 		proto = new EntityPrototype("rotation thruster 1");
 		proto.add(new Naming("rotation thruster 1"));
@@ -285,7 +295,7 @@ public class MainGame extends CosmoVania {
 		proto.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		proto.add(new ThrustControl(true));
 		proto.add(new RotationThruster(true, AngleUtil.toRadians(5), new Fraction(0), false));
-		proto.add(getCaster1());
+		proto.add("rotation thruster particle");
 		PrototypeLibrary.save(proto);
 
 		proto = new EntityPrototype("rotation thruster 2");
@@ -294,7 +304,7 @@ public class MainGame extends CosmoVania {
 		proto.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		proto.add(new ThrustControl(true));
 		proto.add(new RotationThruster(false, AngleUtil.toRadians(-5), new Fraction(0), false));
-		proto.add(getCaster1());
+		proto.add("rotation thruster particle");
 		PrototypeLibrary.save(proto);
 
 		// main thruster
@@ -304,9 +314,18 @@ public class MainGame extends CosmoVania {
 		proto.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		proto.add(new ThrustControl(true));
 		proto.add(new Thruster(new Point3D(1, 0, 0), new Angle(AngleUtil.toRadians(90)), new Fraction(0), false));
-		proto.add(getCaster2());
 		proto.add(new Lighting(new ColorData(255, 255, 150, 150), 3, 6, AngleUtil.toRadians(10), AngleUtil.toRadians(60), false, new Fraction(0)));
+		proto.add("rear thruster particle");
 		proto.add("rear thruster sound");
+		PrototypeLibrary.save(proto);
+
+		// main thruster particle
+		proto = new EntityPrototype("rear thruster particle");
+		proto.add(new Naming("rear thruster particle"));
+		proto.add(new PlanarStanceControl(true, new Point3D(0, 0, 0), new Angle(0)));
+		proto.add(new PlanarStance());
+		proto.add(new ThrusterControl());
+		proto.add(getCaster2());
 		PrototypeLibrary.save(proto);
 
 		// main thruster sound
@@ -318,6 +337,14 @@ public class MainGame extends CosmoVania {
 		proto.add(new ThrusterAudioSource("thruster_start.wav", "thruster_loop.wav", "thruster_stop.wav", new Fraction(1)));
 		PrototypeLibrary.save(proto);
 		
+		// maneuver thruster particle
+		proto = new EntityPrototype("maneuver thruster particle");
+		proto.add(new Naming("maneuver thruster particle"));
+		proto.add(new PlanarStanceControl(true, new Point3D(0, 0, 0), new Angle(0)));
+		proto.add(new PlanarStance());
+		proto.add(new ThrusterControl());
+		proto.add(getCaster3());
+		PrototypeLibrary.save(proto);
 
 		// front thrusters
 		proto = new EntityPrototype("frontal left thruster");
@@ -326,7 +353,7 @@ public class MainGame extends CosmoVania {
 		proto.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		proto.add(new ThrustControl(true));
 		proto.add(new Thruster(new Point3D(-1, -1, 0), new Angle(AngleUtil.toRadians(70)), new Fraction(0), true));
-		proto.add(getCaster3());
+		proto.add("maneuver thruster particle");
 		PrototypeLibrary.save(proto);
 
 		proto = new EntityPrototype("frontal right thruster");
@@ -335,7 +362,7 @@ public class MainGame extends CosmoVania {
 		proto.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		proto.add(new ThrustControl(true));
 		proto.add(new Thruster(new Point3D(-1, 1, 0), new Angle(AngleUtil.toRadians(70)), new Fraction(0), true));
-		proto.add(getCaster3());
+		proto.add("maneuver thruster particle");
 		PrototypeLibrary.save(proto);
 
 		// lateral thrusters
@@ -345,7 +372,7 @@ public class MainGame extends CosmoVania {
 		proto.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		proto.add(new ThrustControl(true));
 		proto.add(new Thruster(new Point3D(1, -1.5, 0), new Angle(AngleUtil.toRadians(50)), new Fraction(0), true));
-		proto.add(getCaster3());
+		proto.add("maneuver thruster particle");
 		PrototypeLibrary.save(proto);
 
 		proto = new EntityPrototype("side right thruster");
@@ -354,17 +381,23 @@ public class MainGame extends CosmoVania {
 		proto.add(new PlanarStance(Point2D.ORIGIN, new Angle(0), 0, Point3D.UNIT_Z));
 		proto.add(new ThrustControl(true));
 		proto.add(new Thruster(new Point3D(1, 1.5, 0), new Angle(AngleUtil.toRadians(50)), new Fraction(0), true));
-		proto.add(getCaster3());
+		proto.add("maneuver thruster particle");
 		PrototypeLibrary.save(proto);
+		
+		
+		
+		
+		
 		
 		// explosion debris
 		proto = new EntityPrototype("debris");
 		proto.add(new Naming("explosion debris"));
 		proto.add(new PlanarStance());
-		proto.add(new RandomVelocityToApply(1, 2));
+		proto.add(new RandomVelocityToApply(10, 30));
+		proto.add(new RandomDragging(0.005, 0.03));
 		List<String> exceptions = new ArrayList<>();
 		exceptions.add("Missile");
-		proto.add(new Physic(Point2D.UNIT_X, "debris", exceptions, 1, new Fraction(0.4), null));
+		proto.add(new Physic(Point2D.ORIGIN, "debris", exceptions, 1, new Fraction(0.4), null));
 		proto.add(new CircleCollisionShape(0.1));
 		proto.add(new Model("human/adav/adav02b.mesh.xml", 0.0005, new Angle(0), new Angle(AngleUtil.toRadians(-90)), new Angle(0)));
 		proto.add("debris particle");
@@ -376,13 +409,8 @@ public class MainGame extends CosmoVania {
 		proto.add(new PlanarStance());
 		proto.add(new PlanarStanceControl());
 		proto.add(getSMOKE());
-		proto.add(new LifeTime(0, 2000));
+		proto.add(new LifeTime(0, 1000));
 		PrototypeLibrary.save(proto);
-		
-		
-		
-		
-		
 		
 		// enemy explosion
 		proto = new EntityPrototype("enemy explosion");
@@ -390,8 +418,13 @@ public class MainGame extends CosmoVania {
 		proto.add(new PlanarStance());
 		proto.add(new LifeTime(0, 600));
 		proto.add(getEXPLOSION());
-		proto.add(new Spawning("debris", 3, 7));
+		proto.add(new Spawning("debris", 4, 8));
 		PrototypeLibrary.save(proto);
+
+		
+		
+		
+		
 		
 		// enemy
 		proto = new EntityPrototype("enemy");
@@ -400,7 +433,7 @@ public class MainGame extends CosmoVania {
 		proto.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, new Angle(0), new Angle(AngleUtil.toRadians(-90)), new Angle(0)));
 		proto.add(new Physic(Point2D.ORIGIN, "Ship", new ArrayList<>(), 100, new Fraction(0.8), null));
 		proto.add(new CircleCollisionShape(0.5));
-		proto.add(new Dragging(0.5));
+		proto.add(new Dragging(0.8));
 		proto.add(new MotionCapacity(AngleUtil.toRadians(720), 30, 10, 10));
 		proto.add(new PlanarVelocityToApply(Point2D.ORIGIN));
 		proto.add(new Attrition(30, 30, "enemy explosion"));
@@ -500,7 +533,7 @@ public class MainGame extends CosmoVania {
 		proto.add(new Naming("player ship"));
 		proto.add(new PlayerControl());
 		proto.add(new PlanarStance(new Point2D(1, 1), new Angle(0), 0.5, Point3D.UNIT_Z));
-		proto.add(new Dragging(0.4));
+		proto.add(new Dragging(0.5));
 		proto.add(new MotionCapacity(AngleUtil.toRadians(720), 30, 10, 10));
 		proto.add(new Model("human/adav/adav02b.mesh.xml", 0.0025, new Angle(0), new Angle(-AngleUtil.RIGHT), new Angle(0)));
 		proto.add(new Physic(Point2D.ORIGIN, "Ship", new ArrayList<>(), 100, new Fraction(0.8), null));
