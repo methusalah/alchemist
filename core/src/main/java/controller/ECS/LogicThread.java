@@ -12,7 +12,7 @@ import model.ES.processor.ability.AbilityTriggerResetProc;
 import model.ES.processor.ability.BoostProc;
 import model.ES.processor.ability.ProjectileLauncherProc;
 import model.ES.processor.ability.TriggerCancelationProc;
-import model.ES.processor.ability.TriggerObserverProc;
+import model.ES.processor.ability.AbilityProc;
 import model.ES.processor.ability.TriggerRepeaterProc;
 import model.ES.processor.command.NeededRotationProc;
 import model.ES.processor.command.NeededThrustProc;
@@ -65,7 +65,7 @@ public class LogicThread implements Runnable {
 		// ability
 		stateManager.attach(new PlayerAbilityControlProc());
 		stateManager.attach(new BehaviorTreeProc());
-		stateManager.attach(new TriggerObserverProc());
+		stateManager.attach(new AbilityProc());
 		stateManager.attach(new AbilityTriggerResetProc());
 		stateManager.attach(new TriggerCancelationProc());
 		stateManager.attach(new TriggerRepeaterProc());

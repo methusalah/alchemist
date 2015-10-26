@@ -1,8 +1,10 @@
 package model.ES.processor.shipGear;
 
+import model.ES.commonLogic.Controlling;
 import model.ES.component.assets.RotationThruster;
 import model.ES.component.command.PlanarNeededRotation;
 import model.ES.component.hierarchy.Parenting;
+import model.ES.component.hierarchy.ThrustControl;
 import util.LogUtil;
 import util.math.Fraction;
 
@@ -16,26 +18,31 @@ public class RotationThrusterProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		registerDefault(RotationThruster.class, Parenting.class);
+		registerDefault(RotationThruster.class, ThrustControl.class);
 	}
 	
 	@Override
 	protected void onEntityEachTick(Entity e) {
-		RotationThruster thruster = e.get(RotationThruster.class);
-		Parenting parenting = e.get(Parenting.class);
-		EntityId holder = parenting.getParent();
+		ThrustControl thrustControl = e.get(ThrustControl.class);
 		
-		PlanarNeededRotation rotation = entityData.getComponent(holder, PlanarNeededRotation.class);
-		double activationRate = 0;
-		if(rotation != null){
-			if(rotation.angle.getValue() > 0.08 && !thruster.clockwise 
-					|| rotation.angle.getValue() < -0.08 && thruster.clockwise){
-				activationRate = 1;
-				if(!thruster.onOff && Math.abs(rotation.angle.getValue()) < thruster.maxAngle)
-					activationRate = Math.abs(rotation.angle.getValue())/thruster.maxAngle;
+		if(thrustControl.isActive()){
+			PlanarNeededRotation rotation = Controlling.getControl(PlanarNeededRotation.class, e.getId(), entityData);
+			if(rotation == null)
+				return;
+			
+			RotationThruster thruster = e.get(RotationThruster.class);
+			
+			double activationRate = 0;
+			if(rotation != null){
+				if(rotation.angle.getValue() > 0.08 && !thruster.clockwise 
+						|| rotation.angle.getValue() < -0.08 && thruster.clockwise){
+					activationRate = 1;
+					if(!thruster.onOff && Math.abs(rotation.angle.getValue()) < thruster.maxAngle)
+						activationRate = Math.abs(rotation.angle.getValue())/thruster.maxAngle;
+				}
 			}
+			setComp(e, new RotationThruster(thruster.clockwise, thruster.maxAngle, new Fraction(activationRate), thruster.onOff));
 		}
-		setComp(e, new RotationThruster(thruster.clockwise, thruster.maxAngle, new Fraction(activationRate), thruster.onOff));
 			
 	}
 

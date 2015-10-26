@@ -5,6 +5,7 @@
     "name" : "rotation thruster 2"
   }, {
     "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+    "active" : true,
     "localPosition" : {
       "x" : 0.5,
       "y" : -0.2,
@@ -29,6 +30,9 @@
       "z" : 1.0
     }
   }, {
+    "class" : "model.ES.component.hierarchy.ThrustControl",
+    "active" : true
+  }, {
     "class" : "model.ES.component.assets.RotationThruster",
     "clockwise" : false,
     "maxAngle" : -0.08726646259971647,
@@ -37,40 +41,40 @@
     },
     "onOff" : false
   }, {
-    "class" : "model.ES.component.visuals.ParticleCasting",
-    "caster" : {
-      "spritePath" : "particles/flame.png",
-      "nbCol" : 2,
-      "nbRow" : 2,
-      "initialSpeed" : 1.0,
-      "fanning" : 0.1,
-      "randomSprite" : false,
-      "maxCount" : 200,
-      "perSecond" : 80,
-      "startSize" : 0.1,
-      "endSize" : 0.1,
-      "startColor" : {
-        "a" : 255,
-        "r" : 255,
-        "g" : 255,
-        "b" : 255
-      },
-      "endColor" : {
-        "a" : 255,
-        "r" : 255,
-        "g" : 255,
-        "b" : 255
-      },
-      "minLife" : 0.1,
-      "maxLife" : 0.1,
-      "rotationSpeed" : 0.0,
-      "gravity" : false,
-      "facing" : "Camera",
-      "add" : true,
-      "startVariation" : 0.0,
-      "allAtOnce" : false
+    "class" : "model.ES.component.visuals.ParticleCaster",
+    "spritePath" : "particles/flame.png",
+    "nbCol" : 2,
+    "nbRow" : 2,
+    "initialSpeed" : 1.0,
+    "fanning" : 0.1,
+    "randomSprite" : false,
+    "maxCount" : 200,
+    "perSecond" : 80,
+    "startSize" : 0.1,
+    "endSize" : 0.1,
+    "startColor" : {
+      "a" : 255,
+      "r" : 255,
+      "g" : 255,
+      "b" : 255
     },
-    "actualPerSecond" : 0
+    "endColor" : {
+      "a" : 255,
+      "r" : 255,
+      "g" : 255,
+      "b" : 255
+    },
+    "minLife" : 0.1,
+    "maxLife" : 0.1,
+    "rotationSpeed" : 0.0,
+    "gravity" : false,
+    "facing" : "Camera",
+    "add" : true,
+    "startVariation" : 0.0,
+    "allAtOnce" : false,
+    "actualPerSecond" : {
+      "value" : 1.0
+    }
   } ],
   "children" : [ ]
 }

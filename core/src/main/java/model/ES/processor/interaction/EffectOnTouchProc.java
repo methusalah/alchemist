@@ -1,21 +1,19 @@
 package model.ES.processor.interaction;
 
+import com.simsilica.es.Entity;
+import com.simsilica.es.EntityId;
+
+import controller.ECS.Processor;
 import model.ES.component.LifeTime;
 import model.ES.component.Naming;
 import model.ES.component.interaction.EffectOnTouch;
 import model.ES.component.interaction.senses.Touching;
 import model.ES.component.motion.PlanarStance;
-import model.ES.component.visuals.ParticleCasting;
+import model.ES.component.visuals.ParticleCaster;
 import model.ES.richData.ColorData;
-import model.ES.richData.ParticleCaster;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
-import view.math.TranslateUtil;
-
-import com.simsilica.es.Entity;
-import com.simsilica.es.EntityId;
-
-import controller.ECS.Processor;
+import util.math.Fraction;
 
 public class EffectOnTouchProc extends Processor {
 
@@ -27,9 +25,8 @@ public class EffectOnTouchProc extends Processor {
 	@Override
 	protected void onEntityAdded(Entity e) {
 		EntityId eid = entityData.createEntity();
-		ParticleCaster caster = getCaster1(); 
 		entityData.setComponent(eid, new Naming("particle"));
-		entityData.setComponent(eid, new ParticleCasting(caster, caster.perSecond));
+		entityData.setComponent(eid, getCaster1());
 		entityData.setComponent(eid, new PlanarStance(e.get(Touching.class).getCoord(), new Angle(0), 0.5, Point3D.UNIT_Z));
 		entityData.setComponent(eid, new LifeTime(System.currentTimeMillis(), 100));
 	}
@@ -55,7 +52,8 @@ public class EffectOnTouchProc extends Processor {
 				ParticleCaster.Facing.Camera,
 				true,
 				0,
-				false);
+				false,
+				new Fraction(1));
 	}
 
 }

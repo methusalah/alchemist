@@ -1,13 +1,14 @@
 {
-  "name" : "weapon left",
+  "name" : "weapon right",
   "comps" : [ {
     "class" : "model.ES.component.Naming",
-    "name" : "weapon left"
+    "name" : "weapon right"
   }, {
     "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+    "active" : true,
     "localPosition" : {
       "x" : 0.0,
-      "y" : 0.3,
+      "y" : -0.3,
       "z" : 0.0
     },
     "localOrientation" : {
@@ -37,12 +38,14 @@
     "name" : "gun",
     "triggered" : false
   }, {
-    "class" : "model.ES.component.hierarchy.AbilityTriggerControl"
+    "class" : "model.ES.component.hierarchy.AbilityTriggerControl",
+    "active" : true
   }, {
     "class" : "model.ES.component.assets.ProjectileLauncher",
     "precision" : {
       "value" : 0.995
-    }
+    },
+    "projectileBluePrint" : ""
   } ],
-  "children" : [ ]
+  "children" : [ "weapon sound" ]
 }

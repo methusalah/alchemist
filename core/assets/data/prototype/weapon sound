@@ -5,6 +5,7 @@
     "name" : "weapon sound"
   }, {
     "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+    "active" : true,
     "localPosition" : {
       "x" : 0.0,
       "y" : 0.0,
@@ -29,7 +30,8 @@
       "z" : 1.0
     }
   }, {
-    "class" : "model.ES.component.hierarchy.AbilityControl"
+    "class" : "model.ES.component.hierarchy.AbilityControl",
+    "active" : true
   }, {
     "class" : "model.ES.component.audio.AudioSource",
     "path" : "monoshot1.wav",

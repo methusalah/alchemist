@@ -2,31 +2,25 @@ package view.drawingProcessors;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import util.LogUtil;
+import com.jme3.effect.Particle;
+import com.jme3.effect.ParticleMesh.Type;
+import com.jme3.effect.shapes.EmitterSphereShape;
+import com.jme3.material.Material;
+import com.jme3.material.RenderState;
+import com.jme3.math.Vector3f;
+import com.simsilica.es.Entity;
+
+import app.AppFacade;
+import controller.ECS.Processor;
+import model.ES.component.Naming;
+import model.ES.component.motion.PlanarStance;
+import model.ES.component.motion.SpaceStance;
+import model.ES.component.visuals.ParticleCaster;
 import util.geometry.geom3d.Point3D;
 import view.SpatialPool;
 import view.jme.MyParticleEmitter;
 import view.math.TranslateUtil;
-import model.ModelManager;
-import model.ES.component.Naming;
-import model.ES.component.motion.PlanarStance;
-import model.ES.component.motion.SpaceStance;
-import model.ES.component.visuals.ParticleCasting;
-import app.AppFacade;
-
-import com.badlogic.gdx.utils.Array;
-import com.jme3.effect.Particle;
-import com.jme3.effect.ParticleEmitter;
-import com.jme3.effect.ParticleMesh.Type;
-import com.jme3.effect.shapes.EmitterSphereShape;
-import com.jme3.material.Material;
-import com.jme3.math.Vector3f;
-import com.simsilica.es.Entity;
-import com.simsilica.es.EntitySet;
-
-import controller.ECS.Processor;
 
 public class ParticleCasterInPlaneProc extends Processor {
 
@@ -34,7 +28,7 @@ public class ParticleCasterInPlaneProc extends Processor {
 	
 	@Override
 	protected void registerSets() {
-		registerDefault(ParticleCasting.class, PlanarStance.class);
+		registerDefault(ParticleCaster.class, PlanarStance.class);
 	}
 	
 	@Override
@@ -50,6 +44,7 @@ public class ParticleCasterInPlaneProc extends Processor {
 
 	@Override
 	protected void onEntityEachTick(Entity e) {
+		onEntityAdded(e);
 		Point3D pos, velocity;
 		if(e.get(PlanarStance.class) != null){
 			PlanarStance stance = e.get(PlanarStance.class);
@@ -63,14 +58,14 @@ public class ParticleCasterInPlaneProc extends Processor {
 			throw new RuntimeException("Stance missing for a caster.");
 		}
 
-		ParticleCasting caster = e.get(ParticleCasting.class);
+		ParticleCaster caster = e.get(ParticleCaster.class);
 		MyParticleEmitter pe = SpatialPool.emitters.get(e.getId());
 		
-		velocity = velocity.getScaled(caster.caster.initialSpeed);
+		velocity = velocity.getScaled(caster.getInitialSpeed());
 		
 		pe.setLocalTranslation(TranslateUtil.toVector3f(pos));
 		pe.getParticleInfluencer().setInitialVelocity(TranslateUtil.toVector3f(velocity));
-		pe.setParticlesPerSec(caster.actualPerSecond);
+		pe.setParticlesPerSec((int)Math.round(caster.getPerSecond()*caster.getActualPerSecond().getValue()));
 
 		// trick to interpolate position of the particles when emitter moves between two frames
 		// as jMonkey doesn't manage it
@@ -99,56 +94,68 @@ public class ParticleCasterInPlaneProc extends Processor {
 
 	@Override
 	protected void onEntityAdded(Entity e) {
-		ParticleCasting casting = e.get(ParticleCasting.class);
-		Naming n = entityData.getComponent(e.getId(), Naming.class);
-		if(SpatialPool.emitters.containsKey(e.getId())){
-			throw new RuntimeException("Can't add the same particle caster twice."+n.name);
+		ParticleCaster casting = e.get(ParticleCaster.class);
+		
+		if(!SpatialPool.emitters.containsKey(e.getId())){
+			MyParticleEmitter pe = new MyParticleEmitter("ParticleCaster for entity "+e.getId(), Type.Triangle, casting.getMaxCount());
+			SpatialPool.emitters.put(e.getId(), pe);
 		}
 		
-		MyParticleEmitter pe = new MyParticleEmitter("ParticleCaster for entity "+e.getId(), Type.Triangle, casting.caster.maxCount);
-		SpatialPool.emitters.put(e.getId(), pe);
+		MyParticleEmitter pe = SpatialPool.emitters.get(e.getId());
+		if(casting.getMaxCount() != pe.getMaxNumParticles()){
+			AppFacade.getRootNode().detachChild(pe);
+			pe = new MyParticleEmitter("ParticleCaster for entity "+e.getId(), Type.Triangle, casting.getMaxCount());
+			SpatialPool.emitters.put(e.getId(), pe);
+		}
+		if(!AppFacade.getRootNode().hasChild(pe))
+			AppFacade.getRootNode().attachChild(pe);
 
 		// material
 		Material m = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Particle.j3md");
-		m.setTexture("Texture", AppFacade.getAssetManager().loadTexture("textures/" + casting.caster.spritePath));
+		if(!casting.getSpritePath().isEmpty())
+			m.setTexture("Texture", AppFacade.getAssetManager().loadTexture("textures/" + casting.getSpritePath()));
+		
+		if(!casting.isAdd()) {
+			m.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.AlphaAdditive);
+		} else {
+			m.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Additive);
+		}
 		pe.setMaterial(m);
 
-		pe.setImagesX(casting.caster.nbCol);
-		pe.setImagesY(casting.caster.nbRow);
+		pe.setImagesX(casting.getNbCol());
+		pe.setImagesY(casting.getNbRow());
 
 		// particle fanning
-		pe.getParticleInfluencer().setVelocityVariation((float)casting.caster.fanning);
+		pe.getParticleInfluencer().setVelocityVariation((float)casting.getFanning());
 
 		// particle size
-		pe.setStartSize((float)casting.caster.startSize);
-		pe.setEndSize((float)casting.caster.endSize);
+		pe.setStartSize((float)casting.getStartSize());
+		pe.setEndSize((float)casting.getEndSize());
 		
 		// particle life
-		pe.setLowLife((float)casting.caster.minLife);
-		pe.setHighLife((float)casting.caster.maxLife);
+		pe.setLowLife((float)casting.getMinLife());
+		pe.setHighLife((float)casting.getMaxLife());
 
 		// particle color
-		pe.setStartColor(TranslateUtil.toColorRGBA(casting.caster.startColor));
-		pe.setEndColor(TranslateUtil.toColorRGBA(casting.caster.endColor));
+		pe.setStartColor(TranslateUtil.toColorRGBA(casting.getStartColor()));
+		pe.setEndColor(TranslateUtil.toColorRGBA(casting.getEndColor()));
 		
 		// particle facing
-		switch(casting.caster.facing){
+		switch(casting.getFacing()){
 		case Camera: break;
 		case Horizontal: pe.setFaceNormal(Vector3f.UNIT_Z); break;
 		case Velocity: pe.setFacingVelocity(true);
 		}
 
-		if(casting.caster.startVariation != 0) {
-			pe.setShape(new EmitterSphereShape(Vector3f.ZERO, (float)casting.caster.startVariation));
+		if(casting.getStartVariation() != 0) {
+			pe.setShape(new EmitterSphereShape(Vector3f.ZERO, (float)casting.getStartVariation()));
 		}
+		
+		pe.setGravity(Vector3f.ZERO);
 		//particle per seconds
-		pe.setParticlesPerSec((float)casting.actualPerSecond);
+		pe.setParticlesPerSec((float)casting.getActualPerSecond().getValue());
 		
-		AppFacade.getRootNode().attachChild(pe);
-		
-		onEntityEachTick(e);
-
-		if(casting.caster.allAtOnce)
+		if(casting.isAllAtOnce())
 			pe.emitAllParticles();
 	}
 

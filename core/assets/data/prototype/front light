@@ -5,6 +5,7 @@
     "name" : "front light"
   }, {
     "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+    "active" : true,
     "localPosition" : {
       "x" : 1.0,
       "y" : 0.0,

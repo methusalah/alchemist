@@ -23,7 +23,8 @@ public class VelocityApplicationProc extends Processor {
 		PlanarStance stance = e.get(PlanarStance.class);
 
 		Point2D velocityToApply = e.get(PlanarVelocityToApply.class).vector;
-		velocityToApply = velocityToApply.getMult(1/ph.getMass());
+		if(ph.getMass() > 1)
+			velocityToApply = velocityToApply.getMult(1/ph.getMass());
 		
 		Point2D newVelocity = ph.getVelocity().getAddition(velocityToApply);
 		//newVelocity = newVelocity.getTruncation(capacity.maxSpeed);

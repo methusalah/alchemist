@@ -1,12 +1,22 @@
 package model;
 
+import com.jme3.app.SimpleApplication;
+import com.jme3.app.state.AppStateManager;
+import com.jme3x.jfx.injfx.JmeForImageView;
+import com.simsilica.es.EntityData;
+
+import app.AppFacade;
+import controller.ECS.EntityDataAppState;
+import controller.ECS.EntitySystem;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import model.ECS.PostingEntityData;
 import model.ES.component.Cooldown;
 import model.ES.component.LifeTime;
 import model.ES.component.Naming;
 import model.ES.component.ToRemove;
-import model.ES.component.assets.AbilityTrigger;
 import model.ES.component.assets.Ability;
+import model.ES.component.assets.AbilityTrigger;
 import model.ES.component.assets.Attackable;
 import model.ES.component.assets.Attrition;
 import model.ES.component.assets.Health;
@@ -42,24 +52,9 @@ import model.ES.component.motion.physic.Physic;
 import model.ES.component.motion.physic.PhysicForce;
 import model.ES.component.visuals.Lighting;
 import model.ES.component.visuals.ModelRotation;
-import model.ES.component.visuals.ParticleCasting;
+import model.ES.component.visuals.ParticleCaster;
 import model.ES.component.visuals.Skeleton;
 import model.ES.component.visuals.Sprite;
-import model.ES.serial.PrototypeCreator;
-import util.LogUtil;
-import app.AppFacade;
-
-import com.jme3.app.SimpleApplication;
-import com.jme3.app.state.AppStateManager;
-import com.jme3x.jfx.injfx.JmeForImageView;
-import com.simsilica.es.EntityData;
-import com.simsilica.es.StringIndex;
-import com.simsilica.es.base.DefaultEntityData;
-
-import controller.ECS.EntityDataAppState;
-import controller.ECS.EntitySystem;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 
 public class Model {
 	public final Inspector inspector;
@@ -120,7 +115,7 @@ public class Model {
 		inspector.addComponentToScan(Ability.class);
 		inspector.addComponentToScan(TriggerRepeater.class);
 		inspector.addComponentToScan(Lighting.class);
-		inspector.addComponentToScan(ParticleCasting.class);
+		inspector.addComponentToScan(ParticleCaster.class);
 		inspector.addComponentToScan(Skeleton.class);
 		inspector.addComponentToScan(Cooldown.class);
 		inspector.addComponentToScan(LifeTime.class);

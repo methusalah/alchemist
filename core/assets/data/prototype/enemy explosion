@@ -1,0 +1,62 @@
+{
+  "name" : "enemy explosion",
+  "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "enemy explosion"
+  }, {
+    "class" : "model.ES.component.motion.PlanarStance",
+    "coord" : {
+      "x" : 0.0,
+      "y" : 0.0
+    },
+    "orientation" : {
+      "value" : 0.0
+    },
+    "elevation" : 0.0,
+    "upVector" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 1.0
+    }
+  }, {
+    "class" : "model.ES.component.LifeTime",
+    "lifeStart" : 0,
+    "duration" : 600.0
+  }, {
+    "class" : "model.ES.component.visuals.ParticleCaster",
+    "spritePath" : "particles/explosion01.png",
+    "nbCol" : 7,
+    "nbRow" : 7,
+    "initialSpeed" : 0.0,
+    "fanning" : 0.0,
+    "randomSprite" : false,
+    "maxCount" : 200,
+    "perSecond" : 400,
+    "startSize" : 0.2,
+    "endSize" : 0.2,
+    "startColor" : {
+      "a" : 204,
+      "r" : 255,
+      "g" : 255,
+      "b" : 255
+    },
+    "endColor" : {
+      "a" : 102,
+      "r" : 255,
+      "g" : 255,
+      "b" : 255
+    },
+    "minLife" : 0.8,
+    "maxLife" : 0.8,
+    "rotationSpeed" : 0.0,
+    "gravity" : false,
+    "facing" : "Camera",
+    "add" : true,
+    "startVariation" : 0.6,
+    "allAtOnce" : false,
+    "actualPerSecond" : {
+      "value" : 1.0
+    }
+  } ],
+  "children" : [ ]
+}

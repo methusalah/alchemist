@@ -21,8 +21,8 @@ public class PlanarHoldingProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register("planarHolded", PlanarStanceControl.class, PlanarStance.class, Parenting.class);
-		register("spaceHolded", PlanarStanceControl.class, SpaceStance.class, Parenting.class);
+		register("planarHolded", PlanarStanceControl.class, PlanarStance.class);
+		register("spaceHolded", PlanarStanceControl.class, SpaceStance.class);
 	}
 
 	@Override
@@ -36,35 +36,39 @@ public class PlanarHoldingProc extends Processor {
 	}
 
 	private void managePlanar(Entity e) {
-		PlanarStanceControl holded = e.get(PlanarStanceControl.class);
+		PlanarStanceControl control = e.get(PlanarStanceControl.class);
 		
-		PlanarStance parentStance = Controlling.getControl(PlanarStance.class, e.getId(), entityData);
-		if(parentStance == null)
-			return;
-
-		Point2D newCoord = holded.localPosition.get2D().getRotation(parentStance.orientation.getValue());
-		newCoord = newCoord.getAddition(parentStance.coord);
-		double newOrientation = AngleUtil.normalize(parentStance.orientation.getValue() + holded.localOrientation.getValue());
+		if(control.isActive()){
+			PlanarStance parentStance = Controlling.getControl(PlanarStance.class, e.getId(), entityData);
+			if(parentStance == null)
+				return;
 		
-		setComp(e, new PlanarStance(newCoord,
-				new Angle(newOrientation),
-				parentStance.elevation + holded.localPosition.z,
-				parentStance.upVector));
+			Point2D newCoord = control.localPosition.get2D().getRotation(parentStance.orientation.getValue());
+			newCoord = newCoord.getAddition(parentStance.coord);
+			double newOrientation = AngleUtil.normalize(parentStance.orientation.getValue() + control.localOrientation.getValue());
+			
+			setComp(e, new PlanarStance(newCoord,
+					new Angle(newOrientation),
+					parentStance.elevation + control.localPosition.z,
+					parentStance.upVector));
+		}
 	}
 
 	private void manageSpace(Entity e) {
-		PlanarStanceControl holded = e.get(PlanarStanceControl.class);
+		PlanarStanceControl control = e.get(PlanarStanceControl.class);
 
-		PlanarStance parentStance = Controlling.getControl(PlanarStance.class, e.getId(), entityData);
-		if(parentStance == null)
-			return;
-		
-		Point2D newCoord = holded.localPosition.get2D().getRotation(parentStance.orientation.getValue());
-		newCoord = newCoord.getAddition(parentStance.coord);
-		double newOrientation = AngleUtil.normalize(parentStance.orientation.getValue() + holded.localOrientation.getValue());
-		
-		
-		setComp(e, new SpaceStance(newCoord.get3D(parentStance.elevation + holded.localPosition.z),
-				Point3D.UNIT_X.getRotationAroundZ(newOrientation)));
+		if(control.isActive()){
+			PlanarStance parentStance = Controlling.getControl(PlanarStance.class, e.getId(), entityData);
+			if(parentStance == null)
+				return;
+			
+			Point2D newCoord = control.localPosition.get2D().getRotation(parentStance.orientation.getValue());
+			newCoord = newCoord.getAddition(parentStance.coord);
+			double newOrientation = AngleUtil.normalize(parentStance.orientation.getValue() + control.localOrientation.getValue());
+			
+			
+			setComp(e, new SpaceStance(newCoord.get3D(parentStance.elevation + control.localPosition.z),
+					Point3D.UNIT_X.getRotationAroundZ(newOrientation)));
+		}
 	}
 }

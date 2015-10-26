@@ -1,8 +1,5 @@
-package model;
+package model.ES.serial;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,12 +19,6 @@ public class Blueprint {
 	private final List<EntityComponent> comps;
 	private final List<Blueprint> children;
 	
-	/**
-	 * For deserialization purpose only.	
-	 * @param name
-	 * @param comps
-	 * @param children
-	 */
 	public Blueprint(@JsonProperty("name")String name,
 			@JsonProperty("comps")List<EntityComponent> comps,
 			@JsonProperty("children")List<Blueprint> children) {
@@ -35,18 +26,6 @@ public class Blueprint {
 		this.comps = comps;
 		this.children = children;
 	}
-	
-	public Blueprint(EntityPresenter ep){
-		comps = new ArrayList<>();
-		for(EntityComponent comp : ep.componentListProperty())
-			if(!(comp instanceof Parenting))
-				comps.add(comp);
-		this.name = ep.nameProperty().getValue();
-		children = new ArrayList<>();
-		for(EntityPresenter child : ep.childrenListProperty())
-			children.add(new Blueprint(child));
-	}
-
 	
 	public String getName() {
 		return name;
@@ -60,17 +39,18 @@ public class Blueprint {
 		return children;
 	}
 	
-	public void createEntity(EntityData ed, EntityId parent){
-		EntityId eid = ed.createEntity();
+	public EntityId createEntity(EntityData ed, EntityId parent){
+		EntityId res = ed.createEntity();
 		for(EntityComponent comp : getComps()){
-			ed.setComponent(eid, comp);
+			ed.setComponent(res, comp);
 		}
 		if(parent != null)
-			ed.setComponent(eid, new Parenting(parent));
+			ed.setComponent(res, new Parenting(parent));
 		
 		for(Blueprint childBP : getChildren()){
-			childBP.createEntity(ed, eid);
+			childBP.createEntity(ed, res);
 		}
+		return res;
 	}
 	
 	

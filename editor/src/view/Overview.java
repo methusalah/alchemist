@@ -22,9 +22,10 @@ public class Overview {
 		resourceView = new ResourceView();
 		sceneView = new SceneView(jme);
 		stage.setTitle("Entity Editor");
+		
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 		      public void handle(WindowEvent e){
-				jme.stop(true);
+				jme.stop(false);
 		      }
 		});
 		

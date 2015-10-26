@@ -5,6 +5,7 @@
     "name" : "rear thruster sound"
   }, {
     "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+    "active" : true,
     "localPosition" : {
       "x" : 0.0,
       "y" : 0.0,
@@ -29,7 +30,8 @@
       "z" : 1.0
     }
   }, {
-    "class" : "model.ES.component.hierarchy.ThrusterControl"
+    "class" : "model.ES.component.hierarchy.ThrusterControl",
+    "active" : true
   }, {
     "class" : "model.ES.component.audio.ThrusterAudioSource",
     "startPath" : "thruster_start.wav",

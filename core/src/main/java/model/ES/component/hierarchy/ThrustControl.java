@@ -3,14 +3,14 @@ package model.ES.component.hierarchy;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
 
-public class AbilityControl implements EntityComponent {
+public class ThrustControl implements EntityComponent {
 	private final boolean active;
 	
-	public AbilityControl() {
+	public ThrustControl() {
 		active = true;
 	}
 
-	public AbilityControl(@JsonProperty("active")boolean active) {
+	public ThrustControl(@JsonProperty("active")boolean active) {
 		this.active = active;
 	}
 

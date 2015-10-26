@@ -5,6 +5,7 @@
     "name" : "enemy weapon"
   }, {
     "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+    "active" : true,
     "localPosition" : {
       "x" : 0.0,
       "y" : -0.3,
@@ -44,12 +45,14 @@
     "name" : "gun",
     "triggered" : false
   }, {
-    "class" : "model.ES.component.hierarchy.AbilityTriggerControl"
+    "class" : "model.ES.component.hierarchy.AbilityTriggerControl",
+    "active" : true
   }, {
     "class" : "model.ES.component.assets.ProjectileLauncher",
     "precision" : {
       "value" : 0.97
-    }
+    },
+    "projectileBluePrint" : ""
   } ],
   "children" : [ ]
 }

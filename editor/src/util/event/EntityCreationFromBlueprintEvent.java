@@ -1,7 +1,7 @@
 package util.event;
 
-import model.Blueprint;
 import model.EntityPresenter;
+import model.ES.serial.Blueprint;
 
 public class EntityCreationFromBlueprintEvent extends Event {
 	private final Blueprint bp;

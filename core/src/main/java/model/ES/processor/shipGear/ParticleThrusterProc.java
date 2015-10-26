@@ -1,36 +1,57 @@
 package model.ES.processor.shipGear;
 
-import model.ES.component.assets.RotationThruster;
-import model.ES.component.assets.Thruster;
-import model.ES.component.visuals.ParticleCasting;
-import util.LogUtil;
-
 import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
+import model.ES.commonLogic.Controlling;
+import model.ES.component.assets.RotationThruster;
+import model.ES.component.assets.Thruster;
+import model.ES.component.hierarchy.ThrusterControl;
+import model.ES.component.visuals.ParticleCaster;
+import util.math.Fraction;
 
 public class ParticleThrusterProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register("rotation", ParticleCasting.class, RotationThruster.class);
-		register("standard", ParticleCasting.class, Thruster.class);
+		register("rotation", ParticleCaster.class, ThrusterControl.class);
 	}
 	
 	@Override
 	protected void onEntityUpdated(Entity e) {
-		ParticleCasting casting = e.get(ParticleCasting.class);
-		RotationThruster rotationThruster = e.get(RotationThruster.class);
-		Thruster thruster = e.get(Thruster.class);
+		ParticleCaster c = e.get(ParticleCaster.class);
+		
+		Thruster t = Controlling.getControl(Thruster.class, e.getId(), entityData);
+		RotationThruster rt = Controlling.getControl(RotationThruster.class, e.getId(), entityData);
 		
 		double activationRate;
-		if(rotationThruster != null)
-			activationRate = rotationThruster.activation.getValue();
-		else if(thruster != null)
-			activationRate = thruster.activation.getValue();
+		if(rt != null)
+			activationRate = rt.activation.getValue();
+		else if(t != null)
+			activationRate = t.activation.getValue();
 		else
-			throw new RuntimeException("thruster missing");
+			return;
 		
-		setComp(e, new ParticleCasting(casting.caster, (int)Math.round(casting.caster.perSecond*activationRate)));
+		setComp(e, new ParticleCaster(c.getSpritePath(),
+				c.getNbCol(),
+				c.getNbRow(),
+				c.getInitialSpeed(),
+				c.getFanning(),
+				c.isRandomSprite(),
+				c.getMaxCount(),
+				c.getPerSecond(),
+				c.getStartSize(),
+				c.getEndSize(),
+				c.getStartColor(),
+				c.getEndColor(),
+				c.getMinLife(),
+				c.getMaxLife(),
+				c.getRotationSpeed(),
+				c.isGravity(),
+				c.getFacing(),
+				c.isAdd(),
+				c.getStartVariation(),
+				c.isAllAtOnce(),
+				new Fraction(activationRate)));
 	}
 }

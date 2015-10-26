@@ -24,13 +24,11 @@ public class BoostProc extends Processor {
 		Parenting p = e.get(Parenting.class);
 		Boost boost = e.get(Boost.class);
 		
-		if(trigger.triggered){
+		if(trigger.isTriggered()){
 			PlanarStance parentStance = entityData.getComponent(p.getParent(), PlanarStance.class);
 			PlanarVelocityToApply parentVelocity = entityData.getComponent(p.getParent(), PlanarVelocityToApply.class);
 			if(parentStance == null || parentVelocity == null)
 				return;
-
-			LogUtil.info("boost !!!!");
 			
 			Point2D newVel = parentVelocity.getVector().getAddition(Point2D.ORIGIN.getTranslation(parentStance.getOrientation().getValue(), boost.getForce()));
 			

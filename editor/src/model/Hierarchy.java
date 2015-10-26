@@ -9,6 +9,8 @@ import model.ECS.event.EntityAddedEvent;
 import model.ECS.event.EntityRemovedEvent;
 import model.ES.component.Naming;
 import model.ES.component.hierarchy.Parenting;
+import model.ES.serial.Blueprint;
+import util.LogUtil;
 import util.event.EventManager;
 
 import com.google.common.eventbus.Subscribe;
@@ -106,6 +108,17 @@ public class Hierarchy {
 					if(e.getNewComp() != null){
 						// The entity has a new parent. We register the entity in the new parent's presenter's children list
 						EntityPresenter newParent = presenters.get(((Parenting)e.getNewComp()).getParent());
+
+						String eName = entityData.getComponent(e.getEntityId(), Naming.class) != null ?
+								entityData.getComponent(e.getEntityId(), Naming.class).getName() :
+									e.getEntityId().toString();
+								
+						String parentName = entityData.getComponent(((Parenting)e.getNewComp()).getParent(), Naming.class) != null ?
+								entityData.getComponent(((Parenting)e.getNewComp()).getParent(), Naming.class).getName() :
+									((Parenting)e.getNewComp()).getParent().toString();
+						
+						LogUtil.info("new parent for "+ eName+ " : "+parentName);
+						//LogUtil.info("has presenter : "+newParent);
 						newParent.childrenListProperty().add(getPresenter(e.getEntityId()));
 					}
 				} else if(e.getCompClass() == Naming.class){
@@ -122,6 +135,7 @@ public class Hierarchy {
 			
 			@Override
 			public void run() {
+				LogUtil.info("creation : "+entityData.getComponent(e.getEntityId(), Naming.class).getName());
 				EntityPresenter ep = new EntityPresenter(e.getEntityId(), "Just created. Should not be seen.");
 				rootEntityPresenter.childrenListProperty().add(ep);
 				presenters.put(ep.getEntityId(), ep);

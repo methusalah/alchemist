@@ -7,8 +7,8 @@ import com.simsilica.es.EntityId;
 import util.LogUtil;
 
 public class Ability implements EntityComponent {
-	public final String name;
-	public final boolean triggered;
+	private final String name;
+	private final boolean triggered;
 	
 	public Ability() {
 		name = "";

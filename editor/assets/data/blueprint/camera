@@ -6,13 +6,13 @@
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
-      "x" : -4.607261643071222,
-      "y" : -6.747547258407123
+      "x" : 0.0,
+      "y" : 0.0
     },
     "orientation" : {
-      "value" : -1.7307113365639353
+      "value" : 0.0
     },
-    "elevation" : 20.0,
+    "elevation" : 0.0,
     "upVector" : {
       "x" : 0.0,
       "y" : 0.0,
@@ -20,18 +20,18 @@
     }
   }, {
     "class" : "model.ES.component.camera.ChasingCamera",
-    "maxSpeed" : 10.0,
-    "speed" : 3.66,
-    "acceleration" : 3.0,
-    "deceleration" : 3.0,
+    "maxSpeed" : 0.0,
+    "speed" : 0.0,
+    "acceleration" : 0.0,
+    "deceleration" : 0.0,
     "pos" : {
-      "x" : -4.607261643071222,
-      "y" : -6.747547258407123,
-      "z" : 20.0
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 0.0
     },
     "target" : {
-      "x" : -4.746413581264684,
-      "y" : -4.640908942904547,
+      "x" : 0.0,
+      "y" : 0.0,
       "z" : 0.0
     }
   } ],
@@ -43,13 +43,13 @@
     }, {
       "class" : "model.ES.component.motion.PlanarStance",
       "coord" : {
-        "x" : 5.883262379393165,
-        "y" : -0.6614266936202631
+        "x" : 0.0,
+        "y" : 0.0
       },
       "orientation" : {
-        "value" : -1.7307113365639353
+        "value" : 0.0
       },
-      "elevation" : -20.0,
+      "elevation" : -50.0,
       "upVector" : {
         "x" : 0.0,
         "y" : 0.0,
@@ -57,6 +57,7 @@
       }
     }, {
       "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+      "active" : false,
       "localPosition" : {
         "x" : 0.0,
         "y" : 0.0,

@@ -18,7 +18,7 @@ public class TriggerCancelationProc extends Processor {
 	protected void onEntityEachTick(Entity e) {
 		Cooldown cd = e.get(Cooldown.class);
 		Ability t = e.get(Ability.class);
-		if(t.triggered && cd.start + cd.duration > System.currentTimeMillis())
-			setComp(e, new Ability(t.name, false));
+		if(t.isTriggered() && cd.start + cd.duration > System.currentTimeMillis())
+			setComp(e, new Ability(t.getName(), false));
 	}
 }
