@@ -4,9 +4,41 @@
     "class" : "model.ES.component.Naming",
     "name" : "thruster"
   }, {
+    "class" : "model.ES.component.motion.physic.Physic",
+    "velocity" : {
+      "x" : 0.0,
+      "y" : 0.0
+    },
+    "type" : "",
+    "exceptions" : [ ],
+    "mass" : 0.0,
+    "restitution" : {
+      "value" : 0.0
+    },
+    "spawnerException" : null
+  }, {
+    "class" : "model.ES.component.motion.PlanarVelocityToApply",
+    "vector" : {
+      "x" : 0.0,
+      "y" : 0.0
+    }
+  }, {
+    "class" : "model.ES.component.motion.physic.Physic",
+    "velocity" : {
+      "x" : -2.0,
+      "y" : 0.0
+    },
+    "type" : "",
+    "exceptions" : [ ],
+    "mass" : 1.0,
+    "restitution" : {
+      "value" : 0.0
+    },
+    "spawnerException" : null
+  }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
-      "x" : 0.0,
+      "x" : -65.75999999999908,
       "y" : 0.0
     },
     "orientation" : {
@@ -18,27 +50,18 @@
       "y" : 0.0,
       "z" : 1.0
     }
+  }, {
+    "class" : "model.ES.component.motion.PlanarVelocityToApply",
+    "vector" : {
+      "x" : 0.0,
+      "y" : 0.0
+    }
   } ],
   "children" : [ {
     "name" : "main particle",
     "comps" : [ {
       "class" : "model.ES.component.Naming",
       "name" : "main particle"
-    }, {
-      "class" : "model.ES.component.motion.PlanarStance",
-      "coord" : {
-        "x" : 0.0,
-        "y" : 0.0
-      },
-      "orientation" : {
-        "value" : 0.0
-      },
-      "elevation" : 0.0,
-      "upVector" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "z" : 1.0
-      }
     }, {
       "class" : "model.ES.component.visuals.ParticleCaster",
       "spritePath" : "particles/flame.png",
@@ -88,17 +111,10 @@
     }, {
       "class" : "model.ES.component.hierarchy.ThrusterControl",
       "active" : true
-    } ],
-    "children" : [ ]
-  }, {
-    "name" : "debris particle",
-    "comps" : [ {
-      "class" : "model.ES.component.Naming",
-      "name" : "debris particle"
     }, {
       "class" : "model.ES.component.motion.PlanarStance",
       "coord" : {
-        "x" : 0.0,
+        "x" : -65.75999999999908,
         "y" : 0.0
       },
       "orientation" : {
@@ -110,6 +126,13 @@
         "y" : 0.0,
         "z" : 1.0
       }
+    } ],
+    "children" : [ ]
+  }, {
+    "name" : "debris particle",
+    "comps" : [ {
+      "class" : "model.ES.component.Naming",
+      "name" : "debris particle"
     }, {
       "class" : "model.ES.component.visuals.ParticleCaster",
       "spritePath" : "particles/flame.png",
@@ -159,6 +182,21 @@
     }, {
       "class" : "model.ES.component.hierarchy.ThrusterControl",
       "active" : true
+    }, {
+      "class" : "model.ES.component.motion.PlanarStance",
+      "coord" : {
+        "x" : -65.75999999999908,
+        "y" : 0.0
+      },
+      "orientation" : {
+        "value" : 0.0
+      },
+      "elevation" : 0.0,
+      "upVector" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "z" : 1.0
+      }
     } ],
     "children" : [ ]
   }, {
@@ -173,21 +211,6 @@
     "comps" : [ {
       "class" : "model.ES.component.Naming",
       "name" : "trail particle"
-    }, {
-      "class" : "model.ES.component.motion.PlanarStance",
-      "coord" : {
-        "x" : 0.0,
-        "y" : 0.0
-      },
-      "orientation" : {
-        "value" : 0.0
-      },
-      "elevation" : 0.0,
-      "upVector" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "z" : 1.0
-      }
     }, {
       "class" : "model.ES.component.visuals.ParticleCaster",
       "spritePath" : "particles/flame.png",
@@ -237,7 +260,97 @@
     }, {
       "class" : "model.ES.component.hierarchy.ThrusterControl",
       "active" : true
+    }, {
+      "class" : "model.ES.component.motion.PlanarStance",
+      "coord" : {
+        "x" : -65.75999999999908,
+        "y" : 0.0
+      },
+      "orientation" : {
+        "value" : 0.0
+      },
+      "elevation" : 0.0,
+      "upVector" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "z" : 1.0
+      }
     } ],
     "children" : [ ]
+  }, {
+    "name" : "camera",
+    "comps" : [ {
+      "class" : "model.ES.component.Naming",
+      "name" : "camera"
+    }, {
+      "class" : "model.ES.component.camera.ChasingCamera",
+      "maxSpeed" : 100.0,
+      "speed" : 2.100000000000001,
+      "acceleration" : 1.0,
+      "deceleration" : 1.0,
+      "pos" : {
+        "x" : -63.58479999999988,
+        "y" : 0.0,
+        "z" : 10.0
+      },
+      "target" : {
+        "x" : -65.71999999999908,
+        "y" : 0.0,
+        "z" : 0.0
+      }
+    }, {
+      "class" : "model.ES.component.motion.PlanarStance",
+      "coord" : {
+        "x" : -63.58479999999988,
+        "y" : 0.0
+      },
+      "orientation" : {
+        "value" : 0.0
+      },
+      "elevation" : 10.0,
+      "upVector" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "z" : 1.0
+      }
+    } ],
+    "children" : [ {
+      "name" : "background",
+      "comps" : [ {
+        "class" : "model.ES.component.Naming",
+        "name" : "background"
+      }, {
+        "class" : "model.ES.component.motion.PlanarStance",
+        "coord" : {
+          "x" : 0.0,
+          "y" : 0.0
+        },
+        "orientation" : {
+          "value" : 0.0
+        },
+        "elevation" : -50.0,
+        "upVector" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "z" : 1.0
+        }
+      }, {
+        "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+        "active" : false,
+        "localPosition" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "z" : -40.0
+        },
+        "localOrientation" : {
+          "value" : 0.0
+        }
+      }, {
+        "class" : "model.ES.component.visuals.Sprite",
+        "path" : "red_nebula.jpg",
+        "size" : 100.0
+      } ],
+      "children" : [ ]
+    } ]
   } ]
 }

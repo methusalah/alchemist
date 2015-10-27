@@ -10,6 +10,7 @@ import controller.ECS.EntityDataAppState;
 import controller.ECS.EntitySystem;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import model.ECS.EntityDataObserver;
 import model.ECS.PostingEntityData;
 import model.ES.component.Cooldown;
 import model.ES.component.LifeTime;
@@ -46,10 +47,12 @@ import model.ES.component.interaction.senses.Touching;
 import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
+import model.ES.component.motion.RandomVelocityToApply;
 import model.ES.component.motion.physic.Collisioning;
 import model.ES.component.motion.physic.Dragging;
 import model.ES.component.motion.physic.Physic;
 import model.ES.component.motion.physic.PhysicForce;
+import model.ES.component.motion.physic.RandomDragging;
 import model.ES.component.visuals.Lighting;
 import model.ES.component.visuals.ModelRotation;
 import model.ES.component.visuals.ParticleCaster;
@@ -59,6 +62,7 @@ import model.ES.component.visuals.Sprite;
 public class Model {
 	public final Inspector inspector;
 	public final Hierarchy hierarchy;
+	public final EntityDataObserver observer;
 	public final ResourceExplorer resourceExplorer;
 	public final JmeForImageView jme;
 	
@@ -71,60 +75,55 @@ public class Model {
 		
 		
 		EntityData ed = new PostingEntityData();
-		
-//		PrototypeCreator.setEntityData(ed);
-//		PrototypeCreator.create("player ship", null);
-//		PrototypeCreator.create("enemy", null);
-//		PrototypeCreator.create("sun", null);
+		observer = new EntityDataObserver(ed);
 		
 		inspector = new Inspector(ed, selectionProperty);
-		
-		inspector.addComponentToScan(Naming.class);
-		inspector.addComponentToScan(PlanarStance.class);
-		inspector.addComponentToScan(PlayerControl.class);
-		inspector.addComponentToScan(model.ES.component.visuals.Model.class);
-		inspector.addComponentToScan(Sprite.class);
-		inspector.addComponentToScan(ChasingCamera.class);
-		inspector.addComponentToScan(Sighting.class);
-		inspector.addComponentToScan(Touching.class);
-		inspector.addComponentToScan(DamageOnTouch.class);
-		inspector.addComponentToScan(Damaging.class);
-		inspector.addComponentToScan(DestroyedOnTouch.class);
-		inspector.addComponentToScan(EffectOnTouch.class);
-		inspector.addComponentToScan(ShockwaveOnTouch.class);
-		inspector.addComponentToScan(StickOnCollision.class);
-		inspector.addComponentToScan(Collisioning.class);
-		inspector.addComponentToScan(Dragging.class);
-		inspector.addComponentToScan(Physic.class);
-		inspector.addComponentToScan(PhysicForce.class);
-		inspector.addComponentToScan(MotionCapacity.class);
-		inspector.addComponentToScan(PlanarVelocityToApply.class);
-		inspector.addComponentToScan(PlanarNeededThrust.class);
-		inspector.addComponentToScan(PlanarNeededRotation.class);
-		inspector.addComponentToScan(AbilityTrigger.class);
-		inspector.addComponentToScan(Attackable.class);
-		inspector.addComponentToScan(BoneHolding.class);
-		inspector.addComponentToScan(Parenting.class);
-		inspector.addComponentToScan(PlanarStanceControl.class);
-		inspector.addComponentToScan(Attrition.class);
-		inspector.addComponentToScan(Health.class);
-		inspector.addComponentToScan(Projectile.class);
-		inspector.addComponentToScan(ProjectileLauncher.class);
-		inspector.addComponentToScan(RotationThruster.class);
-		inspector.addComponentToScan(Thruster.class);
-		inspector.addComponentToScan(Ability.class);
-		inspector.addComponentToScan(TriggerRepeater.class);
-		inspector.addComponentToScan(Lighting.class);
-		inspector.addComponentToScan(ParticleCaster.class);
-		inspector.addComponentToScan(Skeleton.class);
-		inspector.addComponentToScan(Cooldown.class);
-		inspector.addComponentToScan(LifeTime.class);
-		inspector.addComponentToScan(ToRemove.class);
-		inspector.addComponentToScan(ModelRotation.class);
-		inspector.addComponentToScan(ThrusterControl.class);
-		inspector.addComponentToScan(ThrusterAudioSource.class);
-		inspector.addComponentToScan(AudioSource.class);
-		
+		inspector.addUserComponent(Naming.class,
+				PlanarStance.class,
+				PlayerControl.class,
+				model.ES.component.visuals.Model.class,
+				Sprite.class,
+				ChasingCamera.class,
+				Sighting.class,
+				Touching.class,
+				DamageOnTouch.class,
+				Damaging.class,
+				DestroyedOnTouch.class,
+				EffectOnTouch.class,
+				ShockwaveOnTouch.class,
+				StickOnCollision.class,
+				Collisioning.class,
+				Dragging.class,
+				RandomDragging.class,
+				Physic.class,
+				PhysicForce.class,
+				MotionCapacity.class,
+				PlanarVelocityToApply.class,
+				RandomVelocityToApply.class,
+				PlanarNeededThrust.class,
+				PlanarNeededRotation.class,
+				AbilityTrigger.class,
+				Attackable.class,
+				BoneHolding.class,
+				PlanarStanceControl.class,
+				Attrition.class,
+				Health.class,
+				Projectile.class,
+				ProjectileLauncher.class,
+				RotationThruster.class,
+				Thruster.class,
+				Ability.class,
+				TriggerRepeater.class,
+				Lighting.class,
+				ParticleCaster.class,
+				Skeleton.class,
+				Cooldown.class,
+				LifeTime.class,
+				ToRemove.class,
+				ModelRotation.class,
+				ThrusterControl.class,
+				ThrusterAudioSource.class,
+				AudioSource.class);
 		
 		hierarchy = new Hierarchy(ed);
 		resourceExplorer = new ResourceExplorer();

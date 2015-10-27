@@ -37,28 +37,6 @@ public class Inspector {
 	public Inspector(EntityData entityData, ObjectProperty<EntityPresenter> selection) {
 		this.entityData = entityData;
 		ep = selection.getValue();
-		selection.addListener(new ChangeListener<EntityPresenter>() {
-			
-			@Override
-			public void changed(ObservableValue<? extends EntityPresenter> observable, EntityPresenter oldValue,
-					EntityPresenter newValue) {
-				ep = newValue;
-				EventManager.post(new InspectionChangedEvent(newValue));
-				inspect();
-			}
-		});
-		
-		EventManager.register(this);
-	}
-	
-	private void inspect(){
-		List<EntityComponent> comps = new ArrayList<>();
-		for(Class<? extends EntityComponent> componentClass : componentClasses.values()){
-			EntityComponent comp = entityData.getComponent(ep.getEntityId(), componentClass);
-			if(comp != null)
-				comps.add(comp);
-		}
-		ep.componentListProperty().set(FXCollections.observableArrayList(comps));
 	}
 	
 	public void updateComponent(EntityComponent comp, String propertyName, Object value){
@@ -84,15 +62,12 @@ public class Inspector {
 		}
 			
 		entityData.setComponent(ep.getEntityId(), newComp);
-		inspect();
 	}
 	
-	public void updateName(EntityId eid, String newName){
-		entityData.setComponent(eid, new Naming(newName));
-	}
-	
-	public void addComponentToScan(Class<? extends EntityComponent> compClass){
-		componentClasses.put(compClass.getSimpleName(), compClass);
+	@SafeVarargs
+	public final void addUserComponent(Class<? extends EntityComponent> ... compClasses){
+		for(Class<? extends EntityComponent> compClass : compClasses)
+			componentClasses.put(compClass.getSimpleName(), compClass);
 	}
 
 	public List<String> getComponentNames(){
@@ -121,21 +96,5 @@ public class Inspector {
 			throw new IllegalArgumentException("trying to remove a component ("+componentClass.getSimpleName()+") that doesn't exist on current entity");
 		ep.componentListProperty().remove(comp);
 		entityData.removeComponent(ep.getEntityId(), componentClass);
-	}
-
-	public EntityPresenter getEntityPresenter() {
-		return ep;
-	}
-	
-	@Subscribe
-	public void handleComponentSetEvent(ComponentSetEvent e){
-		if(ep != null && e.getEntityId() == ep.getEntityId())
-			Platform.runLater(new Runnable() {
-	
-				@Override
-				public void run() {
-						inspect();
-				}
-			});
 	}
 }

@@ -3,11 +3,14 @@ package view.controls.propertyEditor;
 import java.beans.PropertyDescriptor;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
 import com.simsilica.es.EntityComponent;
@@ -25,6 +28,15 @@ public class DoubleEditor extends PropertyEditor{
 		valueField = new TextField();
 		valueField.setMaxWidth(100);
 		valueField.addEventHandler(ActionEvent.ACTION, actionHandler);
+		valueField.setOnMouseEntered(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				editionMode = true;
+				LogUtil.info("taggle");
+			}
+			
+		});
 		setCenter(valueField);
 	}
 

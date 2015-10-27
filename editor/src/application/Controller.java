@@ -32,7 +32,7 @@ public class Controller {
 		this.model = model;
 		this.view = view;
 		
-		view.hierarchyView.setRootPresenter(model.hierarchy.getRootEntityPresenter());
+		view.hierarchyView.setRootPresenter(model.observer.getRootEntityPresenter());
 		view.inspectorView.setComponentNames(model.inspector.getComponentNames());
 		view.resourceView.setBlueprintList(model.resourceExplorer.blueprintListProperty());
 		EventManager.register(this);

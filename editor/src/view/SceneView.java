@@ -71,18 +71,18 @@ public class SceneView extends VBox {
 		es.initCommand(true);
 		es.initLogic(true);
 		
-		AppSettings settings = new AppSettings(true);
-		// important to use those settings
-		settings.setFullscreen(false);
-		settings.setUseInput(true);
-		settings.setFrameRate(30);
-		settings.setCustomRenderer(com.jme3x.jfx.injfx.JmeContextOffscreenSurface.class);
-		LogUtil.info("mouse : "+app.getContext().getMouseInput());
-		LogUtil.info("keybo : "+app.getContext().getKeyInput());
-		app.setSettings(settings);
-		
-//		JmeDesktopSystem sys = new JmeDesktopSystem()
-		app.restart();
+//		AppSettings settings = new AppSettings(true);
+//		// important to use those settings
+//		settings.setFullscreen(false);
+//		settings.setUseInput(true);
+//		settings.setFrameRate(30);
+//		settings.setCustomRenderer(com.jme3x.jfx.injfx.JmeContextOffscreenSurface.class);
+//		LogUtil.info("mouse : "+app.getContext().getMouseInput());
+//		LogUtil.info("keybo : "+app.getContext().getKeyInput());
+//		app.setSettings(settings);
+//		
+////		JmeDesktopSystem sys = new JmeDesktopSystem()
+//		app.restart();
 		return true;
 	}
 	
