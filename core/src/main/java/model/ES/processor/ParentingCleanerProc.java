@@ -1,5 +1,6 @@
 package model.ES.processor;
 
+import model.ES.component.Removed;
 import model.ES.component.ToRemove;
 import model.ES.component.hierarchy.Parenting;
 
@@ -15,9 +16,12 @@ public class ParentingCleanerProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e) {
-		if(entityData.getEntity(e.get(Parenting.class).getParent()) == null)
+	protected void onEntityEachTick(Entity e) {
+		if(entityData.getComponent(e.get(Parenting.class).getParent(), Removed.class) != null){
+			// TODO find a way to test if an entity id have been "removed" from the entity data,
+			// to avoid stacking useless Removed components 
 			setComp(e, new ToRemove());
+		}
 	}
 
 }

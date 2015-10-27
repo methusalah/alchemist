@@ -1,5 +1,6 @@
 package model.ES.processor;
 
+import model.ES.component.Removed;
 import model.ES.component.ToRemove;
 
 import com.simsilica.es.Entity;
@@ -16,6 +17,7 @@ public class RemoveProc extends Processor {
 	@Override
 	protected void onEntityAdded(Entity e) {
 		entityData.removeEntity(e.getId());
+		setComp(e, new Removed());
 	}
 
 }

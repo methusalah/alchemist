@@ -20,11 +20,11 @@ public class BoostProc extends Processor {
 	
 	@Override
 	protected void onEntityEachTick(Entity e) {
-		Ability trigger = e.get(Ability.class);
+		Ability ability = e.get(Ability.class);
 		Parenting p = e.get(Parenting.class);
 		Boost boost = e.get(Boost.class);
 		
-		if(trigger.isTriggered()){
+		if(ability.isTriggered()){
 			PlanarStance parentStance = entityData.getComponent(p.getParent(), PlanarStance.class);
 			PlanarVelocityToApply parentVelocity = entityData.getComponent(p.getParent(), PlanarVelocityToApply.class);
 			if(parentStance == null || parentVelocity == null)

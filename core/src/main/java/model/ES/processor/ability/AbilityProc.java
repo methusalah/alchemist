@@ -16,7 +16,6 @@ public class AbilityProc extends Processor {
 	protected void registerSets() {
 		register("triggered", Ability.class, AbilityTriggerControl.class);
 	}
-
 	
 	@Override
 	protected void onEntityEachTick(Entity e) {
@@ -29,8 +28,11 @@ public class AbilityProc extends Processor {
 	
 			Ability a = e.get(Ability.class);
 				
-			if(trigger.triggers.containsKey(a.getName()) && trigger.triggers.get(a.getName()))
+			if(trigger.triggers.containsKey(a.getName()))
 				setComp(e, new Ability(a.getName(), trigger.triggers.get(a.getName())));
+			else
+				setComp(e, new Ability(a.getName(), false));
+				
 		}
 	}
 }

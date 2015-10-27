@@ -27,8 +27,6 @@ public class DraggingProc extends Processor {
 		if(speed < PrecisionUtil.APPROX)
 			actualVelocity = Point2D.ORIGIN;
 		else {
-			if(speed > 20)
-				LogUtil.info("speed : "+ speed);
 			double dragForce = speed*speed * dragging.dragging;
 			PlanarVelocityToApply v = e.get(PlanarVelocityToApply.class);
 			Point2D dragVelocity = actualVelocity.getNegation().getScaled(dragForce).getTruncation(speed*ph.getMass());
