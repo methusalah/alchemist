@@ -12,8 +12,8 @@ import util.geometry.geom2d.Point2D;
 public class Region {
 	public static final int RESOLUTION = 64;
 
-	public final String id;
-	public List<EntityInstance> entities = new ArrayList<>();
+	private final String id;
+	private List<EntityInstance> entities = new ArrayList<>();
 	
 	public Region(String id){
 		this.id = id;
@@ -26,5 +26,11 @@ public class Region {
 			@JsonProperty("entities")List<EntityInstance> entities){
 		this.id = id;
 		this.entities = entities;
+	}
+	public List<EntityInstance> getEntities() {
+		return entities;
+	}
+	public String getId() {
+		return id;
 	}
 }

@@ -4,6 +4,7 @@ import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.EntityData;
 
 import controller.cameraManagement.ChasingCameraProc;
+import model.ES.component.world.WorldProc;
 import model.ES.processor.LifeTimeProc;
 import model.ES.processor.ParentingCleanerProc;
 import model.ES.processor.RemoveProc;
@@ -46,6 +47,8 @@ public class LogicThread implements Runnable {
     public LogicThread(EntityData ed) {
     	stateManager = new AppStateManager(null);
 
+    	
+    	stateManager.attach(new WorldProc());
     	stateManager.attach(new EntityDataAppState(ed));
 		stateManager.attach(new ChasingCameraProc());
 		stateManager.attach(new RotationThrusterProc());

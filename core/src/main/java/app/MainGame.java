@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.google.common.eventbus.Subscribe;
+import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 import com.simsilica.es.base.DefaultEntityData;
@@ -66,7 +67,10 @@ import util.math.Fraction;
 import util.math.RandomUtil;
 import view.material.MaterialManager;
 import model.ES.serial.BlueprintLibrary;
+import model.ES.serial.EntityInstance;
+import model.ES.serial.EntityInstancier;
 import model.world.Region;
+import model.world.RegionManager;
 
 public class MainGame extends CosmoVania {
 	private Controller currentAppState;
@@ -86,8 +90,20 @@ public class MainGame extends CosmoVania {
 		MaterialManager.initBaseMaterials();
 		EntityData ed = new DefaultEntityData();
 		PrototypeCreator.setEntityData(ed);
+		EntityInstancier.setEntityData(ed);
 
-		
+		Region r = new Region(new Point2D(-5, 5));
+		for(int i = 0; i < 20; i++){
+			Point2D coord = new Point2D(-RandomUtil.next()*64, RandomUtil.next()*64);
+			Angle a = new Angle(RandomUtil.next()*AngleUtil.FULL);
+			PlanarStance stance = new PlanarStance(coord, a, 0.5, Point3D.UNIT_Z);
+			
+			List<EntityComponent> comps = new ArrayList<>();
+			comps.add(stance);
+			EntityInstance ei = new EntityInstance(BlueprintLibrary.getBlueprint("thruster"), comps);
+			r.getEntities().add(ei);
+		}
+		RegionManager.saveRegion(r);
 		
 		
 		

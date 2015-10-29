@@ -3,13 +3,22 @@ package model.world;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.simsilica.es.EntityData;
+
+import model.ES.serial.EntityInstance;
+import model.ES.serial.EntityInstancier;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
 public class World {
 	private List<Region> drawnRegions = new ArrayList<Region>();
 	private Region lastRegion;
 	private RegionManager regionManager = new RegionManager();
+	private final EntityData ed;
 	
+	public World(EntityData ed) {
+		this.ed = ed;
+	}
 	
 	public void setCoord(Point2D coord){
 		Region actualRegion = regionManager.getRegion(coord);
@@ -20,20 +29,24 @@ public class World {
 			List<Region> toDraw = get9RegionsAround(coord);
 			for(Region r : toDraw)
 				if(!drawnRegions.contains(r))
-					loadRegionView(r);
+					drawRegion(r);
 			
 			for(Region r : drawnRegions)
 				if(!toDraw.contains(r))
-					unloadRegionView(r);
+					undrawRegion(r);
 			
 			drawnRegions = toDraw;
 		}
 	}
 	
-	private void loadRegionView(Region region){
+	private void drawRegion(Region region){
+		LogUtil.info("draw region "+region.getId());
+		for(EntityInstance ei : region.getEntities())
+			EntityInstancier.instanciate(ei);
 	}
 	
-	private void unloadRegionView(Region region){
+	private void undrawRegion(Region region){
+		LogUtil.info("undraw region "+region.getId());
 		
 	}
 	

@@ -2,21 +2,33 @@ package model.ES.component.world;
 
 import com.simsilica.es.Entity;
 
-import model.ES.component.command.PlayerControl;
-import model.ES.component.motion.PlanarStance;
 import controller.ECS.Processor;
+import model.ES.component.camera.ChasingCamera;
+import model.ES.component.motion.PlanarStance;
+import model.world.World;
+import util.geometry.geom2d.Point2D;
 
 public class WorldProc extends Processor {
+	
+	private World world;
+	private Point2D oldCoord = null;
+	
+	public WorldProc() {
+		world = new World(entityData);
+	}
 
 	@Override
 	protected void registerSets() {
-		registerDefault(PlayerControl.class, PlanarStance);
+		registerDefault(ChasingCamera.class, PlanarStance.class);
 	}
 	
 	@Override
 	protected void onEntityUpdated(Entity e) {
-		// TODO Auto-generated method stub
-		super.onEntityUpdated(e);
+		PlanarStance stance = e.get(PlanarStance.class);
+		if(oldCoord == null || oldCoord.getDistance(stance.getCoord()) > 5){
+			oldCoord = stance.getCoord();
+			world.setCoord(stance.getCoord());
+		}
 	}
 	
 	
