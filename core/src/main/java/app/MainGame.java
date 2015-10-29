@@ -65,6 +65,8 @@ import util.math.AngleUtil;
 import util.math.Fraction;
 import util.math.RandomUtil;
 import view.material.MaterialManager;
+import model.ES.serial.BlueprintLibrary;
+import model.world.Region;
 
 public class MainGame extends CosmoVania {
 	private Controller currentAppState;
@@ -84,8 +86,15 @@ public class MainGame extends CosmoVania {
 		MaterialManager.initBaseMaterials();
 		EntityData ed = new DefaultEntityData();
 		PrototypeCreator.setEntityData(ed);
+
 		
-		serialiseBluePrints();
+		
+		
+		
+		
+		
+		
+		serialisePrototypes();
 		PrototypeCreator.create("player ship", null);
 		int zoneWidth = 80;
 		ed.setComponent(PrototypeCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
@@ -269,7 +278,7 @@ public class MainGame extends CosmoVania {
 				new Fraction(1));
 	}
 	
-	private void serialiseBluePrints(){
+	private void serialisePrototypes(){
 		EntityPrototype proto;
 		
 		// sun light

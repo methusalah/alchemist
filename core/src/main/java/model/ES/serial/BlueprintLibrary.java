@@ -10,6 +10,7 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import util.LogUtil;
 import util.exception.TechnicalException;
 
 public class BlueprintLibrary {
@@ -18,10 +19,12 @@ public class BlueprintLibrary {
 	private static final Map<String, Blueprint> blueprintMap;
 
 	static {
+		System.out.println("blueprint lib init");
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 		blueprintMap = new HashMap<>();
 		loadBlueprints();
+		LogUtil.info("blueprints loaded : "+blueprintMap.values().size());
 	}
 	
 	private BlueprintLibrary(){
@@ -68,5 +71,9 @@ public class BlueprintLibrary {
 	
 	public static Blueprint getBlueprint(String name){
 		return blueprintMap.get(name);
+	}
+	
+	public static void hophop(){
+		LogUtil.info("hophop");
 	}
 }

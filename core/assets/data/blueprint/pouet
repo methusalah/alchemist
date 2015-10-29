@@ -1,0 +1,44 @@
+{
+  "name" : "pouet",
+  "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "pouet"
+  } ],
+  "children" : [ {
+    "name" : "tagada",
+    "comps" : [ {
+      "class" : "model.ES.component.hierarchy.Parenting",
+      "parent" : {
+        "id" : 0
+      }
+    }, {
+      "class" : "model.ES.component.Naming",
+      "name" : "tagada"
+    } ],
+    "children" : [ {
+      "name" : "zob",
+      "comps" : [ {
+        "class" : "model.ES.component.hierarchy.Parenting",
+        "parent" : {
+          "id" : 1
+        }
+      }, {
+        "class" : "model.ES.component.Naming",
+        "name" : "zob"
+      } ],
+      "children" : [ ]
+    } ]
+  }, {
+    "name" : "Unamed entity",
+    "comps" : [ {
+      "class" : "model.ES.component.hierarchy.Parenting",
+      "parent" : {
+        "id" : 0
+      }
+    }, {
+      "class" : "model.ES.component.Naming",
+      "name" : "Unamed entity"
+    } ],
+    "children" : [ ]
+  } ]
+}

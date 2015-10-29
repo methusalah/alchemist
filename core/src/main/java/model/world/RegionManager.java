@@ -29,14 +29,7 @@ public class RegionManager {
 	}
 	
 	private Region loadRegion(String rid) {
-		File f = new File(PATH+rid+EXT);
-		if (!f.exists()) {
-			try {
-				f.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		File f = getRegionFile(rid);
 		
 		try {
 			return mapper.readValue(f, Region.class);
@@ -46,9 +39,31 @@ public class RegionManager {
 		return null;
 	}
 
-	public String getRegionId(Point2D coord){
+	public static String getRegionId(Point2D coord){
 		int x = (int)Math.floor(coord.x/Region.RESOLUTION);
 		int y = (int)Math.floor(coord.y/Region.RESOLUTION);
 		return x+","+y;
+	}
+	
+	public void saveRegion(Region region){
+		File f = getRegionFile(region.id);
+		try {
+			mapper.writeValue(f, region);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private File getRegionFile(String regionId){
+		File f = new File(PATH+regionId+EXT);
+		if (!f.exists()) {
+			try {
+				f.createNewFile();
+				mapper.writeValue(f, new Region(regionId));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return f;
 	}
 }
