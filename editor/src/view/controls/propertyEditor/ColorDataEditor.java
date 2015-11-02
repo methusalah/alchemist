@@ -26,6 +26,7 @@ public class ColorDataEditor extends PropertyEditor{
 		picker = new ColorPicker();
 		picker.setPrefWidth(100);
 		picker.addEventHandler(ActionEvent.ACTION, actionHandler);
+		picker.focusedProperty().addListener(focusChangeHandler);		
 		setCenter(picker);
 	}
 

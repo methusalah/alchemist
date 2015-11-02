@@ -2,15 +2,14 @@ package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
 import com.simsilica.es.EntityComponent;
@@ -35,15 +34,7 @@ public class Point2DEditor extends PropertyEditor{
 		xField = new TextField();
 		xField.setPrefWidth(WIDTH);
 		xField.addEventHandler(ActionEvent.ACTION, actionHandler);
-		xField.setOnMouseEntered(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event event) {
-				editionMode = true;
-//				LogUtil.info("taggle");
-			}
-			
-		});
+		xField.focusedProperty().addListener(focusChangeHandler);
 
 		box.getChildren().add(xField);
 		
@@ -54,6 +45,7 @@ public class Point2DEditor extends PropertyEditor{
 		yField = new TextField();
 		yField.setPrefWidth(WIDTH);
 		yField.addEventHandler(ActionEvent.ACTION, actionHandler);
+		yField.focusedProperty().addListener(focusChangeHandler);
 		box.getChildren().add(yField);
 	}
 

@@ -32,11 +32,13 @@ public class FractionEditor extends PropertyEditor{
 		valueField = new TextField();
 		valueField.setPrefWidth(100);
 		valueField.addEventHandler(ActionEvent.ACTION, actionHandler);
+		valueField.focusedProperty().addListener(focusChangeHandler);
 		box.getChildren().add(valueField);
 		
 		slider = new Slider();
 		slider.setMax(1);
 		slider.setMin(0);
+		slider.focusedProperty().addListener(focusChangeHandler);
 		slider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
             	setChanged(new ActionEvent(slider, null));

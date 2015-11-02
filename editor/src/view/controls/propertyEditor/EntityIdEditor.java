@@ -26,6 +26,7 @@ public class EntityIdEditor extends PropertyEditor{
 		valueField = new TextField();
 		valueField.setMaxWidth(100);
 		valueField.addEventHandler(ActionEvent.ACTION, actionHandler);
+		valueField.focusedProperty().addListener(focusChangeHandler);
 		setCenter(valueField);
 	}
 

@@ -29,6 +29,7 @@ public class StringEditor extends PropertyEditor{
 		valueField = new TextField();
 		valueField.setMaxWidth(Double.MAX_VALUE);
 		valueField.addEventHandler(ActionEvent.ACTION, actionHandler);
+		valueField.focusedProperty().addListener(focusChangeHandler);
 		setCenter(valueField);
 	}
 

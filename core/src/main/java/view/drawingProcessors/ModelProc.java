@@ -23,7 +23,8 @@ public class ModelProc extends Processor {
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
-		AppFacade.getRootNode().detachChild(SpatialPool.models.remove(e.getId()));
+		if(SpatialPool.models.keySet().contains(e.getId()))
+			AppFacade.getRootNode().detachChild(SpatialPool.models.remove(e.getId()));
 	}
 
 	@Override

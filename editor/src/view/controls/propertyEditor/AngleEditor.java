@@ -28,10 +28,12 @@ public class AngleEditor extends PropertyEditor{
 		valueField = new TextField();
 		valueField.setPrefWidth(100);
 		valueField.addEventHandler(ActionEvent.ACTION, actionHandler);
+		valueField.focusedProperty().addListener(focusChangeHandler);
 		box.getChildren().add(valueField);
 		
 		knob = new Knob(0);
 		knob.addEventHandler(ActionEvent.ACTION, actionHandler);
+		knob.focusedProperty().addListener(focusChangeHandler);
 		box.getChildren().add(knob);
 	}
 

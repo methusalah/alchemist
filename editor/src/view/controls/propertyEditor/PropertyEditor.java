@@ -5,6 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -35,6 +37,16 @@ public abstract class PropertyEditor extends BorderPane {
 			setChanged(event);
 		}
 	};
+	
+	ChangeListener<Boolean> focusChangeHandler = new ChangeListener<Boolean>()
+			{
+	    @Override
+	    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue)
+	    {
+	    	editionMode = newValue;
+	    }
+	};
+
 
 	
 	public PropertyEditor(EntityComponent comp, PropertyDescriptor pd) {
@@ -77,8 +89,6 @@ public abstract class PropertyEditor extends BorderPane {
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				e.printStackTrace();
 			}
-//			if(this instanceof Point2DEditor)
-//				LogUtil.info("updating "+this);
 		}
 	}
 	

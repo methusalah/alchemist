@@ -33,6 +33,7 @@ public class Point3DEditor extends PropertyEditor{
 		xField = new TextField();
 		xField.setPrefWidth(WIDTH);
 		xField.addEventHandler(ActionEvent.ACTION, actionHandler);
+		xField.focusedProperty().addListener(focusChangeHandler);
 		box.getChildren().add(xField);
 
 		// Y label
@@ -42,6 +43,7 @@ public class Point3DEditor extends PropertyEditor{
 		yField = new TextField();
 		yField.setPrefWidth(WIDTH);
 		yField.addEventHandler(ActionEvent.ACTION, actionHandler);
+		yField.focusedProperty().addListener(focusChangeHandler);
 		box.getChildren().add(yField);
 
 		// z label
@@ -51,6 +53,7 @@ public class Point3DEditor extends PropertyEditor{
 		zField = new TextField();
 		zField.setPrefWidth(WIDTH);
 		zField.addEventHandler(ActionEvent.ACTION, actionHandler);
+		zField.focusedProperty().addListener(focusChangeHandler);
 		box.getChildren().add(zField);
 	}
 

@@ -28,15 +28,7 @@ public class DoubleEditor extends PropertyEditor{
 		valueField = new TextField();
 		valueField.setMaxWidth(100);
 		valueField.addEventHandler(ActionEvent.ACTION, actionHandler);
-		valueField.setOnMouseEntered(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event event) {
-				editionMode = true;
-				LogUtil.info("taggle");
-			}
-			
-		});
+		valueField.focusedProperty().addListener(focusChangeHandler);
 		setCenter(valueField);
 	}
 
