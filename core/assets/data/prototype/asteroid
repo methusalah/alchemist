@@ -32,7 +32,7 @@
     "frontalThrustPower" : 10.0
   }, {
     "class" : "model.ES.component.visuals.Model",
-    "path" : "rock01.jpg",
+    "path" : "env/exterior01/asteroid/asteroid_export_01.j3o",
     "scale" : 1.0,
     "yawFix" : {
       "value" : 0.0

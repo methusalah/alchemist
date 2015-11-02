@@ -111,6 +111,7 @@ public class MainGame extends CosmoVania {
 		
 		
 		serialisePrototypes();
+		
 		PrototypeCreator.create("player ship", null);
 		int zoneWidth = 80;
 		ed.setComponent(PrototypeCreator.create("enemy", null), new PlanarStance(new Point2D(RandomUtil.next()*zoneWidth, RandomUtil.next()*zoneWidth), new Angle(RandomUtil.next()*AngleUtil.FULL), 0.5, Point3D.UNIT_Z));
@@ -142,8 +143,9 @@ public class MainGame extends CosmoVania {
 			ed.setComponent(eid, new PlanarStance(coord, a, 0.5, Point3D.UNIT_Z));
 			
 			double scale = RandomUtil.between(0.5, 3);
+			ed.setComponent(eid, new CircleCollisionShape(2*scale));
 			ed.setComponent(eid, new Physic(Point2D.ORIGIN, "asteroid", new ArrayList<>(), 200*scale, new Fraction(0.5), null));
-			ed.setComponent(eid, new Model("rock0"+(RandomUtil.nextInt(5)+1)+".obj", scale, new Angle(RandomUtil.between(-AngleUtil.FLAT, AngleUtil.FLAT)), new Angle(RandomUtil.between(-AngleUtil.FLAT, AngleUtil.FLAT)), new Angle(RandomUtil.between(-AngleUtil.FLAT, AngleUtil.FLAT))));
+			ed.setComponent(eid, new Model(ed.getComponent(eid, Model.class).getPath(), scale, new Angle(RandomUtil.between(-AngleUtil.FLAT, AngleUtil.FLAT)), new Angle(RandomUtil.between(-AngleUtil.FLAT, AngleUtil.FLAT)), new Angle(RandomUtil.between(-AngleUtil.FLAT, AngleUtil.FLAT))));
 			
 			ed.setComponent(eid, new ModelRotation(RandomUtil.between(50, 200), 0, 0));
 		}
@@ -590,7 +592,7 @@ public class MainGame extends CosmoVania {
 		proto.add(new Dragging(0.7));
 		proto.add(new CircleCollisionShape(2));
 		proto.add(new MotionCapacity(AngleUtil.toRadians(720), 30, 10, 10));
-		proto.add(new Model("rock01.jpg", 1, new Angle(0), new Angle(0), new Angle(0)));
+		proto.add(new Model("env/exterior01/asteroid/asteroid_export_01.j3o", 1, new Angle(0), new Angle(0), new Angle(0)));
 		proto.add(new Physic(Point2D.ORIGIN, "asteroid", new ArrayList<>(), 1000, new Fraction(0.5), null));
 		
 		proto.add(new PlanarVelocityToApply(Point2D.ORIGIN));
