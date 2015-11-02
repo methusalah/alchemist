@@ -67,17 +67,19 @@ public class EntityDataObserver {
 				}
 				
 				EntityPresenter ep = getPresenter(e.getEntityId());
-				// we set the component instead of remove&add to get the correct event for listeners
-				if(e.getLastComp() != null && e.getNewComp() == null){
-					// component is removed
-					ep.componentListProperty().remove(e.getLastComp());
-				} else if(e.getLastComp() != null && e.getNewComp() != null){
-					// component is replaced
-					int index = ep.componentListProperty().indexOf(e.getLastComp());
-					ep.componentListProperty().set(index, e.getNewComp());
-				} else if(e.getLastComp() == null && e.getNewComp() != null){
-					// component is added
-					ep.componentListProperty().add(e.getNewComp());
+				if(ep != null){
+					// we set the component instead of remove&add to get the correct event for listeners
+					if(e.getLastComp() != null && e.getNewComp() == null){
+						// component is removed
+						ep.componentListProperty().remove(e.getLastComp());
+					} else if(e.getLastComp() != null && e.getNewComp() != null){
+						// component is replaced
+						int index = ep.componentListProperty().indexOf(e.getLastComp());
+						ep.componentListProperty().set(index, e.getNewComp());
+					} else if(e.getLastComp() == null && e.getNewComp() != null){
+						// component is added
+						ep.componentListProperty().add(e.getNewComp());
+					}
 				}
 			}
 		});

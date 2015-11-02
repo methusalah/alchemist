@@ -32,9 +32,12 @@ import model.ES.component.camera.ChasingCamera;
 import model.ES.component.command.PlanarNeededRotation;
 import model.ES.component.command.PlanarNeededThrust;
 import model.ES.component.command.PlayerControl;
+import model.ES.component.hierarchy.AbilityControl;
+import model.ES.component.hierarchy.AbilityTriggerControl;
 import model.ES.component.hierarchy.BoneHolding;
 import model.ES.component.hierarchy.Parenting;
 import model.ES.component.hierarchy.PlanarStanceControl;
+import model.ES.component.hierarchy.ThrustControl;
 import model.ES.component.hierarchy.ThrusterControl;
 import model.ES.component.interaction.DamageOnTouch;
 import model.ES.component.interaction.Damaging;
@@ -123,7 +126,10 @@ public class Model {
 				ModelRotation.class,
 				ThrusterControl.class,
 				ThrusterAudioSource.class,
-				AudioSource.class);
+				AudioSource.class,
+				AbilityControl.class,
+				AbilityTriggerControl.class,
+				ThrustControl.class);
 		
 		hierarchy = new Hierarchy(ed);
 		resourceExplorer = new ResourceExplorer();

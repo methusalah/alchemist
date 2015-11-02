@@ -1,8 +1,8 @@
 {
-  "name" : "player ship",
+  "name" : "ship",
   "comps" : [ {
     "class" : "model.ES.component.Naming",
-    "name" : "player ship"
+    "name" : "ship"
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
@@ -47,32 +47,7 @@
     }
   }, {
     "class" : "model.ES.component.assets.AbilityTrigger",
-    "triggers" : {
-      "bonjour" : true,
-      "aurevoir" : false,
-      "ça va ?" : true
-    }
-  }, {
-    "class" : "model.ES.component.assets.Attackable"
-  }, {
-    "class" : "model.ES.component.motion.physic.Physic",
-    "velocity" : {
-      "x" : 0.0,
-      "y" : 0.0
-    },
-    "type" : "",
-    "exceptions" : [ ],
-    "mass" : 100.0,
-    "restitution" : {
-      "value" : 0.711
-    },
-    "spawnerException" : null
-  }, {
-    "class" : "model.ES.component.motion.PlanarVelocityToApply",
-    "vector" : {
-      "x" : 0.0,
-      "y" : 0.0
-    }
+    "triggers" : { }
   } ],
   "children" : [ {
     "name" : "camera",
@@ -895,29 +870,5 @@
         "children" : [ ]
       } ]
     } ]
-  }, {
-    "name" : "weapon",
-    "comps" : [ {
-      "class" : "model.ES.component.Naming",
-      "name" : "weapon"
-    }, {
-      "class" : "model.ES.component.hierarchy.AbilityTriggerControl",
-      "active" : true
-    }, {
-      "class" : "model.ES.component.assets.Ability",
-      "name" : "",
-      "triggered" : false
-    }, {
-      "class" : "model.ES.component.assets.ProjectileLauncher",
-      "precision" : {
-        "value" : 0.95
-      },
-      "projectileBluePrint" : ""
-    }, {
-      "class" : "model.ES.component.Cooldown",
-      "start" : 0,
-      "duration" : 300.0
-    } ],
-    "children" : [ ]
   } ]
 }
