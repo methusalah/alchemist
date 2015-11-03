@@ -6,6 +6,7 @@ import com.jme3x.jfx.injfx.JmeForImageView;
 import com.simsilica.es.EntityData;
 
 import app.AppFacade;
+import controller.DraggableCamera;
 import controller.ECS.EntityDataAppState;
 import controller.ECS.EntitySystem;
 import javafx.beans.property.ObjectProperty;
@@ -142,6 +143,10 @@ public class Model {
 		AppFacade.setApp(app);
 		AppStateManager stateManager = app.getStateManager();
 		
+		DraggableCamera cam = new DraggableCamera(app.getCamera());
+		cam.setRotationSpeed(0.001f);
+		
+		stateManager.attach(cam);
 		stateManager.attach(new EntityDataAppState(ed));
 		
 		EntitySystem es = new EntitySystem(ed);
@@ -150,6 +155,8 @@ public class Model {
 		es.initAudio(false);
 		es.initCommand(false);
 		es.initLogic(false);
+		
+		
 		
 		return true;
 	}

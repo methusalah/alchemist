@@ -5,6 +5,9 @@ import util.LogUtil;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import view.TopdownView;
+
+import com.jme3.input.FlyByCamera;
+
 import controller.InputInterpreter;
 
 public class TopdownInputInterpreter extends InputInterpreter {
