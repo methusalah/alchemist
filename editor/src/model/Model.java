@@ -68,17 +68,18 @@ public class Model {
 	public final Hierarchy hierarchy;
 	public final EntityDataObserver observer;
 	public final ResourceExplorer resourceExplorer;
-	public final JmeForImageView jme;
+	private final EntityData ed = new PostingEntityData();
 	
+	public EntityData getEntityData() {
+		return ed;
+	}
+
 	public final ObjectProperty<EntityPresenter> selectionProperty = new SimpleObjectProperty<>();
 	
 	public Model() {
 		// TODO
 		// max value
 		// destruction of removed lights
-		
-		
-		EntityData ed = new PostingEntityData();
 		observer = new EntityDataObserver(ed);
 		
 		inspector = new Inspector(ed, selectionProperty);
@@ -135,29 +136,5 @@ public class Model {
 		hierarchy = new Hierarchy(ed);
 		resourceExplorer = new ResourceExplorer();
 		
-		jme = new JmeForImageView();
-		jme.enqueue((app) -> createScene(app, ed));
-	}
-
-	static boolean createScene(SimpleApplication app, EntityData ed) {
-		AppFacade.setApp(app);
-		AppStateManager stateManager = app.getStateManager();
-		
-		DraggableCamera cam = new DraggableCamera(app.getCamera());
-		cam.setRotationSpeed(0.001f);
-		
-		stateManager.attach(cam);
-		stateManager.attach(new EntityDataAppState(ed));
-		
-		EntitySystem es = new EntitySystem(ed);
-		stateManager.attach(es);
-		es.initVisuals(true);
-		es.initAudio(false);
-		es.initCommand(false);
-		es.initLogic(false);
-		
-		
-		
-		return true;
 	}
 }

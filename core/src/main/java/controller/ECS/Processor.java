@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import util.LogUtil;
 import app.CosmoVania;
 import app.MainGame;
 
@@ -39,24 +40,27 @@ public abstract class Processor extends AbstractAppState {
     public final void update(float elapsedTime) {
     	if(!isEnabled())
     		return;
-    	
-        for(EntitySet set : sets.values()){
-	        if (set.applyChanges()) {
-	            for (Entity e : set.getChangedEntities()) {
-	            	onEntityUpdated(e);
-	            }
-	            for (Entity e : set.getAddedEntities()) {
-	            	onEntityAdded(e);
-	            }
-	            for (Entity e : set.getRemovedEntities()) {
-	            	onEntityRemoved(e);
+    	try{
+	        for(EntitySet set : sets.values()){
+		        if (set.applyChanges()) {
+		            for (Entity e : set.getChangedEntities()) {
+		            	onEntityUpdated(e);
+		            }
+		            for (Entity e : set.getAddedEntities()) {
+		            	onEntityAdded(e);
+		            }
+		            for (Entity e : set.getRemovedEntities()) {
+		            	onEntityRemoved(e);
+		            }
+		        }
+	            for (Entity e : set) {
+	            	onEntityEachTick(e);
 	            }
 	        }
-            for (Entity e : set) {
-            	onEntityEachTick(e);
-            }
-        }
-        onUpdated();
+	        onUpdated();
+    	} catch(RuntimeException e){
+    		LogUtil.severe("Exception : "+e.getMessage());
+    	}
     }
 
     @Override

@@ -1,5 +1,8 @@
 package controller;
 
+import util.geometry.geom2d.Point2D;
+import view.math.TranslateUtil;
+
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.collision.MotionAllowedListener;
 import com.jme3.input.InputManager;
@@ -22,6 +25,8 @@ public class DraggableCamera extends AbstractAppState {
 	protected MotionAllowedListener motionAllowed = null;
 	protected boolean enabled = true;
 	protected InputManager inputManager;
+	
+	private Point2D velocity = Point2D.ORIGIN;
 
 	public DraggableCamera(Camera cam) {
 		this.cam = cam;
@@ -100,5 +105,16 @@ public class DraggableCamera extends AbstractAppState {
 			pos.addLocal(vel);
 
 		cam.setLocation(pos);
+		moveSpeed = Math.max(1, cam.getLocation().z/20);
+	}
+	
+	public void setVelocity(Point2D v){
+		velocity = v;
+	}
+	
+	@Override
+	public void update(float tpf) {
+		if(!velocity.isOrigin())
+		cam.setLocation(cam.getLocation().add(TranslateUtil.toVector3f(velocity.getScaled(moveSpeed/2))));
 	}
 }

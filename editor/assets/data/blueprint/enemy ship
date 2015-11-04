@@ -33,7 +33,11 @@
     }
   }, {
     "class" : "model.ES.component.assets.AbilityTrigger",
-    "triggers" : { }
+    "triggers" : {
+      "bonjour" : true,
+      "aurevoir" : false,
+      "ça va ?" : true
+    }
   }, {
     "class" : "model.ES.component.interaction.senses.Sighting",
     "range" : 5.0,
@@ -145,7 +149,7 @@
       }, {
         "class" : "model.ES.component.assets.Thruster",
         "direction" : {
-          "x" : -1.0,
+          "x" : 1.0,
           "y" : 0.0,
           "z" : 0.0
         },
