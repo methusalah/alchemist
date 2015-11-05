@@ -1,4 +1,4 @@
-package model.ES.component.world;
+package model.ES.processor.world;
 
 import com.simsilica.es.Entity;
 

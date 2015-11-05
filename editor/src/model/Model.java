@@ -62,6 +62,7 @@ import model.ES.component.visuals.ModelRotation;
 import model.ES.component.visuals.ParticleCaster;
 import model.ES.component.visuals.Skeleton;
 import model.ES.component.visuals.Sprite;
+import model.ES.component.world.Scenery;
 
 public class Model {
 	public final Inspector inspector;
@@ -131,7 +132,8 @@ public class Model {
 				AudioSource.class,
 				AbilityControl.class,
 				AbilityTriggerControl.class,
-				ThrustControl.class);
+				ThrustControl.class,
+				Scenery.class);
 		
 		hierarchy = new Hierarchy(ed);
 		resourceExplorer = new ResourceExplorer();

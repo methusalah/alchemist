@@ -60,7 +60,6 @@ public class ResourceView extends VBox {
 							setText(null);
 							setGraphic(null);
 						}
-
 					}
 				};
 

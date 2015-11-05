@@ -34,6 +34,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
+import model.ES.component.world.Scenery;
 import util.LogUtil;
 import util.event.EventManager;
 import util.event.RemoveComponentEvent;
@@ -64,6 +65,10 @@ public class ComponentEditor extends TitledPane {
 		setText(comp.getClass().getSimpleName());
 		VBox content = new VBox();
 		setContent(content);
+		
+		if(comp instanceof Scenery)
+			content.getChildren().add(new SceneryEditor());
+
 		BeanInfo bi = null;
 		try {
 			bi = Introspector.getBeanInfo(comp.getClass(), Object.class);
