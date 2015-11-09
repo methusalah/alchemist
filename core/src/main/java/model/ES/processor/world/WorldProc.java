@@ -13,8 +13,8 @@ public class WorldProc extends Processor {
 	private World world;
 	private Point2D oldCoord = null;
 	
-	public WorldProc() {
-		world = new World(entityData);
+	public WorldProc(World world) {
+		this.world = world;
 	}
 
 	@Override

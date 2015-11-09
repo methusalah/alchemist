@@ -71,6 +71,7 @@ import model.ES.serial.EntityInstance;
 import model.ES.serial.EntityInstancier;
 import model.world.Region;
 import model.world.RegionManager;
+import model.world.World;
 
 public class MainGame extends CosmoVania {
 	private Controller currentAppState;
@@ -156,7 +157,7 @@ public class MainGame extends CosmoVania {
 		currentAppState = stateManager.getState(TopdownCtrl.class);
 		
 		
-		EntitySystem es = new EntitySystem(ed);
+		EntitySystem es = new EntitySystem(ed, new World(ed));
 		stateManager.attach(es);
 		es.initVisuals(true);
 		es.initAudio(true);

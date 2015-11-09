@@ -2,6 +2,7 @@ package controller.ECS;
 
 import model.ES.processor.command.PlayerRotationControlProc;
 import model.ES.processor.command.PlayerThrustControlProc;
+import model.world.World;
 import util.LogUtil;
 import view.drawingProcessors.CameraPlacingProc;
 import view.drawingProcessors.LightProc;
@@ -24,17 +25,21 @@ import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.EntityData;
 
 public class EntitySystem extends AbstractAppState{
-	private final EntityData ed;
 	private AppStateManager stateManager;
 	private Thread logicThread;
+
+	private final EntityData ed;
+	private final World world;
+
 	
 	List<AppState> visualStates = new ArrayList<>();
 	List<AppState> audioStates = new ArrayList<>();
 	List<AppState> commandStates = new ArrayList<>();
 	List<AppState> logicStates = new ArrayList<>();
 
-	public EntitySystem(EntityData ed) {
+	public EntitySystem(EntityData ed, World world) {
 		this.ed = ed;
+		this.world = world;
 		visualStates.add(new ParticleCasterInPlaneProc());
 		visualStates.add(new ModelProc());
 		visualStates.add(new SpriteProc());
@@ -88,7 +93,7 @@ public class EntitySystem extends AbstractAppState{
 	public void initLogic(boolean value){
 		if(value){
 			if(logicThread == null || !logicThread.isAlive()){
-				logicThread = new Thread(new LogicThread(ed));
+				logicThread = new Thread(new LogicThread(ed, world));
 				logicThread.start();
 			}
 		} else

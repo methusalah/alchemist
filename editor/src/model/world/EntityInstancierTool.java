@@ -1,4 +1,4 @@
-package model.tool;
+package model.world;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,17 +21,14 @@ public class EntityInstancierTool extends Tool {
 		this.bp = bp;
 	}
 
-	@Override
-	public void act(Point2D coordInScene) {
-		PlanarStance stance = new PlanarStance(coordInScene, new Angle(0), 0, Point3D.UNIT_Z);
-		List<EntityComponent> comps = new ArrayList<EntityComponent>();
-		comps.add(stance);
-		
-		EntityInstance i = new EntityInstance(bp, comps);
-//		RegionManager.getRegion()
-		
-	}
-	
-	
-
+//	@Override
+//	public void on(Point2D coordInScene) {
+//		PlanarStance stance = new PlanarStance(coordInScene, new Angle(0), 0, Point3D.UNIT_Z);
+//		List<EntityComponent> comps = new ArrayList<EntityComponent>();
+//		comps.add(stance);
+//		
+//		EntityInstance i = new EntityInstance(bp, comps);
+////		RegionManager.getRegion()
+//		
+//	}
 }

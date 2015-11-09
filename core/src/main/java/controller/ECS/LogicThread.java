@@ -39,16 +39,16 @@ import model.ES.processor.shipGear.ParticleThrusterProc;
 import model.ES.processor.shipGear.RotationThrusterProc;
 import model.ES.processor.shipGear.ThrusterProc;
 import model.ES.processor.world.WorldProc;
+import model.world.World;
 
 public class LogicThread implements Runnable {
     public static final double TIME_PER_FRAME = 0.02;
     private AppStateManager stateManager;
  
-    public LogicThread(EntityData ed) {
+    public LogicThread(EntityData ed, World world) {
     	stateManager = new AppStateManager(null);
 
-    	
-    	stateManager.attach(new WorldProc());
+    	stateManager.attach(new WorldProc(world));
     	stateManager.attach(new EntityDataAppState(ed));
 		stateManager.attach(new ChasingCameraProc());
 		stateManager.attach(new RotationThrusterProc());

@@ -63,21 +63,25 @@ import model.ES.component.visuals.ParticleCaster;
 import model.ES.component.visuals.Skeleton;
 import model.ES.component.visuals.Sprite;
 import model.ES.component.world.Scenery;
+import model.world.ToolManager;
+import model.world.World;
 
 public class Model {
 	public final Inspector inspector;
 	public final Hierarchy hierarchy;
 	public final EntityDataObserver observer;
 	public final ResourceExplorer resourceExplorer;
-	private final EntityData ed = new PostingEntityData();
 	
-	public EntityData getEntityData() {
-		return ed;
-	}
-
+	private final EntityData ed;
+	private final World world;
+	
 	public final ObjectProperty<EntityPresenter> selectionProperty = new SimpleObjectProperty<>();
 	
 	public Model() {
+		ed = new PostingEntityData();
+		world = new World(ed);
+		ToolManager.setWorld(world);
+		
 		// TODO
 		// max value
 		// destruction of removed lights
@@ -137,6 +141,14 @@ public class Model {
 		
 		hierarchy = new Hierarchy(ed);
 		resourceExplorer = new ResourceExplorer();
-		
 	}
+	
+	public EntityData getEntityData() {
+		return ed;
+	}
+
+	public World getWorld() {
+		return world;
+	}
+	
 }
