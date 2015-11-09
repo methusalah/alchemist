@@ -58,4 +58,8 @@ public class World {
 				res.add(regionManager.getRegion(coord.getAddition(x, y)));
 		return res;
 	}
+	
+	private Region getRegion(Point2D coord){
+		return regionManager.getRegion(coord);
+	}
 }

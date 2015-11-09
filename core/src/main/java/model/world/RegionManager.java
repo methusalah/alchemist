@@ -47,7 +47,7 @@ public class RegionManager {
 		int y = (int)Math.floor(coord.y/Region.RESOLUTION);
 		return x+","+y;
 	}
-	
+
 	public static void saveRegion(Region region){
 		File f = getRegionFile(region.getId());
 		try {
