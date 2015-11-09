@@ -23,7 +23,7 @@ public class SceneryEditor extends ListView<Blueprint>{
 
 			@Override
 			public void changed(ObservableValue<? extends Blueprint> observable, Blueprint oldValue, Blueprint newValue) {
-			 j'en suis là
+//			 j'en suis là
 			}
 		});
 		
