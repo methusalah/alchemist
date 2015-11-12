@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import model.ES.serial.Blueprint;
 import model.ES.serial.EntityInstance;
-import model.world.terrain.Parcel;
-import model.world.terrain.Parcelling;
 import model.world.terrain.Terrain;
+import model.world.terrain.mesh.Parcel;
+import model.world.terrain.mesh.Parcelling;
 import util.geometry.geom2d.Point2D;
 
 public class Region {

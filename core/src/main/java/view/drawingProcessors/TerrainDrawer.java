@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 
 import model.ModelManager;
 import model.ES.component.world.TerrainTexturing;
-import model.world.terrain.Parcel;
 import model.world.terrain.Terrain;
+import model.world.terrain.mesh.Parcel;
 import util.event.EventManager;
 import view.SpatialPool;
 import view.jme.SilentTangentBinormalGenerator;

@@ -1,9 +1,11 @@
-package model.world.terrain;
+package model.world.terrain.mesh;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import model.world.terrain.Terrain;
+import model.world.terrain.TerrainNode;
 import util.exception.TechnicalException;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;

@@ -1,6 +1,7 @@
 package model.world.terrain;
 
 import model.world.terrain.atlas.Atlas;
+import model.world.terrain.mesh.Parcelling;
 import util.geometry.structure.grid3D.Grid3D;
 
 public final class Terrain extends Grid3D<TerrainNode> {

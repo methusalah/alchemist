@@ -1,4 +1,4 @@
-package model.world.terrain;
+package model.world.terrain.mesh;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import model.world.terrain.TerrainNode;
 import util.geometry.geom3d.MyMesh;
 import util.geometry.geom3d.Triangle3D;
 import util.geometry.structure.grid.Node;
