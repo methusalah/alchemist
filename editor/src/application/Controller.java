@@ -40,7 +40,10 @@ public class Controller {
 	
 	@Subscribe
 	public void handleEntitySelectionChangedEvent(EntitySelectionChanged e){
-		model.selectionProperty.setValue(e.ep);
+		if(e.getEntityId() != null)
+			model.selectionProperty.setValue(model.observer.getPresenter(e.getEntityId()));
+		else
+			model.selectionProperty.setValue(e.getEntityPresenter());
 	}
 	
 	@Subscribe

@@ -1,13 +1,12 @@
 package model.world.terrain.atlas;
 
-import geometry.collections.Map2D;
-import geometry.geom2d.Point2D;
-
 import java.util.List;
+
+import util.geometry.collections.Map2D;
+import util.geometry.geom2d.Point2D;
 
 public class AtlasLayer {
 	public static double MAX_VALUE = 255;
-	
 	
 	Map2D<Byte> values;
 

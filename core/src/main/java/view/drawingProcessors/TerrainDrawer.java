@@ -113,15 +113,15 @@ public class TerrainDrawer {
 		}
 	}
 
-	@Subscribe
-	public void handleParcelUpdateEvent(ParcelUpdateEvent e) {
-		updateParcels(e.getToUpdate());
-	}
-
-	@Subscribe
-	public void handleGroundUpdateEvent(UpdateGroundAtlasEvent e) {
-		updateGroundTexture();
-	}
+//	@Subscribe
+//	public void handleParcelUpdateEvent(ParcelUpdateEvent e) {
+//		updateParcels(e.getToUpdate());
+//	}
+//
+//	@Subscribe
+//	public void handleGroundUpdateEvent(UpdateGroundAtlasEvent e) {
+//		updateGroundTexture();
+//	}
 
 	private void updateGroundTexture() {
 		groundTexture.getMaterial();

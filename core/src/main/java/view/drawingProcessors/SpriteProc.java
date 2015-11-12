@@ -49,6 +49,7 @@ public class SpriteProc extends Processor {
 		if(s != null){
 			s = s.clone();
 			s.scale((float)sprite.getSize());
+			s.setUserData("EntityId", e.getId().getId());
 			SpatialPool.models.put(e.getId(), s);
 			AppFacade.getRootNode().attachChild(s);
 		}
