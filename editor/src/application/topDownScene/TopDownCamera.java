@@ -1,9 +1,9 @@
-package application;
+package application.topDownScene;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3x.jfx.injfx.JmeForImageView;
 
-import controller.DraggableCamera;
+import application.topDownScene.state.DraggableCameraState;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -11,7 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import util.geometry.geom2d.Point2D;
 
-public class TopDownCamera {
+public class TopDownCamera implements SceneInputListener{
 	
 	private final JmeForImageView jme;
 	
@@ -23,11 +23,13 @@ public class TopDownCamera {
 		this.jme = jme;
 	}
 	
+	@Override
 	public void onMousePressed(MouseEvent e){
 		if(e.getButton() == MouseButton.SECONDARY)
 			oldCoord = new Point2D(e.getX(), e.getY());
 	}
 	
+	@Override
 	public void onMouseDragged(MouseEvent e){
 		if(e.getButton() == MouseButton.SECONDARY){
 			Point2D newCoord = new Point2D(e.getX(), e.getY());
@@ -37,14 +39,17 @@ public class TopDownCamera {
 		}
 	}
 	
+	@Override
 	public void onMouseReleased(MouseEvent e){
 		
 	}
 	
+	@Override
 	public void onMouseScroll(ScrollEvent e){
 		jme.enqueue((app) -> zoomCam(app, e.getDeltaY()/e.getMultiplierY()));
 	}
 
+	@Override
 	public void onKeyPressed(KeyEvent e){
 		if(e.getCode() == KeyCode.Z && !zPressed){
 			camVelocity = camVelocity.getAddition(0, 1);
@@ -62,6 +67,7 @@ public class TopDownCamera {
 		jme.enqueue((app) -> setCamVelocity(app, camVelocity));
 	}
 	
+	@Override
 	public void onKeyReleased(KeyEvent e){
 		if(e.getCode() == KeyCode.Z){
 			camVelocity = camVelocity.getAddition(0, -1);
@@ -79,25 +85,30 @@ public class TopDownCamera {
 		jme.enqueue((app) -> setCamVelocity(app, camVelocity));
 	}
 	
+	@Override
+	public void onMouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	
 	
 	static private boolean rotateCam(SimpleApplication app, Point2D vec){
-		DraggableCamera cam = app.getStateManager().getState(DraggableCamera.class);
+		DraggableCameraState cam = app.getStateManager().getState(DraggableCameraState.class);
 		cam.rotateCamera((float)vec.x, app.getCamera().getUp());
 		cam.rotateCamera((float)vec.y, app.getCamera().getLeft());
 		return true;
 	}
 	
 	static private boolean zoomCam(SimpleApplication app, double amount){
-		DraggableCamera cam = app.getStateManager().getState(DraggableCamera.class);
+		DraggableCameraState cam = app.getStateManager().getState(DraggableCameraState.class);
 		cam.moveCamera((float)amount, false);
 		return true;
 	}
 	
 	static private boolean setCamVelocity(SimpleApplication app, Point2D vec){
-		DraggableCamera cam = app.getStateManager().getState(DraggableCamera.class);
+		DraggableCameraState cam = app.getStateManager().getState(DraggableCameraState.class);
 		cam.setVelocity(vec);
 		return true;
 	}

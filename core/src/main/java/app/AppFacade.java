@@ -7,6 +7,9 @@ import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
+import com.simsilica.es.EntityData;
+
+import model.world.WorldData;
 
 public class AppFacade {
 
@@ -47,6 +50,5 @@ public class AppFacade {
 	public static AppStateManager getStateManager(){
 		return app.getStateManager();
 	}
-	
 	
 }

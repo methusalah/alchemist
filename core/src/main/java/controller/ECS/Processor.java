@@ -27,7 +27,7 @@ public abstract class Processor extends AbstractAppState {
 	@Override
 	public final void initialize(AppStateManager stateManager, Application app) {
 		super.initialize(stateManager, app);
-        entityData = stateManager.getState(EntityDataAppState.class).entityData;
+        entityData = stateManager.getState(DataAppState.class).entityData;
 
         registerSets();
         for(EntitySet set : sets.values())

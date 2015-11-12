@@ -10,6 +10,8 @@ import javafx.scene.control.ListView;
 import javafx.util.Callback;
 import model.ES.serial.Blueprint;
 import model.ES.serial.BlueprintLibrary;
+import util.event.EventManager;
+import util.event.scene.ToolChangedEvent;
 
 public class SceneryEditor extends ListView<Blueprint>{
 
@@ -23,7 +25,8 @@ public class SceneryEditor extends ListView<Blueprint>{
 
 			@Override
 			public void changed(ObservableValue<? extends Blueprint> observable, Blueprint oldValue, Blueprint newValue) {
-//			 j'en suis là
+				if(newValue != null)
+					EventManager.post(new ToolChangedEvent(newValue));
 			}
 		});
 		

@@ -1,14 +1,7 @@
 package model;
 
-import com.jme3.app.SimpleApplication;
-import com.jme3.app.state.AppStateManager;
-import com.jme3x.jfx.injfx.JmeForImageView;
 import com.simsilica.es.EntityData;
 
-import app.AppFacade;
-import controller.DraggableCamera;
-import controller.ECS.EntityDataAppState;
-import controller.ECS.EntitySystem;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import model.ECS.EntityDataObserver;
@@ -36,7 +29,6 @@ import model.ES.component.command.PlayerControl;
 import model.ES.component.hierarchy.AbilityControl;
 import model.ES.component.hierarchy.AbilityTriggerControl;
 import model.ES.component.hierarchy.BoneHolding;
-import model.ES.component.hierarchy.Parenting;
 import model.ES.component.hierarchy.PlanarStanceControl;
 import model.ES.component.hierarchy.ThrustControl;
 import model.ES.component.hierarchy.ThrusterControl;
@@ -63,8 +55,7 @@ import model.ES.component.visuals.ParticleCaster;
 import model.ES.component.visuals.Skeleton;
 import model.ES.component.visuals.Sprite;
 import model.ES.component.world.Scenery;
-import model.world.ToolManager;
-import model.world.World;
+import model.world.WorldData;
 
 public class Model {
 	public final Inspector inspector;
@@ -73,14 +64,13 @@ public class Model {
 	public final ResourceExplorer resourceExplorer;
 	
 	private final EntityData ed;
-	private final World world;
+	private final WorldData world;
 	
 	public final ObjectProperty<EntityPresenter> selectionProperty = new SimpleObjectProperty<>();
 	
 	public Model() {
 		ed = new PostingEntityData();
-		world = new World(ed);
-		ToolManager.setWorld(world);
+		world = new WorldData(ed);
 		
 		// TODO
 		// max value
@@ -147,7 +137,7 @@ public class Model {
 		return ed;
 	}
 
-	public World getWorld() {
+	public WorldData getWorld() {
 		return world;
 	}
 	

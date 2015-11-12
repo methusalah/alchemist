@@ -68,10 +68,9 @@ import util.math.RandomUtil;
 import view.material.MaterialManager;
 import model.ES.serial.BlueprintLibrary;
 import model.ES.serial.EntityInstance;
-import model.ES.serial.EntityInstancier;
 import model.world.Region;
 import model.world.RegionManager;
-import model.world.World;
+import model.world.WorldData;
 
 public class MainGame extends CosmoVania {
 	private Controller currentAppState;
@@ -91,7 +90,6 @@ public class MainGame extends CosmoVania {
 		MaterialManager.initBaseMaterials();
 		EntityData ed = new DefaultEntityData();
 		PrototypeCreator.setEntityData(ed);
-		EntityInstancier.setEntityData(ed);
 
 		Region r = new Region(new Point2D(-5, 5));
 		for(int i = 0; i < 20; i++){
@@ -157,7 +155,7 @@ public class MainGame extends CosmoVania {
 		currentAppState = stateManager.getState(TopdownCtrl.class);
 		
 		
-		EntitySystem es = new EntitySystem(ed, new World(ed));
+		EntitySystem es = new EntitySystem(ed, new WorldData(ed));
 		stateManager.attach(es);
 		es.initVisuals(true);
 		es.initAudio(true);

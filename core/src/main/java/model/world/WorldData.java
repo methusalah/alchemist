@@ -4,20 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.simsilica.es.EntityData;
+import com.simsilica.es.EntityId;
 
 import model.ES.serial.EntityInstance;
-import model.ES.serial.EntityInstancier;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
-public class World {
+public class WorldData {
 	private List<Region> drawnRegions = new ArrayList<Region>();
 	private Region lastRegion;
 	private RegionManager regionManager = new RegionManager();
 	private final EntityData ed;
+	private EntityId worldEntity;
 	
-	public World(EntityData ed) {
+	public WorldData(EntityData ed) {
 		this.ed = ed;
+	}
+	
+	public void setWorldEntity(EntityId eid){
+		this.worldEntity = eid;
 	}
 	
 	public void setCoord(Point2D coord){
@@ -39,15 +44,16 @@ public class World {
 		}
 	}
 	
-	private void drawRegion(Region region){
+	public void drawRegion(Region region){
 		LogUtil.info("draw region "+region.getId());
 		for(EntityInstance ei : region.getEntities())
-			EntityInstancier.instanciate(ei);
+			ei.instanciate(ed, worldEntity);
 	}
 	
 	private void undrawRegion(Region region){
 		LogUtil.info("undraw region "+region.getId());
-		
+		for(EntityInstance ei : region.getEntities())
+			ei.uninstanciate(ed);
 	}
 	
 	private List<Region> get9RegionsAround(Point2D coord){
@@ -59,7 +65,7 @@ public class World {
 		return res;
 	}
 	
-	private Region getRegion(Point2D coord){
+	public Region getRegion(Point2D coord){
 		return regionManager.getRegion(coord);
 	}
 }

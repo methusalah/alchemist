@@ -1,5 +1,5 @@
 {
-  "name" : "sun",
+  "name" : "Sun",
   "comps" : [ {
     "class" : "model.ES.component.Naming",
     "name" : "Sun"
@@ -31,6 +31,8 @@
       "y" : -1.0,
       "z" : -3.0
     }
+  }, {
+    "class" : "model.ES.component.world.Scenery"
   } ],
   "children" : [ ]
 }

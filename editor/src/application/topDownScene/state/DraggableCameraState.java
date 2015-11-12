@@ -1,4 +1,4 @@
-package controller;
+package application.topDownScene.state;
 
 import util.geometry.geom2d.Point2D;
 import view.math.TranslateUtil;
@@ -11,7 +11,7 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 
-public class DraggableCamera extends AbstractAppState {
+public class DraggableCameraState extends AbstractAppState {
 	private static String[] mappings = new String[] { "FLYCAM_Left", "FLYCAM_Right", "FLYCAM_Up", "FLYCAM_Down",
 
 			"FLYCAM_StrafeLeft", "FLYCAM_StrafeRight", "FLYCAM_Forward", "FLYCAM_Backward",
@@ -28,7 +28,7 @@ public class DraggableCamera extends AbstractAppState {
 	
 	private Point2D velocity = Point2D.ORIGIN;
 
-	public DraggableCamera(Camera cam) {
+	public DraggableCameraState(Camera cam) {
 		this.cam = cam;
 		initialUpVec = cam.getUp().clone();
 	}

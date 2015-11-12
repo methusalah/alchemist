@@ -1,5 +1,7 @@
 package view;
 
+import application.topDownScene.SceneInputManager;
+import application.topDownScene.TopDownSceneController;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
@@ -11,11 +13,10 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
-import application.TopDownSceneController;
 
 public class SceneViewer extends Pane {
 	
-	private TopDownSceneController controller;
+	private SceneInputManager inputManager;
 	private final ImageView image;
 	
 	
@@ -39,14 +40,29 @@ public class SceneViewer extends Pane {
 
 			@Override
 			public void handle(MouseEvent e) {
-				controller.onMousePressed(e);
+				inputManager.onMousePressed(e);
 			}
 		});
 		image.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			
 			@Override
 			public void handle(MouseEvent e) {
-				controller.onMouseDragged(e);
+				inputManager.onMouseDragged(e);
+			}
+		});
+
+		image.setOnMouseReleased(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent e) {
+				inputManager.onMouseReleased(e);
+			}
+		});
+		image.setOnMouseMoved(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent e) {
+				inputManager.onMouseMoved(e);
 			}
 		});
 		
@@ -55,7 +71,7 @@ public class SceneViewer extends Pane {
 
 			@Override
 			public void handle(ScrollEvent e) {
-				controller.onMouseScroll(e);
+				inputManager.onMouseScroll(e);
 			}
 		});
 		
@@ -63,8 +79,8 @@ public class SceneViewer extends Pane {
 
 	}
 
-	public void setController(TopDownSceneController controller) {
-		this.controller = controller;
+	public void setInputManager(SceneInputManager inputManager) {
+		this.inputManager = inputManager;
 	}
 	
 	public void registerKeyInputs(Scene rootScene){
@@ -73,7 +89,7 @@ public class SceneViewer extends Pane {
 
 			@Override
 			public void handle(KeyEvent e) {
-				controller.onKeyPressed(e);
+				inputManager.onKeyPressed(e);
 			}
 		});
 
@@ -81,7 +97,7 @@ public class SceneViewer extends Pane {
 
 			@Override
 			public void handle(KeyEvent e) {
-				controller.onKeyReleased(e);
+				inputManager.onKeyReleased(e);
 			}
 		});
 	}

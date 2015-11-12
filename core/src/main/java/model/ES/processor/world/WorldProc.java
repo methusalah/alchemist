@@ -5,21 +5,26 @@ import com.simsilica.es.Entity;
 import controller.ECS.Processor;
 import model.ES.component.camera.ChasingCamera;
 import model.ES.component.motion.PlanarStance;
-import model.world.World;
+import model.world.WorldData;
 import util.geometry.geom2d.Point2D;
 
 public class WorldProc extends Processor {
 	
-	private World world;
+	private WorldData world;
 	private Point2D oldCoord = null;
 	
-	public WorldProc(World world) {
+	public WorldProc(WorldData world) {
 		this.world = world;
 	}
 
 	@Override
 	protected void registerSets() {
 		registerDefault(ChasingCamera.class, PlanarStance.class);
+	}
+	
+	@Override
+	protected void onEntityAdded(Entity e) {
+		onEntityUpdated(e);
 	}
 	
 	@Override

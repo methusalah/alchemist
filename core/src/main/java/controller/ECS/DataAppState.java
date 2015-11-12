@@ -1,10 +1,10 @@
 package controller.ECS;
 
-import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
-import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.base.DefaultEntityData;
+
+import model.world.WorldData;
 
 /**
  * The EntityData of the game is stored in this AppState to allow
@@ -12,26 +12,25 @@ import com.simsilica.es.base.DefaultEntityData;
  *
  * @author Eike Foede, roah
  */
-public class EntityDataAppState extends AbstractAppState {
+public class DataAppState extends AbstractAppState {
 	EntityData entityData;
+	WorldData world;
 	
-    public EntityDataAppState() {
+    public DataAppState() {
     	entityData = new DefaultEntityData();
     }
 
-    public EntityDataAppState(EntityData entityData) {
+    public DataAppState(EntityData entityData, WorldData world) {
         this.entityData = entityData;
+        this.world = world;
     }
     
-    @Override
-    public void initialize(AppStateManager stateManager, Application app) {
-        super.initialize(stateManager, app);
-    }
-
     public EntityData getEntityData() {
         return entityData;
     }
-    @Override
-    public void update(float tpf) {
+
+    public WorldData getWorldData(){
+    	return world;
     }
+    
 }

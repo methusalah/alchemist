@@ -1,4 +1,4 @@
-package application;
+package application.topDownScene;
 
 import com.google.common.eventbus.Subscribe;
 import com.jme3.app.SimpleApplication;
@@ -7,35 +7,36 @@ import com.jme3x.jfx.injfx.JmeForImageView;
 import com.simsilica.es.EntityData;
 
 import app.AppFacade;
-import controller.DraggableCamera;
-import controller.ECS.EntityDataAppState;
+import application.topDownScene.state.DraggableCameraState;
+import application.topDownScene.state.SceneSelectorState;
+import application.topDownScene.state.WorldToolState;
+import controller.ECS.DataAppState;
 import controller.ECS.EntitySystem;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import model.Model;
-import model.world.World;
+import model.world.WorldData;
 import util.event.EventManager;
 import util.event.scene.AppClosedEvent;
 import util.event.scene.RunEvent;
+import util.geometry.geom2d.Point2D;
 import view.Overview;
 
 public class TopDownSceneController {
 
 	private JmeForImageView jme;
-	
-	private final TopDownCamera camera;
-	private final TopDownToolController tool;
+	private final SceneInputManager inputManager = new SceneInputManager();
 	
 	public TopDownSceneController(Model model, Overview view) {
-		view.sceneViewer.setController(this);
+		view.sceneViewer.setInputManager(inputManager);
 		jme = new JmeForImageView();
 		jme.enqueue((app) -> createScene(app, model.getEntityData(), model.getWorld()));
 		jme.bind(view.sceneViewer.getImage());
 		EventManager.register(this);
 		
-		camera = new TopDownCamera(jme);
-		tool = new TopDownToolController(jme);
+		inputManager.addListener(new TopDownCamera(jme));
+		inputManager.addListener(new TopDownWorldTool(jme));
 	}
 
 	
@@ -47,9 +48,9 @@ public class TopDownSceneController {
 	@Subscribe
 	public void onRunEvent(RunEvent e){
 		if(e.value)
-			jme.enqueue((app) -> startGame(app));
+			jme.enqueue(app -> startGame(app));
 		else
-			jme.enqueue((app) -> stopGame(app));
+			jme.enqueue(app -> stopGame(app));
 	}
 
 	static public boolean startGame(SimpleApplication app){
@@ -75,45 +76,17 @@ public class TopDownSceneController {
 		return true;
 	}
 	
-	public void onMousePressed(MouseEvent e){
-		camera.onMousePressed(e);
-		
-	}
-	
-	public void onMouseReleased(MouseEvent e){
-		
-	}
-
-	public void onMouseMoved(MouseEvent e){
-		
-	}
-	
-	public void onMouseDragged(MouseEvent e){
-		camera.onMouseDragged(e);
-	}
-	
-	public void onMouseScroll(ScrollEvent e){
-		camera.onMouseScroll(e);
-	}
-
-	public void onKeyPressed(KeyEvent e){
-		camera.onKeyPressed(e);
-	}
-	
-	public void onKeyReleased(KeyEvent e){
-		camera.onKeyReleased(e);
-	}
-
-	static private boolean createScene(SimpleApplication app, EntityData ed, World world) {
+	static private boolean createScene(SimpleApplication app, EntityData ed, WorldData world) {
 		AppFacade.setApp(app);
 		AppStateManager stateManager = app.getStateManager();
 		
-		DraggableCamera cam = new DraggableCamera(app.getCamera());
+		DraggableCameraState cam = new DraggableCameraState(app.getCamera());
 		cam.setRotationSpeed(0.001f);
 		cam.setMoveSpeed(1f);
-		
 		stateManager.attach(cam);
-		stateManager.attach(new EntityDataAppState(ed));
+
+		stateManager.attach(new SceneSelectorState());
+		stateManager.attach(new WorldToolState());
 		
 		EntitySystem es = new EntitySystem(ed, world);
 		stateManager.attach(es);
@@ -123,5 +96,4 @@ public class TopDownSceneController {
 		es.initLogic(false);
 		return true;
 	}
-
 }

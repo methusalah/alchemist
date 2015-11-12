@@ -5,7 +5,7 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3x.jfx.injfx.JmeForImageView;
 import com.sun.corba.se.impl.oa.poa.AOMEntry;
 
-import controller.DraggableCamera;
+import application.topDownScene.state.DraggableCameraState;
 import controller.ECS.EntitySystem;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

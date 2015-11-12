@@ -2,7 +2,8 @@ package controller.ECS;
 
 import model.ES.processor.command.PlayerRotationControlProc;
 import model.ES.processor.command.PlayerThrustControlProc;
-import model.world.World;
+import model.ES.processor.world.WorldProc;
+import model.world.WorldData;
 import util.LogUtil;
 import view.drawingProcessors.CameraPlacingProc;
 import view.drawingProcessors.LightProc;
@@ -29,7 +30,7 @@ public class EntitySystem extends AbstractAppState{
 	private Thread logicThread;
 
 	private final EntityData ed;
-	private final World world;
+	private final WorldData world;
 
 	
 	List<AppState> visualStates = new ArrayList<>();
@@ -37,9 +38,11 @@ public class EntitySystem extends AbstractAppState{
 	List<AppState> commandStates = new ArrayList<>();
 	List<AppState> logicStates = new ArrayList<>();
 
-	public EntitySystem(EntityData ed, World world) {
+	public EntitySystem(EntityData ed, WorldData world) {
 		this.ed = ed;
 		this.world = world;
+		
+		
 		visualStates.add(new ParticleCasterInPlaneProc());
 		visualStates.add(new ModelProc());
 		visualStates.add(new SpriteProc());
@@ -63,7 +66,8 @@ public class EntitySystem extends AbstractAppState{
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		this.stateManager = stateManager;
-		stateManager.attach(new EntityDataAppState(ed));
+		stateManager.attach(new DataAppState(ed, world));
+    	stateManager.attach(new WorldProc(world));
 	}
 	
 	public void initVisuals(boolean value){
