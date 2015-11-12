@@ -2,6 +2,7 @@ package model.ES.serial;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
@@ -45,6 +46,7 @@ public class EntityInstance {
 		instanceId = null;
 	}
 	
+	@JsonIgnore
 	public boolean isInstanciated(){
 		return instanceId != null;
 	}

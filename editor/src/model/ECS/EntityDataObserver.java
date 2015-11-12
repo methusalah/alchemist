@@ -111,5 +111,9 @@ public class EntityDataObserver {
 			}
 		});
 	}
+	
+	public void changeSelectedEntity(EntityId eid){
+		
+	}
 
 }

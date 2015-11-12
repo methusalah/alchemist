@@ -60,7 +60,7 @@ public class EntitySystem extends AbstractAppState{
 		
 		commandStates.add(new PlayerRotationControlProc());
 		commandStates.add(new PlayerThrustControlProc());
-		//commandStates.add(new CameraPlacingProc());
+		commandStates.add(new CameraPlacingProc());
 	}
 	
 	@Override
