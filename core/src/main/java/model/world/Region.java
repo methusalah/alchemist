@@ -30,11 +30,12 @@ public class Region {
 	}
 	
 	public Region(@JsonProperty("id")String id,
-			@JsonProperty("entities")List<EntityInstance> entities,
-			@JsonProperty("terrain")Terrain terrain){
+			@JsonProperty("entities")List<EntityInstance> entities
+//			,@JsonProperty("terrain")Terrain terrain
+			){
 		this.id = id;
 		this.entities = entities;
-		this.terrain = terrain;
+//		this.terrain = terrain;
 	}
 	
 	public List<EntityInstance> getEntities() {
@@ -45,6 +46,7 @@ public class Region {
 		return id;
 	}
 	
+	@JsonIgnore
 	public Terrain getTerrain() {
 		return terrain;
 	}
