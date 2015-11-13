@@ -33,6 +33,7 @@ public class Controller {
 		this.view = view;
 		
 		view.hierarchyView.setRootPresenter(model.observer.getRootEntityPresenter());
+		view.hierarchyView.setSelectionProperty(model.selectionProperty);
 		view.inspectorView.setComponentNames(model.inspector.getComponentNames());
 		view.resourceView.setBlueprintList(model.resourceExplorer.blueprintListProperty());
 		EventManager.register(this);
