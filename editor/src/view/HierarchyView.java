@@ -64,7 +64,12 @@ public class HierarchyView extends VBox{
 		tree.setMaxHeight(Double.MAX_VALUE);
 		getChildren().add(tree);
 	}
-	
+
+	/*
+	 * The hierarchy view can observe the current selection and change the selected tree item accordingly
+	 * 
+	 * Needed because the user can select an entity from the scene view
+	 */
 	public void setSelectionProperty(ObjectProperty<EntityPresenter> selection){
 		selection.addListener(new ChangeListener<EntityPresenter>() {
 
@@ -80,7 +85,6 @@ public class HierarchyView extends VBox{
 			private TreeItem<EntityPresenter> findInTree(TreeItem<EntityPresenter> parent, EntityPresenter newValue) {
 				if(parent.getValue() == newValue)
 					return parent;
-				
 				for(TreeItem<EntityPresenter> child : parent.getChildren()){
 					TreeItem<EntityPresenter> found = findInTree(child, newValue);
 					if(found != null)
