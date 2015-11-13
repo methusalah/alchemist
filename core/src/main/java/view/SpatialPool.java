@@ -10,7 +10,7 @@ import com.jme3.scene.Spatial;
 import com.simsilica.es.EntityId;
 
 import model.ES.richData.VelocityView;
-import model.world.terrain.mesh.Parcel;
+import model.world.terrain.heightmap.Parcel;
 import util.LogUtil;
 import view.jme.MyParticleEmitter;
 

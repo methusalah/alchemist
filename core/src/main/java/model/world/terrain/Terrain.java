@@ -1,19 +1,28 @@
 package model.world.terrain;
 
+import model.ES.component.world.TerrainTexturing;
 import model.world.terrain.atlas.Atlas;
-import model.world.terrain.mesh.Parcelling;
+import model.world.terrain.heightmap.HeightMap;
+import model.world.terrain.heightmap.Parcelling;
 import util.geometry.structure.grid3D.Grid3D;
 
-public final class Terrain extends Grid3D<TerrainNode> {
-	
+public final class Terrain {
 	private final Parcelling parcelling;
 	private final Atlas atlas, cover;
+	private final HeightMap heighmap;
+	private final TerrainTexturing texturing;
 	
-	public Terrain(int width, int height) {
-		super(width, height);
+	private final int width, height;
+	
+	public Terrain(int width, int height, TerrainTexturing texturing) {
+		this.width = width;
+		this.height = height;
 		atlas = new Atlas(width, height);
 		cover = new Atlas(width, height);
-		parcelling = new Parcelling(this); 
+		heighmap = new HeightMap(width, height);
+		
+		parcelling = new Parcelling(heighmap);
+		this.texturing = texturing; 
 	}
 	
 	public Atlas getAtlas() {
@@ -27,5 +36,16 @@ public final class Terrain extends Grid3D<TerrainNode> {
 	public Parcelling getParcelling() {
 		return parcelling;
 	}
-	
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public TerrainTexturing getTexturing() {
+		return texturing;
+	}
 }

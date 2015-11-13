@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import model.ES.serial.Blueprint;
 import model.ES.serial.EntityInstance;
 import model.world.terrain.Terrain;
-import model.world.terrain.mesh.Parcel;
-import model.world.terrain.mesh.Parcelling;
+import model.world.terrain.heightmap.Parcel;
+import model.world.terrain.heightmap.Parcelling;
 import util.geometry.geom2d.Point2D;
 
 public class Region {
@@ -23,7 +23,7 @@ public class Region {
 
 	public Region(String id){
 		this.id = id;
-		terrain = new Terrain(RESOLUTION, RESOLUTION);
+		//terrain = new Terrain(RESOLUTION, RESOLUTION, null);
 	}
 	public Region(Point2D coord){
 		this(RegionManager.getRegionId(coord));

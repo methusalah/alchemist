@@ -1,34 +1,32 @@
-package model.world.terrain.mesh;
+package model.world.terrain.heightmap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import model.world.terrain.TerrainNode;
 import util.geometry.geom3d.MyMesh;
 import util.geometry.geom3d.Triangle3D;
 import util.geometry.structure.grid.Node;
 
 public class Parcel extends Node {
 
-	Map<TerrainNode, List<Triangle3D>> triangles = new HashMap<TerrainNode, List<Triangle3D>>();
-
+	private final Map<Height, List<Triangle3D>> triangles = new HashMap<Height, List<Triangle3D>>();
 	private MyMesh mesh = new MyMesh();
 	
 	public Parcel(Parcelling grid, int index) {
-		super(grid, index);
+		super(index);
 	}
 
-	public void add(TerrainNode t) {
-		triangles.put(t, new ArrayList<Triangle3D>());
+	public void add(Height h) {
+		triangles.put(h, new ArrayList<Triangle3D>());
 	}
 
-	public List<TerrainNode> getNodes() {
-		List<TerrainNode> res = new ArrayList<>();
-		for (TerrainNode t : triangles.keySet()) {
+	public List<Height> getHeights() {
+		List<Height> res = new ArrayList<>();
+		for (Height t : triangles.keySet()) {
 			res.add(t);
 		}
 		return res;
@@ -39,7 +37,7 @@ public class Parcel extends Node {
 		mesh.textCoord.clear();
 		mesh.normals.clear();
 		mesh.indices.clear();
-		for (TerrainNode t : triangles.keySet()) {
+		for (Height t : triangles.keySet()) {
 			triangles.get(t).clear();
 		}
 	}
@@ -50,5 +48,9 @@ public class Parcel extends Node {
 
 	public void setMesh(MyMesh mesh) {
 		this.mesh = mesh;
+	}
+
+	public Map<Height, List<Triangle3D>> getTriangles() {
+		return triangles;
 	}
 }

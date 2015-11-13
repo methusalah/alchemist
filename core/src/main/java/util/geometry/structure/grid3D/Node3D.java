@@ -6,8 +6,8 @@ public class Node3D extends Node {
 
 	protected double elevation;
 	
-	public Node3D(Grid3D<? extends Node3D> grid, int index) {
-		super(grid, index);
+	public Node3D(int index) {
+		super(index);
 	}
 
 	public double getElevation() {

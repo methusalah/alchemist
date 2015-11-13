@@ -21,19 +21,19 @@ public class AtlasExplorer {
 	}
 
 	public Point2D getInMapSpace(Point2D p){
-		return p.getMult(terrain.xSize(), terrain.ySize()).getDivision(terrain.getAtlas().getWidth(), terrain.getAtlas().getHeight());
+		return p.getMult(terrain.getWidth(), terrain.getHeight()).getDivision(terrain.getAtlas().getWidth(), terrain.getAtlas().getHeight());
 	}
 
 	public Point2D getInAtlasSpace(Point2D p){
-		return p.getMult(terrain.getAtlas().getWidth(), terrain.getAtlas().getHeight()).getDivision(terrain.xSize(), terrain.ySize());
+		return p.getMult(terrain.getAtlas().getWidth(), terrain.getAtlas().getHeight()).getDivision(terrain.getWidth(), terrain.getHeight());
 	}
 
 	public double getInAtlasSpace(double distance){
-		return distance * terrain.getAtlas().getWidth() / terrain.xSize();
+		return distance * terrain.getAtlas().getWidth() / terrain.getWidth();
 	}
 
 	public double getInMapSpace(double distance){
-		return distance * terrain.xSize() / terrain.getAtlas().getWidth();
+		return distance * terrain.getWidth() / terrain.getAtlas().getWidth();
 	}
 
 	public ArrayList<Point2D> getPixelsInMapSpaceSquare(Point2D center, double radius){

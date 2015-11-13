@@ -9,11 +9,7 @@ public class Node {
 	@JsonProperty
 	protected final int index;
 
-	@JsonIgnore
-	protected Grid<? extends Node> grid;
-	
-	public Node(Grid<? extends Node> grid, int index) {
-		this.grid = grid;
+	public Node(int index) {
 		this.index = index;
 	}
 
