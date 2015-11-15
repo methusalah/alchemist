@@ -4,7 +4,6 @@ import model.ES.component.world.TerrainTexturing;
 import model.world.terrain.atlas.Atlas;
 import model.world.terrain.heightmap.HeightMap;
 import model.world.terrain.heightmap.Parcelling;
-import util.geometry.structure.grid3D.Grid3D;
 
 public final class Terrain {
 	private final Parcelling parcelling;
