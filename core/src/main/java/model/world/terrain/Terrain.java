@@ -18,6 +18,8 @@ public final class Terrain {
 		this.height = height;
 		atlas = new Atlas(width, height);
 		cover = new Atlas(width, height);
+		atlas.finalize();
+		cover.finalize();
 		heighmap = new HeightMap(width, height);
 		
 		parcelling = new Parcelling(heighmap);

@@ -1,7 +1,9 @@
 package model.world;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
@@ -9,9 +11,11 @@ import com.simsilica.es.EntityId;
 import model.ES.serial.EntityInstance;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
+import view.drawingProcessors.TerrainDrawer;
 
 public class WorldData {
 	private List<Region> drawnRegions = new ArrayList<Region>();
+	private Map<Region, TerrainDrawer> terrainDrawers = new HashMap<>();
 	private Region lastRegion;
 	private RegionManager regionManager = new RegionManager();
 	private final EntityData ed;
@@ -48,6 +52,10 @@ public class WorldData {
 		LogUtil.info("draw region "+region.getId());
 		for(EntityInstance ei : region.getEntities())
 			ei.instanciate(ed, worldEntity);
+		
+		TerrainDrawer drawer = new TerrainDrawer(region.getTerrain());
+		drawer.render();
+		terrainDrawers.put(region, drawer);
 	}
 	
 	private void undrawRegion(Region region){

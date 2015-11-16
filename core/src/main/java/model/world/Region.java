@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import model.ES.component.world.TerrainTexturing;
 import model.ES.serial.Blueprint;
 import model.ES.serial.EntityInstance;
 import model.world.terrain.Terrain;
@@ -23,7 +24,7 @@ public class Region {
 
 	public Region(String id){
 		this.id = id;
-		//terrain = new Terrain(RESOLUTION, RESOLUTION, null);
+		terrain = new Terrain(RESOLUTION, RESOLUTION, null);
 	}
 	public Region(Point2D coord){
 		this(RegionManager.getRegionId(coord));
@@ -35,6 +36,13 @@ public class Region {
 			){
 		this.id = id;
 		this.entities = entities;
+		TerrainTexturing t = new TerrainTexturing(new ArrayList<String>(){{add("textures/grass02.jpg");}},
+				new ArrayList<String>(){{add(null);}},
+				new ArrayList<Double>(){{add(32d);}},
+				new ArrayList<String>(){{add("textures/transp.png");}},
+				new ArrayList<String>(){{add(null);}},
+				new ArrayList<Double>(){{add(1d);}});
+		terrain = new Terrain(RESOLUTION, RESOLUTION, t);
 //		this.terrain = terrain;
 	}
 	

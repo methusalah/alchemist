@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import model.world.terrain.Terrain;
+import util.LogUtil;
 import util.exception.TechnicalException;
 import util.geometry.collections.Map2D;
 import util.geometry.geom2d.Point2D;
@@ -36,6 +37,8 @@ public class Parcelling extends Grid<Parcel>{
 
 		for (int x = 0; x < heightmap.xSize(); x++) {
 			for (int y = 0; y < heightmap.ySize(); y++) {
+				if(heightmap.get(x, y) == null)
+					LogUtil.info("y'a du null "+x+"/"+y);
 				get(inParcellingSpace(new Point2D(x, y))).add(heightmap.get(x, y));
 			}
 		}
@@ -89,7 +92,7 @@ public class Parcelling extends Grid<Parcel>{
 		}
 		for (Parcel neighbor : get8Around(parcel)) {
 			for (Height h : neighbor.getTriangles().keySet()) {
-				if (h.equals(neighbor)) {
+				if (h.equals(height)) {
 					return getGroundTriangles(h, neighbor);
 				}
 			}

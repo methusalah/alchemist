@@ -7,6 +7,8 @@ public class HeightMap extends Grid<Height> {
 	
 	public HeightMap(int width, int height) {
 		super(width, height);
+		for(int i = 0; i < xSize*ySize; i++)
+			set(i, new Height(i));
 	}
 	
 	public Point3D getPos(Height height){
