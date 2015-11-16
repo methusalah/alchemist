@@ -1,5 +1,9 @@
 {
   "id" : "-1,0",
+  "coord" : {
+    "x" : -64.0,
+    "y" : 0.0
+  },
   "entities" : [ {
     "blueprint" : {
       "name" : "thruster",

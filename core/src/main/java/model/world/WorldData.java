@@ -53,7 +53,7 @@ public class WorldData {
 		for(EntityInstance ei : region.getEntities())
 			ei.instanciate(ed, worldEntity);
 		
-		TerrainDrawer drawer = new TerrainDrawer(region.getTerrain());
+		TerrainDrawer drawer = new TerrainDrawer(region.getTerrain(), region.getCoord());
 		drawer.render();
 		terrainDrawers.put(region, drawer);
 	}

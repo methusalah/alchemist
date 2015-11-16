@@ -5,6 +5,7 @@ import model.world.terrain.event.AtlasChangedEvent;
 import model.world.terrain.event.ParcelChangedEvent;
 import model.world.terrain.heightmap.Parcel;
 import util.event.EventManager;
+import util.geometry.geom2d.Point2D;
 import view.SpatialPool;
 import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
@@ -25,15 +26,17 @@ public class TerrainDrawer {
 	private final Terrain terrain;
 	private final TerrainSplatTexture groundTexture;
 	private final TerrainSplatTexture coverTexture;
-
+	private final Point2D coord;
+	
 	public Node mainNode = new Node();
 	public Node castAndReceiveNode = new Node();
 	public Node receiveNode = new Node();
 
 	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
 
-	public TerrainDrawer(Terrain terrain) {
+	public TerrainDrawer(Terrain terrain, Point2D coord) {
 		this.terrain = terrain;
+		this.coord = coord;
 		groundTexture = new TerrainSplatTexture(terrain.getAtlas());
 		coverTexture = new TerrainSplatTexture(terrain.getCover());
 		coverTexture.transp = true;
@@ -82,6 +85,7 @@ public class TerrainDrawer {
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			g.setMesh(jmeMesh);
 			g.setMaterial(groundTexture.getMaterial());
+			g.setLocalTranslation(TranslateUtil.toVector3f(coord));
 //			g.setQueueBucket(Bucket.Transparent);
 
 			g.addControl(new RigidBodyControl(0));
@@ -93,6 +97,7 @@ public class TerrainDrawer {
 			g2.setMesh(jmeMesh);
 			g2.setMaterial(coverTexture.getMaterial());
 			g2.setQueueBucket(Bucket.Transparent);
+			g2.setLocalTranslation(TranslateUtil.toVector3f(coord));
 			g2.setLocalTranslation(0, 0, 0.01f);
 			SpatialPool.coverParcels.put(parcel, g2);
 			castAndReceiveNode.attachChild(g2);

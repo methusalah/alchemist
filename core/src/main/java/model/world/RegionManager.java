@@ -24,16 +24,14 @@ public class RegionManager {
 
 	public Region getRegion(Point2D coord){
 		String rid = getRegionId(coord);
-		LogUtil.info(this + "region need : "+rid);
 		if(!loadedRegions.containsKey(rid))
-			loadedRegions.put(rid, loadRegion(rid));
+			loadedRegions.put(rid, loadRegion(rid, getRegionCoord(coord)));
 		return loadedRegions.get(rid);
 	}
 	
-	private Region loadRegion(String rid) {
+	private Region loadRegion(String rid, Point2D coord) {
 		LogUtil.info(this + "    region load : "+rid);
-		File f = getRegionFile(rid);
-		
+		File f = getRegionFile(rid, coord);
 		try {
 			return mapper.readValue(f, Region.class);
 		} catch (IOException e) {
@@ -48,8 +46,20 @@ public class RegionManager {
 		return x+","+y;
 	}
 
+	public static Point2D getRegionCoord(Point2D coord){
+		int x = ((int)Math.floor(coord.x/Region.RESOLUTION))*Region.RESOLUTION;
+		int y = ((int)Math.floor(coord.y/Region.RESOLUTION))*Region.RESOLUTION;
+		return new Point2D(x, y);
+	}
+
 	public static void saveRegion(Region region){
-		File f = getRegionFile(region.getId());
+		File f = new File(PATH+region.getId()+EXT);
+		if (!f.exists())
+			try {
+				f.createNewFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -59,14 +69,14 @@ public class RegionManager {
 		}
 	}
 	
-	private static File getRegionFile(String regionId){
+	private static File getRegionFile(String regionId, Point2D coord){
 		File f = new File(PATH+regionId+EXT);
 		if (!f.exists()) {
 			try {
 				f.createNewFile();
 				ObjectMapper mapper = new ObjectMapper();
 				mapper.enable(SerializationFeature.INDENT_OUTPUT);
-				mapper.writeValue(f, new Region(regionId));
+				mapper.writeValue(f, new Region(regionId, coord));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

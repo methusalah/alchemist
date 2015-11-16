@@ -19,22 +19,26 @@ public class Region {
 	public static final int RESOLUTION = 64;
 
 	private final String id;
+	private final Point2D coord;
 	private List<EntityInstance> entities = new ArrayList<>();
 	private Terrain terrain;
 
-	public Region(String id){
+	public Region(String id, Point2D coord){
 		this.id = id;
+		this.coord = coord;
 		terrain = new Terrain(RESOLUTION, RESOLUTION, null);
 	}
 	public Region(Point2D coord){
-		this(RegionManager.getRegionId(coord));
+		this(RegionManager.getRegionId(coord), RegionManager.getRegionCoord(coord));
 	}
 	
 	public Region(@JsonProperty("id")String id,
+			@JsonProperty("coord")Point2D coord,
 			@JsonProperty("entities")List<EntityInstance> entities
 //			,@JsonProperty("terrain")Terrain terrain
 			){
 		this.id = id;
+		this.coord = coord;
 		this.entities = entities;
 		TerrainTexturing t = new TerrainTexturing(new ArrayList<String>(){{add("textures/grass02.jpg");}},
 				new ArrayList<String>(){{add(null);}},
@@ -52,6 +56,10 @@ public class Region {
 	
 	public String getId() {
 		return id;
+	}
+	
+	public Point2D getCoord() {
+		return coord;
 	}
 	
 	@JsonIgnore
