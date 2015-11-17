@@ -16,7 +16,7 @@ import model.world.terrain.heightmap.Parcelling;
 import util.geometry.geom2d.Point2D;
 
 public class Region {
-	public static final int RESOLUTION = 60;
+	public static final int RESOLUTION = 15;
 
 	private final String id;
 	private final Point2D coord;

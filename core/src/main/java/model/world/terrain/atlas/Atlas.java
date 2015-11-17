@@ -34,14 +34,27 @@ public class Atlas {
 		for (int i = 0; i < LAYER_COUNT; i++) {
 			AtlasLayer l = new AtlasLayer(width, height);
 			for (int xy = 0; xy < width * height; xy++) {
-				if(flatData.substring(index, index+2).equals("min")){
-					int nbZero = (byte)(hexStringToByteArray(flatData.substring(index+3, index+4))[0]);
-					while(nbZero -- >= 0) 
+				if(index+3 < flatData.length())
+					LogUtil.info("prefix : " +flatData.substring(index, index+3));
+				
+
+				if(index+3 < flatData.length() &&  flatData.substring(index, index+3).equals("min")){
+					int nbZero = (byte)(hexStringToByteArray(flatData.substring(index+3, index+5))[0])+128;
+					LogUtil.info("nb zero : " +nbZero);
+					while(nbZero-- > 0)
+						l.setByte(xy++, (byte)-128);
+					index += 6;
+				} else if(index+3 < flatData.length() && flatData.substring(index, index+3).equals("max")){
+					int nbMax = (byte)(hexStringToByteArray(flatData.substring(index+3, index+5))[0])+128;
+					LogUtil.info("nb max : " +nbMax);
+					while(nbMax-- > 0)
+						l.setByte(xy++, (byte)127);
+					index += 6;
+				} else {
+					byte b = (byte)(hexStringToByteArray(flatData.substring(index, index+2))[0]);
+					l.setByte(xy, b);
+					index += 3;
 				}
-				byte b = (byte)(hexStringToByteArray(flatData.substring(index, index+2))[0]);
-				if(b)
-				l.setByte(xy, );
-				index += 2;
 			}
 			layers.add(l);
 		}
@@ -85,7 +98,7 @@ public class Atlas {
 					// grouping of zero values
 					int nbZero = 1;
 					while(i+nbZero < l.getBytes().size() &&
-							nbZero < 255 &&
+							nbZero <= 255 &&
 							(byte)(l.getBytes().get(i+nbZero)) == -128){
 						nbZero++;
 					}
@@ -98,7 +111,7 @@ public class Atlas {
 					// grouping of max (255) values
 					int nb255 = 1;
 					while(i+nb255 < l.getBytes().size() &&
-							nb255 < 255 &&
+							nb255 <= 255 &&
 							(byte)(l.getBytes().get(i+nb255)) == 127){
 						nb255++;
 					}
