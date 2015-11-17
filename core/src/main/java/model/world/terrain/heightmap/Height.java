@@ -1,8 +1,5 @@
 package model.world.terrain.heightmap;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import util.geometry.structure.grid.Node;
 
 public class Height extends Node {
@@ -11,6 +8,11 @@ public class Height extends Node {
 	
 	public Height(int index) {
 		super(index);
+	}
+	
+	public Height(int index, double elevation) {
+		super(index);
+		this.elevation = elevation;
 	}
 
 	public double getElevation() {

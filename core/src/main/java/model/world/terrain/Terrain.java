@@ -1,5 +1,6 @@
 package model.world.terrain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import model.ES.component.world.TerrainTexturing;
@@ -10,7 +11,7 @@ import model.world.terrain.heightmap.Parcelling;
 public final class Terrain {
 	private final Parcelling parcelling;
 	private final Atlas atlas, cover;
-	private final HeightMap heighmap;
+	private final HeightMap heighMap;
 	private final TerrainTexturing texturing;
 	
 	private final int width, height;
@@ -19,6 +20,7 @@ public final class Terrain {
 			@JsonProperty("height")int height,
 			@JsonProperty("atlas")Atlas atlas,
 			@JsonProperty("cover")Atlas cover,
+			@JsonProperty("heightMap")HeightMap heightMap,
 			@JsonProperty("texturing")TerrainTexturing texturing){
 		this.width = width;
 		this.height = height;
@@ -26,19 +28,20 @@ public final class Terrain {
 		this.atlas = atlas;
 		this.cover = cover;
 		this.texturing = texturing; 
-		heighmap = new HeightMap(width, height);
-		parcelling = new Parcelling(heighmap);
+		this.heighMap = heightMap;
+		parcelling = new Parcelling(heighMap);
 	}
 	
 	public Terrain(int width, int height, TerrainTexturing texturing) {
 		this.width = width;
 		this.height = height;
+		this.texturing = texturing; 
+
 		atlas = new Atlas(width, height);
 		cover = new Atlas(width, height);
-		heighmap = new HeightMap(width, height);
+		heighMap = new HeightMap(width, height);
 		
-		parcelling = new Parcelling(heighmap);
-		this.texturing = texturing; 
+		parcelling = new Parcelling(heighMap);
 	}
 	
 	
@@ -50,6 +53,7 @@ public final class Terrain {
 		return cover;
 	}
 
+	@JsonIgnore
 	public Parcelling getParcelling() {
 		return parcelling;
 	}
@@ -64,5 +68,9 @@ public final class Terrain {
 
 	public TerrainTexturing getTexturing() {
 		return texturing;
+	}
+	
+	public HeightMap getHeightMap(){
+		return heighMap;
 	}
 }

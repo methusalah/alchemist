@@ -9,6 +9,7 @@ import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
 import model.ES.serial.EntityInstance;
+import model.world.terrain.heightmap.Parcelling;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import view.drawingProcessors.TerrainDrawer;
@@ -52,6 +53,7 @@ public class WorldData {
 		LogUtil.info("draw region "+region.getId());
 		for(EntityInstance ei : region.getEntities())
 			ei.instanciate(ed, worldEntity);
+		
 		
 		TerrainDrawer drawer = new TerrainDrawer(region.getTerrain(), region.getCoord());
 		drawer.render();

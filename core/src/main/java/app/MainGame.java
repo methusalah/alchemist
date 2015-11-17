@@ -71,6 +71,8 @@ import model.ES.serial.EntityInstance;
 import model.world.Region;
 import model.world.RegionManager;
 import model.world.WorldData;
+import model.world.terrain.heightmap.Height;
+import model.world.terrain.heightmap.HeightMap;
 
 public class MainGame extends CosmoVania {
 	private Controller currentAppState;
@@ -102,6 +104,16 @@ public class MainGame extends CosmoVania {
 			EntityInstance ei = new EntityInstance(BlueprintLibrary.getBlueprint("thruster"), comps);
 			r.getEntities().add(ei);
 		}
+		HeightMap hm = r.getTerrain().getHeightMap();
+		for(int i = 0; i < hm.getAll().size(); i++)
+			hm.set(i, new Height(i, RandomUtil.between(-1.5, 0)));
+		
+		r.getTerrain().getAtlas().getLayers().get(0).set(1, 1, 9);	
+		r.getTerrain().getAtlas().getLayers().get(1).set(1, 1, 246);	
+		r.getTerrain().getAtlas().getLayers().get(0).set(1, 2, 9);	
+		r.getTerrain().getAtlas().getLayers().get(1).set(1, 2, 246);	
+		r.getTerrain().getAtlas().getLayers().get(0).set(2, 2, 9);	
+		r.getTerrain().getAtlas().getLayers().get(1).set(2, 2, 246);	
 		RegionManager.saveRegion(r);
 		
 		

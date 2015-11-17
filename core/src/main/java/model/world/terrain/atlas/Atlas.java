@@ -8,6 +8,7 @@ import util.LogUtil;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.xml.internal.ws.api.pipe.NextAction;
 
 /**
  * Stores and manage layers of texture to paint on the ground. Atlas itself doesn't know the textures, and provides only alpha channels used by the view to draw
@@ -16,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Atlas {
 	private static final int LAYER_COUNT = 8;
-	public static final int RESOLUTION_RATIO = 8;
+	public static final int RESOLUTION_RATIO = 2;
 
 	private final int width, height;
 	private final List<AtlasLayer> layers = new ArrayList<>();
@@ -26,14 +27,21 @@ public class Atlas {
 
 	public Atlas(@JsonProperty("width")int width,
 			@JsonProperty("height")int height,
-			@JsonProperty("roughData")byte[] roughData) {
+			@JsonProperty("flatData")String flatData) {
 		this.width = width;
 		this.height = height;
 		int index = 0;
 		for (int i = 0; i < LAYER_COUNT; i++) {
 			AtlasLayer l = new AtlasLayer(width, height);
 			for (int xy = 0; xy < width * height; xy++) {
-				l.setByte(xy, roughData[index++]);
+				if(flatData.substring(index, index+2).equals("min")){
+					int nbZero = (byte)(hexStringToByteArray(flatData.substring(index+3, index+4))[0]);
+					while(nbZero -- >= 0) 
+				}
+				byte b = (byte)(hexStringToByteArray(flatData.substring(index, index+2))[0]);
+				if(b)
+				l.setByte(xy, );
+				index += 2;
 			}
 			layers.add(l);
 		}
@@ -68,58 +76,45 @@ public class Atlas {
 		return buffers.get(index);
 	}
 
-	public byte[] getRoughData(){
-		byte[] bytes = new byte[width * height * LAYER_COUNT];
-		int index = 0;
+	public String getFlatData(){
+		StringBuilder sb = new StringBuilder(height*width*2*LAYER_COUNT); 
 		for (AtlasLayer l : layers) {
-			for (Byte b : l.getBytes()) {
-				bytes[index++] = b;
+			for(int i = 0; i < l.getBytes().size(); i++){
+				byte b = (byte)(l.getBytes().get(i));
+				if(b == -128){
+					// grouping of zero values
+					int nbZero = 1;
+					while(i+nbZero < l.getBytes().size() &&
+							nbZero < 255 &&
+							(byte)(l.getBytes().get(i+nbZero)) == -128){
+						nbZero++;
+					}
+					if(nbZero > 2){
+						sb.append("min"+String.format("%02X", nbZero)+",");
+						i = i+nbZero;
+						continue;
+					}
+				} else if(b == 127){
+					// grouping of max (255) values
+					int nb255 = 1;
+					while(i+nb255 < l.getBytes().size() &&
+							nb255 < 255 &&
+							(byte)(l.getBytes().get(i+nb255)) == 127){
+						nb255++;
+					}
+					if(nb255 > 2){
+						sb.append("max"+String.format("%02X", nb255)+",");
+						i = i+nb255;
+						continue;
+					}
+					
+				}
+				sb.append(String.format("%02X,", b));
 			}
 		}
-		return bytes;
+		return sb.toString();
 	}
 	
-//	public void saveToFile(String fileName, String suffix) {
-//		byte[] bytes = new byte[width * height * LAYER_COUNT];
-//		int index = 0;
-//		for (AtlasLayer l : layers) {
-//			for (Byte b : l.getBytes()) {
-//				bytes[index++] = b;
-//			}
-//		}
-//		try {
-//			FileOutputStream fos = new FileOutputStream(fileName + suffix);
-//			fos.write(bytes);
-//			fos.close();
-//		} catch (IOException e) {
-//			System.out.println("IOException : " + e);
-//		}
-//	}
-
-//	public void loadFromFile(String fileName, String suffix) {
-//		byte[] bytes = new byte[width * height * LAYER_COUNT];
-//		try {
-//			FileInputStream fis = new FileInputStream(fileName + suffix);
-//			fis.read(bytes, 0, width * height * LAYER_COUNT);
-//			fis.close();
-//		} catch (IOException e) {
-//			throw new TechnicalException("IOException : " + e);
-//		}
-//		int index = 0;
-//		layers.clear();
-//		for (int i = 0; i < LAYER_COUNT; i++) {
-//			AtlasLayer l = new AtlasLayer(width, height);
-//			for (int xy = 0; xy < width * height; xy++) {
-//				l.setByte(xy, bytes[index++]);
-//			}
-//			layers.add(l);
-//		}
-//		buffers.clear();
-//		buffers.add(buildBuffer(0));
-//		buffers.add(buildBuffer(1));
-//		toUpdate = true;
-//	}
-
 	public void updatePixel(int x, int y) {
 		for (int i = 0; i < buffers.size(); i++) {
 			int firstLayerIndex = i * 4;
@@ -157,6 +152,16 @@ public class Atlas {
 
 	public int getHeight() {
 		return height;
+	}
+	
+	public static byte[] hexStringToByteArray(String s) {
+	    int len = s.length();
+	    byte[] data = new byte[len / 2];
+	    for (int i = 0; i < len; i += 2) {
+	        data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+	                             + Character.digit(s.charAt(i+1), 16));
+	    }
+	    return data;
 	}
 
 }
