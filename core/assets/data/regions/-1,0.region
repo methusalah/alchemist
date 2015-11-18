@@ -5971,12 +5971,12 @@
     "atlas" : {
       "width" : 30,
       "height" : 30,
-      "flatData" : "max1F,max1D,89,max100,max100,max100,max42,min1F,min1D,76,min100,min100,min100,min42,min100,min100,min100,min81,min100,min100,min100,min81,min100,min100,min100,min81,min100,min100,min100,min81,min100,min100,min100,min81,min100,min100,min100,min81,"
+      "flatData" : "+9B,80,7F,85,+1C,80,+FA,+FA,+D5,-9B,7F,80,7A,-1C,7F,-FA,-FA,-D5,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,"
     },
     "cover" : {
       "width" : 30,
       "height" : 30,
-      "flatData" : "max100,max100,max100,max81,min100,min100,min100,min81,min100,min100,min100,min81,min100,min100,min100,min81,min100,min100,min100,min81,min100,min100,min100,min81,min100,min100,min100,min81,min100,min100,min100,min81,"
+      "flatData" : "+FA,+FA,+FA,+96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,"
     },
     "heightMap" : {
       "width" : 15,

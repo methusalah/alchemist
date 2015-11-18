@@ -8,7 +8,6 @@ import util.LogUtil;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.xml.internal.ws.api.pipe.NextAction;
 
 /**
  * Stores and manage layers of texture to paint on the ground. Atlas itself doesn't know the textures, and provides only alpha channels used by the view to draw
@@ -34,24 +33,20 @@ public class Atlas {
 		for (int i = 0; i < LAYER_COUNT; i++) {
 			AtlasLayer l = new AtlasLayer(width, height);
 			for (int xy = 0; xy < width * height; xy++) {
-				if(index+3 < flatData.length())
-					LogUtil.info("prefix : " +flatData.substring(index, index+3));
-				
-
-				if(index+3 < flatData.length() &&  flatData.substring(index, index+3).equals("min")){
-					int nbZero = (byte)(hexStringToByteArray(flatData.substring(index+3, index+5))[0])+128;
-					LogUtil.info("nb zero : " +nbZero);
+				if(flatData.charAt(index) == '-'){
+					int nbZero = getByteFromHexString(flatData.substring(index+1, index+3)) & 0xFF;
 					while(nbZero-- > 0)
-						l.setByte(xy++, (byte)-128);
-					index += 6;
-				} else if(index+3 < flatData.length() && flatData.substring(index, index+3).equals("max")){
-					int nbMax = (byte)(hexStringToByteArray(flatData.substring(index+3, index+5))[0])+128;
-					LogUtil.info("nb max : " +nbMax);
+						l.setByte(xy++, Byte.MIN_VALUE);
+					xy--;
+					index += 4;
+				} else if(flatData.charAt(index) == '+'){
+					int nbMax = getByteFromHexString(flatData.substring(index+1, index+3)) & 0xFF;
 					while(nbMax-- > 0)
-						l.setByte(xy++, (byte)127);
-					index += 6;
+						l.setByte(xy++, Byte.MAX_VALUE);
+					xy--;
+					index += 4;
 				} else {
-					byte b = (byte)(hexStringToByteArray(flatData.substring(index, index+2))[0]);
+					byte b = getByteFromHexString(flatData.substring(index, index+2));
 					l.setByte(xy, b);
 					index += 3;
 				}
@@ -94,30 +89,30 @@ public class Atlas {
 		for (AtlasLayer l : layers) {
 			for(int i = 0; i < l.getBytes().size(); i++){
 				byte b = (byte)(l.getBytes().get(i));
-				if(b == -128){
+				if(b == Byte.MIN_VALUE){
 					// grouping of zero values
-					int nbZero = 1;
+					short nbZero = 1;
 					while(i+nbZero < l.getBytes().size() &&
-							nbZero <= 255 &&
-							(byte)(l.getBytes().get(i+nbZero)) == -128){
+							nbZero < 250 &&
+							(byte)(l.getBytes().get(i+nbZero)) == Byte.MIN_VALUE){
 						nbZero++;
 					}
-					if(nbZero > 2){
-						sb.append("min"+String.format("%02X", nbZero)+",");
-						i = i+nbZero;
+					if(nbZero > 4){
+						sb.append("-"+String.format("%02X,", nbZero));
+						i = i+nbZero-1;
 						continue;
 					}
-				} else if(b == 127){
+				} else if(b == Byte.MAX_VALUE){
 					// grouping of max (255) values
-					int nb255 = 1;
+					short nb255 = 1;
 					while(i+nb255 < l.getBytes().size() &&
-							nb255 <= 255 &&
-							(byte)(l.getBytes().get(i+nb255)) == 127){
+							nb255 < 250 &&
+							(byte)(l.getBytes().get(i+nb255)) == Byte.MAX_VALUE){
 						nb255++;
 					}
-					if(nb255 > 2){
-						sb.append("max"+String.format("%02X", nb255)+",");
-						i = i+nb255;
+					if(nb255 > 4){
+						sb.append("+"+String.format("%02X,", nb255));
+						i = i+nb255-1;
 						continue;
 					}
 					
@@ -167,14 +162,8 @@ public class Atlas {
 		return height;
 	}
 	
-	public static byte[] hexStringToByteArray(String s) {
-	    int len = s.length();
-	    byte[] data = new byte[len / 2];
-	    for (int i = 0; i < len; i += 2) {
-	        data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-	                             + Character.digit(s.charAt(i+1), 16));
-	    }
-	    return data;
+	public static byte getByteFromHexString(String s) {
+	    return (byte)((Character.digit(s.charAt(0), 16) << 4) + Character.digit(s.charAt(1), 16));
 	}
 
 }

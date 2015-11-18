@@ -108,12 +108,12 @@ public class MainGame extends CosmoVania {
 		for(int i = 0; i < hm.getAll().size(); i++)
 			hm.set(i, new Height(i, RandomUtil.between(-1.5, 0)));
 		
-		r.getTerrain().getAtlas().getLayers().get(0).set(1, 1, 9);	
-		r.getTerrain().getAtlas().getLayers().get(1).set(1, 1, 246);	
-		r.getTerrain().getAtlas().getLayers().get(0).set(1, 2, 9);	
-		r.getTerrain().getAtlas().getLayers().get(1).set(1, 2, 246);	
-		r.getTerrain().getAtlas().getLayers().get(0).set(2, 2, 9);	
-		r.getTerrain().getAtlas().getLayers().get(1).set(2, 2, 246);	
+		r.getTerrain().getAtlas().getLayers().get(0).set(5, 5, 0);	
+		r.getTerrain().getAtlas().getLayers().get(1).set(5, 5, 255);	
+		r.getTerrain().getAtlas().getLayers().get(0).set(6, 6, 0);	
+		r.getTerrain().getAtlas().getLayers().get(1).set(6, 6, 255);	
+		r.getTerrain().getAtlas().getLayers().get(0).set(7, 5, 5);	
+		r.getTerrain().getAtlas().getLayers().get(1).set(7, 5, 250);	
 		RegionManager.saveRegion(r);
 		
 		

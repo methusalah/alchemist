@@ -11,12 +11,12 @@
     "atlas" : {
       "width" : 30,
       "height" : 30,
-      "flatData" : "maxFF,maxFF,maxFF,max84,minFF,minFF,minFF,min84,minFF,minFF,minFF,min84,minFF,minFF,minFF,min84,minFF,minFF,minFF,min84,minFF,minFF,minFF,min84,minFF,minFF,minFF,min84,minFF,minFF,minFF,min84,"
+      "flatData" : "+FA,+FA,+FA,+96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,"
     },
     "cover" : {
       "width" : 30,
       "height" : 30,
-      "flatData" : "maxFF,maxFF,maxFF,max84,minFF,minFF,minFF,min84,minFF,minFF,minFF,min84,minFF,minFF,minFF,min84,minFF,minFF,minFF,min84,minFF,minFF,minFF,min84,minFF,minFF,minFF,min84,minFF,minFF,minFF,min84,"
+      "flatData" : "+FA,+FA,+FA,+96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,-FA,-FA,-FA,-96,"
     },
     "heightMap" : {
       "width" : 15,
