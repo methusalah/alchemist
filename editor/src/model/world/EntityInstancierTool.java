@@ -24,7 +24,7 @@ public class EntityInstancierTool extends Tool {
 	}
 
 	@Override
-	public void onSingleAction() {
+	public void onPrimarySingleAction() {
 		LogUtil.info("clic");
 		PlanarStance stance = new PlanarStance(coord, new Angle(0), 0, Point3D.UNIT_Z);
 		List<EntityComponent> comps = new ArrayList<EntityComponent>();

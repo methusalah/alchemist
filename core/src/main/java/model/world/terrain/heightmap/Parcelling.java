@@ -37,8 +37,6 @@ public class Parcelling extends Grid<Parcel>{
 
 		for (int x = 0; x < heightmap.xSize(); x++) {
 			for (int y = 0; y < heightmap.ySize(); y++) {
-				if(heightmap.get(x, y) == null)
-					LogUtil.info("y'a du null "+x+"/"+y);
 				get(inParcellingSpace(new Point2D(x, y))).add(heightmap.get(x, y));
 			}
 		}

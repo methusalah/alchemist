@@ -25,15 +25,15 @@ public class WorldToolState extends AbstractAppState {
 	}
 	
 	public void setSingleAction(){
-		actualTool.onSingleAction();
+		actualTool.onPrimarySingleAction();
 	}
 	
 	public void setActionStart(){
-		actualTool.onActionStart();
+		actualTool.onPrimaryActionStart();
 	}
 	
 	public void setActionStop(){
-		actualTool.onActionEnd();
+		actualTool.onPrimaryActionEnd();
 	}
 	
 	@Override

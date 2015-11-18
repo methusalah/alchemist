@@ -16,7 +16,7 @@ import model.world.terrain.heightmap.Parcelling;
 import util.geometry.geom2d.Point2D;
 
 public class Region {
-	public static final int RESOLUTION = 15;
+	public static final int RESOLUTION = 64;
 
 	private final String id;
 	private final Point2D coord;
@@ -26,13 +26,14 @@ public class Region {
 	public Region(String id, Point2D coord){
 		this.id = id;
 		this.coord = coord;
-		TerrainTexturing t = new TerrainTexturing(new ArrayList<String>(){{add("textures/grass02.jpg");add("textures/dirt.jpg");}},
+		TerrainTexturing t = new TerrainTexturing(
+				new ArrayList<String>(){{add("textures/grass02.jpg");add("textures/dirt.jpg");}},
 				new ArrayList<String>(){{add(null);add(null);}},
 				new ArrayList<Double>(){{add(32d);add(32d);}},
 				new ArrayList<String>(){{add("textures/transp.png");}},
 				new ArrayList<String>(){{add(null);}},
 				new ArrayList<Double>(){{add(1d);}});
-		terrain = new Terrain(RESOLUTION, RESOLUTION, t);
+		terrain = new Terrain(RESOLUTION+1, RESOLUTION+1, t);
 	}
 	public Region(Point2D coord){
 		this(RegionManager.getRegionId(coord), RegionManager.getRegionCoord(coord));

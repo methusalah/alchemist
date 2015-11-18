@@ -22,4 +22,8 @@ public class Height extends Node {
 	public void setElevation(double elevation) {
 		this.elevation = elevation;
 	}
+	
+	public void elevate(double val){
+		elevation += val;
+	}
 }
