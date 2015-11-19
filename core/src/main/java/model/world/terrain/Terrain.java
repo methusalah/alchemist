@@ -1,5 +1,7 @@
 package model.world.terrain;
 
+import util.geometry.geom2d.Point2D;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -32,14 +34,14 @@ public final class Terrain {
 		parcelling = new Parcelling(heighMap);
 	}
 	
-	public Terrain(int width, int height, TerrainTexturing texturing) {
+	public Terrain(int width, int height, TerrainTexturing texturing, Point2D coord) {
 		this.width = width;
 		this.height = height;
 		this.texturing = texturing; 
 
 		atlas = new Atlas(width, height);
 		cover = new Atlas(width, height);
-		heighMap = new HeightMap(width, height);
+		heighMap = new HeightMap(width, height, coord);
 		
 		parcelling = new Parcelling(heighMap);
 	}

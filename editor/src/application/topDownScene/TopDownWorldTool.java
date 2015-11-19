@@ -25,7 +25,7 @@ import util.geometry.geom2d.Point2D;
 public class TopDownWorldTool implements SceneInputListener {
 	
 	private final JmeForImageView jme;
-	private boolean hasTool = false;
+	private boolean hasTool = true;
 
 	public TopDownWorldTool(JmeForImageView jme) {
 		this.jme = jme;

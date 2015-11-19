@@ -78,4 +78,8 @@ public class WorldData {
 	public Region getRegion(Point2D coord){
 		return regionManager.getRegion(coord);
 	}
+	
+	public TerrainDrawer getTerrainDrawer(Region region) {
+		return terrainDrawers.get(region);
+	}
 }

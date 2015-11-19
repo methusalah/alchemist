@@ -54,28 +54,27 @@ public class Parcelling extends Grid<Parcel>{
 		return new Point2D(inParcellingSpace(pInTerrainSpace.x), inParcellingSpace(pInTerrainSpace.y));
 	}
 
-//	public List<Parcel> getParcelsContaining(List<TerrainNode> nodes) {
-//		List<Parcel> res = new ArrayList<>();
-//		for (TerrainNode n : nodes) {
-//			Parcel container = get(inParcellingSpace(n.getCoord()));
-//			if (!res.contains(container)) {
-//				res.add(container);
-//			}
-//		}
-//		return res;
-//	}
-//
-//	public List<Parcel> updateParcelsContaining(List<TerrainNode> nodes) {
-//		Terrain m = nodes.get(0).getTerrain();
-//		List<Parcel> res = getParcelsContaining(nodes);
-//		for (Parcel p : res) {
-//			p.reset();
-//		}
-//		for (Parcel p : res) {
-//			compute(m, p);
-//		}
-//		return res;
-//	}
+	public List<Parcel> getParcelsContaining(List<Height> heights) {
+		List<Parcel> res = new ArrayList<>();
+		for (Height h : heights) {
+			Parcel container = get(inParcellingSpace(heightMap.getCoord(h.getIndex())));
+			if (!res.contains(container)) {
+				res.add(container);
+			}
+		}
+		return res;
+	}
+
+	public List<Parcel> updateParcelsContaining(List<Height> heights) {
+		List<Parcel> res = getParcelsContaining(heights);
+		for (Parcel p : res) {
+			p.reset();
+		}
+		for (Parcel p : res) {
+			compute(p);
+		}
+		return res;
+	}
 
 	private List<Triangle3D> getGroundTriangles(Height height, Parcel parcel) {
 		if (heightMap.getEastNode(height) == null || heightMap.getNorthNode(height) == null) {
@@ -101,8 +100,8 @@ public class Parcelling extends Grid<Parcel>{
 	private List<Triangle3D> getTerrainNodeGround(Height height) {
 		Point3D sw = heightMap.getPos(height);
 		Point3D se = heightMap.getPos(heightMap.getEastNode(height));
-		Point3D ne = heightMap.getPos(heightMap.getEastNode(heightMap.getNorthNode(height)));
 		Point3D nw = heightMap.getPos(heightMap.getNorthNode(height));
+		Point3D ne = heightMap.getPos(heightMap.getNorthNode(heightMap.getEastNode(height)));
 
 		List<Triangle3D> triangles = new ArrayList<>();
 		triangles.add(new Triangle3D(sw, se, ne));

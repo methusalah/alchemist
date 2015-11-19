@@ -47,7 +47,7 @@ public class SceneViewer extends Pane {
 			
 			@Override
 			public void handle(MouseEvent e) {
-				inputManager.onMouseDragged(e);
+				inputManager.onMouseMoved(e);
 			}
 		});
 

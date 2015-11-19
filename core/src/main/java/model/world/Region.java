@@ -33,7 +33,7 @@ public class Region {
 				new ArrayList<String>(){{add("textures/transp.png");}},
 				new ArrayList<String>(){{add(null);}},
 				new ArrayList<Double>(){{add(1d);}});
-		terrain = new Terrain(RESOLUTION+1, RESOLUTION+1, t);
+		terrain = new Terrain(RESOLUTION+1, RESOLUTION+1, t, coord);
 	}
 	public Region(Point2D coord){
 		this(RegionManager.getRegionId(coord), RegionManager.getRegionCoord(coord));

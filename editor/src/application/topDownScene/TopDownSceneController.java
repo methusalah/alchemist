@@ -16,6 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import model.Model;
+import model.world.HeightMapTool;
 import model.world.WorldData;
 import util.event.EventManager;
 import util.event.scene.AppClosedEvent;
@@ -87,6 +88,8 @@ public class TopDownSceneController {
 
 		stateManager.attach(new SceneSelectorState());
 		stateManager.attach(new WorldToolState());
+		
+		stateManager.getState(WorldToolState.class).setTool(new HeightMapTool(world));
 		
 		EntitySystem es = new EntitySystem(ed, world);
 		stateManager.attach(es);

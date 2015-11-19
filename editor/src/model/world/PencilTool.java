@@ -1,11 +1,7 @@
 package model.world;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import model.world.terrain.heightmap.Height;
 import util.geometry.collections.PointRing;
@@ -32,7 +28,7 @@ public class PencilTool extends Tool {
 	private SHAPE shape = SHAPE.Square;
 	private MODE mode = MODE.Rough;
 	private double size = 4;
-	private double strength = 1;
+	private double strength = 0.1;
 	
 	public PencilTool(WorldData world) {
 		super(world);

@@ -1,9 +1,12 @@
 package view.drawingProcessors;
 
+import java.util.List;
+
 import model.world.terrain.Terrain;
 import model.world.terrain.event.AtlasChangedEvent;
 import model.world.terrain.event.ParcelChangedEvent;
 import model.world.terrain.heightmap.Parcel;
+import util.LogUtil;
 import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
 import view.SpatialPool;
@@ -85,7 +88,7 @@ public class TerrainDrawer {
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			g.setMesh(jmeMesh);
 			g.setMaterial(groundTexture.getMaterial());
-			g.setLocalTranslation(TranslateUtil.toVector3f(coord));
+//			g.setLocalTranslation(TranslateUtil.toVector3f(coord));
 //			g.setQueueBucket(Bucket.Transparent);
 
 			g.addControl(new RigidBodyControl(0));
@@ -97,16 +100,16 @@ public class TerrainDrawer {
 			g2.setMesh(jmeMesh);
 			g2.setMaterial(coverTexture.getMaterial());
 			g2.setQueueBucket(Bucket.Transparent);
-			g2.setLocalTranslation(TranslateUtil.toVector3f(coord));
+//			g2.setLocalTranslation(TranslateUtil.toVector3f(coord));
 			g2.setLocalTranslation(0, 0, 0.01f);
 			SpatialPool.coverParcels.put(parcel, g2);
 			castAndReceiveNode.attachChild(g2);
 		}
 	}
 
-	@Subscribe
-	public void handleParcelUpdateEvent(ParcelChangedEvent e) {
-		for (Parcel parcel : e.getParcels()) {
+	public void updateParcels(List<Parcel> parcels) {
+		for (Parcel parcel : parcels) {
+			LogUtil.info("updating parcel ");
 			Mesh jmeMesh = TranslateUtil.toJMEMesh(parcel.getMesh());
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			Geometry g = ((Geometry) SpatialPool.terrainParcels.get(parcel));

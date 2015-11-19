@@ -1,11 +1,12 @@
 package model.world;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
+import model.world.terrain.heightmap.Height;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.math.RandomUtil;
-import model.world.terrain.heightmap.Height;
 
 public class HeightMapTool extends PencilTool {
 	public enum OPERATION {
@@ -52,8 +53,10 @@ public class HeightMapTool extends PencilTool {
 		public void run() {
 			Map<Height, Point2D> heights = getHeights(); 
 			for (Height t : heights.keySet()) {
+				LogUtil.info("elevate " + heights.get(t) + " to "+t.getElevation());
 				t.elevate(getAttenuatedAmplitude(heights.get(t)));
 			}
+			updateParcelsFor(heights);
 		}
 	}
 	private class Noise implements Runnable{
@@ -64,26 +67,41 @@ public class HeightMapTool extends PencilTool {
 			for (Height t : heights.keySet()) {
 				t.elevate(RandomUtil.between(-1.0, 1.0) * getAttenuatedAmplitude(heights.get(t)));
 			}
+			updateParcelsFor(heights);
 		}
 	}
 	private class Uniform implements Runnable{
-		private double elevation;
+		private final double elevation;
+		
+		public Uniform() {
+			elevation = world.getRegion(coord).getTerrain().getHeightMap().get(coord).getElevation();
+		}
+		
 		@Override
 		public void run() {
 			Map<Height, Point2D> heights = getHeights(); 
 			for (Height t : heights.keySet()) {
-				double diff = maintainedElevation - t.getElevation();
-				double attenuatedAmplitude = getAttenuatedAmplitude(t.getCoord());
+				double diff = elevation - t.getElevation();
+				double attenuatedAmplitude = getAttenuatedAmplitude(coord);
 				if (diff > 0) {
 					t.elevate(Math.min(diff, attenuatedAmplitude));
 				} else if (diff < 0) {
 					t.elevate(Math.max(diff, -attenuatedAmplitude));
 				}
 			}
+			updateParcelsFor(heights);
 		}
 	}
 	
 	private double getAttenuatedAmplitude(Point2D p){
 		return 1 * getStrength() * getApplicationRatio(p);
+	}
+	
+	private void updateParcelsFor(Map<Height, Point2D>  heights){
+		for (Height h : heights.keySet()) {
+			Region r = world.getRegion(heights.get(h));
+			r.getTerrain().getParcelling().updateParcelsContaining(new ArrayList<Height>(heights.keySet()));
+			world.getTerrainDrawer(r).updateParcels(r.getTerrain().getParcelling().getParcelsContaining(new ArrayList<Height>(heights.keySet())));
+		}
 	}
 }

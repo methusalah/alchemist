@@ -1,12 +1,13 @@
 package application.topDownScene.state;
 
+import model.world.Tool;
+import model.world.WorldData;
+
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 
 import controller.ECS.DataAppState;
-import model.world.Tool;
-import model.world.WorldData;
 
 public class WorldToolState extends AbstractAppState {
 	private SceneSelectorState selector;
@@ -38,8 +39,10 @@ public class WorldToolState extends AbstractAppState {
 	
 	@Override
 	public void update(float tpf) {
-		if(actualTool != null)
+		if(actualTool != null){
 			actualTool.setCoord(selector.getPointedCoordInPlan());
+			actualTool.onUpdate(tpf);
+		}
 	}
 	
 	

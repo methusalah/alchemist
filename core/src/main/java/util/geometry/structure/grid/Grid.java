@@ -3,39 +3,46 @@ package util.geometry.structure.grid;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.world.terrain.heightmap.Height;
 import util.geometry.collections.Map2D;
 import util.geometry.geom2d.Point2D;
 
 public class Grid<T extends Node> extends Map2D<T> {
 
+	protected final Point2D coord;
+
 	public Grid(){
 		super();
+		coord = Point2D.ORIGIN;
 	}
 	public Grid(int width, int height) {
 		super(width, height);
+		coord = Point2D.ORIGIN;
+	}
+	public Grid(int width, int height, Point2D coord) {
+		super(width, height);
+		this.coord = coord;
 	}
 	
 	public T getNorthNode(T n){
-		Point2D p = getCoord(n.index).getAddition(0, 1);
-		return isInBounds(p)? get(p) : null; 
+		int nIndex = n.index+xSize;
+		return nIndex < xSize*ySize? get(nIndex): null;
 	}
 
 	public T getSouthNode(T n){
-		Point2D p = getCoord(n.index).getAddition(0, -1);
-		return isInBounds(p)? get(p) : null; 
+		int sIndex = n.index-xSize;
+		return sIndex >= 0? get(sIndex): null;
 	}
 
 	public T getEastNode(T n){
-		Point2D p = getCoord(n.index).getAddition(1, 0);
-		return isInBounds(p)? get(p) : null; 
+		return n.index % xSize-1 == 0? null: get(n.index+1); 
 	}
 
 	public T getWestNode(T n){
-		Point2D p = getCoord(n.index).getAddition(-1, 0);
-		return isInBounds(p)? get(p) : null; 
+		return n.index % xSize-1 == 1? null: get(n.index-1); 
 	}
 	
-	public List<T> getInSquareWithourCenter(T n, int distance) {
+	public List<T> getInSquareWithoutCenter(T n, int distance) {
 		List<T> res = new ArrayList<>();
 		for (int x = -distance; x <= distance; x++) {
 			for (int y = -distance; y <= distance; y++) {
@@ -51,13 +58,13 @@ public class Grid<T extends Node> extends Map2D<T> {
 		return res;
 	}
 	public List<T> getInSquare(T n, int distance) {
-		List<T> res = getInSquareWithourCenter(n, distance);
+		List<T> res = getInSquareWithoutCenter(n, distance);
 		res.add(n);
 		return res;
 	}
 
 	public List<T> get8Around(T n) {
-		List<T> res = getInSquareWithourCenter(n, 1);
+		List<T> res = getInSquareWithoutCenter(n, 1);
 		return res;
 	}
 	
@@ -101,5 +108,23 @@ public class Grid<T extends Node> extends Map2D<T> {
 				res.add(node);
 		}
 		return res;
+	}
+	public Point2D getCoord() {
+		return coord;
+	}
+	
+	@Override
+	public T get(Point2D coord) {
+		return super.get(coord.getSubtraction(this.coord));
+	}
+	
+	@Override
+	public Point2D getCoord(int index) {
+		return super.getCoord(index).getAddition(coord);
+	}
+	
+	@Override
+	public boolean isInBounds(Point2D p) {
+		return super.isInBounds(p.getSubtraction(coord));
 	}
 }
