@@ -97,7 +97,7 @@ public class Map2D<E> {
     	return values.size();
     }
     
-    private void checkInBounds(int x, int y){
+    protected void checkInBounds(int x, int y){
     	if(!isInBounds(x, y))
     		throw new IllegalArgumentException("("+x+";"+y+") is out of bounds (x-size = "+xSize+"; y-size = "+ySize);
     }

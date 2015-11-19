@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import jme3tools.navigation.Coordinate;
 import model.world.terrain.Terrain;
 import util.LogUtil;
 import util.exception.TechnicalException;
@@ -27,7 +28,8 @@ public class Parcelling extends Grid<Parcel>{
 
 	public Parcelling(HeightMap heightmap) {
 		super((int) Math.ceil((double) heightmap.xSize() / PARCEL_SIZE),
-				(int) Math.ceil((double) heightmap.ySize() / PARCEL_SIZE));
+				(int) Math.ceil((double) heightmap.ySize() / PARCEL_SIZE),
+				heightmap.getCoord());
 		
 		this.heightMap = heightmap;
 		int nbParcel = xSize*ySize;
@@ -37,7 +39,8 @@ public class Parcelling extends Grid<Parcel>{
 
 		for (int x = 0; x < heightmap.xSize(); x++) {
 			for (int y = 0; y < heightmap.ySize(); y++) {
-				get(inParcellingSpace(new Point2D(x, y))).add(heightmap.get(x, y));
+				Point2D pInSpace = new Point2D(x, y).getAddition(coord);
+				get(inParcellingSpace(pInSpace)).add(heightmap.get(pInSpace));
 			}
 		}
 
@@ -50,8 +53,8 @@ public class Parcelling extends Grid<Parcel>{
 		return (int) (valInTerrainSpace / PARCEL_SIZE);
 	}
 
-	private static Point2D inParcellingSpace(Point2D pInTerrainSpace){
-		return new Point2D(inParcellingSpace(pInTerrainSpace.x), inParcellingSpace(pInTerrainSpace.y));
+	private Point2D inParcellingSpace(Point2D pInTerrainSpace){
+		return new Point2D(inParcellingSpace(pInTerrainSpace.x-coord.x)+coord.x, inParcellingSpace(pInTerrainSpace.y-coord.y)+coord.y);
 	}
 
 	public List<Parcel> getParcelsContaining(List<Height> heights) {

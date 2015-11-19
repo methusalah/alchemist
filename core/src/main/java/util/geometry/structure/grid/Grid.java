@@ -3,6 +3,7 @@ package util.geometry.structure.grid;
 import java.util.ArrayList;
 import java.util.List;
 
+import jdk.nashorn.internal.ir.GetSplitState;
 import model.world.terrain.heightmap.Height;
 import util.geometry.collections.Map2D;
 import util.geometry.geom2d.Point2D;
@@ -35,11 +36,11 @@ public class Grid<T extends Node> extends Map2D<T> {
 	}
 
 	public T getEastNode(T n){
-		return n.index % xSize-1 == 0? null: get(n.index+1); 
+		return n.index % xSize == xSize-1? null: get(n.index+1); 
 	}
 
 	public T getWestNode(T n){
-		return n.index % xSize-1 == 1? null: get(n.index-1); 
+		return n.index % xSize == 0? null: get(n.index-1); 
 	}
 	
 	public List<T> getInSquareWithoutCenter(T n, int distance) {
@@ -114,8 +115,8 @@ public class Grid<T extends Node> extends Map2D<T> {
 	}
 	
 	@Override
-	public T get(Point2D coord) {
-		return super.get(coord.getSubtraction(this.coord));
+	public T get(int x, int y) {
+		return super.get(x-(int)coord.x, y-(int)coord.y);
 	}
 	
 	@Override
@@ -127,4 +128,16 @@ public class Grid<T extends Node> extends Map2D<T> {
 	public boolean isInBounds(Point2D p) {
 		return super.isInBounds(p.getSubtraction(coord));
 	}
+//	
+//	@Override
+//	public boolean isInBounds(int x, int y) {
+//    	return x >= coord.x && x < coord.x+xSize && y >= coord.y && y < coord.y+ySize;
+//    }
+
+	@Override
+	protected void checkInBounds(int x, int y){
+    	if(!isInBounds(x, y))
+    		throw new IllegalArgumentException("("+x+";"+y+") is out of bounds (x-size = "+xSize+"; y-size = "+ySize + " (grid coord : "+coord);
+    }
+
 }
