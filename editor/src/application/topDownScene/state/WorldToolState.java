@@ -25,18 +25,6 @@ public class WorldToolState extends AbstractAppState {
 		actualTool = tool;
 	}
 	
-	public void setSingleAction(){
-		actualTool.onPrimarySingleAction();
-	}
-	
-	public void setActionStart(){
-		actualTool.onPrimaryActionStart();
-	}
-	
-	public void setActionStop(){
-		actualTool.onPrimaryActionEnd();
-	}
-	
 	@Override
 	public void update(float tpf) {
 		if(actualTool != null){
@@ -44,6 +32,8 @@ public class WorldToolState extends AbstractAppState {
 			actualTool.onUpdate(tpf);
 		}
 	}
-	
-	
+
+	public Tool getTool() {
+		return actualTool;
+	}
 }

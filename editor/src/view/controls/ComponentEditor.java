@@ -6,41 +6,30 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import com.simsilica.es.EntityComponent;
-
-import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.HBoxBuilder;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.VBoxBuilder;
-import model.ES.component.world.Scenery;
-import util.LogUtil;
+import model.ES.component.world.PopulationTooling;
+import model.ES.component.world.TerrainTooling;
 import util.event.EventManager;
 import util.event.RemoveComponentEvent;
 import view.UIConfig;
 import view.controls.propertyEditor.PropertyEditor;
 import view.controls.propertyEditor.PropertyEditorFactory;
+import view.controls.toolEditor.PopulationEditor;
+import view.controls.toolEditor.TerrainEditor;
+
+import com.simsilica.es.EntityComponent;
 
 public class ComponentEditor extends TitledPane {
 
@@ -66,8 +55,10 @@ public class ComponentEditor extends TitledPane {
 		VBox content = new VBox();
 		setContent(content);
 		
-		if(comp instanceof Scenery)
-			content.getChildren().add(new SceneryEditor());
+		if(comp instanceof PopulationTooling)
+			content.getChildren().add(new PopulationEditor());
+		else if(comp instanceof TerrainTooling)
+			content.getChildren().add(new TerrainEditor());
 
 		BeanInfo bi = null;
 		try {

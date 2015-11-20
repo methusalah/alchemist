@@ -37,7 +37,7 @@ public class TopDownSceneController {
 		EventManager.register(this);
 		
 		inputManager.addListener(new TopDownCamera(jme));
-		inputManager.addListener(new TopDownWorldTool(jme));
+		inputManager.addListener(new TopDownWorldTool(jme, model.getWorld()));
 	}
 
 	

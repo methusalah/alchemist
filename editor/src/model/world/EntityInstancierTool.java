@@ -16,13 +16,12 @@ import util.math.Angle;
 
 public class EntityInstancierTool extends Tool {
 	
-	private final Blueprint bp;
-	
-	public EntityInstancierTool(WorldData world, Blueprint bp) {
+	public EntityInstancierTool(WorldData world) {
 		super(world);
-		this.bp = bp;
 	}
 
+	private Blueprint bp;
+	
 	@Override
 	public void onPrimarySingleAction() {
 		LogUtil.info("clic");
@@ -33,5 +32,9 @@ public class EntityInstancierTool extends Tool {
 		EntityInstance i = new EntityInstance(bp, comps);
 		world.getRegion(coord).getEntities().add(i);
 		world.drawRegion(world.getRegion(coord));
+	}
+
+	public void setBp(Blueprint bp) {
+		this.bp = bp;
 	}
 }

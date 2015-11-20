@@ -15,51 +15,98 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import model.world.EntityInstancierTool;
+import model.world.HeightMapTool;
 import model.world.Tool;
+import model.world.WorldData;
 import util.LogUtil;
 import util.event.EntitySelectionChanged;
 import util.event.EventManager;
 import util.event.scene.ToolChangedEvent;
 import util.geometry.geom2d.Point2D;
+import view.controls.toolEditor.parameter.HeightMapParameter;
+import view.controls.toolEditor.parameter.PopulationParameter;
 
 public class TopDownWorldTool implements SceneInputListener {
+	private static enum ActionType {StartPrimary,
+		StartSecondary,
+		StopPrimary,
+		StopSecondary,
+		OncePrimary,
+		OnceSecondary
+	}
+	
 	
 	private final JmeForImageView jme;
-	private boolean hasTool = true;
+	private boolean hasTool = false;
+	private final HeightMapTool heightmapTool;
+	private final EntityInstancierTool entityInstancierTool;
 
-	public TopDownWorldTool(JmeForImageView jme) {
+	public TopDownWorldTool(JmeForImageView jme, WorldData worldData) {
 		this.jme = jme;
 		EventManager.register(this);
+		
+		heightmapTool = new HeightMapTool(worldData);
+		entityInstancierTool = new EntityInstancierTool(worldData);
 	}
 
 	
 	@Subscribe
 	public void onToolChangedEvent(ToolChangedEvent e){
-		jme.enqueue(app -> setTool(app, e));
-		hasTool = true;
+		if(e.getParameter() instanceof PopulationParameter){
+			PopulationParameter param = (PopulationParameter)e.getParameter();
+			entityInstancierTool.setBp(param.getBlueprint());
+			jme.enqueue(app -> setTool(app, entityInstancierTool));
+			hasTool = true;
+		} else if(e.getParameter() instanceof HeightMapParameter){
+			HeightMapParameter param = (HeightMapParameter)e.getParameter();
+			heightmapTool.setMode(param.getMode());
+			heightmapTool.setOperation(param.getOperation());
+			heightmapTool.setShape(param.getShape());
+			heightmapTool.setSize(param.getSize());
+			heightmapTool.setStrength(param.getStrength());
+			jme.enqueue(app -> setTool(app, heightmapTool));
+			hasTool = true;
+		} else
+			hasTool = false;
+			
+		
 	}
 	
 	@Override
 	public void onMousePressed(MouseEvent e){
-		if(hasTool && e.getButton() == MouseButton.PRIMARY)
-			jme.enqueue(app -> setToolActionStart(app));
+		if(hasTool){
+			ActionType type;
+			switch(e.getButton()){
+			case PRIMARY : type = ActionType.StartPrimary; break;
+			case SECONDARY : type = ActionType.StartSecondary; break;
+			default : type = null;
+			}
+			if(type != null);
+				jme.enqueue(app -> setToolAction(app, type));
+		}
 	}
 
 	@Override
 	public void onMouseMoved(MouseEvent e){
-		//if(hasTool)
+		if(hasTool)
 			jme.enqueue(app -> setSceneMouseCoord(app, new Point2D(e.getX(), e.getY())));
 	}
 
 	@Override
-	public void onMouseDragged(MouseEvent e){
-	}
-	
-	@Override
 	public void onMouseReleased(MouseEvent e){
-		if(hasTool && e.getButton() == MouseButton.PRIMARY){
-			jme.enqueue(app -> setToolActionStop(app));
-			jme.enqueue(app -> setToolSingleAction(app));
+		if(hasTool){
+			switch(e.getButton()){
+			case PRIMARY :
+				jme.enqueue(app -> setToolAction(app, ActionType.StopPrimary));
+				jme.enqueue(app -> setToolAction(app, ActionType.OncePrimary));
+				break;
+			case SECONDARY : 
+				jme.enqueue(app -> setToolAction(app, ActionType.StopSecondary));
+				jme.enqueue(app -> setToolAction(app, ActionType.OnceSecondary));
+				break;
+			default:
+				break;
+			}
 		} else {
 			jme.enqueue(app -> selectEntity(app));
 		}
@@ -83,28 +130,21 @@ public class TopDownWorldTool implements SceneInputListener {
 		return true;
 	}
 
-	static private boolean setToolActionStart(SimpleApplication app) {
-		AppStateManager stateManager = app.getStateManager();
-		stateManager.getState(WorldToolState.class).setActionStart();
+	static private boolean setToolAction(SimpleApplication app, ActionType type) {
+		Tool t = app.getStateManager().getState(WorldToolState.class).getTool();
+		switch(type){
+		case OncePrimary : t.onPrimarySingleAction(); break;
+		case OnceSecondary : t.onSecondarySingleAction(); break;
+		case StartPrimary : t.onPrimaryActionStart(); break;
+		case StartSecondary : t.onSecondaryActionStart(); break;
+		case StopPrimary : t.onPrimaryActionEnd(); break;
+		case StopSecondary : t.onSecondaryActionEnd(); break;
+		}
 		return true;
 	}
 
-	static private boolean setToolActionStop(SimpleApplication app) {
+	static private boolean setTool(SimpleApplication app, Tool t) {
 		AppStateManager stateManager = app.getStateManager();
-		stateManager.getState(WorldToolState.class).setActionStop();
-		return true;
-	}
-	
-	static private boolean setToolSingleAction(SimpleApplication app) {
-		AppStateManager stateManager = app.getStateManager();
-		stateManager.getState(WorldToolState.class).setSingleAction();
-		return true;
-	}
-
-	static private boolean setTool(SimpleApplication app, ToolChangedEvent e) {
-		AppStateManager stateManager = app.getStateManager();
-		Tool t;
-		t = new EntityInstancierTool(stateManager.getState(DataAppState.class).getWorldData(), e.getBp());
 		stateManager.getState(WorldToolState.class).setTool(t);
 		
 		return true;
@@ -122,6 +162,13 @@ public class TopDownWorldTool implements SceneInputListener {
 				}
 			});
 		return true;
+	}
+
+
+	@Override
+	public void onMouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

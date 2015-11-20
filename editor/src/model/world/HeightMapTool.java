@@ -1,6 +1,7 @@
 package model.world;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import model.world.terrain.heightmap.Height;
@@ -41,9 +42,29 @@ public class HeightMapTool extends PencilTool {
 				break;
 		}
 	}
+
+	@Override
+	public void onSecondaryActionStart() {
+		switch (operation) {
+			case Raise_Low:
+				currentWork = new Low();
+				break;
+			case Noise_Smooth:
+				currentWork = new Smooth();
+				break;
+			case Uniform_Reset:
+				currentWork = new Reset();
+				break;
+		}
+	}
 	
 	@Override
 	public void onPrimaryActionEnd() {
+		currentWork = null;
+	}
+
+	@Override
+	public void onSecondaryActionEnd() {
 		currentWork = null;
 	}
 
@@ -59,6 +80,20 @@ public class HeightMapTool extends PencilTool {
 			updateParcelsFor(heights);
 		}
 	}
+	
+	private class Low implements Runnable{
+
+		@Override
+		public void run() {
+			Map<Height, Point2D> heights = getHeights(); 
+			for (Height t : heights.keySet()) {
+				LogUtil.info("elevate " + heights.get(t) + " to "+t.getElevation());
+				t.elevate(-getAttenuatedAmplitude(heights.get(t)));
+			}
+			updateParcelsFor(heights);
+		}
+	}
+
 	private class Noise implements Runnable{
 
 		@Override
@@ -70,6 +105,19 @@ public class HeightMapTool extends PencilTool {
 			updateParcelsFor(heights);
 		}
 	}
+
+	private class Smooth implements Runnable{
+
+		@Override
+		public void run() {
+			Map<Height, Point2D> heights = getHeights(); 
+			for (Height t : heights.keySet()) {
+				t.elevate(RandomUtil.between(-1.0, 1.0) * getAttenuatedAmplitude(heights.get(t)));
+			}
+			updateParcelsFor(heights);
+		}
+	}
+
 	private class Uniform implements Runnable{
 		private final double elevation;
 		
@@ -92,12 +140,31 @@ public class HeightMapTool extends PencilTool {
 			updateParcelsFor(heights);
 		}
 	}
+
+	private class Reset implements Runnable{
+
+		@Override
+		public void run() {
+			Map<Height, Point2D> heights = getHeights(); 
+			updateParcelsFor(heights);
+		}
+	}
 	
 	private double getAttenuatedAmplitude(Point2D p){
 		return 1 * getStrength() * getApplicationRatio(p);
 	}
 	
 	private void updateParcelsFor(Map<Height, Point2D>  heights){
+		List<Height> res = new ArrayList<>();
+		res.addAll(heights.keySet());
+		for (Height h : new ArrayList<Height>(heights.keySet())) {
+			Region r = world.getRegion(heights.get(h));
+			for (Height neib : r.getTerrain().getHeightMap().get8Around(h)) {
+				if (!heights.containsKey(neib)) {
+					heights.put(neib, r.getTerrain().getHeightMap().getCoord(neib.getIndex()));
+				}
+			}
+		}
 		for (Height h : heights.keySet()) {
 			Region r = world.getRegion(heights.get(h));
 			r.getTerrain().getParcelling().updateParcelsContaining(new ArrayList<Height>(heights.keySet()));

@@ -54,7 +54,8 @@ import model.ES.component.visuals.ModelRotation;
 import model.ES.component.visuals.ParticleCaster;
 import model.ES.component.visuals.Skeleton;
 import model.ES.component.visuals.Sprite;
-import model.ES.component.world.Scenery;
+import model.ES.component.world.PopulationTooling;
+import model.ES.component.world.TerrainTooling;
 import model.world.WorldData;
 
 public class Model {
@@ -127,7 +128,8 @@ public class Model {
 				AbilityControl.class,
 				AbilityTriggerControl.class,
 				ThrustControl.class,
-				Scenery.class);
+				PopulationTooling.class,
+				TerrainTooling.class);
 		
 		hierarchy = new Hierarchy(ed);
 		resourceExplorer = new ResourceExplorer();

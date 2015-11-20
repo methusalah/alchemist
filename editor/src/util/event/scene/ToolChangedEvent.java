@@ -1,19 +1,18 @@
 package util.event.scene;
 
-import model.ES.serial.Blueprint;
 import util.event.Event;
+import view.controls.toolEditor.parameter.ToolParameter;
 
 public class ToolChangedEvent extends Event {
 	
-	private final Blueprint bp;
+	private final ToolParameter parameter;
 	
-	public ToolChangedEvent(Blueprint bp) {
-		this.bp = bp;
+	public ToolChangedEvent(ToolParameter parameter) {
+		this.parameter = parameter;
 	}
 
-	public Blueprint getBp() {
-		return bp;
+	public ToolParameter getParameter() {
+		return parameter;
 	}
 
-	
 }
