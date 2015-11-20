@@ -74,7 +74,6 @@ public class HeightMapTool extends PencilTool {
 		public void run() {
 			Map<Height, Point2D> heights = getHeights(); 
 			for (Height t : heights.keySet()) {
-				LogUtil.info("elevate " + heights.get(t) + " to "+t.getElevation());
 				t.elevate(getAttenuatedAmplitude(heights.get(t)));
 			}
 			updateParcelsFor(heights);
@@ -87,7 +86,6 @@ public class HeightMapTool extends PencilTool {
 		public void run() {
 			Map<Height, Point2D> heights = getHeights(); 
 			for (Height t : heights.keySet()) {
-				LogUtil.info("elevate " + heights.get(t) + " to "+t.getElevation());
 				t.elevate(-getAttenuatedAmplitude(heights.get(t)));
 			}
 			updateParcelsFor(heights);

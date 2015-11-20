@@ -109,7 +109,6 @@ public class TerrainDrawer {
 
 	public void updateParcels(List<Parcel> parcels) {
 		for (Parcel parcel : parcels) {
-			LogUtil.info("updating parcel ");
 			Mesh jmeMesh = TranslateUtil.toJMEMesh(parcel.getMesh());
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			Geometry g = ((Geometry) SpatialPool.terrainParcels.get(parcel));
