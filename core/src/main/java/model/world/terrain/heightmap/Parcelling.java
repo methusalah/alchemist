@@ -140,9 +140,9 @@ public class Parcelling extends Grid<Parcel>{
 
 				for (Triangle3D n : getNearbyTriangles(height, parcel)) {
 					List<Point3D> shared = t.getCommonPoints(n);
-					if (t.normal.getAngleWith(n.normal) > AngleUtil.RIGHT) {
-						continue;
-					}
+//					if (t.normal.getAngleWith(n.normal) > AngleUtil.RIGHT) {
+//						continue;
+//					}
 					if (shared.size() == 3) {
 						continue;
 					}

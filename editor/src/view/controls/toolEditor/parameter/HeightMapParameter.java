@@ -5,11 +5,15 @@ import model.world.PencilTool.MODE;
 import model.world.PencilTool.SHAPE;
 
 public class HeightMapParameter extends ToolParameter {
-	private final OPERATION operation;
-	private final double size;
-	private final double strength;
-	private final SHAPE shape;
-	private final MODE mode;
+	private OPERATION operation = OPERATION.Raise_Low;
+	private double size = 4;
+	private double strength = 0.5;
+	private SHAPE shape = SHAPE.Circle;
+	private MODE mode = MODE.Airbrush;
+	
+	public HeightMapParameter(){
+		
+	}
 	
 	public HeightMapParameter(OPERATION operation,
 			double size,
@@ -27,22 +31,40 @@ public class HeightMapParameter extends ToolParameter {
 		return operation;
 	}
 
+	public void setOperation(OPERATION operation) {
+		this.operation = operation;
+	}
+
 	public double getSize() {
 		return size;
+	}
+
+	public void setSize(double size) {
+		this.size = size;
 	}
 
 	public double getStrength() {
 		return strength;
 	}
 
+	public void setStrength(double strength) {
+		this.strength = strength;
+	}
+
 	public SHAPE getShape() {
 		return shape;
+	}
+
+	public void setShape(SHAPE shape) {
+		this.shape = shape;
 	}
 
 	public MODE getMode() {
 		return mode;
 	}
-	
-	
-	
+
+	public void setMode(MODE mode) {
+		this.mode = mode;
+	}
+
 }
