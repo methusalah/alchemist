@@ -16,6 +16,7 @@ public class WorldProc extends Processor {
 	
 	public WorldProc(WorldData world) {
 		this.world = world;
+		world.setCoord(Point2D.ORIGIN);
 	}
 
 	@Override

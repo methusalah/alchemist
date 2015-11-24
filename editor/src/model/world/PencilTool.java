@@ -25,10 +25,10 @@ public class PencilTool extends Tool {
 
 	private final PerlinNoise perlin;
 
-	private SHAPE shape = SHAPE.Square;
-	private MODE mode = MODE.Rough;
-	private double size = 4;
-	private double strength = 0.1;
+	protected SHAPE shape = SHAPE.Square;
+	protected MODE mode = MODE.Rough;
+	protected double size = 4;
+	protected double strength = 0.1;
 	
 	public PencilTool(WorldData world) {
 		super(world);

@@ -1,17 +1,23 @@
 package view.controls.toolEditor;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.world.HeightMapTool.OPERATION;
+import model.world.PencilTool;
 import model.world.PencilTool.MODE;
 import model.world.PencilTool.SHAPE;
-import util.LogUtil;
 import util.event.EventManager;
 import util.event.scene.ToolChangedEvent;
+import view.controls.custom.IconButton;
 import view.controls.toolEditor.parameter.HeightMapParameter;
 
 public class TerrainEditor extends VBox {
@@ -27,11 +33,14 @@ public class TerrainEditor extends VBox {
 				getAirbrushButton(),
 				getRoughButton(),
 				getNoiseButton()));
+		
+		pencil.setCenter(getSizeSlider());
+		pencil.setRight(getStrengthSlider());
 		getChildren().add(pencil);
 	}
 	
 	private Button getRiseLowButton(){
-		Button res = new Button("Rise/Low");
+		IconButton res = new IconButton("assets/textures/editor/rise_low_icon.png", "Rise/Low");
 		res.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -44,7 +53,7 @@ public class TerrainEditor extends VBox {
 	}
 
 	private Button getNoiseSmoothButton(){
-		Button res = new Button("Noise/Smooth");
+		IconButton res = new IconButton("assets/textures/editor/noise_smooth_icon.png", "Noise/Smooth");
 		res.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -57,7 +66,7 @@ public class TerrainEditor extends VBox {
 	}
 
 	private Button getUniformResetButton(){
-		Button res = new Button("Uniform/Reset");
+		IconButton res = new IconButton("assets/textures/editor/uniform_reset_icon.png", "Uniform/Reset");
 		res.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -70,7 +79,7 @@ public class TerrainEditor extends VBox {
 	}
 
 	private Button getCircleButton(){
-		Button res = new Button("Circle");
+		IconButton res = new IconButton("assets/textures/editor/circle_icon.png", "Circle");
 		res.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -82,7 +91,7 @@ public class TerrainEditor extends VBox {
 		return res;
 	}
 	private Button getSquareButton(){
-		Button res = new Button("Square");
+		IconButton res = new IconButton("assets/textures/editor/square_icon.png", "Square");
 		res.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -94,7 +103,7 @@ public class TerrainEditor extends VBox {
 		return res;
 	}
 	private Button getDiamondButton(){
-		Button res = new Button("Diamond");
+		IconButton res = new IconButton("assets/textures/editor/diamond_icon.png", "Diamond");
 		res.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -107,7 +116,7 @@ public class TerrainEditor extends VBox {
 	}
 	
 	private Button getAirbrushButton(){
-		Button res = new Button("Airbrush");
+		IconButton res = new IconButton("assets/textures/editor/airbrush_icon.png", "Airbrush");
 		res.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -119,7 +128,7 @@ public class TerrainEditor extends VBox {
 		return res;
 	}
 	private Button getRoughButton(){
-		Button res = new Button("Rough");
+		IconButton res = new IconButton("assets/textures/editor/rough_icon.png", "Rough");
 		res.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -131,7 +140,7 @@ public class TerrainEditor extends VBox {
 		return res;
 	}
 	private Button getNoiseButton(){
-		Button res = new Button("Noise");
+		IconButton res = new IconButton("assets/textures/editor/noise_icon.png", "Noise");
 		res.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -140,6 +149,46 @@ public class TerrainEditor extends VBox {
 				EventManager.post(new ToolChangedEvent(param));
 			}
 		});
+		return res;
+	}
+	
+	private Node getSizeSlider(){
+		VBox res = new VBox();
+		res.setMaxWidth(30);
+		res.setMaxHeight(Double.MAX_VALUE);
+		res.getChildren().add(new Label("Size"));
+		Slider slider = new Slider(0, 1, 0.3);
+		slider.setOrientation(Orientation.VERTICAL);
+		slider.valueProperty().addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				param.setSize(PencilTool.MAX_SIZE*newValue.doubleValue());
+				EventManager.post(new ToolChangedEvent(param));
+			}
+			
+		});
+		res.getChildren().add(slider);
+		return res;
+	}
+	
+	private Node getStrengthSlider(){
+		VBox res = new VBox();
+		res.setMaxWidth(30);
+		res.setMaxHeight(Double.MAX_VALUE);
+		res.getChildren().add(new Label("Strength"));
+		Slider slider = new Slider(0, 1, 0.3);
+		slider.setOrientation(Orientation.VERTICAL);
+		slider.valueProperty().addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				param.setStrength(newValue.doubleValue());
+				EventManager.post(new ToolChangedEvent(param));
+			}
+			
+		});
+		res.getChildren().add(slider);
 		return res;
 	}
 }

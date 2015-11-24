@@ -153,20 +153,21 @@ public class HeightMapTool extends PencilTool {
 	}
 	
 	private void updateParcelsFor(Map<Height, Point2D>  heights){
-		List<Height> res = new ArrayList<>();
-		res.addAll(heights.keySet());
+		List<Region> regions = new ArrayList<>();
 		for (Height h : new ArrayList<Height>(heights.keySet())) {
 			Region r = world.getRegion(heights.get(h));
+			if(!regions.contains(r))
+				regions.add(r);
 			for (Height neib : r.getTerrain().getHeightMap().get8Around(h)) {
 				if (!heights.containsKey(neib)) {
 					heights.put(neib, r.getTerrain().getHeightMap().getCoord(neib.getIndex()));
 				}
 			}
 		}
-		for (Height h : heights.keySet()) {
-			Region r = world.getRegion(heights.get(h));
-			r.getTerrain().getParcelling().updateParcelsContaining(new ArrayList<Height>(heights.keySet()));
-			world.getTerrainDrawer(r).updateParcels(r.getTerrain().getParcelling().getParcelsContaining(new ArrayList<Height>(heights.keySet())));
+		List<Height> hList = new ArrayList<Height>(heights.keySet());
+		for (Region r : regions) {
+			r.getTerrain().getParcelling().updateParcelsContaining(hList);
+			world.getTerrainDrawer(r).updateParcels(r.getTerrain().getParcelling().getParcelsContaining(hList));
 		}
 	}
 }
