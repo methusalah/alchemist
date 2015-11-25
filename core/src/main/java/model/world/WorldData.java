@@ -77,7 +77,7 @@ public class WorldData {
 	}
 	
 	public List<Region> getRegions(Point2D coord){
-		coord = new Point2D((int)coord.x, (int)coord.y);
+		coord = new Point2D((int)Math.floor(coord.x), (int)Math.floor(coord.y));
 		List<Region> res = new ArrayList<>();
 		res.add(regionManager.getRegion(coord));
 		if(coord.x % Region.RESOLUTION == 0)

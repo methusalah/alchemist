@@ -2,9 +2,9 @@ package model.world;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import model.world.terrain.heightmap.HeightMapNode;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.math.RandomUtil;
 
@@ -71,10 +71,11 @@ public class HeightMapTool extends PencilTool {
 
 		@Override
 		public void run() {
-			List<Point2D> points = getHeights(); 
+			List<Point2D> points = getHeights();
 			for (Point2D p : points) {
-				for(HeightMapNode n : world.getHeights(p))
+				for(HeightMapNode n : world.getHeights(p)){
 					n.elevate(getAttenuatedAmplitude(p));
+				}
 			}
 			updateParcelsFor(points);
 		}

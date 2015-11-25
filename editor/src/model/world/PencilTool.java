@@ -85,7 +85,7 @@ public class PencilTool extends Tool {
 
 		for (int x = -(int) size; x < (int) size; x++) {
 			for (int y = -(int) size; y < (int) size; y++) {
-				Point2D p = new Point2D(x, y).getAddition(coord);
+				Point2D p = coord.getAddition(x, y);
 				if (circle.contains(p)) {
 					res.add(p);
 				}
@@ -100,7 +100,7 @@ public class PencilTool extends Tool {
 
 		for (int x = -(int) size; x < (int) size; x++) {
 			for (int y = -(int) size; y < (int) size; y++) {
-				Point2D p = new Point2D(x, y).getAddition(coord);
+				Point2D p = coord.getAddition(x, y);
 				if (quad.hasInside(p)) {
 					res.add(p);
 				}

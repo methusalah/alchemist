@@ -51,7 +51,7 @@ public class Map2D<E> {
 	}
 
 	public E get(Point2D coord){
-		return get((int)coord.x, (int)coord.y);
+		return get((int)Math.floor(coord.x), (int)Math.floor(coord.y));
 	}
 
 	
