@@ -18,6 +18,7 @@ import view.drawingProcessors.TerrainDrawer;
 public class WorldData {
 	private List<Region> drawnRegions = new ArrayList<Region>();
 	private Map<Region, TerrainDrawer> terrainDrawers = new HashMap<>();
+	private Map<Region, Parcelling> parcellings = new HashMap<>();
 	private Region lastRegion;
 	private RegionManager regionManager = new RegionManager();
 	private final EntityData ed;
@@ -59,6 +60,7 @@ public class WorldData {
 		TerrainDrawer drawer = new TerrainDrawer(region.getTerrain(), region.getCoord());
 		drawer.render();
 		terrainDrawers.put(region, drawer);
+		parcellings.put(region, new Parcelling(region.getTerrain().getHeightMap()));
 	}
 	
 	private void undrawRegion(Region region){
