@@ -1,16 +1,16 @@
 package model.world.terrain.heightmap;
 
-import util.geometry.structure.grid.Node;
+import util.geometry.structure.grid.GridNode;
 
-public class Height extends Node {
+public class HeightMapNode extends GridNode {
 	
 	private double elevation;
 	
-	public Height(int index) {
+	public HeightMapNode(int index) {
 		super(index);
 	}
 	
-	public Height(int index, double elevation) {
+	public HeightMapNode(int index, double elevation) {
 		super(index);
 		this.elevation = elevation;
 	}

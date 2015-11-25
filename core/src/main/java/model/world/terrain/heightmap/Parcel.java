@@ -9,24 +9,24 @@ import java.util.Observer;
 
 import util.geometry.geom3d.MyMesh;
 import util.geometry.geom3d.Triangle3D;
-import util.geometry.structure.grid.Node;
+import util.geometry.structure.grid.GridNode;
 
-public class Parcel extends Node {
+public class Parcel extends GridNode {
 
-	private final Map<Height, List<Triangle3D>> triangles = new HashMap<Height, List<Triangle3D>>();
+	private final Map<HeightMapNode, List<Triangle3D>> triangles = new HashMap<HeightMapNode, List<Triangle3D>>();
 	private MyMesh mesh = new MyMesh();
 	
 	public Parcel(Parcelling grid, int index) {
 		super(index);
 	}
 
-	public void add(Height h) {
+	public void add(HeightMapNode h) {
 		triangles.put(h, new ArrayList<Triangle3D>());
 	}
 
-	public List<Height> getHeights() {
-		List<Height> res = new ArrayList<>();
-		for (Height t : triangles.keySet()) {
+	public List<HeightMapNode> getHeights() {
+		List<HeightMapNode> res = new ArrayList<>();
+		for (HeightMapNode t : triangles.keySet()) {
 			res.add(t);
 		}
 		return res;
@@ -37,7 +37,7 @@ public class Parcel extends Node {
 		mesh.textCoord.clear();
 		mesh.normals.clear();
 		mesh.indices.clear();
-		for (Height t : triangles.keySet()) {
+		for (HeightMapNode t : triangles.keySet()) {
 			triangles.get(t).clear();
 		}
 	}
@@ -50,7 +50,7 @@ public class Parcel extends Node {
 		this.mesh = mesh;
 	}
 
-	public Map<Height, List<Triangle3D>> getTriangles() {
+	public Map<HeightMapNode, List<Triangle3D>> getTriangles() {
 		return triangles;
 	}
 }

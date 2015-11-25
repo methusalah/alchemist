@@ -57,9 +57,9 @@ public class Parcelling extends Grid<Parcel>{
 		return new Point2D(inParcellingSpace(pInTerrainSpace.x-coord.x)+coord.x, inParcellingSpace(pInTerrainSpace.y-coord.y)+coord.y);
 	}
 
-	public List<Parcel> getParcelsContaining(List<Height> heights) {
+	public List<Parcel> getParcelsContaining(List<HeightMapNode> heights) {
 		List<Parcel> res = new ArrayList<>();
-		for (Height h : heights) {
+		for (HeightMapNode h : heights) {
 			Parcel container = get(inParcellingSpace(heightMap.getCoord(h.getIndex())));
 			if (!res.contains(container)) {
 				res.add(container);
@@ -68,7 +68,7 @@ public class Parcelling extends Grid<Parcel>{
 		return res;
 	}
 
-	public List<Parcel> updateParcelsContaining(List<Height> heights) {
+	public List<Parcel> updateParcelsContaining(List<HeightMapNode> heights) {
 		List<Parcel> res = getParcelsContaining(heights);
 		for (Parcel p : res) {
 			p.reset();
@@ -79,7 +79,7 @@ public class Parcelling extends Grid<Parcel>{
 		return res;
 	}
 
-	private List<Triangle3D> getGroundTriangles(Height height, Parcel parcel) {
+	private List<Triangle3D> getGroundTriangles(HeightMapNode height, Parcel parcel) {
 		if (heightMap.getEastNode(height) == null || heightMap.getNorthNode(height) == null) {
 			return new ArrayList<>();
 		}
@@ -91,7 +91,7 @@ public class Parcelling extends Grid<Parcel>{
 			return parcel.getTriangles().get(height);
 		}
 		for (Parcel neighbor : get8Around(parcel)) {
-			for (Height h : neighbor.getTriangles().keySet()) {
+			for (HeightMapNode h : neighbor.getTriangles().keySet()) {
 				if (h.equals(height)) {
 					return getGroundTriangles(h, neighbor);
 				}
@@ -100,7 +100,7 @@ public class Parcelling extends Grid<Parcel>{
 		throw new TechnicalException("Ground Triangle was not found, this must not happen. node : "+heightMap.getCoord(height.getIndex()));
 	}
 
-	private List<Triangle3D> getTerrainNodeGround(Height height) {
+	private List<Triangle3D> getTerrainNodeGround(HeightMapNode height) {
 		Point3D sw = heightMap.getPos(height);
 		Point3D se = heightMap.getPos(heightMap.getEastNode(height));
 		Point3D nw = heightMap.getPos(heightMap.getNorthNode(height));
@@ -112,9 +112,9 @@ public class Parcelling extends Grid<Parcel>{
 		return triangles;
 	}
 
-	private List<Triangle3D> getNearbyTriangles(Height height, Parcel parcel) {
+	private List<Triangle3D> getNearbyTriangles(HeightMapNode height, Parcel parcel) {
 		List<Triangle3D> res = new ArrayList<>();
-		for (Height n : heightMap.get9Around(height)) {
+		for (HeightMapNode n : heightMap.get9Around(height)) {
 			res.addAll(getGroundTriangles(n, parcel));
 		}
 		return res;
@@ -123,7 +123,7 @@ public class Parcelling extends Grid<Parcel>{
 	private void compute(Parcel parcel) {
 		double xScale = 1.0 / heightMap.xSize();
 		double yScale = 1.0 / heightMap.ySize();
-		for (Height height : parcel.getHeights()) {
+		for (HeightMapNode height : parcel.getHeights()) {
 			for (Triangle3D t : getGroundTriangles(height, parcel)) {
 				int index = parcel.getMesh().vertices.size();
 				parcel.getMesh().vertices.add(t.a);

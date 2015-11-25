@@ -71,7 +71,7 @@ import model.ES.serial.EntityInstance;
 import model.world.Region;
 import model.world.RegionManager;
 import model.world.WorldData;
-import model.world.terrain.heightmap.Height;
+import model.world.terrain.heightmap.HeightMapNode;
 import model.world.terrain.heightmap.HeightMap;
 
 public class MainGame extends CosmoVania {
@@ -106,7 +106,7 @@ public class MainGame extends CosmoVania {
 		}
 		HeightMap hm = r.getTerrain().getHeightMap();
 		for(int i = 0; i < hm.getAll().size(); i++)
-			hm.set(i, new Height(i, RandomUtil.between(-1.5, 0)));
+			hm.set(i, new HeightMapNode(i, RandomUtil.between(-1.5, 0)));
 		
 		r.getTerrain().getAtlas().getLayers().get(0).set(5, 5, 0);	
 		r.getTerrain().getAtlas().getLayers().get(1).set(5, 5, 255);	

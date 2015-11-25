@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdk.nashorn.internal.ir.GetSplitState;
-import model.world.terrain.heightmap.Height;
+import model.world.terrain.heightmap.HeightMapNode;
 import util.geometry.collections.Map2D;
 import util.geometry.geom2d.Point2D;
 
-public class Grid<T extends Node> extends Map2D<T> {
+public class Grid<T extends GridNode> extends Map2D<T> {
 
 	protected final Point2D coord;
 

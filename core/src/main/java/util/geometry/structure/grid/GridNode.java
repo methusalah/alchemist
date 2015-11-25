@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-public class Node {
+public class GridNode {
 	
 	@JsonProperty
 	protected final int index;
 
-	public Node(int index) {
+	public GridNode(int index) {
 		this.index = index;
 	}
 

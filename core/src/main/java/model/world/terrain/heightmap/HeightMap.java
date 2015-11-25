@@ -9,12 +9,12 @@ import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.geometry.structure.grid.Grid;
 
-public class HeightMap extends Grid<Height> {
+public class HeightMap extends Grid<HeightMapNode> {
 	
 	public HeightMap(int width, int height, Point2D coord) {
 		super(width, height, coord);
 		for(int i = 0; i < xSize*ySize; i++)
-			set(i, new Height(i));
+			set(i, new HeightMapNode(i));
 	}
 	
 	public HeightMap(@JsonProperty("width")int width,
@@ -23,10 +23,10 @@ public class HeightMap extends Grid<Height> {
 			@JsonProperty("coord")Point2D coord) {
 		super(width, height, coord);
 		for(int i = 0; i < xSize*ySize; i++)
-			set(i, new Height(i, flatData[i]));
+			set(i, new HeightMapNode(i, flatData[i]));
 	}
 	
-	public Point3D getPos(Height height){
+	public Point3D getPos(HeightMapNode height){
 		return new Point3D(getCoord(height.getIndex()), height.getElevation());
 	}
 
@@ -47,7 +47,7 @@ public class HeightMap extends Grid<Height> {
 
 	@JsonIgnore
 	@Override
-	public List<Height> getAll() {
+	public List<HeightMapNode> getAll() {
 		return super.getAll();
 	}
 }

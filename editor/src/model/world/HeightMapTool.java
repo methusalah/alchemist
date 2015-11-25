@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import model.world.terrain.heightmap.Height;
+import model.world.terrain.heightmap.HeightMapNode;
 import util.geometry.geom2d.Point2D;
 import util.math.RandomUtil;
 
@@ -71,11 +71,12 @@ public class HeightMapTool extends PencilTool {
 
 		@Override
 		public void run() {
-			Map<Height, Point2D> heights = getHeights(); 
-			for (Height t : heights.keySet()) {
-				t.elevate(getAttenuatedAmplitude(heights.get(t)));
+			List<Point2D> points = getHeights(); 
+			for (Point2D p : points) {
+				for(HeightMapNode n : world.getHeights(p))
+					n.elevate(getAttenuatedAmplitude(p));
 			}
-			updateParcelsFor(heights);
+			updateParcelsFor(points);
 		}
 	}
 	
@@ -83,11 +84,12 @@ public class HeightMapTool extends PencilTool {
 
 		@Override
 		public void run() {
-			Map<Height, Point2D> heights = getHeights(); 
-			for (Height t : heights.keySet()) {
-				t.elevate(-getAttenuatedAmplitude(heights.get(t)));
+			List<Point2D> points = getHeights(); 
+			for (Point2D p : points) {
+				for(HeightMapNode n : world.getHeights(p))
+					n.elevate(-getAttenuatedAmplitude(p));
 			}
-			updateParcelsFor(heights);
+			updateParcelsFor(points);
 		}
 	}
 
@@ -95,11 +97,13 @@ public class HeightMapTool extends PencilTool {
 
 		@Override
 		public void run() {
-			Map<Height, Point2D> heights = getHeights(); 
-			for (Height t : heights.keySet()) {
-				t.elevate(RandomUtil.between(-1.0, 1.0) * getAttenuatedAmplitude(heights.get(t)));
+			List<Point2D> points = getHeights(); 
+			for (Point2D p : points) {
+				double randomElevation = RandomUtil.between(-1.0, 1.0) * getAttenuatedAmplitude(p);
+				for(HeightMapNode n : world.getHeights(p))
+					n.elevate(randomElevation);
 			}
-			updateParcelsFor(heights);
+			updateParcelsFor(points);
 		}
 	}
 
@@ -107,24 +111,24 @@ public class HeightMapTool extends PencilTool {
 
 		@Override
 		public void run() {
-			Map<Height, Point2D> heights = getHeights();
-			for (Height h : heights.keySet()) {
-//				world.getHeights(heights.get(h));
-//				
-//				double average = 0;
-//				for (Height n : ModelManager.getBattlefield().getMap().get4Around(t)) {
-//					average += n.getElevation();
-//				}
-//				average /= ModelManager.getBattlefield().getMap().get4Around(t).size();
-//	
-//				double diff = average - t.getElevation();
-//				if (diff > 0) {
-//					t.elevate(Math.min(diff, getAttenuatedAmplitude(t.getCoord())));
-//				} else if (diff < 0) {
-//					t.elevate(Math.max(diff, -getAttenuatedAmplitude(t.getCoord())));
-//				}
+			List<Point2D> points = getHeights(); 
+			for (Point2D p : points) {
+				for(HeightMapNode n : world.getHeights(p)){
+					double average = 0;
+					for (HeightMapNode neib : world.get4HeightsAround(p)) {
+						average += neib.getElevation();
+					}
+					average /= world.get4HeightsAround(p).size();
+		
+					double diff = average - n.getElevation();
+					if (diff > 0) {
+						n.elevate(Math.min(diff, getAttenuatedAmplitude(p)));
+					} else if (diff < 0) {
+						n.elevate(Math.max(diff, -getAttenuatedAmplitude(p)));
+					}
+				}
 			}
-			updateParcelsFor(heights);
+			updateParcelsFor(points);
 		}
 	}
 
@@ -132,7 +136,7 @@ public class HeightMapTool extends PencilTool {
 		private final double elevation;
 		
 		public Uniform() {
-			Height h = world.getHeights(coord).get(0);
+			HeightMapNode h = world.getHeights(coord).get(0);
 			if(h != null)
 				elevation = h.getElevation();
 			else
@@ -141,17 +145,19 @@ public class HeightMapTool extends PencilTool {
 		
 		@Override
 		public void run() {
-			Map<Height, Point2D> heights = getHeights(); 
-			for (Height t : heights.keySet()) {
-				double diff = elevation - t.getElevation();
-				double attenuatedAmplitude = getAttenuatedAmplitude(coord);
-				if (diff > 0) {
-					t.elevate(Math.min(diff, attenuatedAmplitude));
-				} else if (diff < 0) {
-					t.elevate(Math.max(diff, -attenuatedAmplitude));
+			List<Point2D> points = getHeights(); 
+			for (Point2D p : points) {
+				for(HeightMapNode n : world.getHeights(p)){
+					double diff = elevation - n.getElevation();
+					double attenuatedAmplitude = getAttenuatedAmplitude(p);
+					if (diff > 0) {
+						n.elevate(Math.min(diff, attenuatedAmplitude));
+					} else if (diff < 0) {
+						n.elevate(Math.max(diff, -attenuatedAmplitude));
+					}
 				}
 			}
-			updateParcelsFor(heights);
+			updateParcelsFor(points);
 		}
 	}
 
@@ -159,10 +165,13 @@ public class HeightMapTool extends PencilTool {
 
 		@Override
 		public void run() {
-			Map<Height, Point2D> heights = getHeights();
-			for(Height h : heights.keySet())
-				h.setElevation(0);
-			updateParcelsFor(heights);
+			List<Point2D> points = getHeights(); 
+			for (Point2D p : points) {
+				for(HeightMapNode n : world.getHeights(p)){
+					n.setElevation(0);
+				}
+			}
+			updateParcelsFor(points);
 		}
 	}
 	
@@ -170,23 +179,22 @@ public class HeightMapTool extends PencilTool {
 		return 1 * getStrength() * getApplicationRatio(p);
 	}
 	
-	private void updateParcelsFor(Map<Height, Point2D>  heights){
+	private void updateParcelsFor(List<Point2D> points){
 		List<Region> regions = new ArrayList<>();
-		for (Height h : new ArrayList<Height>(heights.keySet())) {
-			for(Region r : world.getRegions(heights.get(h))){
+		for(Point2D p : points){
+			for(Region r : world.getRegions(p))
 				if(!regions.contains(r))
 					regions.add(r);
-				for (Height neib : r.getTerrain().getHeightMap().get8Around(h)) {
-					if (!heights.containsKey(neib)) {
-						heights.put(neib, r.getTerrain().getHeightMap().getCoord(neib.getIndex()));
-					}
-				}
-			}
 		}
-		List<Height> hList = new ArrayList<Height>(heights.keySet());
+		List<HeightMapNode> nodes = new ArrayList<>();
+		for(Point2D p : points){
+			for(HeightMapNode n : world.get4HeightsAround(p))
+				if(!nodes.contains(n))
+					nodes.add(n);
+		}
 		for (Region r : regions) {
-			r.getTerrain().getParcelling().updateParcelsContaining(hList);
-			world.getTerrainDrawer(r).updateParcels(r.getTerrain().getParcelling().getParcelsContaining(hList));
+			r.getTerrain().getParcelling().updateParcelsContaining(nodes);
+			world.getTerrainDrawer(r).updateParcels(r.getTerrain().getParcelling().getParcelsContaining(nodes));
 		}
 	}
 }

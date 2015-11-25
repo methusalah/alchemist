@@ -9,7 +9,7 @@ import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
 import model.ES.serial.EntityInstance;
-import model.world.terrain.heightmap.Height;
+import model.world.terrain.heightmap.HeightMapNode;
 import model.world.terrain.heightmap.Parcelling;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
@@ -99,11 +99,22 @@ public class WorldData {
 	 * @param coord
 	 * @return
 	 */
-	public List<Height> getHeights(Point2D coord){
-		List<Height> res = new ArrayList<>();
+	public List<HeightMapNode> getHeights(Point2D coord){
+		List<HeightMapNode> res = new ArrayList<>();
 		for(Region r : getRegions(coord))
 			res.add(r.getTerrain().getHeightMap().get(coord));
 		return res;
 	}
+
+	public List<HeightMapNode> get4HeightsAround(Point2D coord){
+		List<HeightMapNode> res = new ArrayList<>();
+		res.addAll(getHeights(coord.getAddition(1, 0)));
+		res.addAll(getHeights(coord.getAddition(-1, 0)));
+		res.addAll(getHeights(coord.getAddition(0, 1)));
+		res.addAll(getHeights(coord.getAddition(0, -1)));
+		return res;
+	}
+	
+	
 	
 }

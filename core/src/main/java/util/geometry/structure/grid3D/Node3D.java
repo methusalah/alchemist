@@ -1,8 +1,8 @@
 package util.geometry.structure.grid3D;
 
-import util.geometry.structure.grid.Node;
+import util.geometry.structure.grid.GridNode;
 
-public class Node3D extends Node {
+public class Node3D extends GridNode {
 
 	protected double elevation;
 	

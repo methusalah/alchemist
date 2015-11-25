@@ -1,10 +1,11 @@
 package model.world;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import model.world.terrain.heightmap.Height;
+import model.world.terrain.heightmap.HeightMapNode;
 import util.geometry.collections.PointRing;
 import util.geometry.geom2d.BoundingCircle;
 import util.geometry.geom2d.Point2D;
@@ -68,7 +69,7 @@ public class PencilTool extends Tool {
 		this.strength = strength;
 	}
 	
-	protected Map<Height, Point2D> getHeights() {
+	protected List<Point2D> getHeights() {
 		switch(shape){
 		case Circle : return getInCircle();
 		case Diamond :
@@ -78,32 +79,30 @@ public class PencilTool extends Tool {
 	}
 		
 	
-	private Map<Height, Point2D> getInCircle() {
-		Map<Height, Point2D> res = new HashMap<>();
+	private List<Point2D> getInCircle() {
+		List<Point2D> res = new ArrayList<>();
 		BoundingCircle circle = new BoundingCircle(coord, (size / 2) + 0.01);
 
 		for (int x = -(int) size; x < (int) size; x++) {
 			for (int y = -(int) size; y < (int) size; y++) {
 				Point2D p = new Point2D(x, y).getAddition(coord);
 				if (circle.contains(p)) {
-					for(Height h : world.getHeights(p))
-						res.put(h, p);
+					res.add(p);
 				}
 			}
 		}
 		return res;
 	}
 
-	private Map<Height, Point2D> getInQuad() {
-		Map<Height, Point2D> res = new HashMap<>();
+	private List<Point2D> getInQuad() {
+		List<Point2D> res = new ArrayList<>();
 		Polygon quad = getOrientedQuad(coord);
 
 		for (int x = -(int) size; x < (int) size; x++) {
 			for (int y = -(int) size; y < (int) size; y++) {
 				Point2D p = new Point2D(x, y).getAddition(coord);
 				if (quad.hasInside(p)) {
-					for(Height h : world.getHeights(p))
-						res.put(h, p);
+					res.add(p);
 				}
 			}
 		}
