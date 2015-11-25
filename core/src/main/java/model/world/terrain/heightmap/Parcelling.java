@@ -70,7 +70,6 @@ public class Parcelling extends Grid<Parcel>{
 
 	public List<Parcel> updateParcelsContaining(List<Height> heights) {
 		List<Parcel> res = getParcelsContaining(heights);
-		LogUtil.info("updating "+res.size()+"parcel mesh");
 		for (Parcel p : res) {
 			p.reset();
 		}

@@ -9,6 +9,7 @@ import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
 import model.ES.serial.EntityInstance;
+import model.world.terrain.heightmap.Height;
 import model.world.terrain.heightmap.Parcelling;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
@@ -75,11 +76,34 @@ public class WorldData {
 		return res;
 	}
 	
-	public Region getRegion(Point2D coord){
-		return regionManager.getRegion(coord);
+	public List<Region> getRegions(Point2D coord){
+		coord = new Point2D((int)coord.x, (int)coord.y);
+		List<Region> res = new ArrayList<>();
+		res.add(regionManager.getRegion(coord));
+		if(coord.x % Region.RESOLUTION == 0)
+			res.add(regionManager.getRegion(coord.getAddition(-1, 0)));
+		if(coord.y % Region.RESOLUTION == 0)
+			res.add(regionManager.getRegion(coord.getAddition(0, -1)));
+		if(coord.x % Region.RESOLUTION == 0 && coord.y % Region.RESOLUTION == 0)
+			res.add(regionManager.getRegion(coord.getAddition(-1, -1)));
+		return res; 
 	}
 	
 	public TerrainDrawer getTerrainDrawer(Region region) {
 		return terrainDrawers.get(region);
 	}
+	
+	/**
+	 * find the height at given coordinate, plus the heights in neighboring regions if coordinate
+	 * is above west or south border.
+	 * @param coord
+	 * @return
+	 */
+	public List<Height> getHeights(Point2D coord){
+		List<Height> res = new ArrayList<>();
+		for(Region r : getRegions(coord))
+			res.add(r.getTerrain().getHeightMap().get(coord));
+		return res;
+	}
+	
 }

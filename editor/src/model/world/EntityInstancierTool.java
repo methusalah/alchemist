@@ -30,8 +30,8 @@ public class EntityInstancierTool extends Tool {
 		comps.add(stance);
 		
 		EntityInstance i = new EntityInstance(bp, comps);
-		world.getRegion(coord).getEntities().add(i);
-		world.drawRegion(world.getRegion(coord));
+		world.getRegions(coord).get(0).getEntities().add(i);
+		world.drawRegion(world.getRegions(coord).get(0));
 	}
 
 	public void setBp(Blueprint bp) {

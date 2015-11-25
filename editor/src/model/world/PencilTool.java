@@ -1,6 +1,7 @@
 package model.world;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import model.world.terrain.heightmap.Height;
@@ -85,7 +86,8 @@ public class PencilTool extends Tool {
 			for (int y = -(int) size; y < (int) size; y++) {
 				Point2D p = new Point2D(x, y).getAddition(coord);
 				if (circle.contains(p)) {
-					res.put(world.getRegion(p).getTerrain().getHeightMap().get(p), p);
+					for(Height h : world.getHeights(p))
+						res.put(h, p);
 				}
 			}
 		}
@@ -100,7 +102,8 @@ public class PencilTool extends Tool {
 			for (int y = -(int) size; y < (int) size; y++) {
 				Point2D p = new Point2D(x, y).getAddition(coord);
 				if (quad.hasInside(p)) {
-					res.put(world.getRegion(p).getTerrain().getHeightMap().get(p), p);
+					for(Height h : world.getHeights(p))
+						res.put(h, p);
 				}
 			}
 		}
