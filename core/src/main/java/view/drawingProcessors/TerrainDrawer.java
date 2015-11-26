@@ -31,9 +31,9 @@ public class TerrainDrawer {
 	private final TerrainSplatTexture coverTexture;
 	private final Point2D coord;
 	
-	public Node mainNode = new Node();
-	public Node castAndReceiveNode = new Node();
-	public Node receiveNode = new Node();
+	public Node mainNode = new Node("terrain drawer main node");
+	public Node castAndReceiveNode = new Node("terrain cast and receive shadow node");
+	public Node receiveNode = new Node("terrain receive shadow node");
 
 	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
 
@@ -83,7 +83,7 @@ public class TerrainDrawer {
 		coverTexture.buildMaterial();
 
 		for (Parcel parcel : terrain.getParcelling().getAll()) {
-			Geometry g = new Geometry();
+			Geometry g = new Geometry("ground parcel "+parcel.getIndex());
 			Mesh jmeMesh = TranslateUtil.toJMEMesh(parcel.getMesh());
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			g.setMesh(jmeMesh);
@@ -96,7 +96,7 @@ public class TerrainDrawer {
 			castAndReceiveNode.attachChild(g);
 			mainPhysicsSpace.add(g);
 
-			Geometry g2 = new Geometry();
+			Geometry g2 = new Geometry("ground cover parcel "+parcel.getIndex());
 			g2.setMesh(jmeMesh);
 			g2.setMaterial(coverTexture.getMaterial());
 			g2.setQueueBucket(Bucket.Transparent);

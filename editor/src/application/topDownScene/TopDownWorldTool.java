@@ -88,8 +88,7 @@ public class TopDownWorldTool implements SceneInputListener {
 
 	@Override
 	public void onMouseMoved(MouseEvent e){
-		if(hasTool)
-			jme.enqueue(app -> setSceneMouseCoord(app, new Point2D(e.getX(), e.getY())));
+		jme.enqueue(app -> setSceneMouseCoord(app, new Point2D(e.getX(), e.getY())));
 	}
 
 	@Override
@@ -151,7 +150,6 @@ public class TopDownWorldTool implements SceneInputListener {
 	}
 
 	static private boolean selectEntity(SimpleApplication app) {
-		LogUtil.info("selection !");
 		AppStateManager stateManager = app.getStateManager();
 		EntityId pointed = stateManager.getState(SceneSelectorState.class).getPointedEntity();
 		if(pointed != null)

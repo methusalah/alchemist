@@ -3,6 +3,7 @@ package view.drawingProcessors;
 import java.util.HashMap;
 import java.util.Map;
 
+import model.ES.component.Naming;
 import model.ES.component.visuals.Model;
 import util.LogUtil;
 import view.SpatialPool;
@@ -43,6 +44,11 @@ public class ModelProc extends Processor {
 		
 		if(s != null){
 			s = s.clone();
+			Naming n = entityData.getComponent(e.getId(), Naming.class);
+			if(n != null)
+				s.setName(n.getName());
+			else
+				s.setName("unnamed entity #"+e.getId());
 			s.scale((float)model.scale);
 			s.setUserData("EntityId", e.getId().getId());
 			SpatialPool.models.put(e.getId(), s);

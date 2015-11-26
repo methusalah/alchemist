@@ -2,18 +2,12 @@ package model.world.terrain.heightmap;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
-import jme3tools.navigation.Coordinate;
-import model.world.terrain.Terrain;
-import util.LogUtil;
 import util.exception.TechnicalException;
-import util.geometry.collections.Map2D;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.geometry.geom3d.Triangle3D;
 import util.geometry.structure.grid.Grid;
-import util.math.AngleUtil;
 
 /**
  * Divides the node based grid into parcels for performance purpose. the objectives : - group nodes for the graphic card to manage less objects, - divide terrain to
