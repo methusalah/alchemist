@@ -49,8 +49,6 @@ public class WorldData {
 			for(Region r : drawnRegions)
 				if(!toDraw.contains(r))
 					undrawRegion(r);
-			
-			drawnRegions = toDraw;
 		}
 	}
 	
@@ -64,12 +62,14 @@ public class WorldData {
 		drawer.render();
 		terrainDrawers.put(region, drawer);
 		heightmapExplorer.add(region.getTerrain().getHeightMap());
+		drawnRegions.add(region);
 	}
 	
 	private void undrawRegion(Region region){
 		LogUtil.info("undraw region "+region.getId());
 		for(EntityInstance ei : region.getEntities())
 			ei.uninstanciate(ed);
+		drawnRegions.remove(region);
 	}
 	
 	private List<Region> get9RegionsAround(Point2D coord){
@@ -91,6 +91,9 @@ public class WorldData {
 			res.add(regionManager.getRegion(coord.getAddition(0, -1)));
 		if(coord.x % Region.RESOLUTION == 0 && coord.y % Region.RESOLUTION == 0)
 			res.add(regionManager.getRegion(coord.getAddition(-1, -1)));
+		for(Region r : res)
+			if(!drawnRegions.contains(r))
+				drawRegion(r);
 		return res; 
 	}
 	
@@ -127,5 +130,10 @@ public class WorldData {
 				getRegions(coord).get(0).getEntities().add(ei);
 			}
 		ei.instanciate(ed, worldEntity);
+	}
+	
+	public void saveDrawnRegions(){
+		for(Region r : drawnRegions)
+			RegionManager.saveRegion(r);
 	}
 }

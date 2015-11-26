@@ -17,6 +17,7 @@ import model.world.PencilTool;
 import model.world.PencilTool.MODE;
 import model.world.PencilTool.SHAPE;
 import util.event.EventManager;
+import util.event.scene.MapSavedEvent;
 import util.event.scene.ToolChangedEvent;
 import view.controls.custom.IconButton;
 import view.controls.toolEditor.parameter.HeightMapParameter;
@@ -38,7 +39,7 @@ public class TerrainEditor extends VBox {
 			}
 		});
 
-		getChildren().add(new BorderPane(getNoiseSmoothButton(), null, getRiseLowButton(), null, getUniformResetButton()));
+		getChildren().add(new BorderPane(getNoiseSmoothButton(), getSaveButton(), getRiseLowButton(), null, getUniformResetButton()));
 		BorderPane pencil = new BorderPane();
 		pencil.setLeft(new VBox(getCircleButton(),
 				getSquareButton(),
@@ -50,6 +51,18 @@ public class TerrainEditor extends VBox {
 		pencil.setCenter(getSizeSlider());
 		pencil.setRight(getStrengthSlider());
 		getChildren().add(pencil);
+	}
+	
+	private Button getSaveButton(){
+		Button res = new Button("Save the map");
+		res.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				EventManager.post(new MapSavedEvent());
+			}
+		});
+		return res;
 	}
 	
 	private Button getRiseLowButton(){

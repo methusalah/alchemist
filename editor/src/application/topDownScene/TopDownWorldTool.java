@@ -21,6 +21,7 @@ import model.world.WorldData;
 import util.LogUtil;
 import util.event.EntitySelectionChanged;
 import util.event.EventManager;
+import util.event.scene.MapSavedEvent;
 import util.event.scene.ToolChangedEvent;
 import util.geometry.geom2d.Point2D;
 import view.controls.toolEditor.parameter.HeightMapParameter;
@@ -37,18 +38,25 @@ public class TopDownWorldTool implements SceneInputListener {
 	
 	
 	private final JmeForImageView jme;
+	private final WorldData worldData;
 	private boolean hasTool = false;
 	private final HeightMapTool heightmapTool;
 	private final EntityInstancierTool entityInstancierTool;
 
 	public TopDownWorldTool(JmeForImageView jme, WorldData worldData) {
 		this.jme = jme;
+		this.worldData = worldData;
 		EventManager.register(this);
 		
 		heightmapTool = new HeightMapTool(worldData);
 		entityInstancierTool = new EntityInstancierTool(worldData);
 	}
 
+	
+	@Subscribe
+	public void onMapSavedEvent(MapSavedEvent e){
+		worldData.saveDrawnRegions();
+	}
 	
 	@Subscribe
 	public void onToolChangedEvent(ToolChangedEvent e){

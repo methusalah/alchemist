@@ -45,6 +45,5 @@ public class BehaviorTreeProc extends Processor {
 	@Override
 	protected void onEntityUpdated(Entity e) {
 		bTrees.get(e.getId()).step();
-		LogUtil.info("behvior tree update");
 	}
 }
