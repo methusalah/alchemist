@@ -9,6 +9,7 @@ import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
 import model.ES.serial.EntityInstance;
+import model.world.terrain.heightmap.HeightMapExplorer;
 import model.world.terrain.heightmap.HeightMapNode;
 import model.world.terrain.heightmap.Parcelling;
 import util.LogUtil;
@@ -18,7 +19,7 @@ import view.drawingProcessors.TerrainDrawer;
 public class WorldData {
 	private List<Region> drawnRegions = new ArrayList<Region>();
 	private Map<Region, TerrainDrawer> terrainDrawers = new HashMap<>();
-	private Map<Region, Parcelling> parcellings = new HashMap<>();
+	private HeightMapExplorer heightmapExplorer = new HeightMapExplorer();
 	private Region lastRegion;
 	private RegionManager regionManager = new RegionManager();
 	private final EntityData ed;
@@ -60,7 +61,7 @@ public class WorldData {
 		TerrainDrawer drawer = new TerrainDrawer(region.getTerrain(), region.getCoord());
 		drawer.render();
 		terrainDrawers.put(region, drawer);
-		parcellings.put(region, new Parcelling(region.getTerrain().getHeightMap()));
+		heightmapExplorer.add(region.getTerrain().getHeightMap());
 	}
 	
 	private void undrawRegion(Region region){

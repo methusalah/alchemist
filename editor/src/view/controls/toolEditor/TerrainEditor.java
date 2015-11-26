@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import model.world.HeightMapTool.OPERATION;
@@ -19,12 +20,24 @@ import util.event.EventManager;
 import util.event.scene.ToolChangedEvent;
 import view.controls.custom.IconButton;
 import view.controls.toolEditor.parameter.HeightMapParameter;
+import view.controls.toolEditor.parameter.PopulationParameter;
 
 public class TerrainEditor extends VBox {
 
 	HeightMapParameter param = new HeightMapParameter();
 
-	public TerrainEditor() {
+	public TerrainEditor(TitledPane container) {
+		container.expandedProperty().addListener(new ChangeListener<Boolean>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if(!newValue)
+					EventManager.post(new ToolChangedEvent(null));
+				else
+					EventManager.post(new ToolChangedEvent(param));
+			}
+		});
+
 		getChildren().add(new BorderPane(getNoiseSmoothButton(), null, getRiseLowButton(), null, getUniformResetButton()));
 		BorderPane pencil = new BorderPane();
 		pencil.setLeft(new VBox(getCircleButton(),

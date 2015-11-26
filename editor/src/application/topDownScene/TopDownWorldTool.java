@@ -151,6 +151,7 @@ public class TopDownWorldTool implements SceneInputListener {
 	}
 
 	static private boolean selectEntity(SimpleApplication app) {
+		LogUtil.info("selection !");
 		AppStateManager stateManager = app.getStateManager();
 		EntityId pointed = stateManager.getState(SceneSelectorState.class).getPointedEntity();
 		if(pointed != null)

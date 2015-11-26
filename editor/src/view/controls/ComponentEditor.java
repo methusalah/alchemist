@@ -56,9 +56,9 @@ public class ComponentEditor extends TitledPane {
 		setContent(content);
 		
 		if(comp instanceof PopulationTooling)
-			content.getChildren().add(new PopulationEditor());
+			content.getChildren().add(new PopulationEditor(this));
 		else if(comp instanceof TerrainTooling)
-			content.getChildren().add(new TerrainEditor());
+			content.getChildren().add(new TerrainEditor(this));
 
 		BeanInfo bi = null;
 		try {

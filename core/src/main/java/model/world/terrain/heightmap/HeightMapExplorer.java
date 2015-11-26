@@ -8,7 +8,9 @@ public class HeightMapExplorer {
 	private final Map<HeightMap, Parcelling> parcellings = new HashMap<>();
 	
 	public void add(HeightMap heightMap){
-//		parcellings.add
+		parcellings.put(heightMap, new Parcelling(heightMap));
 	}
+	
+	
 	
 }
