@@ -24,14 +24,13 @@ public class EntityInstancierTool extends Tool {
 	
 	@Override
 	public void onPrimarySingleAction() {
-		LogUtil.info("clic");
 		PlanarStance stance = new PlanarStance(coord, new Angle(0), 0, Point3D.UNIT_Z);
 		List<EntityComponent> comps = new ArrayList<EntityComponent>();
 		comps.add(stance);
 		
 		EntityInstance i = new EntityInstance(bp, comps);
-		world.getRegions(coord).get(0).getEntities().add(i);
-		world.drawRegion(world.getRegions(coord).get(0));
+		
+		world.addEntityInstance(i);
 	}
 
 	public void setBp(Blueprint bp) {

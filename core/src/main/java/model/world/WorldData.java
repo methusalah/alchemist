@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
+import model.ES.component.motion.PlanarStance;
 import model.ES.serial.EntityInstance;
 import model.world.terrain.heightmap.HeightMapExplorer;
 import model.world.terrain.heightmap.HeightMapNode;
@@ -118,6 +120,12 @@ public class WorldData {
 		return res;
 	}
 	
-	
-	
+	public void addEntityInstance(EntityInstance ei){
+		for(EntityComponent comp : ei.getComps())
+			if(comp instanceof PlanarStance){
+				Point2D coord = ((PlanarStance)comp).getCoord();
+				getRegions(coord).get(0).getEntities().add(ei);
+			}
+		ei.instanciate(ed, worldEntity);
+	}
 }
