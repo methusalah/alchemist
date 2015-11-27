@@ -91,7 +91,6 @@ public class EntityDataObserver {
 			
 			@Override
 			public void run() {
-				LogUtil.info("creation : "+entityData.getComponent(e.getEntityId(), Naming.class).getName());
 				EntityPresenter ep = new EntityPresenter(e.getEntityId(), "Just created. Should not be seen.");
 				rootEntityPresenter.childrenListProperty().add(ep);
 				presenters.put(ep.getEntityId(), ep);

@@ -20,8 +20,10 @@ public class Region {
 
 	private final String id;
 	private final Point2D coord;
-	private List<EntityInstance> entities = new ArrayList<>();
-	private Terrain terrain;
+	private final List<EntityInstance> entities;
+	private final Terrain terrain;
+	
+	private boolean modified = false;
 
 	public Region(String id, Point2D coord){
 		this.id = id;
@@ -34,6 +36,7 @@ public class Region {
 				new ArrayList<String>(){{add(null);}},
 				new ArrayList<Double>(){{add(1d);}});
 		terrain = new Terrain(RESOLUTION+1, RESOLUTION+1, t, coord);
+		entities = new ArrayList<>();
 	}
 	public Region(Point2D coord){
 		this(RegionManager.getRegionId(coord), RegionManager.getRegionCoord(coord));
@@ -64,4 +67,12 @@ public class Region {
 	public Terrain getTerrain() {
 		return terrain;
 	}
+	public boolean isModified() {
+		return modified;
+	}
+	public void setModified(boolean modified) {
+		this.modified = modified;
+	}
+	
+	
 }

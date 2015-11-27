@@ -29,14 +29,15 @@ public class HeightMap extends Grid<HeightMapNode> {
 		for (int i = 0; i < width * height; i++) {
 			if(flatData.charAt(index) == '-'){
 				int nbZero = getIntFromHexString(flatData.substring(index+1, index+9));
-				LogUtil.info(flatData.substring(index+1, index+9)+"zeros found : "+nbZero);
-				while(nbZero-- > 0)
-					set(i++, new HeightMapNode(i, 0));
+				while(nbZero-- > 0){
+					set(i, new HeightMapNode(i, 0));
+					i++;
+				}
 				i--;
 				index += 10;
 			} else {
-				float f = getFloatFromHexString(flatData.substring(index, index+8));
-				set(i, new HeightMapNode(i, f));
+				int f = getIntFromHexString(flatData.substring(index, index+8));
+				set(i, new HeightMapNode(i, Float.intBitsToFloat(f)));
 				index += 9;
 			}
 		}
@@ -67,7 +68,7 @@ public class HeightMap extends Grid<HeightMapNode> {
 					continue;
 				}
 			}
-			sb.append(String.format("%08X,", f));
+			sb.append(String.format("%08X,", Float.floatToRawIntBits(f)));
 		}
 		return sb.toString();
 	}

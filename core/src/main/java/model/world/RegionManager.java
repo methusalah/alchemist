@@ -2,7 +2,9 @@ package model.world;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import util.LogUtil;
@@ -15,8 +17,9 @@ public class RegionManager {
 	private static final String PATH = "assets/data/regions/";
 	private static final String EXT = ".region";
 	
-	private ObjectMapper mapper = new ObjectMapper();
-	Map<String, Region> loadedRegions = new HashMap<>();
+	private final ObjectMapper mapper = new ObjectMapper();
+	private final Map<String, Region> loadedRegions = new HashMap<>();
+	private final List<Region> cache = new ArrayList<>();
 
 	public RegionManager() {
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -26,7 +29,22 @@ public class RegionManager {
 		String rid = getRegionId(coord);
 		if(!loadedRegions.containsKey(rid))
 			loadedRegions.put(rid, loadRegion(rid, getRegionCoord(coord)));
-		return loadedRegions.get(rid);
+		Region res = loadedRegions.get(rid);
+		
+		// cleaning the cache
+		if(cache.contains(res))
+			cache.remove(res);
+		cache.add(0, res);
+		
+		if(cache.size() > 20)
+			while(cache.size() > 15){
+				loadedRegions.remove(cache.get(cache.size()-1).getId());
+				cache.remove(cache.size()-1);
+			}
+		
+		LogUtil.info("loaded regions : "+loadedRegions.keySet().size());
+		
+		return res;
 	}
 	
 	private Region loadRegion(String rid, Point2D coord) {
