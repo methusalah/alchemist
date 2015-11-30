@@ -26,6 +26,7 @@ import util.event.RemoveComponentEvent;
 import view.UIConfig;
 import view.controls.propertyEditor.PropertyEditor;
 import view.controls.propertyEditor.PropertyEditorFactory;
+import view.controls.toolEditor.AtlasEditor;
 import view.controls.toolEditor.PopulationEditor;
 import view.controls.toolEditor.TerrainEditor;
 
@@ -57,8 +58,10 @@ public class ComponentEditor extends TitledPane {
 		
 		if(comp instanceof PopulationTooling)
 			content.getChildren().add(new PopulationEditor(this));
-		else if(comp instanceof TerrainTooling)
+		else if(comp instanceof TerrainTooling){
 			content.getChildren().add(new TerrainEditor(this));
+			content.getChildren().add(new AtlasEditor(this));
+		}
 
 		BeanInfo bi = null;
 		try {

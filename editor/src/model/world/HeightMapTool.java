@@ -71,7 +71,7 @@ public class HeightMapTool extends PencilTool {
 
 		@Override
 		public void run() {
-			List<Point2D> points = getHeights();
+			List<Point2D> points = getNodes();
 			for (Point2D p : points) {
 				for(HeightMapNode n : world.getHeights(p)){
 					n.elevate(getAttenuatedAmplitude(p));
@@ -85,7 +85,7 @@ public class HeightMapTool extends PencilTool {
 
 		@Override
 		public void run() {
-			List<Point2D> points = getHeights(); 
+			List<Point2D> points = getNodes(); 
 			for (Point2D p : points) {
 				for(HeightMapNode n : world.getHeights(p))
 					n.elevate(-getAttenuatedAmplitude(p));
@@ -98,7 +98,7 @@ public class HeightMapTool extends PencilTool {
 
 		@Override
 		public void run() {
-			List<Point2D> points = getHeights(); 
+			List<Point2D> points = getNodes(); 
 			for (Point2D p : points) {
 				double randomElevation = RandomUtil.between(-1.0, 1.0) * getAttenuatedAmplitude(p);
 				for(HeightMapNode n : world.getHeights(p))
@@ -112,7 +112,7 @@ public class HeightMapTool extends PencilTool {
 
 		@Override
 		public void run() {
-			List<Point2D> points = getHeights(); 
+			List<Point2D> points = getNodes(); 
 			for (Point2D p : points) {
 				for(HeightMapNode n : world.getHeights(p)){
 					double average = 0;
@@ -146,7 +146,7 @@ public class HeightMapTool extends PencilTool {
 		
 		@Override
 		public void run() {
-			List<Point2D> points = getHeights(); 
+			List<Point2D> points = getNodes(); 
 			for (Point2D p : points) {
 				for(HeightMapNode n : world.getHeights(p)){
 					double diff = elevation - n.getElevation();
@@ -166,7 +166,7 @@ public class HeightMapTool extends PencilTool {
 
 		@Override
 		public void run() {
-			List<Point2D> points = getHeights(); 
+			List<Point2D> points = getNodes(); 
 			for (Point2D p : points) {
 				for(HeightMapNode n : world.getHeights(p)){
 					n.setElevation(0);

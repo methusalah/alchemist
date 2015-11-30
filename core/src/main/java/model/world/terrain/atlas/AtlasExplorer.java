@@ -1,7 +1,9 @@
 package model.world.terrain.atlas;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import model.world.Region;
 import model.world.terrain.Terrain;
 import util.geometry.geom2d.Point2D;
 
@@ -14,36 +16,30 @@ import util.geometry.geom2d.Point2D;
  */
 public class AtlasExplorer {
 
-	Terrain terrain;
-
-	public AtlasExplorer(Terrain terrain){
-		this.terrain = terrain;
+	public static Point2D getInTerrainSpace(Terrain t, Point2D p){
+		return p.getDivision(Atlas.RESOLUTION_RATIO).getAddition(t.getHeightMap().getCoord());
 	}
 
-	public Point2D getInMapSpace(Point2D p){
-		return p.getMult(terrain.getWidth(), terrain.getHeight()).getDivision(terrain.getAtlas().getWidth(), terrain.getAtlas().getHeight());
+	public static Point2D getInAtlasSpace(Terrain t, Point2D p){
+		return p.getSubtraction(t.getHeightMap().getCoord()).getMult(Atlas.RESOLUTION_RATIO);
 	}
 
-	public Point2D getInAtlasSpace(Point2D p){
-		return p.getMult(terrain.getAtlas().getWidth(), terrain.getAtlas().getHeight()).getDivision(terrain.getWidth(), terrain.getHeight());
+	public static double getInAtlasSpace(double distance){
+		return distance * Atlas.RESOLUTION_RATIO;
 	}
 
-	public double getInAtlasSpace(double distance){
-		return distance * terrain.getAtlas().getWidth() / terrain.getWidth();
+	public static double getInTerrainSpace(double distance){
+		return distance / Atlas.RESOLUTION_RATIO;
 	}
 
-	public double getInMapSpace(double distance){
-		return distance * terrain.getWidth() / terrain.getAtlas().getWidth();
-	}
-
-	public ArrayList<Point2D> getPixelsInMapSpaceSquare(Point2D center, double radius){
-		center = getInAtlasSpace(center);
+	public static List<Point2D> getPixelsInAtlasSpaceSquare(Terrain t, Point2D center, double radius){
+		center = getInAtlasSpace(t, center);
 		radius = getInAtlasSpace(radius);
-		ArrayList<Point2D> res = new ArrayList<>();
-		int minX = (int)Math.round(Math.max(center.x-radius, 0));
-		int maxX = (int) Math.round(Math.min(center.x + radius, terrain.getAtlas().getWidth() - 1));
-		int minY = (int)Math.round(Math.max(center.y-radius, 0));
-		int maxY = (int) Math.round(Math.min(center.y + radius, terrain.getAtlas().getHeight() - 1));
+		List<Point2D> res = new ArrayList<>();
+		int minX = (int)Math.round(center.x - radius);
+		int maxX = (int)Math.round(center.x + radius);
+		int minY = (int)Math.round(center.y - radius);
+		int maxY = (int)Math.round(center.y + radius);
 		for(int x=minX; x<maxX; x++) {
 			for(int y=minY; y<maxY; y++){
 				Point2D p = new Point2D(x, y);
@@ -53,21 +49,21 @@ public class AtlasExplorer {
 		return res;
 	}
 
-	public ArrayList<Point2D> getPixelsInMapSpaceCircle(Point2D center, double radius){
-		ArrayList<Point2D> res = new ArrayList<>();
-		for(Point2D p : getPixelsInMapSpaceSquare(center, radius)) {
-			if(p.getDistance(getInAtlasSpace(center)) < getInAtlasSpace(radius)) {
+	public static List<Point2D> getPixelsInAtlasSpaceCircle(Terrain t, Point2D center, double radius){
+		List<Point2D> res = new ArrayList<>();
+		for(Point2D p : getPixelsInAtlasSpaceSquare(t, center, radius)) {
+			if(p.getDistance(getInAtlasSpace(t, center)) < getInAtlasSpace(radius)) {
 				res.add(p);
 			}
 		}
 		return res;
 	}
 
-	public ArrayList<Point2D> getPixelsInMapSpaceDiamond(Point2D center, double radius){
+	public static List<Point2D> getPixelsInAtlasSpaceDiamond(Terrain t, Point2D center, double radius){
 		radius *= 1.414;
-		ArrayList<Point2D> res = new ArrayList<>();
-		for(Point2D p : getPixelsInMapSpaceSquare(center, radius)) {
-			if(p.getManathanDistance(getInAtlasSpace(center)) < getInAtlasSpace(radius)) {
+		List<Point2D> res = new ArrayList<>();
+		for(Point2D p : getPixelsInAtlasSpaceSquare(t, center, radius)) {
+			if(p.getManathanDistance(getInAtlasSpace(t, center)) < getInAtlasSpace(radius)) {
 				res.add(p);
 			}
 		}
