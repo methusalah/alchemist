@@ -8,6 +8,8 @@ import java.beans.PropertyDescriptor;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.simsilica.es.EntityComponent;
+
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,18 +21,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import model.ES.component.world.PopulationTooling;
 import model.ES.component.world.TerrainTooling;
 import util.event.EventManager;
 import util.event.RemoveComponentEvent;
 import view.UIConfig;
 import view.controls.propertyEditor.PropertyEditor;
 import view.controls.propertyEditor.PropertyEditorFactory;
-import view.controls.toolEditor.AtlasEditor;
-import view.controls.toolEditor.PopulationEditor;
-import view.controls.toolEditor.TerrainEditor;
-
-import com.simsilica.es.EntityComponent;
+import view.controls.toolEditor.WorldEditor;
 
 public class ComponentEditor extends TitledPane {
 
@@ -56,11 +53,8 @@ public class ComponentEditor extends TitledPane {
 		VBox content = new VBox();
 		setContent(content);
 		
-		if(comp instanceof PopulationTooling)
-			content.getChildren().add(new PopulationEditor(this));
-		else if(comp instanceof TerrainTooling){
-			content.getChildren().add(new TerrainEditor(this));
-			content.getChildren().add(new AtlasEditor(this));
+		if(comp instanceof TerrainTooling){
+			content.getChildren().add(new WorldEditor(this));
 		}
 
 		BeanInfo bi = null;
