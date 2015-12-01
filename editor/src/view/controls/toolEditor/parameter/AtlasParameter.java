@@ -1,8 +1,8 @@
 package view.controls.toolEditor.parameter;
 
-import model.world.AtlasTool.OPERATION;
 import model.world.PencilTool.MODE;
 import model.world.PencilTool.SHAPE;
+import model.world.atlas.AtlasTool.OPERATION;
 
 public class AtlasParameter extends ToolParameter {
 	private OPERATION operation = OPERATION.Add_Delete;

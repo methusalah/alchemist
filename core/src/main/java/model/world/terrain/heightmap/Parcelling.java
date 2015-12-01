@@ -120,6 +120,7 @@ public class Parcelling extends Grid<Parcel>{
 		for (HeightMapNode height : parcel.getHeights()) {
 			for (Triangle3D t : getGroundTriangles(height, parcel)) {
 				int index = parcel.getMesh().vertices.size();
+				
 				parcel.getMesh().vertices.add(t.a);
 				parcel.getMesh().vertices.add(t.b);
 				parcel.getMesh().vertices.add(t.c);
@@ -134,9 +135,6 @@ public class Parcelling extends Grid<Parcel>{
 
 				for (Triangle3D n : getNearbyTriangles(height, parcel)) {
 					List<Point3D> shared = t.getCommonPoints(n);
-//					if (t.normal.getAngleWith(n.normal) > AngleUtil.RIGHT) {
-//						continue;
-//					}
 					if (shared.size() == 3) {
 						continue;
 					}
@@ -171,9 +169,9 @@ public class Parcelling extends Grid<Parcel>{
 					parcel.getMesh().normals.add(normal3.getNormalized());
 				}
 
-				parcel.getMesh().textCoord.add(t.a.get2D().getMult(xScale, yScale));
-				parcel.getMesh().textCoord.add(t.b.get2D().getMult(xScale, yScale));
-				parcel.getMesh().textCoord.add(t.c.get2D().getMult(xScale, yScale));
+				parcel.getMesh().textCoord.add(t.a.get2D().getSubtraction(heightMap.getCoord()).getMult(xScale, yScale));
+				parcel.getMesh().textCoord.add(t.b.get2D().getSubtraction(heightMap.getCoord()).getMult(xScale, yScale));
+				parcel.getMesh().textCoord.add(t.c.get2D().getSubtraction(heightMap.getCoord()).getMult(xScale, yScale));
 			}
 		}
 	}

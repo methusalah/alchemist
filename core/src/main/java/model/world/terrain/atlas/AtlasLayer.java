@@ -45,11 +45,6 @@ public class AtlasLayer {
 		return ((double)values.get(x, y)+128);
 	}
 
-	public double getInAtlasSpace(Point2D mapCoord){
-		mapCoord = mapCoord.getMult(Atlas.RESOLUTION_RATIO);
-		return get((int)Math.round(mapCoord.x), (int)Math.round(mapCoord.y));
-	}
-	
 	public void set(int x, int y, double val){
 		values.set(x, y, (byte)(val-128));
 	}

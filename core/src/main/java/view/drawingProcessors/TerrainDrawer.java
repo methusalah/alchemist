@@ -18,6 +18,7 @@ import app.AppFacade;
 import com.google.common.eventbus.Subscribe;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Geometry;
@@ -88,7 +89,7 @@ public class TerrainDrawer {
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			g.setMesh(jmeMesh);
 			g.setMaterial(groundTexture.getMaterial());
-//			g.setLocalTranslation(TranslateUtil.toVector3f(coord));
+//			g.setLocalTranslation(new Vector3f(5, 0, 0));
 //			g.setQueueBucket(Bucket.Transparent);
 
 			g.addControl(new RigidBodyControl(0));

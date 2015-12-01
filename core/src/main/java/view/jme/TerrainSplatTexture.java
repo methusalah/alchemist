@@ -6,6 +6,7 @@ package view.jme;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.LogUtil;
 import model.world.terrain.atlas.Atlas;
 import app.AppFacade;
 
