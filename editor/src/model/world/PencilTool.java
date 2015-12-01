@@ -69,7 +69,7 @@ public class PencilTool extends Tool {
 		this.strength = strength;
 	}
 	
-	protected List<Point2D> getHeights() {
+	protected List<Point2D> getNodes() {
 		switch(shape){
 		case Circle : return getInCircle();
 		case Diamond :

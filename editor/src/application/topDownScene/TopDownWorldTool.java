@@ -14,6 +14,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import model.world.AtlasTool;
 import model.world.EntityInstancierTool;
 import model.world.HeightMapTool;
 import model.world.Tool;
@@ -24,6 +25,7 @@ import util.event.EventManager;
 import util.event.scene.MapSavedEvent;
 import util.event.scene.ToolChangedEvent;
 import util.geometry.geom2d.Point2D;
+import view.controls.toolEditor.parameter.AtlasParameter;
 import view.controls.toolEditor.parameter.HeightMapParameter;
 import view.controls.toolEditor.parameter.PopulationParameter;
 
@@ -41,6 +43,7 @@ public class TopDownWorldTool implements SceneInputListener {
 	private final WorldData worldData;
 	private boolean hasTool = false;
 	private final HeightMapTool heightmapTool;
+	private final AtlasTool atlasTool;
 	private final EntityInstancierTool entityInstancierTool;
 
 	public TopDownWorldTool(JmeForImageView jme, WorldData worldData) {
@@ -49,6 +52,7 @@ public class TopDownWorldTool implements SceneInputListener {
 		EventManager.register(this);
 		
 		heightmapTool = new HeightMapTool(worldData);
+		atlasTool = new AtlasTool(worldData);
 		entityInstancierTool = new EntityInstancierTool(worldData);
 	}
 
@@ -60,11 +64,11 @@ public class TopDownWorldTool implements SceneInputListener {
 	
 	@Subscribe
 	public void onToolChangedEvent(ToolChangedEvent e){
+		hasTool = true;
 		if(e.getParameter() instanceof PopulationParameter){
 			PopulationParameter param = (PopulationParameter)e.getParameter();
 			entityInstancierTool.setBp(param.getBlueprint());
 			jme.enqueue(app -> setTool(app, entityInstancierTool));
-			hasTool = true;
 		} else if(e.getParameter() instanceof HeightMapParameter){
 			HeightMapParameter param = (HeightMapParameter)e.getParameter();
 			heightmapTool.setMode(param.getMode());
@@ -73,7 +77,14 @@ public class TopDownWorldTool implements SceneInputListener {
 			heightmapTool.setSize(param.getSize());
 			heightmapTool.setStrength(param.getStrength());
 			jme.enqueue(app -> setTool(app, heightmapTool));
-			hasTool = true;
+		} else if(e.getParameter() instanceof AtlasParameter){
+			AtlasParameter param = (AtlasParameter)e.getParameter();
+			atlasTool.setMode(param.getMode());
+			atlasTool.setOperation(param.getOperation());
+			atlasTool.setShape(param.getShape());
+			atlasTool.setSize(param.getSize());
+			atlasTool.setStrength(param.getStrength());
+			jme.enqueue(app -> setTool(app, atlasTool));
 		} else
 			hasTool = false;
 			

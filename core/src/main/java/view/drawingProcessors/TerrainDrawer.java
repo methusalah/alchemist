@@ -121,8 +121,7 @@ public class TerrainDrawer {
 		}
 	}
 
-	@Subscribe
-	public void handleGroundUpdateEvent(AtlasChangedEvent e) {
+	public void updateAtlas() {
 		groundTexture.getMaterial();
 		coverTexture.getMaterial();
 	}
