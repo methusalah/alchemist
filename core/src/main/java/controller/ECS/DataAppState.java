@@ -5,6 +5,7 @@ import com.simsilica.es.EntityData;
 import com.simsilica.es.base.DefaultEntityData;
 
 import model.world.WorldData;
+import view.drawingProcessors.TerrainDrawer;
 
 /**
  * The EntityData of the game is stored in this AppState to allow
@@ -31,6 +32,11 @@ public class DataAppState extends AbstractAppState {
 
     public WorldData getWorldData(){
     	return world;
+    }
+    
+    @Override
+    public void update(float tpf) {
+    	world.attachDrawers();
     }
     
 }

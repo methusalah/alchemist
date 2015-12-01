@@ -36,6 +36,7 @@ public class TerrainDrawer {
 	public Node receiveNode = new Node("terrain receive shadow node");
 
 	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
+	public boolean attached = false;
 
 	public TerrainDrawer(Terrain terrain, Point2D coord) {
 		this.terrain = terrain;
@@ -48,7 +49,6 @@ public class TerrainDrawer {
 		receiveNode.setShadowMode(RenderQueue.ShadowMode.Receive);
 		mainNode.attachChild(castAndReceiveNode);
 		mainNode.attachChild(receiveNode);
-		AppFacade.getRootNode().attachChild(mainNode);
 		
 		EventManager.register(this);
 	}

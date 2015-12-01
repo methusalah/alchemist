@@ -1,19 +1,13 @@
 package controller.cameraManagement;
 
-import model.ModelManager;
-import model.ES.component.motion.PlanarStance;
-import util.geometry.geom2d.Point2D;
-import util.geometry.geom3d.Point3D;
-import app.AppFacade;
-
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
-import com.simsilica.es.EntityData;
 
 import controller.CameraManager;
+import util.geometry.geom3d.Point3D;
 
 public class TopdownCameraManager extends CameraManager {
 	protected final static String STRAFE_NORTH = "strafenorth";

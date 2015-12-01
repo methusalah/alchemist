@@ -9,6 +9,7 @@ import com.simsilica.es.EntityData;
 import app.AppFacade;
 import application.topDownScene.state.DraggableCameraState;
 import application.topDownScene.state.SceneSelectorState;
+import application.topDownScene.state.WorldLocaliserState;
 import application.topDownScene.state.WorldToolState;
 import controller.ECS.DataAppState;
 import controller.ECS.EntitySystem;
@@ -88,6 +89,7 @@ public class TopDownSceneController {
 
 		stateManager.attach(new SceneSelectorState());
 		stateManager.attach(new WorldToolState());
+		stateManager.attach(new WorldLocaliserState());
 		
 		stateManager.getState(WorldToolState.class).setTool(new HeightMapTool(world));
 		

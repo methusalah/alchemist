@@ -41,9 +41,6 @@ public class RegionManager {
 				loadedRegions.remove(cache.get(cache.size()-1).getId());
 				cache.remove(cache.size()-1);
 			}
-		
-		LogUtil.info("loaded regions : "+loadedRegions.keySet().size());
-		
 		return res;
 	}
 	

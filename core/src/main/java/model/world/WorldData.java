@@ -9,6 +9,7 @@ import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
+import app.AppFacade;
 import model.ES.component.motion.PlanarStance;
 import model.ES.serial.EntityInstance;
 import model.world.terrain.heightmap.HeightMapExplorer;
@@ -39,21 +40,47 @@ public class WorldData {
 		Region actualRegion = regionManager.getRegion(coord);
 		
 		if(actualRegion != lastRegion){
+			
 			// We pass from a region to another
 			lastRegion = actualRegion;
-			List<Region> toDraw = get9RegionsAround(coord);
-			for(Region r : toDraw)
-				if(!drawnRegions.contains(r))
-					drawRegion(r);
 			
-			for(Region r : drawnRegions)
-				if(!toDraw.contains(r))
-					undrawRegion(r);
+			new Thread(new RegionLoader(coord, true)).start();;
+		}
+	}
+	
+	class RegionLoader implements Runnable{
+		private final Point2D coord;
+		
+		public RegionLoader(Point2D coord, boolean toDraw) {
+			this.coord = coord;
+		}
+		
+		@Override
+		public void run() {
+			synchronized (drawnRegions) {
+				List<Region> toDraw = get9RegionsAround(coord);
+				for(Region r : toDraw)
+					if(!drawnRegions.contains(r))
+						drawRegion(r);
+				
+				for(Region r : drawnRegions)
+					if(!toDraw.contains(r) && !r.isModified())
+						undrawRegion(r);
+				drawnRegions = toDraw;
+			}
+		}
+	}
+	
+	public void attachDrawers(){
+		synchronized (terrainDrawers) {
+		for(TerrainDrawer td : terrainDrawers.values())
+			if(!td.attached)
+				AppFacade.getRootNode().attachChild(td.mainNode);
 		}
 	}
 	
 	public void drawRegion(Region region){
-		LogUtil.info("draw region "+region.getId());
+		LogUtil.info(this+"draw region "+region.getId());
 		for(EntityInstance ei : region.getEntities())
 			ei.instanciate(ed, worldEntity);
 		
@@ -62,14 +89,12 @@ public class WorldData {
 		drawer.render();
 		terrainDrawers.put(region, drawer);
 		heightmapExplorer.add(region.getTerrain().getHeightMap());
-		drawnRegions.add(region);
 	}
 	
 	private void undrawRegion(Region region){
-		LogUtil.info("undraw region "+region.getId());
+		LogUtil.info(this+"undraw region "+region.getId());
 		for(EntityInstance ei : region.getEntities())
 			ei.uninstanciate(ed);
-		drawnRegions.remove(region);
 	}
 	
 	private List<Region> get9RegionsAround(Point2D coord){
