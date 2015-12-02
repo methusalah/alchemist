@@ -7,20 +7,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import model.world.HeightMapTool;
 import model.world.HeightMapTool.OPERATION;
+import model.world.Tool;
 import view.controls.custom.IconButton;
-import view.controls.toolEditor.parameter.HeightmapToolPresenter;
 
-public class HeighmapTab extends Tab {
+public class HeighmapTab extends Tab implements ToolEditor {
 	
-	HeightmapToolPresenter toolPresenter = new HeightmapToolPresenter();
+	private final HeightMapTool tool;
 
-	public HeighmapTab() {
+	public HeighmapTab(HeightMapTool tool) {
+		
+		this.tool = tool;
 		setText("Heightmap");
 		setClosable(false);
 		VBox content = new VBox();
 		content.getChildren().add(getOperationPane());
-		content.getChildren().add(new PencilEditor(toolPresenter));
+		content.getChildren().add(new PencilEditor(tool));
 		setContent(content);
 	}
 	
@@ -34,7 +37,7 @@ public class HeighmapTab extends Tab {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				toolPresenter.setOperation(OPERATION.Raise_Low);
+				tool.setOperation(OPERATION.Raise_Low);
 			}
 		});
 		return res;
@@ -46,7 +49,7 @@ public class HeighmapTab extends Tab {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				toolPresenter.setOperation(OPERATION.Noise_Smooth);
+				tool.setOperation(OPERATION.Noise_Smooth);
 			}
 		});
 		return res;
@@ -58,11 +61,14 @@ public class HeighmapTab extends Tab {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				toolPresenter.setOperation(OPERATION.Uniform_Reset);
+				tool.setOperation(OPERATION.Uniform_Reset);
 			}
 		});
 		return res;
 	}
 
-
+	@Override
+	public Tool getTool() {
+		return tool;
+	}
 }

@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -18,26 +19,23 @@ import model.ES.serial.Blueprint;
 import util.event.EventManager;
 import util.event.SaveEntityEvent;
 
-public class ResourceView extends VBox {
+public class ResourceTab extends Tab {
 
 	ListView<Blueprint> list;
 
-	public ResourceView() {
-
-		setMaxHeight(Double.MAX_VALUE);
-		setPadding(new Insets(3));
-
-		Label title = new Label("Resources");
-		title.setMinHeight(40);
-		title.setMaxWidth(Double.MAX_VALUE);
-		title.setStyle("-fx-background-color: lightblue");
-		getChildren().add(title);
+	public ResourceTab() {
+		setText("Ressources");
+		setClosable(false);
+		VBox content = new VBox();
+		setContent(content);
+		content.setMaxHeight(Double.MAX_VALUE);
+		content.setPadding(new Insets(3));
 
 		list = new ListView<Blueprint>();
 		list.setMaxHeight(Double.MAX_VALUE);
 		configureCellFactoryForDragAndDrop(list);
 
-		getChildren().add(list);
+		content.getChildren().add(list);
 	}
 
 	public void setBlueprintList(ListProperty<Blueprint> blueprintList) {

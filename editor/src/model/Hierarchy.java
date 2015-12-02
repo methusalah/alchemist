@@ -13,7 +13,6 @@ public class Hierarchy {
 
 	public Hierarchy(EntityData entityData) {
 		this.entityData = entityData;
-		EventManager.register(this);
 	}
 	
 	public void createNewEntity(){

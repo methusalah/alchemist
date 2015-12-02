@@ -7,20 +7,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import model.world.Tool;
+import model.world.atlas.AtlasTool;
 import model.world.atlas.AtlasTool.OPERATION;
 import view.controls.custom.IconButton;
-import view.controls.toolEditor.parameter.AtlasToolPresenter;
 
-public class AtlasTab extends Tab {
-	
-	AtlasToolPresenter toolPresenter = new AtlasToolPresenter();
+public class AtlasTab extends Tab implements ToolEditor {
+	private final AtlasTool tool;
 
-	public AtlasTab() {
+	public AtlasTab(AtlasTool tool) {
+		this.tool = tool;
 		setText("Texture Atlas");
 		setClosable(false);
 		VBox content = new VBox();
 		content.getChildren().add(getOperationPane());
-		content.getChildren().add(new PencilEditor(toolPresenter));
+		content.getChildren().add(new PencilEditor(tool));
 		setContent(content);
 	}
 	
@@ -34,7 +35,7 @@ public class AtlasTab extends Tab {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				toolPresenter.setOperation(OPERATION.Add_Delete);
+				tool.setOperation(OPERATION.Add_Delete);
 			}
 		});
 		return res;
@@ -46,9 +47,15 @@ public class AtlasTab extends Tab {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				toolPresenter.setOperation(OPERATION.Propagate_Smooth);
+				tool.setOperation(OPERATION.Propagate_Smooth);
 			}
 		});
 		return res;
 	}
+	
+	@Override
+	public Tool getTool() {
+		return tool;
+	}
+
 }

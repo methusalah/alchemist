@@ -14,9 +14,9 @@ import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 
-public class EntityInstancierTool extends Tool {
+public class PopulationTool extends Tool {
 	
-	public EntityInstancierTool(WorldData world) {
+	public PopulationTool(WorldData world) {
 		super(world);
 	}
 
@@ -33,7 +33,7 @@ public class EntityInstancierTool extends Tool {
 		world.addEntityInstance(i);
 	}
 
-	public void setBp(Blueprint bp) {
+	public void setBlueprint(Blueprint bp) {
 		this.bp = bp;
 	}
 }

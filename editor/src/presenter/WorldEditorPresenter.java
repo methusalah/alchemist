@@ -1,35 +1,28 @@
-package application.topDownScene;
+package presenter;
 
-import com.google.common.eventbus.Subscribe;
-import com.jme3.app.SimpleApplication;
-import com.jme3.app.state.AppStateManager;
-import com.jme3x.jfx.injfx.JmeForImageView;
-import com.simsilica.es.EntityId;
-
-import application.topDownScene.state.SceneSelectorState;
-import application.topDownScene.state.WorldToolState;
-import controller.ECS.DataAppState;
 import javafx.application.Platform;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import model.world.EntityInstancierTool;
 import model.world.HeightMapTool;
+import model.world.PopulationTool;
 import model.world.Tool;
 import model.world.WorldData;
 import model.world.atlas.AtlasTool;
 import util.LogUtil;
 import util.event.EntitySelectionChanged;
 import util.event.EventManager;
-import util.event.scene.MapSavedEvent;
-import util.event.scene.ToolChangedEvent;
 import util.geometry.geom2d.Point2D;
-import view.controls.toolEditor.parameter.AtlasToolPresenter;
-import view.controls.toolEditor.parameter.HeightmapToolPresenter;
-import view.controls.toolEditor.parameter.PopulationToolPresenter;
+import application.topDownScene.SceneInputListener;
+import application.topDownScene.state.SceneSelectorState;
+import application.topDownScene.state.WorldToolState;
 
-public class TopDownWorldTool implements SceneInputListener {
+import com.jme3.app.SimpleApplication;
+import com.jme3.app.state.AppStateManager;
+import com.jme3x.jfx.injfx.JmeForImageView;
+import com.simsilica.es.EntityId;
+
+public class WorldEditorPresenter implements SceneInputListener {
 	private static enum ActionType {StartPrimary,
 		StartSecondary,
 		StopPrimary,
@@ -42,53 +35,42 @@ public class TopDownWorldTool implements SceneInputListener {
 	private final JmeForImageView jme;
 	private final WorldData worldData;
 	private boolean hasTool = false;
+	
 	private final HeightMapTool heightmapTool;
 	private final AtlasTool atlasTool;
-	private final EntityInstancierTool entityInstancierTool;
+	private final PopulationTool populationTool;
 
-	public TopDownWorldTool(JmeForImageView jme, WorldData worldData) {
+	public WorldEditorPresenter(JmeForImageView jme, WorldData worldData) {
 		this.jme = jme;
 		this.worldData = worldData;
 		EventManager.register(this);
 		
 		heightmapTool = new HeightMapTool(worldData);
 		atlasTool = new AtlasTool(worldData);
-		entityInstancierTool = new EntityInstancierTool(worldData);
+		populationTool = new PopulationTool(worldData);
 	}
 
-	
-	@Subscribe
-	public void onMapSavedEvent(MapSavedEvent e){
-		worldData.saveDrawnRegions();
+	public HeightMapTool getHeightmapTool() {
+		return heightmapTool;
+	}
+
+	public AtlasTool getAtlasTool() {
+		return atlasTool;
+	}
+
+	public PopulationTool getPopulationTool() {
+		return populationTool;
 	}
 	
-	@Subscribe
-	public void onToolChangedEvent(ToolChangedEvent e){
-		hasTool = true;
-		if(e.getParameter() instanceof PopulationToolPresenter){
-			PopulationToolPresenter param = (PopulationToolPresenter)e.getParameter();
-			entityInstancierTool.setBp(param.getBlueprint());
-			jme.enqueue(app -> setTool(app, entityInstancierTool));
-		} else if(e.getParameter() instanceof HeightmapToolPresenter){
-			HeightmapToolPresenter param = (HeightmapToolPresenter)e.getParameter();
-			heightmapTool.setMode(param.getMode());
-			heightmapTool.setOperation(param.getOperation());
-			heightmapTool.setShape(param.getShape());
-			heightmapTool.setSize(param.getSize());
-			heightmapTool.setStrength(param.getStrength());
-			jme.enqueue(app -> setTool(app, heightmapTool));
-		} else if(e.getParameter() instanceof AtlasToolPresenter){
-			AtlasToolPresenter param = (AtlasToolPresenter)e.getParameter();
-			atlasTool.setMode(param.getMode());
-			atlasTool.setOperation(param.getOperation());
-			atlasTool.setShape(param.getShape());
-			atlasTool.setSize(param.getSize());
-			atlasTool.setStrength(param.getStrength());
-			jme.enqueue(app -> setTool(app, atlasTool));
-		} else
-			hasTool = false;
-			
-		
+	public void selectTool(Tool tool){
+		LogUtil.info("select tool : "+tool);
+		hasTool = tool != null;
+		if(tool != null)
+			jme.enqueue(app -> setTool(app, tool));
+	}
+	
+	public void saveWorld(){
+		worldData.saveDrawnRegions();
 	}
 	
 	@Override

@@ -32,10 +32,10 @@ public class Controller {
 		this.model = model;
 		this.view = view;
 		
-		view.hierarchyView.setRootPresenter(model.observer.getRootEntityPresenter());
-		view.hierarchyView.setSelectionProperty(model.selectionProperty);
-		view.inspectorView.setComponentNames(model.inspector.getComponentNames());
-		view.resourceView.setBlueprintList(model.resourceExplorer.blueprintListProperty());
+		view.hierarchyTab.setRootPresenter(model.observer.getRootEntityPresenter());
+		view.hierarchyTab.setSelectionProperty(model.selectionProperty);
+		view.inspectorTab.setComponentNames(model.inspector.getComponentNames());
+		view.resourceTab.setBlueprintList(model.resourceExplorer.blueprintListProperty());
 		EventManager.register(this);
 	}
 	

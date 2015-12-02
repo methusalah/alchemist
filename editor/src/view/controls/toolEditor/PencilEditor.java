@@ -1,12 +1,5 @@
 package view.controls.toolEditor;
 
-import util.event.EventManager;
-import util.event.scene.ToolChangedEvent;
-import view.controls.custom.IconButton;
-import view.controls.toolEditor.parameter.PencilPresenter;
-import model.world.PencilTool;
-import model.world.PencilTool.MODE;
-import model.world.PencilTool.SHAPE;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -18,13 +11,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import model.world.PencilTool;
+import model.world.PencilTool.MODE;
+import model.world.PencilTool.SHAPE;
+import view.controls.custom.IconButton;
 
 public class PencilEditor extends BorderPane {
 
-	private final PencilPresenter pencil;
+	private final PencilTool tool;
 	
-	public PencilEditor(PencilPresenter pencil) {
-		this.pencil = pencil;
+	public PencilEditor(PencilTool tool) {
+		this.tool = tool;
 		setLeft(new VBox(getCircleButton(),
 				getSquareButton(),
 				getDiamondButton(),
@@ -42,7 +39,7 @@ public class PencilEditor extends BorderPane {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				pencil.setShape(SHAPE.Circle);
+				tool.setShape(SHAPE.Circle);
 			}
 		});
 		return res;
@@ -53,7 +50,7 @@ public class PencilEditor extends BorderPane {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				pencil.setShape(SHAPE.Square);
+				tool.setShape(SHAPE.Square);
 			}
 		});
 		return res;
@@ -64,7 +61,7 @@ public class PencilEditor extends BorderPane {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				pencil.setShape(SHAPE.Diamond);
+				tool.setShape(SHAPE.Diamond);
 			}
 		});
 		return res;
@@ -76,7 +73,7 @@ public class PencilEditor extends BorderPane {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				pencil.setMode(MODE.Airbrush);
+				tool.setMode(MODE.Airbrush);
 			}
 		});
 		return res;
@@ -87,7 +84,7 @@ public class PencilEditor extends BorderPane {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				pencil.setMode(MODE.Rough);
+				tool.setMode(MODE.Rough);
 			}
 		});
 		return res;
@@ -98,7 +95,7 @@ public class PencilEditor extends BorderPane {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				pencil.setMode(MODE.Noise);
+				tool.setMode(MODE.Noise);
 			}
 		});
 		return res;
@@ -115,7 +112,7 @@ public class PencilEditor extends BorderPane {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				pencil.setSize(PencilTool.MAX_SIZE*newValue.doubleValue());
+				tool.setSize(PencilTool.MAX_SIZE*newValue.doubleValue());
 			}
 			
 		});
@@ -134,7 +131,7 @@ public class PencilEditor extends BorderPane {
 
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				pencil.setStrength(newValue.doubleValue());
+				tool.setStrength(newValue.doubleValue());
 			}
 			
 		});

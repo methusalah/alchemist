@@ -11,14 +11,15 @@ import javafx.scene.control.Tab;
 import javafx.util.Callback;
 import model.ES.serial.Blueprint;
 import model.ES.serial.BlueprintLibrary;
-import view.controls.toolEditor.parameter.PopulationToolPresenter;
+import model.world.PopulationTool;
+import model.world.Tool;
 
-public class EntityTab extends Tab {
-
+public class PopulationTab extends Tab implements ToolEditor {
 	private final ListProperty<Blueprint> blueprintList;
-	PopulationToolPresenter toolPresenter = new PopulationToolPresenter();
+	private final PopulationTool tool;
 
-	public EntityTab() {
+	public PopulationTab(PopulationTool tool) {
+		this.tool = tool;
 		setText("Entities");
 		setClosable(false);
 		ListView<Blueprint> list = new ListView<>();
@@ -33,7 +34,7 @@ public class EntityTab extends Tab {
 			@Override
 			public void changed(ObservableValue<? extends Blueprint> observable, Blueprint oldValue, Blueprint newValue) {
 				if(newValue != null){
-					toolPresenter.setBlueprint(newValue);
+					tool.setBlueprint(newValue);
 				}
 			}
 		});
@@ -59,4 +60,10 @@ public class EntityTab extends Tab {
 			}
 		});
 	}
+	
+	@Override
+	public Tool getTool() {
+		return tool;
+	}
+
 }

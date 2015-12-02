@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 import model.EntityPresenter;
 import util.LogUtil;
@@ -25,10 +26,9 @@ import view.controls.ComponentEditor;
 
 import com.simsilica.es.EntityComponent;
 
-public class InspectorView extends VBox{
+public class InspectorTab extends Tab {
 	List<String> compNames = null;
 	VBox compControl;
-	Label title;
 	Label info;
 	Button addCompButton;
 	
@@ -52,7 +52,9 @@ public class InspectorView extends VBox{
 	
 	Map<Class<? extends EntityComponent>, ComponentEditor> editors = new HashMap<>();
 	
-	public InspectorView(ObjectProperty<EntityPresenter> selection) {
+	public InspectorTab(ObjectProperty<EntityPresenter> selection) {
+		setText("Inspector");
+		setClosable(false);
 		selection.addListener(new ChangeListener<EntityPresenter>() {
 			
 			@Override
@@ -65,20 +67,13 @@ public class InspectorView extends VBox{
 			}
 		});
 		
-		setMinWidth(300);
-		setMaxWidth(500);
-		
-		title = new Label("Inspector");
-		title.setMinHeight(40);
-		title.setMaxWidth(Double.MAX_VALUE);
-		title.setStyle("-fx-background-color: lightblue");
-		getChildren().add(title);
+		VBox content = new VBox();
 		
 		info = new Label("");
-		getChildren().add(info);
+		content.getChildren().add(info);
 		
 		compControl = new VBox();
-		getChildren().add(compControl);
+		content.getChildren().add(compControl);
 		
 		addCompButton = new Button("Add component");
 		addCompButton.setVisible(false);
@@ -103,7 +98,9 @@ public class InspectorView extends VBox{
 				}
 			}
 		});
-		getChildren().add(addCompButton);
+		content.getChildren().add(addCompButton);
+		
+		setContent(content);
 	}
 	
 	private void inspectNewEntity(EntityPresenter ep){

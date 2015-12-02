@@ -1,5 +1,7 @@
 package application.topDownScene;
 
+import presenter.WorldEditorPresenter;
+
 import com.google.common.eventbus.Subscribe;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
@@ -27,18 +29,17 @@ import view.Overview;
 
 public class TopDownSceneController {
 
-	private JmeForImageView jme;
+	private final JmeForImageView jme;
 	private final SceneInputManager inputManager = new SceneInputManager();
 	
-	public TopDownSceneController(Model model, Overview view) {
+	public TopDownSceneController(JmeForImageView jme, Overview view, WorldEditorPresenter worldEditorPresenter) {
+		this.jme = jme;
 		view.sceneViewer.setInputManager(inputManager);
-		jme = new JmeForImageView();
-		jme.enqueue((app) -> createScene(app, model.getEntityData(), model.getWorld()));
 		jme.bind(view.sceneViewer.getImage());
 		EventManager.register(this);
 		
 		inputManager.addListener(new TopDownCamera(jme));
-		inputManager.addListener(new TopDownWorldTool(jme, model.getWorld()));
+		inputManager.addListener(worldEditorPresenter);
 	}
 
 	
@@ -78,27 +79,4 @@ public class TopDownSceneController {
 		return true;
 	}
 	
-	static private boolean createScene(SimpleApplication app, EntityData ed, WorldData world) {
-		AppFacade.setApp(app);
-		AppStateManager stateManager = app.getStateManager();
-		
-		DraggableCameraState cam = new DraggableCameraState(app.getCamera());
-		cam.setRotationSpeed(0.001f);
-		cam.setMoveSpeed(1f);
-		stateManager.attach(cam);
-
-		stateManager.attach(new SceneSelectorState());
-		stateManager.attach(new WorldToolState());
-		stateManager.attach(new WorldLocaliserState());
-		
-		stateManager.getState(WorldToolState.class).setTool(new HeightMapTool(world));
-		
-		EntitySystem es = new EntitySystem(ed, world);
-		stateManager.attach(es);
-		es.initVisuals(true);
-		es.initAudio(false);
-		es.initCommand(false);
-		es.initLogic(false);
-		return true;
-	}
 }

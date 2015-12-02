@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.VBox;
@@ -21,18 +22,17 @@ import util.event.EntityDeletionEvent;
 import util.event.EventManager;
 import view.controls.EntityTreeView;
 
-public class HierarchyView extends VBox{
+public class HierarchyTab extends Tab {
 	EntityTreeView tree;
+	VBox content = new VBox();
 
-	public HierarchyView() {
-		setMinWidth(300);
-		setMaxHeight(Double.MAX_VALUE);
-		setPadding(new Insets(3));
-		Label title = new Label("Hierarchy");
-		title.setMinHeight(40);
-		title.setMaxWidth(Double.MAX_VALUE);
-		title.setStyle("-fx-background-color: lightblue");
-		getChildren().add(title);
+	public HierarchyTab() {
+		setText("Hierarchy");
+		setClosable(false);
+		setContent(content);
+		content.setMinWidth(300);
+		content.setMaxHeight(Double.MAX_VALUE);
+		content.setPadding(new Insets(3));
 
 		// add button
 		Button btnAdd = new Button("Add entity");
@@ -43,7 +43,7 @@ public class HierarchyView extends VBox{
 				EventManager.post(new EntityCreationEvent());
 			}
 		});
-		getChildren().add(btnAdd);
+		content.getChildren().add(btnAdd);
 
 		// remove button
 		Button btnRemove = new Button("Remove entity");
@@ -55,14 +55,14 @@ public class HierarchyView extends VBox{
 				EventManager.post(new EntityDeletionEvent(tree.getSelectionModel().getSelectedItem().getValue()));
 			}
 		});
-		getChildren().add(btnRemove);
+		content.getChildren().add(btnRemove);
 	}
 	
 	public void setRootPresenter(EntityPresenter root){
-		getChildren().remove(tree);
+		content.getChildren().remove(tree);
 		tree = new EntityTreeView(root);
 		tree.setMaxHeight(Double.MAX_VALUE);
-		getChildren().add(tree);
+		content.getChildren().add(tree);
 	}
 
 	/*
