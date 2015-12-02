@@ -7,45 +7,38 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.Tab;
 import javafx.util.Callback;
 import model.ES.serial.Blueprint;
 import model.ES.serial.BlueprintLibrary;
-import util.event.EventManager;
-import util.event.scene.ToolChangedEvent;
-import view.controls.toolEditor.parameter.PopulationParameter;
+import view.controls.toolEditor.parameter.PopulationToolPresenter;
 
-public class PopulationEditor extends ListView<Blueprint>{
+public class EntityTab extends Tab {
 
 	private final ListProperty<Blueprint> blueprintList;
+	PopulationToolPresenter toolPresenter = new PopulationToolPresenter();
 
-	public PopulationEditor(TitledPane container) {
-		container.expandedProperty().addListener(new ChangeListener<Boolean>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				if(!newValue || getSelectionModel().isEmpty())
-					EventManager.post(new ToolChangedEvent(null));
-				else
-					EventManager.post(new ToolChangedEvent(new PopulationParameter(getSelectionModel().getSelectedItem())));
-			}
-		});
+	public EntityTab() {
+		setText("Entities");
+		setClosable(false);
+		ListView<Blueprint> list = new ListView<>();
 		
+		setContent(list);
 		
 		blueprintList = new SimpleListProperty<Blueprint>(FXCollections.observableArrayList(BlueprintLibrary.getAllBlueprints()));
-		setItems(blueprintList);
+		list.setItems(blueprintList);
 		
-		getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Blueprint>() {
+		list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Blueprint>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Blueprint> observable, Blueprint oldValue, Blueprint newValue) {
 				if(newValue != null){
-					EventManager.post(new ToolChangedEvent(new PopulationParameter(newValue)));
+					toolPresenter.setBlueprint(newValue);
 				}
 			}
 		});
 		
-		setCellFactory(new Callback<ListView<Blueprint>, ListCell<Blueprint>>() {
+		list.setCellFactory(new Callback<ListView<Blueprint>, ListCell<Blueprint>>() {
 
 			@Override
 			public ListCell<Blueprint> call(ListView<Blueprint> list) {

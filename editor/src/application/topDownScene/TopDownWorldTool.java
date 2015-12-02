@@ -25,9 +25,9 @@ import util.event.EventManager;
 import util.event.scene.MapSavedEvent;
 import util.event.scene.ToolChangedEvent;
 import util.geometry.geom2d.Point2D;
-import view.controls.toolEditor.parameter.AtlasParameter;
-import view.controls.toolEditor.parameter.HeightMapParameter;
-import view.controls.toolEditor.parameter.PopulationParameter;
+import view.controls.toolEditor.parameter.AtlasToolPresenter;
+import view.controls.toolEditor.parameter.HeightmapToolPresenter;
+import view.controls.toolEditor.parameter.PopulationToolPresenter;
 
 public class TopDownWorldTool implements SceneInputListener {
 	private static enum ActionType {StartPrimary,
@@ -65,20 +65,20 @@ public class TopDownWorldTool implements SceneInputListener {
 	@Subscribe
 	public void onToolChangedEvent(ToolChangedEvent e){
 		hasTool = true;
-		if(e.getParameter() instanceof PopulationParameter){
-			PopulationParameter param = (PopulationParameter)e.getParameter();
+		if(e.getParameter() instanceof PopulationToolPresenter){
+			PopulationToolPresenter param = (PopulationToolPresenter)e.getParameter();
 			entityInstancierTool.setBp(param.getBlueprint());
 			jme.enqueue(app -> setTool(app, entityInstancierTool));
-		} else if(e.getParameter() instanceof HeightMapParameter){
-			HeightMapParameter param = (HeightMapParameter)e.getParameter();
+		} else if(e.getParameter() instanceof HeightmapToolPresenter){
+			HeightmapToolPresenter param = (HeightmapToolPresenter)e.getParameter();
 			heightmapTool.setMode(param.getMode());
 			heightmapTool.setOperation(param.getOperation());
 			heightmapTool.setShape(param.getShape());
 			heightmapTool.setSize(param.getSize());
 			heightmapTool.setStrength(param.getStrength());
 			jme.enqueue(app -> setTool(app, heightmapTool));
-		} else if(e.getParameter() instanceof AtlasParameter){
-			AtlasParameter param = (AtlasParameter)e.getParameter();
+		} else if(e.getParameter() instanceof AtlasToolPresenter){
+			AtlasToolPresenter param = (AtlasToolPresenter)e.getParameter();
 			atlasTool.setMode(param.getMode());
 			atlasTool.setOperation(param.getOperation());
 			atlasTool.setShape(param.getShape());

@@ -29,9 +29,9 @@ public class Region {
 		this.id = id;
 		this.coord = coord;
 		TerrainTexturing t = new TerrainTexturing(
-				new ArrayList<String>(){{add("textures/grass02.jpg");add("textures/dirt.jpg");}},
+				new ArrayList<String>(){{add("textures/grass02.jpg");add("textures/road.jpg");}},
 				new ArrayList<String>(){{add(null);add(null);}},
-				new ArrayList<Double>(){{add(32d);add(8d);}},
+				new ArrayList<Double>(){{add(32d);add(32d);}},
 				new ArrayList<String>(){{add("textures/transp.png");}},
 				new ArrayList<String>(){{add(null);}},
 				new ArrayList<Double>(){{add(1d);}});

@@ -2,29 +2,24 @@ package view.drawingProcessors;
 
 import java.util.List;
 
-import model.world.terrain.Terrain;
-import model.world.terrain.event.AtlasChangedEvent;
-import model.world.terrain.event.ParcelChangedEvent;
-import model.world.terrain.heightmap.Parcel;
-import util.LogUtil;
-import util.event.EventManager;
-import util.geometry.geom2d.Point2D;
-import view.SpatialPool;
-import view.jme.SilentTangentBinormalGenerator;
-import view.jme.TerrainSplatTexture;
-import view.math.TranslateUtil;
-import app.AppFacade;
-
-import com.google.common.eventbus.Subscribe;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 import com.jme3.texture.Texture;
+
+import app.AppFacade;
+import model.world.terrain.Terrain;
+import model.world.terrain.heightmap.Parcel;
+import util.event.EventManager;
+import util.geometry.geom2d.Point2D;
+import view.SpatialPool;
+import view.jme.SilentTangentBinormalGenerator;
+import view.jme.TerrainSplatTexture;
+import view.math.TranslateUtil;
 
 public class TerrainDrawer {
 	private final Terrain terrain;

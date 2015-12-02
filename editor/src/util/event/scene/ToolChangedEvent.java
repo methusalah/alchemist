@@ -1,17 +1,17 @@
 package util.event.scene;
 
 import util.event.Event;
-import view.controls.toolEditor.parameter.ToolParameter;
+import view.controls.toolEditor.parameter.ToolPresenter;
 
 public class ToolChangedEvent extends Event {
 	
-	private final ToolParameter parameter;
+	private final ToolPresenter parameter;
 	
-	public ToolChangedEvent(ToolParameter parameter) {
+	public ToolChangedEvent(ToolPresenter parameter) {
 		this.parameter = parameter;
 	}
 
-	public ToolParameter getParameter() {
+	public ToolPresenter getParameter() {
 		return parameter;
 	}
 
