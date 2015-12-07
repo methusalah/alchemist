@@ -1,45 +1,40 @@
 package application.topDownScene;
 
-import presenter.WorldEditorPresenter;
+import util.event.EventManager;
+import util.event.scene.AppClosedEvent;
+import util.event.scene.RunEvent;
+import view.Overview;
 
 import com.google.common.eventbus.Subscribe;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.input.InputManager;
 import com.jme3x.jfx.injfx.JmeForImageView;
-import com.simsilica.es.EntityData;
 
-import app.AppFacade;
-import application.topDownScene.state.DraggableCameraState;
-import application.topDownScene.state.SceneSelectorState;
-import application.topDownScene.state.WorldLocaliserState;
-import application.topDownScene.state.WorldToolState;
-import controller.ECS.DataAppState;
 import controller.ECS.EntitySystem;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
-import model.Model;
-import model.world.HeightMapTool;
-import model.world.WorldData;
-import util.event.EventManager;
-import util.event.scene.AppClosedEvent;
-import util.event.scene.RunEvent;
-import util.geometry.geom2d.Point2D;
-import view.Overview;
 
 public class TopDownSceneController {
 
 	private final JmeForImageView jme;
 	private final SceneInputManager inputManager = new SceneInputManager();
 	
-	public TopDownSceneController(JmeForImageView jme, Overview view, WorldEditorPresenter worldEditorPresenter) {
+	private final TopDownCamera camera;
+	private final EditionInputListener edition;
+	private final GameInputListener game;
+	
+	public TopDownSceneController(JmeForImageView jme, Overview view) {
 		this.jme = jme;
 		view.sceneViewer.setInputManager(inputManager);
 		jme.bind(view.sceneViewer.getImage());
 		EventManager.register(this);
 		
-		inputManager.addListener(new TopDownCamera(jme));
-		inputManager.addListener(worldEditorPresenter);
+		camera = new TopDownCamera(jme);
+		edition = new EditionInputListener(jme);
+		game = new GameInputListener(jme);
+		
+		
+		inputManager.addListener(camera);
+		inputManager.addListener(edition);
 	}
 
 	
@@ -50,10 +45,17 @@ public class TopDownSceneController {
 	
 	@Subscribe
 	public void onRunEvent(RunEvent e){
-		if(e.value)
+		if(e.value){
+			inputManager.removeListener(edition);
+			inputManager.removeListener(camera);
+			inputManager.addListener(game);
 			jme.enqueue(app -> startGame(app));
-		else
+		} else {
+			inputManager.removeListener(game);
+			inputManager.addListener(edition);
+			inputManager.addListener(camera);
 			jme.enqueue(app -> stopGame(app));
+		}
 	}
 
 	static public boolean startGame(SimpleApplication app){

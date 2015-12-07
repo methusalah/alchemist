@@ -5,7 +5,7 @@ import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 
 import app.AppFacade;
-import controller.ECS.DataAppState;
+import controller.ECS.DataState;
 import model.world.WorldData;
 import util.geometry.geom2d.Point2D;
 import view.math.TranslateUtil;
@@ -17,7 +17,7 @@ public class WorldLocaliserState extends AbstractAppState {
 	
 	@Override
 	public void initialize(AppStateManager stateManager, Application app) {
-		worldData = stateManager.getState(DataAppState.class).getWorldData();
+		worldData = stateManager.getState(DataState.class).getWorldData();
 	}
 
 	@Override

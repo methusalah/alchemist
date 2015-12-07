@@ -31,10 +31,6 @@
       "y" : -1.0,
       "z" : -3.0
     }
-  }, {
-    "class" : "model.ES.component.world.PopulationTooling"
-  }, {
-    "class" : "model.ES.component.world.TerrainTooling"
   } ],
   "children" : [ ]
 }

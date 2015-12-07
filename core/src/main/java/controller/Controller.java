@@ -32,7 +32,7 @@ public abstract class Controller extends AbstractAppState {
 	@Override
 	public final void initialize(AppStateManager stateManager, Application app) {
 		super.initialize(stateManager, app);
-		onInitialize();
+		onInitialize(stateManager);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public abstract class Controller extends AbstractAppState {
 		}
 	}
 	
-	public void onInitialize(){
+	public void onInitialize(AppStateManager stateManager){
 		
 	}
 	public void onEnabled(){

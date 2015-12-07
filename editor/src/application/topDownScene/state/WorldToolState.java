@@ -7,7 +7,8 @@ import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 
-import controller.ECS.DataAppState;
+import controller.ECS.DataState;
+import controller.ECS.SceneSelectorState;
 
 public class WorldToolState extends AbstractAppState {
 	private SceneSelectorState selector;
@@ -18,7 +19,7 @@ public class WorldToolState extends AbstractAppState {
 	@Override
 	public void initialize(AppStateManager stateManager, Application app) {
 		selector = stateManager.getState(SceneSelectorState.class);
-		worldData = stateManager.getState(DataAppState.class).getWorldData();
+		worldData = stateManager.getState(DataState.class).getWorldData();
 	}
 	
 	public void setTool(Tool tool){

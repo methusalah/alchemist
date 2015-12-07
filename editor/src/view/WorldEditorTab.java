@@ -22,6 +22,7 @@ public class WorldEditorTab extends Tab {
 	WorldEditorPresenter presenter;
 	
 	public WorldEditorTab(WorldEditorPresenter presenter) {
+		this.presenter = presenter;
 		setText("World editor");
 		setClosable(false);
 		

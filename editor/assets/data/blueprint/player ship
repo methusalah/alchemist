@@ -47,11 +47,7 @@
     }
   }, {
     "class" : "model.ES.component.assets.AbilityTrigger",
-    "triggers" : {
-      "bonjour" : true,
-      "aurevoir" : false,
-      "ça va ?" : true
-    }
+    "triggers" : { }
   }, {
     "class" : "model.ES.component.assets.Attackable"
   }, {
@@ -73,6 +69,15 @@
       "x" : 0.0,
       "y" : 0.0
     }
+  }, {
+    "class" : "model.ES.component.motion.physic.Dragging",
+    "dragging" : 0.3
+  }, {
+    "class" : "model.ES.component.motion.MotionCapacity",
+    "maxRotationSpeed" : 6.0,
+    "thrustPower" : 30.0,
+    "lateralThrustPower" : 10.0,
+    "frontalThrustPower" : 10.0
   } ],
   "children" : [ {
     "name" : "camera",
@@ -86,7 +91,7 @@
       "acceleration" : 1.0,
       "deceleration" : 1.0,
       "pos" : {
-        "x" : 3.99999999881122E-4,
+        "x" : 3.999999998936771E-4,
         "y" : 0.0,
         "z" : 15.0
       },
@@ -98,7 +103,7 @@
     }, {
       "class" : "model.ES.component.motion.PlanarStance",
       "coord" : {
-        "x" : 3.99999999881122E-4,
+        "x" : 3.999999998936771E-4,
         "y" : 0.0
       },
       "orientation" : {
@@ -917,6 +922,20 @@
       "class" : "model.ES.component.Cooldown",
       "start" : 0,
       "duration" : 300.0
+    } ],
+    "children" : [ ]
+  }, {
+    "name" : "Boost",
+    "comps" : [ {
+      "class" : "model.ES.component.Naming",
+      "name" : "Boost"
+    }, {
+      "class" : "model.ES.component.assets.Ability",
+      "name" : "boost",
+      "triggered" : false
+    }, {
+      "class" : "model.ES.component.hierarchy.AbilityTriggerControl",
+      "active" : true
     } ],
     "children" : [ ]
   } ]

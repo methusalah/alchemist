@@ -14,6 +14,7 @@ import model.ES.component.assets.Ability;
 import model.ES.component.assets.AbilityTrigger;
 import model.ES.component.assets.Attackable;
 import model.ES.component.assets.Attrition;
+import model.ES.component.assets.Boost;
 import model.ES.component.assets.Health;
 import model.ES.component.assets.Projectile;
 import model.ES.component.assets.ProjectileLauncher;
@@ -66,12 +67,15 @@ public class Model {
 	
 	private final EntityData ed;
 	private final WorldData world;
+	private final Command command;
 	
 	public final ObjectProperty<EntityPresenter> selectionProperty = new SimpleObjectProperty<>();
 	
 	public Model() {
 		ed = new PostingEntityData();
 		world = new WorldData(ed);
+		command = new Command();
+		
 		
 		// TODO
 		// max value
@@ -129,7 +133,8 @@ public class Model {
 				AbilityTriggerControl.class,
 				ThrustControl.class,
 				PopulationTooling.class,
-				TerrainTooling.class);
+				TerrainTooling.class,
+				Boost.class);
 		
 		hierarchy = new Hierarchy(ed);
 		resourceExplorer = new ResourceExplorer();
@@ -142,5 +147,10 @@ public class Model {
 	public WorldData getWorld() {
 		return world;
 	}
+
+	public Command getCommand() {
+		return command;
+	}
+	
 	
 }

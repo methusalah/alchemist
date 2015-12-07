@@ -3,9 +3,6 @@ package model.ES.processor.motion.physic;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.LogUtil;
-import util.geometry.geom2d.Point2D;
-import model.ModelManager;
 import model.ES.component.Naming;
 import model.ES.component.ToRemove;
 import model.ES.component.interaction.senses.Touching;
@@ -13,10 +10,10 @@ import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.physic.CircleCollisionShape;
 import model.ES.component.motion.physic.Collisioning;
 import model.ES.component.motion.physic.Physic;
+import util.geometry.geom2d.Point2D;
 
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
-import com.simsilica.es.EntitySet;
 
 import controller.ECS.Processor;
 

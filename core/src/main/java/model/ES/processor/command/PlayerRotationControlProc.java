@@ -1,20 +1,27 @@
 package model.ES.processor.command;
 
-import model.ModelManager;
+import model.Command;
 import model.ES.component.command.PlanarNeededRotation;
 import model.ES.component.command.PlayerControl;
 import model.ES.component.motion.PlanarStance;
-import model.ES.component.motion.PlanarVelocityToApply;
 import util.geometry.geom2d.Point2D;
 import util.math.Angle;
 import util.math.AngleUtil;
 
+import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.Entity;
-import com.simsilica.es.EntitySet;
 
+import controller.ECS.DataState;
 import controller.ECS.Processor;
 
 public class PlayerRotationControlProc extends Processor {
+
+	private Command command; 
+	
+	@Override
+	protected void onInitialized(AppStateManager stateManager) {
+		command = stateManager.getState(DataState.class).getCommand();
+	}
 	
 	@Override
 	protected void registerSets() {
@@ -23,16 +30,16 @@ public class PlayerRotationControlProc extends Processor {
 	
 	@Override
 	protected void onEntityEachTick(Entity e) {
-		if(ModelManager.command.target == null)
+		if(command.target == null)
 			return;
 		
 		PlanarStance stance = e.get(PlanarStance.class);
-		double angleToTarget = ModelManager.command.target.getSubtraction(stance.coord).getAngle();
+		double angleToTarget = command.target.getSubtraction(stance.coord).getAngle();
 
 		// rotation
 		double neededRotAngle = 0;
 		Point2D front = stance.coord.getTranslation(stance.orientation.getValue(), 1);
-		int turn = AngleUtil.getTurn(stance.coord, front, ModelManager.command.target);
+		int turn = AngleUtil.getTurn(stance.coord, front, command.target);
 		if(turn != AngleUtil.NONE){// || angleToTarget != stance.getOrientation()){
 			double diff = AngleUtil.getSmallestDifference(stance.orientation.getValue(), angleToTarget);
 			if(turn >= 0)

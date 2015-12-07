@@ -1,5 +1,6 @@
 package controller.ECS;
 
+import model.Command;
 import model.ES.processor.command.PlayerRotationControlProc;
 import model.ES.processor.command.PlayerThrustControlProc;
 import model.ES.processor.world.WorldProc;
@@ -31,6 +32,7 @@ public class EntitySystem extends AbstractAppState{
 
 	private final EntityData ed;
 	private final WorldData world;
+	private final Command command;
 
 	
 	List<AppState> visualStates = new ArrayList<>();
@@ -38,9 +40,10 @@ public class EntitySystem extends AbstractAppState{
 	List<AppState> commandStates = new ArrayList<>();
 	List<AppState> logicStates = new ArrayList<>();
 
-	public EntitySystem(EntityData ed, WorldData world) {
+	public EntitySystem(EntityData ed, WorldData world, Command command) {
 		this.ed = ed;
 		this.world = world;
+		this.command = command;
 		
 		
 		visualStates.add(new ParticleCasterInPlaneProc());
@@ -66,8 +69,10 @@ public class EntitySystem extends AbstractAppState{
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		this.stateManager = stateManager;
-		stateManager.attach(new DataAppState(ed, world));
+		stateManager.attach(new DataState(ed, world, command));
     	stateManager.attach(new WorldProc(world));
+    	stateManager.attach(new CommandState(command));
+    	stateManager.attach(new SceneSelectorState());
 	}
 	
 	public void initVisuals(boolean value){
@@ -97,7 +102,7 @@ public class EntitySystem extends AbstractAppState{
 	public void initLogic(boolean value){
 		if(value){
 			if(logicThread == null || !logicThread.isAlive()){
-				logicThread = new Thread(new LogicThread(ed, world));
+				logicThread = new Thread(new LogicThread(ed, world, command));
 				logicThread.start();
 			}
 		} else

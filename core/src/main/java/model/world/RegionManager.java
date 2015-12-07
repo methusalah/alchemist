@@ -23,6 +23,7 @@ public class RegionManager {
 
 	public RegionManager() {
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 	}
 
 	public Region getRegion(Point2D coord){
@@ -78,6 +79,7 @@ public class RegionManager {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+			mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 			mapper.writeValue(f, region);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -91,6 +93,7 @@ public class RegionManager {
 				f.createNewFile();
 				ObjectMapper mapper = new ObjectMapper();
 				mapper.enable(SerializationFeature.INDENT_OUTPUT);
+				mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 				mapper.writeValue(f, new Region(regionId, coord));
 			} catch (IOException e) {
 				e.printStackTrace();

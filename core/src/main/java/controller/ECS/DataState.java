@@ -4,6 +4,7 @@ import com.jme3.app.state.AbstractAppState;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.base.DefaultEntityData;
 
+import model.Command;
 import model.world.WorldData;
 import view.drawingProcessors.TerrainDrawer;
 
@@ -13,17 +14,15 @@ import view.drawingProcessors.TerrainDrawer;
  *
  * @author Eike Foede, roah
  */
-public class DataAppState extends AbstractAppState {
-	EntityData entityData;
-	WorldData world;
+public class DataState extends AbstractAppState {
+	private final EntityData entityData;
+	private final WorldData world;
+	private final Command command;
 	
-    public DataAppState() {
-    	entityData = new DefaultEntityData();
-    }
-
-    public DataAppState(EntityData entityData, WorldData world) {
+    public DataState(EntityData entityData, WorldData world, Command command) {
         this.entityData = entityData;
         this.world = world;
+        this.command = command;
     }
     
     public EntityData getEntityData() {
@@ -34,7 +33,11 @@ public class DataAppState extends AbstractAppState {
     	return world;
     }
     
-    @Override
+    public Command getCommand() {
+		return command;
+	}
+
+	@Override
     public void update(float tpf) {
     	world.attachDrawers();
     }

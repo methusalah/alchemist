@@ -1,16 +1,18 @@
 package controller.topdown;
 
-import model.ModelManager;
-import util.LogUtil;
+import model.Command;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import view.TopdownView;
-
-import com.jme3.input.FlyByCamera;
-
 import controller.InputInterpreter;
 
 public class TopdownInputInterpreter extends InputInterpreter {
+
+	private Command command; 
+	
+	public void setCommand(Command command) {
+		this.command = command;
+	}
 
 	TopdownInputInterpreter(TopdownView v) {
 		super(v, new TopdownMapping());
@@ -26,22 +28,22 @@ public class TopdownInputInterpreter extends InputInterpreter {
 	protected void onActionPressed(String name, float tpf) {
 		switch(name){
 		case TopdownMapping.FORWARD:
-			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(1, 0);
+			command.thrust = command.thrust.getAddition(1, 0);
 			break;
 		case TopdownMapping.BACKWARD:
-			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(-1, 0);
+			command.thrust = command.thrust.getAddition(-1, 0);
 			break;
 		case TopdownMapping.STRAFFE_LEFT:
-			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(0, 1);
+			command.thrust = command.thrust.getAddition(0, 1);
 			break;
 		case TopdownMapping.STRAFFE_RIGHT:
-			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(0, -1);
+			command.thrust = command.thrust.getAddition(0, -1);
 			break;
 		case TopdownMapping.PRIMARY:
-			ModelManager.command.abilities.add("gun");
+			command.abilities.add("gun");
 			break;
 		case TopdownMapping.SECONDARY:
-			ModelManager.command.abilities.add("boost");
+			command.abilities.add("boost");
 			break;
 		}
 	}
@@ -56,30 +58,30 @@ public class TopdownInputInterpreter extends InputInterpreter {
 			break;
 
 		case TopdownMapping.PRIMARY:
-			for(int i = 0; i<ModelManager.command.abilities.size(); i++)
-				if(ModelManager.command.abilities.get(i).equals("gun")){
-					ModelManager.command.abilities.remove(i);
+			for(int i = 0; i<command.abilities.size(); i++)
+				if(command.abilities.get(i).equals("gun")){
+					command.abilities.remove(i);
 				}
 			break;
 		case TopdownMapping.SECONDARY:
-			for(int i = 0; i<ModelManager.command.abilities.size(); i++)
-				if(ModelManager.command.abilities.get(i).equals("boost")){
-					ModelManager.command.abilities.remove(i);
+			for(int i = 0; i<command.abilities.size(); i++)
+				if(command.abilities.get(i).equals("boost")){
+					command.abilities.remove(i);
 				}
 			break;
 		case TopdownMapping.SELECT:
 			break;
 		case TopdownMapping.FORWARD:
-			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(-1, 0);
+			command.thrust = command.thrust.getAddition(-1, 0);
 			break;
 		case TopdownMapping.BACKWARD:
-			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(1, 0);
+			command.thrust = command.thrust.getAddition(1, 0);
 			break;
 		case TopdownMapping.STRAFFE_LEFT:
-			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(0, -1);
+			command.thrust = command.thrust.getAddition(0, -1);
 			break;
 		case TopdownMapping.STRAFFE_RIGHT:
-			ModelManager.command.thrust = ModelManager.command.thrust.getAddition(0, 1);
+			command.thrust = command.thrust.getAddition(0, 1);
 			break;
 		case TopdownMapping.HOLD:
 			break;

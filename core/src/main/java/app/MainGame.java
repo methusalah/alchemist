@@ -13,6 +13,7 @@ import com.simsilica.es.base.DefaultEntityData;
 import controller.Controller;
 import controller.ECS.EntitySystem;
 import controller.topdown.TopdownCtrl;
+import model.Command;
 import model.ES.component.Cooldown;
 import model.ES.component.LifeTime;
 import model.ES.component.Naming;
@@ -161,13 +162,12 @@ public class MainGame extends CosmoVania {
 			ed.setComponent(eid, new ModelRotation(RandomUtil.between(50, 200), 0, 0));
 		}
 
-		
 		stateManager.attach(new TopdownCtrl());
 		stateManager.getState(TopdownCtrl.class).setEnabled(true);
 		currentAppState = stateManager.getState(TopdownCtrl.class);
 		
 		
-		EntitySystem es = new EntitySystem(ed, new WorldData(ed));
+		EntitySystem es = new EntitySystem(ed, new WorldData(ed), new Command());
 		stateManager.attach(es);
 		es.initVisuals(true);
 		es.initAudio(true);

@@ -27,13 +27,13 @@ public abstract class Processor extends AbstractAppState {
 	@Override
 	public final void initialize(AppStateManager stateManager, Application app) {
 		super.initialize(stateManager, app);
-        entityData = stateManager.getState(DataAppState.class).entityData;
+        entityData = stateManager.getState(DataState.class).getEntityData();
 
         registerSets();
         for(EntitySet set : sets.values())
 	        for (Entity e : set)
 	            onEntityAdded(e);
-        onInitialized();
+        onInitialized(stateManager);
 	}
 	
     @Override
@@ -106,7 +106,7 @@ public abstract class Processor extends AbstractAppState {
      */
     protected abstract void registerSets();
 
-    protected void onInitialized(){}
+    protected void onInitialized(AppStateManager stateManager){}
     
     /**
      * Called each frame.
