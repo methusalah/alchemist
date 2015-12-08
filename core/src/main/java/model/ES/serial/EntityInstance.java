@@ -13,20 +13,26 @@ import com.simsilica.es.EntityId;
 
 public class EntityInstance {
 
-	private final Blueprint blueprint;
+	private final String blueprintName;
+	
 	@JsonTypeInfo(use=Id.CLASS, include=As.PROPERTY, property="class")
 	private final List<EntityComponent> comps;
 	
 	private EntityId instanceId;
 	
-	public EntityInstance(@JsonProperty("blueprint")Blueprint blueprint,
+	public EntityInstance(@JsonProperty("blueprintName")String blueprintName,
 			@JsonProperty("comps")List<EntityComponent> comps) {
-		this.blueprint = blueprint;
+		this.blueprintName = blueprintName;
 		this.comps = comps;
 	}
 
+	@JsonIgnore
 	public Blueprint getBlueprint() {
-		return blueprint;
+		return BlueprintLibrary.getBlueprint(blueprintName);
+	}
+	
+	public String getBlueprintName(){
+		return blueprintName;
 	}
 
 	public List<EntityComponent> getComps() {

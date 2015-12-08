@@ -28,7 +28,7 @@ public class PopulationTool extends Tool {
 		List<EntityComponent> comps = new ArrayList<EntityComponent>();
 		comps.add(stance);
 		
-		EntityInstance i = new EntityInstance(bp, comps);
+		EntityInstance i = new EntityInstance(bp.getName(), comps);
 		
 		world.addEntityInstance(i);
 	}

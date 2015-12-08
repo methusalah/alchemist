@@ -6,13 +6,13 @@
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
-      "x" : 0.0,
-      "y" : 0.0
+      "x" : 0.7990460991859436,
+      "y" : 2.579143762588501
     },
     "orientation" : {
-      "value" : 0.15219223688470335
+      "value" : 0.0
     },
-    "elevation" : 0.0,
+    "elevation" : 1.0,
     "upVector" : {
       "x" : 0.0,
       "y" : 0.0,
@@ -47,14 +47,18 @@
     }
   }, {
     "class" : "model.ES.component.assets.AbilityTrigger",
-    "triggers" : { }
+    "triggers" : {
+      "bonjour" : true,
+      "aurevoir" : false,
+      "ça va ?" : true
+    }
   }, {
     "class" : "model.ES.component.assets.Attackable"
   }, {
     "class" : "model.ES.component.motion.physic.Physic",
     "velocity" : {
-      "x" : 0.0,
-      "y" : 0.0
+      "x" : 0.09630871557104054,
+      "y" : 0.06125116146542982
     },
     "type" : "",
     "exceptions" : [ ],
@@ -74,10 +78,16 @@
     "dragging" : 0.3
   }, {
     "class" : "model.ES.component.motion.MotionCapacity",
-    "maxRotationSpeed" : 6.0,
+    "maxRotationSpeed" : 12.0,
     "thrustPower" : 30.0,
     "lateralThrustPower" : 10.0,
     "frontalThrustPower" : 10.0
+  }, {
+    "class" : "model.ES.component.command.PlanarNeededThrust",
+    "direction" : {
+      "x" : 0.0,
+      "y" : 0.0
+    }
   } ],
   "children" : [ {
     "name" : "camera",
@@ -87,24 +97,24 @@
     }, {
       "class" : "model.ES.component.camera.ChasingCamera",
       "maxSpeed" : 100.0,
-      "speed" : 0.02000000000000027,
+      "speed" : 0.12000000000000029,
       "acceleration" : 1.0,
       "deceleration" : 1.0,
       "pos" : {
-        "x" : 3.999999998936771E-4,
-        "y" : 0.0,
+        "x" : 20.325465094613193,
+        "y" : 69.28017923977526,
         "z" : 15.0
       },
       "target" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "z" : 0.0
+        "x" : 20.329619794399353,
+        "y" : 69.28282157786411,
+        "z" : 1.0
       }
     }, {
       "class" : "model.ES.component.motion.PlanarStance",
       "coord" : {
-        "x" : 3.999999998936771E-4,
-        "y" : 0.0
+        "x" : 20.325465094613193,
+        "y" : 69.28017923977526
       },
       "orientation" : {
         "value" : 0.0
@@ -168,13 +178,13 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : -0.4942205492223413,
-          "y" : -0.07580269603627118
+          "x" : 20.701019887163984,
+          "y" : 68.94716528136371
         },
         "orientation" : {
-          "value" : -2.98940041670509
+          "value" : -0.7392889314777538
         },
-        "elevation" : 0.0,
+        "elevation" : 1.0,
         "upVector" : {
           "x" : 0.0,
           "y" : 0.0,
@@ -194,7 +204,7 @@
       }, {
         "class" : "model.ES.component.assets.Thruster",
         "direction" : {
-          "x" : -1.0,
+          "x" : 1.0,
           "y" : 0.0,
           "z" : 0.0
         },
@@ -205,6 +215,9 @@
           "value" : 0.0
         },
         "onOff" : true
+      }, {
+        "class" : "model.ES.component.hierarchy.ThrustControl",
+        "active" : true
       } ],
       "children" : [ {
         "name" : "main particle",
@@ -263,13 +276,13 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : -0.4942205492223413,
-            "y" : -0.07580269603627118
+            "x" : 20.701019887163984,
+            "y" : 68.94716528136371
           },
           "orientation" : {
-            "value" : -2.98940041670509
+            "value" : -0.7392889314777538
           },
-          "elevation" : 0.0,
+          "elevation" : 1.0,
           "upVector" : {
             "x" : 0.0,
             "y" : 0.0,
@@ -334,13 +347,13 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : -0.4942205492223413,
-            "y" : -0.07580269603627118
+            "x" : 20.701019887163984,
+            "y" : 68.94716528136371
           },
           "orientation" : {
-            "value" : -2.98940041670509
+            "value" : -0.7392889314777538
           },
-          "elevation" : 0.0,
+          "elevation" : 1.0,
           "upVector" : {
             "x" : 0.0,
             "y" : 0.0,
@@ -412,13 +425,13 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : -0.4942205492223413,
-            "y" : -0.07580269603627118
+            "x" : 20.701019887163984,
+            "y" : 68.94716528136371
           },
           "orientation" : {
-            "value" : -2.98940041670509
+            "value" : -0.7392889314777538
           },
-          "elevation" : 0.0,
+          "elevation" : 1.0,
           "upVector" : {
             "x" : 0.0,
             "y" : 0.0,
@@ -435,13 +448,13 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : 0.38021590017061885,
-          "y" : 0.15948626667348523
+          "x" : 19.968590570002263,
+          "y" : 69.47965687318654
         },
         "orientation" : {
-          "value" : 0.5885245498832857
+          "value" : 2.8386360351106212
         },
-        "elevation" : 0.0,
+        "elevation" : 1.0,
         "upVector" : {
           "x" : 0.0,
           "y" : 0.0,
@@ -461,17 +474,20 @@
       }, {
         "class" : "model.ES.component.assets.Thruster",
         "direction" : {
-          "x" : 1.0,
-          "y" : 0.0,
+          "x" : -1.0,
+          "y" : -1.0,
           "z" : 0.0
         },
         "activationAngle" : {
-          "value" : 0.3490658503988659
+          "value" : 1.2217304763960306
         },
         "activation" : {
           "value" : 0.0
         },
         "onOff" : true
+      }, {
+        "class" : "model.ES.component.hierarchy.ThrustControl",
+        "active" : true
       } ],
       "children" : [ {
         "name" : "main particle",
@@ -530,13 +546,13 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 0.38021590017061885,
-            "y" : 0.15948626667348523
+            "x" : 19.968590570002263,
+            "y" : 69.47965687318654
           },
           "orientation" : {
-            "value" : 0.5885245498832857
+            "value" : 2.8386360351106212
           },
-          "elevation" : 0.0,
+          "elevation" : 1.0,
           "upVector" : {
             "x" : 0.0,
             "y" : 0.0,
@@ -553,13 +569,13 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : 0.41053697858512733,
-          "y" : -0.038201953015451325
+          "x" : 20.103343097894147,
+          "y" : 69.62744644056784
         },
         "orientation" : {
-          "value" : -0.28414007611387904
+          "value" : 1.9659714091134575
         },
-        "elevation" : 0.0,
+        "elevation" : 1.0,
         "upVector" : {
           "x" : 0.0,
           "y" : 0.0,
@@ -579,17 +595,20 @@
       }, {
         "class" : "model.ES.component.assets.Thruster",
         "direction" : {
-          "x" : 1.0,
-          "y" : 0.0,
+          "x" : -1.0,
+          "y" : 1.0,
           "z" : 0.0
         },
         "activationAngle" : {
-          "value" : 0.3490658503988659
+          "value" : 1.2217304763960306
         },
         "activation" : {
           "value" : 0.0
         },
         "onOff" : true
+      }, {
+        "class" : "model.ES.component.hierarchy.ThrustControl",
+        "active" : true
       } ],
       "children" : [ {
         "name" : "main particle",
@@ -648,13 +667,13 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 0.41053697858512733,
-            "y" : -0.038201953015451325
+            "x" : 20.103343097894147,
+            "y" : 69.62744644056784
           },
           "orientation" : {
-            "value" : -0.28414007611387904
+            "value" : 1.9659714091134575
           },
-          "elevation" : 0.0,
+          "elevation" : 1.0,
           "upVector" : {
             "x" : 0.0,
             "y" : 0.0,
@@ -671,13 +690,13 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : -0.2774313530256791,
-          "y" : 0.15978687167080097
+          "x" : 20.381530400045495,
+          "y" : 68.96781637384728
         },
         "orientation" : {
-          "value" : 2.333853801877615
+          "value" : -1.6992200200746357
         },
-        "elevation" : 0.0,
+        "elevation" : 1.0,
         "upVector" : {
           "x" : 0.0,
           "y" : 0.0,
@@ -698,16 +717,19 @@
         "class" : "model.ES.component.assets.Thruster",
         "direction" : {
           "x" : 1.0,
-          "y" : 0.0,
+          "y" : -1.5,
           "z" : 0.0
         },
         "activationAngle" : {
-          "value" : 0.3490658503988659
+          "value" : 0.8726646259971648
         },
         "activation" : {
           "value" : 0.0
         },
         "onOff" : true
+      }, {
+        "class" : "model.ES.component.hierarchy.ThrustControl",
+        "active" : true
       } ],
       "children" : [ {
         "name" : "main particle",
@@ -766,13 +788,13 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : -0.2774313530256791,
-            "y" : 0.15978687167080097
+            "x" : 20.381530400045495,
+            "y" : 68.96781637384728
           },
           "orientation" : {
-            "value" : 2.333853801877615
+            "value" : -1.6992200200746357
           },
-          "elevation" : 0.0,
+          "elevation" : 1.0,
           "upVector" : {
             "x" : 0.0,
             "y" : 0.0,
@@ -789,13 +811,13 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : -0.21678919619666218,
-          "y" : -0.23558956770707212
+          "x" : 20.651035455829263,
+          "y" : 69.26339550860985
         },
         "orientation" : {
-          "value" : -2.0294693281082083
+          "value" : 0.22064215711912816
         },
-        "elevation" : 0.0,
+        "elevation" : 1.0,
         "upVector" : {
           "x" : 0.0,
           "y" : 0.0,
@@ -816,16 +838,19 @@
         "class" : "model.ES.component.assets.Thruster",
         "direction" : {
           "x" : 1.0,
-          "y" : 0.0,
+          "y" : 1.5,
           "z" : 0.0
         },
         "activationAngle" : {
-          "value" : 0.3490658503988659
+          "value" : 0.8726646259971648
         },
         "activation" : {
           "value" : 0.0
         },
         "onOff" : true
+      }, {
+        "class" : "model.ES.component.hierarchy.ThrustControl",
+        "active" : true
       } ],
       "children" : [ {
         "name" : "main particle",
@@ -884,13 +909,13 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : -0.21678919619666218,
-            "y" : -0.23558956770707212
+            "x" : 20.651035455829263,
+            "y" : 69.26339550860985
           },
           "orientation" : {
-            "value" : -2.0294693281082083
+            "value" : 0.22064215711912816
           },
-          "elevation" : 0.0,
+          "elevation" : 1.0,
           "upVector" : {
             "x" : 0.0,
             "y" : 0.0,
@@ -910,7 +935,7 @@
       "active" : true
     }, {
       "class" : "model.ES.component.assets.Ability",
-      "name" : "",
+      "name" : "gun",
       "triggered" : false
     }, {
       "class" : "model.ES.component.assets.ProjectileLauncher",

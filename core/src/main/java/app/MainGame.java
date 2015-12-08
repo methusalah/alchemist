@@ -102,7 +102,7 @@ public class MainGame extends CosmoVania {
 			
 			List<EntityComponent> comps = new ArrayList<>();
 			comps.add(stance);
-			EntityInstance ei = new EntityInstance(BlueprintLibrary.getBlueprint("thruster"), comps);
+			EntityInstance ei = new EntityInstance("thruster", comps);
 			r.getEntities().add(ei);
 		}
 		HeightMap hm = r.getTerrain().getHeightMap();
