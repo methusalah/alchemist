@@ -1,6 +1,7 @@
 package util.geometry.geom3d;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import util.geometry.geom2d.Point2D;
@@ -109,6 +110,14 @@ public class Triangle3D {
 
 
 		return p.getAddition(0, 0, z+subZ);
+	}
+	
+	public List<Segment3D> getEdges(){
+		List<Segment3D> res = new ArrayList<Segment3D>();
+		res.add(new Segment3D(a, b));
+		res.add(new Segment3D(b, c));
+		res.add(new Segment3D(c, a));
+		return res;
 	}
 
 
