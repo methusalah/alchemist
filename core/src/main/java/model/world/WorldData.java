@@ -100,7 +100,6 @@ public class WorldData {
 		heightmapExplorer.add(region.getTerrain().getHeightMap());
 		
 		// get collision shape of parcels
-		
 		for(Parcel p : region.getTerrain().getParcelling().getAll())
 			for(HeightMapNode node : p.getHeights())
 				for(Triangle3D t : p.getTriangles().get(node)){
