@@ -28,11 +28,13 @@ import model.ES.processor.interaction.EffectOnTouchProc;
 import model.ES.processor.interaction.ShockwaveOnTouchProc;
 import model.ES.processor.motion.RandomVelocityApplicationProc;
 import model.ES.processor.motion.VelocityApplicationProc;
-import model.ES.processor.motion.physic.CollisionProc;
-import model.ES.processor.motion.physic.CollisionResolutionProc;
 import model.ES.processor.motion.physic.DraggingProc;
 import model.ES.processor.motion.physic.PhysicForceProc;
 import model.ES.processor.motion.physic.RandomDraggingProc;
+import model.ES.processor.motion.physic.collisionDetection.CircleCircleCollisionProc;
+import model.ES.processor.motion.physic.collisionDetection.CircleEdgeCollisionProc;
+import model.ES.processor.motion.physic.collisionDetection.CollisionResolutionProc;
+import model.ES.processor.motion.physic.collisionDetection.EdgeEdgeCollisionProc;
 import model.ES.processor.senses.SightProc;
 import model.ES.processor.shipGear.AttritionProc;
 import model.ES.processor.shipGear.LightThrusterProc;
@@ -63,7 +65,9 @@ public class LogicThread implements Runnable {
 		stateManager.attach(new RandomVelocityApplicationProc());
 		stateManager.attach(new VelocityApplicationProc());
 		// collisions
-		stateManager.attach(new CollisionProc());
+		stateManager.attach(new CircleCircleCollisionProc());
+		stateManager.attach(new CircleEdgeCollisionProc());
+		stateManager.attach(new EdgeEdgeCollisionProc());
 		stateManager.attach(new CollisionResolutionProc());
 		// relations	
 		stateManager.attach(new BoneHoldingProc());

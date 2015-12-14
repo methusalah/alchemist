@@ -14,6 +14,8 @@ import com.simsilica.es.EntityId;
 
 import app.AppFacade;
 import model.ES.component.motion.PlanarStance;
+import model.ES.component.motion.physic.EdgedCollisionShape;
+import model.ES.component.motion.physic.Physic;
 import model.ES.serial.EntityInstance;
 import model.world.terrain.heightmap.HeightMapExplorer;
 import model.world.terrain.heightmap.HeightMapNode;
@@ -21,9 +23,11 @@ import model.world.terrain.heightmap.Parcel;
 import model.world.terrain.heightmap.Parcelling;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
+import util.geometry.geom2d.Segment2D;
 import util.geometry.geom3d.Point3D;
 import util.geometry.geom3d.Segment3D;
 import util.geometry.geom3d.Triangle3D;
+import util.math.Fraction;
 import view.drawingProcessors.TerrainDrawer;
 import view.material.MaterialManager;
 import view.math.TranslateUtil;
@@ -100,17 +104,24 @@ public class WorldData {
 		heightmapExplorer.add(region.getTerrain().getHeightMap());
 		
 		// get collision shape of parcels
-		for(Parcel p : region.getTerrain().getParcelling().getAll())
+		Parcel p = region.getTerrain().getParcelling().get(0);
+		List<Segment2D> edges = new ArrayList<>();
+//		for(Parcel p : region.getTerrain().getParcelling().getAll())
 			for(HeightMapNode node : p.getHeights())
 				for(Triangle3D t : p.getTriangles().get(node)){
 					Segment3D border = getPlaneIntersection(t);
 					if(border != null){
+						edges.add(new Segment2D(border.p0.get2D(), border.p1.get2D()));
 						Geometry g = new Geometry("terrain border");
 						g.setMesh(new Line(TranslateUtil.toVector3f(border.p0.getAddition(0, 0, 0.1)), TranslateUtil.toVector3f(border.p1.getAddition(0, 0, 0.1))));
 						g.setMaterial(MaterialManager.getLightingColor(ColorRGBA.Cyan));
 						AppFacade.getRootNode().attachChild(g);
 					}
 				}
+		EntityId pe = ed.createEntity();
+		ed.setComponent(pe, new EdgedCollisionShape(edges));
+		ed.setComponent(pe, new Physic(Point2D.ORIGIN, "terrain", new ArrayList<>(), 1000000, new Fraction(0.2), null));
+		ed.setComponent(pe, new PlanarStance());
 	}
 	
 	private Point3D getPlaneIntersection(Segment3D seg){

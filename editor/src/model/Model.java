@@ -45,8 +45,10 @@ import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.RandomVelocityToApply;
+import model.ES.component.motion.physic.CircleCollisionShape;
 import model.ES.component.motion.physic.Collisioning;
 import model.ES.component.motion.physic.Dragging;
+import model.ES.component.motion.physic.EdgedCollisionShape;
 import model.ES.component.motion.physic.Physic;
 import model.ES.component.motion.physic.PhysicForce;
 import model.ES.component.motion.physic.RandomDragging;
@@ -134,7 +136,9 @@ public class Model {
 				ThrustControl.class,
 				PopulationTooling.class,
 				TerrainTooling.class,
-				Boost.class);
+				Boost.class,
+				CircleCollisionShape.class,
+				EdgedCollisionShape.class);
 		
 		hierarchy = new Hierarchy(ed);
 		resourceExplorer = new ResourceExplorer();
