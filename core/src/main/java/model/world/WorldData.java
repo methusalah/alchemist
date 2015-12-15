@@ -39,8 +39,10 @@ public class WorldData {
 	private final EntityId worldEntity;
 
 	private List<Region> drawnRegions = new ArrayList<Region>();
-//	private Map<Region, TerrainDrawer> terrainDrawers = new HashMap<>();
-	private Map<Region, List<EntityId>> terrainColliderLists = new HashMap<>();
+	private List<TerrainDrawer> drawersToAttach = new ArrayList<TerrainDrawer>();
+	private List<TerrainDrawer> drawersToDetach = new ArrayList<TerrainDrawer>();
+	
+	
 
 	private HeightMapExplorer heightmapExplorer = new HeightMapExplorer();
 	private Region lastRegion;
@@ -86,22 +88,42 @@ public class WorldData {
 	}
 	
 	public void attachDrawers(){
-		synchronized (drawnRegions) {
-			for(Region r : drawnRegions)
-				if(!r.getDrawer().attached)
-					AppFacade.getRootNode().attachChild(r.getDrawer().mainNode);
+		synchronized (drawersToAttach) {
+			for(TerrainDrawer d : drawersToAttach){
+				AppFacade.getRootNode().attachChild(d.mainNode);
+			}
+			drawersToAttach.clear();
 		}
+		synchronized (drawersToDetach) {
+			for(TerrainDrawer d : drawersToDetach){
+				AppFacade.getRootNode().detachChild(d.mainNode);
+			}
+			drawersToDetach.clear();
+		}
+//		synchronized (drawnRegions) {
+//			for(Region r : drawnRegions){
+//				if(r.getDrawer().toDetach && AppFacade.getRootNode().hasChild(r.getDrawer().mainNode))
+//					AppFacade.getRootNode().detachChild(r.getDrawer().mainNode);
+//
+//				if(!r.getDrawer().attached)
+//					AppFacade.getRootNode().attachChild(r.getDrawer().mainNode);
+//			}
+//		}
 	}
 
 	public void drawRegion(Region region){
-		LogUtil.info(region+"draw region "+region.getId());
 		RegionArtisan.drawRegion(ed, worldEntity, region);
+		synchronized (drawersToAttach) {
+			drawersToAttach.add(region.getDrawer());
+		}
 		heightmapExplorer.add(region.getTerrain().getHeightMap());
 	}
 	
 	private void undrawRegion(Region region){
-		LogUtil.info(this+"undraw region "+region.getId());
 		RegionArtisan.undrawRegion(ed, worldEntity, region);
+		synchronized (drawersToDetach) {
+			drawersToDetach.add(region.getDrawer());
+		}
 	}
 	
 	private List<Region> get9RegionsAround(Point2D coord){

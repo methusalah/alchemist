@@ -26,8 +26,7 @@ public class RegionArtisan {
 
 	
 	public static void drawRegion(EntityData ed, EntityId worldEid, Region region){
-		LogUtil.info(region+"draw region "+region.getId());
-		
+		LogUtil.info("draw region "+region.getId()+" ("+RegionArtisan.class+")");
 		// instantiation of entity blueprints
 		for(EntityInstance ei : region.getEntities())
 			ei.instanciate(ed, worldEid);
@@ -58,10 +57,12 @@ public class RegionArtisan {
 	}
 	
 	public static void undrawRegion(EntityData ed, EntityId worldEid, Region region){
+		LogUtil.info("Undraw region "+region.getId()+" ("+RegionArtisan.class+")");
 		for(EntityInstance ei : region.getEntities())
 			ei.uninstanciate(ed);
 		for(EntityId eid : region.getTerrainColliders())
 			ed.removeEntity(eid);
+		region.getDrawer().toDetach = true;
 	}
 	
 	private static Point3D getPlaneIntersection(Segment3D seg){

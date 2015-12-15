@@ -33,6 +33,7 @@ public class TerrainDrawer {
 
 	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
 	public boolean attached = false;
+	public boolean toDetach = false;
 
 	public TerrainDrawer(Terrain terrain, Point2D coord) {
 		this.terrain = terrain;
