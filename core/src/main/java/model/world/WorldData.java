@@ -13,6 +13,8 @@ import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
 import app.AppFacade;
+import model.ES.component.Naming;
+import model.ES.component.hierarchy.Parenting;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.physic.EdgedCollisionShape;
 import model.ES.component.motion.physic.Physic;
@@ -33,30 +35,29 @@ import view.material.MaterialManager;
 import view.math.TranslateUtil;
 
 public class WorldData {
+	private final EntityData ed;
+	private final EntityId worldEntity;
+
 	private List<Region> drawnRegions = new ArrayList<Region>();
-	private Map<Region, TerrainDrawer> terrainDrawers = new HashMap<>();
+//	private Map<Region, TerrainDrawer> terrainDrawers = new HashMap<>();
+	private Map<Region, List<EntityId>> terrainColliderLists = new HashMap<>();
+
 	private HeightMapExplorer heightmapExplorer = new HeightMapExplorer();
 	private Region lastRegion;
 	private RegionManager regionManager = new RegionManager();
-	private final EntityData ed;
-	private EntityId worldEntity;
 	
 	public WorldData(EntityData ed) {
 		this.ed = ed;
-	}
-	
-	public void setWorldEntity(EntityId eid){
-		this.worldEntity = eid;
+		worldEntity = ed.createEntity();
+		ed.setComponent(worldEntity, new Naming("World"));
 	}
 	
 	public void setCoord(Point2D coord){
 		Region actualRegion = regionManager.getRegion(coord);
 		
 		if(actualRegion != lastRegion){
-			
 			// We pass from a region to another
 			lastRegion = actualRegion;
-			
 			new Thread(new RegionLoader(coord, true)).start();;
 		}
 	}
@@ -85,77 +86,22 @@ public class WorldData {
 	}
 	
 	public void attachDrawers(){
-		synchronized (terrainDrawers) {
-		for(TerrainDrawer td : terrainDrawers.values())
-			if(!td.attached)
-				AppFacade.getRootNode().attachChild(td.mainNode);
+		synchronized (drawnRegions) {
+			for(Region r : drawnRegions)
+				if(!r.getDrawer().attached)
+					AppFacade.getRootNode().attachChild(r.getDrawer().mainNode);
 		}
 	}
-	
+
 	public void drawRegion(Region region){
-		LogUtil.info(this+"draw region "+region.getId());
-		for(EntityInstance ei : region.getEntities())
-			ei.instanciate(ed, worldEntity);
-		
-		
-		TerrainDrawer drawer = new TerrainDrawer(region.getTerrain(), region.getCoord());
-		drawer.render();
-		terrainDrawers.put(region, drawer);
+		LogUtil.info(region+"draw region "+region.getId());
+		RegionArtisan.drawRegion(ed, worldEntity, region);
 		heightmapExplorer.add(region.getTerrain().getHeightMap());
-		
-		// get collision shape of parcels
-		Parcel p = region.getTerrain().getParcelling().get(0);
-		List<Segment2D> edges = new ArrayList<>();
-//		for(Parcel p : region.getTerrain().getParcelling().getAll())
-			for(HeightMapNode node : p.getHeights())
-				for(Triangle3D t : p.getTriangles().get(node)){
-					Segment3D border = getPlaneIntersection(t);
-					if(border != null){
-						edges.add(new Segment2D(border.p0.get2D(), border.p1.get2D()));
-						Geometry g = new Geometry("terrain border");
-						g.setMesh(new Line(TranslateUtil.toVector3f(border.p0.getAddition(0, 0, 0.1)), TranslateUtil.toVector3f(border.p1.getAddition(0, 0, 0.1))));
-						g.setMaterial(MaterialManager.getLightingColor(ColorRGBA.Cyan));
-						AppFacade.getRootNode().attachChild(g);
-					}
-				}
-		EntityId pe = ed.createEntity();
-		ed.setComponent(pe, new EdgedCollisionShape(edges));
-		ed.setComponent(pe, new Physic(Point2D.ORIGIN, "terrain", new ArrayList<>(), 1000000, new Fraction(0.2), null));
-		ed.setComponent(pe, new PlanarStance());
-	}
-	
-	private Point3D getPlaneIntersection(Segment3D seg){
-		Point3D planeNormal = Point3D.UNIT_Z; 
-		Point3D direction = seg.p1.getSubtraction(seg.p0);
-		double a = -planeNormal.getDotProduct(seg.p0);
-		double b = planeNormal.getDotProduct(direction);
-		if(b == 0)
-			return null;
-		double r = a/b;
-		if(r < 0 || r > 1)
-			return null;
-		
-		return seg.p0.getAddition(direction.getMult(r));
-	}
-	
-	private Segment3D getPlaneIntersection(Triangle3D t){
-		List<Point3D> intersections = new ArrayList<Point3D>();
-		for(Segment3D s : t.getEdges()){
-			Point3D i = getPlaneIntersection(s);
-			if(i != null)
-				intersections.add(i);
-		}
-		
-		if(intersections.size() == 2)
-			return new Segment3D(intersections.get(0), intersections.get(1));
-		else
-			return null;
 	}
 	
 	private void undrawRegion(Region region){
 		LogUtil.info(this+"undraw region "+region.getId());
-		for(EntityInstance ei : region.getEntities())
-			ei.uninstanciate(ed);
+		RegionArtisan.undrawRegion(ed, worldEntity, region);
 	}
 	
 	private List<Region> get9RegionsAround(Point2D coord){
@@ -181,10 +127,6 @@ public class WorldData {
 			if(!drawnRegions.contains(r))
 				drawRegion(r);
 		return res; 
-	}
-	
-	public TerrainDrawer getTerrainDrawer(Region region) {
-		return terrainDrawers.get(region);
 	}
 	
 	/**

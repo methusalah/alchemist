@@ -75,6 +75,8 @@ public class Model {
 	
 	public Model() {
 		ed = new PostingEntityData();
+		observer = new EntityDataObserver(ed);
+		
 		world = new WorldData(ed);
 		command = new Command();
 		
@@ -82,7 +84,6 @@ public class Model {
 		// TODO
 		// max value
 		// destruction of removed lights
-		observer = new EntityDataObserver(ed);
 		
 		inspector = new Inspector(ed, selectionProperty);
 		inspector.addUserComponent(Naming.class,

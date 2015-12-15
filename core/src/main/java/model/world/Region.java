@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.simsilica.es.EntityId;
 
 import model.ES.component.world.TerrainTexturing;
 import model.ES.serial.Blueprint;
@@ -14,6 +15,7 @@ import model.world.terrain.Terrain;
 import model.world.terrain.heightmap.Parcel;
 import model.world.terrain.heightmap.Parcelling;
 import util.geometry.geom2d.Point2D;
+import view.drawingProcessors.TerrainDrawer;
 
 public class Region {
 	public static final int RESOLUTION = 64;
@@ -22,6 +24,10 @@ public class Region {
 	private final Point2D coord;
 	private final List<EntityInstance> entities;
 	private final Terrain terrain;
+	
+	private EntityId entityId;
+	private List<EntityId> terrainColliders = new ArrayList<EntityId>();
+	private TerrainDrawer drawer;
 	
 	private boolean modified = false;
 
@@ -37,6 +43,7 @@ public class Region {
 				new ArrayList<Double>(){{add(1d);}});
 		terrain = new Terrain(RESOLUTION+1, RESOLUTION+1, t, coord);
 		entities = new ArrayList<>();
+		drawer = new TerrainDrawer(terrain, coord);
 	}
 	public Region(Point2D coord){
 		this(RegionManager.getRegionId(coord), RegionManager.getRegionCoord(coord));
@@ -50,6 +57,7 @@ public class Region {
 		this.coord = coord;
 		this.entities = entities;
 		this.terrain = terrain;
+		drawer = new TerrainDrawer(terrain, coord);
 	}
 	
 	public List<EntityInstance> getEntities() {
@@ -74,5 +82,26 @@ public class Region {
 		this.modified = modified;
 	}
 	
+	@JsonIgnore
+	public EntityId getEntityId() {
+		return entityId;
+	}
 	
+	public void setEntityId(EntityId entityId) {
+		this.entityId = entityId;
+	}
+
+	@JsonIgnore
+	public TerrainDrawer getDrawer() {
+		return drawer;
+	}
+	
+	@JsonIgnore
+	public List<EntityId> getTerrainColliders() {
+		return terrainColliders;
+	}
+	
+	public void setTerrainColliders(List<EntityId> terrainColliders) {
+		this.terrainColliders = terrainColliders;
+	}
 }

@@ -195,7 +195,7 @@ public class HeightMapTool extends PencilTool {
 		}
 		for (Region r : regions) {
 			r.getTerrain().getParcelling().updateParcelsContaining(nodes);
-			world.getTerrainDrawer(r).updateParcels(r.getTerrain().getParcelling().getParcelsContaining(nodes));
+			r.getDrawer().updateParcels(r.getTerrain().getParcelling().getParcelsContaining(nodes));
 		}
 	}
 }

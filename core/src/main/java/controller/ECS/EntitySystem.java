@@ -7,6 +7,7 @@ import model.ES.processor.world.WorldProc;
 import model.world.WorldData;
 import util.LogUtil;
 import view.drawingProcessors.CameraPlacingProc;
+import view.drawingProcessors.EdgeCollisionShapeDrawingProc;
 import view.drawingProcessors.LightProc;
 import view.drawingProcessors.ModelProc;
 import view.drawingProcessors.ParticleCasterInPlaneProc;
@@ -49,6 +50,7 @@ public class EntitySystem extends AbstractAppState{
 		visualStates.add(new ParticleCasterInPlaneProc());
 		visualStates.add(new ModelProc());
 		visualStates.add(new SpriteProc());
+		visualStates.add(new EdgeCollisionShapeDrawingProc());
 		
 		visualStates.add(new ModelPlacingProc());
 		visualStates.add(new SpritePlacingProc());

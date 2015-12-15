@@ -9,6 +9,7 @@ import util.LogUtil;
 import view.SpatialPool;
 import app.AppFacade;
 
+import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 
@@ -51,6 +52,7 @@ public class ModelProc extends Processor {
 				s.setName("unnamed entity #"+e.getId());
 			s.scale((float)model.scale);
 			s.setUserData("EntityId", e.getId().getId());
+			s.setShadowMode(ShadowMode.Cast);
 			SpatialPool.models.put(e.getId(), s);
 			AppFacade.getRootNode().attachChild(s);
 		}

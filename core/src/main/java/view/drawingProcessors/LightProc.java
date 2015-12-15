@@ -9,6 +9,9 @@ import view.math.TranslateUtil;
 import com.jme3.light.DirectionalLight;
 import com.jme3.light.PointLight;
 import com.jme3.light.SpotLight;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.shadow.DirectionalLightShadowFilter;
+import com.jme3.shadow.EdgeFilteringMode;
 import com.simsilica.es.Entity;
 
 import app.AppFacade;
@@ -19,6 +22,8 @@ import model.ES.component.visuals.Lighting;
 import controller.ECS.Processor;
 
 public class LightProc extends Processor {
+	int SHADOWMAP_SIZE = 4096;
+
 
 	@Override
 	protected void registerSets() {
@@ -54,11 +59,24 @@ public class LightProc extends Processor {
 			DirectionalLight light = new DirectionalLight();
 			SpatialPool.lights.put(e.getId(), light);
 			AppFacade.getRootNode().addLight(light);
+
+			if(l.shadowCaster){
+				DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(AppFacade.getAssetManager(), SHADOWMAP_SIZE, 1);
+				
+				sf.setEnabled(true);
+				sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
+				sf.setShadowZExtend(SHADOWMAP_SIZE);
+				FilterPostProcessor fpp = new FilterPostProcessor(AppFacade.getAssetManager());
+				fpp.addFilter(sf);
+				AppFacade.getViewPort().addProcessor(fpp);
+				sf.setLight(light);
+			}
 		}
 		DirectionalLight light = (DirectionalLight)SpatialPool.lights.get(e.getId());
 		
 		light.setColor(TranslateUtil.toColorRGBA(l.color).mult((float)(l.intensity*l.activation.getValue())));
 		light.setDirection(TranslateUtil.toVector3f(direction));
+
 	}
 	
 	private void managePoint(Entity e, Lighting l, Point3D position, Point3D direction){
