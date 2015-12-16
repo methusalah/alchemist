@@ -1,0 +1,47 @@
+{
+  "name" : "left front light",
+  "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "left front light"
+  }, {
+    "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+    "active" : true,
+    "localPosition" : {
+      "x" : 0.4,
+      "y" : 0.3,
+      "z" : 0.0
+    },
+    "localOrientation" : {
+      "value" : 0.0
+    }
+  }, {
+    "class" : "model.ES.component.motion.SpaceStance",
+    "position" : {
+      "x" : -6.033975901665655,
+      "y" : 3.5676261196768193,
+      "z" : 1.0
+    },
+    "direction" : {
+      "x" : -0.5982125998849022,
+      "y" : 0.8013374353784715,
+      "z" : 0.0
+    }
+  }, {
+    "class" : "model.ES.component.visuals.Lighting",
+    "color" : {
+      "a" : 255,
+      "r" : 255,
+      "g" : 255,
+      "b" : 255
+    },
+    "intensity" : 4.0,
+    "distance" : 6.0,
+    "innerAngle" : 0.5,
+    "outerAngle" : 0.7,
+    "shadowCaster" : false,
+    "activation" : {
+      "value" : 1.0
+    }
+  } ],
+  "children" : [ ]
+}
