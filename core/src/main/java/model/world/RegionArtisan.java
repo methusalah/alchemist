@@ -25,16 +25,17 @@ import com.simsilica.es.EntityId;
 public class RegionArtisan {
 
 	
-	public static void drawRegion(EntityData ed, EntityId worldEid, Region region){
+	public static void drawRegion(EntityData ed, Region region){
 		LogUtil.info("draw region "+region.getId()+" ("+RegionArtisan.class+")");
 		// instantiation of entity blueprints
 		for(EntityInstance ei : region.getEntities())
-			ei.instanciate(ed, worldEid);
+			ei.instanciate(ed, region.getEntityId());
 		
 		// Drawing of the terrain
 		region.getDrawer().render();
 		
 		// creation of collision entities for terrain
+		region.getTerrainColliders().clear();
 		for(Parcel p : region.getTerrain().getParcelling().getAll()){
 			List<Segment2D> edges = new ArrayList<>();
 			for(HeightMapNode node : p.getHeights())
@@ -46,13 +47,15 @@ public class RegionArtisan {
 						edges.add(new Segment2D(border.p0.get2D(), border.p1.get2D()));
 					}
 				}
-			EntityId pe = ed.createEntity();
-			ed.setComponent(pe, new Parenting(worldEid));
-			ed.setComponent(pe, new Naming("Parcel collision shape "+region.getTerrain().getParcelling().getCoord(p.getIndex())));
-			ed.setComponent(pe, new EdgedCollisionShape(edges));
-			ed.setComponent(pe, new Physic(Point2D.ORIGIN, "terrain", new ArrayList<>(), 1000000, new Fraction(0.2), null));
-			ed.setComponent(pe, new PlanarStance());
-			region.getTerrainColliders().add(pe);
+			if(!edges.isEmpty()){
+				EntityId pe = ed.createEntity();
+				ed.setComponent(pe, new Parenting(region.getEntityId()));
+				ed.setComponent(pe, new Naming("Parcel collision shape "+region.getTerrain().getParcelling().getCoord(p.getIndex())));
+				ed.setComponent(pe, new EdgedCollisionShape(edges));
+				ed.setComponent(pe, new Physic(Point2D.ORIGIN, "terrain", new ArrayList<>(), 1000000, new Fraction(0.2), null));
+				ed.setComponent(pe, new PlanarStance());
+				region.getTerrainColliders().add(pe);
+			}
 		}
 	}
 	

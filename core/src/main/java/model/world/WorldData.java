@@ -75,9 +75,17 @@ public class WorldData {
 		public void run() {
 			synchronized (drawnRegions) {
 				List<Region> toDraw = get9RegionsAround(coord);
-				for(Region r : toDraw)
+				for(Region r : toDraw){
+					if(r.getEntityId() == null){
+						EntityId eid = ed.createEntity();
+						ed.setComponent(eid, new Naming("Region "+r.getId()));
+						ed.setComponent(eid, new Parenting(worldEntity));
+						r.setEntityId(eid);
+					}
 					if(!drawnRegions.contains(r))
 						drawRegion(r);
+					
+				}
 				
 				for(Region r : drawnRegions)
 					if(!toDraw.contains(r) && !r.isModified())
@@ -112,7 +120,7 @@ public class WorldData {
 	}
 
 	public void drawRegion(Region region){
-		RegionArtisan.drawRegion(ed, worldEntity, region);
+		RegionArtisan.drawRegion(ed, region);
 		synchronized (drawersToAttach) {
 			drawersToAttach.add(region.getDrawer());
 		}

@@ -50,7 +50,7 @@ public class EntitySystem extends AbstractAppState{
 		visualStates.add(new ParticleCasterInPlaneProc());
 		visualStates.add(new ModelProc());
 		visualStates.add(new SpriteProc());
-		visualStates.add(new EdgeCollisionShapeDrawingProc());
+		//visualStates.add(new EdgeCollisionShapeDrawingProc());
 		
 		visualStates.add(new ModelPlacingProc());
 		visualStates.add(new SpritePlacingProc());

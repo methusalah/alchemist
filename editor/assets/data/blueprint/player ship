@@ -6,11 +6,11 @@
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
-      "x" : 3.264819875619113,
-      "y" : 4.147345631152775
+      "x" : -2.578715618204861,
+      "y" : 1.3675188600969392
     },
     "orientation" : {
-      "value" : 2.653270099610493
+      "value" : 77.74233295742188
     },
     "elevation" : 1.0,
     "upVector" : {
@@ -53,8 +53,8 @@
   }, {
     "class" : "model.ES.component.motion.physic.Physic",
     "velocity" : {
-      "x" : 0.06211859174775078,
-      "y" : 0.039506662201719625
+      "x" : -0.061327652198672304,
+      "y" : 0.2767857430031074
     },
     "type" : "",
     "exceptions" : [ ],
@@ -74,7 +74,7 @@
     "dragging" : 0.3
   }, {
     "class" : "model.ES.component.motion.MotionCapacity",
-    "maxRotationSpeed" : 12.0,
+    "maxRotationSpeed" : 24.0,
     "thrustPower" : 30.0,
     "lateralThrustPower" : 10.0,
     "frontalThrustPower" : 10.0
@@ -86,7 +86,7 @@
     }
   }, {
     "class" : "model.ES.component.motion.physic.CircleCollisionShape",
-    "radius" : 1.0
+    "radius" : 0.8
   } ],
   "children" : [ {
     "name" : "camera",
@@ -95,25 +95,25 @@
       "name" : "camera"
     }, {
       "class" : "model.ES.component.camera.ChasingCamera",
-      "maxSpeed" : 100.0,
-      "speed" : 0.060000000000000275,
-      "acceleration" : 1.0,
-      "deceleration" : 1.0,
+      "maxSpeed" : 200.0,
+      "speed" : 0.3199999999999986,
+      "acceleration" : 8.0,
+      "deceleration" : 8.0,
       "pos" : {
-        "x" : 3.2621939162245295,
-        "y" : 4.145675553196428,
+        "x" : -2.576989624554898,
+        "y" : 1.3597290553727024,
         "z" : 20.0
       },
       "target" : {
-        "x" : 3.2635775037841577,
-        "y" : 4.14655549790874,
+        "x" : -2.5774890651608877,
+        "y" : 1.3619831452368771,
         "z" : 1.0
       }
     }, {
       "class" : "model.ES.component.motion.PlanarStance",
       "coord" : {
-        "x" : 3.2621939162245295,
-        "y" : 4.145675553196428
+        "x" : -2.576989624554898,
+        "y" : 1.3597290553727024
       },
       "orientation" : {
         "value" : 0.0
@@ -177,11 +177,11 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : 3.7063804088182826,
-          "y" : 3.912773050656109
+          "x" : -2.229460712098346,
+          "y" : 1.0097186217508345
         },
         "orientation" : {
-          "value" : -0.4883225539792999
+          "value" : -0.7974833823229588
         },
         "elevation" : 1.0,
         "upVector" : {
@@ -208,7 +208,7 @@
           "z" : 0.0
         },
         "activationAngle" : {
-          "value" : 0.3490658503988659
+          "value" : 1.3962634015954636
         },
         "activation" : {
           "value" : 0.0
@@ -217,6 +217,22 @@
       }, {
         "class" : "model.ES.component.hierarchy.ThrustControl",
         "active" : true
+      }, {
+        "class" : "model.ES.component.visuals.Lighting",
+        "color" : {
+          "a" : 255,
+          "r" : 255,
+          "g" : 128,
+          "b" : 128
+        },
+        "intensity" : 4.0,
+        "distance" : 3.0,
+        "innerAngle" : 0.0,
+        "outerAngle" : 0.7,
+        "shadowCaster" : false,
+        "activation" : {
+          "value" : 0.0
+        }
       } ],
       "children" : [ {
         "name" : "main particle",
@@ -275,11 +291,11 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 3.7063804088182826,
-            "y" : 3.912773050656109
+            "x" : -2.229460712098346,
+            "y" : 1.0097186217508345
           },
           "orientation" : {
-            "value" : -0.4883225539792999
+            "value" : -0.7974833823229588
           },
           "elevation" : 1.0,
           "upVector" : {
@@ -346,11 +362,11 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 3.7063804088182826,
-            "y" : 3.912773050656109
+            "x" : -2.229460712098346,
+            "y" : 1.0097186217508345
           },
           "orientation" : {
-            "value" : -0.4883225539792999
+            "value" : -0.7974833823229588
           },
           "elevation" : 1.0,
           "upVector" : {
@@ -424,11 +440,11 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 3.7063804088182826,
-            "y" : 3.912773050656109
+            "x" : -2.229460712098346,
+            "y" : 1.0097186217508345
           },
           "orientation" : {
-            "value" : -0.4883225539792999
+            "value" : -0.7974833823229588
           },
           "elevation" : 1.0,
           "upVector" : {
@@ -447,11 +463,11 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : 2.8646569329604437,
-          "y" : 4.246691588910274
+          "x" : -2.929679590759294,
+          "y" : 1.58390806955252
         },
         "orientation" : {
-          "value" : 3.0896024126090755
+          "value" : 2.780441584265432
         },
         "elevation" : 1.0,
         "upVector" : {
@@ -545,11 +561,11 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 2.8646569329604437,
-            "y" : 4.246691588910274
+            "x" : -2.929679590759294,
+            "y" : 1.58390806955252
           },
           "orientation" : {
-            "value" : 3.0896024126090755
+            "value" : 2.780441584265432
           },
           "elevation" : 1.0,
           "upVector" : {
@@ -568,11 +584,11 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : 2.95848596515911,
-          "y" : 4.423315802189942
+          "x" : -2.786559495420852,
+          "y" : 1.723610031995126
         },
         "orientation" : {
-          "value" : 2.216937786611911
+          "value" : 1.9077769582682578
         },
         "elevation" : 1.0,
         "upVector" : {
@@ -666,11 +682,11 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 2.95848596515911,
-            "y" : 4.423315802189942
+            "x" : -2.786559495420852,
+            "y" : 1.723610031995126
           },
           "orientation" : {
-            "value" : 2.216937786611911
+            "value" : 1.9077769582682578
           },
           "elevation" : 1.0,
           "upVector" : {
@@ -689,11 +705,11 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : 3.3917711100200316,
-          "y" : 3.853435127624774
+          "x" : -2.5472082604900455,
+          "y" : 1.048916778481281
         },
         "orientation" : {
-          "value" : -1.4482536425761818
+          "value" : -1.7574144709198336
         },
         "elevation" : 1.0,
         "upVector" : {
@@ -787,11 +803,11 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 3.3917711100200316,
-            "y" : 3.853435127624774
+            "x" : -2.5472082604900455,
+            "y" : 1.048916778481281
           },
           "orientation" : {
-            "value" : -1.4482536425761818
+            "value" : -1.7574144709198336
           },
           "elevation" : 1.0,
           "upVector" : {
@@ -810,11 +826,11 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : 3.5794291744173643,
-          "y" : 4.20668355418411
+          "x" : -2.2609680698131616,
+          "y" : 1.3283207033664928
         },
         "orientation" : {
-          "value" : 0.47160853461758157
+          "value" : 0.16244770627394445
         },
         "elevation" : 1.0,
         "upVector" : {
@@ -908,11 +924,11 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 3.5794291744173643,
-            "y" : 4.20668355418411
+            "x" : -2.2609680698131616,
+            "y" : 1.3283207033664928
           },
           "orientation" : {
-            "value" : 0.47160853461758157
+            "value" : 0.16244770627394445
           },
           "elevation" : 1.0,
           "upVector" : {
@@ -960,6 +976,98 @@
     }, {
       "class" : "model.ES.component.hierarchy.AbilityTriggerControl",
       "active" : true
+    } ],
+    "children" : [ ]
+  }, {
+    "name" : "right front light",
+    "comps" : [ {
+      "class" : "model.ES.component.Naming",
+      "name" : "right front light"
+    }, {
+      "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+      "active" : true,
+      "localPosition" : {
+        "x" : 0.4,
+        "y" : -0.3,
+        "z" : 0.0
+      },
+      "localOrientation" : {
+        "value" : -0.17453292519943295
+      }
+    }, {
+      "class" : "model.ES.component.motion.SpaceStance",
+      "position" : {
+        "x" : -2.64343940008241,
+        "y" : 1.863311994437732,
+        "z" : 1.0
+      },
+      "direction" : {
+        "x" : -0.5636351599073103,
+        "y" : 0.8260238534789784,
+        "z" : 0.0
+      }
+    }, {
+      "class" : "model.ES.component.visuals.Lighting",
+      "color" : {
+        "a" : 255,
+        "r" : 255,
+        "g" : 255,
+        "b" : 255
+      },
+      "intensity" : 4.0,
+      "distance" : 12.0,
+      "innerAngle" : 0.2,
+      "outerAngle" : 0.5,
+      "shadowCaster" : false,
+      "activation" : {
+        "value" : 1.0
+      }
+    } ],
+    "children" : [ ]
+  }, {
+    "name" : "left front light",
+    "comps" : [ {
+      "class" : "model.ES.component.Naming",
+      "name" : "left front light"
+    }, {
+      "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+      "active" : true,
+      "localPosition" : {
+        "x" : 0.4,
+        "y" : 0.3,
+        "z" : 0.0
+      },
+      "localOrientation" : {
+        "value" : 0.17453292519943295
+      }
+    }, {
+      "class" : "model.ES.component.motion.SpaceStance",
+      "position" : {
+        "x" : -3.072799686097736,
+        "y" : 1.4442061071099142,
+        "z" : 1.0
+      },
+      "direction" : {
+        "x" : -0.812160597337682,
+        "y" : 0.583433941532458,
+        "z" : 0.0
+      }
+    }, {
+      "class" : "model.ES.component.visuals.Lighting",
+      "color" : {
+        "a" : 255,
+        "r" : 255,
+        "g" : 255,
+        "b" : 255
+      },
+      "intensity" : 4.0,
+      "distance" : 12.0,
+      "innerAngle" : 0.2,
+      "outerAngle" : 0.7,
+      "shadowCaster" : false,
+      "activation" : {
+        "value" : 1.0
+      }
     } ],
     "children" : [ ]
   } ]

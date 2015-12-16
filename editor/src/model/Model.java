@@ -45,6 +45,7 @@ import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.RandomVelocityToApply;
+import model.ES.component.motion.SpaceStance;
 import model.ES.component.motion.physic.CircleCollisionShape;
 import model.ES.component.motion.physic.Collisioning;
 import model.ES.component.motion.physic.Dragging;
@@ -88,6 +89,7 @@ public class Model {
 		inspector = new Inspector(ed, selectionProperty);
 		inspector.addUserComponent(Naming.class,
 				PlanarStance.class,
+				SpaceStance.class,
 				PlayerControl.class,
 				model.ES.component.visuals.Model.class,
 				Sprite.class,
