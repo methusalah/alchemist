@@ -36,7 +36,6 @@ public class CircleCircleCollisionProc extends Processor {
     	List<Entity> entities = new ArrayList<>();
     	for(Entity e : getSet("circle")){
     		entities.add(e);
-    		removeComp(e, Touching.class);
     	}
     	for(int i = 0; i < entities.size() - 1; i++){
         	for(int j = i+1; j < entities.size(); j++){
@@ -62,12 +61,11 @@ public class CircleCircleCollisionProc extends Processor {
 		double penetration = 0;
 		double d = c1.center.getDistance(c2.center);
 		double spacing = c1.radius+c2.radius;
-		penetration = spacing-d;
+		penetration = Math.max(0, spacing-d);
 		impactNormal = c2.center.getSubtraction(c1.center).getNormalized();
 		impactCoord = c1.center.getAddition(impactNormal.getScaled(c1.radius));
 		
-		if(penetration != 0)
-			CollisionResolutionProc.createCollisionBetween(entityData, e1, e2, penetration, impactNormal, impactCoord);
+		CollisionResolutionProc.createCollisionBetween(entityData, e1, e2, penetration, impactNormal, impactCoord);
 	}
 }
 

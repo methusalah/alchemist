@@ -11,6 +11,7 @@ import model.ES.component.interaction.senses.Touching;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Collisioning;
 import model.ES.component.motion.physic.Physic;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
 public class CollisionResolutionProc extends Processor {
@@ -67,17 +68,15 @@ public class CollisionResolutionProc extends Processor {
 				entityData.setComponent(collision, new Collisioning(e1.getId(), e2.getId(), penetration, impactNormal));
 				entityData.setComponent(collision, new ToRemove());
 				
-				
 				// we add touching component to each entity for other effects than physics
 				entityData.setComponent(e1.getId(), new Touching(e2.getId(), impactCoord, impactNormal));
-	
-				entityData.setComponent(e1.getId(), new Touching(e1.getId(), impactCoord, impactNormal.getNegation()));
+				entityData.setComponent(e2.getId(), new Touching(e1.getId(), impactCoord, impactNormal.getNegation()));
 			}
 		} else {
 			if(ph1.getSpawnerException() == e2.getId())
 				entityData.setComponent(e1.getId(), new Physic(ph1.getVelocity(), ph1.getType(), ph1.getExceptions(), ph1.getMass(), ph1.getRestitution(), null));
 			if(ph2.getSpawnerException() == e1.getId())
-				entityData.setComponent(e1.getId(), new Physic(ph2.getVelocity(), ph2.getType(), ph2.getExceptions(), ph2.getMass(), ph2.getRestitution(), null));
+				entityData.setComponent(e2.getId(), new Physic(ph2.getVelocity(), ph2.getType(), ph2.getExceptions(), ph2.getMass(), ph2.getRestitution(), null));
 		}
 	}
 }

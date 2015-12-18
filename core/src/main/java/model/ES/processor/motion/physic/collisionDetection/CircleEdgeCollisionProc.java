@@ -26,12 +26,6 @@ public class CircleEdgeCollisionProc extends Processor {
 	
 	@Override
 	protected void onUpdated() {
-    	for(Entity e : getSet("edge")){
-    		removeComp(e, Touching.class);
-    	}
-    	for(Entity e : getSet("circle")){
-    		removeComp(e, Touching.class);
-    	}
     	for(Entity edgeEntity : getSet("edge"))
         	for(Entity circleEntity : getSet("circle"))
         		recordCollisionState(edgeEntity, circleEntity);

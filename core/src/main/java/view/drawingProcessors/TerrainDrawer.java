@@ -100,7 +100,7 @@ public class TerrainDrawer {
 //			g2.setLocalTranslation(TranslateUtil.toVector3f(coord));
 			g2.setLocalTranslation(0, 0, 0.01f);
 			SpatialPool.coverParcels.put(parcel, g2);
-			castAndReceiveNode.attachChild(g2);
+//			castAndReceiveNode.attachChild(g2);
 		}
 	}
 

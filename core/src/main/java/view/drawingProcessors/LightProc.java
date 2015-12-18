@@ -12,6 +12,7 @@ import com.jme3.light.SpotLight;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.EdgeFilteringMode;
+import com.jme3.shadow.SpotLightShadowFilter;
 import com.simsilica.es.Entity;
 
 import app.AppFacade;
@@ -23,8 +24,13 @@ import controller.ECS.Processor;
 
 public class LightProc extends Processor {
 	int SHADOWMAP_SIZE = 4096;
+	FilterPostProcessor fpp;
 
-
+	public LightProc() {
+		fpp = new FilterPostProcessor(AppFacade.getAssetManager());
+		AppFacade.getViewPort().addProcessor(fpp);
+	}
+	
 	@Override
 	protected void registerSets() {
 		register("space", SpaceStance.class, Lighting.class);
@@ -66,10 +72,8 @@ public class LightProc extends Processor {
 				sf.setEnabled(true);
 				sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
 				sf.setShadowZExtend(SHADOWMAP_SIZE);
-				FilterPostProcessor fpp = new FilterPostProcessor(AppFacade.getAssetManager());
-				fpp.addFilter(sf);
-				AppFacade.getViewPort().addProcessor(fpp);
 				sf.setLight(light);
+				fpp.addFilter(sf);
 			}
 		}
 		DirectionalLight light = (DirectionalLight)SpatialPool.lights.get(e.getId());
@@ -91,11 +95,22 @@ public class LightProc extends Processor {
 		light.setPosition(TranslateUtil.toVector3f(position));
 		light.setRadius((float)l.distance);
 	}
+	
 	private void manageSpot(Entity e, Lighting l, Point3D position, Point3D direction){
 		if(!SpatialPool.lights.containsKey(e.getId()) || !(SpatialPool.lights.get(e.getId()) instanceof SpotLight)){
 			SpotLight light = new SpotLight();
 			SpatialPool.lights.put(e.getId(), light);
 			AppFacade.getRootNode().addLight(light);
+			
+			if(l.shadowCaster){
+				SpotLightShadowFilter sf = new SpotLightShadowFilter(AppFacade.getAssetManager(), 1024);
+				sf.setEnabled(true);
+//				sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
+//				sf.setShadowZExtend(SHADOWMAP_SIZE);
+				sf.setLight(light);
+				fpp.addFilter(sf);
+				LogUtil.info("hummm !");
+			}
 		}
 		SpotLight light = (SpotLight)SpatialPool.lights.get(e.getId());
 		

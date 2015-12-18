@@ -106,7 +106,6 @@ public class InspectorTab extends Tab {
 	private void inspectNewEntity(EntityPresenter ep){
 		compControl.getChildren().clear();
 		editors.clear();
-		LogUtil.info("inspect new entity");
 		for(EntityComponent comp : ep.componentListProperty()){
 			LogUtil.info("    comp : "+comp.getClass().getSimpleName()	);
 			ComponentEditor editor = new ComponentEditor(comp);
@@ -122,22 +121,19 @@ public class InspectorTab extends Tab {
 	
 
 	private void updateComponent(EntityComponent comp){
-		LogUtil.info("update "+comp.getClass().getSimpleName());
 		ComponentEditor editor = editors.get(comp.getClass());
 		if(editor.isExpanded())
 			editor.updateComponent(comp);
 	}
 	
 	private void addComponent(EntityComponent comp){
-		LogUtil.info("add "+comp.getClass().getSimpleName());
-				ComponentEditor editor = new ComponentEditor(comp);
+		ComponentEditor editor = new ComponentEditor(comp);
 		editors.put(comp.getClass(), editor);
 		compControl.getChildren().add(editor);
 	}
 	
 	private void removeComponent(EntityComponent comp){
-		LogUtil.info("remove "+comp.getClass().getSimpleName());
-				ComponentEditor editor = editors.get(comp.getClass());
+		ComponentEditor editor = editors.get(comp.getClass());
 		editors.remove(comp.getClass());
 		compControl.getChildren().remove(editor);
 	}

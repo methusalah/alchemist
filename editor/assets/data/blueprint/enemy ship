@@ -6,8 +6,8 @@
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
-      "x" : 40.942311432730875,
-      "y" : 28.87606975241189
+      "x" : 0.0,
+      "y" : 0.0
     },
     "orientation" : {
       "value" : -31.77946499113877
@@ -33,7 +33,11 @@
     }
   }, {
     "class" : "model.ES.component.assets.AbilityTrigger",
-    "triggers" : { }
+    "triggers" : {
+      "bonjour" : true,
+      "aurevoir" : false,
+      "ça va ?" : true
+    }
   }, {
     "class" : "model.ES.component.interaction.senses.Sighting",
     "range" : 5.0,
@@ -105,8 +109,8 @@
   }, {
     "class" : "model.ES.component.command.PlanarNeededThrust",
     "direction" : {
-      "x" : 9.458316064769747,
-      "y" : -4.461751992594646
+      "x" : 0.0,
+      "y" : 0.0
     }
   }, {
     "class" : "model.ES.component.motion.physic.CircleCollisionShape",

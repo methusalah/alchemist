@@ -16,20 +16,15 @@ import model.ES.component.motion.physic.Collisioning;
 import util.LogUtil;
 import util.geometry.geom3d.Point3D;
 
-public class DamageOnTouchProc extends Processor {
+public class TouchingClearingProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		registerDefault(DamageOnTouch.class, Touching.class);
+		registerDefault(Touching.class);
 	}
 	
 	@Override
-	protected void onEntityAdded(Entity e) {
-		
-		DamageOnTouch dmg = e.get(DamageOnTouch.class);
-		Touching touching = e.get(Touching.class);
-		EntityId eid = entityData.createEntity();
-		entityData.setComponent(eid, new Naming("damaging"));
-		entityData.setComponent(eid, new Damaging(e.getId(), touching.getTouched(), dmg.damage));
+	protected void onEntityEachTick(Entity e) {
+		removeComp(e, Touching.class);
 	}
 }

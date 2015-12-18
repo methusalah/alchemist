@@ -26,6 +26,7 @@ import model.ES.processor.interaction.DamagingProc;
 import model.ES.processor.interaction.DestroyedOnTouchProc;
 import model.ES.processor.interaction.EffectOnTouchProc;
 import model.ES.processor.interaction.ShockwaveOnTouchProc;
+import model.ES.processor.interaction.TouchingClearingProc;
 import model.ES.processor.motion.RandomVelocityApplicationProc;
 import model.ES.processor.motion.VelocityApplicationProc;
 import model.ES.processor.motion.physic.DraggingProc;
@@ -65,6 +66,7 @@ public class LogicThread implements Runnable {
 		stateManager.attach(new RandomVelocityApplicationProc());
 		stateManager.attach(new VelocityApplicationProc());
 		// collisions
+		stateManager.attach(new TouchingClearingProc());
 		stateManager.attach(new CircleCircleCollisionProc());
 		stateManager.attach(new CircleEdgeCollisionProc());
 		stateManager.attach(new EdgeEdgeCollisionProc());

@@ -37,7 +37,6 @@ public class EdgeEdgeCollisionProc extends Processor {
     	List<Entity> entities = new ArrayList<>();
     	for(Entity e : getSet("edge")){
     		entities.add(e);
-    		removeComp(e, Touching.class);
     	}
     	for(int i = 0; i < entities.size() - 1; i++){
         	for(int j = i+1; j < entities.size(); j++){
