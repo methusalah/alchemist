@@ -45,7 +45,7 @@ public class ListEditor extends PropertyEditor{
 			@Override
 			public void handle(ListView.EditEvent<String> t) {
 				list.getItems().set(t.getIndex(), t.getNewValue());
-				setChanged(null);
+				applyChange(null);
 			}
 		});
 
@@ -54,7 +54,7 @@ public class ListEditor extends PropertyEditor{
 			public void handle(ListView.EditEvent<String> t) {
 			}
 		});
-		list.addEventHandler(ActionEvent.ACTION, actionHandler);
+		list.addEventHandler(ActionEvent.ACTION, e -> applyChange(e));
 		setCenter(list);
 	}
 

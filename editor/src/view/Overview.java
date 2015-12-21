@@ -50,10 +50,6 @@ public class Overview {
 		stage.setScene(s);
 		stage.show();
 		stage.setTitle("Entity Editor");
-		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		      public void handle(WindowEvent e){
-		    	  EventManager.post(new AppClosedEvent());
-		      }
-		});
+		stage.setOnCloseRequest(e -> EventManager.post(new AppClosedEvent()));
 	}
 }

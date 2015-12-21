@@ -3,12 +3,16 @@ package view.controls.propertyEditor;
 import java.beans.PropertyDescriptor;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
+import view.controls.custom.KeyReleasedConsumingTextField;
 
 import com.simsilica.es.EntityComponent;
 
@@ -28,8 +32,8 @@ public class StringEditor extends PropertyEditor{
 		
 		valueField = new TextField();
 		valueField.setMaxWidth(Double.MAX_VALUE);
-		valueField.addEventHandler(ActionEvent.ACTION, actionHandler);
-		valueField.focusedProperty().addListener(focusChangeHandler);
+		valueField.addEventHandler(ActionEvent.ACTION, e -> applyChange(e));
+		valueField.focusedProperty().addListener(e -> setEditionMode());
 		setCenter(valueField);
 	}
 

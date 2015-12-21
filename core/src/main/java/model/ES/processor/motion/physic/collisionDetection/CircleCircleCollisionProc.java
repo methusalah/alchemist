@@ -64,6 +64,10 @@ public class CircleCircleCollisionProc extends Processor {
 		penetration = Math.max(0, spacing-d);
 		impactNormal = c2.center.getSubtraction(c1.center).getNormalized();
 		impactCoord = c1.center.getAddition(impactNormal.getScaled(c1.radius));
+		if(penetration >0 )
+			LogUtil.info(entityData.getComponent(e1.getId(), Naming.class).getName() +
+					" collides with "+
+						entityData.getComponent(e2.getId(), Naming.class).getName());
 		
 		CollisionResolutionProc.createCollisionBetween(entityData, e1, e2, penetration, impactNormal, impactCoord);
 	}

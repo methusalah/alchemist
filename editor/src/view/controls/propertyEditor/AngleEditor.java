@@ -27,13 +27,13 @@ public class AngleEditor extends PropertyEditor{
 		
 		valueField = new TextField();
 		valueField.setPrefWidth(100);
-		valueField.addEventHandler(ActionEvent.ACTION, actionHandler);
-		valueField.focusedProperty().addListener(focusChangeHandler);
+		valueField.addEventHandler(ActionEvent.ACTION, e -> applyChange(e));
+		valueField.focusedProperty().addListener(e -> setEditionMode());
 		box.getChildren().add(valueField);
 		
 		knob = new Knob(0);
-		knob.addEventHandler(ActionEvent.ACTION, actionHandler);
-		knob.focusedProperty().addListener(focusChangeHandler);
+		knob.addEventHandler(ActionEvent.ACTION, e -> applyChange(e));
+		knob.focusedProperty().addListener(e -> setEditionMode());
 		box.getChildren().add(knob);
 	}
 
@@ -50,7 +50,7 @@ public class AngleEditor extends PropertyEditor{
 	}
 	
 	@Override
-	protected void setChanged(ActionEvent event) {
+	protected void applyChange(ActionEvent event) {
 		if(event.getSource() == knob)
 			valueField.setText(df.format(knob.getOrientation()));
 		else{
@@ -60,7 +60,7 @@ public class AngleEditor extends PropertyEditor{
 			valueField.setText(df.format(angle));
 			knob.setOrientation(angle);
 		}
-		super.setChanged(event);
+		super.applyChange(event);
 	}
 	
 	

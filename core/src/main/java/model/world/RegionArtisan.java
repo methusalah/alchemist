@@ -47,15 +47,15 @@ public class RegionArtisan {
 						edges.add(new Segment2D(border.p0.get2D(), border.p1.get2D()));
 					}
 				}
-			if(!edges.isEmpty()){
-				EntityId pe = ed.createEntity();
-				ed.setComponent(pe, new Parenting(region.getEntityId()));
-				ed.setComponent(pe, new Naming("Parcel collision shape "+region.getTerrain().getParcelling().getCoord(p.getIndex())));
-				ed.setComponent(pe, new EdgedCollisionShape(edges));
-				ed.setComponent(pe, new Physic(Point2D.ORIGIN, "terrain", new ArrayList<>(), 1000000, new Fraction(0.2), null));
-				ed.setComponent(pe, new PlanarStance());
-				region.getTerrainColliders().add(pe);
-			}
+//			if(!edges.isEmpty()){
+//				EntityId pe = ed.createEntity();
+//				ed.setComponent(pe, new Parenting(region.getEntityId()));
+//				ed.setComponent(pe, new Naming("Parcel collision shape "+region.getTerrain().getParcelling().getCoord(p.getIndex())));
+//				ed.setComponent(pe, new EdgedCollisionShape(edges));
+//				ed.setComponent(pe, new Physic(Point2D.ORIGIN, "terrain", new ArrayList<>(), 1000000, new Fraction(0.2), null));
+//				ed.setComponent(pe, new PlanarStance());
+//				region.getTerrainColliders().add(pe);
+//			}
 		}
 	}
 	

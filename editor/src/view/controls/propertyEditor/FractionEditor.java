@@ -31,20 +31,15 @@ public class FractionEditor extends PropertyEditor{
 		
 		valueField = new TextField();
 		valueField.setPrefWidth(100);
-		valueField.addEventHandler(ActionEvent.ACTION, actionHandler);
-		valueField.focusedProperty().addListener(focusChangeHandler);
+		valueField.addEventHandler(ActionEvent.ACTION, e -> applyChange(e));
+		valueField.focusedProperty().addListener(e -> setEditionMode());
 		box.getChildren().add(valueField);
 		
 		slider = new Slider();
 		slider.setMax(1);
 		slider.setMin(0);
-		slider.focusedProperty().addListener(focusChangeHandler);
-		slider.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
-            	setChanged(new ActionEvent(slider, null));
-            }
-        });
-		//slider.addEventHandler(ActionEvent.ACTION, actionHandler);
+		slider.focusedProperty().addListener(e -> setEditionMode());
+		slider.valueProperty().addListener(e -> applyChange(new ActionEvent(slider, null)));
 		box.getChildren().add(slider);
 	}
 
@@ -61,12 +56,12 @@ public class FractionEditor extends PropertyEditor{
 	}
 	
 	@Override
-	protected void setChanged(ActionEvent event) {
+	protected void applyChange(ActionEvent event) {
 		if(event.getSource() == slider)
 			valueField.setText(df.format(slider.getValue()));
 		else{
 			slider.setValue(Double.parseDouble(valueField.getText()));
 		}
-		super.setChanged(event);
+		super.applyChange(event);
 	}
 }

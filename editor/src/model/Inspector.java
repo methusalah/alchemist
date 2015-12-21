@@ -37,13 +37,7 @@ public class Inspector {
 	public Inspector(EntityData entityData, ObjectProperty<EntityPresenter> selection) {
 		this.entityData = entityData;
 		ep = selection.getValue();
-		selection.addListener(new ChangeListener<EntityPresenter>() {
-			
-			@Override
-			public void changed(ObservableValue<? extends EntityPresenter> observable, EntityPresenter oldValue, EntityPresenter newValue) {
-				ep = newValue;
-			}
-		});
+		selection.addListener((observable, oldValue, newValue) -> ep = newValue);
 		
 		EventManager.register(this);
 	}

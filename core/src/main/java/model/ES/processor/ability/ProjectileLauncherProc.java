@@ -28,6 +28,7 @@ import model.ES.component.visuals.Model;
 import model.ES.richData.Damage;
 import model.ES.serial.Blueprint;
 import model.ES.serial.BlueprintLibrary;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
@@ -68,12 +69,10 @@ public class ProjectileLauncherProc extends Processor {
 				
 				// application of the velocity of the parent to the projectile
 				entityData.setComponent(firing, new PlanarVelocityToApply(new Point2D(15, 0).getRotation(orientation)));
-				EntityId p = entityData.getComponent(e.getId(), Parenting.class).getParent();
-				
-				
 				entityData.setComponent(firing, new Model("human/hmissileT1/hmissileT1_02.mesh.xml", 0.0025, new Angle(0), new Angle(AngleUtil.toRadians(-90)), new Angle(0)));
 				List<String> exceptions = new ArrayList<>();
 				exceptions.add("Missile");
+				EntityId p = entityData.getComponent(e.getId(), Parenting.class).getParent();
 				entityData.setComponent(firing, new Physic(Point2D.ORIGIN, "Missile", exceptions, 1, new Fraction(0), p));
 				entityData.setComponent(firing, new CircleCollisionShape(0.1));
 				entityData.setComponent(firing, new DestroyedOnTouch());

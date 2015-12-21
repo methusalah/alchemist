@@ -21,8 +21,8 @@ public class BooleanEditor extends PropertyEditor{
 	@Override
 	protected void createEditor() {
 		valueBox = new CheckBox();
-		valueBox.addEventHandler(ActionEvent.ACTION, actionHandler);
-		valueBox.focusedProperty().addListener(focusChangeHandler);
+		valueBox.addEventHandler(ActionEvent.ACTION, e -> applyChange(e));
+		valueBox.focusedProperty().addListener(e -> setEditionMode());
 		setCenter(valueBox);
 	}
 

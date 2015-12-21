@@ -57,7 +57,7 @@ public class MapEditor extends PropertyEditor{
 			@Override
 			public void handle(CellEditEvent<Entry<String, Object>, String> arg0) {
 				items.set(arg0.getTablePosition().getRow(), new MyEntry<String,  Object>(arg0.getNewValue(), arg0.getRowValue().getValue()));
-				setChanged(null);
+				applyChange(null);
 			}
 		});
 
@@ -76,7 +76,7 @@ public class MapEditor extends PropertyEditor{
 			@Override
 			public void handle(CellEditEvent<Entry<String, Object>, String> arg0) {
 				items.set(arg0.getTablePosition().getRow(), new MyEntry<String,  Object>(arg0.getRowValue().getKey(), Boolean.parseBoolean(arg0.getNewValue())));
-				setChanged(null);
+				applyChange(null);
 			}
 		});
 
@@ -98,7 +98,7 @@ public class MapEditor extends PropertyEditor{
 		setMinHeight(100);
 		table.setEditable(true);
 		
-		table.addEventHandler(ActionEvent.ACTION, actionHandler);
+		table.addEventHandler(ActionEvent.ACTION, e -> applyChange(e));
 		setCenter(table);
 	}
 

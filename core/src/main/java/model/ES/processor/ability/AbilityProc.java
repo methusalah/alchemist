@@ -1,13 +1,13 @@
 package model.ES.processor.ability;
 
 
-import model.ES.component.assets.AbilityTrigger;
 import model.ES.commonLogic.Controlling;
 import model.ES.component.assets.Ability;
+import model.ES.component.assets.AbilityTrigger;
 import model.ES.component.hierarchy.AbilityTriggerControl;
-import model.ES.component.hierarchy.Parenting;
 
 import com.simsilica.es.Entity;
+
 import controller.ECS.Processor;
 
 public class AbilityProc extends Processor {
@@ -27,7 +27,7 @@ public class AbilityProc extends Processor {
 				return;
 	
 			Ability a = e.get(Ability.class);
-				
+
 			if(trigger.triggers.containsKey(a.getName()))
 				setComp(e, new Ability(a.getName(), trigger.triggers.get(a.getName())));
 			else

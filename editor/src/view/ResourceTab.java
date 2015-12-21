@@ -61,43 +61,27 @@ public class ResourceTab extends Tab {
 					}
 				};
 
-				cell.setOnDragDetected(new EventHandler<MouseEvent>() {
-
-					@Override
-					public void handle(MouseEvent mouseEvent) {
-						Dragpool.setContent(cell.getItem());
-						
-	                	Dragboard db = cell.startDragAndDrop(TransferMode.ANY);
-	                    ClipboardContent content = new ClipboardContent();
-	                    content.putString("");
-	                    db.setContent(content);
-
-						mouseEvent.consume();
-					}
+				cell.setOnDragDetected(e -> {
+					Dragpool.setContent(cell.getItem());
+	                Dragboard db = cell.startDragAndDrop(TransferMode.ANY);
+                	ClipboardContent content = new ClipboardContent();
+                	content.putString("");
+                	db.setContent(content);
+	                e.consume();
 				});
 				return cell;
 			}
 		});
 		
-		list.setOnDragOver(new EventHandler<DragEvent>() {
-
-			@Override
-			public void handle(DragEvent event) {
-				if (Dragpool.containsType(EntityPresenter.class)) {
-					event.acceptTransferModes(TransferMode.ANY);
-				}
-				event.consume();
-			}
+		list.setOnDragOver(e -> {
+			if (Dragpool.containsType(EntityPresenter.class))
+				e.acceptTransferModes(TransferMode.ANY);
+			e.consume();
 		});
 
-		list.setOnDragDropped(new EventHandler<DragEvent>() {
-
-			@Override
-			public void handle(DragEvent event) {
-				if (Dragpool.containsType(EntityPresenter.class)) {
-					EventManager.post(new SaveEntityEvent((EntityPresenter) Dragpool.grabContent(EntityPresenter.class)));
-				}
-			}
+		list.setOnDragDropped(e -> {
+			if (Dragpool.containsType(EntityPresenter.class))
+				EventManager.post(new SaveEntityEvent((EntityPresenter) Dragpool.grabContent(EntityPresenter.class)));
 		});
 	}
 

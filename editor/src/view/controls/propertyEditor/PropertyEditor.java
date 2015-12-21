@@ -29,26 +29,6 @@ public abstract class PropertyEditor extends BorderPane {
 	private boolean ready = false;
 	protected boolean editionMode = false;
 	
-	EventHandler<ActionEvent> actionHandler = new EventHandler<ActionEvent>() {
-
-		@Override
-		public void handle(ActionEvent event) {
-			//editionMode = false;
-			setChanged(event);
-		}
-	};
-	
-	ChangeListener<Boolean> focusChangeHandler = new ChangeListener<Boolean>()
-			{
-	    @Override
-	    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue)
-	    {
-	    	editionMode = newValue;
-	    }
-	};
-
-
-	
 	public PropertyEditor(EntityComponent comp, PropertyDescriptor pd) {
 		df = (DecimalFormat)DecimalFormat.getNumberInstance(Locale.ENGLISH);
 		df.setMinimumFractionDigits(2);
@@ -92,8 +72,14 @@ public abstract class PropertyEditor extends BorderPane {
 		}
 	}
 	
-	protected void setChanged(ActionEvent event){
-		if(ready)
+	protected void applyChange(ActionEvent event){
+		if(ready){
 			EventManager.post(new ComponentPropertyChanged(comp, pd.getName(), getPropertyValue()));
+			this.requestFocus();
+		}
+	}
+
+	protected void setEditionMode(){
+		editionMode = true;
 	}
 }

@@ -1,12 +1,8 @@
 package view;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
@@ -36,24 +32,16 @@ public class WorldEditorTab extends Tab {
 		tabpane.getTabs().add(new TrinketTab());
 		content.getChildren().add(tabpane);
 
-		tabpane.selectionModelProperty().getValue().selectedItemProperty().addListener(new ChangeListener<Tab>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
+		tabpane.selectionModelProperty().getValue().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 				ToolEditor editor = (ToolEditor)newValue;
 				presenter.selectTool(editor.getTool());
-			}
 		});
 
-		setOnSelectionChanged(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event event) {
-				if(getTabPane().selectionModelProperty().get().getSelectedItem() != WorldEditorTab.this)
-					presenter.selectTool(null);
-				else
-					presenter.selectTool(((ToolEditor)tabpane.selectionModelProperty().getValue().getSelectedItem()).getTool());
-			}
+		setOnSelectionChanged(e -> {
+			if(getTabPane().selectionModelProperty().get().getSelectedItem() != WorldEditorTab.this)
+				presenter.selectTool(null);
+			else
+				presenter.selectTool(((ToolEditor)tabpane.selectionModelProperty().getValue().getSelectedItem()).getTool());
 		});
 		setContent(content);
 	}

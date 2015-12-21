@@ -9,6 +9,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ListChangeListener.Change;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -33,21 +34,17 @@ public class InspectorTab extends Tab {
 	Button addCompButton;
 	
 	
-	ListChangeListener<EntityComponent> listener = new ListChangeListener<EntityComponent>() {
-
-		@Override
-		public void onChanged(Change<? extends EntityComponent> change) {
-			while(change.next())
-				if(change.wasReplaced())
-					for(EntityComponent comp : change.getAddedSubList())
+	ListChangeListener<EntityComponent> listener = e -> {
+		while(e.next())
+				if(e.wasReplaced())
+					for(EntityComponent comp : e.getAddedSubList())
 						updateComponent(comp);
-				else if(change.wasAdded())
-					for(EntityComponent comp : change.getAddedSubList())
+				else if(e.wasAdded())
+					for(EntityComponent comp : e.getAddedSubList())
 						addComponent(comp);
-				else if(change.wasRemoved())
-					for(EntityComponent comp : change.getRemoved())
+				else if(e.wasRemoved())
+					for(EntityComponent comp : e.getRemoved())
 						removeComponent(comp);
-		}
 	};
 	
 	Map<Class<? extends EntityComponent>, ComponentEditor> editors = new HashMap<>();
@@ -55,16 +52,12 @@ public class InspectorTab extends Tab {
 	public InspectorTab(ObjectProperty<EntityPresenter> selection) {
 		setText("Inspector");
 		setClosable(false);
-		selection.addListener(new ChangeListener<EntityPresenter>() {
-			
-			@Override
-			public void changed(ObservableValue<? extends EntityPresenter> observable, EntityPresenter oldValue, EntityPresenter newValue) {
-				inspectNewEntity(newValue);
-				if(oldValue != null)
-					oldValue.componentListProperty().removeListener(listener);
-				newValue.componentListProperty().addListener(listener);
-				info.textProperty().bind(newValue.nameProperty());
-			}
+		selection.addListener((observable, oldValue, newValue) -> {
+			inspectNewEntity(newValue);
+			if(oldValue != null)
+				oldValue.componentListProperty().removeListener(listener);
+			newValue.componentListProperty().addListener(listener);
+			info.textProperty().bind(newValue.nameProperty());
 		});
 		
 		VBox content = new VBox();
@@ -77,25 +70,21 @@ public class InspectorTab extends Tab {
 		
 		addCompButton = new Button("Add component");
 		addCompButton.setVisible(false);
-		addCompButton.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				if(compNames == null || compNames.isEmpty()){
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Error");
-					alert.setHeaderText(null);
-					alert.setContentText("There is no component available.");
-				} else {
-					ChoiceDialog<String> dialog = new ChoiceDialog<>(compNames.get(0), compNames);
-					dialog.setTitle("Component choice".toUpperCase());
-					dialog.setHeaderText(null);
-					dialog.setContentText("Choose the component in the list :");
+		addCompButton.setOnAction(e -> {
+			if(compNames == null || compNames.isEmpty()){
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Error");
+				alert.setHeaderText(null);
+				alert.setContentText("There is no component available.");
+			} else {
+				ChoiceDialog<String> dialog = new ChoiceDialog<>(compNames.get(0), compNames);
+				dialog.setTitle("Component choice".toUpperCase());
+				dialog.setHeaderText(null);
+				dialog.setContentText("Choose the component in the list :");
 
-					// Traditional way to get the response value.
-					Optional<String> result = dialog.showAndWait();
-					result.ifPresent(compName -> EventManager.post(new AddComponentEvent(compName)));
-				}
+				// Traditional way to get the response value.
+				Optional<String> result = dialog.showAndWait();
+				result.ifPresent(compName -> EventManager.post(new AddComponentEvent(compName)));
 			}
 		});
 		content.getChildren().add(addCompButton);
@@ -137,5 +126,4 @@ public class InspectorTab extends Tab {
 		editors.remove(comp.getClass());
 		compControl.getChildren().remove(editor);
 	}
-	
 }

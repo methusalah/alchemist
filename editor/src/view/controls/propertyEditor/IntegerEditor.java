@@ -24,8 +24,8 @@ public class IntegerEditor extends PropertyEditor{
 	protected void createEditor() {
 		valueField = new TextField();
 		valueField.setPrefWidth(100);
-		valueField.addEventHandler(ActionEvent.ACTION, actionHandler);
-		valueField.focusedProperty().addListener(focusChangeHandler);
+		valueField.addEventHandler(ActionEvent.ACTION, e -> applyChange(e));
+		valueField.focusedProperty().addListener(e -> setEditionMode());
 		setCenter(valueField);
 	}
 

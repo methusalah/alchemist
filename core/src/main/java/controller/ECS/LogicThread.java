@@ -64,6 +64,7 @@ public class LogicThread implements Runnable {
 		stateManager.attach(new DraggingProc());
 		stateManager.attach(new PhysicForceProc());
 		stateManager.attach(new RandomVelocityApplicationProc());
+		stateManager.attach(new BoostProc());
 		stateManager.attach(new VelocityApplicationProc());
 		// collisions
 		stateManager.attach(new TouchingClearingProc());
@@ -88,7 +89,6 @@ public class LogicThread implements Runnable {
 		
 		stateManager.attach(new SpawningProc());
 		stateManager.attach(new ProjectileLauncherProc());
-		stateManager.attach(new BoostProc());
 
 		stateManager.attach(new DamagingProc());
 		stateManager.attach(new AttritionProc());

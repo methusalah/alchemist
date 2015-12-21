@@ -2,13 +2,10 @@ package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import util.geometry.geom2d.Point2D;
 
@@ -33,8 +30,8 @@ public class Point2DEditor extends PropertyEditor{
 		// x text field
 		xField = new TextField();
 		xField.setPrefWidth(WIDTH);
-		xField.addEventHandler(ActionEvent.ACTION, actionHandler);
-		xField.focusedProperty().addListener(focusChangeHandler);
+		xField.addEventHandler(ActionEvent.ACTION, e -> applyChange(e));
+		xField.focusedProperty().addListener(e -> setEditionMode());
 
 		box.getChildren().add(xField);
 		
@@ -44,8 +41,8 @@ public class Point2DEditor extends PropertyEditor{
 		// y texte field
 		yField = new TextField();
 		yField.setPrefWidth(WIDTH);
-		yField.addEventHandler(ActionEvent.ACTION, actionHandler);
-		yField.focusedProperty().addListener(focusChangeHandler);
+		yField.addEventHandler(ActionEvent.ACTION, e -> applyChange(e));
+		yField.focusedProperty().addListener(e -> setEditionMode());
 		box.getChildren().add(yField);
 	}
 

@@ -1,5 +1,8 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import application.topDownScene.SceneInputManager;
 import application.topDownScene.TopDownSceneController;
 import javafx.event.EventHandler;
@@ -18,7 +21,7 @@ public class SceneViewer extends Pane {
 	
 	private SceneInputManager inputManager;
 	private final ImageView image;
-	
+	private List<KeyCode> pressed = new ArrayList<KeyCode>();
 	
 	public ImageView getImage() {
 		return image;
@@ -26,7 +29,7 @@ public class SceneViewer extends Pane {
 
 	
 	public SceneViewer() {
-		setFocusTraversable(false);
+		setFocusTraversable(true);
 		image = new ImageView();
 		setStyle("-fx-background-color: gray");
 
@@ -36,44 +39,13 @@ public class SceneViewer extends Pane {
 
 
 		// Camera rotation
-		image.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent e) {
-				inputManager.onMousePressed(e);
-			}
-		});
-		image.setOnMouseDragged(new EventHandler<MouseEvent>() {
-			
-			@Override
-			public void handle(MouseEvent e) {
-				inputManager.onMouseMoved(e);
-			}
-		});
-
-		image.setOnMouseReleased(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent e) {
-				inputManager.onMouseReleased(e);
-			}
-		});
-		image.setOnMouseMoved(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent e) {
-				inputManager.onMouseMoved(e);
-			}
-		});
+		image.setOnMousePressed(e -> inputManager.onMousePressed(e));
+		image.setOnMouseDragged(e -> inputManager.onMouseMoved(e));
+		image.setOnMouseReleased(e -> inputManager.onMouseReleased(e));
+		image.setOnMouseMoved(e -> inputManager.onMouseMoved(e));
 		
 		// camera zoom
-		image.setOnScroll(new EventHandler<ScrollEvent>() {
-
-			@Override
-			public void handle(ScrollEvent e) {
-				inputManager.onMouseScroll(e);
-			}
-		});
+		image.setOnScroll(e -> inputManager.onMouseScroll(e));
 		
 		getChildren().add(image);
 
@@ -85,19 +57,14 @@ public class SceneViewer extends Pane {
 	
 	public void registerKeyInputs(Scene rootScene){
 		// camera motion
-		rootScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent e) {
-				inputManager.onKeyPressed(e);
-			}
+		rootScene.setOnKeyPressed(e -> {
+			inputManager.onKeyPressed(e);
+			pressed.add(e.getCode());
 		});
-
-		rootScene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent e) {
+		rootScene.setOnKeyReleased(e -> {
+			if(pressed.contains(e.getCode())){
 				inputManager.onKeyReleased(e);
+				pressed.remove(e.getCode());
 			}
 		});
 	}
