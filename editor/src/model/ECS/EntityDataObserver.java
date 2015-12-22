@@ -50,10 +50,7 @@ public class EntityDataObserver {
 	
 	@Subscribe
 	public void handleComponentSetEvent(ComponentSetEvent e){
-		Platform.runLater(new Runnable() {
-			
-			@Override
-			public void run() {
+		Platform.runLater(() -> {
 				if(e.getCompClass() == Parenting.class){
 					removePresenterFromParent(getPresenter(e.getEntityId()), (Parenting)e.getLastComp());
 					if(e.getNewComp() != null){
@@ -81,33 +78,24 @@ public class EntityDataObserver {
 						ep.componentListProperty().add(e.getNewComp());
 					}
 				}
-			}
 		});
 	}
 
 	@Subscribe
 	public void handleEntityAddedEvent(EntityAddedEvent e){
-		Platform.runLater(new Runnable() {
-			
-			@Override
-			public void run() {
+		Platform.runLater(() -> {
 				EntityPresenter ep = new EntityPresenter(e.getEntityId(), "Just created. Should not be seen.");
 				rootEntityPresenter.childrenListProperty().add(ep);
 				presenters.put(ep.getEntityId(), ep);
-			}
 		});
 	}
 
 	@Subscribe
 	public void handleEntityRemovedEvent(EntityRemovedEvent e){
-		Platform.runLater(new Runnable() {
-			
-			@Override
-			public void run() {
+		Platform.runLater(() -> {
 				Parenting parenting = entityData.getComponent(e.getEntityId(), Parenting.class);
 				removePresenterFromParent(getPresenter(e.getEntityId()), parenting);
 				presenters.remove(e.getEntityId());
-			}
 		});
 	}
 	

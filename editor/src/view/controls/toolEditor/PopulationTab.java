@@ -29,35 +29,26 @@ public class PopulationTab extends Tab implements ToolEditor {
 		blueprintList = new SimpleListProperty<Blueprint>(FXCollections.observableArrayList(BlueprintLibrary.getAllBlueprints()));
 		list.setItems(blueprintList);
 		
-		list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Blueprint>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Blueprint> observable, Blueprint oldValue, Blueprint newValue) {
-				if(newValue != null){
-					tool.setBlueprint(newValue);
-				}
-			}
+		list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue != null)
+				tool.setBlueprint(newValue);
 		});
 		
-		list.setCellFactory(new Callback<ListView<Blueprint>, ListCell<Blueprint>>() {
+		list.setCellFactory(e -> {
+			ListCell<Blueprint> cell = new ListCell<Blueprint>() {
 
-			@Override
-			public ListCell<Blueprint> call(ListView<Blueprint> list) {
-				ListCell<Blueprint> cell = new ListCell<Blueprint>() {
-
-					@Override
-					protected void updateItem(Blueprint item, boolean empty) {
-						super.updateItem(item, empty);
-						if (item != null) {
-							setText(item.getName());
-						} else {
-							setText(null);
-							setGraphic(null);
-						}
+				@Override
+				protected void updateItem(Blueprint item, boolean empty) {
+					super.updateItem(item, empty);
+					if (item != null) {
+						setText(item.getName());
+					} else {
+						setText(null);
+						setGraphic(null);
 					}
-				};
-				return cell;
-			}
+				}
+			};
+			return cell;
 		});
 	}
 	

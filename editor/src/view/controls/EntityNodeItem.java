@@ -1,7 +1,5 @@
 package view.controls;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.TreeItem;
 import model.EntityPresenter;
@@ -12,10 +10,7 @@ public class EntityNodeItem extends TreeItem<EntityPresenter> {
 	public EntityNodeItem(EntityPresenter ep) {
 		setValue(ep);
 		if(ep != null){
-			ep.childrenListProperty().addListener(new ListChangeListener<EntityPresenter>() {
-
-				@Override
-				public void onChanged(Change<? extends EntityPresenter> c) {
+			ep.childrenListProperty().addListener((ListChangeListener.Change<? extends EntityPresenter> c) ->{
 					while(c.next()){
 						if(c.wasAdded()){
 							for(EntityPresenter added : c.getAddedSubList()){
@@ -27,20 +22,14 @@ public class EntityNodeItem extends TreeItem<EntityPresenter> {
 							}
 						}
 					}
-				}
 			});
-			
 		}
 		
-		expandedProperty().addListener(new ChangeListener<Boolean>() {
-			
-		    @Override
-		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+		expandedProperty().addListener((observable, oldValue, newValue) -> {
 		        if(newValue)
 		        	UIConfig.expandedEntityNodes.add(getValue());
 		        else
 		        	UIConfig.expandedEntityNodes.remove(getValue());
-		    }
 		});
 		
 		setExpanded(UIConfig.expandedEntityNodes.contains(getValue()));

@@ -1,7 +1,5 @@
 package view.controls.toolEditor;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
@@ -33,37 +31,19 @@ public class HeighmapTab extends Tab implements ToolEditor {
 	
 	private Button getRiseLowButton(){
 		IconButton res = new IconButton("assets/textures/editor/rise_low_icon.png", "Rise/Low");
-		res.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				tool.setOperation(OPERATION.Raise_Low);
-			}
-		});
+		res.setOnAction(e -> tool.setOperation(OPERATION.Raise_Low));
 		return res;
 	}
 
 	private Button getNoiseSmoothButton(){
 		IconButton res = new IconButton("assets/textures/editor/noise_smooth_icon.png", "Noise/Smooth");
-		res.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				tool.setOperation(OPERATION.Noise_Smooth);
-			}
-		});
+		res.setOnAction(e -> tool.setOperation(OPERATION.Noise_Smooth));
 		return res;
 	}
 
 	private Button getUniformResetButton(){
 		IconButton res = new IconButton("assets/textures/editor/uniform_reset_icon.png", "Uniform/Reset");
-		res.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				tool.setOperation(OPERATION.Uniform_Reset);
-			}
-		});
+		res.setOnAction(e -> tool.setOperation(OPERATION.Uniform_Reset));
 		return res;
 	}
 

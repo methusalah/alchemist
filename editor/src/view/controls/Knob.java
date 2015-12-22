@@ -32,11 +32,9 @@ public class Knob extends Pane {
 		getChildren().add(c1);
 		getChildren().add(c2);
 		getChildren().add(c3);
-		setOnMouseDragged(new EventHandler<MouseEvent>() {
-		    public void handle(MouseEvent event) {
-		    	updateRate(event);
-		        event.consume();
-		    }
+		setOnMouseDragged(e -> {
+	    	updateRate(e);
+	        e.consume();
 		});
 		setOrientation(orientation);
 	}

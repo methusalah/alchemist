@@ -36,14 +36,11 @@ public class ComponentEditor extends TitledPane {
 
 	public ComponentEditor(EntityComponent comp) {
 		this.comp = comp;
-		expandedProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				if (newValue && !UIConfig.expandedComponents.contains(comp.getClass()))
-					UIConfig.expandedComponents.add(comp.getClass());
-				else
-					UIConfig.expandedComponents.remove(comp.getClass());
-			}
+		expandedProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue && !UIConfig.expandedComponents.contains(comp.getClass()))
+				UIConfig.expandedComponents.add(comp.getClass());
+			else
+				UIConfig.expandedComponents.remove(comp.getClass());
 		});
 		setExpanded(UIConfig.expandedComponents.contains(comp.getClass()));
 
@@ -84,13 +81,7 @@ public class ComponentEditor extends TitledPane {
 
 		Button btn = new Button("remove");
 		btn.setMaxWidth(Double.MAX_VALUE);
-		btn.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				EventManager.post(new RemoveComponentEvent(comp.getClass()));
-			}
-		});
+		btn.setOnAction(e -> EventManager.post(new RemoveComponentEvent(comp.getClass())));
 		
 		bp.setLeft(label);
 		bp.setRight(btn);

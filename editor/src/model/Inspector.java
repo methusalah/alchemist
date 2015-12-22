@@ -83,7 +83,6 @@ public class Inspector {
 		try {
 			EntityComponent comp = componentClasses.get(componentName).newInstance();
 			entityData.setComponent(ep.getEntityId(), comp);
-			//ep.componentListProperty().add(comp);
 		} catch (InstantiationException | IllegalAccessException e) {
 			LogUtil.warning("Can't instanciate component "+componentName);
 		}

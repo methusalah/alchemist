@@ -11,25 +11,6 @@ import model.world.terrain.atlas.AtlasLayer;
 
 public abstract class AtlasArtisanUtil {
 
-//	public static void buildAtlas(Map m) {
-//		if(m.getAtlas() == null) {
-//			createNewAtlasOn(m);
-//		} else {
-//			finalizeAtlasOn(m);
-//		}
-//	}
-//
-//	private static void createNewAtlasOn(Map m) {
-//		m.setAtlas(new Atlas(m.xSize(), m.ySize()));
-//		m.setCover(new Atlas(m.xSize(), m.ySize()));
-//		finalizeAtlasOn(m);
-//	}
-//
-//	private static void finalizeAtlasOn(Map m) {
-//		m.getAtlas().finalize();
-//		m.getCover().finalize();
-//	}
-
 	public static void incrementPixel(Atlas atlas, Point2D p, AtlasLayer layer, double increment) {
 		int x = (int) Math.floor(p.x);
 		int y = (int) Math.floor(p.y);

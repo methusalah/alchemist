@@ -1,7 +1,5 @@
 package view.controls.toolEditor;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
@@ -31,25 +29,13 @@ public class AtlasTab extends Tab implements ToolEditor {
 	
 	private Button getAddDeleteButton(){
 		IconButton res = new IconButton("assets/textures/editor/rise_low_icon.png", "Rise/Low");
-		res.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				tool.setOperation(OPERATION.Add_Delete);
-			}
-		});
+		res.setOnAction(e -> tool.setOperation(OPERATION.Add_Delete));
 		return res;
 	}
 
 	private Button getPropagateSmoothButton(){
 		IconButton res = new IconButton("assets/textures/editor/noise_smooth_icon.png", "Noise/Smooth");
-		res.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				tool.setOperation(OPERATION.Propagate_Smooth);
-			}
-		});
+		res.setOnAction(e -> tool.setOperation(OPERATION.Propagate_Smooth));
 		return res;
 	}
 	

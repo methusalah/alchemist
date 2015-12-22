@@ -64,15 +64,13 @@ import model.world.WorldData;
 
 public class Model {
 	public final Inspector inspector;
-	public final Hierarchy hierarchy;
+	public final HierarchyPresenter hierarchy;
 	public final EntityDataObserver observer;
 	public final ResourceExplorer resourceExplorer;
 	
 	private final EntityData ed;
 	private final WorldData world;
 	private final Command command;
-	
-	public final ObjectProperty<EntityPresenter> selectionProperty = new SimpleObjectProperty<>();
 	
 	public Model() {
 		ed = new PostingEntityData();
@@ -85,8 +83,9 @@ public class Model {
 		// TODO
 		// max value
 		// destruction of removed lights
-		
-		inspector = new Inspector(ed, selectionProperty);
+		hierarchy = new HierarchyPresenter(ed);
+		resourceExplorer = new ResourceExplorer();
+		inspector = new Inspector(ed, hierarchy.selectionProperty);
 		inspector.addUserComponent(Naming.class,
 				PlanarStance.class,
 				SpaceStance.class,
@@ -142,9 +141,6 @@ public class Model {
 				Boost.class,
 				CircleCollisionShape.class,
 				EdgedCollisionShape.class);
-		
-		hierarchy = new Hierarchy(ed);
-		resourceExplorer = new ResourceExplorer();
 	}
 	
 	public EntityData getEntityData() {

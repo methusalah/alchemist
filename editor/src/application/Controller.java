@@ -33,7 +33,7 @@ public class Controller {
 		this.view = view;
 		
 		view.hierarchyTab.setRootPresenter(model.observer.getRootEntityPresenter());
-		view.hierarchyTab.setSelectionProperty(model.selectionProperty);
+		view.hierarchyTab.setSelectionProperty(model.hierarchy.selectionProperty);
 		view.inspectorTab.setComponentNames(model.inspector.getComponentNames());
 		view.resourceTab.setBlueprintList(model.resourceExplorer.blueprintListProperty());
 		EventManager.register(this);
@@ -42,9 +42,9 @@ public class Controller {
 	@Subscribe
 	public void handleEntitySelectionChangedEvent(EntitySelectionChanged e){
 		if(e.getEntityId() != null)
-			model.selectionProperty.setValue(model.observer.getPresenter(e.getEntityId()));
+			model.hierarchy.selectionProperty.setValue(model.observer.getPresenter(e.getEntityId()));
 		else
-			model.selectionProperty.setValue(e.getEntityPresenter());
+			model.hierarchy.selectionProperty.setValue(e.getEntityPresenter());
 	}
 	
 	@Subscribe

@@ -1,9 +1,5 @@
 package view.controls.toolEditor;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -35,69 +31,33 @@ public class PencilEditor extends BorderPane {
 	}
 	private Button getCircleButton(){
 		IconButton res = new IconButton("assets/textures/editor/circle_icon.png", "Circle");
-		res.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				tool.setShape(SHAPE.Circle);
-			}
-		});
+		res.setOnAction(e -> tool.setShape(SHAPE.Circle));
 		return res;
 	}
 	private Button getSquareButton(){
 		IconButton res = new IconButton("assets/textures/editor/square_icon.png", "Square");
-		res.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				tool.setShape(SHAPE.Square);
-			}
-		});
+		res.setOnAction(e -> tool.setShape(SHAPE.Square));
 		return res;
 	}
 	private Button getDiamondButton(){
 		IconButton res = new IconButton("assets/textures/editor/diamond_icon.png", "Diamond");
-		res.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				tool.setShape(SHAPE.Diamond);
-			}
-		});
+		res.setOnAction(e -> tool.setShape(SHAPE.Diamond));
 		return res;
 	}
 	
 	private Button getAirbrushButton(){
 		IconButton res = new IconButton("assets/textures/editor/airbrush_icon.png", "Airbrush");
-		res.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				tool.setMode(MODE.Airbrush);
-			}
-		});
+		res.setOnAction(e -> tool.setMode(MODE.Airbrush));
 		return res;
 	}
 	private Button getRoughButton(){
 		IconButton res = new IconButton("assets/textures/editor/rough_icon.png", "Rough");
-		res.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				tool.setMode(MODE.Rough);
-			}
-		});
+		res.setOnAction(e -> tool.setMode(MODE.Rough));
 		return res;
 	}
 	private Button getNoiseButton(){
 		IconButton res = new IconButton("assets/textures/editor/noise_icon.png", "Noise");
-		res.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				tool.setMode(MODE.Noise);
-			}
-		});
+		res.setOnAction(e -> tool.setMode(MODE.Noise));
 		return res;
 	}
 	
@@ -108,14 +68,7 @@ public class PencilEditor extends BorderPane {
 		res.getChildren().add(new Label("Size"));
 		Slider slider = new Slider(0, 1, 0.3);
 		slider.setOrientation(Orientation.VERTICAL);
-		slider.valueProperty().addListener(new ChangeListener<Number>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				tool.setSize(PencilTool.MAX_SIZE*newValue.doubleValue());
-			}
-			
-		});
+		slider.valueProperty().addListener((observable, oldValue, newValue) -> tool.setSize(PencilTool.MAX_SIZE*newValue.doubleValue()));
 		res.getChildren().add(slider);
 		return res;
 	}
@@ -127,14 +80,7 @@ public class PencilEditor extends BorderPane {
 		res.getChildren().add(new Label("Strength"));
 		Slider slider = new Slider(0, 1, 0.3);
 		slider.setOrientation(Orientation.VERTICAL);
-		slider.valueProperty().addListener(new ChangeListener<Number>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				tool.setStrength(newValue.doubleValue());
-			}
-			
-		});
+		slider.valueProperty().addListener((observable, oldValue, newValue) -> tool.setStrength(newValue.doubleValue()));
 		res.getChildren().add(slider);
 		return res;
 	}	

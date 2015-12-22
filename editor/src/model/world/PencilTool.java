@@ -36,48 +36,6 @@ public class PencilTool extends Tool {
 		super(world);
 		perlin = new PerlinNoise();
 	}
-
-	public SHAPE getShape() {
-		return shape;
-	}
-
-	public void setShape(SHAPE shape) {
-		this.shape = shape;
-	}
-
-	public MODE getMode() {
-		return mode;
-	}
-
-	public void setMode(MODE mode) {
-		this.mode = mode;
-	}
-
-	public double getSize() {
-		return size;
-	}
-
-	public void setSize(double size) {
-		this.size = size;
-	}
-
-	public double getStrength() {
-		return strength;
-	}
-
-	public void setStrength(double strength) {
-		this.strength = strength;
-	}
-	
-	protected List<Point2D> getNodes() {
-		switch(shape){
-		case Circle : return getInCircle();
-		case Diamond :
-		case Square : return getInQuad();
-		default : throw new RuntimeException();
-		}
-	}
-		
 	
 	private List<Point2D> getInCircle() {
 		List<Point2D> res = new ArrayList<>();
@@ -156,6 +114,47 @@ public class PencilTool extends Tool {
 				return perlin.noise(p);//, 10, 1);
 			default:
 				throw new RuntimeException();
+		}
+	}
+	
+	public SHAPE getShape() {
+		return shape;
+	}
+
+	public void setShape(SHAPE shape) {
+		this.shape = shape;
+	}
+
+	public MODE getMode() {
+		return mode;
+	}
+
+	public void setMode(MODE mode) {
+		this.mode = mode;
+	}
+
+	public double getSize() {
+		return size;
+	}
+
+	public void setSize(double size) {
+		this.size = size;
+	}
+
+	public double getStrength() {
+		return strength;
+	}
+
+	public void setStrength(double strength) {
+		this.strength = strength;
+	}
+	
+	protected List<Point2D> getNodes() {
+		switch(shape){
+		case Circle : return getInCircle();
+		case Diamond :
+		case Square : return getInQuad();
+		default : throw new RuntimeException();
 		}
 	}
 	

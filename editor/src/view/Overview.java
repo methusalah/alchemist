@@ -22,7 +22,7 @@ public class Overview {
 	public final SceneViewer sceneViewer;
 	
 	public Overview(Stage stage, Model model, WorldEditorPresenter worldEditorPresenter) {
-		inspectorTab = new InspectorTab(model.selectionProperty);
+		inspectorTab = new InspectorTab(model.hierarchy.selectionProperty);
 		worldEditorTab = new WorldEditorTab(worldEditorPresenter);
 		hierarchyTab = new HierarchyTab();
 		resourceTab = new ResourceTab();

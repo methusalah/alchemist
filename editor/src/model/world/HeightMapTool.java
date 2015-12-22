@@ -19,14 +19,6 @@ public class HeightMapTool extends PencilTool {
 		super(world);
 	}
 
-	public OPERATION getOperation() {
-		return operation;
-	}
-
-	public void setOperation(OPERATION operation) {
-		this.operation = operation;
-	}
-	
 	@Override
 	public void onPrimaryActionStart() {
 		switch (operation) {
@@ -198,4 +190,13 @@ public class HeightMapTool extends PencilTool {
 			r.getDrawer().updateParcels(r.getTerrain().getParcelling().getParcelsContaining(nodes));
 		}
 	}
+	
+	public OPERATION getOperation() {
+		return operation;
+	}
+
+	public void setOperation(OPERATION operation) {
+		this.operation = operation;
+	}
+
 }

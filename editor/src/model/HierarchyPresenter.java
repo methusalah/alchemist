@@ -1,5 +1,8 @@
 package model;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
@@ -8,10 +11,11 @@ import model.ES.component.hierarchy.Parenting;
 import model.ES.serial.Blueprint;
 import util.event.EventManager;
 
-public class Hierarchy {
+public class HierarchyPresenter {
 	private final EntityData entityData;
+	public final ObjectProperty<EntityPresenter> selectionProperty = new SimpleObjectProperty<>();
 
-	public Hierarchy(EntityData entityData) {
+	public HierarchyPresenter(EntityData entityData) {
 		this.entityData = entityData;
 	}
 	
