@@ -1,15 +1,15 @@
 package util.event;
 
-import model.EntityPresenter;
+import presenter.EntityNode;
 
 public class EntityDeletionEvent extends Event {
-	private final EntityPresenter ep;
+	private final EntityNode ep;
 	
-	public EntityDeletionEvent(EntityPresenter ep) {
+	public EntityDeletionEvent(EntityNode ep) {
 		this.ep = ep;
 	}
 
-	public EntityPresenter getEp() {
+	public EntityNode getEp() {
 		return ep;
 	}
 	

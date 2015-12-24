@@ -1,4 +1,4 @@
-package model;
+package presenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +19,15 @@ import model.ES.component.hierarchy.Parenting;
 import util.LogUtil;
 import util.event.EventManager;
 
-public class EntityPresenter {
-	List<ChangeListener<? super EntityPresenter>> changeListeners = new ArrayList<>();
+public class EntityNode {
+	List<ChangeListener<? super EntityNode>> changeListeners = new ArrayList<>();
 
 	private final EntityId entityId;
 	private final StringProperty name = new SimpleStringProperty();
 	private final ListProperty<EntityComponent> componentList = new SimpleListProperty<>(FXCollections.observableArrayList());
-	private final ListProperty<EntityPresenter> childrenList = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private final ListProperty<EntityNode> childrenList = new SimpleListProperty<>(FXCollections.observableArrayList());
 	
-	public EntityPresenter(EntityId id, String name) {
+	public EntityNode(EntityId id, String name) {
 		this.entityId = id;
 		this.name.setValue(name);
 	}
@@ -49,7 +49,7 @@ public class EntityPresenter {
 		return componentList;
 	}
 
-	public ListProperty<EntityPresenter> childrenListProperty(){
+	public ListProperty<EntityNode> childrenListProperty(){
 		return childrenList;
 	}
 }

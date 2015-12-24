@@ -1,9 +1,10 @@
 package application.topDownScene;
 
+import model.state.DraggableCameraState;
+
 import com.jme3.app.SimpleApplication;
 import com.jme3x.jfx.injfx.JmeForImageView;
 
-import application.topDownScene.state.DraggableCameraState;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;

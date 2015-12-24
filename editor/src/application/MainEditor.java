@@ -11,13 +11,15 @@ import controller.ECS.EntitySystem;
 import controller.ECS.SceneSelectorState;
 import app.AppFacade;
 import application.topDownScene.TopDownSceneController;
-import application.topDownScene.state.DraggableCameraState;
-import application.topDownScene.state.WorldLocaliserState;
-import application.topDownScene.state.WorldToolState;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Command;
 import model.Model;
+import model.ECS.EntityDataObserver;
+import model.ECS.PostingEntityData;
+import model.state.DraggableCameraState;
+import model.state.WorldLocaliserState;
+import model.state.WorldToolState;
 import model.world.HeightMapTool;
 import model.world.WorldData;
 import util.LogUtil;
@@ -25,21 +27,20 @@ import view.Overview;
 
 
 public class MainEditor extends Application {
-	Model model;
 	Controller controller;
 	TopDownSceneController topDownScenecontroller;
 	Overview view;
 	private JmeForImageView jme;
-	WorldEditorPresenter worldEditorPresenter;
 
 	@Override
 	public void start(Stage primaryStage) {
 		LogUtil.init();
-		model = new Model();
-		jme = new JmeForImageView();
-		jme.enqueue((app) -> createScene(app, model.getEntityData(), model.getWorld(), model.getCommand()));
-		worldEditorPresenter = new WorldEditorPresenter(jme, model.getWorld());
-		view = new Overview(primaryStage, model, worldEditorPresenter);
+		EntityData ed = new PostingEntityData();
+		EditorPlatform.setEntityData(ed, new EntityDataObserver(ed));
+		EditorPlatform.setWorldData(new WorldData(EditorPlatform.getEntityData()));
+		EditorPlatform.setCommand(new Command());
+		
+		view = new Overview(primaryStage);
 
 		topDownScenecontroller = new TopDownSceneController(jme, view);
 		controller = new Controller(model, view);
@@ -48,29 +49,4 @@ public class MainEditor extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
-	static private boolean createScene(SimpleApplication app, EntityData ed, WorldData world, Command command) {
-		AppFacade.setApp(app);
-		AppStateManager stateManager = app.getStateManager();
-		
-		DraggableCameraState cam = new DraggableCameraState(app.getCamera());
-		cam.setRotationSpeed(0.001f);
-		cam.setMoveSpeed(1f);
-		stateManager.attach(cam);
-
-		stateManager.attach(new SceneSelectorState());
-		stateManager.attach(new WorldToolState());
-		stateManager.attach(new WorldLocaliserState());
-		
-		stateManager.getState(WorldToolState.class).setTool(new HeightMapTool(world));
-		
-		EntitySystem es = new EntitySystem(ed, world, command);
-		stateManager.attach(es);
-		es.initVisuals(true);
-		es.initAudio(false);
-		es.initCommand(false);
-		es.initLogic(false);
-		return true;
-	}
-
 }

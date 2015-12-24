@@ -1,5 +1,6 @@
 package view.drawingProcessors;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,7 +67,7 @@ public class ModelProc extends Processor {
 				Spatial s = AppFacade.getAssetManager().loadModel("models/" + modelPath);
 				modelPrototypes.put(modelPath, s);
 			} catch (Exception e) {
-				LogUtil.warning("Model not found : models/" + modelPath);
+				LogUtil.warning("Model not found : models/" + modelPath + " ("+ e + ")");
 				return null;
 			}
 		}

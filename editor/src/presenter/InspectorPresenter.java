@@ -1,11 +1,29 @@
-package model;
+package presenter;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import application.EditorPlatform;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.eventbus.Subscribe;
+import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
+import com.simsilica.es.EntityId;
 
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import model.ECS.EntityDataObserver;
-import model.ECS.PostingEntityData;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import model.ECS.event.ComponentSetEvent;
 import model.ES.component.Cooldown;
 import model.ES.component.LifeTime;
 import model.ES.component.Naming;
@@ -30,6 +48,7 @@ import model.ES.component.command.PlayerControl;
 import model.ES.component.hierarchy.AbilityControl;
 import model.ES.component.hierarchy.AbilityTriggerControl;
 import model.ES.component.hierarchy.BoneHolding;
+import model.ES.component.hierarchy.Parenting;
 import model.ES.component.hierarchy.PlanarStanceControl;
 import model.ES.component.hierarchy.ThrustControl;
 import model.ES.component.hierarchy.ThrusterControl;
@@ -60,33 +79,21 @@ import model.ES.component.visuals.Skeleton;
 import model.ES.component.visuals.Sprite;
 import model.ES.component.world.PopulationTooling;
 import model.ES.component.world.TerrainTooling;
-import model.world.WorldData;
+import util.LogUtil;
+import util.event.EventManager;
+import util.event.modelEvent.InspectionChangedEvent;
 
-public class Model {
-	public final Inspector inspector;
-	public final HierarchyPresenter hierarchy;
-	public final EntityDataObserver observer;
-	public final ResourceExplorer resourceExplorer;
+public class InspectorPresenter {
+	private final Map<String, Class<? extends EntityComponent>> componentClasses = new HashMap<>();
 	
-	private final EntityData ed;
-	private final WorldData world;
-	private final Command command;
+	private EntityNode en;
 	
-	public Model() {
-		ed = new PostingEntityData();
-		observer = new EntityDataObserver(ed);
+	public InspectorPresenter() {
+		en = EditorPlatform.getSelectionProperty().getValue();
+		EditorPlatform.getSelectionProperty().addListener((observable, oldValue, newValue) -> en = newValue);
 		
-		world = new WorldData(ed);
-		command = new Command();
-		
-		
-		// TODO
-		// max value
-		// destruction of removed lights
-		hierarchy = new HierarchyPresenter(ed);
-		resourceExplorer = new ResourceExplorer();
-		inspector = new Inspector(ed, hierarchy.selectionProperty);
-		inspector.addUserComponent(Naming.class,
+		EventManager.register(this);
+		addUserComponent(Naming.class,
 				PlanarStance.class,
 				SpaceStance.class,
 				PlayerControl.class,
@@ -143,17 +150,61 @@ public class Model {
 				EdgedCollisionShape.class);
 	}
 	
-	public EntityData getEntityData() {
-		return ed;
-	}
-
-	public WorldData getWorld() {
-		return world;
-	}
-
-	public Command getCommand() {
-		return command;
+	public void updateComponent(EntityComponent comp, String propertyName, Object value){
+		// In this piece of code, we can't just change the component's field because it's imutable
+		// we serialize the whole component into a jsontree, change the value in the tree, then
+		// deserialize in a new component, that we will be able to attach to entity the proper way
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode n = mapper.valueToTree(EditorPlatform.getEntityData().getComponent(en.getEntityId(), comp.getClass()));
+		Iterator<Entry<String, JsonNode>> i = n.fields();
+		while (i.hasNext()) {
+			Entry<String, JsonNode> entry = (Entry<String, JsonNode>) i.next();
+			if(entry.getKey().equals(propertyName)){
+				entry.setValue(mapper.valueToTree(value));
+				break;
+			}
+		}
+		
+		EntityComponent newComp = null;
+		try {
+			newComp = new ObjectMapper().treeToValue(n, comp.getClass());
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+			
+		EditorPlatform.getEntityData().setComponent(en.getEntityId(), newComp);
 	}
 	
-	
+	@SafeVarargs
+	private final void addUserComponent(Class<? extends EntityComponent> ... compClasses){
+		for(Class<? extends EntityComponent> compClass : compClasses)
+			componentClasses.put(compClass.getSimpleName(), compClass);
+	}
+
+	public List<String> getComponentNames(){
+		List<String> res = new ArrayList<String>(componentClasses.keySet());
+		Collections.sort(res);
+		return res;
+	}
+
+	public void addComponent(String componentName){
+		try {
+			EntityComponent comp = componentClasses.get(componentName).newInstance();
+			EditorPlatform.getEntityData().setComponent(en.getEntityId(), comp);
+		} catch (InstantiationException | IllegalAccessException e) {
+			LogUtil.warning("Can't instanciate component "+componentName);
+		}
+	}
+	public void removeComponent(Class<? extends EntityComponent> componentClass){
+		EntityComponent comp = null;
+		for(EntityComponent c : en.componentListProperty())
+			if(c.getClass() == componentClass){
+				comp = c;
+				break;
+			}
+		if(comp == null)
+			throw new IllegalArgumentException("trying to remove a component ("+componentClass.getSimpleName()+") that doesn't exist on current entity");
+		en.componentListProperty().remove(comp);
+		EditorPlatform.getEntityData().removeComponent(en.getEntityId(), componentClass);
+	}
 }

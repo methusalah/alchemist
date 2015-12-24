@@ -1,34 +1,29 @@
 package presenter;
 
+import model.state.WorldToolState;
 import model.world.HeightMapTool;
 import model.world.PopulationTool;
 import model.world.Tool;
 import model.world.WorldData;
 import model.world.atlas.AtlasTool;
-import util.LogUtil;
 import util.event.EventManager;
-import application.topDownScene.state.WorldToolState;
+import application.EditorPlatform;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 import com.jme3x.jfx.injfx.JmeForImageView;
 
 public class WorldEditorPresenter {
-	private final JmeForImageView jme;
-	private final WorldData worldData;
-	
 	private final HeightMapTool heightmapTool;
 	private final AtlasTool atlasTool;
 	private final PopulationTool populationTool;
 
-	public WorldEditorPresenter(JmeForImageView jme, WorldData worldData) {
-		this.jme = jme;
-		this.worldData = worldData;
+	public WorldEditorPresenter() {
 		EventManager.register(this);
 		
-		heightmapTool = new HeightMapTool(worldData);
-		atlasTool = new AtlasTool(worldData);
-		populationTool = new PopulationTool(worldData);
+		heightmapTool = new HeightMapTool(EditorPlatform.getWorldData());
+		atlasTool = new AtlasTool(EditorPlatform.getWorldData());
+		populationTool = new PopulationTool(EditorPlatform.getWorldData());
 	}
 
 	public HeightMapTool getHeightmapTool() {
@@ -44,17 +39,16 @@ public class WorldEditorPresenter {
 	}
 	
 	public void selectTool(Tool tool){
-		jme.enqueue(app -> setTool(app, tool));
+		EditorPlatform.getScene().enqueue(app -> setTool(app, tool));
 	}
 	
 	public void saveWorld(){
-		worldData.saveDrawnRegions();
+		EditorPlatform.getWorldData().saveDrawnRegions();
 	}
 	
 	static private boolean setTool(SimpleApplication app, Tool t) {
 		AppStateManager stateManager = app.getStateManager();
 		stateManager.getState(WorldToolState.class).setTool(t);
-		
 		return true;
 	}
 

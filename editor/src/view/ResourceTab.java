@@ -1,5 +1,7 @@
 package view;
 
+import presenter.EntityNode;
+import presenter.ResourcePresenter;
 import javafx.beans.property.ListProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,7 +16,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-import model.EntityPresenter;
 import model.ES.serial.Blueprint;
 import util.event.EventManager;
 import util.event.SaveEntityEvent;
@@ -24,6 +25,8 @@ public class ResourceTab extends Tab {
 	ListView<Blueprint> list;
 
 	public ResourceTab() {
+		new ResourcePresenter();
+		
 		setText("Ressources");
 		setClosable(false);
 		VBox content = new VBox();
@@ -74,14 +77,14 @@ public class ResourceTab extends Tab {
 		});
 		
 		list.setOnDragOver(e -> {
-			if (Dragpool.containsType(EntityPresenter.class))
+			if (Dragpool.containsType(EntityNode.class))
 				e.acceptTransferModes(TransferMode.ANY);
 			e.consume();
 		});
 
 		list.setOnDragDropped(e -> {
-			if (Dragpool.containsType(EntityPresenter.class))
-				EventManager.post(new SaveEntityEvent((EntityPresenter) Dragpool.grabContent(EntityPresenter.class)));
+			if (Dragpool.containsType(EntityNode.class))
+				EventManager.post(new SaveEntityEvent((EntityNode) Dragpool.grabContent(EntityNode.class)));
 		});
 	}
 

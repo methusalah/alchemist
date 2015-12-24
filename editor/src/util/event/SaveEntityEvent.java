@@ -1,12 +1,12 @@
 package util.event;
 
-import model.EntityPresenter;
+import presenter.EntityNode;
 
 
 public class SaveEntityEvent extends Event {
-	public final EntityPresenter ep;
+	public final EntityNode ep;
 	
-	public SaveEntityEvent(EntityPresenter ep) {
+	public SaveEntityEvent(EntityNode ep) {
 		this.ep = ep;
 	}
 }

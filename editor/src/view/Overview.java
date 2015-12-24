@@ -1,15 +1,11 @@
 package view;
 
-import presenter.WorldEditorPresenter;
-import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import model.Model;
 import util.event.EventManager;
 import util.event.scene.AppClosedEvent;
 
@@ -21,13 +17,14 @@ public class Overview {
 	public final RunPanel runPanel;
 	public final SceneViewer sceneViewer;
 	
-	public Overview(Stage stage, Model model, WorldEditorPresenter worldEditorPresenter) {
-		inspectorTab = new InspectorTab(model.hierarchy.selectionProperty);
-		worldEditorTab = new WorldEditorTab(worldEditorPresenter);
+	public Overview(Stage stage) {
+		inspectorTab = new InspectorTab();
+		worldEditorTab = new WorldEditorTab();
 		hierarchyTab = new HierarchyTab();
 		resourceTab = new ResourceTab();
 		runPanel = new RunPanel();
 		sceneViewer = new SceneViewer();
+		
 		BorderPane scenePane = new BorderPane(sceneViewer, runPanel, null, null, null);
 		
 		SplitPane leftRegion = new SplitPane(new TabPane(hierarchyTab), new TabPane(resourceTab));
