@@ -13,16 +13,20 @@ import view.controls.EntityTreeView;
 
 public class HierarchyTab extends Tab {
 	HierarchyPresenter presenter = new HierarchyPresenter(); 
-	EntityTreeView tree;
-	VBox content = new VBox();
+	
 
 	public HierarchyTab() {
 		setText("Hierarchy");
 		setClosable(false);
-		setContent(content);
+		
+		VBox content = new VBox();
 		content.setMinWidth(300);
 		content.setMaxHeight(Double.MAX_VALUE);
 		content.setPadding(new Insets(3));
+		setContent(content);
+		
+		// tree
+		EntityTreeView tree = new EntityTreeView(presenter.getRootNode());;
 		
 		// The hierarchy view can observe the current selection and change the selected tree item accordingly
 		// Needed because the user can select an entity from the scene view
@@ -32,6 +36,13 @@ public class HierarchyTab extends Tab {
 			else if(tree.getSelectionModel().isEmpty() || 
 					tree.getSelectionModel().getSelectedItem().getValue() != newValue)
 				tree.getSelectionModel().select(findInTree(tree.getRoot(), newValue));
+		});
+		tree.setMaxHeight(Double.MAX_VALUE);
+		content.getChildren().add(tree);
+		
+		tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue != null && newValue.getValue() != null)
+				EditorPlatform.getSelectionProperty().set(newValue.getValue());
 		});
 
 		// add button
@@ -46,18 +57,6 @@ public class HierarchyTab extends Tab {
 				presenter.removeEntity(tree.getSelectionModel().getSelectedItem().getValue());
 		});
 		content.getChildren().add(btnRemove);
-		
-		content.getChildren().remove(tree);
-		tree = new EntityTreeView(presenter.getRootNode());
-		tree.setMaxHeight(Double.MAX_VALUE);
-		content.getChildren().add(tree);
-		
-		tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue != null && newValue.getValue() != null)
-				EditorPlatform.getSelectionProperty().set(newValue.getValue());
-		});
-
-		
 	}
 
 	private static TreeItem<EntityNode> findInTree(TreeItem<EntityNode> parent, EntityNode newValue) {
