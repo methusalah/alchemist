@@ -1,9 +1,12 @@
-material NoMaterial
+material HammerHull01
 {
 	technique
 	{
 		pass
 		{
+			ambient 0.133333 0.133333 0.156863 1
+			diffuse 0.133333 0.133333 0.156863 1
+			specular 0.9 0.9 0.9 0 10
 		}
 
 	}
