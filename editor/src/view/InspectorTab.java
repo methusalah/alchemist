@@ -31,7 +31,6 @@ import com.simsilica.es.EntityComponent;
 
 public class InspectorTab extends Tab {
 	final InspectorPresenter presenter;
-//	List<String> compNames = null;
 	VBox compControl;
 	Label info;
 	Button addCompButton;
