@@ -1,36 +1,22 @@
 package application;
 	
-import presenter.WorldEditorPresenter;
-
-import com.jme3.app.SimpleApplication;
-import com.jme3.app.state.AppStateManager;
-import com.jme3x.jfx.injfx.JmeForImageView;
-import com.simsilica.es.EntityData;
-
-import controller.ECS.EntitySystem;
-import controller.ECS.SceneSelectorState;
-import app.AppFacade;
-import application.topDownScene.TopDownSceneController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Command;
-import model.Model;
 import model.ECS.EntityDataObserver;
 import model.ECS.PostingEntityData;
-import model.state.DraggableCameraState;
-import model.state.WorldLocaliserState;
-import model.state.WorldToolState;
-import model.world.HeightMapTool;
 import model.world.WorldData;
 import util.LogUtil;
 import view.Overview;
+import application.topDownScene.TopDownSceneController;
+
+import com.jme3x.jfx.injfx.JmeForImageView;
+import com.simsilica.es.EntityData;
 
 
 public class MainEditor extends Application {
-	Controller controller;
 	TopDownSceneController topDownScenecontroller;
 	Overview view;
-	private JmeForImageView jme;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -42,8 +28,7 @@ public class MainEditor extends Application {
 		
 		view = new Overview(primaryStage);
 
-		topDownScenecontroller = new TopDownSceneController(jme, view);
-		controller = new Controller(model, view);
+		topDownScenecontroller = new TopDownSceneController(view);
 	}
 	
 	public static void main(String[] args) {

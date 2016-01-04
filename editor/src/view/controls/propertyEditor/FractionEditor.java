@@ -2,6 +2,8 @@ package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
+import presenter.InspectorPresenter;
+
 import com.simsilica.es.EntityComponent;
 
 import javafx.beans.value.ChangeListener;
@@ -20,8 +22,8 @@ public class FractionEditor extends PropertyEditor{
 	TextField valueField;
 	Slider slider;
 	
-	public FractionEditor(EntityComponent comp, PropertyDescriptor pd) {
-		super(comp, pd);
+	public FractionEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
+		super(presenter, comp, pd);
 	}
 
 	@Override

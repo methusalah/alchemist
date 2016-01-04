@@ -12,10 +12,11 @@ import presenter.HierarchyPresenter;
 import view.controls.EntityTreeView;
 
 public class HierarchyTab extends Tab {
-	HierarchyPresenter presenter = new HierarchyPresenter(); 
+	private final HierarchyPresenter presenter; 
 	
 
 	public HierarchyTab() {
+		presenter = new HierarchyPresenter();
 		setText("Hierarchy");
 		setClosable(false);
 		
@@ -26,7 +27,7 @@ public class HierarchyTab extends Tab {
 		setContent(content);
 		
 		// tree
-		EntityTreeView tree = new EntityTreeView(presenter.getRootNode());;
+		EntityTreeView tree = new EntityTreeView(presenter);
 		
 		// The hierarchy view can observe the current selection and change the selected tree item accordingly
 		// Needed because the user can select an entity from the scene view
@@ -47,7 +48,7 @@ public class HierarchyTab extends Tab {
 
 		// add button
 		Button btnAdd = new Button("Add entity");
-		btnAdd.setOnAction(e -> presenter.createEntity());
+		btnAdd.setOnAction(e -> presenter.createNewEntity());
 		content.getChildren().add(btnAdd);
 
 		// remove button

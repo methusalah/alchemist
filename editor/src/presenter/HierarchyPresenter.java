@@ -1,8 +1,6 @@
 package presenter;
 
-import util.event.EntityCreationEvent;
-import util.event.EntityDeletionEvent;
-import util.event.EventManager;
+import util.LogUtil;
 import model.ES.component.Naming;
 import model.ES.component.hierarchy.Parenting;
 import model.ES.serial.Blueprint;
@@ -16,8 +14,8 @@ public class HierarchyPresenter {
 		EditorPlatform.getEntityData().setComponent(eid, new Naming("Unamed entity"));
 	}
 
-	public void createNewEntity(Blueprint bp){
-		bp.createEntity(EditorPlatform.getEntityData(), null);
+	public void createNewEntity(Blueprint bp, EntityNode parent){
+		bp.createEntity(EditorPlatform.getEntityData(), parent == null? null : parent.getEntityId());
 	}
 	
 	public void removeEntity(EntityNode ep){
@@ -31,17 +29,7 @@ public class HierarchyPresenter {
 		EditorPlatform.getEntityData().setComponent(child.getEntityId(), new Parenting(parent.getEntityId()));
 	}
 	
-	public void createEntity(){
-		EventManager.post(new EntityCreationEvent());
-	}
-	
-	public void deleteEntity(EntityNode node){
-		if(node != null)
-			EventManager.post(new EntityDeletionEvent(node));
-	}
-	
 	public EntityNode getRootNode(){
 		return EditorPlatform.getObserver().getRootNode();
 	}
-	
 }

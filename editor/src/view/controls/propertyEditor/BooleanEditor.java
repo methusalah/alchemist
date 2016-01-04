@@ -2,6 +2,7 @@ package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
+import presenter.InspectorPresenter;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
@@ -14,8 +15,8 @@ public class BooleanEditor extends PropertyEditor{
 	
 	CheckBox valueBox;
 	
-	public BooleanEditor(EntityComponent comp, PropertyDescriptor pd) {
-		super(comp, pd);
+	public BooleanEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
+		super(presenter, comp, pd);
 	}
 
 	@Override

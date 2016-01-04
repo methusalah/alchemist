@@ -2,6 +2,7 @@ package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
+import presenter.InspectorPresenter;
 import util.geometry.geom3d.Point3D;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -17,8 +18,8 @@ public class Point3DEditor extends PropertyEditor{
 	
 	TextField xField, yField, zField;
 	
-	public Point3DEditor(EntityComponent comp, PropertyDescriptor pd) {
-		super(comp, pd);
+	public Point3DEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
+		super(presenter, comp, pd);
 	}
 
 	@Override

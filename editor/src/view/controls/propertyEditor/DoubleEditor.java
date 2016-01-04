@@ -2,6 +2,7 @@ package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
+import presenter.InspectorPresenter;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -19,8 +20,8 @@ public class DoubleEditor extends PropertyEditor{
 	
 	TextField valueField;
 	
-	public DoubleEditor(EntityComponent comp, PropertyDescriptor pd) {
-		super(comp, pd);
+	public DoubleEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
+		super(presenter, comp, pd);
 	}
 
 	@Override

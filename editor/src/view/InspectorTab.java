@@ -30,7 +30,8 @@ import application.EditorPlatform;
 import com.simsilica.es.EntityComponent;
 
 public class InspectorTab extends Tab {
-	List<String> compNames = null;
+	final InspectorPresenter presenter;
+//	List<String> compNames = null;
 	VBox compControl;
 	Label info;
 	Button addCompButton;
@@ -51,7 +52,7 @@ public class InspectorTab extends Tab {
 	Map<Class<? extends EntityComponent>, ComponentEditor> editors = new HashMap<>();
 	
 	public InspectorTab() {
-		new InspectorPresenter();
+		presenter = new InspectorPresenter();
 		
 		setText("Inspector");
 		setClosable(false);
@@ -74,20 +75,20 @@ public class InspectorTab extends Tab {
 		addCompButton = new Button("Add component");
 		addCompButton.setVisible(false);
 		addCompButton.setOnAction(e -> {
-			if(compNames == null || compNames.isEmpty()){
+			if(presenter.getComponentNames().isEmpty()){
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Error");
 				alert.setHeaderText(null);
 				alert.setContentText("There is no component available.");
 			} else {
-				ChoiceDialog<String> dialog = new ChoiceDialog<>(compNames.get(0), compNames);
+				ChoiceDialog<String> dialog = new ChoiceDialog<>(presenter.getComponentNames().get(0), presenter.getComponentNames());
 				dialog.setTitle("Component choice".toUpperCase());
 				dialog.setHeaderText(null);
 				dialog.setContentText("Choose the component in the list :");
 
 				// Traditional way to get the response value.
 				Optional<String> result = dialog.showAndWait();
-				result.ifPresent(compName -> EventManager.post(new AddComponentEvent(compName)));
+				result.ifPresent(compName -> presenter.addComponent(compName));
 			}
 		});
 		content.getChildren().add(addCompButton);
@@ -100,18 +101,13 @@ public class InspectorTab extends Tab {
 		editors.clear();
 		for(EntityComponent comp : ep.componentListProperty()){
 			LogUtil.info("    comp : "+comp.getClass().getSimpleName()	);
-			ComponentEditor editor = new ComponentEditor(comp);
+			ComponentEditor editor = new ComponentEditor(presenter, comp);
 			editors.put(comp.getClass(), editor);
 			compControl.getChildren().add(editor);
 		}
 		addCompButton.setVisible(true);
 	}
 	
-	public void setComponentNames(List<String> compNames){
-		this.compNames = compNames;
-	}
-	
-
 	private void updateComponent(EntityComponent comp){
 		ComponentEditor editor = editors.get(comp.getClass());
 		if(editor.isExpanded())
@@ -119,7 +115,7 @@ public class InspectorTab extends Tab {
 	}
 	
 	private void addComponent(EntityComponent comp){
-		ComponentEditor editor = new ComponentEditor(comp);
+		ComponentEditor editor = new ComponentEditor(presenter, comp);
 		editors.put(comp.getClass(), editor);
 		compControl.getChildren().add(editor);
 	}

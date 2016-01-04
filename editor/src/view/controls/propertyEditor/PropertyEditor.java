@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
+import presenter.InspectorPresenter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -23,13 +24,15 @@ import com.simsilica.es.EntityComponent;
 public abstract class PropertyEditor extends BorderPane {
 	protected final DecimalFormat df;
 
+	final InspectorPresenter presenter;
 	EntityComponent comp;
 	PropertyDescriptor pd;
 	
 	private boolean ready = false;
 	protected boolean editionMode = false;
 	
-	public PropertyEditor(EntityComponent comp, PropertyDescriptor pd) {
+	public PropertyEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
+		this.presenter = presenter;
 		df = (DecimalFormat)DecimalFormat.getNumberInstance(Locale.ENGLISH);
 		df.setMinimumFractionDigits(2);
 		
@@ -74,7 +77,7 @@ public abstract class PropertyEditor extends BorderPane {
 	
 	protected void applyChange(ActionEvent event){
 		if(ready){
-			EventManager.post(new ComponentPropertyChanged(comp, pd.getName(), getPropertyValue()));
+			presenter.updateComponent(comp, pd.getName(), getPropertyValue());
 			this.requestFocus();
 		}
 	}

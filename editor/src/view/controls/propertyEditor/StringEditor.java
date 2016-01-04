@@ -2,6 +2,7 @@ package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
+import presenter.InspectorPresenter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -20,8 +21,8 @@ public class StringEditor extends PropertyEditor{
 	
 	TextField valueField;
 	
-	public StringEditor(EntityComponent comp, PropertyDescriptor pd) {
-		super(comp, pd);
+	public StringEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
+		super(presenter, comp, pd);
 	}
 
 	@Override

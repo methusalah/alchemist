@@ -3,6 +3,7 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 
+import presenter.ScenePresenter;
 import application.topDownScene.SceneInputManager;
 import application.topDownScene.TopDownSceneController;
 import javafx.event.EventHandler;
@@ -18,17 +19,14 @@ import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
 public class SceneViewer extends Pane {
+	private final ScenePresenter presenter;
 	
 	private SceneInputManager inputManager;
 	private final ImageView image;
 	private List<KeyCode> pressed = new ArrayList<KeyCode>();
 	
-	public ImageView getImage() {
-		return image;
-	}
-
-	
 	public SceneViewer() {
+		presenter = new ScenePresenter();
 		setFocusTraversable(true);
 		image = new ImageView();
 		setStyle("-fx-background-color: gray");
@@ -36,7 +34,6 @@ public class SceneViewer extends Pane {
 		image.fitHeightProperty().bind(heightProperty());
 		image.fitWidthProperty().bind(widthProperty());
 		image.setStyle("-fx-background-color: blue");
-
 
 		// Camera rotation
 		image.setOnMousePressed(e -> inputManager.onMousePressed(e));
@@ -48,7 +45,6 @@ public class SceneViewer extends Pane {
 		image.setOnScroll(e -> inputManager.onMouseScroll(e));
 		
 		getChildren().add(image);
-
 	}
 
 	public void setInputManager(SceneInputManager inputManager) {
@@ -67,5 +63,9 @@ public class SceneViewer extends Pane {
 				pressed.remove(e.getCode());
 			}
 		});
+	}
+
+	public ImageView getImage() {
+		return image;
 	}
 }

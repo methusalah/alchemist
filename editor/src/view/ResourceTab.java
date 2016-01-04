@@ -21,11 +21,11 @@ import util.event.EventManager;
 import util.event.SaveEntityEvent;
 
 public class ResourceTab extends Tab {
-
+	private final ResourcePresenter presenter;
 	ListView<Blueprint> list;
 
 	public ResourceTab() {
-		new ResourcePresenter();
+		presenter = new ResourcePresenter();
 		
 		setText("Ressources");
 		setClosable(false);
@@ -35,14 +35,11 @@ public class ResourceTab extends Tab {
 		content.setPadding(new Insets(3));
 
 		list = new ListView<Blueprint>();
+		list.itemsProperty().bind(presenter.blueprintListProperty());
 		list.setMaxHeight(Double.MAX_VALUE);
 		configureCellFactoryForDragAndDrop(list);
 
 		content.getChildren().add(list);
-	}
-
-	public void setBlueprintList(ListProperty<Blueprint> blueprintList) {
-		list.itemsProperty().bind(blueprintList);
 	}
 
 	private void configureCellFactoryForDragAndDrop(ListView<Blueprint> list) {
@@ -84,7 +81,7 @@ public class ResourceTab extends Tab {
 
 		list.setOnDragDropped(e -> {
 			if (Dragpool.containsType(EntityNode.class))
-				EventManager.post(new SaveEntityEvent((EntityNode) Dragpool.grabContent(EntityNode.class)));
+				presenter.saveEntity((EntityNode) Dragpool.grabContent(EntityNode.class));
 		});
 	}
 

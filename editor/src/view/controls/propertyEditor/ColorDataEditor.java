@@ -2,6 +2,7 @@ package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
+import presenter.InspectorPresenter;
 import model.ES.richData.ColorData;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -17,8 +18,8 @@ public class ColorDataEditor extends PropertyEditor{
 	
 	ColorPicker picker;
 	
-	public ColorDataEditor(EntityComponent comp, PropertyDescriptor pd) {
-		super(comp, pd);
+	public ColorDataEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
+		super(presenter, comp, pd);
 	}
 
 	@Override

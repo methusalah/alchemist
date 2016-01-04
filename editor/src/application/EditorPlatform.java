@@ -30,7 +30,7 @@ public class EditorPlatform {
 	}
 	public static void setEntityData(EntityData entityData, EntityDataObserver observer) {
 		EditorPlatform.entityData = entityData;
-		observer = new EntityDataObserver(entityData);
+		EditorPlatform.observer = observer;
 	}
 	public static EntityDataObserver getObserver() {
 		return observer;
