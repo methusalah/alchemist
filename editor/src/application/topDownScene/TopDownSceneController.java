@@ -4,6 +4,7 @@ import util.event.EventManager;
 import util.event.scene.AppClosedEvent;
 import util.event.scene.RunEvent;
 import view.Overview;
+import application.EditorPlatform;
 
 import com.google.common.eventbus.Subscribe;
 import com.jme3.app.SimpleApplication;
@@ -22,8 +23,8 @@ public class TopDownSceneController {
 	private final EditionInputListener edition;
 	private final GameInputListener game;
 	
-	public TopDownSceneController(JmeForImageView jme, Overview view) {
-		this.jme = jme;
+	public TopDownSceneController(Overview view) {
+		this.jme = EditorPlatform.getScene();
 		view.sceneViewer.setInputManager(inputManager);
 		jme.bind(view.sceneViewer.getImage());
 		EventManager.register(this);

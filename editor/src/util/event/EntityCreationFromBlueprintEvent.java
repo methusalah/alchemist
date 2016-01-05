@@ -1,13 +1,13 @@
 package util.event;
 
-import model.EntityPresenter;
+import presenter.EntityNode;
 import model.ES.serial.Blueprint;
 
 public class EntityCreationFromBlueprintEvent extends Event {
 	private final Blueprint bp;
-	private final EntityPresenter parent;
+	private final EntityNode parent;
 	
-	public EntityCreationFromBlueprintEvent(Blueprint bp, EntityPresenter parent) {
+	public EntityCreationFromBlueprintEvent(Blueprint bp, EntityNode parent) {
 		this.bp = bp;
 		this.parent = parent;
 	}
@@ -16,7 +16,7 @@ public class EntityCreationFromBlueprintEvent extends Event {
 		return bp;
 	}
 
-	public EntityPresenter getParent() {
+	public EntityNode getParent() {
 		return parent;
 	}
 	

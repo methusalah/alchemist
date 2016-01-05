@@ -1,14 +1,14 @@
 package util.event;
 
+import presenter.EntityNode;
+
 import com.simsilica.es.EntityId;
 
-import model.EntityPresenter;
-
 public class EntitySelectionChanged extends Event {
-	private final EntityPresenter ep;
+	private final EntityNode ep;
 	private final EntityId eid;
 	
-	public EntitySelectionChanged(EntityPresenter ep) {
+	public EntitySelectionChanged(EntityNode ep) {
 		this.ep = ep;
 		this.eid = null;
 	}
@@ -18,7 +18,7 @@ public class EntitySelectionChanged extends Event {
 		this.eid = eid;
 	}
 
-	public EntityPresenter getEntityPresenter() {
+	public EntityNode getEntityPresenter() {
 		return ep;
 	}
 

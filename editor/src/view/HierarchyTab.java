@@ -1,70 +1,70 @@
 package view;
 
+import application.EditorPlatform;
 import javafx.beans.property.ObjectProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.VBox;
-import model.EntityPresenter;
-import util.event.EntityCreationEvent;
-import util.event.EntityDeletionEvent;
-import util.event.EventManager;
+import presenter.EntityNode;
+import presenter.HierarchyPresenter;
 import view.controls.EntityTreeView;
 
 public class HierarchyTab extends Tab {
-	EntityTreeView tree;
-	VBox content = new VBox();
+	private final HierarchyPresenter presenter; 
+	
 
 	public HierarchyTab() {
+		presenter = new HierarchyPresenter();
 		setText("Hierarchy");
 		setClosable(false);
-		setContent(content);
+		
+		VBox content = new VBox();
 		content.setMinWidth(300);
 		content.setMaxHeight(Double.MAX_VALUE);
 		content.setPadding(new Insets(3));
+		setContent(content);
+		
+		// tree
+		EntityTreeView tree = new EntityTreeView(presenter);
+		
+		// The hierarchy view can observe the current selection and change the selected tree item accordingly
+		// Needed because the user can select an entity from the scene view
+		EditorPlatform.getSelectionProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue == null)
+				tree.getSelectionModel().clearSelection();
+			else if(tree.getSelectionModel().isEmpty() || 
+					tree.getSelectionModel().getSelectedItem().getValue() != newValue)
+				tree.getSelectionModel().select(findInTree(tree.getRoot(), newValue));
+		});
+		tree.setMaxHeight(Double.MAX_VALUE);
+		content.getChildren().add(tree);
+		
+		tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue != null && newValue.getValue() != null)
+				EditorPlatform.getSelectionProperty().set(newValue.getValue());
+		});
 
 		// add button
 		Button btnAdd = new Button("Add entity");
-		btnAdd.setOnAction(e -> EventManager.post(new EntityCreationEvent()));
+		btnAdd.setOnAction(e -> presenter.createNewEntity());
 		content.getChildren().add(btnAdd);
 
 		// remove button
 		Button btnRemove = new Button("Remove entity");
 		btnRemove.setOnAction(e -> {
-			if(tree != null && tree.getSelectionModel().getSelectedItem() != null)
-				EventManager.post(new EntityDeletionEvent(tree.getSelectionModel().getSelectedItem().getValue()));
+			if(!tree.getSelectionModel().isEmpty())
+				presenter.removeEntity(tree.getSelectionModel().getSelectedItem().getValue());
 		});
 		content.getChildren().add(btnRemove);
 	}
-	
-	public void setRootPresenter(EntityPresenter root){
-		content.getChildren().remove(tree);
-		tree = new EntityTreeView(root);
-		tree.setMaxHeight(Double.MAX_VALUE);
-		content.getChildren().add(tree);
-	}
 
-	/*
-	 * The hierarchy view can observe the current selection and change the selected tree item accordingly
-	 * 
-	 * Needed because the user can select an entity from the scene view
-	 */
-	public void setSelectionProperty(ObjectProperty<EntityPresenter> selection){
-		selection.addListener((observable, oldValue, newValue) -> {
-			if(newValue == null)
-				tree.getSelectionModel().clearSelection();
-			else if(tree.getSelectionModel().getSelectedItem() == null || 
-					tree.getSelectionModel().getSelectedItem().getValue() != newValue)
-				tree.getSelectionModel().select(findInTree(tree.getRoot(), newValue));
-		});
-	}
-
-	private static TreeItem<EntityPresenter> findInTree(TreeItem<EntityPresenter> parent, EntityPresenter newValue) {
+	private static TreeItem<EntityNode> findInTree(TreeItem<EntityNode> parent, EntityNode newValue) {
 		if(parent.getValue() == newValue)
 			return parent;
-		for(TreeItem<EntityPresenter> child : parent.getChildren()){
-			TreeItem<EntityPresenter> found = findInTree(child, newValue);
+		for(TreeItem<EntityNode> child : parent.getChildren()){
+			TreeItem<EntityNode> found = findInTree(child, newValue);
 			if(found != null)
 				return found;
 		}

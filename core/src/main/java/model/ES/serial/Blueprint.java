@@ -52,6 +52,4 @@ public class Blueprint {
 		}
 		return res;
 	}
-	
-	
 }

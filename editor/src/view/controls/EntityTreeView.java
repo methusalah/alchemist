@@ -5,45 +5,41 @@ import javafx.scene.control.TreeView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.util.Callback;
-import model.EntityPresenter;
 import model.ES.serial.Blueprint;
+import presenter.EntityNode;
+import presenter.HierarchyPresenter;
 import util.event.EntityCreationFromBlueprintEvent;
-import util.event.EntitySelectionChanged;
 import util.event.EventManager;
 import util.event.ParentingChangedEvent;
 import view.Dragpool;
 
-public class EntityTreeView extends TreeView<EntityPresenter> {
+public class EntityTreeView extends TreeView<EntityNode> {
+	final HierarchyPresenter presenter;
 	
-	public EntityTreeView(EntityPresenter rootPresenter) {
-		getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue != null && newValue.getValue() != null)
-				EventManager.post(new EntitySelectionChanged(newValue.getValue()));
-		});
-		
-		EntityNodeItem root = new EntityNodeItem(rootPresenter);
+	public EntityTreeView(HierarchyPresenter presenter) {
+		this.presenter = presenter;
+		EntityNodeItem root = new EntityNodeItem(presenter.getRootNode());
 		setShowRoot(false);
-		for(EntityPresenter n : rootPresenter.childrenListProperty())
+		for(EntityNode n : presenter.getRootNode().childrenListProperty())
 			addItem(root, n);
 		setRoot(root);
 		configureCellFactoryForDragAndDrop();
 	}
 	
-	private void addItem(EntityNodeItem parent, EntityPresenter ep){
+	private void addItem(EntityNodeItem parent, EntityNode ep){
 		EntityNodeItem i = new EntityNodeItem(ep);
 		parent.getChildren().add(i);
-		for(EntityPresenter childNode : ep.childrenListProperty()){
+		for(EntityNode childNode : ep.childrenListProperty()){
 			addItem(i, childNode);
 		}
 	}
 	
 	private void configureCellFactoryForDragAndDrop(){
 		setCellFactory(callback ->{
-            TreeCell<EntityPresenter> cell = new TreeCell<EntityPresenter>() {
+            TreeCell<EntityNode> cell = new TreeCell<EntityNode>() {
 
             	@Override
-                protected void updateItem(EntityPresenter item, boolean empty) {
+                protected void updateItem(EntityNode item, boolean empty) {
                     super.updateItem(item, empty);
                     if (item != null) {
                     	textProperty().bind(item.nameProperty());
@@ -89,10 +85,10 @@ public class EntityTreeView extends TreeView<EntityPresenter> {
             
             cell.setOnDragDropped(e -> {
 				if(!Dragpool.isEmpty()) {
-                	if(Dragpool.containsType(EntityPresenter.class))
-						EventManager.post(new ParentingChangedEvent(Dragpool.grabContent(EntityPresenter.class), cell.getItem()));
+                	if(Dragpool.containsType(EntityNode.class))
+                		presenter.updateParenting(Dragpool.grabContent(EntityNode.class), cell.getItem());
 					else if(Dragpool.containsType(Blueprint.class))
-						EventManager.post(new EntityCreationFromBlueprintEvent(Dragpool.grabContent(Blueprint.class), cell.getItem()));
+						presenter.createNewEntity(Dragpool.grabContent(Blueprint.class), cell.getItem());
 				}
 			});
             return cell;

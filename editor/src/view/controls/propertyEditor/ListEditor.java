@@ -6,6 +6,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import presenter.InspectorPresenter;
+
 import com.simsilica.es.EntityComponent;
 
 import javafx.event.ActionEvent;
@@ -20,8 +22,8 @@ public class ListEditor extends PropertyEditor{
 	ListView<String> list;
 	final String contentTypeName;
 	
-	public ListEditor(EntityComponent comp, PropertyDescriptor pd) {
-		super(comp, pd);
+	public ListEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
+		super(presenter, comp, pd);
 		Type t = pd.getReadMethod().getGenericReturnType();
 		if(t instanceof ParameterizedType)
 			contentTypeName = ((ParameterizedType)t).getActualTypeArguments()[0].getTypeName();

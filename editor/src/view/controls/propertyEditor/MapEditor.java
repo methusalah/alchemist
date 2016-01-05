@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import presenter.InspectorPresenter;
+
 import com.simsilica.es.EntityComponent;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -31,8 +33,8 @@ public class MapEditor extends PropertyEditor{
 	TableView<Map.Entry<String,Object>> table;
 	final String contentTypeName;
 
-	public MapEditor(EntityComponent comp, PropertyDescriptor pd) {
-		super(comp, pd);
+	public MapEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
+		super(presenter, comp, pd);
 		Type t = pd.getReadMethod().getGenericReturnType();
 		if(t instanceof ParameterizedType){
 			if(((ParameterizedType)t).getActualTypeArguments()[0].getTypeName() != String.class.getName())

@@ -1,4 +1,4 @@
-package application.topDownScene.state;
+package model.state;
 
 import model.world.Tool;
 import model.world.WorldData;
@@ -14,7 +14,6 @@ public class WorldToolState extends AbstractAppState {
 	private SceneSelectorState selector;
 	private WorldData worldData;
 	private Tool actualTool;
-
 	
 	@Override
 	public void initialize(AppStateManager stateManager, Application app) {
@@ -23,14 +22,15 @@ public class WorldToolState extends AbstractAppState {
 	}
 	
 	public void setTool(Tool tool){
+		tool.setSelector(selector);
 		actualTool = tool;
 	}
 	
 	@Override
 	public void update(float tpf) {
 		if(actualTool != null){
-			actualTool.setCoord(selector.getPointedCoordInPlan());
 			actualTool.onUpdate(tpf);
+		} else {
 		}
 	}
 

@@ -8,6 +8,8 @@ import java.beans.PropertyDescriptor;
 import java.util.ArrayList;
 import java.util.List;
 
+import presenter.InspectorPresenter;
+
 import com.simsilica.es.EntityComponent;
 
 import javafx.beans.binding.DoubleBinding;
@@ -30,12 +32,14 @@ import view.controls.propertyEditor.PropertyEditor;
 import view.controls.propertyEditor.PropertyEditorFactory;
 
 public class ComponentEditor extends TitledPane {
+	final InspectorPresenter presenter;
+	final EntityComponent comp;
 
-	List<PropertyEditor> editors = new ArrayList<>();
-	EntityComponent comp;
+	final List<PropertyEditor> editors = new ArrayList<>();
 
-	public ComponentEditor(EntityComponent comp) {
+	public ComponentEditor(InspectorPresenter presenter, EntityComponent comp) {
 		this.comp = comp;
+		this.presenter = presenter;
 		expandedProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue && !UIConfig.expandedComponents.contains(comp.getClass()))
 				UIConfig.expandedComponents.add(comp.getClass());
@@ -54,7 +58,7 @@ public class ComponentEditor extends TitledPane {
 		try {
 			bi = Introspector.getBeanInfo(comp.getClass(), Object.class);
 			for (PropertyDescriptor pd : bi.getPropertyDescriptors()) {
-				PropertyEditor editor = PropertyEditorFactory.getEditorFor(comp, pd);
+				PropertyEditor editor = PropertyEditorFactory.getEditorFor(presenter, comp, pd);
 				if (editor != null) {
 					editors.add(editor);
 					content.getChildren().add(editor);
@@ -81,7 +85,7 @@ public class ComponentEditor extends TitledPane {
 
 		Button btn = new Button("remove");
 		btn.setMaxWidth(Double.MAX_VALUE);
-		btn.setOnAction(e -> EventManager.post(new RemoveComponentEvent(comp.getClass())));
+		btn.setOnAction(e -> presenter.removeComponent(comp.getClass()));
 		
 		bp.setLeft(label);
 		bp.setRight(btn);

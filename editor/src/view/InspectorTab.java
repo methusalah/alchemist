@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import presenter.EntityNode;
+import presenter.InspectorPresenter;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,40 +21,41 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
-import model.EntityPresenter;
 import util.LogUtil;
 import util.event.AddComponentEvent;
 import util.event.EventManager;
 import view.controls.ComponentEditor;
+import application.EditorPlatform;
 
 import com.simsilica.es.EntityComponent;
 
 public class InspectorTab extends Tab {
-	List<String> compNames = null;
+	final InspectorPresenter presenter;
 	VBox compControl;
 	Label info;
 	Button addCompButton;
 	
-	
 	ListChangeListener<EntityComponent> listener = e -> {
 		while(e.next())
-				if(e.wasReplaced())
-					for(EntityComponent comp : e.getAddedSubList())
-						updateComponent(comp);
-				else if(e.wasAdded())
-					for(EntityComponent comp : e.getAddedSubList())
-						addComponent(comp);
-				else if(e.wasRemoved())
-					for(EntityComponent comp : e.getRemoved())
-						removeComponent(comp);
+			if(e.wasReplaced())
+				for(EntityComponent comp : e.getAddedSubList())
+					updateComponent(comp);
+			else if(e.wasAdded())
+				for(EntityComponent comp : e.getAddedSubList())
+					addComponent(comp);
+			else if(e.wasRemoved())
+				for(EntityComponent comp : e.getRemoved())
+					removeComponent(comp);
 	};
 	
 	Map<Class<? extends EntityComponent>, ComponentEditor> editors = new HashMap<>();
 	
-	public InspectorTab(ObjectProperty<EntityPresenter> selection) {
+	public InspectorTab() {
+		presenter = new InspectorPresenter();
+		
 		setText("Inspector");
 		setClosable(false);
-		selection.addListener((observable, oldValue, newValue) -> {
+		EditorPlatform.getSelectionProperty().addListener((observable, oldValue, newValue) -> {
 			inspectNewEntity(newValue);
 			if(oldValue != null)
 				oldValue.componentListProperty().removeListener(listener);
@@ -71,20 +74,20 @@ public class InspectorTab extends Tab {
 		addCompButton = new Button("Add component");
 		addCompButton.setVisible(false);
 		addCompButton.setOnAction(e -> {
-			if(compNames == null || compNames.isEmpty()){
+			if(presenter.getComponentNames().isEmpty()){
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Error");
 				alert.setHeaderText(null);
 				alert.setContentText("There is no component available.");
 			} else {
-				ChoiceDialog<String> dialog = new ChoiceDialog<>(compNames.get(0), compNames);
+				ChoiceDialog<String> dialog = new ChoiceDialog<>(presenter.getComponentNames().get(0), presenter.getComponentNames());
 				dialog.setTitle("Component choice".toUpperCase());
 				dialog.setHeaderText(null);
 				dialog.setContentText("Choose the component in the list :");
 
 				// Traditional way to get the response value.
 				Optional<String> result = dialog.showAndWait();
-				result.ifPresent(compName -> EventManager.post(new AddComponentEvent(compName)));
+				result.ifPresent(compName -> presenter.addComponent(compName));
 			}
 		});
 		content.getChildren().add(addCompButton);
@@ -92,23 +95,18 @@ public class InspectorTab extends Tab {
 		setContent(content);
 	}
 	
-	private void inspectNewEntity(EntityPresenter ep){
+	private void inspectNewEntity(EntityNode ep){
 		compControl.getChildren().clear();
 		editors.clear();
 		for(EntityComponent comp : ep.componentListProperty()){
 			LogUtil.info("    comp : "+comp.getClass().getSimpleName()	);
-			ComponentEditor editor = new ComponentEditor(comp);
+			ComponentEditor editor = new ComponentEditor(presenter, comp);
 			editors.put(comp.getClass(), editor);
 			compControl.getChildren().add(editor);
 		}
 		addCompButton.setVisible(true);
 	}
 	
-	public void setComponentNames(List<String> compNames){
-		this.compNames = compNames;
-	}
-	
-
 	private void updateComponent(EntityComponent comp){
 		ComponentEditor editor = editors.get(comp.getClass());
 		if(editor.isExpanded())
@@ -116,7 +114,7 @@ public class InspectorTab extends Tab {
 	}
 	
 	private void addComponent(EntityComponent comp){
-		ComponentEditor editor = new ComponentEditor(comp);
+		ComponentEditor editor = new ComponentEditor(presenter, comp);
 		editors.put(comp.getClass(), editor);
 		compControl.getChildren().add(editor);
 	}

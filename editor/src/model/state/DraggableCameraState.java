@@ -1,4 +1,4 @@
-package application.topDownScene.state;
+package model.state;
 
 import util.geometry.geom2d.Point2D;
 import view.math.TranslateUtil;

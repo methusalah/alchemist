@@ -48,4 +48,8 @@ public class SceneSelectorState extends AbstractAppState {
 		}
 		return null;
 	}
+
+	public Geometry getPointedGeometry(){
+		return SpatialSelector.getPointedGeometry(AppFacade.getRootNode(), coordInScreenSpace);
+	}
 }

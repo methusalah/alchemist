@@ -7,6 +7,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import presenter.WorldEditorPresenter;
+import util.LogUtil;
 import view.controls.toolEditor.AtlasTab;
 import view.controls.toolEditor.HeighmapTab;
 import view.controls.toolEditor.PopulationTab;
@@ -17,8 +18,9 @@ public class WorldEditorTab extends Tab {
 	
 	WorldEditorPresenter presenter;
 	
-	public WorldEditorTab(WorldEditorPresenter presenter) {
-		this.presenter = presenter;
+	public WorldEditorTab() {
+		this.presenter = new WorldEditorPresenter();
+		
 		setText("World editor");
 		setClosable(false);
 		
@@ -37,12 +39,9 @@ public class WorldEditorTab extends Tab {
 				presenter.selectTool(editor.getTool());
 		});
 
-		setOnSelectionChanged(e -> {
-			if(getTabPane().selectionModelProperty().get().getSelectedItem() != WorldEditorTab.this)
-				presenter.selectTool(null);
-			else
-				presenter.selectTool(((ToolEditor)tabpane.selectionModelProperty().getValue().getSelectedItem()).getTool());
-		});
+		selectedProperty().addListener(e -> presenter.selectTool(isSelected()?
+				((ToolEditor)tabpane.selectionModelProperty().getValue().getSelectedItem()).getTool() :
+				null));
 		setContent(content);
 	}
 	

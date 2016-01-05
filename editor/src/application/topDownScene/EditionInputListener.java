@@ -1,14 +1,16 @@
 package application.topDownScene;
 
+import presenter.EntityNode;
 import javafx.application.Platform;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import model.state.WorldToolState;
 import model.world.Tool;
 import util.event.EntitySelectionChanged;
 import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
-import application.topDownScene.state.WorldToolState;
+import application.EditorPlatform;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
@@ -101,14 +103,10 @@ public class EditionInputListener implements SceneInputListener {
 		} else {
 			AppStateManager stateManager = app.getStateManager();
 			EntityId pointed = stateManager.getState(SceneSelectorState.class).getPointedEntity();
-			if(pointed != null)
-				Platform.runLater(new Runnable() {
-					
-					@Override
-					public void run() {
-						EventManager.post(new EntitySelectionChanged(pointed));
-					}
-				});
+			if(pointed != null){
+				EntityNode pointedNode = EditorPlatform.getObserver().getNode(pointed);
+				Platform.runLater(() -> EditorPlatform.getSelectionProperty().set(pointedNode));
+			}
 		}
 		return true;
 	}

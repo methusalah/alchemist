@@ -2,6 +2,8 @@ package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
+import presenter.InspectorPresenter;
+
 import com.simsilica.es.EntityComponent;
 
 import javafx.event.ActionEvent;
@@ -16,8 +18,8 @@ public class AngleEditor extends PropertyEditor{
 	TextField valueField;
 	Knob knob;
 	
-	public AngleEditor(EntityComponent comp, PropertyDescriptor pd) {
-		super(comp, pd);
+	public AngleEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
+		super(presenter, comp, pd);
 	}
 
 	@Override

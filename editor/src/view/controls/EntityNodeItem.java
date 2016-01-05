@@ -1,23 +1,23 @@
 package view.controls;
 
+import presenter.EntityNode;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.TreeItem;
-import model.EntityPresenter;
 import view.UIConfig;
 
-public class EntityNodeItem extends TreeItem<EntityPresenter> {
+public class EntityNodeItem extends TreeItem<EntityNode> {
 	
-	public EntityNodeItem(EntityPresenter ep) {
+	public EntityNodeItem(EntityNode ep) {
 		setValue(ep);
 		if(ep != null){
-			ep.childrenListProperty().addListener((ListChangeListener.Change<? extends EntityPresenter> c) ->{
+			ep.childrenListProperty().addListener((ListChangeListener.Change<? extends EntityNode> c) ->{
 					while(c.next()){
 						if(c.wasAdded()){
-							for(EntityPresenter added : c.getAddedSubList()){
+							for(EntityNode added : c.getAddedSubList()){
 								addChild(added);
 							}
 						} else if (c.wasRemoved()){
-							for(EntityPresenter removed : c.getRemoved()){
+							for(EntityNode removed : c.getRemoved()){
 								removeChild(removed);
 							}
 						}
@@ -35,16 +35,16 @@ public class EntityNodeItem extends TreeItem<EntityPresenter> {
 		setExpanded(UIConfig.expandedEntityNodes.contains(getValue()));
 	}
 	
-	private void addChild(EntityPresenter ep){
+	private void addChild(EntityNode ep){
 		EntityNodeItem newChild = new EntityNodeItem(ep); 
 		getChildren().add(newChild);
-		for(EntityPresenter child : ep.childrenListProperty())
+		for(EntityNode child : ep.childrenListProperty())
 			newChild.addChild(child);
 	}
 	
-	private void removeChild(EntityPresenter ep){
+	private void removeChild(EntityNode ep){
 		EntityNodeItem toRemove = null;
-		for(TreeItem<EntityPresenter> node : getChildren())
+		for(TreeItem<EntityNode> node : getChildren())
 			if(node.getValue() == ep){
 				toRemove = (EntityNodeItem)node;
 				break;
@@ -56,7 +56,7 @@ public class EntityNodeItem extends TreeItem<EntityPresenter> {
 	}
 
 	private void removeAllChildren(){
-		for(TreeItem<EntityPresenter> child : getChildren())
+		for(TreeItem<EntityNode> child : getChildren())
 			((EntityNodeItem)child).removeAllChildren();
 		getChildren().clear();
 	}

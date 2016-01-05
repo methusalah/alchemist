@@ -14,7 +14,7 @@ import util.geometry.geom2d.algorithm.PerlinNoise;
 import util.math.AngleUtil;
 
 
-public class PencilTool extends Tool {
+public class PencilTool extends WorldTool {
 	public static final int MAX_SIZE = 12;
 
 	public enum SHAPE {

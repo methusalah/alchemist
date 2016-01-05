@@ -21,16 +21,20 @@ public class Circle extends Mesh {
 		this(Vector3f.ZERO, radius, samples);
 	}
 
-	public Circle(Vector3f center, float radius, int samples) {
+	public Circle(Vector3f center, float radius, int samples, int lineWith) {
 		super();
 		this.center = center;
 		this.radius = radius;
 		this.samples = samples;
 
 		setMode(Mode.Lines);
+		setLineWidth(lineWith);
 		updateGeometry();
 	}
 
+	public Circle(Vector3f center, float radius, int samples) {
+		this(center, radius, samples, 1);
+	}
 	protected void updateGeometry() {
 		FloatBuffer positions = BufferUtils.createFloatBuffer(samples * 3);
 		FloatBuffer normals = BufferUtils.createFloatBuffer(samples * 3);

@@ -2,6 +2,7 @@ package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
+import presenter.InspectorPresenter;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,8 +17,8 @@ public class Point2DEditor extends PropertyEditor{
 
 	TextField xField, yField;
 	
-	public Point2DEditor(EntityComponent comp, PropertyDescriptor pd) {
-		super(comp, pd);
+	public Point2DEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
+		super(presenter, comp, pd);
 	}
 
 	@Override

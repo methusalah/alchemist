@@ -2,6 +2,7 @@ package view.controls.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
+import presenter.InspectorPresenter;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -17,8 +18,8 @@ public class EntityIdEditor extends PropertyEditor{
 	
 	TextField valueField;
 	
-	public EntityIdEditor(EntityComponent comp, PropertyDescriptor pd) {
-		super(comp, pd);
+	public EntityIdEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
+		super(presenter, comp, pd);
 	}
 
 	@Override
