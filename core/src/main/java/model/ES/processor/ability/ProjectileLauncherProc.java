@@ -1,40 +1,24 @@
 package model.ES.processor.ability;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.jme3.util.blockparser.BlockLanguageParser;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
 import controller.ECS.Processor;
 import model.ES.component.Cooldown;
-import model.ES.component.LifeTime;
-import model.ES.component.Naming;
 import model.ES.component.assets.Ability;
 import model.ES.component.assets.Projectile;
 import model.ES.component.assets.ProjectileLauncher;
 import model.ES.component.command.PlanarNeededThrust;
 import model.ES.component.hierarchy.Parenting;
-import model.ES.component.interaction.DamageOnTouch;
-import model.ES.component.interaction.DestroyedOnTouch;
-import model.ES.component.interaction.EffectOnTouch;
-import model.ES.component.interaction.ShockwaveOnTouch;
-import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
-import model.ES.component.motion.physic.CircleCollisionShape;
 import model.ES.component.motion.physic.Physic;
-import model.ES.component.visuals.Model;
-import model.ES.richData.Damage;
 import model.ES.serial.Blueprint;
 import model.ES.serial.BlueprintLibrary;
 import util.LogUtil;
-import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 import util.math.AngleUtil;
-import util.math.Fraction;
 import util.math.RandomUtil;
 
 public class ProjectileLauncherProc extends Processor {
@@ -50,49 +34,34 @@ public class ProjectileLauncherProc extends Processor {
 		if(trigger.isTriggered()){
 			ProjectileLauncher launcher = e.get(ProjectileLauncher.class);
 			PlanarStance stance = e.get(PlanarStance.class);
-			EntityId p = entityData.getComponent(e.getId(), Parenting.class).getParent();
-			EntityId firing;
-			double orientation = stance.orientation.getValue() + ((RandomUtil.next()-0.5)*(1-launcher.getPrecision().getValue()))*AngleUtil.FULL;
-			if(!launcher.getProjectileBluePrint().isEmpty()){
-				firing = BlueprintLibrary.getBlueprint(launcher.getProjectileBluePrint()).createEntity(entityData, null);
-				LogUtil.info("projectilisation de "+launcher.getProjectileBluePrint() + " eid : " +firing);
-				// TODO manage spawning exception
-				// TODO manage attacker exception
-			} else {
-				firing = entityData.createEntity();
-				entityData.setComponent(firing, new Naming("projectile"));
-				entityData.setComponent(firing, new MotionCapacity(0, 1, 0, 0));
-				
-				// application of the velocity of the parent to the projectile
-				entityData.setComponent(firing, new PlanarVelocityToApply(new Point2D(15, 0)));
-				entityData.setComponent(firing, new Model("human/hmissileT1/hmissileT1_02.mesh.xml", 0.0025, new Angle(0), new Angle(AngleUtil.toRadians(-90)), new Angle(0)));
-				List<String> exceptions = new ArrayList<>();
-				exceptions.add("Missile");
-				entityData.setComponent(firing, new Physic(Point2D.ORIGIN, "Missile", exceptions, 1, new Fraction(0), p));
-				entityData.setComponent(firing, new CircleCollisionShape(0.1));
-				entityData.setComponent(firing, new DestroyedOnTouch());
-				entityData.setComponent(firing, new ShockwaveOnTouch(100, 4, 20));
-				entityData.setComponent(firing, new EffectOnTouch());
-				entityData.setComponent(firing, new DamageOnTouch(new Damage(1)));
-				entityData.setComponent(firing, new LifeTime(System.currentTimeMillis(), 4000));
-			}
-
-			Physic ph =entityData.getComponent(firing, Physic.class); 
-			if(ph != null)
-				entityData.setComponent(firing, new Physic(ph.getVelocity(), ph.getType(), ph.getExceptions(), ph.getMass(), ph.getRestitution(), p));
-			
-			PlanarVelocityToApply vel = entityData.getComponent(firing, PlanarVelocityToApply.class); 
-			if(vel != null)
-				entityData.setComponent(firing, new PlanarVelocityToApply(vel.vector.getRotation(orientation)));
-			
-			PlanarNeededThrust thrust = entityData.getComponent(firing, PlanarNeededThrust.class);
-			if(thrust != null)
-				entityData.setComponent(firing, new PlanarNeededThrust(thrust.getDirection().getRotation(orientation)));
-				
-			
-			entityData.setComponent(firing, new PlanarStance(stance.coord.getTranslation(stance.orientation.getValue(), 0.2), new Angle(orientation), stance.elevation, Point3D.UNIT_Z));
 			// TODO locate aggressor better in the hierarchy
-			entityData.setComponent(firing, new Projectile(p, stance.coord));
+			EntityId p = entityData.getComponent(e.getId(), Parenting.class).getParent();
+			double orientation = stance.orientation.getValue() + ((RandomUtil.next()-0.5)*(1-launcher.getPrecision().getValue()))*AngleUtil.FULL;
+			
+			Blueprint bp = BlueprintLibrary.getBlueprint(launcher.getProjectileBluePrint());
+			if(bp == null){
+				LogUtil.warning("Can't locate projectile's blueprint \""+launcher.getProjectileBluePrint()+"\".");
+				return;
+			}
+			EntityId eid = bp.createEntity(entityData, null);;
+
+			// adding the spanwer for collision exception
+			Physic ph =entityData.getComponent(eid, Physic.class); 
+			if(ph != null)
+				entityData.setComponent(eid, new Physic(ph.getVelocity(), ph.getType(), ph.getExceptions(), ph.getMass(), ph.getRestitution(), p));
+			
+			// correcting the orientation of the velocity to apply
+			PlanarVelocityToApply vel = entityData.getComponent(eid, PlanarVelocityToApply.class); 
+			if(vel != null)
+				entityData.setComponent(eid, new PlanarVelocityToApply(vel.vector.getRotation(orientation)));
+
+			// correcting the orientation of the needed thrust
+			PlanarNeededThrust thrust = entityData.getComponent(eid, PlanarNeededThrust.class);
+			if(thrust != null)
+				entityData.setComponent(eid, new PlanarNeededThrust(thrust.getDirection().getRotation(orientation)));
+				
+			entityData.setComponent(eid, new PlanarStance(stance.coord.getTranslation(stance.orientation.getValue(), 0.2), new Angle(orientation), stance.elevation, Point3D.UNIT_Z));
+			entityData.setComponent(eid, new Projectile(p, stance.coord));
 			
 			Cooldown cd = e.get(Cooldown.class);
 			setComp(e, new Cooldown(System.currentTimeMillis(), cd.duration));
