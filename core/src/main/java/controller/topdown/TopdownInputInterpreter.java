@@ -1,6 +1,7 @@
 package controller.topdown;
 
 import model.Command;
+import util.LogUtil;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import view.TopdownView;
@@ -10,12 +11,12 @@ public class TopdownInputInterpreter extends InputInterpreter {
 
 	private Command command; 
 	
-	public void setCommand(Command command) {
-		this.command = command;
-	}
-
 	TopdownInputInterpreter(TopdownView v) {
 		super(v, new TopdownMapping());
+	}
+
+	public void setCommand(Command command) {
+		this.command = command;
 	}
 
 	@Override

@@ -36,10 +36,4 @@ public class DataState extends AbstractAppState {
     public Command getCommand() {
 		return command;
 	}
-
-	@Override
-    public void update(float tpf) {
-    	world.attachDrawers();
-    }
-    
 }

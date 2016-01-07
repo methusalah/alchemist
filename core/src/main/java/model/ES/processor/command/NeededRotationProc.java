@@ -8,7 +8,7 @@ import util.math.AngleUtil;
 
 import com.simsilica.es.Entity;
 
-import controller.ECS.LogicThread;
+import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
 
 public class NeededRotationProc extends Processor {
@@ -24,7 +24,7 @@ public class NeededRotationProc extends Processor {
 		MotionCapacity capacity = e.get(MotionCapacity.class);
 		PlanarStance stance = e.get(PlanarStance.class); 
 		
-		double maxRotation = capacity.maxRotationSpeed * LogicThread.TIME_PER_FRAME;
+		double maxRotation = capacity.maxRotationSpeed * LogicLoop.TIME_PER_FRAME;
 		maxRotation = Math.min(Math.abs(neededRotation.angle.getValue()), maxRotation);
 		double possibleRotation = maxRotation*Math.signum(neededRotation.angle.getValue());
 		

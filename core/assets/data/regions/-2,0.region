@@ -28,12 +28,13 @@
       }
     },
     "texturing" : {
-      "diffuses" : [ "textures/grass02.jpg", "textures/dirt.jpg" ],
+      "diffuses" : [ "textures/grass02.jpg", "textures/road.jpg" ],
       "normals" : [ null, null ],
       "scales" : [ 32.0, 32.0 ],
       "coverDiffuses" : [ "textures/transp.png" ],
       "coverNormals" : [ null ],
       "coverScales" : [ 1.0 ]
     }
-  }
+  },
+  "modified" : false
 }

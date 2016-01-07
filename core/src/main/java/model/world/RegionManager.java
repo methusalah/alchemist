@@ -46,7 +46,7 @@ public class RegionManager {
 	}
 	
 	private Region loadRegion(String rid, Point2D coord) {
-		LogUtil.info("    load region file : "+rid+" ("+RegionManager.class+")");
+		//LogUtil.info("    load region file : "+rid+" ("+RegionManager.class+")");
 		File f = getRegionFile(rid, coord);
 		try {
 			return mapper.readValue(f, Region.class);

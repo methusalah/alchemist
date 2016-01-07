@@ -27,6 +27,7 @@ public class MyDebugger {
 		for (Object o : stuff)
 			text.append(o.toString());
 		text.append("\n");
+		bitmap.setText(text.toString());
 	}
 
 }

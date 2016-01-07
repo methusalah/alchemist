@@ -5,6 +5,7 @@ import com.simsilica.es.EntityData;
 
 import controller.cameraManagement.ChasingCameraProc;
 import model.Command;
+import model.ES.component.Naming;
 import model.ES.processor.LifeTimeProc;
 import model.ES.processor.ParentingCleanerProc;
 import model.ES.processor.RemoveProc;
@@ -45,11 +46,11 @@ import model.ES.processor.shipGear.ThrusterProc;
 import model.ES.processor.world.WorldProc;
 import model.world.WorldData;
 
-public class LogicThread implements Runnable {
+public class LogicLoop implements Runnable {
     public static final double TIME_PER_FRAME = 0.02;
     private AppStateManager stateManager;
  
-    public LogicThread(EntityData ed, WorldData world, Command command) {
+    public LogicLoop(EntityData ed, WorldData world, Command command) {
     	stateManager = new AppStateManager(null);
 
     	stateManager.attach(new DataState(ed, world, command));
@@ -105,28 +106,45 @@ public class LogicThread implements Runnable {
 		stateManager.attach(new ParentingCleanerProc());
     }
 
+    public String getReport(){
+   		return new String(report);
+    }
+    String report = "";
+    int counter = 0;
+    long lastTime = 0;
+    int waitSum = 0;
+    
     @Override
 	public void run() {
 		while (!Thread.currentThread().isInterrupted()) {
-			long time = System.currentTimeMillis();
 			stateManager.update((float)TIME_PER_FRAME);
-			try {
-				long nextTick = time+20;
-				long towait = nextTick - System.currentTimeMillis();
-//				LogUtil.info("nb entity" + stateManager.getState(EntityDataAppState.class).entityData.getEntities(Naming.class).size());
-				if(towait > 0)
-					Thread.sleep(towait);
-//				((CosmoVania)app).
-				
-			} catch (InterruptedException e) {
-				break;
+			
+			long time = System.currentTimeMillis();
+			long nextTick = (long) (time+TIME_PER_FRAME*1000);
+			long towait = nextTick - System.currentTimeMillis();
+			counter ++;
+			waitSum += towait; 
+
+			if(time - lastTime > 200){
+				StringBuilder sb = new StringBuilder("Entity count : " + stateManager.getState(DataState.class).getEntityData().getEntities(Naming.class).size()+System.lineSeparator());
+				sb.append("Ticks per second : " + counter*5 + System.lineSeparator());
+				sb.append("Idle : " + (((double)waitSum*100d)/((double)counter*TIME_PER_FRAME*1000d)) + "% time." + System.lineSeparator());
+				synchronized (report) {
+					report = sb.toString();
+				}
+				lastTime = time;
+				counter = 0;
+				waitSum = 0;
 			}
+			
+			
+			
+			if(towait > 0)
+				try {
+					Thread.sleep(towait);
+				} catch (InterruptedException e) {
+					break;
+				}
 		}
 	}
-//    public void run() {
-//	    LogUtil.info("run !");
-//	    stateManager.update(tpf);
-//	    //throw new RuntimeException("taggle");
-//    }
-
 }

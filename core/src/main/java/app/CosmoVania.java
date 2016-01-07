@@ -11,7 +11,7 @@ import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.system.AppSettings;
 
 public abstract class CosmoVania extends SimpleApplication implements PhysicsTickListener {
-	
+	protected MyDebugger debugger;
 	private BulletAppState bulletAppState;
 
 	public CosmoVania() {
@@ -39,11 +39,16 @@ public abstract class CosmoVania extends SimpleApplication implements PhysicsTic
 
 	@Override
 	public void initialize() {
+		
 		bulletAppState = new BulletAppState();
 		bulletAppState.startPhysics();
 		stateManager.attach(bulletAppState);
 		getPhysicsSpace().addTickListener(this);
 		super.initialize();
+		
+		debugger = new MyDebugger(0, 300, assetManager.loadFont("Interface/Fonts/Console.fnt"));
+		guiNode.attachChild(debugger.getNode());
+		
 		stateManager.detach(stateManager.getState(FlyCamAppState.class));
 	}
 

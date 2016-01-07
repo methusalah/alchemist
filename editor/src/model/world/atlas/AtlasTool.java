@@ -80,7 +80,7 @@ public class AtlasTool extends PencilTool {
 				}
 			}
 			for(Region r : involvedRegions)
-				r.getDrawer().updateAtlas();
+				world.getTerrainDrawer(r).updateAtlas();
 		}
 	}
 	

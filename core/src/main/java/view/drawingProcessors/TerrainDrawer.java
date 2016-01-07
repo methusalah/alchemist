@@ -27,15 +27,14 @@ public class TerrainDrawer {
 	private final TerrainSplatTexture coverTexture;
 	private final Point2D coord;
 	
-	public Node mainNode = new Node("terrain drawer main node");
+	public Node mainNode;
 	public Node castAndReceiveNode = new Node("terrain cast and receive shadow node");
 	public Node receiveNode = new Node("terrain receive shadow node");
 
 	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
-	public boolean attached = false;
-	public boolean toDetach = false;
 
 	public TerrainDrawer(Terrain terrain, Point2D coord) {
+		mainNode = new Node("terrain drawer main node "+coord);
 		this.terrain = terrain;
 		this.coord = coord;
 		groundTexture = new TerrainSplatTexture(terrain.getAtlas());

@@ -1,0 +1,17 @@
+{
+  "name" : "Test",
+  "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "Test"
+  } ],
+  "children" : [ {
+    "name" : "inner",
+    "comps" : [ {
+      "class" : "model.ES.component.Naming",
+      "name" : "inner"
+    }, {
+      "class" : "model.ES.component.assets.Attackable"
+    } ],
+    "children" : [ ]
+  } ]
+}
