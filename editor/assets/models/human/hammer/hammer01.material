@@ -4,9 +4,7 @@ material HammerHull01
 	{
 		pass
 		{
-			ambient 0.133333 0.133333 0.156863 1
-			diffuse 0.133333 0.133333 0.156863 1
-			specular 0 0 0 0 10
+			specular 0.9 0.9 0.9 0.15 20
 			scene_blend one one_minus_src_alpha
 
 			texture_unit

@@ -33,17 +33,19 @@
     }
   }, {
     "class" : "model.ES.component.assets.AbilityTrigger",
-    "triggers" : {
-      "bonjour" : true,
-      "aurevoir" : false,
-      "ça va ?" : true
-    }
+    "triggers" : { }
   }, {
     "class" : "model.ES.component.interaction.senses.Sighting",
     "range" : 5.0,
     "angle" : 20.0,
     "entitiesInSight" : [ {
+      "id" : 2
+    }, {
+      "id" : 3
+    }, {
       "id" : 4
+    }, {
+      "id" : 5
     }, {
       "id" : 6
     }, {
@@ -51,25 +53,83 @@
     }, {
       "id" : 8
     }, {
+      "id" : 264
+    }, {
+      "id" : 9
+    }, {
       "id" : 10
+    }, {
+      "id" : 266
+    }, {
+      "id" : 11
+    }, {
+      "id" : 267
+    }, {
+      "id" : 12
+    }, {
+      "id" : 268
+    }, {
+      "id" : 13
+    }, {
+      "id" : 14
+    }, {
+      "id" : 270
     }, {
       "id" : 15
     }, {
-      "id" : 16
+      "id" : 271
+    }, {
+      "id" : 272
     }, {
       "id" : 17
     }, {
+      "id" : 273
+    }, {
       "id" : 18
+    }, {
+      "id" : 274
+    }, {
+      "id" : 19
+    }, {
+      "id" : 275
+    }, {
+      "id" : 20
+    }, {
+      "id" : 276
+    }, {
+      "id" : 21
+    }, {
+      "id" : 277
+    }, {
+      "id" : 22
+    }, {
+      "id" : 278
+    }, {
+      "id" : 23
+    }, {
+      "id" : 279
+    }, {
+      "id" : 24
+    }, {
+      "id" : 25
+    }, {
+      "id" : 26
     }, {
       "id" : 27
     }, {
+      "id" : 30
+    }, {
       "id" : 31
+    }, {
+      "id" : 32
     }, {
       "id" : 33
     }, {
       "id" : 34
     }, {
       "id" : 35
+    }, {
+      "id" : 36
     }, {
       "id" : 37
     }, {
@@ -90,6 +150,88 @@
       "id" : 45
     }, {
       "id" : 46
+    }, {
+      "id" : 48
+    }, {
+      "id" : 49
+    }, {
+      "id" : 50
+    }, {
+      "id" : 51
+    }, {
+      "id" : 52
+    }, {
+      "id" : 53
+    }, {
+      "id" : 54
+    }, {
+      "id" : 55
+    }, {
+      "id" : 56
+    }, {
+      "id" : 57
+    }, {
+      "id" : 58
+    }, {
+      "id" : 59
+    }, {
+      "id" : 60
+    }, {
+      "id" : 61
+    }, {
+      "id" : 62
+    }, {
+      "id" : 63
+    }, {
+      "id" : 64
+    }, {
+      "id" : 65
+    }, {
+      "id" : 66
+    }, {
+      "id" : 67
+    }, {
+      "id" : 68
+    }, {
+      "id" : 69
+    }, {
+      "id" : 70
+    }, {
+      "id" : 71
+    }, {
+      "id" : 72
+    }, {
+      "id" : 73
+    }, {
+      "id" : 74
+    }, {
+      "id" : 75
+    }, {
+      "id" : 76
+    }, {
+      "id" : 77
+    }, {
+      "id" : 78
+    }, {
+      "id" : 79
+    }, {
+      "id" : 80
+    }, {
+      "id" : 81
+    }, {
+      "id" : 134
+    }, {
+      "id" : 136
+    }, {
+      "id" : 137
+    }, {
+      "id" : 138
+    }, {
+      "id" : 140
+    }, {
+      "id" : 147
+    }, {
+      "id" : 148
     } ]
   }, {
     "class" : "model.ES.component.motion.PlanarVelocityToApply",
@@ -148,8 +290,8 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : 0.6243631527870993,
-          "y" : 0.3299953924162456
+          "x" : 1.6243631527870992,
+          "y" : 2.3299953924162455
         },
         "orientation" : {
           "value" : 2.420786158844856
@@ -246,8 +388,8 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 0.6243631527870993,
-            "y" : 0.3299953924162456
+            "x" : 1.6243631527870992,
+            "y" : 2.3299953924162455
           },
           "orientation" : {
             "value" : 2.420786158844856
@@ -317,8 +459,8 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 0.6243631527870993,
-            "y" : 0.3299953924162456
+            "x" : 1.6243631527870992,
+            "y" : 2.3299953924162455
           },
           "orientation" : {
             "value" : 2.420786158844856
@@ -395,8 +537,8 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 0.6243631527870993,
-            "y" : 0.3299953924162456
+            "x" : 1.6243631527870992,
+            "y" : 2.3299953924162455
           },
           "orientation" : {
             "value" : 2.420786158844856
@@ -418,8 +560,8 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : 1.3665085562535697,
-          "y" : -0.18886894449041636
+          "x" : 2.36650855625357,
+          "y" : 1.8111310555095836
         },
         "orientation" : {
           "value" : -0.2844741817463549
@@ -516,8 +658,8 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 1.3665085562535697,
-            "y" : -0.18886894449041636
+            "x" : 2.36650855625357,
+            "y" : 1.8111310555095836
           },
           "orientation" : {
             "value" : -0.2844741817463549
@@ -539,8 +681,8 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : 1.2345103992870714,
-          "y" : -0.33912368337557663
+          "x" : 2.2345103992870716,
+          "y" : 1.6608763166244234
         },
         "orientation" : {
           "value" : -1.1571388077435196
@@ -637,8 +779,8 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 1.2345103992870714,
-            "y" : -0.33912368337557663
+            "x" : 2.2345103992870716,
+            "y" : 1.6608763166244234
           },
           "orientation" : {
             "value" : -1.1571388077435196
@@ -660,8 +802,8 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : 0.9441797333600479,
-          "y" : 0.31525243509328305
+          "x" : 1.944179733360048,
+          "y" : 2.3152524350932833
         },
         "orientation" : {
           "value" : 1.4608550702479743
@@ -758,8 +900,8 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 0.9441797333600479,
-            "y" : 0.31525243509328305
+            "x" : 1.944179733360048,
+            "y" : 2.3152524350932833
           },
           "orientation" : {
             "value" : 1.4608550702479743
@@ -781,8 +923,8 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : 0.6801834194270514,
-          "y" : 0.014742957322962519
+          "x" : 1.6801834194270513,
+          "y" : 2.0147429573229627
         },
         "orientation" : {
           "value" : -2.902468059737849
@@ -879,8 +1021,8 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : 0.6801834194270514,
-            "y" : 0.014742957322962519
+            "x" : 1.6801834194270513,
+            "y" : 2.0147429573229627
           },
           "orientation" : {
             "value" : -2.902468059737849
@@ -912,7 +1054,7 @@
       "precision" : {
         "value" : 0.95
       },
-      "projectileBluePrint" : ""
+      "projectileBluePrint" : "PHAT missile"
     }, {
       "class" : "model.ES.component.Cooldown",
       "start" : 1450275208872,
@@ -927,8 +1069,8 @@
     }, {
       "class" : "model.ES.component.motion.PlanarStance",
       "coord" : {
-        "x" : 1.0,
-        "y" : 0.0
+        "x" : 2.0,
+        "y" : 2.0
       },
       "orientation" : {
         "value" : -0.7208064947449373
