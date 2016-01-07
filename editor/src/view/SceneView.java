@@ -3,54 +3,39 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 
-import presenter.ScenePresenter;
 import application.topDownScene.SceneInputManager;
-import application.topDownScene.TopDownSceneController;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
-import util.LogUtil;
-import util.geometry.geom2d.Point2D;
+import presenter.ScenePresenter;
 
-public class SceneViewer extends Pane {
+public class SceneView extends Pane {
 	private final ScenePresenter presenter;
+	private final SceneInputManager inputManager = new SceneInputManager();
+
+	private final List<KeyCode> pressed = new ArrayList<KeyCode>();
 	
-	private SceneInputManager inputManager;
-	private final ImageView image;
-	private List<KeyCode> pressed = new ArrayList<KeyCode>();
-	
-	public SceneViewer() {
-		presenter = new ScenePresenter();
+	public SceneView() {
+		presenter = new ScenePresenter(inputManager);
 		setFocusTraversable(true);
-		image = new ImageView();
+		ImageView image = new ImageView();
 		setStyle("-fx-background-color: gray");
 
 		image.fitHeightProperty().bind(heightProperty());
 		image.fitWidthProperty().bind(widthProperty());
 		image.setStyle("-fx-background-color: blue");
 
-		// Camera rotation
 		image.setOnMousePressed(e -> inputManager.onMousePressed(e));
 		image.setOnMouseDragged(e -> inputManager.onMouseMoved(e));
 		image.setOnMouseReleased(e -> inputManager.onMouseReleased(e));
 		image.setOnMouseMoved(e -> inputManager.onMouseMoved(e));
-		
-		// camera zoom
 		image.setOnScroll(e -> inputManager.onMouseScroll(e));
+		presenter.getScene().bind(image);
 		
 		getChildren().add(image);
 	}
 
-	public void setInputManager(SceneInputManager inputManager) {
-		this.inputManager = inputManager;
-	}
-	
 	public void registerKeyInputs(Scene rootScene){
 		// camera motion
 		rootScene.setOnKeyPressed(e -> {
@@ -63,9 +48,5 @@ public class SceneViewer extends Pane {
 				pressed.remove(e.getCode());
 			}
 		});
-	}
-
-	public ImageView getImage() {
-		return image;
 	}
 }

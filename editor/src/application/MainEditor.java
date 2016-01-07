@@ -8,14 +8,11 @@ import model.ECS.PostingEntityData;
 import model.world.WorldData;
 import util.LogUtil;
 import view.Overview;
-import application.topDownScene.TopDownSceneController;
 
-import com.jme3x.jfx.injfx.JmeForImageView;
 import com.simsilica.es.EntityData;
 
 
 public class MainEditor extends Application {
-	TopDownSceneController topDownScenecontroller;
 	Overview view;
 
 	@Override
@@ -27,8 +24,6 @@ public class MainEditor extends Application {
 		EditorPlatform.setCommand(new Command());
 		
 		view = new Overview(primaryStage);
-
-		topDownScenecontroller = new TopDownSceneController(view);
 	}
 	
 	public static void main(String[] args) {

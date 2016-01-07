@@ -10,6 +10,7 @@ import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
+import model.ES.component.LifeTime;
 import model.ES.component.hierarchy.Parenting;
 
 public class Blueprint {
@@ -43,6 +44,8 @@ public class Blueprint {
 		EntityId res = ed.createEntity();
 		for(EntityComponent comp : getComps()){
 			ed.setComponent(res, comp);
+			if(comp instanceof LifeTime)
+				ed.setComponent(res, new LifeTime(System.currentTimeMillis(), ((LifeTime)comp).duration));
 		}
 		if(parent != null)
 			ed.setComponent(res, new Parenting(parent));

@@ -1,8 +1,12 @@
 package application;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import presenter.EntityNode;
+import presenter.RunState;
 import model.Command;
 import model.ECS.EntityDataObserver;
 import model.ECS.PostingEntityData;
@@ -12,6 +16,7 @@ import model.world.WorldData;
 import com.jme3x.jfx.injfx.JmeForImageView;
 import com.simsilica.es.EntityData;
 
+import application.topDownScene.SceneInputListener;
 import controller.ECS.SceneSelectorState;
 
 public class EditorPlatform {
@@ -24,6 +29,8 @@ public class EditorPlatform {
 	private static HandleState handle;
 	private static JmeForImageView scene, preview;
 	private static final ObjectProperty<EntityNode> selectionProperty = new SimpleObjectProperty<>();
+	private static final ObjectProperty<RunState> runStateProperty = new SimpleObjectProperty<>();
+	private static final ListProperty<SceneInputListener> sceneInputListeners = new SimpleListProperty<>();
 	
 	public static EntityData getEntityData() {
 		return entityData;
@@ -73,6 +80,12 @@ public class EditorPlatform {
 	}
 	public static ObjectProperty<EntityNode> getSelectionProperty() {
 		return selectionProperty;
+	}
+	public static ObjectProperty<RunState> getRunStateProperty() {
+		return runStateProperty;
+	}
+	public static ListProperty<SceneInputListener> getSceneInputListeners() {
+		return sceneInputListeners;
 	}
 	
 	

@@ -1,5 +1,6 @@
 package view;
 
+import application.EditorPlatform;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
@@ -15,7 +16,7 @@ public class Overview {
 	public final HierarchyTab hierarchyTab;
 	public final ResourceTab resourceTab;
 	public final RunPanel runPanel;
-	public final SceneViewer sceneViewer;
+	public final SceneView sceneViewer;
 	
 	public Overview(Stage stage) {
 		inspectorTab = new InspectorTab();
@@ -23,7 +24,7 @@ public class Overview {
 		hierarchyTab = new HierarchyTab();
 		resourceTab = new ResourceTab();
 		runPanel = new RunPanel();
-		sceneViewer = new SceneViewer();
+		sceneViewer = new SceneView();
 		
 		BorderPane scenePane = new BorderPane(sceneViewer, runPanel, null, null, null);
 		
@@ -47,6 +48,6 @@ public class Overview {
 		stage.setScene(s);
 		stage.show();
 		stage.setTitle("Entity Editor");
-		stage.setOnCloseRequest(e -> EventManager.post(new AppClosedEvent()));
+		stage.setOnCloseRequest(e -> EditorPlatform.getScene().stop(false));
 	}
 }

@@ -1,22 +1,21 @@
 package presenter;
 
+import com.jme3.app.SimpleApplication;
+import com.jme3.app.state.AppStateManager;
+
+import application.EditorPlatform;
 import model.state.WorldToolState;
 import model.world.HeightMapTool;
 import model.world.PopulationTool;
 import model.world.Tool;
-import model.world.WorldData;
 import model.world.atlas.AtlasTool;
 import util.event.EventManager;
-import application.EditorPlatform;
-
-import com.jme3.app.SimpleApplication;
-import com.jme3.app.state.AppStateManager;
-import com.jme3x.jfx.injfx.JmeForImageView;
 
 public class WorldEditorPresenter {
 	private final HeightMapTool heightmapTool;
 	private final AtlasTool atlasTool;
 	private final PopulationTool populationTool;
+
 
 	public WorldEditorPresenter() {
 		EventManager.register(this);
