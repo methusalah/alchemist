@@ -14,7 +14,7 @@ import util.LogUtil;
 import util.exception.TechnicalException;
 
 public class BlueprintLibrary {
-	private static final String PATH = "assets/data/blueprint/";
+	private static final String PATH = "assets/data/blueprints/";
 	private static final String EXTENSION = ".blueprint";
 	private static final ObjectMapper mapper = new ObjectMapper();
 	private static final Map<String, Blueprint> blueprintMap;
