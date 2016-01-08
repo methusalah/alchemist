@@ -20,7 +20,7 @@
     }
   }, {
     "class" : "model.ES.component.visuals.Model",
-    "path" : "human/odysseus/odysseus01.mesh.xml",
+    "path" : "enemies/odysseus/odysseus01.mesh.xml",
     "scale" : 0.1,
     "yawFix" : {
       "value" : 0.0

@@ -6,11 +6,11 @@
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
-      "x" : 2.903563897669111,
-      "y" : 12.10795311020172
+      "x" : 0.0,
+      "y" : 0.0
     },
     "orientation" : {
-      "value" : 1.182723447767117
+      "value" : 0.0
     },
     "elevation" : 1.0,
     "upVector" : {
@@ -20,20 +20,20 @@
     }
   }, {
     "class" : "model.ES.component.visuals.Model",
-    "path" : "human/missile02.mesh.xml",
-    "scale" : 0.003,
+    "path" : "projectiles/missiles/missile02.mesh.xml",
+    "scale" : 0.005,
     "yawFix" : {
       "value" : 0.0
     },
     "pitchFix" : {
-      "value" : 0.0
+      "value" : -1.5707963267948966
     },
     "rollFix" : {
       "value" : 0.0
     }
   }, {
     "class" : "model.ES.component.motion.MotionCapacity",
-    "maxRotationSpeed" : 1.0,
+    "maxRotationSpeed" : 0.0,
     "thrustPower" : 1.0,
     "lateralThrustPower" : 0.0,
     "frontalThrustPower" : 0.0
@@ -44,9 +44,7 @@
       "y" : 0.0
     },
     "type" : "missile",
-    "exceptions" : [
-      "missile"
-    ],
+    "exceptions" : [ "missile" ],
     "mass" : 20.0,
     "restitution" : {
       "value" : 0.0
@@ -57,7 +55,7 @@
     "radius" : 0.2
   }, {
     "class" : "model.ES.component.LifeTime",
-    "lifeStart" : 1452197773447,
+    "lifeStart" : 1452264652306,
     "duration" : 4000.0
   }, {
     "class" : "model.ES.component.command.PlanarNeededThrust",
@@ -72,18 +70,9 @@
       "y" : 0.0
     }
   }, {
-    "class" : "model.ES.component.assets.Projectile",
-    "sender" : {
-      "id" : 129
-    },
-    "spawningCoord" : {
-      "x" : -3.6825803246208837,
-      "y" : -4.002811281446404
-    }
-  }, {
     "class" : "model.ES.component.command.PlanarNeededRotation",
     "angle" : {
-      "value" : 2.128210127645746
+      "value" : 0.0
     }
   }, {
     "class" : "model.ES.component.interaction.DestroyedOnTouch"
