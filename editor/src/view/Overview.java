@@ -11,27 +11,17 @@ import util.event.EventManager;
 import util.event.scene.AppClosedEvent;
 
 public class Overview {
-	public final InspectorTab inspectorTab;
-	public final WorldEditorTab worldEditorTab;
-	public final HierarchyTab hierarchyTab;
-	public final ResourceTab resourceTab;
-	public final RunPanel runPanel;
 	public final SceneView sceneViewer;
 	
 	public Overview(Stage stage) {
-		inspectorTab = new InspectorTab();
-		worldEditorTab = new WorldEditorTab();
-		hierarchyTab = new HierarchyTab();
-		resourceTab = new ResourceTab();
-		runPanel = new RunPanel();
 		sceneViewer = new SceneView();
 		
-		BorderPane scenePane = new BorderPane(sceneViewer, runPanel, null, null, null);
+		BorderPane scenePane = new BorderPane(sceneViewer, new RunPanel(), null, null, null);
 		
-		SplitPane leftRegion = new SplitPane(new TabPane(hierarchyTab), new TabPane(resourceTab));
+		SplitPane leftRegion = new SplitPane(new TabPane(new HierarchyTab()), new TabPane(new ResourceTab()));
 		leftRegion.setOrientation(Orientation.VERTICAL);
 		
-		TabPane editors = new TabPane(inspectorTab, worldEditorTab);
+		TabPane editors = new TabPane(new InspectorTab(), new WorldEditorTab(), new ReportTab());
 		editors.setMinWidth(300);
 		editors.setMaxWidth(500);
 

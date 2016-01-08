@@ -28,9 +28,9 @@ public class ScenePresenter {
 	
 	public ScenePresenter(SceneInputManager inputManager) {
 		if(EditorPlatform.getScene() == null){
-			JmeForImageView scene = new JmeForImageView();
-			scene.enqueue((app) -> createScene(app, EditorPlatform.getEntityData(), EditorPlatform.getWorldData(), EditorPlatform.getCommand()));
-			EditorPlatform.setScene(scene);
+			JmeForImageView jmeScene = new JmeForImageView();
+			jmeScene.enqueue((app) -> createScene(app, EditorPlatform.getEntityData(), EditorPlatform.getWorldData(), EditorPlatform.getCommand()));
+			EditorPlatform.setScene(jmeScene);
 		}
 		
 		edition = new EditionInputListener(EditorPlatform.getScene());
