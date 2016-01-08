@@ -55,7 +55,7 @@
     "radius" : 0.2
   }, {
     "class" : "model.ES.component.LifeTime",
-    "lifeStart" : 1452264652306,
+    "lifeStart" : 1452267917002,
     "duration" : 4000.0
   }, {
     "class" : "model.ES.component.command.PlanarNeededThrust",
@@ -66,8 +66,8 @@
   }, {
     "class" : "model.ES.component.motion.PlanarVelocityToApply",
     "vector" : {
-      "x" : 5.0,
-      "y" : 0.0
+      "x" : 0.0,
+      "y" : 200.0
     }
   }, {
     "class" : "model.ES.component.command.PlanarNeededRotation",
@@ -103,7 +103,7 @@
       "class" : "model.ES.component.hierarchy.PlanarStanceControl",
       "active" : true,
       "localPosition" : {
-        "x" : -0.5,
+        "x" : -0.2,
         "y" : 0.0,
         "z" : 0.0
       },

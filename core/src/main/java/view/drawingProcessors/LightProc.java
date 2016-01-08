@@ -121,4 +121,9 @@ public class LightProc extends Processor {
 		light.setSpotInnerAngle((float)l.innerAngle);
 		light.setSpotOuterAngle((float)l.outerAngle);
 	}
+	
+	@Override
+	protected void onEntityRemoved(Entity e) {
+		AppFacade.getRootNode().removeLight(SpatialPool.lights.remove(e.getId()));
+	}
 }
