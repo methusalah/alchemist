@@ -14,7 +14,8 @@ import util.LogUtil;
 import util.exception.TechnicalException;
 
 public class BlueprintLibrary {
-	private static String path = "assets/data/blueprint/";
+	private static final String PATH = "assets/data/blueprint/";
+	private static final String EXTENSION = ".blueprint";
 	private static final ObjectMapper mapper = new ObjectMapper();
 	private static final Map<String, Blueprint> blueprintMap;
 
@@ -32,7 +33,7 @@ public class BlueprintLibrary {
 	
 	public static void saveBlueprint(Blueprint bp){
 		try {
-			mapper.writeValue(new File(path + bp.getName()), bp);
+			mapper.writeValue(new File(PATH + bp.getName() + EXTENSION), bp);
 			blueprintMap.put(bp.getName(), bp);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -40,7 +41,7 @@ public class BlueprintLibrary {
 	}
 
 	private static void loadBlueprints(){
-		for(File f : getFilesDeeply(path))
+		for(File f : getFilesDeeply(PATH))
 			try {
 				Blueprint bp = mapper.readValue(f, Blueprint.class);
 				blueprintMap.put(bp.getName(), bp);
