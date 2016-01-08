@@ -21,7 +21,7 @@
   }, {
     "class" : "model.ES.component.visuals.Model",
     "path" : "projectiles/missiles/missile02.mesh.xml",
-    "scale" : 0.005,
+    "scale" : 0.003,
     "yawFix" : {
       "value" : 0.0
     },
@@ -55,7 +55,7 @@
     "radius" : 0.2
   }, {
     "class" : "model.ES.component.LifeTime",
-    "lifeStart" : 1452268088531,
+    "lifeStart" : 1452284196804,
     "duration" : 4000.0
   }, {
     "class" : "model.ES.component.command.PlanarNeededThrust",
@@ -67,7 +67,7 @@
     "class" : "model.ES.component.motion.PlanarVelocityToApply",
     "vector" : {
       "x" : 0.0,
-      "y" : 200.0
+      "y" : 0.0
     }
   }, {
     "class" : "model.ES.component.command.PlanarNeededRotation",

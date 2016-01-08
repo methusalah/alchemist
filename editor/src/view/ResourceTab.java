@@ -35,7 +35,7 @@ public class ResourceTab extends Tab {
 		content.setPadding(new Insets(3));
 
 		list = new ListView<Blueprint>();
-		list.itemsProperty().bind(presenter.blueprintListProperty());
+		list.itemsProperty().bind(presenter.getBlueprintListProperty());
 		list.setMaxHeight(Double.MAX_VALUE);
 		configureCellFactoryForDragAndDrop(list);
 
