@@ -26,16 +26,12 @@ public class RegionArtisan {
 
 	
 	public static void drawRegion(EntityData ed, Region region){
-		LogUtil.info("draw region "+region.getId()+" ("+RegionArtisan.class+")");
+		//LogUtil.info("draw region "+region.getId()+" ("+RegionArtisan.class+")");
 		// instantiation of entity blueprints
 		for(EntityInstance ei : region.getEntities())
 			ei.instanciate(ed, region.getEntityId());
 		
-		// Drawing of the terrain
-		region.getDrawer().render();
-		
 		// creation of collision entities for terrain
-		region.getTerrainColliders().clear();
 		for(Parcel p : region.getTerrain().getParcelling().getAll()){
 			List<Segment2D> edges = new ArrayList<>();
 			for(HeightMapNode node : p.getHeights())
@@ -60,12 +56,12 @@ public class RegionArtisan {
 	}
 	
 	public static void undrawRegion(EntityData ed, EntityId worldEid, Region region){
-		LogUtil.info("Undraw region "+region.getId()+" ("+RegionArtisan.class+")");
+		//LogUtil.info("Undraw region "+region.getId()+" ("+RegionArtisan.class+")");
 		for(EntityInstance ei : region.getEntities())
 			ei.uninstanciate(ed);
 		for(EntityId eid : region.getTerrainColliders())
 			ed.removeEntity(eid);
-		region.getDrawer().toDetach = true;
+		region.getTerrainColliders().clear();
 	}
 	
 	private static Point3D getPlaneIntersection(Segment3D seg){

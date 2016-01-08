@@ -14,7 +14,7 @@ import model.ES.component.hierarchy.Parenting;
 import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import controller.CameraManager;
-import controller.ECS.LogicThread;
+import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
 
 public class ChasingCameraProc extends Processor {
@@ -41,12 +41,12 @@ public class ChasingCameraProc extends Processor {
 		double newSpeed;
 		if(minBrakingDistance >= toTarget.getLength())
 			// deceleration
-			newSpeed = Math.max(0, chasing.getSpeed()-chasing.getDeceleration()*LogicThread.TIME_PER_FRAME);
+			newSpeed = Math.max(0, chasing.getSpeed()-chasing.getDeceleration()*LogicLoop.TIME_PER_FRAME);
 		else
 			// acceleration
-			newSpeed = Math.min(chasing.getMaxSpeed(), chasing.getSpeed()+chasing.getAcceleration()*LogicThread.TIME_PER_FRAME);
+			newSpeed = Math.min(chasing.getMaxSpeed(), chasing.getSpeed()+chasing.getAcceleration()*LogicLoop.TIME_PER_FRAME);
 			
-		toTarget = toTarget.getScaled(newSpeed*LogicThread.TIME_PER_FRAME);
+		toTarget = toTarget.getScaled(newSpeed*LogicLoop.TIME_PER_FRAME);
 		
 		Point2D newCoord = stance.coord.getAddition(toTarget);
 		Point3D pos = newCoord.get3D(stance.elevation);

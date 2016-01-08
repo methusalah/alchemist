@@ -2,7 +2,7 @@ package model.ES.processor.motion;
 
 import com.simsilica.es.Entity;
 
-import controller.ECS.LogicThread;
+import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
 import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;

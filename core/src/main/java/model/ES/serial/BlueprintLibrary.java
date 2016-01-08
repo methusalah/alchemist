@@ -19,7 +19,6 @@ public class BlueprintLibrary {
 	private static final Map<String, Blueprint> blueprintMap;
 
 	static {
-		System.out.println("blueprint lib init");
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 		blueprintMap = new HashMap<>();
@@ -71,9 +70,5 @@ public class BlueprintLibrary {
 	
 	public static Blueprint getBlueprint(String name){
 		return blueprintMap.get(name);
-	}
-	
-	public static void hophop(){
-		LogUtil.info("hophop");
 	}
 }

@@ -14,12 +14,9 @@ import recordEnemy : "model.AI.task.RecordEnemy"
 import isEnemyInSight : "model.AI.task.IsEnemyInSight"
 import isEnemyTouching : "model.AI.task.IsEnemyTouching"
 import isEnemyRecorded : "model.AI.task.IsEnemyRecorded"
-import isEnemyDead : "model.AI.task.IsEnemyDead"
 import isTooClose : "model.AI.task.IsTooClose"
 import isTooFar : "model.AI.task.IsTooFar"
 import isLowLife : "model.AI.task.IsLowLife"
-import isEnemyAimed : "model.AI.task.IsEnemyAimed"
-
 
 # import decorators
 import cooldownTimer : "model.AI.decorator.CooldownTimer"
@@ -36,9 +33,6 @@ root
       isEnemyRecorded
       selector
         sequence
-          isEnemyDead
-          forgetEnemy
-        sequence
           isLowLife
           persister duration:3000 range:1000
             flee
@@ -50,15 +44,13 @@ root
         sequence
           isTooClose dist:5
           aim
-          sequence
-            isEnemyAimed
+          cooldownTimer duration:2000 range:1000 id:"attack"
             shoot
           stepBack
         sequence
           isTooFar dist:8
           aim
-          sequence
-            isEnemyAimed
+          cooldownTimer duration:2000 range:1000 id:"attack"
             shoot
           approach
         sequence 
@@ -76,17 +68,14 @@ root
                   sequence
                     aim
                     succeeder
-                      sequence
-                        isEnemyAimed
+                      cooldownTimer duration:2000 range:1000 id:"attack"
                         shoot
                     strafeDodge
             cooldownTimer duration:500 range:1000 id:"dodge"
               persister duration:200 range:200
                 fastDodge
           aim
-          sequence
-            isEnemyAimed
-            shoot
+          shoot
     sequence
       isEnemyInSight
       recordEnemy

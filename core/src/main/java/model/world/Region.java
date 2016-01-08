@@ -27,7 +27,6 @@ public class Region {
 	
 	private EntityId entityId;
 	private List<EntityId> terrainColliders = new ArrayList<EntityId>();
-	private TerrainDrawer drawer;
 	
 	private boolean modified = false;
 
@@ -43,7 +42,6 @@ public class Region {
 				new ArrayList<Double>(){{add(1d);}});
 		terrain = new Terrain(RESOLUTION+1, RESOLUTION+1, t, coord);
 		entities = new ArrayList<>();
-		drawer = new TerrainDrawer(terrain, coord);
 	}
 	public Region(Point2D coord){
 		this(RegionManager.getRegionId(coord), RegionManager.getRegionCoord(coord));
@@ -57,7 +55,6 @@ public class Region {
 		this.coord = coord;
 		this.entities = entities;
 		this.terrain = terrain;
-		drawer = new TerrainDrawer(terrain, coord);
 	}
 	
 	public List<EntityInstance> getEntities() {
@@ -91,11 +88,6 @@ public class Region {
 		this.entityId = entityId;
 	}
 
-	@JsonIgnore
-	public TerrainDrawer getDrawer() {
-		return drawer;
-	}
-	
 	@JsonIgnore
 	public List<EntityId> getTerrainColliders() {
 		return terrainColliders;

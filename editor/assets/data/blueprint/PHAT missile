@@ -44,7 +44,9 @@
       "y" : 0.0
     },
     "type" : "missile",
-    "exceptions" : [ ],
+    "exceptions" : [
+      "missile"
+    ],
     "mass" : 20.0,
     "restitution" : {
       "value" : 0.0
@@ -55,7 +57,7 @@
     "radius" : 0.2
   }, {
     "class" : "model.ES.component.LifeTime",
-    "lifeStart" : 1452187118246,
+    "lifeStart" : 1452197773447,
     "duration" : 4000.0
   }, {
     "class" : "model.ES.component.command.PlanarNeededThrust",

@@ -27,9 +27,10 @@ import com.jme3.app.state.AppState;
 import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.EntityData;
 
-public class EntitySystem extends AbstractAppState{
+public class EntitySystem extends AbstractAppState {
 	private AppStateManager stateManager;
 	private Thread logicThread;
+	public final LogicLoop loop; 
 
 	private final EntityData ed;
 	private final WorldData world;
@@ -45,6 +46,7 @@ public class EntitySystem extends AbstractAppState{
 		this.ed = ed;
 		this.world = world;
 		this.command = command;
+		loop = new LogicLoop(ed, world, command);
 		
 		
 		visualStates.add(new ParticleCasterInPlaneProc());
@@ -77,6 +79,11 @@ public class EntitySystem extends AbstractAppState{
     	stateManager.attach(new SceneSelectorState());
 	}
 	
+	@Override
+	public void update(float tpf) {
+    	world.attachDrawers();
+	}
+	
 	public void initVisuals(boolean value){
 		for(AppState as : visualStates)
 			if(value)
@@ -104,7 +111,7 @@ public class EntitySystem extends AbstractAppState{
 	public void initLogic(boolean value){
 		if(value){
 			if(logicThread == null || !logicThread.isAlive()){
-				logicThread = new Thread(new LogicThread(ed, world, command));
+				logicThread = new Thread(loop);
 				logicThread.start();
 			}
 		} else
@@ -115,8 +122,7 @@ public class EntitySystem extends AbstractAppState{
 	
 	@Override
 	public void cleanup() {
-		if(logicThread != null && logicThread.isAlive())
-			logicThread.interrupt();
+		initLogic(false);
 	}
 	
 }

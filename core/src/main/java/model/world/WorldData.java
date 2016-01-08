@@ -39,13 +39,16 @@ public class WorldData {
 	private final EntityId worldEntity;
 
 	private List<Region> drawnRegions = new ArrayList<Region>();
+	private Map<Region, TerrainDrawer> drawers = new HashMap<>();
 	private List<TerrainDrawer> drawersToAttach = new ArrayList<TerrainDrawer>();
 	private List<TerrainDrawer> drawersToDetach = new ArrayList<TerrainDrawer>();
-	
-	
 
 	private HeightMapExplorer heightmapExplorer = new HeightMapExplorer();
 	private Region lastRegion;
+	public Region getLastRegion() {
+		return lastRegion;
+	}
+
 	private RegionManager regionManager = new RegionManager();
 	
 	public WorldData(EntityData ed) {
@@ -60,38 +63,34 @@ public class WorldData {
 		if(actualRegion != lastRegion){
 			// We pass from a region to another
 			lastRegion = actualRegion;
-			new Thread(new RegionLoader(coord, true)).start();;
+			new Thread(() -> loadAndDrawRegionsAround(new Point2D(coord))).start();
+			//loadAndDrawRegionsAround(coord);
 		}
 	}
 	
-	class RegionLoader implements Runnable{
-		private final Point2D coord;
-		
-		public RegionLoader(Point2D coord, boolean toDraw) {
-			this.coord = coord;
-		}
-		
-		@Override
-		public void run() {
-			synchronized (drawnRegions) {
-				List<Region> toDraw = get9RegionsAround(coord);
-				for(Region r : toDraw){
-					if(r.getEntityId() == null){
-						EntityId eid = ed.createEntity();
-						ed.setComponent(eid, new Naming("Region "+r.getId()));
-						ed.setComponent(eid, new Parenting(worldEntity));
-						r.setEntityId(eid);
-					}
-					if(!drawnRegions.contains(r))
-						drawRegion(r);
-					
+	private void loadAndDrawRegionsAround(Point2D coord){
+		synchronized (drawnRegions) {
+			List<Region> toDraw = get9RegionsAround(coord);
+			for(Region r : toDraw){
+				if(r.getEntityId() == null){
+					EntityId eid = ed.createEntity();
+					ed.setComponent(eid, new Naming("Region "+r.getId()));
+					ed.setComponent(eid, new Parenting(worldEntity));
+					r.setEntityId(eid);
 				}
 				
-				for(Region r : drawnRegions)
-					if(!toDraw.contains(r) && !r.isModified())
-						undrawRegion(r);
-				drawnRegions = toDraw;
+				if(!drawers.containsKey(r))
+					drawers.put(r, new TerrainDrawer(r.getTerrain(), r.getCoord()));
+				
+				if(!drawnRegions.contains(r))
+					drawRegion(r);
+				
 			}
+			
+			for(Region r : drawnRegions)
+				if(!toDraw.contains(r) && !r.isModified())
+					undrawRegion(r);
+			drawnRegions = toDraw;
 		}
 	}
 	
@@ -108,21 +107,13 @@ public class WorldData {
 			}
 			drawersToDetach.clear();
 		}
-//		synchronized (drawnRegions) {
-//			for(Region r : drawnRegions){
-//				if(r.getDrawer().toDetach && AppFacade.getRootNode().hasChild(r.getDrawer().mainNode))
-//					AppFacade.getRootNode().detachChild(r.getDrawer().mainNode);
-//
-//				if(!r.getDrawer().attached)
-//					AppFacade.getRootNode().attachChild(r.getDrawer().mainNode);
-//			}
-//		}
 	}
 
 	public void drawRegion(Region region){
 		RegionArtisan.drawRegion(ed, region);
+		drawers.get(region).render();
 		synchronized (drawersToAttach) {
-			drawersToAttach.add(region.getDrawer());
+			drawersToAttach.add(drawers.get(region));
 		}
 		heightmapExplorer.add(region.getTerrain().getHeightMap());
 	}
@@ -130,8 +121,12 @@ public class WorldData {
 	private void undrawRegion(Region region){
 		RegionArtisan.undrawRegion(ed, worldEntity, region);
 		synchronized (drawersToDetach) {
-			drawersToDetach.add(region.getDrawer());
+			drawersToDetach.add(drawers.get(region));
 		}
+	}
+	
+	public TerrainDrawer getTerrainDrawer(Region region){
+		return drawers.get(region);
 	}
 	
 	private List<Region> get9RegionsAround(Point2D coord){
