@@ -46,7 +46,7 @@ public abstract class CosmoVania extends SimpleApplication implements PhysicsTic
 		getPhysicsSpace().addTickListener(this);
 		super.initialize();
 		
-		debugger = new MyDebugger(0, 300, assetManager.loadFont("Interface/Fonts/Console.fnt"));
+		debugger = new MyDebugger(0, 1500, assetManager.loadFont("Interface/Fonts/Console.fnt"));
 		guiNode.attachChild(debugger.getNode());
 		
 		stateManager.detach(stateManager.getState(FlyCamAppState.class));

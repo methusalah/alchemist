@@ -23,6 +23,10 @@ public class ModelPlacingProc extends Processor {
 	}
 	
 	@Override
+	protected void onEntityAdded(Entity e) {
+		onEntityUpdated(e);
+	}
+	@Override
 	protected void onEntityUpdated(Entity e) {
 		Model model = e.get(Model.class);
 		Spatial s = SpatialPool.models.get(e.getId());

@@ -50,8 +50,10 @@ public class CircleCircleCollisionProc extends Processor {
 		
 		Physic ph1 = e1.get(Physic.class);
 		Physic ph2 = e2.get(Physic.class);
-		if(ph1.getExceptions().contains(ph2.getType()) || ph2.getExceptions().contains(ph1.getType()))
+		if(!ph1.getType().isEmpty() && ph2.getExceptions().contains(ph1.getType()) || 
+				!ph2.getType().isEmpty() && ph1.getExceptions().contains(ph2.getType())){
 			return;
+		}
 
 		Circle2D c1 = new Circle2D(stance1.getCoord(), e1.get(CircleCollisionShape.class).getRadius());
 		Circle2D c2 = new Circle2D(stance2.getCoord(), e2.get(CircleCollisionShape.class).getRadius());

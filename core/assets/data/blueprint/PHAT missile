@@ -138,22 +138,6 @@
     }, {
       "class" : "model.ES.component.hierarchy.ThrustControl",
       "active" : true
-    }, {
-      "class" : "model.ES.component.visuals.Lighting",
-      "color" : {
-        "a" : 255,
-        "r" : 255,
-        "g" : 128,
-        "b" : 128
-      },
-      "intensity" : 4.0,
-      "distance" : 3.0,
-      "innerAngle" : 0.0,
-      "outerAngle" : 0.7,
-      "shadowCaster" : false,
-      "activation" : {
-        "value" : 0.0
-      }
     } ],
     "children" : [ {
       "name" : "trail particle",

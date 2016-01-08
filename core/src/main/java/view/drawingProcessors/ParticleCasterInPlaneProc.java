@@ -17,6 +17,7 @@ import model.ES.component.Naming;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.SpaceStance;
 import model.ES.component.visuals.ParticleCaster;
+import util.LogUtil;
 import util.geometry.geom3d.Point3D;
 import view.SpatialPool;
 import view.jme.MyParticleEmitter;
@@ -35,7 +36,7 @@ public class ParticleCasterInPlaneProc extends Processor {
 	protected void onUpdated() {
 		List<MyParticleEmitter> detached = new ArrayList<>();
 		for(MyParticleEmitter pe : toRemove)
-			if(pe.getParticles().length == 0){
+			if(pe.getNumVisibleParticles() == 0){
 				AppFacade.getRootNode().detachChild(pe);
 				detached.add(pe);
 			}

@@ -1,20 +1,18 @@
 package view.drawingProcessors;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import model.ES.component.Naming;
-import model.ES.component.visuals.Model;
-import util.LogUtil;
-import view.SpatialPool;
-import app.AppFacade;
 
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 
+import app.AppFacade;
 import controller.ECS.Processor;
+import model.ES.component.Naming;
+import model.ES.component.visuals.Model;
+import util.LogUtil;
+import view.SpatialPool;
 
 public class ModelProc extends Processor {
 	Map<String, Spatial> modelPrototypes = new HashMap<>();
@@ -26,8 +24,9 @@ public class ModelProc extends Processor {
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
-		if(SpatialPool.models.keySet().contains(e.getId()))
+		if(SpatialPool.models.keySet().contains(e.getId())){
 			AppFacade.getRootNode().detachChild(SpatialPool.models.remove(e.getId()));
+		}
 	}
 
 	@Override
