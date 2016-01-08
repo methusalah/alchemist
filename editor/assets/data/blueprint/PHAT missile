@@ -55,7 +55,7 @@
     "radius" : 0.2
   }, {
     "class" : "model.ES.component.LifeTime",
-    "lifeStart" : 1452184199406,
+    "lifeStart" : 1452187118246,
     "duration" : 4000.0
   }, {
     "class" : "model.ES.component.command.PlanarNeededThrust",
@@ -66,7 +66,7 @@
   }, {
     "class" : "model.ES.component.motion.PlanarVelocityToApply",
     "vector" : {
-      "x" : 0.0,
+      "x" : 5.0,
       "y" : 0.0
     }
   }, {
@@ -83,6 +83,10 @@
     "angle" : {
       "value" : 2.128210127645746
     }
+  }, {
+    "class" : "model.ES.component.interaction.DestroyedOnTouch"
+  }, {
+    "class" : "model.ES.component.interaction.EffectOnTouch"
   } ],
   "children" : [ {
     "name" : "main thruster",
