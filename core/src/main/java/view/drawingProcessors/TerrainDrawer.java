@@ -30,7 +30,8 @@ public class TerrainDrawer {
 	public Node mainNode;
 	public Node castAndReceiveNode = new Node("terrain cast and receive shadow node");
 	public Node receiveNode = new Node("terrain receive shadow node");
-
+	public boolean rendered = false;
+	
 	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
 
 	public TerrainDrawer(Terrain terrain, Point2D coord) {
@@ -50,6 +51,9 @@ public class TerrainDrawer {
 	}
 
 	public void render() {
+		if(rendered)
+			return;
+		rendered = true;
 		int index = 0;
 		for (String s : terrain.getTexturing().getDiffuses()) {
 			Texture diffuse = AppFacade.getAssetManager().loadTexture(s);
