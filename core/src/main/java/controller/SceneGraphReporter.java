@@ -14,7 +14,7 @@ public class SceneGraphReporter extends AbstractAppState {
 	public SceneGraphReportNode getReport(){
 		return reportSceneDeeply(AppFacade.getRootNode());
 	}
-	
+
 	private SceneGraphReportNode reportSceneDeeply(Spatial s){
 		List<SceneGraphReportNode> children = new ArrayList<>();
 		if(s instanceof Node){

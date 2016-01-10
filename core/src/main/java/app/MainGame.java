@@ -55,7 +55,7 @@ public class MainGame extends CosmoVania {
 		float maxedTPF = Math.min(tpf, 0.1f);
 		stateManager.update(maxedTPF);
 		debugger.reset();
-		debugger.add(es.loop.getReport());
+		//debugger.add(es.loop.getReport());
 		debugger.add(es.sceneReport);
 	}
 

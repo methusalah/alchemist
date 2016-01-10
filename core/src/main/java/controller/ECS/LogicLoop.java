@@ -49,7 +49,11 @@ import model.world.WorldData;
 public class LogicLoop implements Runnable {
     public static final double TIME_PER_FRAME = 0.02;
     private AppStateManager stateManager;
- 
+    private int tickCount = 0;
+    private int waitTime = 0;
+    
+    
+    
     public LogicLoop(EntityData ed, WorldData world, Command command) {
     	stateManager = new AppStateManager(null);
 
@@ -106,38 +110,29 @@ public class LogicLoop implements Runnable {
 		stateManager.attach(new ParentingCleanerProc());
     }
 
-    public String getReport(){
-   		return new String(report);
-    }
-    String report = "";
-    int counter = 0;
-    long lastTime = 0;
-    int waitSum = 0;
-    
-    @Override
+    public int getTickCount() {
+		return tickCount;
+	}
+
+	public int getWaitTime() {
+		return waitTime;
+	}
+	
+	public void resetIdleStats(){
+		tickCount = 0;
+		waitTime = 0;
+	}
+	
+	@Override
 	public void run() {
 		while (!Thread.currentThread().isInterrupted()) {
-			stateManager.update((float)TIME_PER_FRAME);
-			
 			long time = System.currentTimeMillis();
+			stateManager.update((float)TIME_PER_FRAME);
 			long nextTick = (long) (time+TIME_PER_FRAME*1000);
 			long towait = nextTick - System.currentTimeMillis();
-			counter ++;
-			waitSum += towait; 
 
-			if(time - lastTime > 200){
-				StringBuilder sb = new StringBuilder("Entity count : " + stateManager.getState(DataState.class).getEntityData().getEntities(Naming.class).size()+System.lineSeparator());
-				sb.append("Ticks per second : " + counter*5 + System.lineSeparator());
-				sb.append("Idle : " + (((double)waitSum*100d)/((double)counter*TIME_PER_FRAME*1000d)) + "% time." + System.lineSeparator());
-				synchronized (report) {
-					report = sb.toString();
-				}
-				lastTime = time;
-				counter = 0;
-				waitSum = 0;
-			}
-			
-			
+			tickCount++;
+			waitTime += towait;
 			
 			if(towait > 0)
 				try {

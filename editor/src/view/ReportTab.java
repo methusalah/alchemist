@@ -1,6 +1,8 @@
 package view;
 
 
+import java.text.DecimalFormat;
+
 import com.jme3.scene.Spatial;
 
 import javafx.scene.control.Label;
@@ -34,13 +36,27 @@ public class ReportTab extends Tab {
 				l.setText(sb.toString());
 			}
 		});
-		TitledPane sceneGraph = new TitledPane("Scene Graph", new VBox(report, l));		
+		TitledPane sceneGraph = new TitledPane("Scene Graph Report", new VBox(report, l));		
 		sceneGraph.setExpanded(false);
 		sceneGraph.expandedProperty().addListener((observable, oldValue, newValue) -> presenter.setSceneGraphReportRefresh(newValue));
 		content.getChildren().add(sceneGraph);
 		
+		Label entityCountLabel = new Label();
+		presenter.getEntityCount().addListener((observable, oldValue, newValue) -> entityCountLabel.setText("Entity count : " + newValue.toString()));
+
+		DecimalFormat df = new DecimalFormat("0%");
+		Label idelingRatioLabel = new Label();
+		presenter.getIdelingRatio().addListener((observable, oldValue, newValue) -> idelingRatioLabel.setText("Idling rate : " + df.format(newValue)));
+		
+		TitledPane logicLoop = new TitledPane("Logic Loop Report", new VBox(entityCountLabel, idelingRatioLabel));		
+		sceneGraph.setExpanded(false);
+		sceneGraph.expandedProperty().addListener((observable, oldValue, newValue) -> presenter.setLogicThreadReportRefresh(newValue));
+		content.getChildren().add(logicLoop);
+
+		
 		selectedProperty().addListener((observable, oldValue, newValue) -> {
 			presenter.setSceneGraphReportRefresh(newValue && sceneGraph.isExpanded());
+			presenter.setLogicThreadReportRefresh(newValue && logicLoop.isExpanded());
 		});
 
 		

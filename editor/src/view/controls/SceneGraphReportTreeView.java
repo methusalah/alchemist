@@ -20,7 +20,7 @@ public class SceneGraphReportTreeView extends TreeView<SceneGraphReportNode>{
 	
 	public SceneGraphReportTreeView(ObjectProperty<SceneGraphReportNode> rootNodeProperty) {
 		setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		//setPrefHeight(2000);
+		setPrefHeight(2000);
 		setShowRoot(false);
 		
 		TreeItem<SceneGraphReportNode> root = new TreeItem<>();
