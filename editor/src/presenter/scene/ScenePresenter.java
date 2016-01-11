@@ -1,10 +1,14 @@
-package presenter;
+package presenter.scene;
 
 import model.Command;
 import model.state.DraggableCameraState;
 import model.state.WorldLocaliserState;
 import model.state.WorldToolState;
 import model.world.WorldData;
+import presenter.EditorPlatform;
+import presenter.common.RunState;
+import presenter.common.SceneInputManager;
+import presenter.common.RunState.State;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
@@ -14,19 +18,13 @@ import com.simsilica.es.EntityData;
 import controller.ECS.EntitySystem;
 import controller.ECS.SceneSelectorState;
 import app.AppFacade;
-import application.EditorPlatform;
-import application.topDownScene.EditionInputListener;
-import application.topDownScene.GameInputListener;
-import application.topDownScene.SceneInputManager;
-import application.topDownScene.TopDownCamera;
-
 
 public class ScenePresenter {
 	private final EditionInputListener edition;
-	private final TopDownCamera camera;
+	private final TopDownCamInputListener camera;
 	private final GameInputListener game;
 	
-	public ScenePresenter(SceneInputManager inputManager) {
+	public ScenePresenter() {
 		if(EditorPlatform.getScene() == null){
 			JmeForImageView jmeScene = new JmeForImageView();
 			jmeScene.enqueue((app) -> createScene(app, EditorPlatform.getEntityData(), EditorPlatform.getWorldData(), EditorPlatform.getCommand()));
@@ -34,22 +32,22 @@ public class ScenePresenter {
 		}
 		
 		edition = new EditionInputListener(EditorPlatform.getScene());
-		camera = new TopDownCamera(EditorPlatform.getScene());
+		camera = new TopDownCamInputListener(EditorPlatform.getScene());
 		game = new GameInputListener(EditorPlatform.getScene());
 		
 		
-		inputManager.addListener(camera);
-		inputManager.addListener(edition);
+		EditorPlatform.getSceneInputManager().addListener(camera);
+		EditorPlatform.getSceneInputManager().addListener(edition);
 
 		EditorPlatform.getRunStateProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue.getState() == RunState.State.Run){
-				inputManager.removeListener(edition);
-				inputManager.removeListener(camera);
-				inputManager.addListener(game);
+				EditorPlatform.getSceneInputManager().removeListener(edition);
+				EditorPlatform.getSceneInputManager().removeListener(camera);
+				EditorPlatform.getSceneInputManager().addListener(game);
 			} else {
-				inputManager.removeListener(game);
-				inputManager.addListener(edition);
-				inputManager.addListener(camera);
+				EditorPlatform.getSceneInputManager().removeListener(game);
+				EditorPlatform.getSceneInputManager().addListener(edition);
+				EditorPlatform.getSceneInputManager().addListener(camera);
 			}
 		});
 	}
@@ -78,6 +76,10 @@ public class ScenePresenter {
 	
 	public JmeForImageView getScene(){
 		return EditorPlatform.getScene();
+	}
+
+	public SceneInputManager getInputManager() {
+		return EditorPlatform.getSceneInputManager();
 	}
 	
 }

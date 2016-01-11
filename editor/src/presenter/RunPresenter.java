@@ -3,9 +3,9 @@ package presenter;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 
-import application.EditorPlatform;
 import controller.ECS.EntitySystem;
-import presenter.RunState.State;
+import presenter.common.RunState;
+import presenter.common.RunState.State;
 
 public class RunPresenter {
 

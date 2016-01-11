@@ -1,7 +1,7 @@
-package presenter;
+package presenter.common;
 
 public class RunState {
-	enum State{Run, Stop, Pause}
+	public enum State{Run, Stop, Pause}
 	
 	private final State state;
 	

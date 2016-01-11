@@ -1,11 +1,10 @@
-package application.topDownScene;
+package presenter.scene;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 import com.jme3x.jfx.injfx.JmeForImageView;
 import com.simsilica.es.EntityId;
 
-import application.EditorPlatform;
 import controller.ECS.SceneSelectorState;
 import javafx.application.Platform;
 import javafx.scene.input.KeyEvent;
@@ -13,7 +12,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import model.state.WorldToolState;
 import model.world.Tool;
-import presenter.EntityNode;
+import presenter.EditorPlatform;
+import presenter.common.EntityNode;
+import presenter.common.SceneInputListener;
 import util.geometry.geom2d.Point2D;
 
 public class EditionInputListener implements SceneInputListener {

@@ -1,13 +1,10 @@
 package view;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import presenter.WorldEditorPresenter;
-import util.LogUtil;
 import view.controls.toolEditor.AtlasTab;
 import view.controls.toolEditor.HeighmapTab;
 import view.controls.toolEditor.PopulationTab;
@@ -25,37 +22,26 @@ public class WorldEditorTab extends Tab {
 		setClosable(false);
 		
 		VBox content = new VBox();
-		content.getChildren().add(getSaveButton());
+		Button saveButton = new Button("Save the map");
+		saveButton.setOnAction(e -> presenter.saveWorld());
+		content.getChildren().add(saveButton);
 		
-		TabPane tabpane = new TabPane();
-		tabpane.getTabs().add(new HeighmapTab(presenter.getHeightmapTool()));
-		tabpane.getTabs().add(new AtlasTab(presenter.getAtlasTool()));
-		tabpane.getTabs().add(new PopulationTab(presenter.getPopulationTool()));
-		tabpane.getTabs().add(new TrinketTab());
-		content.getChildren().add(tabpane);
-
+		TabPane tabpane = new TabPane(
+				new HeighmapTab(presenter.getHeightmapTool()),
+				new AtlasTab(presenter.getAtlasTool()),
+				new PopulationTab(presenter.getPopulationTool()),
+				new TrinketTab());
 		tabpane.selectionModelProperty().getValue().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 				ToolEditor editor = (ToolEditor)newValue;
 				presenter.selectTool(editor.getTool());
 		});
+		selectedProperty().addListener(e -> {
+			ToolEditor editor = ((ToolEditor)tabpane.selectionModelProperty().getValue().getSelectedItem());
+			if(isSelected())
+				presenter.selectTool(editor.getTool());
+		});					
 
-		selectedProperty().addListener(e -> presenter.selectTool(isSelected()?
-				((ToolEditor)tabpane.selectionModelProperty().getValue().getSelectedItem()).getTool() :
-				null));
+		content.getChildren().add(tabpane);
 		setContent(content);
 	}
-	
-	private Button getSaveButton(){
-		Button res = new Button("Save the map");
-		res.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				presenter.saveWorld();
-			}
-		});
-		return res;
-	}
-
-
 }

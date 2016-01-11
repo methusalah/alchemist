@@ -11,6 +11,8 @@ import javafx.collections.FXCollections;
 import model.ES.component.hierarchy.Parenting;
 import model.ES.serial.Blueprint;
 import model.ES.serial.BlueprintLibrary;
+import presenter.common.EntityNode;
+import presenter.util.BlueprintComparator;
 
 public class ResourcePresenter {
 	private final ListProperty<Blueprint> blueprintList;

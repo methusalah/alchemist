@@ -2,7 +2,6 @@ package presenter;
 
 import com.jme3.app.SimpleApplication;
 
-import application.EditorPlatform;
 import controller.SceneGraphReportNode;
 import controller.SceneGraphReporter;
 import controller.ECS.DataState;

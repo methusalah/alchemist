@@ -1,18 +1,19 @@
 package view;
 
-import application.EditorPlatform;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import presenter.OverviewPresenter;
+import presenter.util.UserComponentList;
 
 public class Overview {
-	public final SceneView sceneViewer;
+	private final OverviewPresenter presenter = new OverviewPresenter();
 	
 	public Overview(Stage stage) {
-		sceneViewer = new SceneView();
+		SceneView sceneViewer = new SceneView();
 		
 		BorderPane scenePane = new BorderPane(sceneViewer, new RunPanel(), null, null, null);
 		
@@ -35,7 +36,11 @@ public class Overview {
 		sceneViewer.registerKeyInputs(s);
 		stage.setScene(s);
 		stage.show();
-		stage.setTitle("Entity Editor");
-		stage.setOnCloseRequest(e -> EditorPlatform.getScene().stop(false));
+		stage.setTitle("Alchimist, Zay's Entity Editor");
+		stage.setOnCloseRequest(e -> presenter.stopScene());
+	}
+	
+	public void setComponentList(UserComponentList compList){
+		presenter.setComponentList(compList);
 	}
 }

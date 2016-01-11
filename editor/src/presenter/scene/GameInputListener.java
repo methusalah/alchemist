@@ -1,4 +1,4 @@
-package application.topDownScene;
+package presenter.scene;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import model.Command;
+import presenter.common.SceneInputListener;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
@@ -19,7 +20,7 @@ import controller.ECS.DataState;
 import controller.ECS.SceneSelectorState;
 import controller.topdown.TopdownMapping;
 
-public class GameInputListener implements SceneInputListener {
+class GameInputListener implements SceneInputListener {
 	private static enum ActionType {StartPrimary,
 		StartSecondary,
 		StopPrimary,

@@ -1,4 +1,4 @@
-package application.topDownScene;
+package presenter.common;
 
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;

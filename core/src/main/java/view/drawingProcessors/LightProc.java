@@ -109,7 +109,6 @@ public class LightProc extends Processor {
 //				sf.setShadowZExtend(SHADOWMAP_SIZE);
 				sf.setLight(light);
 				fpp.addFilter(sf);
-				LogUtil.info("hummm !");
 			}
 		}
 		SpotLight light = (SpotLight)SpatialPool.lights.get(e.getId());

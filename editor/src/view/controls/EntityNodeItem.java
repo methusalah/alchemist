@@ -1,8 +1,8 @@
 package view.controls;
 
-import presenter.EntityNode;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.TreeItem;
+import presenter.common.EntityNode;
 import view.UIConfig;
 
 public class EntityNodeItem extends TreeItem<EntityNode> {

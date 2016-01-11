@@ -3,21 +3,20 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.topDownScene.SceneInputManager;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-import presenter.ScenePresenter;
+import presenter.common.SceneInputManager;
+import presenter.scene.ScenePresenter;
 
 public class SceneView extends Pane {
 	private final ScenePresenter presenter;
-	private final SceneInputManager inputManager = new SceneInputManager();
 
 	private final List<KeyCode> pressed = new ArrayList<KeyCode>();
 	
 	public SceneView() {
-		presenter = new ScenePresenter(inputManager);
+		presenter = new ScenePresenter();
 		setFocusTraversable(true);
 		ImageView image = new ImageView();
 		setStyle("-fx-background-color: gray");
@@ -26,11 +25,11 @@ public class SceneView extends Pane {
 		image.fitWidthProperty().bind(widthProperty());
 		image.setStyle("-fx-background-color: blue");
 
-		image.setOnMousePressed(e -> inputManager.onMousePressed(e));
-		image.setOnMouseDragged(e -> inputManager.onMouseMoved(e));
-		image.setOnMouseReleased(e -> inputManager.onMouseReleased(e));
-		image.setOnMouseMoved(e -> inputManager.onMouseMoved(e));
-		image.setOnScroll(e -> inputManager.onMouseScroll(e));
+		image.setOnMousePressed(e -> presenter.getInputManager().onMousePressed(e));
+		image.setOnMouseDragged(e -> presenter.getInputManager().onMouseMoved(e));
+		image.setOnMouseReleased(e -> presenter.getInputManager().onMouseReleased(e));
+		image.setOnMouseMoved(e -> presenter.getInputManager().onMouseMoved(e));
+		image.setOnScroll(e -> presenter.getInputManager().onMouseScroll(e));
 		presenter.getScene().bind(image);
 		
 		getChildren().add(image);
@@ -39,12 +38,12 @@ public class SceneView extends Pane {
 	public void registerKeyInputs(Scene rootScene){
 		// camera motion
 		rootScene.setOnKeyPressed(e -> {
-			inputManager.onKeyPressed(e);
+			presenter.getInputManager().onKeyPressed(e);
 			pressed.add(e.getCode());
 		});
 		rootScene.setOnKeyReleased(e -> {
 			if(pressed.contains(e.getCode())){
-				inputManager.onKeyReleased(e);
+				presenter.getInputManager().onKeyReleased(e);
 				pressed.remove(e.getCode());
 			}
 		});

@@ -10,8 +10,15 @@ import com.simsilica.es.base.DefaultEntityData;
 import javafx.application.Platform;
 import model.ES.component.Naming;
 import model.ES.component.hierarchy.Parenting;
-import presenter.EntityNode;
+import presenter.common.EntityNode;
 
+/***
+ * A Sepacialized EntityData that maintain a tree of nodes representing the hierarchy of the entities and their components
+ * 
+ * Used to observe all data changes
+ * @author benoit
+ *
+ */
 public class TraversableEntityData extends DefaultEntityData{
 	private final EntityNode rootEntityNode;
 	private final Map<EntityId, EntityNode> entityNodes = new HashMap<>();

@@ -1,4 +1,4 @@
-package presenter;
+package presenter.common;
 
 import java.util.ArrayList;
 import java.util.List;

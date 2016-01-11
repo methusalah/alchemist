@@ -10,8 +10,8 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import model.ES.serial.Blueprint;
-import presenter.EntityNode;
 import presenter.ResourcePresenter;
+import presenter.common.EntityNode;
 
 public class ResourceTab extends Tab {
 	private final ResourcePresenter presenter;
