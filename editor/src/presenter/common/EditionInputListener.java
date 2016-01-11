@@ -1,4 +1,4 @@
-package presenter.scene;
+package presenter.common;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
@@ -13,8 +13,6 @@ import javafx.scene.input.ScrollEvent;
 import model.state.WorldToolState;
 import model.world.Tool;
 import presenter.EditorPlatform;
-import presenter.common.EntityNode;
-import presenter.common.SceneInputListener;
 import util.geometry.geom2d.Point2D;
 
 public class EditionInputListener implements SceneInputListener {

@@ -6,6 +6,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import presenter.GripPresenter;
 import presenter.OverviewPresenter;
 import presenter.util.UserComponentList;
 
@@ -31,6 +32,8 @@ public class Overview {
 		root.setDividerPositions(0.2, 0.8);
 		root.getItems().addAll(leftRegion, scenePane, editors);
 		
+		
+		GripPresenter grip = new GripPresenter();
 
 		Scene s = new Scene(root);
 		sceneViewer.registerKeyInputs(s);

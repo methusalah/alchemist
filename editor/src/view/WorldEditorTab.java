@@ -12,11 +12,12 @@ import view.controls.toolEditor.ToolEditor;
 import view.controls.toolEditor.TrinketTab;
 
 public class WorldEditorTab extends Tab {
+	private final WorldEditorPresenter presenter;
 	
-	WorldEditorPresenter presenter;
+	TabPane tabpane;
 	
 	public WorldEditorTab() {
-		this.presenter = new WorldEditorPresenter();
+		this.presenter = new WorldEditorPresenter(this);
 		
 		setText("World editor");
 		setClosable(false);
@@ -26,14 +27,14 @@ public class WorldEditorTab extends Tab {
 		saveButton.setOnAction(e -> presenter.saveWorld());
 		content.getChildren().add(saveButton);
 		
-		TabPane tabpane = new TabPane(
+		tabpane = new TabPane(
 				new HeighmapTab(presenter.getHeightmapTool()),
 				new AtlasTab(presenter.getAtlasTool()),
 				new PopulationTab(presenter.getPopulationTool()),
 				new TrinketTab());
 		tabpane.selectionModelProperty().getValue().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-				ToolEditor editor = (ToolEditor)newValue;
-				presenter.selectTool(editor.getTool());
+			ToolEditor editor = (ToolEditor)newValue;
+			presenter.selectTool(editor.getTool());
 		});
 		selectedProperty().addListener(e -> {
 			ToolEditor editor = ((ToolEditor)tabpane.selectionModelProperty().getValue().getSelectedItem());

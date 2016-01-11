@@ -8,22 +8,29 @@ import model.world.HeightMapTool;
 import model.world.PopulationTool;
 import model.world.Tool;
 import model.world.atlas.AtlasTool;
-import presenter.scene.EditionInputListener;
+import presenter.common.EditionInputListener;
 import util.event.EventManager;
+import view.HierarchyTab;
+import view.WorldEditorTab;
 
 public class WorldEditorPresenter {
 	private final HeightMapTool heightmapTool;
 	private final AtlasTool atlasTool;
 	private final PopulationTool populationTool;
 
-	private final EditionInputListener edition;
-
+	private final EditionInputListener inputListener;
 	
-	public WorldEditorPresenter() {
+	public WorldEditorPresenter(WorldEditorTab view) {
 		heightmapTool = new HeightMapTool(EditorPlatform.getWorldData());
 		atlasTool = new AtlasTool(EditorPlatform.getWorldData());
 		populationTool = new PopulationTool(EditorPlatform.getWorldData());
-		edition = new EditionInputListener(EditorPlatform.getScene());
+		inputListener = new EditionInputListener(EditorPlatform.getScene());
+		
+		EditorPlatform.getSelectionProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue != null){
+				EditorPlatform.getSceneInputManager().removeListener(inputListener);
+			}
+		});
 	}
 
 	public HeightMapTool getHeightmapTool() {
@@ -41,7 +48,7 @@ public class WorldEditorPresenter {
 	public void selectTool(Tool tool){
 		EditorPlatform.getScene().enqueue(app -> setTool(app, tool));
 		EditorPlatform.getSelectionProperty().setValue(null);
-		EditorPlatform.getSceneInputManager().setConcurrentListener(edition);
+		EditorPlatform.getSceneInputManager().addListener(inputListener);
 	}
 	
 	public void saveWorld(){

@@ -1,13 +1,14 @@
-package presenter.scene;
+package presenter;
 
 import model.Command;
 import model.state.DraggableCameraState;
 import model.state.WorldLocaliserState;
 import model.state.WorldToolState;
 import model.world.WorldData;
-import presenter.EditorPlatform;
+import presenter.common.HandleInputListener;
 import presenter.common.RunState;
 import presenter.common.SceneInputManager;
+import presenter.common.TopDownCamInputListener;
 import presenter.common.RunState.State;
 
 import com.jme3.app.SimpleApplication;
@@ -20,9 +21,7 @@ import controller.ECS.SceneSelectorState;
 import app.AppFacade;
 
 public class ScenePresenter {
-	private final EditionInputListener edition;
 	private final TopDownCamInputListener camera;
-	private final GameInputListener game;
 	
 	public ScenePresenter() {
 		if(EditorPlatform.getScene() == null){
@@ -31,25 +30,9 @@ public class ScenePresenter {
 			EditorPlatform.setScene(jmeScene);
 		}
 		
-		edition = new EditionInputListener(EditorPlatform.getScene());
 		camera = new TopDownCamInputListener(EditorPlatform.getScene());
-		game = new GameInputListener(EditorPlatform.getScene());
-		
 		
 		EditorPlatform.getSceneInputManager().addListener(camera);
-		EditorPlatform.getSceneInputManager().addListener(edition);
-
-		EditorPlatform.getRunStateProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue.getState() == RunState.State.Run){
-				EditorPlatform.getSceneInputManager().removeListener(edition);
-				EditorPlatform.getSceneInputManager().removeListener(camera);
-				EditorPlatform.getSceneInputManager().addListener(game);
-			} else {
-				EditorPlatform.getSceneInputManager().removeListener(game);
-				EditorPlatform.getSceneInputManager().addListener(edition);
-				EditorPlatform.getSceneInputManager().addListener(camera);
-			}
-		});
 	}
 	
 	static private boolean createScene(SimpleApplication app, EntityData ed, WorldData world, Command command) {

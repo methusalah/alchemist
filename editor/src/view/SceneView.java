@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import presenter.ScenePresenter;
 import presenter.common.SceneInputManager;
-import presenter.scene.ScenePresenter;
 
 public class SceneView extends Pane {
 	private final ScenePresenter presenter;

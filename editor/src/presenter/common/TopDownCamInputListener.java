@@ -1,7 +1,6 @@
-package presenter.scene;
+package presenter.common;
 
 import model.state.DraggableCameraState;
-import presenter.common.SceneInputListener;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3x.jfx.injfx.JmeForImageView;
@@ -13,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import util.geometry.geom2d.Point2D;
 
-class TopDownCamInputListener implements SceneInputListener{
+public class TopDownCamInputListener implements SceneInputListener{
 	private final JmeForImageView jme;
 	
 	private boolean zPressed = false, sPressed = false, qPressed = false, dPressed = false;

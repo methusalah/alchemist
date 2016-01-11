@@ -52,6 +52,14 @@ public class SpatialSelector {
 		return PointUtil.getPointedCoord(n, r);
 	}
 
+	public static Point3D getPoint(Node n, Point2D screenCoord) {
+		Vector3f origin = AppFacade.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 0f);
+		Vector3f direction = AppFacade.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 1f);
+		direction.subtractLocal(origin).normalizeLocal();
+		Ray r = new Ray(origin, direction);
+		return PointUtil.getPointedCoord3D(n, r);
+	}
+
 	public static Geometry getPointedGeometry(Node n, Point2D screenCoord) {
 		Vector3f origin = AppFacade.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 0f);
 		Vector3f direction = AppFacade.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 1f);

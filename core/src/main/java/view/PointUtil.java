@@ -1,6 +1,8 @@
 package view;
 
 import util.geometry.geom2d.Point2D;
+import util.geometry.geom3d.Point3D;
+import view.math.TranslateUtil;
 
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
@@ -27,6 +29,14 @@ public abstract class PointUtil {
 		// return Translator.toPoint2D(collision.getContactPoint());
 		Vector3f p = collision.getContactPoint();
 		return new Point2D(p.x, p.y);
+	}
+
+	public static Point3D getPointedCoord3D(Node n, Ray r) {
+		CollisionResult collision = getCollision(n, r);
+		if (collision == null) {
+			return null;
+		}
+		return TranslateUtil.toPoint3D(collision.getContactPoint());
 	}
 
 	private static CollisionResult getCollision(Node n, Ray r) {

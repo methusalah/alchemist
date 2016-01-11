@@ -7,7 +7,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import model.Command;
 import model.ECS.TraversableEntityData;
-import model.state.HandleState;
+import model.state.GripState;
 import model.world.WorldData;
 import presenter.common.EntityNode;
 import presenter.common.RunState;
@@ -20,7 +20,7 @@ public class EditorPlatform {
 	private static WorldData worldData;
 	private static Command command;
 	private static SceneSelectorState sceneSelector;
-	private static HandleState handle;
+	private static GripState handle;
 	private static JmeForImageView scene, preview;
 	private static final ObjectProperty<UserComponentList> userComponentListProperty = new SimpleObjectProperty<>();
 	private static final ObjectProperty<EntityNode> selectionProperty = new SimpleObjectProperty<>();
@@ -50,10 +50,10 @@ public class EditorPlatform {
 	public static void setSceneSelector(SceneSelectorState sceneSelector) {
 		EditorPlatform.sceneSelector = sceneSelector;
 	}
-	public static HandleState getHandle() {
+	public static GripState getHandle() {
 		return handle;
 	}
-	public static void setHandle(HandleState handle) {
+	public static void setHandle(GripState handle) {
 		EditorPlatform.handle = handle;
 	}
 	public static Command getCommand() {

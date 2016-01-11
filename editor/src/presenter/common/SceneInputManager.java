@@ -9,6 +9,10 @@ import javafx.scene.input.ScrollEvent;
 
 public class SceneInputManager {
 	private final List<SceneInputListener> listeners = new ArrayList<>();
+	public List<SceneInputListener> getListeners() {
+		return listeners;
+	}
+
 	private SceneInputListener concurrentListener;
 	
 	public SceneInputListener getConcurrentListener() {
