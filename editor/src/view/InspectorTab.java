@@ -1,19 +1,13 @@
 package view;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import presenter.EntityNode;
-import presenter.InspectorPresenter;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import com.simsilica.es.EntityComponent;
+
+import application.EditorPlatform;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ListChangeListener.Change;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -21,13 +15,10 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
+import presenter.EntityNode;
+import presenter.InspectorPresenter;
 import util.LogUtil;
-import util.event.AddComponentEvent;
-import util.event.EventManager;
 import view.controls.ComponentEditor;
-import application.EditorPlatform;
-
-import com.simsilica.es.EntityComponent;
 
 public class InspectorTab extends Tab {
 	final InspectorPresenter presenter;

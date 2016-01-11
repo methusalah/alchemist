@@ -8,9 +8,6 @@ import javafx.scene.input.TransferMode;
 import model.ES.serial.Blueprint;
 import presenter.EntityNode;
 import presenter.HierarchyPresenter;
-import util.event.EntityCreationFromBlueprintEvent;
-import util.event.EventManager;
-import util.event.ParentingChangedEvent;
 import view.Dragpool;
 
 public class EntityTreeView extends TreeView<EntityNode> {

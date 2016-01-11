@@ -3,8 +3,6 @@ package view;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import presenter.RunPresenter;
-import util.event.EventManager;
-import util.event.scene.RunEvent;
 
 public class RunPanel extends HBox {
 	private final RunPresenter presenter = new RunPresenter();

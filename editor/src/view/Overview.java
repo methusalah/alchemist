@@ -7,8 +7,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import util.event.EventManager;
-import util.event.scene.AppClosedEvent;
 
 public class Overview {
 	public final SceneView sceneViewer;

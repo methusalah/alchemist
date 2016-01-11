@@ -1,23 +1,20 @@
 package application.topDownScene;
 
-import presenter.EntityNode;
+import com.jme3.app.SimpleApplication;
+import com.jme3.app.state.AppStateManager;
+import com.jme3x.jfx.injfx.JmeForImageView;
+import com.simsilica.es.EntityId;
+
+import application.EditorPlatform;
+import controller.ECS.SceneSelectorState;
 import javafx.application.Platform;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import model.state.WorldToolState;
 import model.world.Tool;
-import util.event.EntitySelectionChanged;
-import util.event.EventManager;
+import presenter.EntityNode;
 import util.geometry.geom2d.Point2D;
-import application.EditorPlatform;
-
-import com.jme3.app.SimpleApplication;
-import com.jme3.app.state.AppStateManager;
-import com.jme3x.jfx.injfx.JmeForImageView;
-import com.simsilica.es.EntityId;
-
-import controller.ECS.SceneSelectorState;
 
 public class EditionInputListener implements SceneInputListener {
 	private static enum ActionType {StartPrimary,

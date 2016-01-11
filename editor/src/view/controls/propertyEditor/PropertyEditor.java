@@ -5,21 +5,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
-import presenter.InspectorPresenter;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import com.simsilica.es.EntityComponent;
+
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.OverrunStyle;
 import javafx.scene.layout.BorderPane;
-import util.LogUtil;
-import util.event.ComponentPropertyChanged;
-import util.event.EventManager;
-
-import com.simsilica.es.EntityComponent;
+import presenter.InspectorPresenter;
 
 public abstract class PropertyEditor extends BorderPane {
 	protected final DecimalFormat df;

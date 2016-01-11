@@ -8,26 +8,17 @@ import java.beans.PropertyDescriptor;
 import java.util.ArrayList;
 import java.util.List;
 
-import presenter.InspectorPresenter;
-
 import com.simsilica.es.EntityComponent;
 
 import javafx.beans.binding.DoubleBinding;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import model.ES.component.world.TerrainTooling;
-import util.event.EventManager;
-import util.event.RemoveComponentEvent;
+import presenter.InspectorPresenter;
 import view.UIConfig;
-import view.WorldEditorTab;
 import view.controls.propertyEditor.PropertyEditor;
 import view.controls.propertyEditor.PropertyEditorFactory;
 

@@ -1,24 +1,17 @@
 package view;
 
-import presenter.EntityNode;
-import presenter.ResourcePresenter;
-import javafx.beans.property.ListProperty;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import model.ES.serial.Blueprint;
-import util.event.EventManager;
-import util.event.SaveEntityEvent;
+import presenter.EntityNode;
+import presenter.ResourcePresenter;
 
 public class ResourceTab extends Tab {
 	private final ResourcePresenter presenter;
