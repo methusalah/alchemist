@@ -104,7 +104,7 @@ public class EditionInputListener implements SceneInputListener {
 			AppStateManager stateManager = app.getStateManager();
 			EntityId pointed = stateManager.getState(SceneSelectorState.class).getPointedEntity();
 			if(pointed != null){
-				EntityNode pointedNode = EditorPlatform.getObserver().getNode(pointed);
+				EntityNode pointedNode = EditorPlatform.getEntityData().getNode(pointed);
 				Platform.runLater(() -> EditorPlatform.getSelectionProperty().set(pointedNode));
 			}
 		}

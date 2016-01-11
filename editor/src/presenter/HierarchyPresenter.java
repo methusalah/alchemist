@@ -1,12 +1,11 @@
 package presenter;
 
-import util.LogUtil;
+import com.simsilica.es.EntityId;
+
+import application.EditorPlatform;
 import model.ES.component.Naming;
 import model.ES.component.hierarchy.Parenting;
 import model.ES.serial.Blueprint;
-import application.EditorPlatform;
-
-import com.simsilica.es.EntityId;
 
 public class HierarchyPresenter {
 	public void createNewEntity(){
@@ -30,6 +29,6 @@ public class HierarchyPresenter {
 	}
 	
 	public EntityNode getRootNode(){
-		return EditorPlatform.getObserver().getRootNode();
+		return EditorPlatform.getEntityData().getRootNode();
 	}
 }

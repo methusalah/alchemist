@@ -8,22 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import application.EditorPlatform;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.eventbus.Subscribe;
 import com.simsilica.es.EntityComponent;
-import com.simsilica.es.EntityData;
-import com.simsilica.es.EntityId;
 
-import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import model.ECS.event.ComponentSetEvent;
+import application.EditorPlatform;
 import model.ES.component.Cooldown;
 import model.ES.component.LifeTime;
 import model.ES.component.Naming;
@@ -48,7 +38,6 @@ import model.ES.component.command.PlayerControl;
 import model.ES.component.hierarchy.AbilityControl;
 import model.ES.component.hierarchy.AbilityTriggerControl;
 import model.ES.component.hierarchy.BoneHolding;
-import model.ES.component.hierarchy.Parenting;
 import model.ES.component.hierarchy.PlanarStanceControl;
 import model.ES.component.hierarchy.ThrustControl;
 import model.ES.component.hierarchy.ThrusterControl;
@@ -81,7 +70,6 @@ import model.ES.component.world.PopulationTooling;
 import model.ES.component.world.TerrainTooling;
 import util.LogUtil;
 import util.event.EventManager;
-import util.event.modelEvent.InspectionChangedEvent;
 
 public class InspectorPresenter {
 	private final Map<String, Class<? extends EntityComponent>> componentClasses = new HashMap<>();

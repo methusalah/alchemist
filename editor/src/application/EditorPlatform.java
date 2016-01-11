@@ -1,28 +1,24 @@
 package application;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import presenter.EntityNode;
-import presenter.RunState;
-import model.Command;
-import model.ECS.EntityDataObserver;
-import model.ECS.PostingEntityData;
-import model.state.HandleState;
-import model.world.WorldData;
-
 import com.jme3x.jfx.injfx.JmeForImageView;
 import com.simsilica.es.EntityData;
 
 import application.topDownScene.SceneInputListener;
 import controller.ECS.SceneSelectorState;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import model.Command;
+import model.ECS.TraversableEntityData;
+import model.state.HandleState;
+import model.world.WorldData;
+import presenter.EntityNode;
+import presenter.RunState;
 
 public class EditorPlatform {
 
-	private static EntityData entityData;
-	private static EntityDataObserver observer;
+	private static TraversableEntityData entityData;
 	private static WorldData worldData;
 	private static Command command;
 	private static SceneSelectorState sceneSelector;
@@ -32,15 +28,11 @@ public class EditorPlatform {
 	private static final ObjectProperty<RunState> runStateProperty = new SimpleObjectProperty<>();
 	private static final ListProperty<SceneInputListener> sceneInputListeners = new SimpleListProperty<>();
 	
-	public static EntityData getEntityData() {
+	public static TraversableEntityData getEntityData() {
 		return entityData;
 	}
-	public static void setEntityData(EntityData entityData, EntityDataObserver observer) {
+	public static void setEntityData(TraversableEntityData entityData) {
 		EditorPlatform.entityData = entityData;
-		EditorPlatform.observer = observer;
-	}
-	public static EntityDataObserver getObserver() {
-		return observer;
 	}
 	public static WorldData getWorldData() {
 		return worldData;

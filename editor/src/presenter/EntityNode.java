@@ -3,7 +3,6 @@ package presenter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.eventbus.Subscribe;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityId;
 
@@ -13,11 +12,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
-import model.ECS.event.ComponentSetEvent;
-import model.ES.component.Naming;
-import model.ES.component.hierarchy.Parenting;
-import util.LogUtil;
-import util.event.EventManager;
 
 public class EntityNode {
 	List<ChangeListener<? super EntityNode>> changeListeners = new ArrayList<>();

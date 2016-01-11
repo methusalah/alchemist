@@ -3,13 +3,10 @@ package application;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Command;
-import model.ECS.EntityDataObserver;
-import model.ECS.PostingEntityData;
+import model.ECS.TraversableEntityData;
 import model.world.WorldData;
 import util.LogUtil;
 import view.Overview;
-
-import com.simsilica.es.EntityData;
 
 
 public class MainEditor extends Application {
@@ -18,8 +15,7 @@ public class MainEditor extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		LogUtil.init();
-		EntityData ed = new PostingEntityData();
-		EditorPlatform.setEntityData(ed, new EntityDataObserver(ed));
+		EditorPlatform.setEntityData(new TraversableEntityData());
 		EditorPlatform.setWorldData(new WorldData(EditorPlatform.getEntityData()));
 		EditorPlatform.setCommand(new Command());
 		
