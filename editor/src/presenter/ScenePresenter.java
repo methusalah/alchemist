@@ -5,7 +5,7 @@ import model.state.DraggableCameraState;
 import model.state.WorldLocaliserState;
 import model.state.WorldToolState;
 import model.world.WorldData;
-import presenter.common.HandleInputListener;
+import presenter.common.GripInputListener;
 import presenter.common.RunState;
 import presenter.common.SceneInputManager;
 import presenter.common.TopDownCamInputListener;

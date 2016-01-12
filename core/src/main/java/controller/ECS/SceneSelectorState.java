@@ -17,6 +17,10 @@ import view.math.TranslateUtil;
 public class SceneSelectorState extends AbstractAppState {
 
 	private Point2D coordInScreenSpace = Point2D.ORIGIN;
+	public Point2D getCoordInScreenSpace() {
+		return coordInScreenSpace;
+	}
+
 	private Node plan = new Node("plan");
 	
 	public SceneSelectorState() {

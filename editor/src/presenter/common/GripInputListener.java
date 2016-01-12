@@ -18,10 +18,10 @@ import model.world.Tool;
 import presenter.EditorPlatform;
 import util.geometry.geom2d.Point2D;
 
-public class HandleInputListener implements SceneInputListener {
+public class GripInputListener implements SceneInputListener {
 	private final JmeForImageView jme;
 	
-	public HandleInputListener(JmeForImageView jme) {
+	public GripInputListener(JmeForImageView jme) {
 		this.jme = jme;
 	}
 
@@ -29,7 +29,7 @@ public class HandleInputListener implements SceneInputListener {
 	public void onMousePressed(MouseEvent e){
 		if(e.getButton() == MouseButton.PRIMARY)
 			jme.enqueue(app -> {
-				app.getStateManager().getState(GripState.class).grab();
+				app.getStateManager().getState(GripState.class).grab(new Point2D(e.getX(), e.getY()));
 				return true;
 			});
 	}

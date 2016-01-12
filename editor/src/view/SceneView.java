@@ -26,7 +26,7 @@ public class SceneView extends Pane {
 		image.setStyle("-fx-background-color: blue");
 
 		image.setOnMousePressed(e -> presenter.getInputManager().onMousePressed(e));
-		image.setOnMouseDragged(e -> presenter.getInputManager().onMouseMoved(e));
+		image.setOnMouseDragged(e -> presenter.getInputManager().onMouseDragged(e));
 		image.setOnMouseReleased(e -> presenter.getInputManager().onMouseReleased(e));
 		image.setOnMouseMoved(e -> presenter.getInputManager().onMouseMoved(e));
 		image.setOnScroll(e -> presenter.getInputManager().onMouseScroll(e));
