@@ -78,6 +78,7 @@ public class EditionInputListener implements SceneInputListener {
 	
 	@Override
 	public void onMouseDragged(MouseEvent e) {
+		jme.enqueue(app -> setSceneMouseCoord(app, new Point2D(e.getX(), e.getY())));
 	}
 
 	static private boolean setSceneMouseCoord(SimpleApplication app, Point2D coord) {
