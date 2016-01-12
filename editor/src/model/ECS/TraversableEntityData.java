@@ -98,7 +98,7 @@ public class TraversableEntityData extends DefaultEntityData{
 					// we set the component instead of remove&add to get the correct event for listeners
 					if(lastComp != null && newComp == null){
 						// component is removed
-						ep.componentListProperty().remove(newComp);
+						ep.componentListProperty().remove(lastComp);
 					} else if(lastComp != null && newComp != null){
 						// component is replaced
 						int index = ep.componentListProperty().indexOf(lastComp);
