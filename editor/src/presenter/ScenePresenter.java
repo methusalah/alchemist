@@ -9,10 +9,16 @@ import presenter.common.GripInputListener;
 import presenter.common.RunState;
 import presenter.common.SceneInputManager;
 import presenter.common.TopDownCamInputListener;
+import view.controls.JmeImageView;
 import presenter.common.RunState.State;
+import util.LogUtil;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.BloomFilter;
+import com.jme3.post.filters.FXAAFilter;
+import com.jme3.post.filters.TranslucentBucketFilter;
 import com.jme3x.jfx.injfx.JmeForImageView;
 import com.simsilica.es.EntityData;
 
@@ -25,18 +31,19 @@ public class ScenePresenter {
 	
 	public ScenePresenter() {
 		if(EditorPlatform.getScene() == null){
-			JmeForImageView jmeScene = new JmeForImageView();
+			JmeImageView jmeScene = new JmeImageView();
 			jmeScene.enqueue((app) -> createScene(app, EditorPlatform.getEntityData(), EditorPlatform.getWorldData(), EditorPlatform.getCommand()));
 			EditorPlatform.setScene(jmeScene);
 		}
 		
 		camera = new TopDownCamInputListener(EditorPlatform.getScene());
-		
 		EditorPlatform.getSceneInputManager().addListener(camera);
 	}
 	
 	static private boolean createScene(SimpleApplication app, EntityData ed, WorldData world, Command command) {
 		AppFacade.setApp(app);
+		app.getViewPort().addProcessor(new FilterPostProcessor(app.getAssetManager()));
+		
 		AppStateManager stateManager = app.getStateManager();
 		
 		DraggableCameraState cam = new DraggableCameraState(app.getCamera());
@@ -54,10 +61,20 @@ public class ScenePresenter {
 		es.initAudio(false);
 		es.initCommand(false);
 		es.initLogic(false);
+
+		AppFacade.getFilterPostProcessor().addFilter(new BloomFilter(BloomFilter.GlowMode.Objects));
+		
+		FXAAFilter fxaa = new FXAAFilter();
+		fxaa.setReduceMul(0.9f);
+		fxaa.setSpanMax(5f);
+		fxaa.setSubPixelShift(0f);
+		fxaa.setVxOffset(10f);
+		AppFacade.getFilterPostProcessor().addFilter(fxaa);
+
 		return true;
 	}
 	
-	public JmeForImageView getScene(){
+	public JmeImageView getScene(){
 		return EditorPlatform.getScene();
 	}
 

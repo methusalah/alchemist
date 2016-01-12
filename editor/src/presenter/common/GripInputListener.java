@@ -17,11 +17,12 @@ import model.state.WorldToolState;
 import model.world.Tool;
 import presenter.EditorPlatform;
 import util.geometry.geom2d.Point2D;
+import view.controls.JmeImageView;
 
 public class GripInputListener implements SceneInputListener {
-	private final JmeForImageView jme;
+	private final JmeImageView jme;
 	
-	public GripInputListener(JmeForImageView jme) {
+	public GripInputListener(JmeImageView jme) {
 		this.jme = jme;
 	}
 

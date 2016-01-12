@@ -11,15 +11,16 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import util.geometry.geom2d.Point2D;
+import view.controls.JmeImageView;
 
 public class TopDownCamInputListener implements SceneInputListener{
-	private final JmeForImageView jme;
+	private final JmeImageView jme;
 	
 	private boolean zPressed = false, sPressed = false, qPressed = false, dPressed = false;
 	Point2D camVelocity = Point2D.ORIGIN;
 	Point2D oldCoord = null;
 
-	public TopDownCamInputListener(JmeForImageView jme) {
+	public TopDownCamInputListener(JmeImageView jme) {
 		this.jme = jme;
 	}
 	

@@ -1,36 +1,34 @@
 package view.drawingProcessors;
 
-import util.LogUtil;
-import util.geometry.geom3d.Point3D;
-import util.math.AngleUtil;
-import view.SpatialPool;
-import view.math.TranslateUtil;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.jme3.light.DirectionalLight;
 import com.jme3.light.PointLight;
 import com.jme3.light.SpotLight;
+import com.jme3.post.Filter;
 import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.BloomFilter;
+import com.jme3.post.filters.FXAAFilter;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.EdgeFilteringMode;
 import com.jme3.shadow.SpotLightShadowFilter;
 import com.simsilica.es.Entity;
 
 import app.AppFacade;
-import model.ES.component.Naming;
+import controller.ECS.Processor;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.SpaceStance;
 import model.ES.component.visuals.Lighting;
-import controller.ECS.Processor;
+import util.LogUtil;
+import util.geometry.geom3d.Point3D;
+import util.math.AngleUtil;
+import view.SpatialPool;
+import view.math.TranslateUtil;
 
 public class LightProc extends Processor {
 	int SHADOWMAP_SIZE = 4096;
-	FilterPostProcessor fpp;
 
-	public LightProc() {
-		fpp = new FilterPostProcessor(AppFacade.getAssetManager());
-		AppFacade.getViewPort().addProcessor(fpp);
-	}
-	
 	@Override
 	protected void registerSets() {
 		register("space", SpaceStance.class, Lighting.class);
@@ -68,12 +66,17 @@ public class LightProc extends Processor {
 
 			if(l.shadowCaster){
 				DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(AppFacade.getAssetManager(), SHADOWMAP_SIZE, 1);
-				
 				sf.setEnabled(true);
 				sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
 				sf.setShadowZExtend(SHADOWMAP_SIZE);
 				sf.setLight(light);
-				fpp.addFilter(sf);
+				List<Filter> save = new ArrayList<>();
+				save.add(sf);
+				for(Filter f : AppFacade.getFilterPostProcessor().getFilterList())
+					save.add(f);
+				AppFacade.getFilterPostProcessor().cleanup();
+				for(Filter f : save)
+					AppFacade.getFilterPostProcessor().addFilter(f);
 			}
 		}
 		DirectionalLight light = (DirectionalLight)SpatialPool.lights.get(e.getId());
@@ -103,12 +106,12 @@ public class LightProc extends Processor {
 			AppFacade.getRootNode().addLight(light);
 			
 			if(l.shadowCaster){
-				SpotLightShadowFilter sf = new SpotLightShadowFilter(AppFacade.getAssetManager(), 1024);
-				sf.setEnabled(true);
-//				sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
-//				sf.setShadowZExtend(SHADOWMAP_SIZE);
-				sf.setLight(light);
-				fpp.addFilter(sf);
+//				SpotLightShadowFilter sf = new SpotLightShadowFilter(AppFacade.getAssetManager(), 1024);
+//				sf.setEnabled(true);
+////				sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
+////				sf.setShadowZExtend(SHADOWMAP_SIZE);
+//				sf.setLight(light);
+//				AppFacade.getFilterPostProcessor().addFilter(sf);
 			}
 		}
 		SpotLight light = (SpotLight)SpatialPool.lights.get(e.getId());

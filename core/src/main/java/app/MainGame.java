@@ -2,6 +2,8 @@ package app;
 
 import com.google.common.eventbus.Subscribe;
 import com.jme3.font.BitmapText;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.FXAAFilter;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.base.DefaultEntityData;
 
@@ -32,6 +34,10 @@ public class MainGame extends CosmoVania {
 
 	@Override
 	public void simpleInitApp() {
+		getViewPort().addProcessor(new FilterPostProcessor(getAssetManager()));
+		AppFacade.getFilterPostProcessor().addFilter(new FXAAFilter());
+		
+		
 		MaterialManager.initBaseMaterials();
 		TopdownCtrl ctrl = new TopdownCtrl();
 		stateManager.attach(ctrl);

@@ -4,6 +4,8 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.input.InputManager;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.SceneProcessor;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
@@ -49,6 +51,13 @@ public class AppFacade {
 	
 	public static AppStateManager getStateManager(){
 		return app.getStateManager();
+	}
+	
+	public static FilterPostProcessor getFilterPostProcessor(){
+		for(SceneProcessor proc : getViewPort().getProcessors())
+			if(proc instanceof FilterPostProcessor)
+				return (FilterPostProcessor)proc;
+		throw new RuntimeException("No FilterPostProcessor on that scene.");
 	}
 	
 }

@@ -10,6 +10,7 @@ import javafx.scene.input.ScrollEvent;
 import model.Command;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
+import view.controls.JmeImageView;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
@@ -29,9 +30,9 @@ public class GameInputListener implements SceneInputListener {
 	}
 
 	private final List<KeyCode> pressed = new ArrayList<KeyCode>();
-	private final JmeForImageView jme;
+	private final JmeImageView jme;
 	
-	public GameInputListener(JmeForImageView jme) {
+	public GameInputListener(JmeImageView jme) {
 		this.jme = jme;
 	}
 

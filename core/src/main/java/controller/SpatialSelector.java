@@ -68,7 +68,7 @@ public class SpatialSelector {
 		return PointUtil.getPointedGeometry(n, r);
 	}
 
-	public Point2D getScreenCoord(Point3D pos) {
+	public static Point2D getScreenCoord(Point3D pos) {
 		Vector3f vPos = TranslateUtil.toVector3f(pos);
 		Vector3f screenCoord = AppFacade.getCamera().getScreenCoordinates(vPos);
 		return TranslateUtil.toPoint3D(screenCoord).get2D();

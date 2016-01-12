@@ -14,6 +14,7 @@ import model.state.WorldToolState;
 import model.world.Tool;
 import presenter.EditorPlatform;
 import util.geometry.geom2d.Point2D;
+import view.controls.JmeImageView;
 
 public class EditionInputListener implements SceneInputListener {
 	private static enum ActionType {StartPrimary,
@@ -24,9 +25,9 @@ public class EditionInputListener implements SceneInputListener {
 		OnceSecondary
 	}
 
-	private final JmeForImageView jme;
+	private final JmeImageView jme;
 	
-	public EditionInputListener(JmeForImageView jme) {
+	public EditionInputListener(JmeImageView jme) {
 		this.jme = jme;
 	}
 

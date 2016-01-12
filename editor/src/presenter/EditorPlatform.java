@@ -13,6 +13,7 @@ import presenter.common.EntityNode;
 import presenter.common.RunState;
 import presenter.common.SceneInputManager;
 import presenter.util.UserComponentList;
+import view.controls.JmeImageView;
 
 public class EditorPlatform {
 
@@ -21,7 +22,7 @@ public class EditorPlatform {
 	private static Command command;
 	private static SceneSelectorState sceneSelector;
 	private static GripState handle;
-	private static JmeForImageView scene, preview;
+	private static JmeImageView scene, preview;
 	private static final ObjectProperty<UserComponentList> userComponentListProperty = new SimpleObjectProperty<>();
 	private static final ObjectProperty<EntityNode> selectionProperty = new SimpleObjectProperty<>();
 	private static final ObjectProperty<RunState> runStateProperty = new SimpleObjectProperty<>();
@@ -62,16 +63,16 @@ public class EditorPlatform {
 	public static void setCommand(Command command) {
 		EditorPlatform.command = command;
 	}
-	public static JmeForImageView getScene() {
+	public static JmeImageView getScene() {
 		return scene;
 	}
-	public static void setScene(JmeForImageView workScene) {
+	public static void setScene(JmeImageView workScene) {
 		EditorPlatform.scene = workScene;
 	}
-	public static JmeForImageView getPreview() {
+	public static JmeImageView getPreview() {
 		return preview;
 	}
-	public static void setPreview(JmeForImageView previewScene) {
+	public static void setPreview(JmeImageView previewScene) {
 		EditorPlatform.preview = previewScene;
 	}
 	public static ObjectProperty<EntityNode> getSelectionProperty() {

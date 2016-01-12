@@ -1,22 +1,17 @@
 package controller.ECS;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import util.LogUtil;
-import app.CosmoVania;
-import app.MainGame;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
-import com.simsilica.es.ComponentFilter;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntitySet;
+
+import util.LogUtil;
 
 
 public abstract class Processor extends AbstractAppState {
