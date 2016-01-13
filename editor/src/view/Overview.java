@@ -8,7 +8,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import presenter.EditorPlatform;
 import presenter.OverviewPresenter;
-import presenter.instrument.PlanarStanceInstrumentPresenter;
 import presenter.util.UserComponentList;
 import view.instrument.planarStance.PlanarStanceInstrument;
 
