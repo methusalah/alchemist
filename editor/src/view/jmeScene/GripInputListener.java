@@ -1,4 +1,4 @@
-package presenter.common;
+package view.jmeScene;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
@@ -12,10 +12,10 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import jdk.internal.org.objectweb.asm.Handle;
-import model.state.GripState;
 import model.state.WorldToolState;
 import model.world.Tool;
 import presenter.EditorPlatform;
+import presenter.common.SceneInputListener;
 import util.geometry.geom2d.Point2D;
 import view.controls.JmeImageView;
 
@@ -30,7 +30,7 @@ public class GripInputListener implements SceneInputListener {
 	public void onMousePressed(MouseEvent e){
 		if(e.getButton() == MouseButton.PRIMARY)
 			jme.enqueue(app -> {
-				app.getStateManager().getState(GripState.class).grab(new Point2D(e.getX(), e.getY()));
+				app.getStateManager().getState(GripState.class).grab();
 				return true;
 			});
 	}
@@ -63,9 +63,10 @@ public class GripInputListener implements SceneInputListener {
 	
 	@Override
 	public void onMouseDragged(MouseEvent e) {
+		jme.enqueue(app -> setSceneMouseCoord(app, new Point2D(e.getX(), e.getY())));
 		if(e.getButton() == MouseButton.PRIMARY)
 			jme.enqueue(app -> {
-				app.getStateManager().getState(GripState.class).drag(new Point2D(e.getX(), e.getY()));
+				app.getStateManager().getState(GripState.class).drag();
 				return true;
 			});
 	}

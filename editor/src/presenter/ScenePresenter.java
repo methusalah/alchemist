@@ -5,11 +5,11 @@ import model.state.DraggableCameraState;
 import model.state.WorldLocaliserState;
 import model.state.WorldToolState;
 import model.world.WorldData;
-import presenter.common.GripInputListener;
 import presenter.common.RunState;
 import presenter.common.SceneInputManager;
 import presenter.common.TopDownCamInputListener;
 import view.controls.JmeImageView;
+import view.jmeScene.GripInputListener;
 import presenter.common.RunState.State;
 import util.LogUtil;
 

@@ -1,22 +1,19 @@
 package presenter;
 
-import com.jme3x.jfx.injfx.JmeForImageView;
-
 import controller.ECS.SceneSelectorState;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import model.Command;
 import model.ECS.TraversableEntityData;
-import model.state.GripState;
 import model.world.WorldData;
 import presenter.common.EntityNode;
 import presenter.common.RunState;
 import presenter.common.SceneInputManager;
 import presenter.util.UserComponentList;
 import view.controls.JmeImageView;
+import view.jmeScene.GripState;
 
 public class EditorPlatform {
-
 	private static TraversableEntityData entityData;
 	private static WorldData worldData;
 	private static Command command;

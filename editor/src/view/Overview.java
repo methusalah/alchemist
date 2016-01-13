@@ -6,9 +6,11 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import presenter.EditorPlatform;
 import presenter.GripPresenter;
 import presenter.OverviewPresenter;
 import presenter.util.UserComponentList;
+import view.jmeScene.GripView;
 
 public class Overview {
 	private final OverviewPresenter presenter = new OverviewPresenter();
@@ -31,9 +33,10 @@ public class Overview {
 		root.setPrefSize(1600, 960);
 		root.setDividerPositions(0.2, 0.8);
 		root.getItems().addAll(leftRegion, scenePane, editors);
+
+		new GripView(EditorPlatform.getScene());
 		
 		
-		GripPresenter grip = new GripPresenter();
 
 		Scene s = new Scene(root);
 		sceneViewer.registerKeyInputs(s);
