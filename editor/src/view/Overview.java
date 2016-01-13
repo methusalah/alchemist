@@ -7,10 +7,10 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import presenter.EditorPlatform;
-import presenter.GripPresenter;
 import presenter.OverviewPresenter;
+import presenter.instrument.PlanarStanceInstrumentPresenter;
 import presenter.util.UserComponentList;
-import view.jmeScene.GripView;
+import view.instrument.planarStance.PlanarStanceInstrument;
 
 public class Overview {
 	private final OverviewPresenter presenter = new OverviewPresenter();
@@ -34,7 +34,7 @@ public class Overview {
 		root.setDividerPositions(0.2, 0.8);
 		root.getItems().addAll(leftRegion, scenePane, editors);
 
-		new GripView(EditorPlatform.getScene());
+		new PlanarStanceInstrument(EditorPlatform.getScene());
 		
 		
 

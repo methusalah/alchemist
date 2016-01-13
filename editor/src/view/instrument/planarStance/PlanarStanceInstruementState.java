@@ -1,4 +1,4 @@
-package view.jmeScene;
+package view.instrument.planarStance;
 
 
 import com.jme3.app.Application;
@@ -22,8 +22,8 @@ import controller.SpatialSelector;
 import controller.ECS.DataState;
 import controller.ECS.SceneSelectorState;
 import model.ES.component.motion.PlanarStance;
-import presenter.GripPresenter;
-import presenter.GripPresenter.Tool;
+import presenter.instrument.PlanarStanceInstrumentPresenter;
+import presenter.instrument.PlanarStanceInstrumentPresenter.Tool;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
@@ -36,25 +36,25 @@ import view.material.MaterialManager;
 import view.math.TranslateUtil;
 import view.mesh.Circle;
 
-public class GripState extends AbstractAppState {
-	private final GripPresenter presenter;
+public class PlanarStanceInstruementState extends AbstractAppState {
+	private final PlanarStanceInstrumentPresenter presenter;
 	private final SceneTool x, y, z, xy, yaw;
 	private SceneSelectorState selector;
 	private EntityData entityData;
 	
-	private Node drawnNode = new Node(GripState.class.getSimpleName() + " view");
-	private Node gripNode = new Node(GripState.class.getSimpleName() + " grip");
+	private Node drawnNode = new Node(PlanarStanceInstruementState.class.getSimpleName() + " view");
+	private Node gripNode = new Node(PlanarStanceInstruementState.class.getSimpleName() + " grip");
 	private Spatial chasedSpatial;
 	private EntityId chasedEntity;
 	private Geometry pointedGeometry;
 	
-	public GripState(GripPresenter presenter) {
+	public PlanarStanceInstruementState(PlanarStanceInstrumentPresenter presenter) {
 		this.presenter = presenter;
-		x = new SceneTool(GripState.class.getSimpleName()+ " x", new ColorRGBA(0.8f, 0.8f, 0.2f, 1));
-		y = new SceneTool(GripState.class.getSimpleName()+ " y", new ColorRGBA(0.8f, 0.2f, 0.2f, 1));
-		z = new SceneTool(GripState.class.getSimpleName()+ " z", new ColorRGBA(0.2f, 0.2f, 0.8f, 1));
-		xy = new SceneTool(GripState.class.getSimpleName()+ " xy", new ColorRGBA(0.5f, 0.2f, 0.2f, 1));
-		yaw = new SceneTool(GripState.class.getSimpleName()+ " yaw", new ColorRGBA(0.2f, 0.2f, 0.8f, 1));
+		x = new SceneTool(PlanarStanceInstruementState.class.getSimpleName()+ " x", new ColorRGBA(0.8f, 0.8f, 0.2f, 1));
+		y = new SceneTool(PlanarStanceInstruementState.class.getSimpleName()+ " y", new ColorRGBA(0.8f, 0.2f, 0.2f, 1));
+		z = new SceneTool(PlanarStanceInstruementState.class.getSimpleName()+ " z", new ColorRGBA(0.2f, 0.2f, 0.8f, 1));
+		xy = new SceneTool(PlanarStanceInstruementState.class.getSimpleName()+ " xy", new ColorRGBA(0.5f, 0.2f, 0.2f, 1));
+		yaw = new SceneTool(PlanarStanceInstruementState.class.getSimpleName()+ " yaw", new ColorRGBA(0.2f, 0.2f, 0.8f, 1));
 		createSceneTools();
 	}
 

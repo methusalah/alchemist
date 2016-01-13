@@ -11,14 +11,14 @@ import presenter.common.RunState;
 import presenter.common.SceneInputManager;
 import presenter.util.UserComponentList;
 import view.controls.JmeImageView;
-import view.jmeScene.GripState;
+import view.instrument.planarStance.PlanarStanceInstruementState;
 
 public class EditorPlatform {
 	private static TraversableEntityData entityData;
 	private static WorldData worldData;
 	private static Command command;
 	private static SceneSelectorState sceneSelector;
-	private static GripState handle;
+	private static PlanarStanceInstruementState handle;
 	private static JmeImageView scene, preview;
 	private static final ObjectProperty<UserComponentList> userComponentListProperty = new SimpleObjectProperty<>();
 	private static final ObjectProperty<EntityNode> selectionProperty = new SimpleObjectProperty<>();
@@ -48,10 +48,10 @@ public class EditorPlatform {
 	public static void setSceneSelector(SceneSelectorState sceneSelector) {
 		EditorPlatform.sceneSelector = sceneSelector;
 	}
-	public static GripState getHandle() {
+	public static PlanarStanceInstruementState getHandle() {
 		return handle;
 	}
-	public static void setHandle(GripState handle) {
+	public static void setHandle(PlanarStanceInstruementState handle) {
 		EditorPlatform.handle = handle;
 	}
 	public static Command getCommand() {

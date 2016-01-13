@@ -1,27 +1,28 @@
-package presenter;
+package presenter.instrument;
 
 import com.simsilica.es.EntityId;
 
 import model.ES.component.motion.PlanarStance;
+import presenter.EditorPlatform;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.math.Angle;
 import util.math.AngleUtil;
 import view.UIConfig;
-import view.jmeScene.GripInputListener;
-import view.jmeScene.GripView;
+import view.instrument.planarStance.PlanarStanceInstrumentInputListener;
+import view.instrument.planarStance.PlanarStanceInstrument;
 
-public class GripPresenter {
+public class PlanarStanceInstrumentPresenter {
 	public enum Tool{X, Y, Z, XY, YAW};
-	private final GripView view;
+	private final PlanarStanceInstrument view;
 	
 	private EntityId selection;
 	private Tool grabbedTool = null;
 	private Point2D grabStart;
 	
-	GripInputListener inputListener;
+	PlanarStanceInstrumentInputListener inputListener;
 	
-	public GripPresenter(GripView view) {
+	public PlanarStanceInstrumentPresenter(PlanarStanceInstrument view) {
 		this.view = view;
 		EditorPlatform.getSelectionProperty().addListener((observable, oldValue, newValue) -> {
 			updateAttachement();

@@ -1,4 +1,4 @@
-package view.jmeScene;
+package view.instrument.planarStance;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
@@ -19,10 +19,10 @@ import presenter.common.SceneInputListener;
 import util.geometry.geom2d.Point2D;
 import view.controls.JmeImageView;
 
-public class GripInputListener implements SceneInputListener {
+public class PlanarStanceInstrumentInputListener implements SceneInputListener {
 	private final JmeImageView jme;
 	
-	public GripInputListener(JmeImageView jme) {
+	public PlanarStanceInstrumentInputListener(JmeImageView jme) {
 		this.jme = jme;
 	}
 
@@ -30,7 +30,7 @@ public class GripInputListener implements SceneInputListener {
 	public void onMousePressed(MouseEvent e){
 		if(e.getButton() == MouseButton.PRIMARY)
 			jme.enqueue(app -> {
-				app.getStateManager().getState(GripState.class).grab();
+				app.getStateManager().getState(PlanarStanceInstruementState.class).grab();
 				return true;
 			});
 	}
@@ -44,7 +44,7 @@ public class GripInputListener implements SceneInputListener {
 	public void onMouseReleased(MouseEvent e){
 		if(e.getButton() == MouseButton.PRIMARY)
 			jme.enqueue(app -> {
-				app.getStateManager().getState(GripState.class).release();
+				app.getStateManager().getState(PlanarStanceInstruementState.class).release();
 				return true;
 			});
 	}
@@ -66,7 +66,7 @@ public class GripInputListener implements SceneInputListener {
 		jme.enqueue(app -> setSceneMouseCoord(app, new Point2D(e.getX(), e.getY())));
 		if(e.getButton() == MouseButton.PRIMARY)
 			jme.enqueue(app -> {
-				app.getStateManager().getState(GripState.class).drag();
+				app.getStateManager().getState(PlanarStanceInstruementState.class).drag();
 				return true;
 			});
 	}

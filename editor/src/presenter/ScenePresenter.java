@@ -9,7 +9,7 @@ import presenter.common.RunState;
 import presenter.common.SceneInputManager;
 import presenter.common.TopDownCamInputListener;
 import view.controls.JmeImageView;
-import view.jmeScene.GripInputListener;
+import view.instrument.planarStance.PlanarStanceInstrumentInputListener;
 import presenter.common.RunState.State;
 import util.LogUtil;
 
