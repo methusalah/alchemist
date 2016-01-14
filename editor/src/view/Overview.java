@@ -10,7 +10,7 @@ import model.ES.component.motion.physic.CircleCollisionShape;
 import presenter.EditorPlatform;
 import presenter.OverviewPresenter;
 import presenter.util.UserComponentList;
-import view.instrument.CircleCollisionShape.CircleCollisionShapeInstrument;
+import view.instrument.circleCollisionShape.CircleCollisionShapeInstrument;
 import view.instrument.planarStance.PlanarStanceInstrument;
 
 public class Overview {
@@ -36,7 +36,7 @@ public class Overview {
 		root.getItems().addAll(leftRegion, scenePane, editors);
 
 		new PlanarStanceInstrument(EditorPlatform.getScene());
-		new CircleCollisionShapeInstrument(EditorPlatform.getScene());
+		//new CircleCollisionShapeInstrument(EditorPlatform.getScene());
 		
 		
 

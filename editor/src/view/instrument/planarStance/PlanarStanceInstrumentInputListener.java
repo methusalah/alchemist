@@ -30,7 +30,7 @@ public class PlanarStanceInstrumentInputListener implements SceneInputListener {
 	public void onMousePressed(MouseEvent e){
 		if(e.getButton() == MouseButton.PRIMARY)
 			jme.enqueue(app -> {
-				app.getStateManager().getState(PlanarStanceInstrumentState.class).grab();
+				app.getStateManager().getState(PlanarStanceInstrumentState.class).dragStart();
 				return true;
 			});
 	}
@@ -44,7 +44,7 @@ public class PlanarStanceInstrumentInputListener implements SceneInputListener {
 	public void onMouseReleased(MouseEvent e){
 		if(e.getButton() == MouseButton.PRIMARY)
 			jme.enqueue(app -> {
-				app.getStateManager().getState(PlanarStanceInstrumentState.class).release();
+				app.getStateManager().getState(PlanarStanceInstrumentState.class).dragStop();
 				return true;
 			});
 	}

@@ -1,4 +1,4 @@
-package view.instrument.CircleCollisionShape;
+package view.instrument.circleCollisionShape;
 
 
 import com.jme3.app.Application;
@@ -27,12 +27,12 @@ import sun.util.logging.resources.logging;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import view.SpatialPool;
-import view.controls.jmeScene.SceneTool;
+import view.controls.jmeScene.InstrumentPart;
 import view.math.TranslateUtil;
 
 public class CircleCollisionShapeInstrumentState extends AbstractAppState {
 	private final CircleCollisionShapeInstrumentPresenter presenter;
-	private final SceneTool circle;
+	private final InstrumentPart circle;
 	private SceneSelectorState selector;
 	private EntityData entityData;
 	
@@ -45,7 +45,7 @@ public class CircleCollisionShapeInstrumentState extends AbstractAppState {
 	
 	public CircleCollisionShapeInstrumentState(CircleCollisionShapeInstrumentPresenter presenter) {
 		this.presenter = presenter;
-		circle = new SceneTool(CircleCollisionShapeInstrumentState.class.getSimpleName()+ " circle", new ColorRGBA(0.8f, 0.2f, 0.8f, 1));
+		circle = new InstrumentPart(CircleCollisionShapeInstrumentState.class.getSimpleName()+ " circle", new ColorRGBA(0.8f, 0.2f, 0.8f, 1));
 		createSceneTools();
 	}
 

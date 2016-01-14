@@ -1,4 +1,4 @@
-package view.instrument.CircleCollisionShape;
+package view.instrument.circleCollisionShape;
 
 import com.simsilica.es.EntityId;
 

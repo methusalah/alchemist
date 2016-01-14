@@ -9,7 +9,7 @@ import model.ES.component.motion.physic.CircleCollisionShape;
 import presenter.EditorPlatform;
 import util.geometry.geom2d.Point2D;
 import view.UIConfig;
-import view.instrument.CircleCollisionShape.CircleCollisionShapeInstrument;
+import view.instrument.circleCollisionShape.CircleCollisionShapeInstrument;
 import view.instrument.planarStance.PlanarStanceInstrumentInputListener;
 
 public class CircleCollisionShapeInstrumentPresenter {

@@ -2,15 +2,16 @@ package presenter.instrument;
 
 import com.simsilica.es.EntityId;
 
+import controller.SpatialSelector;
 import model.ES.component.motion.PlanarStance;
 import presenter.EditorPlatform;
-import util.LogUtil;
 import util.geometry.geom2d.Point2D;
+import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 import util.math.AngleUtil;
 import view.UIConfig;
-import view.instrument.planarStance.PlanarStanceInstrumentInputListener;
 import view.instrument.planarStance.PlanarStanceInstrument;
+import view.instrument.planarStance.PlanarStanceInstrumentInputListener;
 
 public class PlanarStanceInstrumentPresenter {
 	public enum Tool{X, Y, Z, XY, YAW};
@@ -37,7 +38,7 @@ public class PlanarStanceInstrumentPresenter {
 		grabStart = screenCoord;
 	}
 	
-	public void dragTo(Point2D screenCoord, Point2D pivot){
+	public void dragTo(Point2D screenCoord){
 		if(grabbedTool != null) {
 			Point2D v = screenCoord.getSubtraction(grabStart).getDivision(50);
 			
@@ -63,6 +64,7 @@ public class PlanarStanceInstrumentPresenter {
 				newStance = new PlanarStance(stance.getCoord().getAddition(v), stance.getOrientation(), stance.getElevation(), stance.getUpVector());
 				break;
 			case YAW :
+				Point2D pivot = SpatialSelector.getScreenCoord(getPosition());
 				Point2D grabVec = grabStart.getSubtraction(pivot);
 				Point2D targetVec = screenCoord.getSubtraction(pivot);
 				double delta = AngleUtil.getOrientedDifference(grabVec.getAngle(), targetVec.getAngle());
@@ -82,5 +84,19 @@ public class PlanarStanceInstrumentPresenter {
 			view.showOn(selection);
 		else
 			view.hide();
+	}
+	
+	public Point3D getPosition(){
+		if(selection == null)
+			return null;
+		PlanarStance stance = EditorPlatform.getEntityData().getComponent(selection, PlanarStance.class); 
+		return stance.getCoord().get3D(stance.getElevation());
+	}
+
+	public double getOrientation(){
+		if(selection == null)
+			return 0;
+		PlanarStance stance = EditorPlatform.getEntityData().getComponent(selection, PlanarStance.class); 
+		return stance.getOrientation().getValue();
 	}
 }
