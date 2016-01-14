@@ -15,8 +15,8 @@ public class PlanarStanceInstrument {
 		this.jme = jme;
 		presenter = new PlanarStanceInstrumentPresenter(this);
 		jme.enqueue(app -> {
-			if(app.getStateManager().getState(PlanarStanceInstruementState.class) == null)
-				app.getStateManager().attach(new PlanarStanceInstruementState(presenter));
+			if(app.getStateManager().getState(PlanarStanceInstrumentState.class) == null)
+				app.getStateManager().attach(new PlanarStanceInstrumentState(presenter));
 			return true;
 		});
 		inputListener = new PlanarStanceInstrumentInputListener(jme);
@@ -24,7 +24,7 @@ public class PlanarStanceInstrument {
 	
 	public void showOn(EntityId eid){
 		jme.enqueue(app -> {
-			app.getStateManager().getState(PlanarStanceInstruementState.class).attach(eid);
+			app.getStateManager().getState(PlanarStanceInstrumentState.class).attach(eid);
 			return true;
 		});
 		EditorPlatform.getSceneInputManager().addListener(inputListener);
@@ -32,7 +32,7 @@ public class PlanarStanceInstrument {
 	
 	public void hide(){
 		jme.enqueue(app -> {
-			app.getStateManager().getState(PlanarStanceInstruementState.class).detach();
+			app.getStateManager().getState(PlanarStanceInstrumentState.class).detach();
 			return true;
 		});
 		EditorPlatform.getSceneInputManager().removeListener(inputListener);

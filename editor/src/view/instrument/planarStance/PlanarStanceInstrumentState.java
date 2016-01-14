@@ -36,25 +36,25 @@ import view.material.MaterialManager;
 import view.math.TranslateUtil;
 import view.mesh.Circle;
 
-public class PlanarStanceInstruementState extends AbstractAppState {
+public class PlanarStanceInstrumentState extends AbstractAppState {
 	private final PlanarStanceInstrumentPresenter presenter;
 	private final SceneTool x, y, z, xy, yaw;
 	private SceneSelectorState selector;
 	private EntityData entityData;
 	
-	private Node drawnNode = new Node(PlanarStanceInstruementState.class.getSimpleName() + " view");
-	private Node gripNode = new Node(PlanarStanceInstruementState.class.getSimpleName() + " grip");
+	private Node drawnNode = new Node(PlanarStanceInstrumentState.class.getSimpleName() + " view");
+	private Node gripNode = new Node(PlanarStanceInstrumentState.class.getSimpleName() + " grip");
 	private Spatial chasedSpatial;
 	private EntityId chasedEntity;
 	private Geometry pointedGeometry;
 	
-	public PlanarStanceInstruementState(PlanarStanceInstrumentPresenter presenter) {
+	public PlanarStanceInstrumentState(PlanarStanceInstrumentPresenter presenter) {
 		this.presenter = presenter;
-		x = new SceneTool(PlanarStanceInstruementState.class.getSimpleName()+ " x", new ColorRGBA(0.8f, 0.8f, 0.2f, 1));
-		y = new SceneTool(PlanarStanceInstruementState.class.getSimpleName()+ " y", new ColorRGBA(0.8f, 0.2f, 0.2f, 1));
-		z = new SceneTool(PlanarStanceInstruementState.class.getSimpleName()+ " z", new ColorRGBA(0.2f, 0.2f, 0.8f, 1));
-		xy = new SceneTool(PlanarStanceInstruementState.class.getSimpleName()+ " xy", new ColorRGBA(0.5f, 0.2f, 0.2f, 1));
-		yaw = new SceneTool(PlanarStanceInstruementState.class.getSimpleName()+ " yaw", new ColorRGBA(0.2f, 0.2f, 0.8f, 1));
+		x = new SceneTool(PlanarStanceInstrumentState.class.getSimpleName()+ " x", new ColorRGBA(0.8f, 0.8f, 0.2f, 1));
+		y = new SceneTool(PlanarStanceInstrumentState.class.getSimpleName()+ " y", new ColorRGBA(0.8f, 0.2f, 0.2f, 1));
+		z = new SceneTool(PlanarStanceInstrumentState.class.getSimpleName()+ " z", new ColorRGBA(0.2f, 0.2f, 0.8f, 1));
+		xy = new SceneTool(PlanarStanceInstrumentState.class.getSimpleName()+ " xy", new ColorRGBA(0.5f, 0.2f, 0.2f, 1));
+		yaw = new SceneTool(PlanarStanceInstrumentState.class.getSimpleName()+ " yaw", new ColorRGBA(0.2f, 0.2f, 0.8f, 1));
 		createSceneTools();
 	}
 
