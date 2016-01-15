@@ -25,7 +25,7 @@ public class ModelProc extends Processor {
 	@Override
 	protected void onEntityRemoved(Entity e) {
 		if(SpatialPool.models.keySet().contains(e.getId())){
-			AppFacade.getRootNode().detachChild(SpatialPool.models.remove(e.getId()));
+			AppFacade.getMainSceneNode().detachChild(SpatialPool.models.remove(e.getId()));
 		}
 	}
 
@@ -37,7 +37,7 @@ public class ModelProc extends Processor {
 	@Override
 	protected void onEntityUpdated(Entity e) {
 		if(SpatialPool.models.containsKey(e.getId()))
-			AppFacade.getRootNode().detachChild(SpatialPool.models.get(e.getId()));
+			AppFacade.getMainSceneNode().detachChild(SpatialPool.models.get(e.getId()));
 		
 		Model model = e.get(Model.class);
 		
@@ -54,7 +54,7 @@ public class ModelProc extends Processor {
 			s.setUserData("EntityId", e.getId().getId());
 			s.setShadowMode(ShadowMode.Cast);
 			SpatialPool.models.put(e.getId(), s);
-			AppFacade.getRootNode().attachChild(s);
+			AppFacade.getMainSceneNode().attachChild(s);
 		}
 	}
 	

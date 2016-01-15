@@ -36,7 +36,7 @@ public class Overview {
 		root.getItems().addAll(leftRegion, scenePane, editors);
 
 		new PlanarStanceInstrument(EditorPlatform.getScene());
-		//new CircleCollisionShapeInstrument(EditorPlatform.getScene());
+		new CircleCollisionShapeInstrument(EditorPlatform.getScene());
 		
 		
 

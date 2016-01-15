@@ -2,15 +2,18 @@ package view.controls.jmeScene;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import com.google.common.collect.Iterables;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
+import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 
+import app.AppFacade;
 import util.geometry.geom3d.Point3D;
 import view.material.MaterialManager;
 import view.math.TranslateUtil;
@@ -45,10 +48,15 @@ public class InstrumentPart{
 	
 	public void putViewGeometry(String viewName, ColorRGBA color, Mesh mesh, boolean lightedOnHover){
 		Geometry g = new Geometry(viewName);
+		g.setShadowMode(ShadowMode.Off);
 		g.setMaterial(MaterialManager.getColor(color));
-		g.getMaterial().getAdditionalRenderState().setDepthTest(false);
+		//g.getMaterial().getAdditionalRenderState().setDepthTest(false);
+		g.getMaterial().getAdditionalRenderState().setDepthWrite(false);
 		g.setMesh(mesh);
 		g.setUserData("lighted", lightedOnHover);
+		
+		if(viewGeometries.get(viewName) != null)
+			viewNode.detachChild(viewGeometries.get(viewName));
 		viewGeometries.put(viewName, g);
 		viewNode.attachChild(g);
 	}
@@ -57,6 +65,9 @@ public class InstrumentPart{
 		Geometry g = new Geometry(gripName);
 		g.setMaterial(MaterialManager.blackMaterial);
 		g.setMesh(mesh);
+		
+		if(gripGeometries.get(gripName) != null)
+			gripNode.detachChild(gripGeometries.get(gripName));
 		gripGeometries.put(gripName, g);
 		gripNode.attachChild(g);
 	}
@@ -91,14 +102,21 @@ public class InstrumentPart{
 		return gripNode;
 	}
 	
-	Function<Object, Object> dragFunction = null;
-	public void setOnDrag(Function<Object, Object> f){
-		dragFunction = f;
+	Runnable dragFunction = null;
+	public void setOnSelection(Runnable r){
+		dragFunction = r;
 	}
 	
-	public void drag(){
+	public void select(){
 		if(dragFunction != null)
-			dragFunction.apply(null);
+			dragFunction.run();
+	}
+	
+	public void setViewMesh(String name, Mesh mesh){
+		viewGeometries.get(name).setMesh(mesh);
+	}
+	public void setGripMesh(String name, Mesh mesh){
+		gripGeometries.get(name).setMesh(mesh);
 	}
 	
 }

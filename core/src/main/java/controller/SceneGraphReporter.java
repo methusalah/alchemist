@@ -12,7 +12,7 @@ import app.AppFacade;
 public class SceneGraphReporter extends AbstractAppState {
 
 	public SceneGraphReportNode getReport(){
-		return reportSceneDeeply(AppFacade.getRootNode());
+		return reportSceneDeeply(AppFacade.getApp().getRootNode());
 	}
 
 	private SceneGraphReportNode reportSceneDeeply(Spatial s){

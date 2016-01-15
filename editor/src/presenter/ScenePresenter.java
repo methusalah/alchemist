@@ -62,6 +62,7 @@ public class ScenePresenter {
 		es.initCommand(false);
 		es.initLogic(false);
 
+		AppFacade.getFilterPostProcessor().addFilter(new TranslucentBucketFilter());
 		AppFacade.getFilterPostProcessor().addFilter(new BloomFilter(BloomFilter.GlowMode.Objects));
 		
 		FXAAFilter fxaa = new FXAAFilter();

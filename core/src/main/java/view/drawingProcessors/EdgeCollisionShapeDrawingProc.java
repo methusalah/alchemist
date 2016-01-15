@@ -35,7 +35,7 @@ public class EdgeCollisionShapeDrawingProc extends Processor {
 	@Override
 	protected void onEntityRemoved(Entity e) {
 		if(SpatialPool.models.keySet().contains(e.getId()))
-			AppFacade.getRootNode().detachChild(SpatialPool.models.remove(e.getId()));
+			AppFacade.getMainSceneNode().detachChild(SpatialPool.models.remove(e.getId()));
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class EdgeCollisionShapeDrawingProc extends Processor {
 	@Override
 	protected void onEntityUpdated(Entity e) {
 		if(SpatialPool.models.containsKey(e.getId()))
-			AppFacade.getRootNode().detachChild(SpatialPool.models.get(e.getId()));
+			AppFacade.getMainSceneNode().detachChild(SpatialPool.models.get(e.getId()));
 		
 		EdgedCollisionShape shape = e.get(EdgedCollisionShape.class);
 		
@@ -66,6 +66,6 @@ public class EdgeCollisionShapeDrawingProc extends Processor {
 			node.attachChild(g);
 		}
 		SpatialPool.models.put(e.getId(), node);
-		AppFacade.getRootNode().attachChild(node);
+		AppFacade.getMainSceneNode().attachChild(node);
 	}
 }

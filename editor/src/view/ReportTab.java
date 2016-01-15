@@ -23,6 +23,7 @@ public class ReportTab extends Tab {
 		setContent(content);
 		
 		Label l = new Label();
+		l.setMinHeight(200);
 		SceneGraphReportTreeView report = new SceneGraphReportTreeView(presenter.getSceneGraphReportRootNode());
 		report.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue != null){

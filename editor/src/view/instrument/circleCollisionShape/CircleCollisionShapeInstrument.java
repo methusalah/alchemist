@@ -1,42 +1,38 @@
 package view.instrument.circleCollisionShape;
 
-import com.simsilica.es.EntityId;
-
 import presenter.EditorPlatform;
 import presenter.instrument.CircleCollisionShapeInstrumentPresenter;
-import presenter.instrument.PlanarStanceInstrumentPresenter;
+import util.LogUtil;
 import view.controls.JmeImageView;
+import view.instrument.planarStance.PlanarStanceInstrumentState;
 
 public class CircleCollisionShapeInstrument {
 	private final CircleCollisionShapeInstrumentPresenter presenter;
 	private final CircleCollisionShapeInstrumentInputListener inputListener;
 	private final JmeImageView jme;
-	
+	private CircleCollisionShapeInstrumentState state;
+
 	public CircleCollisionShapeInstrument(JmeImageView jme) {
 		this.jme = jme;
 		presenter = new CircleCollisionShapeInstrumentPresenter(this);
 		jme.enqueue(app -> {
-			if(app.getStateManager().getState(CircleCollisionShapeInstrumentState.class) == null)
-				app.getStateManager().attach(new CircleCollisionShapeInstrumentState(presenter));
+			state = new CircleCollisionShapeInstrumentState(presenter);
 			return true;
 		});
 		inputListener = new CircleCollisionShapeInstrumentInputListener(jme);
 	}
 	
-	public void showOn(EntityId eid){
+	public void setVisible(boolean value){
 		jme.enqueue(app -> {
-			app.getStateManager().getState(CircleCollisionShapeInstrumentState.class).attach(eid);
+			if(value)
+				app.getStateManager().attach(state);
+			else
+				app.getStateManager().detach(state);
 			return true;
 		});
-		EditorPlatform.getSceneInputManager().addListener(inputListener);
+		if(value)
+			EditorPlatform.getSceneInputManager().addListener(inputListener);
+		else
+			EditorPlatform.getSceneInputManager().removeListener(inputListener);
 	}
-	
-	public void hide(){
-		jme.enqueue(app -> {
-			app.getStateManager().getState(CircleCollisionShapeInstrumentState.class).detach();
-			return true;
-		});
-		EditorPlatform.getSceneInputManager().removeListener(inputListener);
-	}
-
 }

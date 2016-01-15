@@ -13,38 +13,37 @@ import view.UIConfig;
 import view.instrument.planarStance.PlanarStanceInstrument;
 import view.instrument.planarStance.PlanarStanceInstrumentInputListener;
 
-public class PlanarStanceInstrumentPresenter {
+public class PlanarStanceInstrumentPresenter implements InstrumentPresenter{
 	public enum Tool{X, Y, Z, XY, YAW};
 	private final PlanarStanceInstrument view;
 	
 	private EntityId selection;
-	private Tool grabbedTool = null;
-	private Point2D grabStart;
-	
-	PlanarStanceInstrumentInputListener inputListener;
+	private Tool actualTool = null;
+	private Point2D dragStart;
 	
 	public PlanarStanceInstrumentPresenter(PlanarStanceInstrument view) {
 		this.view = view;
-		EditorPlatform.getSelectionProperty().addListener((observable, oldValue, newValue) -> {
-			updateAttachement();
-		});
-		UIConfig.expandedComponents.addListener((observable, oldValue, newValue) -> {
-			updateAttachement();
-		});
+		EditorPlatform.getSelectionProperty().addListener((observable, oldValue, newValue) -> updateAttachement());
+		UIConfig.expandedComponents.addListener((observable, oldValue, newValue) -> updateAttachement());
 	}
 
-	public void grab(Tool tool, Point2D screenCoord){
-		grabbedTool = tool;
-		grabStart = screenCoord;
+	public void selectTool(Tool tool){
+		actualTool = tool;
 	}
 	
-	public void dragTo(Point2D screenCoord){
-		if(grabbedTool != null) {
-			Point2D v = screenCoord.getSubtraction(grabStart).getDivision(50);
+	@Override
+	public void startDrag(Point2D screenCoord){
+		dragStart = screenCoord;
+	}
+	
+	@Override
+	public void drag(Point2D screenCoord){
+		if(actualTool != null) {
+			Point2D v = screenCoord.getSubtraction(dragStart).getDivision(50);
 			
 			PlanarStance stance = EditorPlatform.getEntityData().getComponent(selection, PlanarStance.class);
 			PlanarStance newStance;
-			switch (grabbedTool){
+			switch (actualTool){
 			case X :
 				v = v.getRotation(-stance.getOrientation().getValue());
 				v = new Point2D(v.x, 0);
@@ -65,7 +64,7 @@ public class PlanarStanceInstrumentPresenter {
 				break;
 			case YAW :
 				Point2D pivot = SpatialSelector.getScreenCoord(getPosition());
-				Point2D grabVec = grabStart.getSubtraction(pivot);
+				Point2D grabVec = dragStart.getSubtraction(pivot);
 				Point2D targetVec = screenCoord.getSubtraction(pivot);
 				double delta = AngleUtil.getOrientedDifference(grabVec.getAngle(), targetVec.getAngle());
 				newStance = new PlanarStance(stance.getCoord(), new Angle(stance.getOrientation().getValue()+delta), stance.getElevation(), stance.getUpVector());
@@ -74,18 +73,21 @@ public class PlanarStanceInstrumentPresenter {
 			}
 			
 			EditorPlatform.getEntityData().setComponent(selection, newStance);
-			grabStart = screenCoord;
+			dragStart = screenCoord;
 		}
+	}
+	
+	@Override
+	public void stopDrag() {
+		selectTool(null);
 	}
 	
 	private void updateAttachement(){
 		selection = EditorPlatform.getSelectionProperty().getValue().getEntityId();
-		if(EditorPlatform.getEntityData().getComponent(selection, PlanarStance.class) != null && UIConfig.expandedComponents.contains(PlanarStance.class))
-			view.showOn(selection);
-		else
-			view.hide();
+		view.setVisible(EditorPlatform.getEntityData().getComponent(selection, PlanarStance.class) != null && UIConfig.expandedComponents.contains(PlanarStance.class));
 	}
-	
+
+	@Override
 	public Point3D getPosition(){
 		if(selection == null)
 			return null;
@@ -93,6 +95,7 @@ public class PlanarStanceInstrumentPresenter {
 		return stance.getCoord().get3D(stance.getElevation());
 	}
 
+	@Override
 	public double getOrientation(){
 		if(selection == null)
 			return 0;

@@ -30,7 +30,7 @@ public class CircleCollisionShapeInstrumentInputListener implements SceneInputLi
 	public void onMousePressed(MouseEvent e){
 		if(e.getButton() == MouseButton.PRIMARY)
 			jme.enqueue(app -> {
-				app.getStateManager().getState(CircleCollisionShapeInstrumentState.class).grab();
+				app.getStateManager().getState(CircleCollisionShapeInstrumentState.class).startDrag();
 				return true;
 			});
 	}
@@ -44,7 +44,7 @@ public class CircleCollisionShapeInstrumentInputListener implements SceneInputLi
 	public void onMouseReleased(MouseEvent e){
 		if(e.getButton() == MouseButton.PRIMARY)
 			jme.enqueue(app -> {
-				app.getStateManager().getState(CircleCollisionShapeInstrumentState.class).release();
+				app.getStateManager().getState(CircleCollisionShapeInstrumentState.class).stopDrag();
 				return true;
 			});
 	}

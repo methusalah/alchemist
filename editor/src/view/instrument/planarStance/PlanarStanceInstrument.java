@@ -1,7 +1,5 @@
 package view.instrument.planarStance;
 
-import com.simsilica.es.EntityId;
-
 import presenter.EditorPlatform;
 import presenter.instrument.PlanarStanceInstrumentPresenter;
 import view.controls.JmeImageView;
@@ -24,20 +22,17 @@ public class PlanarStanceInstrument {
 		inputListener = new PlanarStanceInstrumentInputListener(jme);
 	}
 	
-	public void showOn(EntityId eid){
+	public void setVisible(boolean value){
 		jme.enqueue(app -> {
-			app.getStateManager().attach(state);
+			if(value)
+				app.getStateManager().attach(state);
+			else
+				app.getStateManager().detach(state);
 			return true;
 		});
-		EditorPlatform.getSceneInputManager().addListener(inputListener);
+		if(value)
+			EditorPlatform.getSceneInputManager().addListener(inputListener);
+		else
+			EditorPlatform.getSceneInputManager().removeListener(inputListener);
 	}
-	
-	public void hide(){
-		jme.enqueue(app -> {
-			app.getStateManager().detach(state);
-			return true;
-		});
-		EditorPlatform.getSceneInputManager().removeListener(inputListener);
-	}
-
 }

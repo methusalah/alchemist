@@ -27,19 +27,19 @@ public class View {
 		xAxe.setMesh(new Box(5, 0.1f, 0.1f));
 		xAxe.setMaterial(MaterialManager.getColor(ColorRGBA.Brown));
 		xAxe.setLocalTranslation(5, 0, 0);
-		AppFacade.getRootNode().attachChild(xAxe);
+		AppFacade.getMainSceneNode().attachChild(xAxe);
 
 		Geometry zAxe = new Geometry("zAxe");
 		zAxe.setMesh(new Box(0.1f, 0.1f, 5));
 		zAxe.setMaterial(MaterialManager.greenMaterial);
 		zAxe.setLocalTranslation(0, 0, 5);
-		AppFacade.getRootNode().attachChild(zAxe);
+		AppFacade.getMainSceneNode().attachChild(zAxe);
 
 		Geometry yAxe = new Geometry("yAxe");
 		yAxe.setMesh(new Box(0.1f, 5, 0.1f));
 		yAxe.setMaterial(MaterialManager.redMaterial);
 		yAxe.setLocalTranslation(0, 5, 0);
-		AppFacade.getRootNode().attachChild(yAxe);
+		AppFacade.getMainSceneNode().attachChild(yAxe);
 		
 		Geometry planeGeom = new Geometry("plane");
 		planeGeom.setMesh(new Box(500, 500, 0.01f));
@@ -62,7 +62,7 @@ public class View {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		nodeToString(sb, AppFacade.getRootNode(), 0);
+		nodeToString(sb, AppFacade.getMainSceneNode(), 0);
 		return sb.toString();
 	}
 	public void nodeToString(StringBuilder sb, Spatial s, int indent){

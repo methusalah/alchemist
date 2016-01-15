@@ -62,7 +62,7 @@ public class LightProc extends Processor {
 		if(!SpatialPool.lights.containsKey(e.getId()) || !(SpatialPool.lights.get(e.getId()) instanceof DirectionalLight)){
 			DirectionalLight light = new DirectionalLight();
 			SpatialPool.lights.put(e.getId(), light);
-			AppFacade.getRootNode().addLight(light);
+			AppFacade.getMainSceneNode().addLight(light);
 
 			if(l.shadowCaster){
 				DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(AppFacade.getAssetManager(), SHADOWMAP_SIZE, 1);
@@ -70,10 +70,8 @@ public class LightProc extends Processor {
 				sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
 				sf.setShadowZExtend(SHADOWMAP_SIZE);
 				sf.setLight(light);
-				List<Filter> save = new ArrayList<>();
-				save.add(sf);
-				for(Filter f : AppFacade.getFilterPostProcessor().getFilterList())
-					save.add(f);
+				List<Filter> save = new ArrayList<>(AppFacade.getFilterPostProcessor().getFilterList());
+				save.add(1, sf);
 				AppFacade.getFilterPostProcessor().cleanup();
 				for(Filter f : save)
 					AppFacade.getFilterPostProcessor().addFilter(f);
@@ -90,7 +88,7 @@ public class LightProc extends Processor {
 		if(!SpatialPool.lights.containsKey(e.getId()) || !(SpatialPool.lights.get(e.getId()) instanceof PointLight)){
 			PointLight light = new PointLight();
 			SpatialPool.lights.put(e.getId(), light);
-			AppFacade.getRootNode().addLight(light);
+			AppFacade.getMainSceneNode().addLight(light);
 		}
 		PointLight light = (PointLight)SpatialPool.lights.get(e.getId());
 
@@ -103,7 +101,7 @@ public class LightProc extends Processor {
 		if(!SpatialPool.lights.containsKey(e.getId()) || !(SpatialPool.lights.get(e.getId()) instanceof SpotLight)){
 			SpotLight light = new SpotLight();
 			SpatialPool.lights.put(e.getId(), light);
-			AppFacade.getRootNode().addLight(light);
+			AppFacade.getMainSceneNode().addLight(light);
 			
 			if(l.shadowCaster){
 //				SpotLightShadowFilter sf = new SpotLightShadowFilter(AppFacade.getAssetManager(), 1024);
@@ -126,6 +124,6 @@ public class LightProc extends Processor {
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
-		AppFacade.getRootNode().removeLight(SpatialPool.lights.remove(e.getId()));
+		AppFacade.getMainSceneNode().removeLight(SpatialPool.lights.remove(e.getId()));
 	}
 }

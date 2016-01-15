@@ -88,18 +88,18 @@ public class EntitySystem extends AbstractAppState {
 	public void update(float tpf) {
     	world.attachDrawers();
     	StringBuilder sb = new StringBuilder();
-    	reportSceneDeeply(sb, 0, AppFacade.getRootNode());
+    	reportSceneDeeply(sb, 0, AppFacade.getMainSceneNode());
     	sceneReport = sb.toString();
 	}
 	
 	private void reportSceneDeeply(StringBuilder sb, int indent, Spatial s){
 		for(int i = 0; i<indent; i++)
 			sb.append("    ");
-		sb.append(s.getName().isEmpty()? "Unnamed" : s.getName());
+		sb.append(s.getName() == null || s.getName().isEmpty()? "Unnamed" : s.getName());
 		sb.append(System.lineSeparator());
 		if(s instanceof Node){
 			Node n = ((Node)s);
-			if(s != AppFacade.getRootNode() && n.getChildren().size() > 5){
+			if(s != AppFacade.getMainSceneNode() && n.getChildren().size() > 5){
 				for(int i = 0; i < 5; i++)
 					reportSceneDeeply(sb, indent+1, n.getChild(i));
 				for(int i = 0; i < indent+1; i++)

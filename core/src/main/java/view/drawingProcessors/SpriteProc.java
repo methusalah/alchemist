@@ -29,7 +29,7 @@ public class SpriteProc extends Processor {
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
-		AppFacade.getRootNode().detachChild(SpatialPool.models.remove(e.getId()));
+		AppFacade.getMainSceneNode().detachChild(SpatialPool.models.remove(e.getId()));
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class SpriteProc extends Processor {
 	@Override
 	protected void onEntityUpdated(Entity e) {
 		if(SpatialPool.models.containsKey(e.getId()))
-			AppFacade.getRootNode().detachChild(SpatialPool.models.get(e.getId()));
+			AppFacade.getMainSceneNode().detachChild(SpatialPool.models.get(e.getId()));
 		
 		Sprite sprite = e.get(Sprite.class);
 		
@@ -51,7 +51,7 @@ public class SpriteProc extends Processor {
 			s.scale((float)sprite.getSize());
 			s.setUserData("EntityId", e.getId().getId());
 			SpatialPool.models.put(e.getId(), s);
-			AppFacade.getRootNode().attachChild(s);
+			AppFacade.getMainSceneNode().attachChild(s);
 		}
 	}
 	

@@ -43,7 +43,7 @@ public class SceneSelectorState extends AbstractAppState {
 	}
 	
 	public EntityId getPointedEntity(){
-		Spatial s = SpatialSelector.getPointedGeometry(AppFacade.getRootNode(), coordInScreenSpace);
+		Spatial s = SpatialSelector.getPointedGeometry(AppFacade.getMainSceneNode(), coordInScreenSpace);
 		while(s != null){
 			if(s.getUserData("EntityId") != null){
 				return new EntityId(s.getUserData("EntityId"));
@@ -54,6 +54,6 @@ public class SceneSelectorState extends AbstractAppState {
 	}
 
 	public Geometry getPointedGeometry(){
-		return SpatialSelector.getPointedGeometry(AppFacade.getRootNode(), coordInScreenSpace);
+		return SpatialSelector.getPointedGeometry(AppFacade.getMainSceneNode(), coordInScreenSpace);
 	}
 }

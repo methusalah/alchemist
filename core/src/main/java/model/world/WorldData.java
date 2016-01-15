@@ -97,13 +97,13 @@ public class WorldData {
 	public void attachDrawers(){
 		synchronized (drawersToAttach) {
 			for(TerrainDrawer d : drawersToAttach){
-				AppFacade.getRootNode().attachChild(d.mainNode);
+				AppFacade.getMainSceneNode().attachChild(d.mainNode);
 			}
 			drawersToAttach.clear();
 		}
 		synchronized (drawersToDetach) {
 			for(TerrainDrawer d : drawersToDetach){
-				AppFacade.getRootNode().detachChild(d.mainNode);
+				AppFacade.getMainSceneNode().detachChild(d.mainNode);
 			}
 			drawersToDetach.clear();
 		}

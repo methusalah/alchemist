@@ -94,7 +94,7 @@ public class ThrusterAudioProc extends Processor {
 	protected AudioNode getAudioNode(String soundPath) {
 		if (!sounds.containsKey(soundPath)) {
 			sounds.put(soundPath, new AudioNode(AppFacade.getAssetManager(), "sounds/" + soundPath));
-			AppFacade.getRootNode().attachChild(sounds.get(soundPath));
+			AppFacade.getMainSceneNode().attachChild(sounds.get(soundPath));
 		}
 		return sounds.get(soundPath).clone();
 	}

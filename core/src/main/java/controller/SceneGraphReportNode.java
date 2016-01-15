@@ -19,7 +19,7 @@ public class SceneGraphReportNode {
 	
 	@Override
 	public String toString() {
-		return spatial.getName().isEmpty()? "Unnamed spatial" : spatial.getName();
+		return spatial.getName() == null || spatial.getName().isEmpty()? "Unnamed spatial" : spatial.getName();
 	}
 
 	public Spatial getSpatial() {

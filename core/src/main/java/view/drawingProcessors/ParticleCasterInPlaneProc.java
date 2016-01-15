@@ -37,7 +37,7 @@ public class ParticleCasterInPlaneProc extends Processor {
 		List<MyParticleEmitter> detached = new ArrayList<>();
 		for(MyParticleEmitter pe : toRemove)
 			if(pe.getNumVisibleParticles() == 0){
-				AppFacade.getRootNode().detachChild(pe);
+				AppFacade.getMainSceneNode().detachChild(pe);
 				detached.add(pe);
 			}
 		toRemove.removeAll(detached);
@@ -104,12 +104,12 @@ public class ParticleCasterInPlaneProc extends Processor {
 		
 		MyParticleEmitter pe = SpatialPool.emitters.get(e.getId());
 		if(casting.getMaxCount() != pe.getMaxNumParticles()){
-			AppFacade.getRootNode().detachChild(pe);
+			AppFacade.getMainSceneNode().detachChild(pe);
 			pe = new MyParticleEmitter("ParticleCaster for entity "+e.getId(), Type.Triangle, casting.getMaxCount());
 			SpatialPool.emitters.put(e.getId(), pe);
 		}
-		if(!AppFacade.getRootNode().hasChild(pe))
-			AppFacade.getRootNode().attachChild(pe);
+		if(!AppFacade.getMainSceneNode().hasChild(pe))
+			AppFacade.getMainSceneNode().attachChild(pe);
 
 		// material
 		Material m = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Particle.j3md");

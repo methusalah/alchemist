@@ -33,7 +33,7 @@ public class VelocityVisualisationProc extends Processor {
 				Geometry body = new Geometry("velocity");
 				body.setMaterial(MaterialManager.getColor(TranslateUtil.toColorRGBA(v.color)));
 				SpatialPool.velocities.put(v, body);
-				AppFacade.getRootNode().attachChild(body);
+				AppFacade.getMainSceneNode().attachChild(body);
 			}
 			Geometry g = (Geometry)SpatialPool.velocities.get(v);
 			Point2D end = stance.coord.getAddition(v.velocity);
