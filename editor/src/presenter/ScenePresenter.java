@@ -1,30 +1,24 @@
 package presenter;
 
-import model.Command;
-import model.state.DraggableCameraState;
-import model.state.WorldLocaliserState;
-import model.state.WorldToolState;
-import model.world.WorldData;
-import presenter.common.RunState;
-import presenter.common.SceneInputManager;
-import presenter.common.TopDownCamInputListener;
-import view.controls.JmeImageView;
-import view.instrument.planarStance.PlanarStanceInstrumentInputListener;
-import presenter.common.RunState.State;
-import util.LogUtil;
-
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
 import com.jme3.post.filters.FXAAFilter;
 import com.jme3.post.filters.TranslucentBucketFilter;
-import com.jme3x.jfx.injfx.JmeForImageView;
 import com.simsilica.es.EntityData;
 
+import app.AppFacade;
 import controller.ECS.EntitySystem;
 import controller.ECS.SceneSelectorState;
-import app.AppFacade;
+import model.Command;
+import model.state.DraggableCameraState;
+import model.state.WorldLocaliserState;
+import model.state.WorldToolState;
+import model.world.WorldData;
+import presenter.common.SceneInputManager;
+import presenter.common.TopDownCamInputListener;
+import view.controls.JmeImageView;
 
 public class ScenePresenter {
 	private final TopDownCamInputListener camera;

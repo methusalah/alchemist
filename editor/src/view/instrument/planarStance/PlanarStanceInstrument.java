@@ -3,10 +3,11 @@ package view.instrument.planarStance;
 import presenter.EditorPlatform;
 import presenter.instrument.PlanarStanceInstrumentPresenter;
 import view.controls.JmeImageView;
+import view.instrument.InstrumentInputListener;
 
 public class PlanarStanceInstrument {
 	private final PlanarStanceInstrumentPresenter presenter;
-	private final PlanarStanceInstrumentInputListener inputListener;
+	private final InstrumentInputListener inputListener;
 	private final JmeImageView jme;
 	private PlanarStanceInstrumentState state;
 	
@@ -19,20 +20,16 @@ public class PlanarStanceInstrument {
 			}
 			return true;
 		});
-		inputListener = new PlanarStanceInstrumentInputListener(jme);
+		inputListener = new InstrumentInputListener(jme, PlanarStanceInstrumentState.class);
 	}
 	
 	public void setVisible(boolean value){
-		jme.enqueue(app -> {
-			if(value)
-				app.getStateManager().attach(state);
-			else
-				app.getStateManager().detach(state);
-			return true;
-		});
-		if(value)
+		if(value && !EditorPlatform.getSceneInputManager().hasListener(inputListener)){
+			jme.enqueue(app -> app.getStateManager().attach(state));
 			EditorPlatform.getSceneInputManager().addListener(inputListener);
-		else
+		} else if(!value && EditorPlatform.getSceneInputManager().hasListener(inputListener)){
+			jme.enqueue(app -> app.getStateManager().detach(state));
 			EditorPlatform.getSceneInputManager().removeListener(inputListener);
+		}
 	}
 }

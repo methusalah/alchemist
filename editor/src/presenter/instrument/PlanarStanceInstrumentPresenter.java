@@ -11,7 +11,6 @@ import util.math.Angle;
 import util.math.AngleUtil;
 import view.UIConfig;
 import view.instrument.planarStance.PlanarStanceInstrument;
-import view.instrument.planarStance.PlanarStanceInstrumentInputListener;
 
 public class PlanarStanceInstrumentPresenter implements InstrumentPresenter{
 	public enum Tool{X, Y, Z, XY, YAW};

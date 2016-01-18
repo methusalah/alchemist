@@ -9,7 +9,6 @@ import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import view.UIConfig;
 import view.instrument.circleCollisionShape.CircleCollisionShapeInstrument;
-import view.instrument.planarStance.PlanarStanceInstrumentInputListener;
 
 public class CircleCollisionShapeInstrumentPresenter implements InstrumentPresenter{
 	private final CircleCollisionShapeInstrument view;
