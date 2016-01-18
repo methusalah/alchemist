@@ -31,6 +31,10 @@ public class SceneInputManager {
 		listeners.remove(l);
 	}
 	
+	public boolean hasListener(SceneInputListener l){
+		return listeners.contains(l);
+	}
+	
 	public void onMousePressed(MouseEvent e){
 		for(SceneInputListener l : listeners)
 			l.onMousePressed(e);
