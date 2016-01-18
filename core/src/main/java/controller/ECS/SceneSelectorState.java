@@ -41,6 +41,10 @@ public class SceneSelectorState extends AbstractAppState {
 	public Point2D getPointedCoordInPlan(){
 		return SpatialSelector.getCoord(plan, coordInScreenSpace);
 	}
+
+	public Point2D getPointedCoordInPlan(Point2D coordInScreenSpace){
+		return SpatialSelector.getCoord(plan, coordInScreenSpace);
+	}
 	
 	public EntityId getPointedEntity(){
 		Spatial s = SpatialSelector.getPointedGeometry(AppFacade.getMainSceneNode(), coordInScreenSpace);
