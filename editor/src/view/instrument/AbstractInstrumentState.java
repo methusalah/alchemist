@@ -8,6 +8,8 @@ import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.math.Quaternion;
+import com.jme3.renderer.Camera;
+import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
@@ -57,6 +59,7 @@ public abstract class AbstractInstrumentState extends AbstractAppState {
 		Point3D pos = presenter.getPosition();
 		if(pos != null){
 			// translation
+			LogUtil.info("positionning in thread "+ Thread.currentThread());
 			drawnNode.setLocalTranslation(TranslateUtil.toVector3f(pos));
 			gripNode.setLocalTranslation(TranslateUtil.toVector3f(pos));
 			
@@ -89,7 +92,15 @@ public abstract class AbstractInstrumentState extends AbstractAppState {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
-		AppFacade.getInstrumentNode().attachChild(drawnNode);
+		//AppFacade.getInstrumentNode().attachChild(drawnNode);
+
+		LogUtil.info("state attached in thread "+ Thread.currentThread());
+		Camera c = AppFacade.getCamera().clone();
+		c.setViewPort(0, c.getWidth(), 0, c.getHeight());
+		c.setViewPort(0, 1f, 0, 1f);
+		ViewPort viewPort2 = AppFacade.getApp().getRenderManager().createMainView("test", c);
+		//viewPort2.setClearFlags(true, true, true);
+		viewPort2.attachScene(drawnNode);
 	}
 
 	@Override

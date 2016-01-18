@@ -45,7 +45,7 @@ public class ScenePresenter {
 		app.getViewPort().addProcessor(new FilterPostProcessor(app.getAssetManager()));
 		
 		AppStateManager stateManager = app.getStateManager();
-		
+
 		DraggableCameraState cam = new DraggableCameraState(app.getCamera());
 		cam.setRotationSpeed(0.001f);
 		cam.setMoveSpeed(1f);
@@ -62,7 +62,6 @@ public class ScenePresenter {
 		es.initCommand(false);
 		es.initLogic(false);
 
-		AppFacade.getFilterPostProcessor().addFilter(new TranslucentBucketFilter());
 		AppFacade.getFilterPostProcessor().addFilter(new BloomFilter(BloomFilter.GlowMode.Objects));
 		
 		FXAAFilter fxaa = new FXAAFilter();

@@ -9,6 +9,7 @@ import com.jme3.scene.shape.Torus;
 
 import presenter.instrument.PlanarStanceInstrumentPresenter;
 import presenter.instrument.PlanarStanceInstrumentPresenter.Tool;
+import util.LogUtil;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
 import view.controls.jmeScene.InstrumentPart;
@@ -23,6 +24,8 @@ public class PlanarStanceInstrumentState extends AbstractInstrumentState {
 
 	@Override
 	protected void createInstrumentParts(){
+		LogUtil.info("createInstrumentParts in thread "+ Thread.currentThread());
+
 		InstrumentPart x = new InstrumentPart(Name + " x");
 		Mesh cone = TranslateUtil.toJMEMesh(new Cone(0.01, 0.015, 12));
 		x.putViewAndGripGeometry("0", new ColorRGBA(0.8f, 0.8f, 0.2f, 1), cone, true);
