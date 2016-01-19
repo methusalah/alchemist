@@ -3,6 +3,7 @@ package app;
 import com.google.common.eventbus.Subscribe;
 import com.jme3.font.BitmapText;
 import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.BloomFilter;
 import com.jme3.post.filters.FXAAFilter;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.base.DefaultEntityData;
@@ -35,7 +36,14 @@ public class MainGame extends CosmoVania {
 	@Override
 	public void simpleInitApp() {
 		getViewPort().addProcessor(new FilterPostProcessor(getAssetManager()));
-		AppFacade.getFilterPostProcessor().addFilter(new FXAAFilter());
+		AppFacade.getFilterPostProcessor().addFilter(new BloomFilter(BloomFilter.GlowMode.Objects));
+		
+		FXAAFilter fxaa = new FXAAFilter();
+		fxaa.setReduceMul(0.9f);
+		fxaa.setSpanMax(5f);
+		fxaa.setSubPixelShift(0f);
+		fxaa.setVxOffset(10f);
+		AppFacade.getFilterPostProcessor().addFilter(fxaa);
 		
 		
 		MaterialManager.initBaseMaterials();
