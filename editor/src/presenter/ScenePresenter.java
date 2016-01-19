@@ -6,11 +6,16 @@ import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
 import com.jme3.post.filters.FXAAFilter;
 import com.simsilica.es.EntityData;
+import com.simsilica.es.EntityId;
 
 import app.AppFacade;
+import controller.SpatialSelector;
+import controller.ECS.DataState;
 import controller.ECS.EntitySystem;
 import controller.ECS.SceneSelectorState;
 import model.Command;
+import model.ES.component.motion.PlanarStance;
+import model.ES.serial.Blueprint;
 import model.state.DraggableCameraState;
 import model.state.InstrumentUpdateState;
 import model.state.WorldLocaliserState;
@@ -18,6 +23,7 @@ import model.state.WorldToolState;
 import model.world.WorldData;
 import presenter.common.SceneInputManager;
 import presenter.common.TopDownCamInputListener;
+import util.geometry.geom2d.Point2D;
 import view.controls.JmeImageView;
 
 public class ScenePresenter {
@@ -76,6 +82,19 @@ public class ScenePresenter {
 
 	public SceneInputManager getInputManager() {
 		return EditorPlatform.getSceneInputManager();
+	}
+	
+	public void createEntityAt(Blueprint blueprint, Point2D screenCoord){
+		EditorPlatform.getScene().enqueue(app -> {
+			EntityData ed = app.getStateManager().getState(DataState.class).getEntityData(); 
+			EntityId newEntity = blueprint.createEntity(ed, null);
+			PlanarStance stance = ed.getComponent(newEntity, PlanarStance.class); 
+			if(stance != null){
+				Point2D planarCoord = app.getStateManager().getState(SceneSelectorState.class).getPointedCoordInPlan(screenCoord);
+				ed.setComponent(newEntity, new PlanarStance(planarCoord, stance.getOrientation(), stance.getElevation(), stance.getUpVector()));
+			}
+			return true;
+		});
 	}
 	
 }

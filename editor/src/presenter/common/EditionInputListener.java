@@ -13,6 +13,7 @@ import javafx.scene.input.ScrollEvent;
 import model.state.WorldToolState;
 import model.world.Tool;
 import presenter.EditorPlatform;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import view.controls.JmeImageView;
 
