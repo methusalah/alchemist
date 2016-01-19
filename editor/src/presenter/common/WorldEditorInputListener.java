@@ -8,16 +8,19 @@ import com.simsilica.es.EntityId;
 import controller.ECS.SceneSelectorState;
 import javafx.application.Platform;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import model.state.WorldToolState;
 import model.world.Tool;
 import presenter.EditorPlatform;
+import presenter.WorldEditorPresenter;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
+import view.WorldEditorTab;
 import view.controls.jmeScene.JmeImageView;
 
-public class EditionInputListener implements SceneInputListener {
+public class WorldEditorInputListener implements SceneInputListener {
 	private static enum ActionType {StartPrimary,
 		StartSecondary,
 		StopPrimary,
@@ -25,44 +28,44 @@ public class EditionInputListener implements SceneInputListener {
 		OncePrimary,
 		OnceSecondary
 	}
-
-	private final JmeImageView jme;
 	
-	public EditionInputListener(JmeImageView jme) {
-		this.jme = jme;
+	private final WorldEditorPresenter presenter;
+	
+	public WorldEditorInputListener(WorldEditorPresenter presenter) {
+		this.presenter = presenter;
 	}
 
 	@Override
 	public void onMousePressed(MouseEvent e){
-		ActionType type;
-		switch(e.getButton()){
-		case PRIMARY : type = ActionType.StartPrimary; break;
-		case SECONDARY : type = ActionType.StartSecondary; break;
-		default : type = null;
-		}
-		if(type != null)
-			jme.enqueue(app -> setToolAction(app, type));
+//		ActionType type;
+//		switch(e.getButton()){
+//		case PRIMARY : type = ActionType.StartPrimary; break;
+//		case SECONDARY : type = ActionType.StartSecondary; break;
+//		default : type = null;
+//		}
+//		if(type != null)
+//			jme.enqueue(app -> setToolAction(app, type));
 	}
 
 	@Override
 	public void onMouseMoved(MouseEvent e){
-		jme.enqueue(app -> setSceneMouseCoord(app, new Point2D(e.getX(), e.getY())));
+//		jme.enqueue(app -> setSceneMouseCoord(app, new Point2D(e.getX(), e.getY())));
 	}
 
 	@Override
 	public void onMouseReleased(MouseEvent e){
-		switch(e.getButton()){
-		case PRIMARY :
-			jme.enqueue(app -> setToolAction(app, ActionType.StopPrimary));
-			jme.enqueue(app -> setToolAction(app, ActionType.OncePrimary));
-			break;
-		case SECONDARY : 
-			jme.enqueue(app -> setToolAction(app, ActionType.StopSecondary));
-			jme.enqueue(app -> setToolAction(app, ActionType.OnceSecondary));
-			break;
-		default:
-			break;
-		}
+//		switch(e.getButton()){
+//		case PRIMARY :
+//			jme.enqueue(app -> setToolAction(app, ActionType.StopPrimary));
+//			jme.enqueue(app -> setToolAction(app, ActionType.OncePrimary));
+//			break;
+//		case SECONDARY : 
+//			jme.enqueue(app -> setToolAction(app, ActionType.StopSecondary));
+//			jme.enqueue(app -> setToolAction(app, ActionType.OnceSecondary));
+//			break;
+//		default:
+//			break;
+//		}
 	}
 	
 	@Override
@@ -79,7 +82,11 @@ public class EditionInputListener implements SceneInputListener {
 	
 	@Override
 	public void onMouseDragged(MouseEvent e) {
-		jme.enqueue(app -> setSceneMouseCoord(app, new Point2D(e.getX(), e.getY())));
+		EditorPlatform.getScene().enqueue(app -> setSceneMouseCoord(app, new Point2D(e.getX(), e.getY())));
+		if(e.getButton() == MouseButton.PRIMARY)
+			presenter.doPrimaryActionAt(new Point2D(e.getX(), e.getY()));
+		else if(e.getButton() == MouseButton.SECONDARY)
+			presenter.doSecondaryActionAt(new Point2D(e.getX(), e.getY()));
 	}
 
 	static private boolean setSceneMouseCoord(SimpleApplication app, Point2D coord) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.world.terrain.heightmap.HeightMapNode;
+import presenter.EditorPlatform;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.math.RandomUtil;
@@ -58,6 +59,35 @@ public class HeightMapTool extends PencilTool {
 	public void onSecondaryActionEnd() {
 		currentWork = null;
 	}
+	
+	public void doPrimary(){
+		switch (operation) {
+		case Raise_Low:
+			new Raise().run();
+			break;
+		case Noise_Smooth:
+			EditorPlatform.getScene().enqueue(() -> new Noise().run());
+			break;
+		case Uniform_Reset:
+			EditorPlatform.getScene().enqueue(() -> new Uniform().run());
+			break;
+		}
+	}
+	
+	public void doSecondary(){
+		switch (operation) {
+		case Raise_Low:
+			new Low().run();
+			//EditorPlatform.getScene().enqueue(() -> new Low().run());
+			break;
+		case Noise_Smooth:
+			EditorPlatform.getScene().enqueue(() -> new Smooth().run());
+			break;
+		case Uniform_Reset:
+			EditorPlatform.getScene().enqueue(() -> new Reset().run());
+			break;
+		}
+	}
 
 	private class Raise implements Runnable{
 
@@ -86,7 +116,7 @@ public class HeightMapTool extends PencilTool {
 		}
 	}
 
-	private class Noise implements Runnable{
+	public class Noise implements Runnable{
 
 		@Override
 		public void run() {
@@ -186,8 +216,14 @@ public class HeightMapTool extends PencilTool {
 					nodes.add(n);
 		}
 		for (Region r : regions) {
-			r.getTerrain().getParcelling().updateParcelsContaining(nodes);
-			world.getTerrainDrawer(r).updateParcels(r.getTerrain().getParcelling().getParcelsContaining(nodes));
+			synchronized (r.getTerrain().getParcelling()) {
+				r.getTerrain().getParcelling().updateParcelsContaining(nodes);
+			}
+			EditorPlatform.getScene().enqueue(() -> {
+				synchronized (r.getTerrain().getParcelling()) {
+					world.getTerrainDrawer(r).updateParcels(r.getTerrain().getParcelling().getParcelsContaining(nodes));
+				}
+			});
 		}
 	}
 	

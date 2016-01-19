@@ -15,17 +15,13 @@ public abstract class Tool {
 	};
 	
 	public void onPrimarySingleAction() {}
-
 	public void onPrimaryActionStart() {}
-
 	public void onPrimaryActionEnd() {}
-
 	public void onSecondarySingleAction() {}
-
 	public void onSecondaryActionStart() {}
-
 	public void onSecondaryActionEnd() {}
-
+	public void doPrimary(){}
+	public void doSecondary(){}
 	public void onUpdate(float elapsedTime) {}
 
 }

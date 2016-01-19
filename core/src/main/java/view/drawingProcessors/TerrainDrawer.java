@@ -90,7 +90,7 @@ public class TerrainDrawer {
 			SpatialPool.terrainParcels.put(parcel, g);
 			castAndReceiveNode.attachChild(g);
 			
-			AppFacade.getApp().getStateManager().getState(BulletAppState.class).getPhysicsSpace().add(g);
+			//AppFacade.getApp().getStateManager().getState(BulletAppState.class).getPhysicsSpace().add(g);
 
 			Geometry g2 = new Geometry("Cover parcel "+parcel.getIndex());
 			g2.setMesh(jmeMesh);

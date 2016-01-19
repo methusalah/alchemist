@@ -72,6 +72,7 @@ public class Region {
 	public Terrain getTerrain() {
 		return terrain;
 	}
+	
 	public boolean isModified() {
 		return modified;
 	}

@@ -8,8 +8,9 @@ import model.world.HeightMapTool;
 import model.world.PopulationTool;
 import model.world.Tool;
 import model.world.atlas.AtlasTool;
-import presenter.common.EditionInputListener;
+import presenter.common.WorldEditorInputListener;
 import util.event.EventManager;
+import util.geometry.geom2d.Point2D;
 import view.HierarchyTab;
 import view.WorldEditorTab;
 
@@ -18,19 +19,12 @@ public class WorldEditorPresenter {
 	private final AtlasTool atlasTool;
 	private final PopulationTool populationTool;
 
-	private final EditionInputListener inputListener;
+	private Tool selectedTool = null;
 	
 	public WorldEditorPresenter(WorldEditorTab view) {
 		heightmapTool = new HeightMapTool(EditorPlatform.getWorldData());
 		atlasTool = new AtlasTool(EditorPlatform.getWorldData());
 		populationTool = new PopulationTool(EditorPlatform.getWorldData());
-		inputListener = new EditionInputListener(EditorPlatform.getScene());
-		
-		EditorPlatform.getSelectionProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue != null){
-				EditorPlatform.getSceneInputManager().removeListener(inputListener);
-			}
-		});
 	}
 
 	public HeightMapTool getHeightmapTool() {
@@ -46,9 +40,9 @@ public class WorldEditorPresenter {
 	}
 	
 	public void selectTool(Tool tool){
+		selectedTool = tool;
 		EditorPlatform.getScene().enqueue(app -> setTool(app, tool));
 		EditorPlatform.getSelectionProperty().setValue(null);
-		EditorPlatform.getSceneInputManager().addListener(inputListener);
 	}
 	
 	public void saveWorld(){
@@ -64,5 +58,12 @@ public class WorldEditorPresenter {
 	public void handleTabOpened(){
 		
 	}
+	
+	public void doPrimaryActionAt(Point2D screenCoord){
+		selectedTool.doPrimary();
+	}
 
+	public void doSecondaryActionAt(Point2D screenCoord){
+		selectedTool.doSecondary();
+	}
 }

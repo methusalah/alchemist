@@ -100,6 +100,11 @@ public class JmeImageView {
 		return jmeApp.enqueue(() -> {return f.apply(jmeApp);});
 	}
 
+	public void enqueue(Runnable r) {
+		SimpleApplication jmeApp = findOrCreate();
+		jmeApp.enqueue(() -> {r.run(); return true;});
+	}
+
 	public void stop(boolean waitFor) {
 		if (jmeApp0 != null){
 			try {
