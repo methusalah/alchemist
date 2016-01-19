@@ -5,7 +5,6 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
 import com.jme3.post.filters.FXAAFilter;
-import com.jme3.post.filters.TranslucentBucketFilter;
 import com.simsilica.es.EntityData;
 
 import app.AppFacade;
@@ -13,6 +12,7 @@ import controller.ECS.EntitySystem;
 import controller.ECS.SceneSelectorState;
 import model.Command;
 import model.state.DraggableCameraState;
+import model.state.InstrumentUpdateState;
 import model.state.WorldLocaliserState;
 import model.state.WorldToolState;
 import model.world.WorldData;
@@ -39,6 +39,8 @@ public class ScenePresenter {
 		app.getViewPort().addProcessor(new FilterPostProcessor(app.getAssetManager()));
 		
 		AppStateManager stateManager = app.getStateManager();
+		
+		stateManager.attach(new InstrumentUpdateState());
 
 		DraggableCameraState cam = new DraggableCameraState(app.getCamera());
 		cam.setRotationSpeed(0.001f);

@@ -3,6 +3,7 @@ package app;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
+import com.jme3.bullet.PhysicsSpace;
 import com.jme3.input.InputManager;
 import com.jme3.light.AmbientLight;
 import com.jme3.math.ColorRGBA;
@@ -74,5 +75,4 @@ public class AppFacade {
 				return (FilterPostProcessor)proc;
 		throw new RuntimeException("No FilterPostProcessor on that scene.");
 	}
-	
 }

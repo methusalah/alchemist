@@ -1,12 +1,14 @@
 package view.instrument.planarStance;
 
 
+import com.jme3.app.state.AppStateManager;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Torus;
 
+import model.state.InstrumentUpdateState;
 import presenter.instrument.PlanarStanceInstrumentPresenter;
 import presenter.instrument.PlanarStanceInstrumentPresenter.Tool;
 import util.LogUtil;
@@ -24,8 +26,6 @@ public class PlanarStanceInstrumentState extends AbstractInstrumentState {
 
 	@Override
 	protected void createInstrumentParts(){
-		LogUtil.info("createInstrumentParts in thread "+ Thread.currentThread());
-
 		InstrumentPart x = new InstrumentPart(Name + " x");
 		Mesh cone = TranslateUtil.toJMEMesh(new Cone(0.01, 0.015, 12));
 		x.putViewAndGripGeometry("0", new ColorRGBA(0.8f, 0.8f, 0.2f, 1), cone, true);

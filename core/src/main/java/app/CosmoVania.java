@@ -67,4 +67,10 @@ public abstract class CosmoVania extends SimpleApplication implements PhysicsTic
 	public PhysicsSpace getPhysicsSpace() {
 		return bulletAppState.getPhysicsSpace();
 	}
+	
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		super.update();
+	}
 }

@@ -52,7 +52,7 @@ public class InstrumentPart{
 		Geometry g = new Geometry(viewName);
 		g.setShadowMode(ShadowMode.Off);
 		g.setMaterial(MaterialManager.getColor(color));
-		//g.getMaterial().getAdditionalRenderState().setDepthTest(false);
+		g.getMaterial().getAdditionalRenderState().setDepthTest(false);
 		g.getMaterial().getAdditionalRenderState().setDepthWrite(false);
 		g.setMesh(mesh);
 		g.setUserData("lighted", lightedOnHover);

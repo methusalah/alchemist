@@ -7,7 +7,12 @@ import com.badlogic.gdx.graphics.g3d.environment.ShadowMap;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.light.AmbientLight;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.BloomFilter;
+import com.jme3.post.filters.FXAAFilter;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
@@ -19,6 +24,7 @@ import app.AppFacade;
 import controller.SpatialSelector;
 import controller.ECS.SceneSelectorState;
 import javafx.scene.shape.DrawMode;
+import model.state.InstrumentUpdateState;
 import presenter.instrument.InstrumentPresenter;
 import util.LogUtil;
 import util.geometry.geom3d.Point3D;
@@ -59,7 +65,6 @@ public abstract class AbstractInstrumentState extends AbstractAppState {
 		Point3D pos = presenter.getPosition();
 		if(pos != null){
 			// translation
-			LogUtil.info("positionning in thread "+ Thread.currentThread());
 			drawnNode.setLocalTranslation(TranslateUtil.toVector3f(pos));
 			gripNode.setLocalTranslation(TranslateUtil.toVector3f(pos));
 			
@@ -92,15 +97,20 @@ public abstract class AbstractInstrumentState extends AbstractAppState {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
-		//AppFacade.getInstrumentNode().attachChild(drawnNode);
+		AppFacade.getInstrumentNode().attachChild(drawnNode);
 
-		LogUtil.info("state attached in thread "+ Thread.currentThread());
-		Camera c = AppFacade.getCamera().clone();
-		c.setViewPort(0, c.getWidth(), 0, c.getHeight());
-		c.setViewPort(0, 1f, 0, 1f);
-		ViewPort viewPort2 = AppFacade.getApp().getRenderManager().createMainView("test", c);
-		//viewPort2.setClearFlags(true, true, true);
-		viewPort2.attachScene(drawnNode);
+//		stateManager.getState(InstrumentUpdateState.class).addNode(drawnNode);
+//		Camera c = AppFacade.getCamera().clone();
+//		c.setViewPort(0, 1f, 0, 1f);
+//		ViewPort viewPort2 = AppFacade.getApp().getRenderManager().createMainView("test", c);
+//		viewPort2.attachScene(drawnNode);
+//		viewPort2.setClearFlags(true, true, false);
+//		drawnNode.addLight(new AmbientLight());
+//		FilterPostProcessor fpp = new FilterPostProcessor(AppFacade.getAssetManager());
+//		fpp.addFilter(new FXAAFilter());
+//		fpp.addFilter(new BloomFilter());
+//		
+//		viewPort2.addProcessor(fpp);
 	}
 
 	@Override

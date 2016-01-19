@@ -11,6 +11,7 @@ import view.drawingProcessors.EdgeCollisionShapeDrawingProc;
 import view.drawingProcessors.LightProc;
 import view.drawingProcessors.ModelProc;
 import view.drawingProcessors.ParticleCasterInPlaneProc;
+import view.drawingProcessors.RagdollProc;
 import view.drawingProcessors.ModelPlacingProc;
 import view.drawingProcessors.SpritePlacingProc;
 import view.drawingProcessors.SpriteProc;
@@ -56,6 +57,7 @@ public class EntitySystem extends AbstractAppState {
 		visualStates.add(new ParticleCasterInPlaneProc());
 		visualStates.add(new ModelProc());
 		visualStates.add(new SpriteProc());
+		visualStates.add(new RagdollProc());
 		//visualStates.add(new EdgeCollisionShapeDrawingProc());
 		
 		visualStates.add(new ModelPlacingProc());

@@ -2,7 +2,7 @@ package view.drawingProcessors;
 
 import java.util.List;
 
-import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
@@ -14,7 +14,6 @@ import com.jme3.texture.Texture;
 import app.AppFacade;
 import model.world.terrain.Terrain;
 import model.world.terrain.heightmap.Parcel;
-import util.event.EventManager;
 import util.geometry.geom2d.Point2D;
 import view.SpatialPool;
 import view.jme.SilentTangentBinormalGenerator;
@@ -32,8 +31,6 @@ public class TerrainDrawer {
 	public Node receiveNode = new Node("Receive shadow node");
 	public boolean rendered = false;
 	
-	public PhysicsSpace mainPhysicsSpace = new PhysicsSpace();
-
 	public TerrainDrawer(Terrain terrain, Point2D coord) {
 		mainNode = new Node("Terrain chunk at "+coord);
 		this.terrain = terrain;
@@ -46,8 +43,6 @@ public class TerrainDrawer {
 		receiveNode.setShadowMode(RenderQueue.ShadowMode.Receive);
 		mainNode.attachChild(castAndReceiveNode);
 		mainNode.attachChild(receiveNode);
-		
-		EventManager.register(this);
 	}
 
 	public void render() {
@@ -94,7 +89,8 @@ public class TerrainDrawer {
 			g.addControl(new RigidBodyControl(0));
 			SpatialPool.terrainParcels.put(parcel, g);
 			castAndReceiveNode.attachChild(g);
-			mainPhysicsSpace.add(g);
+			
+			AppFacade.getApp().getStateManager().getState(BulletAppState.class).getPhysicsSpace().add(g);
 
 			Geometry g2 = new Geometry("Cover parcel "+parcel.getIndex());
 			g2.setMesh(jmeMesh);
@@ -113,8 +109,9 @@ public class TerrainDrawer {
 			SilentTangentBinormalGenerator.generate(jmeMesh);
 			Geometry g = ((Geometry) SpatialPool.terrainParcels.get(parcel));
 			g.setMesh(jmeMesh);
-			mainPhysicsSpace.remove(g);
-			mainPhysicsSpace.add(g);
+
+//			AppFacade.getApp().getStateManager().getState(BulletAppState.class).getPhysicsSpace().remove(g);
+//			AppFacade.getApp().getStateManager().getState(BulletAppState.class).getPhysicsSpace().add(g);
 
 			Geometry g2 = ((Geometry) SpatialPool.coverParcels.get(parcel));
 			g2.setMesh(jmeMesh);
