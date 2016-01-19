@@ -28,9 +28,9 @@
       }
     },
     "texturing" : {
-      "diffuses" : [ "textures/grass02.jpg", "textures/road.jpg" ],
+      "diffuses" : [ "textures/cave/deepcave.jpg", "textures/paving2full.png" ],
       "normals" : [ null, null ],
-      "scales" : [ 32.0, 32.0 ],
+      "scales" : [ 8.0, 32.0 ],
       "coverDiffuses" : [ "textures/transp.png" ],
       "coverNormals" : [ null ],
       "coverScales" : [ 1.0 ]

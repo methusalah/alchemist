@@ -30,14 +30,26 @@ public class RagdollProc extends Processor{
 	private PhysicsSpace physicsSpace;
 	Map<EntityId, Double> masses = new HashMap<>();
 	Map<EntityId, Point2D> velocities = new HashMap<>();
-	
-	
-	List<Spatial> managed = new ArrayList<>();
-	
+	Map<Spatial, Long> managed = new HashMap<>();
 
 	@Override
 	protected void registerSets() {
 		registerDefault(Model.class, RagdollOnDestroy.class, Physic.class);
+	}
+	
+	@Override
+	protected void onUpdated() {
+		long time = System.currentTimeMillis();
+		List<Spatial> toRemove = new ArrayList<>(); 
+		for(Spatial s : managed.keySet())
+			if(managed.get(s).longValue()+5000 < time)
+				toRemove.add(s);
+		for(Spatial s : toRemove){
+			AppFacade.getMainSceneNode().detachChild(s);
+			physicsSpace.remove(s);
+			managed.remove(s);
+			SpatialPool.models.remove(s);
+		}
 	}
 	
 	@Override
@@ -66,14 +78,17 @@ public class RagdollProc extends Processor{
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
+		Spatial s = SpatialPool.models.get(e.getId());
+		managed.put(s, System.currentTimeMillis());
+		s.setName(s.getName() + " ragdoll");
+
 		RigidBodyControl control = new RigidBodyControl(masses.get(e.getId()).floatValue());
-		SpatialPool.models.get(e.getId()).addControl(control);
+		s.addControl(control);
 		control.setLinearVelocity(TranslateUtil.toVector3f(velocities.get(e.getId())));
 		control.setAngularVelocity(TranslateUtil.toVector3f(velocities.get(e.getId()).getScaled(RandomUtil.between(0.1, 3)).getRotation(AngleUtil.RIGHT*RandomUtil.between(0.8, 1.2))));
 		
-		managed.add(SpatialPool.models.get(e.getId()));
-		physicsSpace.add(control);
-		AppFacade.getMainSceneNode().attachChild(SpatialPool.models.get(e.getId()));
+		physicsSpace.add(s);
+		AppFacade.getMainSceneNode().attachChild(s);
 
 	}
 }

@@ -82,8 +82,10 @@ public class PlanarStanceInstrumentPresenter implements InstrumentPresenter{
 	}
 	
 	private void updateAttachement(){
-		selection = EditorPlatform.getSelectionProperty().getValue().getEntityId();
-		view.setVisible(EditorPlatform.getEntityData().getComponent(selection, PlanarStance.class) != null && UIConfig.expandedComponents.contains(PlanarStance.class));
+		if(EditorPlatform.getSelectionProperty().getValue() != null){
+			selection = EditorPlatform.getSelectionProperty().getValue().getEntityId();
+			view.setVisible(EditorPlatform.getEntityData().getComponent(selection, PlanarStance.class) != null && UIConfig.expandedComponents.contains(PlanarStance.class));
+		}
 	}
 
 	@Override

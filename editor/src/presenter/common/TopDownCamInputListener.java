@@ -11,7 +11,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import util.geometry.geom2d.Point2D;
-import view.controls.JmeImageView;
+import view.controls.jmeScene.JmeImageView;
 
 public class TopDownCamInputListener implements SceneInputListener{
 	private final JmeImageView jme;

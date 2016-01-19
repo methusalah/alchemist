@@ -2,7 +2,7 @@ package view.instrument.planarStance;
 
 import presenter.EditorPlatform;
 import presenter.instrument.PlanarStanceInstrumentPresenter;
-import view.controls.JmeImageView;
+import view.controls.jmeScene.JmeImageView;
 import view.instrument.InstrumentInputListener;
 
 public class PlanarStanceInstrument {

@@ -10,7 +10,7 @@ import javafx.scene.input.ScrollEvent;
 import model.Command;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
-import view.controls.JmeImageView;
+import view.controls.jmeScene.JmeImageView;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;

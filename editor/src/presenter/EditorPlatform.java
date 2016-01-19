@@ -10,7 +10,7 @@ import presenter.common.EntityNode;
 import presenter.common.RunState;
 import presenter.common.SceneInputManager;
 import presenter.util.UserComponentList;
-import view.controls.JmeImageView;
+import view.controls.jmeScene.JmeImageView;
 import view.instrument.planarStance.PlanarStanceInstrumentState;
 
 public class EditorPlatform {

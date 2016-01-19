@@ -24,8 +24,10 @@ public class CircleCollisionShapeInstrumentPresenter implements InstrumentPresen
 	}
 
 	private void updateAttachement(){
-		selection = EditorPlatform.getSelectionProperty().getValue().getEntityId();
-		view.setVisible(EditorPlatform.getEntityData().getComponent(selection, CircleCollisionShape.class) != null && UIConfig.expandedComponents.contains(CircleCollisionShape.class));
+		if(EditorPlatform.getSelectionProperty().getValue() != null){
+			selection = EditorPlatform.getSelectionProperty().getValue().getEntityId();
+			view.setVisible(EditorPlatform.getEntityData().getComponent(selection, CircleCollisionShape.class) != null && UIConfig.expandedComponents.contains(CircleCollisionShape.class));
+		}
 	}
 
 	@Override

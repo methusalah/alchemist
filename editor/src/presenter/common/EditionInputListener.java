@@ -15,7 +15,7 @@ import model.world.Tool;
 import presenter.EditorPlatform;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
-import view.controls.JmeImageView;
+import view.controls.jmeScene.JmeImageView;
 
 public class EditionInputListener implements SceneInputListener {
 	private static enum ActionType {StartPrimary,

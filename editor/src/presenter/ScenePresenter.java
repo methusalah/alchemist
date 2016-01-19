@@ -24,7 +24,7 @@ import model.world.WorldData;
 import presenter.common.SceneInputManager;
 import presenter.common.TopDownCamInputListener;
 import util.geometry.geom2d.Point2D;
-import view.controls.JmeImageView;
+import view.controls.jmeScene.JmeImageView;
 
 public class ScenePresenter {
 	private final TopDownCamInputListener camera;

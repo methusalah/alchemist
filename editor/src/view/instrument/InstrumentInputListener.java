@@ -18,7 +18,7 @@ import model.world.Tool;
 import presenter.EditorPlatform;
 import presenter.common.SceneInputListener;
 import util.geometry.geom2d.Point2D;
-import view.controls.JmeImageView;
+import view.controls.jmeScene.JmeImageView;
 
 public class InstrumentInputListener implements SceneInputListener {
 	private final JmeImageView jme;

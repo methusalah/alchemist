@@ -1,4 +1,4 @@
-package view.controls;
+package view.controls.jmeScene;
 
 import java.util.concurrent.Future;
 import java.util.function.Function;

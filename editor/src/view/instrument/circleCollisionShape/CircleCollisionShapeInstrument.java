@@ -3,7 +3,7 @@ package view.instrument.circleCollisionShape;
 import presenter.EditorPlatform;
 import presenter.instrument.CircleCollisionShapeInstrumentPresenter;
 import util.LogUtil;
-import view.controls.JmeImageView;
+import view.controls.jmeScene.JmeImageView;
 import view.instrument.InstrumentInputListener;
 import view.instrument.planarStance.PlanarStanceInstrumentState;
 
