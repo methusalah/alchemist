@@ -95,25 +95,25 @@ public class WorldEditorInputListener implements SceneInputListener {
 		return true;
 	}
 
-	static private boolean setToolAction(SimpleApplication app, ActionType type) {
-		Tool t = app.getStateManager().getState(WorldToolState.class).getTool();
-		if(t != null){
-			switch(type){
-			case OncePrimary : t.onPrimarySingleAction(); break;
-			case OnceSecondary : t.onSecondarySingleAction(); break;
-			case StartPrimary : t.onPrimaryActionStart(); break;
-			case StartSecondary : t.onSecondaryActionStart(); break;
-			case StopPrimary : t.onPrimaryActionEnd(); break;
-			case StopSecondary : t.onSecondaryActionEnd(); break;
-			}
-		} else {
-			AppStateManager stateManager = app.getStateManager();
-			EntityId pointed = stateManager.getState(SceneSelectorState.class).getPointedEntity();
-			if(pointed != null){
-				EntityNode pointedNode = EditorPlatform.getEntityData().getNode(pointed);
-				Platform.runLater(() -> EditorPlatform.getSelectionProperty().set(pointedNode));
-			}
-		}
-		return true;
-	}
+//	static private boolean setToolAction(SimpleApplication app, ActionType type) {
+//		Tool t = app.getStateManager().getState(WorldToolState.class).getTool();
+//		if(t != null){
+//			switch(type){
+//			case OncePrimary : t.onPrimarySingleAction(); break;
+//			case OnceSecondary : t.onSecondarySingleAction(); break;
+//			case StartPrimary : t.onPrimaryActionStart(); break;
+//			case StartSecondary : t.onSecondaryActionStart(); break;
+//			case StopPrimary : t.onPrimaryActionEnd(); break;
+//			case StopSecondary : t.onSecondaryActionEnd(); break;
+//			}
+//		} else {
+//			AppStateManager stateManager = app.getStateManager();
+//			EntityId pointed = stateManager.getState(SceneSelectorState.class).getPointedEntity();
+//			if(pointed != null){
+//				EntityNode pointedNode = EditorPlatform.getEntityData().getNode(pointed);
+//				Platform.runLater(() -> EditorPlatform.getSelectionProperty().set(pointedNode));
+//			}
+//		}
+//		return true;
+//	}
 }

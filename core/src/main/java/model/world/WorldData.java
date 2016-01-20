@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
 import com.jme3.scene.shape.Line;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
@@ -37,6 +38,7 @@ import view.math.TranslateUtil;
 public class WorldData {
 	private final EntityData ed;
 	private final EntityId worldEntity;
+	private final Node worldNode;
 
 	private List<Region> drawnRegions = new ArrayList<Region>();
 	private Map<Region, TerrainDrawer> drawers = new HashMap<>();
@@ -53,6 +55,8 @@ public class WorldData {
 	
 	public WorldData(EntityData ed) {
 		this.ed = ed;
+		worldNode = new Node("World");
+		AppFacade.getMainSceneNode().attachChild(worldNode);
 		worldEntity = ed.createEntity();
 		ed.setComponent(worldEntity, new Naming("World"));
 	}
@@ -97,13 +101,13 @@ public class WorldData {
 	public void attachDrawers(){
 		synchronized (drawersToAttach) {
 			for(TerrainDrawer d : drawersToAttach){
-				AppFacade.getMainSceneNode().attachChild(d.mainNode);
+				worldNode.attachChild(d.mainNode);
 			}
 			drawersToAttach.clear();
 		}
 		synchronized (drawersToDetach) {
 			for(TerrainDrawer d : drawersToDetach){
-				AppFacade.getMainSceneNode().detachChild(d.mainNode);
+				worldNode.detachChild(d.mainNode);
 			}
 			drawersToDetach.clear();
 		}

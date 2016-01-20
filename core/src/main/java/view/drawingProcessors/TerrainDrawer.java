@@ -80,7 +80,7 @@ public class TerrainDrawer {
 		for (Parcel parcel : terrain.getParcelling().getAll()) {
 			Geometry g = new Geometry("Parcel "+parcel.getIndex());
 			Mesh jmeMesh = TranslateUtil.toJMEMesh(parcel.getMesh());
-			SilentTangentBinormalGenerator.generate(jmeMesh);
+			//SilentTangentBinormalGenerator.generate(jmeMesh);
 			g.setMesh(jmeMesh);
 			g.setMaterial(groundTexture.getMaterial());
 //			g.setLocalTranslation(new Vector3f(5, 0, 0));
@@ -106,7 +106,7 @@ public class TerrainDrawer {
 	public void updateParcels(List<Parcel> parcels) {
 		for (Parcel parcel : parcels) {
 			Mesh jmeMesh = TranslateUtil.toJMEMesh(parcel.getMesh());
-			SilentTangentBinormalGenerator.generate(jmeMesh);
+			//SilentTangentBinormalGenerator.generate(jmeMesh);
 			Geometry g = ((Geometry) SpatialPool.terrainParcels.get(parcel));
 			g.setMesh(jmeMesh);
 

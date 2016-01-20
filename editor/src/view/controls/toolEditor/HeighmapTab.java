@@ -1,20 +1,21 @@
 package view.controls.toolEditor;
 
 import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tab;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import model.world.HeightMapTool;
-import model.world.HeightMapTool.OPERATION;
+import model.world.HeightMapToolPresenter;
 import model.world.Tool;
-import view.controls.custom.IconButton;
+import view.controls.custom.IconToggleButton;
 
 public class HeighmapTab extends Tab implements ToolEditor {
-	
-	private final HeightMapTool tool;
+	private final HeightMapToolPresenter tool;
+	private final ToggleGroup group = new ToggleGroup();
 
-	public HeighmapTab(HeightMapTool tool) {
+	public HeighmapTab(HeightMapToolPresenter tool) {
 		
 		this.tool = tool;
 		setText("Heightmap");
@@ -29,21 +30,24 @@ public class HeighmapTab extends Tab implements ToolEditor {
 		return new BorderPane(getNoiseSmoothButton(), null, getRiseLowButton(), null, getUniformResetButton());
 	}
 	
-	private Button getRiseLowButton(){
-		IconButton res = new IconButton("assets/textures/editor/rise_low_icon.png", "Rise/Low");
-		res.setOnAction(e -> tool.setOperation(OPERATION.Raise_Low));
+	private ToggleButton getRiseLowButton(){
+		IconToggleButton res = new IconToggleButton("assets/textures/editor/rise_low_icon.png", "Rise/Low");
+		res.selectedProperty().bindBidirectional(tool.getRaiseLowProperty());
+		res.setToggleGroup(group);
 		return res;
 	}
 
-	private Button getNoiseSmoothButton(){
-		IconButton res = new IconButton("assets/textures/editor/noise_smooth_icon.png", "Noise/Smooth");
-		res.setOnAction(e -> tool.setOperation(OPERATION.Noise_Smooth));
+	private ToggleButton getNoiseSmoothButton(){
+		IconToggleButton res = new IconToggleButton("assets/textures/editor/noise_smooth_icon.png", "Noise/Smooth");
+		res.selectedProperty().bindBidirectional(tool.getNoiseSmoothProperty());
+		res.setToggleGroup(group);
 		return res;
 	}
 
-	private Button getUniformResetButton(){
-		IconButton res = new IconButton("assets/textures/editor/uniform_reset_icon.png", "Uniform/Reset");
-		res.setOnAction(e -> tool.setOperation(OPERATION.Uniform_Reset));
+	private ToggleButton getUniformResetButton(){
+		IconToggleButton res = new IconToggleButton("assets/textures/editor/uniform_reset_icon.png", "Uniform/Reset");
+		res.selectedProperty().bindBidirectional(tool.getUniformResetProperty());
+		res.setToggleGroup(group);
 		return res;
 	}
 

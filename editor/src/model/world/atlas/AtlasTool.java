@@ -3,137 +3,118 @@ package model.world.atlas;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.world.PencilTool;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import model.world.PencilToolPresenter;
 import model.world.Region;
 import model.world.WorldData;
+import model.world.HeightMapToolPresenter.Operation;
 import model.world.terrain.atlas.Atlas;
 import model.world.terrain.atlas.AtlasLayer;
 import util.geometry.geom2d.Point2D;
 
-public class AtlasTool extends PencilTool {
-	public enum OPERATION {
-		Add_Delete, Propagate_Smooth
+public class AtlasTool extends PencilToolPresenter {
+	public enum Operation {
+		ADD_DELETE, PROPAGATE_SMOOTH
 	}
-	
-	private OPERATION operation = OPERATION.Add_Delete;
+
+	private final ObjectProperty<Operation> operationProperty = new SimpleObjectProperty<>();
+	private final BooleanProperty addDeleteProperty = new SimpleBooleanProperty();
+	private final BooleanProperty propagateSmoothProperty = new SimpleBooleanProperty();
 
 	public AtlasTool(WorldData world) {
 		super(world);
-		
+		addDeleteProperty.addListener((observable, oldValue, newValue) -> {
+			if(newValue)
+				operationProperty.setValue(Operation.ADD_DELETE);
+		});
+		propagateSmoothProperty.addListener((observable, oldValue, newValue) -> {
+			if(newValue)
+				operationProperty.setValue(Operation.PROPAGATE_SMOOTH);
+		});
+		addDeleteProperty.setValue(true);
 	}
 
-	public OPERATION getOperation() {
-		return operation;
-	}
-
-	public void setOperation(OPERATION operation) {
-		this.operation = operation;
-	}
-	
 	@Override
-	public void onPrimaryActionStart() {
-		switch (operation) {
-			case Add_Delete:
-				currentWork = new Increment();
-				break;
-			case Propagate_Smooth:
-				currentWork = new Propagate();
-				break;
+	public void doPrimary() {
+		switch (operationProperty.getValue()) {
+			case ADD_DELETE: increment(); break;
+			case PROPAGATE_SMOOTH: propagate(); break;
 		}
 	}
 
 	@Override
-	public void onSecondaryActionStart() {
-		switch (operation) {
-		case Add_Delete:
-			currentWork = new Decrement();
-			break;
-		case Propagate_Smooth:
-			currentWork = new Smooth();
-			break;
+	public void doSecondary() {
+		switch (operationProperty.getValue()) {
+		case ADD_DELETE: decrement(); break;
+		case PROPAGATE_SMOOTH: smooth(); break;
 		}
 	}
 	
-	@Override
-	public void onPrimaryActionEnd() {
-		currentWork = null;
-	}
-
-	@Override
-	public void onSecondaryActionEnd() {
-		currentWork = null;
-	}
-
-	private class Increment implements Runnable{
-
-		@Override
-		public void run() {
-			List<Region> involvedRegions = new ArrayList<>();
-			for (Pixel p : getInvolvedPixels()) {
-				for(Region r : world.getRegions(p.worldCoord)){
-					if(!involvedRegions.contains(r))
-						involvedRegions.add(r);
-					
-					Atlas toPaint = r.getTerrain().getAtlas();
-					AtlasLayer layer = toPaint.getLayers().get(1);
-					AtlasArtisanUtil.incrementPixel(toPaint, p.coord.getSubtraction(r.getCoord().getMult(2)), layer, getAttenuatedIncrement(p.worldCoord));
-				}
+	private void increment() {
+		List<Region> involvedRegions = new ArrayList<>();
+		for (Pixel p : getInvolvedPixels()) {
+			for(Region r : world.getRegions(p.worldCoord)){
+				if(!involvedRegions.contains(r))
+					involvedRegions.add(r);
+				
+				Atlas toPaint = r.getTerrain().getAtlas();
+				AtlasLayer layer = toPaint.getLayers().get(1);
+				AtlasArtisanUtil.incrementPixel(toPaint, p.coord.getSubtraction(r.getCoord().getMult(2)), layer, getAttenuatedIncrement(p.worldCoord));
 			}
-			for(Region r : involvedRegions)
-				world.getTerrainDrawer(r).updateAtlas();
 		}
+		for(Region r : involvedRegions)
+			world.getTerrainDrawer(r).updateAtlas();
 	}
 	
-	private class Decrement implements Runnable{
-
-		@Override
-		public void run() {
+	private void decrement() {
 //			Map<Height, Point2D> heights = getHeights(); 
 //			for (Height t : heights.keySet()) {
 //				t.elevate(-getAttenuatedAmplitude(heights.get(t)));
 //			}
 //			updateParcelsFor(heights);
-		}
 	}
 
-	private class Propagate implements Runnable{
-
-		@Override
-		public void run() {
+	private void propagate() {
 //			Map<Height, Point2D> heights = getHeights(); 
 //			for (Height t : heights.keySet()) {
 //				t.elevate(RandomUtil.between(-1.0, 1.0) * getAttenuatedAmplitude(heights.get(t)));
 //			}
 //			updateParcelsFor(heights);
-		}
 	}
 
-	private class Smooth implements Runnable{
-
-		@Override
-		public void run() {
+	private void smooth() {
 //			Map<Height, Point2D> heights = getHeights(); 
 //			for (Height t : heights.keySet()) {
 //				t.elevate(RandomUtil.between(-1.0, 1.0) * getAttenuatedAmplitude(heights.get(t)));
 //			}
 //			updateParcelsFor(heights);
-		}
 	}
 
 	private double getAttenuatedIncrement(Point2D p){
-		return Math.round(30*strength * getApplicationRatio(p));
+		return Math.round(30*getStrengthProperty().getValue() * getApplicationRatio(p));
 	}
 	
 	public List<Pixel> getInvolvedPixels() {
-		switch (shape) {
-			case Circle:
-				return AtlasExplorer.getPixelsInCircle(coord, size / 2);
-			case Diamond:
-				return AtlasExplorer.getPixelsInDiamond(coord, size / 2);
-			case Square:
-				return AtlasExplorer.getPixelsInSquare(coord, size / 2);
+		switch (shapeProperty.getValue()) {
+			case CIRCLE:
+				return AtlasExplorer.getPixelsInCircle(coord, getSizeProperty().getValue() / 2);
+			case DIAMOND:
+				return AtlasExplorer.getPixelsInDiamond(coord, getSizeProperty().getValue() / 2);
+			case SQUARE:
+				return AtlasExplorer.getPixelsInSquare(coord, getSizeProperty().getValue() / 2);
 			default:
 				throw new RuntimeException();
 		}
+	}
+
+	public BooleanProperty getAddDeleteProperty() {
+		return addDeleteProperty;
+	}
+
+	public BooleanProperty getPropagateSmoothProperty() {
+		return propagateSmoothProperty;
 	}
 }

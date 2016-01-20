@@ -23,7 +23,7 @@ public class PopulationTool extends WorldTool {
 	private Blueprint bp;
 	
 	@Override
-	public void onPrimarySingleAction() {
+	public void doPrimary() {
 		PlanarStance stance = new PlanarStance(coord, new Angle(0), 0, Point3D.UNIT_Z);
 		List<EntityComponent> comps = new ArrayList<EntityComponent>();
 		comps.add(stance);

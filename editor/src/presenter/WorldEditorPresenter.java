@@ -4,7 +4,7 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 
 import model.state.WorldToolState;
-import model.world.HeightMapTool;
+import model.world.HeightMapToolPresenter;
 import model.world.PopulationTool;
 import model.world.Tool;
 import model.world.atlas.AtlasTool;
@@ -15,19 +15,19 @@ import view.HierarchyTab;
 import view.WorldEditorTab;
 
 public class WorldEditorPresenter {
-	private final HeightMapTool heightmapTool;
+	private final HeightMapToolPresenter heightmapTool;
 	private final AtlasTool atlasTool;
 	private final PopulationTool populationTool;
 
 	private Tool selectedTool = null;
 	
 	public WorldEditorPresenter(WorldEditorTab view) {
-		heightmapTool = new HeightMapTool(EditorPlatform.getWorldData());
+		heightmapTool = new HeightMapToolPresenter(EditorPlatform.getWorldData());
 		atlasTool = new AtlasTool(EditorPlatform.getWorldData());
 		populationTool = new PopulationTool(EditorPlatform.getWorldData());
 	}
 
-	public HeightMapTool getHeightmapTool() {
+	public HeightMapToolPresenter getHeightmapTool() {
 		return heightmapTool;
 	}
 

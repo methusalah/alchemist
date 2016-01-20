@@ -1,17 +1,19 @@
 package view.controls.toolEditor;
 
 import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tab;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import model.world.Tool;
 import model.world.atlas.AtlasTool;
-import model.world.atlas.AtlasTool.OPERATION;
-import view.controls.custom.IconButton;
+import view.controls.custom.IconToggleButton;
 
 public class AtlasTab extends Tab implements ToolEditor {
 	private final AtlasTool tool;
+	private final ToggleGroup group = new ToggleGroup();
 
 	public AtlasTab(AtlasTool tool) {
 		this.tool = tool;
@@ -27,15 +29,17 @@ public class AtlasTab extends Tab implements ToolEditor {
 		return new BorderPane(getPropagateSmoothButton(), null, getAddDeleteButton(), null, null);
 	}
 	
-	private Button getAddDeleteButton(){
-		IconButton res = new IconButton("assets/textures/editor/rise_low_icon.png", "Rise/Low");
-		res.setOnAction(e -> tool.setOperation(OPERATION.Add_Delete));
+	private ToggleButton getAddDeleteButton(){
+		IconToggleButton res = new IconToggleButton("assets/textures/editor/rise_low_icon.png", "Rise/Low");
+		res.selectedProperty().bindBidirectional(tool.getAddDeleteProperty());
+		res.setToggleGroup(group);
 		return res;
 	}
 
-	private Button getPropagateSmoothButton(){
-		IconButton res = new IconButton("assets/textures/editor/noise_smooth_icon.png", "Noise/Smooth");
-		res.setOnAction(e -> tool.setOperation(OPERATION.Propagate_Smooth));
+	private ToggleButton getPropagateSmoothButton(){
+		IconToggleButton res = new IconToggleButton("assets/textures/editor/noise_smooth_icon.png", "Noise/Smooth");
+		res.selectedProperty().bindBidirectional(tool.getPropagateSmoothProperty());
+		res.setToggleGroup(group);
 		return res;
 	}
 	

@@ -3,13 +3,14 @@ package view.controls.custom;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class IconButton extends Button{
+public class IconToggleButton extends ToggleButton{
 
-	public IconButton(String iconpath, String defaultText) {
+	public IconToggleButton(String iconpath, String defaultText) {
 		Image icon = null;
 		try {
 			icon = new Image(new FileInputStream(iconpath));
