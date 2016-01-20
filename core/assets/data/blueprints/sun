@@ -15,7 +15,9 @@
     "distance" : "Infinity",
     "innerAngle" : 0.0,
     "outerAngle" : 0.0,
-    "shadowCaster" : true,
+    "shadowIntensity" : {
+      "value" : 1.0
+    },
     "activation" : {
       "value" : 1.0
     }

@@ -64,7 +64,7 @@ public class LightProc extends Processor {
 			SpatialPool.lights.put(e.getId(), light);
 			AppFacade.getMainSceneNode().addLight(light);
 
-			if(l.shadowCaster){
+			if(l.shadowIntensity.getValue() > 0){
 				DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(AppFacade.getAssetManager(), SHADOWMAP_SIZE, 1);
 				sf.setEnabled(true);
 				sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
@@ -81,6 +81,16 @@ public class LightProc extends Processor {
 		
 		light.setColor(TranslateUtil.toColorRGBA(l.color).mult((float)(l.intensity*l.activation.getValue())));
 		light.setDirection(TranslateUtil.toVector3f(direction));
+
+		if(l.shadowIntensity.getValue() > 0){
+			for(Filter f : AppFacade.getFilterPostProcessor().getFilterList())
+				if(f instanceof DirectionalLightShadowFilter){
+					DirectionalLightShadowFilter sf = (DirectionalLightShadowFilter)f;
+					if(sf.getLight() == light)
+						sf.setShadowIntensity((float)l.getShadowIntensity().getValue());
+				}
+		}
+		
 
 	}
 	
@@ -103,14 +113,14 @@ public class LightProc extends Processor {
 			SpatialPool.lights.put(e.getId(), light);
 			AppFacade.getMainSceneNode().addLight(light);
 			
-			if(l.shadowCaster){
+//			if(l.shadowCaster){
 //				SpotLightShadowFilter sf = new SpotLightShadowFilter(AppFacade.getAssetManager(), 1024);
 //				sf.setEnabled(true);
 ////				sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
 ////				sf.setShadowZExtend(SHADOWMAP_SIZE);
 //				sf.setLight(light);
 //				AppFacade.getFilterPostProcessor().addFilter(sf);
-			}
+//			}
 		}
 		SpotLight light = (SpotLight)SpatialPool.lights.get(e.getId());
 		

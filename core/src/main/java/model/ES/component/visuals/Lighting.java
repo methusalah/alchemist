@@ -12,7 +12,7 @@ public class Lighting implements EntityComponent {
 	public final double distance;
 	public final double innerAngle;
 	public final double outerAngle;
-	public final boolean shadowCaster;
+	public final Fraction shadowIntensity;
 	public final Fraction activation;
 	
 	public Lighting() {
@@ -21,7 +21,7 @@ public class Lighting implements EntityComponent {
 		distance = 0;
 		innerAngle = 0;
 		outerAngle = 0;
-		shadowCaster = false;
+		shadowIntensity = new Fraction(0);
 		activation = new Fraction(0);
 	}
 	
@@ -30,14 +30,14 @@ public class Lighting implements EntityComponent {
 			@JsonProperty("distance")double distance,
 			@JsonProperty("innerAngle")double innerAngle,
 			@JsonProperty("outerAngle")double outerAngle,
-			@JsonProperty("shadowCaster")boolean shadowCaster,
+			@JsonProperty("shadowIntensity")Fraction shadowIntensity,
 			@JsonProperty("activation")Fraction activation) {
 		this.color = color;
 		this.intensity = intensity;
 		this.distance = distance;
 		this.innerAngle = innerAngle;
 		this.outerAngle = outerAngle;
-		this.shadowCaster = shadowCaster;
+		this.shadowIntensity = shadowIntensity;
 		this.activation = activation;
 	}
 
@@ -61,8 +61,8 @@ public class Lighting implements EntityComponent {
 		return outerAngle;
 	}
 
-	public boolean isShadowCaster() {
-		return shadowCaster;
+	public Fraction getShadowIntensity() {
+		return shadowIntensity;
 	}
 
 	public Fraction getActivation() {

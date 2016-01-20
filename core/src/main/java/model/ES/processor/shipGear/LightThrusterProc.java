@@ -18,6 +18,6 @@ public class LightThrusterProc extends Processor {
 		Lighting l = e.get(Lighting.class);
 		Thruster thruster = e.get(Thruster.class);
 		
-		setComp(e, new Lighting(l.color, l.intensity, l.distance, l.innerAngle, l.outerAngle, l.shadowCaster, thruster.activation));
+		setComp(e, new Lighting(l.color, l.intensity, l.distance, l.innerAngle, l.outerAngle, l.shadowIntensity, thruster.activation));
 	}
 }

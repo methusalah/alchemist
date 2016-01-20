@@ -229,7 +229,9 @@
         "distance" : 3.0,
         "innerAngle" : 0.0,
         "outerAngle" : 0.7,
-        "shadowCaster" : false,
+    "shadowIntensity" : {
+      "value" : 1.0
+    },
         "activation" : {
           "value" : 0.0
         }
@@ -1047,7 +1049,9 @@
       "distance" : 12.0,
       "innerAngle" : 0.2,
       "outerAngle" : 0.5,
-      "shadowCaster" : true,
+    "shadowIntensity" : {
+      "value" : 1.0
+    },
       "activation" : {
         "value" : 1.0
       }
@@ -1093,7 +1097,9 @@
       "distance" : 12.0,
       "innerAngle" : 0.2,
       "outerAngle" : 0.7,
-      "shadowCaster" : true,
+    "shadowIntensity" : {
+      "value" : 1.0
+    },
       "activation" : {
         "value" : 1.0
       }
