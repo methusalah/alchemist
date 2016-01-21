@@ -44,8 +44,6 @@ public class PencilToolPresenter extends WorldTool {
 	public PencilToolPresenter(WorldData world) {
 		super(world);
 		perlin = new PerlinNoise();
-		shapeProperty.setValue(Shape.DIAMOND);
-		modeProperty.setValue(Mode.NOISE);
 	}
 	
 	private List<Point2D> getInCircle() {

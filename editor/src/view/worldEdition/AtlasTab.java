@@ -14,7 +14,6 @@ import view.controls.custom.IconToggleButton;
 
 public class AtlasTab extends Tab implements ToolEditor {
 	private final AtlasToolPresenter tool;
-	private final ToggleGroup group = new ToggleGroup();
 
 	public AtlasTab(AtlasToolPresenter tool) {
 		this.tool = tool;
@@ -33,14 +32,13 @@ public class AtlasTab extends Tab implements ToolEditor {
 	private ToggleButton getAddDeleteButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/rise_low_icon.png", "Rise/Low");
 		res.selectedProperty().bindBidirectional(tool.getOperationProperty().getToggle(Operation.ADD_DELETE));
-		res.setToggleGroup(group);
+		res.setSelected(true);
 		return res;
 	}
 
 	private ToggleButton getPropagateSmoothButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/noise_smooth_icon.png", "Propagate/Smooth");
 		res.selectedProperty().bindBidirectional(tool.getOperationProperty().getToggle(Operation.PROPAGATE_SMOOTH));
-		res.setToggleGroup(group);
 		return res;
 	}
 	

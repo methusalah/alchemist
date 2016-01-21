@@ -26,7 +26,6 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 
 	public AtlasToolPresenter(WorldData world) {
 		super(world);
-		operationProperty.setValue(Operation.ADD_DELETE);
 	}
 
 	@Override

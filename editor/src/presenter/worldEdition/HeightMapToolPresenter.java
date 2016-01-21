@@ -28,7 +28,6 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 
 	public HeightMapToolPresenter(WorldData world) {
 		super(world);
-		operationProperty.setValue(Operation.RAISE_LOW);
 	}
 
 	public void doPrimary(){

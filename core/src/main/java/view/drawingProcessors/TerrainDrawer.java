@@ -18,6 +18,7 @@ import util.geometry.geom2d.Point2D;
 import view.SpatialPool;
 import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
+import view.material.MaterialManager;
 import view.math.TranslateUtil;
 
 public class TerrainDrawer {
@@ -92,14 +93,14 @@ public class TerrainDrawer {
 			
 			//AppFacade.getApp().getStateManager().getState(BulletAppState.class).getPhysicsSpace().add(g);
 
-			Geometry g2 = new Geometry("Cover parcel "+parcel.getIndex());
-			g2.setMesh(jmeMesh);
-			g2.setMaterial(coverTexture.getMaterial());
-			g2.setQueueBucket(Bucket.Transparent);
-//			g2.setLocalTranslation(TranslateUtil.toVector3f(coord));
-			g2.setLocalTranslation(0, 0, 0.01f);
-			SpatialPool.coverParcels.put(parcel, g2);
-//			castAndReceiveNode.attachChild(g2);
+//			Geometry g2 = new Geometry("Cover parcel "+parcel.getIndex());
+//			g2.setMesh(jmeMesh);
+//			g2.setMaterial(coverTexture.getMaterial());
+//			g2.setQueueBucket(Bucket.Transparent);
+////			g2.setLocalTranslation(TranslateUtil.toVector3f(coord));
+//			g2.setLocalTranslation(0, 0, 0.01f);
+//			SpatialPool.coverParcels.put(parcel, g2);
+////			castAndReceiveNode.attachChild(g2);
 		}
 	}
 

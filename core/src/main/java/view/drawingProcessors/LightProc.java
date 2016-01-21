@@ -27,7 +27,6 @@ import view.SpatialPool;
 import view.math.TranslateUtil;
 
 public class LightProc extends Processor {
-	int SHADOWMAP_SIZE = 4096;
 
 	@Override
 	protected void registerSets() {
@@ -65,16 +64,11 @@ public class LightProc extends Processor {
 			AppFacade.getMainSceneNode().addLight(light);
 
 			if(l.shadowIntensity.getValue() > 0){
-				DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(AppFacade.getAssetManager(), SHADOWMAP_SIZE, 1);
-				sf.setEnabled(true);
-				sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
-				sf.setShadowZExtend(SHADOWMAP_SIZE);
-				sf.setLight(light);
-				List<Filter> save = new ArrayList<>(AppFacade.getFilterPostProcessor().getFilterList());
-				save.add(1, sf);
-				AppFacade.getFilterPostProcessor().cleanup();
-				for(Filter f : save)
-					AppFacade.getFilterPostProcessor().addFilter(f);
+				DirectionalLightShadowFilter sf = getShadowFilter();
+				if(sf != null){
+					sf.setEnabled(true);
+					sf.setLight(light);
+				}
 			}
 		}
 		DirectionalLight light = (DirectionalLight)SpatialPool.lights.get(e.getId());
@@ -83,15 +77,17 @@ public class LightProc extends Processor {
 		light.setDirection(TranslateUtil.toVector3f(direction));
 
 		if(l.shadowIntensity.getValue() > 0){
-			for(Filter f : AppFacade.getFilterPostProcessor().getFilterList())
-				if(f instanceof DirectionalLightShadowFilter){
-					DirectionalLightShadowFilter sf = (DirectionalLightShadowFilter)f;
-					if(sf.getLight() == light)
-						sf.setShadowIntensity((float)l.getShadowIntensity().getValue());
-				}
+			DirectionalLightShadowFilter sf = getShadowFilter();
+			if(sf != null && sf.getLight() == light)
+				sf.setShadowIntensity((float)l.getShadowIntensity().getValue());
 		}
-		
-
+	}
+	
+	private DirectionalLightShadowFilter getShadowFilter(){
+		for(Filter f : AppFacade.getFilterPostProcessor().getFilterList())
+			if(f instanceof DirectionalLightShadowFilter)
+				return (DirectionalLightShadowFilter)f;
+		return null;
 	}
 	
 	private void managePoint(Entity e, Lighting l, Point3D position, Point3D direction){

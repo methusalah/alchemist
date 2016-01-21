@@ -16,8 +16,6 @@ import view.controls.custom.IconToggleButton;
 
 public class PencilEditor extends BorderPane {
 	private final PencilToolPresenter tool;
-	private final ToggleGroup shapeGroup = new ToggleGroup();
-	private final ToggleGroup modeGroup = new ToggleGroup();
 	
 	public PencilEditor(PencilToolPresenter tool) {
 		this.tool = tool;
@@ -35,38 +33,34 @@ public class PencilEditor extends BorderPane {
 	private ToggleButton getCircleButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/circle_icon.png", "Circle");
 		res.selectedProperty().bindBidirectional(tool.getShapeProperty().getToggle(Shape.CIRCLE));
-		res.setToggleGroup(shapeGroup);
+		res.setSelected(true);
 		return res;
 	}
 	private ToggleButton getSquareButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/square_icon.png", "Square");
 		res.selectedProperty().bindBidirectional(tool.getShapeProperty().getToggle(Shape.SQUARE));
-		res.setToggleGroup(shapeGroup);
 		return res;
 	}
 	private ToggleButton getDiamondButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/diamond_icon.png", "Diamond");
 		res.selectedProperty().bindBidirectional(tool.getShapeProperty().getToggle(Shape.DIAMOND));
-		res.setToggleGroup(shapeGroup);
 		return res;
 	}
 	
 	private ToggleButton getAirbrushButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/airbrush_icon.png", "Airbrush");
 		res.selectedProperty().bindBidirectional(tool.getModeProperty().getToggle(Mode.AIRBRUSH));
-		res.setToggleGroup(modeGroup);
+		res.setSelected(true);
 		return res;
 	}
 	private ToggleButton getRoughButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/rough_icon.png", "Rough");
 		res.selectedProperty().bindBidirectional(tool.getModeProperty().getToggle(Mode.ROUGH));
-		res.setToggleGroup(modeGroup);
 		return res;
 	}
 	private ToggleButton getNoiseButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/noise_icon.png", "Noise");
 		res.selectedProperty().bindBidirectional(tool.getModeProperty().getToggle(Mode.NOISE));
-		res.setToggleGroup(modeGroup);
 		return res;
 	}
 	

@@ -14,7 +14,6 @@ import view.controls.custom.IconToggleButton;
 
 public class HeighmapTab extends Tab implements ToolEditor {
 	private final HeightMapToolPresenter tool;
-	private final ToggleGroup group = new ToggleGroup();
 
 	public HeighmapTab(HeightMapToolPresenter tool) {
 		
@@ -34,21 +33,19 @@ public class HeighmapTab extends Tab implements ToolEditor {
 	private ToggleButton getRiseLowButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/rise_low_icon.png", "Rise/Low");
 		res.selectedProperty().bindBidirectional(tool.getOperationProperty().getToggle(Operation.RAISE_LOW));
-		res.setToggleGroup(group);
+		res.setSelected(true);
 		return res;
 	}
 
 	private ToggleButton getNoiseSmoothButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/noise_smooth_icon.png", "Noise/Smooth");
 		res.selectedProperty().bindBidirectional(tool.getOperationProperty().getToggle(Operation.NOISE_SMOOTH));
-		res.setToggleGroup(group);
 		return res;
 	}
 
 	private ToggleButton getUniformResetButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/uniform_reset_icon.png", "Uniform/Reset");
 		res.selectedProperty().bindBidirectional(tool.getOperationProperty().getToggle(Operation.UNIFORM_RESET));
-		res.setToggleGroup(group);
 		return res;
 	}
 

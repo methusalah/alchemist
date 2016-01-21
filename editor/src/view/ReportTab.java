@@ -3,8 +3,11 @@ package view;
 
 import java.text.DecimalFormat;
 
+import com.jme3.post.Filter;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 
+import app.AppFacade;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TitledPane;
@@ -33,6 +36,13 @@ public class ReportTab extends Tab {
 				sb.append("Rotation    : " + s.getWorldRotation() + System.lineSeparator());
 				sb.append("Scale       : " + s.getWorldScale() + System.lineSeparator());
 				sb.append("Shadow mode : " + s.getShadowMode() + System.lineSeparator());
+				if(s instanceof Geometry){
+					Geometry g = (Geometry)s;
+					sb.append(" (geometry) mesh faces : " + g.getMesh().getTriangleCount() + System.lineSeparator());
+				}
+				sb.append("FilterPostProcessor : "+ System.lineSeparator());
+				for(Filter f : AppFacade.getFilterPostProcessor().getFilterList())
+					sb.append("    " + f + System.lineSeparator());
 				
 				l.setText(sb.toString());
 			}

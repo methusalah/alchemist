@@ -5,6 +5,8 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
 import com.jme3.post.filters.FXAAFilter;
+import com.jme3.shadow.DirectionalLightShadowFilter;
+import com.jme3.shadow.EdgeFilteringMode;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
@@ -25,6 +27,8 @@ import util.geometry.geom2d.Point2D;
 import view.controls.jmeScene.JmeImageView;
 
 public class ScenePresenter {
+	private static final int SHADOWMAP_SIZE = 4096;
+
 	private final TopDownCamInputListener camera;
 	
 	public ScenePresenter() {
@@ -61,9 +65,19 @@ public class ScenePresenter {
 		es.initCommand(false);
 		es.initLogic(false);
 
-		AppFacade.getFilterPostProcessor().addFilter(new BloomFilter(BloomFilter.GlowMode.Objects));
+		// adding filters
+		DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(AppFacade.getAssetManager(), SHADOWMAP_SIZE, 1);
+		sf.setEnabled(false);
+		sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
+		sf.setShadowZExtend(SHADOWMAP_SIZE);
+		AppFacade.getFilterPostProcessor().addFilter(sf);
+
+		BloomFilter bf = new BloomFilter(BloomFilter.GlowMode.Objects);
+		//bf.setEnabled(false);
+		AppFacade.getFilterPostProcessor().addFilter(bf);
 		
 		FXAAFilter fxaa = new FXAAFilter();
+		fxaa.setEnabled(false);
 		fxaa.setReduceMul(0.9f);
 		fxaa.setSpanMax(5f);
 		fxaa.setSubPixelShift(0f);
