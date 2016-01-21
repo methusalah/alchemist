@@ -1,6 +1,7 @@
 package view.worldEdition;
 
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.ToggleButton;
@@ -21,6 +22,7 @@ public class AtlasTab extends Tab implements ToolEditor {
 		setClosable(false);
 		VBox content = new VBox();
 		content.getChildren().add(getOperationPane());
+		content.getChildren().add(getTexturePane());
 		content.getChildren().add(new PencilEditor(tool));
 		content.getChildren().add(getTextureList());
 		setContent(content);
@@ -57,6 +59,13 @@ public class AtlasTab extends Tab implements ToolEditor {
 		res.setCellFactory(TextFieldListCell.forListView());		
 		res.setOnEditCommit(e -> res.getItems().set(e.getIndex(), e.getNewValue()));
 		res.setOnEditCancel(e -> System.out.println("setOnEditCancel"));
+		return res;
+	}
+	
+	private Node getTexturePane(){
+		VBox res = new VBox();
+		res.getChildren().add(new Label("Textures"));
+		
 		return res;
 	}
 

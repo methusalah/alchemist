@@ -3,20 +3,14 @@
  */
 package view.jme;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import util.LogUtil;
-import model.ES.component.world.TerrainTexturing;
-import model.world.terrain.atlas.Atlas;
-import app.AppFacade;
-
-import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
-import com.jme3.material.RenderState.BlendMode;
 import com.jme3.texture.Image;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
+
+import app.AppFacade;
+import model.ES.component.world.TerrainTexturing;
+import model.world.terrain.atlas.Atlas;
 
 /**
  * @author Benoît
@@ -25,9 +19,6 @@ public class TerrainSplatTexture extends Material {
 
 	private final Atlas atlas;
 	private final TerrainTexturing texturing;
-	private List<Texture> diffuseMaps = new ArrayList<>();
-	private List<Texture> normaMaps = new ArrayList<>();
-	private List<Double> scales = new ArrayList<>();
 
 	public boolean transp = false;
 	
@@ -45,9 +36,6 @@ public class TerrainSplatTexture extends Material {
 	}
 	
 	public void updateTextures(){
-		diffuseMaps.clear();
-		normaMaps.clear();
-		scales.clear();
 		int index = 0;
 		for (String s : texturing.getDiffuses()) {
 			Texture diffuse = AppFacade.getAssetManager().loadTexture(s);
@@ -55,16 +43,15 @@ public class TerrainSplatTexture extends Material {
 			diffuse.setAnisotropicFilter(8);
 			setTexture(index == 0? "DiffuseMap" : "DiffuseMap_" + index, diffuse);
 
+			double scale = texturing.getScales().get(index);
+			setFloat("DiffuseMap_" + index + "_scale", (float)scale);
+
 			if(texturing.getNormals().get(index) != null){ 
 				Texture normal = AppFacade.getAssetManager().loadTexture(texturing.getNormals().get(index));
 				normal.setAnisotropicFilter(8);
 				normal.setWrap(Texture.WrapMode.Repeat);
 				setTexture(index == 0? "NormalMap" : "NormalMap_" + index, normal);
 			}
-
-			double scale = texturing.getScales().get(index);
-			setFloat("DiffuseMap_" + index + "_scale", (float)scale);
-
 			index++;
 		}
 	}

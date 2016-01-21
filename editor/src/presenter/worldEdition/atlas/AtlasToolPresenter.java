@@ -43,8 +43,6 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 		textures.addListener((ListChangeListener.Change<? extends String> c) -> {
 			actualTexturingProperty.getValue().getDiffuses().clear();
 			actualTexturingProperty.getValue().getDiffuses().addAll(textures.getValue());
-			LogUtil.info("textures : " + actualTexturingProperty.getValue().getDiffuses());
-			EditorPlatform.getWorldData().getTerrainDrawer(actualRegion).updateTexturing();
 		});
 	}
 
