@@ -36,8 +36,8 @@ public class TerrainDrawer {
 		mainNode = new Node("Terrain chunk at "+coord);
 		this.terrain = terrain;
 		this.coord = coord;
-		groundTexture = new TerrainSplatTexture(terrain.getAtlas());
-		coverTexture = new TerrainSplatTexture(terrain.getCover());
+		groundTexture = new TerrainSplatTexture(terrain.getAtlas(), terrain.getTexturing());
+		coverTexture = new TerrainSplatTexture(terrain.getCover(), terrain.getTexturing());
 		coverTexture.transp = true;
 		
 		castAndReceiveNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
@@ -50,40 +50,12 @@ public class TerrainDrawer {
 		if(rendered)
 			return;
 		rendered = true;
-		int index = 0;
-		for (String s : terrain.getTexturing().getDiffuses()) {
-			Texture diffuse = AppFacade.getAssetManager().loadTexture(s);
-			Texture normal = null;
-			if (terrain.getTexturing().getNormals().get(index) != null) {
-				normal = AppFacade.getAssetManager().loadTexture(terrain.getTexturing().getNormals().get(index));
-			}
-			double scale = terrain.getTexturing().getScales().get(index);
-
-			groundTexture.addTexture(diffuse, normal, scale);
-			index++;
-		}
-		groundTexture.buildMaterial();
-
-		index = 0;
-		for (String s : terrain.getTexturing().getCoverDiffuses()) {
-			Texture diffuse = AppFacade.getAssetManager().loadTexture(s);
-			Texture normal = null;
-			if (terrain.getTexturing().getCoverNormals().get(index) != null) {
-				normal = AppFacade.getAssetManager().loadTexture(terrain.getTexturing().getCoverNormals().get(index));
-			}
-			double scale = terrain.getTexturing().getCoverScales().get(index);
-
-			coverTexture.addTexture(diffuse, normal, scale);
-			index++;
-		}
-		coverTexture.buildMaterial();
-
 		for (Parcel parcel : terrain.getParcelling().getAll()) {
 			Geometry g = new Geometry("Parcel "+parcel.getIndex());
 			Mesh jmeMesh = TranslateUtil.toJMEMesh(parcel.getMesh());
 			//SilentTangentBinormalGenerator.generate(jmeMesh);
 			g.setMesh(jmeMesh);
-			g.setMaterial(groundTexture.getMaterial());
+			g.setMaterial(groundTexture);
 //			g.setLocalTranslation(new Vector3f(5, 0, 0));
 //			g.setQueueBucket(Bucket.Transparent);
 
@@ -120,7 +92,12 @@ public class TerrainDrawer {
 	}
 
 	public void updateAtlas() {
-		groundTexture.getMaterial();
-		coverTexture.getMaterial();
+		groundTexture.updateAlpha();
+		//coverTexture.updateAlpha();
+	}
+
+	public void updateTexturing() {
+		groundTexture.updateTextures();
+		//coverTexture.updateTextures();
 	}
 }

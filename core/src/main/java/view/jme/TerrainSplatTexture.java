@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.LogUtil;
+import model.ES.component.world.TerrainTexturing;
 import model.world.terrain.atlas.Atlas;
 import app.AppFacade;
 
@@ -20,76 +21,51 @@ import com.jme3.texture.Texture2D;
 /**
  * @author Benoît
  */
-public class TerrainSplatTexture {
+public class TerrainSplatTexture extends Material {
 
-	private Atlas atlas;
+	private final Atlas atlas;
+	private final TerrainTexturing texturing;
 	private List<Texture> diffuseMaps = new ArrayList<>();
 	private List<Texture> normaMaps = new ArrayList<>();
 	private List<Double> scales = new ArrayList<>();
 
-	Material mat;
-	
 	public boolean transp = false;
 	
-	public TerrainSplatTexture(Atlas atlas) {
+	public TerrainSplatTexture(Atlas atlas, TerrainTexturing texturing) {
+		super(AppFacade.getAssetManager(), "matdefs/MyTerrainLighting.j3md");
 		this.atlas = atlas;
+		this.texturing = texturing;
+		updateTextures();
+		updateAlpha();
 	}
-
-	public void addTexture(Texture diffuse, Texture normal, double scale) {
-		diffuse.setAnisotropicFilter(8);
-		diffuse.setWrap(Texture.WrapMode.Repeat);
-		diffuseMaps.add(diffuse);
-
-		if (normal != null) {
-			normal.setAnisotropicFilter(8);
-			normal.setWrap(Texture.WrapMode.Repeat);
-		}
-		normaMaps.add(normal);
-
-		scales.add(scale);
+	
+	public void updateAlpha(){
+		setTexture("AlphaMap", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(0))));
+		setTexture("AlphaMap_1", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1))));
 	}
+	
+	public void updateTextures(){
+		diffuseMaps.clear();
+		normaMaps.clear();
+		scales.clear();
+		int index = 0;
+		for (String s : texturing.getDiffuses()) {
+			Texture diffuse = AppFacade.getAssetManager().loadTexture(s);
+			diffuse.setWrap(Texture.WrapMode.Repeat);
+			diffuse.setAnisotropicFilter(8);
+			setTexture(index == 0? "DiffuseMap" : "DiffuseMap_" + index, diffuse);
 
-	public void buildMaterial() {
-		mat = new Material(AppFacade.getAssetManager(), "matdefs/MyTerrainLighting.j3md");
-
-		Texture2D alpha0 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(0)));
-		mat.setTexture("AlphaMap", alpha0);
-//		mat.setTexture("AlphaMap", am.loadTexture("textures/alphatest.png"));
-
-		Texture2D alpha1 = new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1)));
-		mat.setTexture("AlphaMap_1", alpha1);
-		
-		if(transp){
-			mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
-//			mat.setFloat("AlphaDiscardThreshold", 0.5f);
-		}
-
-		for (int i = 0; i < 12; i++) {
-			if (diffuseMaps.size() > i) {
-				if (i == 0) {
-					mat.setTexture("DiffuseMap", diffuseMaps.get(i));
-				} else {
-					mat.setTexture("DiffuseMap_" + i, diffuseMaps.get(i));
-				}
-
-				mat.setFloat("DiffuseMap_" + i + "_scale", scales.get(i).floatValue());
-				if (normaMaps.get(i) != null) {
-					if (i == 0) {
-						mat.setTexture("NormalMap", normaMaps.get(i));
-					} else {
-						mat.setTexture("NormalMap_" + i, normaMaps.get(i));
-					}
-				}
+			if(texturing.getNormals().get(index) != null){ 
+				Texture normal = AppFacade.getAssetManager().loadTexture(texturing.getNormals().get(index));
+				normal.setAnisotropicFilter(8);
+				normal.setWrap(Texture.WrapMode.Repeat);
+				setTexture(index == 0? "NormalMap" : "NormalMap_" + index, normal);
 			}
-		}
-	}
 
-	public Material getMaterial() {
-		if (atlas.isToUpdate()) {
-			mat.setTexture("AlphaMap", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(0))));
-			mat.setTexture("AlphaMap_1", new Texture2D(new Image(Image.Format.RGBA8, atlas.getWidth(), atlas.getHeight(), atlas.getBuffer(1))));
-			atlas.setToUpdate(false);
+			double scale = texturing.getScales().get(index);
+			setFloat("DiffuseMap_" + index + "_scale", (float)scale);
+
+			index++;
 		}
-		return mat;
 	}
 }

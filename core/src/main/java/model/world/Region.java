@@ -97,4 +97,5 @@ public class Region {
 	public void setTerrainColliders(List<EntityId> terrainColliders) {
 		this.terrainColliders = terrainColliders;
 	}
+	
 }

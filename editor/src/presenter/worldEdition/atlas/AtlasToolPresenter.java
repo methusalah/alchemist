@@ -4,13 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import model.ES.component.world.TerrainTexturing;
 import model.world.Region;
 import model.world.WorldData;
 import model.world.terrain.atlas.Atlas;
 import model.world.terrain.atlas.AtlasLayer;
+import presenter.EditorPlatform;
 import presenter.util.ToggledEnumProperty;
 import presenter.worldEdition.PencilToolPresenter;
 import presenter.worldEdition.PencilToolPresenter.Shape;
@@ -22,10 +28,24 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 		ADD_DELETE, PROPAGATE_SMOOTH
 	}
 
+	private final ListProperty<String> textures = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private final ObjectProperty<TerrainTexturing> actualTexturingProperty = new SimpleObjectProperty<>();
 	private final ToggledEnumProperty<Operation> operationProperty = new ToggledEnumProperty<>(Operation.class);
 
+	private Region actualRegion;
 	public AtlasToolPresenter(WorldData world) {
 		super(world);
+		actualTexturingProperty.addListener((observable, oldValue, newValue) -> {
+			if(newValue != null && oldValue != newValue)
+				textures.set(FXCollections.observableArrayList(newValue.getDiffuses()));
+		});
+
+		textures.addListener((ListChangeListener.Change<? extends String> c) -> {
+			actualTexturingProperty.getValue().getDiffuses().clear();
+			actualTexturingProperty.getValue().getDiffuses().addAll(textures.getValue());
+			LogUtil.info("textures : " + actualTexturingProperty.getValue().getDiffuses());
+			EditorPlatform.getWorldData().getTerrainDrawer(actualRegion).updateTexturing();
+		});
 	}
 
 	@Override
@@ -34,6 +54,8 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 			case ADD_DELETE: increment(); break;
 			case PROPAGATE_SMOOTH: propagate(); break;
 		}
+		actualRegion = EditorPlatform.getWorldData().getRegions(coord).get(0);
+		actualTexturingProperty.setValue(actualRegion.getTerrain().getTexturing());
 	}
 
 	@Override
@@ -103,6 +125,10 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 
 	public ToggledEnumProperty<Operation> getOperationProperty() {
 		return operationProperty;
+	}
+
+	public ListProperty<String> getTextures() {
+		return textures;
 	}
 
 }
