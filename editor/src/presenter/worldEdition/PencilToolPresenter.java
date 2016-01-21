@@ -1,4 +1,4 @@
-package model.world;
+package presenter.worldEdition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,9 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import model.world.HeightMapToolPresenter.Operation;
+import model.world.WorldData;
+import presenter.util.ToggledEnumProperty;
+import presenter.worldEdition.HeightMapToolPresenter.Operation;
 import util.geometry.collections.PointRing;
 import util.geometry.geom2d.BoundingCircle;
 import util.geometry.geom2d.Point2D;
@@ -33,15 +35,8 @@ public class PencilToolPresenter extends WorldTool {
 
 	private final PerlinNoise perlin;
 
-	protected final ObjectProperty<Shape> shapeProperty = new SimpleObjectProperty<>(Shape.SQUARE);
-	private final BooleanProperty squareProperty = new SimpleBooleanProperty();
-	private final BooleanProperty diamondProperty = new SimpleBooleanProperty();
-	private final BooleanProperty circleProperty = new SimpleBooleanProperty();
-
-	protected final ObjectProperty<Mode> modeProperty = new SimpleObjectProperty<>(Mode.ROUGH);
-	private final BooleanProperty roughProperty = new SimpleBooleanProperty();
-	private final BooleanProperty airbrushProperty = new SimpleBooleanProperty();
-	private final BooleanProperty noiseProperty = new SimpleBooleanProperty();
+	private final ToggledEnumProperty<Shape> shapeProperty = new ToggledEnumProperty<>(Shape.class);
+	private final ToggledEnumProperty<Mode> modeProperty = new ToggledEnumProperty<>(Mode.class);
 	
 	private final IntegerProperty sizeProperty = new SimpleIntegerProperty(4);
 	private final DoubleProperty strengthProperty = new SimpleDoubleProperty(0.1);
@@ -49,34 +44,8 @@ public class PencilToolPresenter extends WorldTool {
 	public PencilToolPresenter(WorldData world) {
 		super(world);
 		perlin = new PerlinNoise();
-		squareProperty.addListener((observable, oldValue, newValue) -> {
-			if(newValue)
-				shapeProperty.setValue(Shape.SQUARE);
-		});
-		diamondProperty.addListener((observable, oldValue, newValue) -> {
-			if(newValue)
-				shapeProperty.setValue(Shape.DIAMOND);
-		});
-		circleProperty.addListener((observable, oldValue, newValue) -> {
-			if(newValue)
-				shapeProperty.setValue(Shape.CIRCLE);
-		});
-		circleProperty.setValue(true);
-
-		
-		roughProperty.addListener((observable, oldValue, newValue) -> {
-			if(newValue)
-				modeProperty.setValue(Mode.ROUGH);
-		});
-		airbrushProperty.addListener((observable, oldValue, newValue) -> {
-			if(newValue)
-				modeProperty.setValue(Mode.AIRBRUSH);
-		});
-		noiseProperty.addListener((observable, oldValue, newValue) -> {
-			if(newValue)
-				modeProperty.setValue(Mode.NOISE);
-		});
-		airbrushProperty.setValue(true);
+		shapeProperty.setValue(Shape.DIAMOND);
+		modeProperty.setValue(Mode.NOISE);
 	}
 	
 	private List<Point2D> getInCircle() {
@@ -184,29 +153,11 @@ public class PencilToolPresenter extends WorldTool {
 		return perlin;
 	}
 
-	public BooleanProperty getSquareProperty() {
-		return squareProperty;
+	public ToggledEnumProperty<Shape> getShapeProperty() {
+		return shapeProperty;
 	}
 
-	public BooleanProperty getDiamondProperty() {
-		return diamondProperty;
+	public ToggledEnumProperty<Mode> getModeProperty() {
+		return modeProperty;
 	}
-
-	public BooleanProperty getCircleProperty() {
-		return circleProperty;
-	}
-
-	public BooleanProperty getRoughProperty() {
-		return roughProperty;
-	}
-
-	public BooleanProperty getAirbrushProperty() {
-		return airbrushProperty;
-	}
-
-	public BooleanProperty getNoiseProperty() {
-		return noiseProperty;
-	}
-	
-	
 }

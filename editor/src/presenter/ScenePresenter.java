@@ -9,7 +9,6 @@ import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
 import app.AppFacade;
-import controller.SpatialSelector;
 import controller.ECS.DataState;
 import controller.ECS.EntitySystem;
 import controller.ECS.SceneSelectorState;
@@ -19,7 +18,6 @@ import model.ES.serial.Blueprint;
 import model.state.DraggableCameraState;
 import model.state.InstrumentUpdateState;
 import model.state.WorldLocaliserState;
-import model.state.WorldToolState;
 import model.world.WorldData;
 import presenter.common.SceneInputManager;
 import presenter.common.TopDownCamInputListener;
@@ -54,7 +52,6 @@ public class ScenePresenter {
 		stateManager.attach(cam);
 
 		stateManager.attach(new SceneSelectorState());
-		stateManager.attach(new WorldToolState());
 		stateManager.attach(new WorldLocaliserState());
 		
 		EntitySystem es = new EntitySystem(ed, world, command);

@@ -2,23 +2,15 @@ package presenter.common;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
-import com.jme3x.jfx.injfx.JmeForImageView;
-import com.simsilica.es.EntityId;
 
 import controller.ECS.SceneSelectorState;
-import javafx.application.Platform;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import model.state.WorldToolState;
-import model.world.Tool;
 import presenter.EditorPlatform;
 import presenter.WorldEditorPresenter;
-import util.LogUtil;
 import util.geometry.geom2d.Point2D;
-import view.WorldEditorTab;
-import view.controls.jmeScene.JmeImageView;
 
 public class WorldEditorInputListener implements SceneInputListener {
 	private static enum ActionType {StartPrimary,
@@ -82,11 +74,11 @@ public class WorldEditorInputListener implements SceneInputListener {
 	
 	@Override
 	public void onMouseDragged(MouseEvent e) {
-		EditorPlatform.getScene().enqueue(app -> setSceneMouseCoord(app, new Point2D(e.getX(), e.getY())));
+		presenter.setNewMousePosition(new Point2D(e.getX(), e.getY()));
 		if(e.getButton() == MouseButton.PRIMARY)
-			presenter.doPrimaryActionAt(new Point2D(e.getX(), e.getY()));
+			presenter.doPrimaryAction();
 		else if(e.getButton() == MouseButton.SECONDARY)
-			presenter.doSecondaryActionAt(new Point2D(e.getX(), e.getY()));
+			presenter.doSecondaryAction();
 	}
 
 	static private boolean setSceneMouseCoord(SimpleApplication app, Point2D coord) {

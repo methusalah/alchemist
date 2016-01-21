@@ -1,4 +1,4 @@
-package model.world;
+package presenter.worldEdition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +7,12 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import model.world.atlas.AtlasTool.Operation;
+import model.world.Region;
+import model.world.WorldData;
 import model.world.terrain.heightmap.HeightMapNode;
 import presenter.EditorPlatform;
+import presenter.util.ToggledEnumProperty;
+import presenter.worldEdition.atlas.AtlasToolPresenter.Operation;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.math.RandomUtil;
@@ -19,28 +22,13 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 		RAISE_LOW, NOISE_SMOOTH, UNIFORM_RESET
 	}
 	
-	private final ObjectProperty<Operation> operationProperty = new SimpleObjectProperty<>(Operation.RAISE_LOW);
-	private final BooleanProperty raiseLowProperty = new SimpleBooleanProperty();
-	private final BooleanProperty noiseSmoothProperty = new SimpleBooleanProperty();
-	private final BooleanProperty uniformResetProperty = new SimpleBooleanProperty();
+	private final ToggledEnumProperty<Operation> operationProperty = new ToggledEnumProperty<>(Operation.class);
 
 	private double elevation = Double.NaN;
 
 	public HeightMapToolPresenter(WorldData world) {
 		super(world);
-		raiseLowProperty.addListener((observable, oldValue, newValue) -> {
-			if(newValue)
-				operationProperty.setValue(Operation.RAISE_LOW);
-		});
-		noiseSmoothProperty.addListener((observable, oldValue, newValue) -> {
-			if(newValue)
-				operationProperty.setValue(Operation.NOISE_SMOOTH);
-		});
-		uniformResetProperty.addListener((observable, oldValue, newValue) -> {
-			if(newValue)
-				operationProperty.setValue(Operation.UNIFORM_RESET);
-		});
-		raiseLowProperty.setValue(true);
+		operationProperty.setValue(Operation.RAISE_LOW);
 	}
 
 	public void doPrimary(){
@@ -175,15 +163,9 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 		}
 	}
 
-	public BooleanProperty getRaiseLowProperty() {
-		return raiseLowProperty;
+	public ToggledEnumProperty<Operation> getOperationProperty() {
+		return operationProperty;
 	}
 
-	public BooleanProperty getNoiseSmoothProperty() {
-		return noiseSmoothProperty;
-	}
-
-	public BooleanProperty getUniformResetProperty() {
-		return uniformResetProperty;
-	}
+	
 }

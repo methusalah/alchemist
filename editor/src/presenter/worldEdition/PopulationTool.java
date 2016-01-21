@@ -1,4 +1,4 @@
-package model.world;
+package presenter.worldEdition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ import model.ES.component.motion.PlanarStance;
 import model.ES.serial.Blueprint;
 import model.ES.serial.EntityInstance;
 import model.world.RegionManager;
+import model.world.WorldData;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;

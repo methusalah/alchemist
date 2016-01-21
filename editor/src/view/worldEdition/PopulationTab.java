@@ -1,4 +1,4 @@
-package view.controls.toolEditor;
+package view.worldEdition;
 
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -11,8 +11,8 @@ import javafx.scene.control.Tab;
 import javafx.util.Callback;
 import model.ES.serial.Blueprint;
 import model.ES.serial.BlueprintLibrary;
-import model.world.PopulationTool;
-import model.world.Tool;
+import presenter.worldEdition.PopulationTool;
+import presenter.worldEdition.Tool;
 
 public class PopulationTab extends Tab implements ToolEditor {
 	private final ListProperty<Blueprint> blueprintList;

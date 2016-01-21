@@ -1,7 +1,7 @@
-package view.controls.toolEditor;
+package view.worldEdition;
 
-import model.world.Tool;
 import javafx.scene.control.Tab;
+import presenter.worldEdition.Tool;
 
 public class TrinketTab extends Tab implements ToolEditor {
 

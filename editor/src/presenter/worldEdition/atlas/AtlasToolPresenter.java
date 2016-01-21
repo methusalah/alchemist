@@ -1,4 +1,4 @@
-package model.world.atlas;
+package presenter.worldEdition.atlas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,34 +7,26 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import model.world.PencilToolPresenter;
 import model.world.Region;
 import model.world.WorldData;
-import model.world.HeightMapToolPresenter.Operation;
 import model.world.terrain.atlas.Atlas;
 import model.world.terrain.atlas.AtlasLayer;
+import presenter.util.ToggledEnumProperty;
+import presenter.worldEdition.PencilToolPresenter;
+import presenter.worldEdition.PencilToolPresenter.Shape;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
-public class AtlasTool extends PencilToolPresenter {
+public class AtlasToolPresenter extends PencilToolPresenter {
 	public enum Operation {
 		ADD_DELETE, PROPAGATE_SMOOTH
 	}
 
-	private final ObjectProperty<Operation> operationProperty = new SimpleObjectProperty<>();
-	private final BooleanProperty addDeleteProperty = new SimpleBooleanProperty();
-	private final BooleanProperty propagateSmoothProperty = new SimpleBooleanProperty();
+	private final ToggledEnumProperty<Operation> operationProperty = new ToggledEnumProperty<>(Operation.class);
 
-	public AtlasTool(WorldData world) {
+	public AtlasToolPresenter(WorldData world) {
 		super(world);
-		addDeleteProperty.addListener((observable, oldValue, newValue) -> {
-			if(newValue)
-				operationProperty.setValue(Operation.ADD_DELETE);
-		});
-		propagateSmoothProperty.addListener((observable, oldValue, newValue) -> {
-			if(newValue)
-				operationProperty.setValue(Operation.PROPAGATE_SMOOTH);
-		});
-		addDeleteProperty.setValue(true);
+		operationProperty.setValue(Operation.ADD_DELETE);
 	}
 
 	@Override
@@ -98,7 +90,7 @@ public class AtlasTool extends PencilToolPresenter {
 	}
 	
 	public List<Pixel> getInvolvedPixels() {
-		switch (shapeProperty.getValue()) {
+		switch (getShapeProperty().getValue()) {
 			case CIRCLE:
 				return AtlasExplorer.getPixelsInCircle(coord, getSizeProperty().getValue() / 2);
 			case DIAMOND:
@@ -110,11 +102,8 @@ public class AtlasTool extends PencilToolPresenter {
 		}
 	}
 
-	public BooleanProperty getAddDeleteProperty() {
-		return addDeleteProperty;
+	public ToggledEnumProperty<Operation> getOperationProperty() {
+		return operationProperty;
 	}
 
-	public BooleanProperty getPropagateSmoothProperty() {
-		return propagateSmoothProperty;
-	}
 }

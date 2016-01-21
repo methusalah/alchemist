@@ -1,6 +1,6 @@
-package view.controls.toolEditor;
+package view.worldEdition;
 
-import model.world.Tool;
+import presenter.worldEdition.Tool;
 
 public interface ToolEditor {
 

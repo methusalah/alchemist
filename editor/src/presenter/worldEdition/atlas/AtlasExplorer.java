@@ -1,4 +1,4 @@
-package model.world.atlas;
+package presenter.worldEdition.atlas;
 
 import java.util.ArrayList;
 import java.util.List;

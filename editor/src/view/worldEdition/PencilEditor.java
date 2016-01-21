@@ -1,4 +1,4 @@
-package view.controls.toolEditor;
+package view.worldEdition;
 
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
@@ -9,7 +9,9 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import model.world.PencilToolPresenter;
+import presenter.worldEdition.PencilToolPresenter;
+import presenter.worldEdition.PencilToolPresenter.Mode;
+import presenter.worldEdition.PencilToolPresenter.Shape;
 import view.controls.custom.IconToggleButton;
 
 public class PencilEditor extends BorderPane {
@@ -32,38 +34,38 @@ public class PencilEditor extends BorderPane {
 	}
 	private ToggleButton getCircleButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/circle_icon.png", "Circle");
-		res.selectedProperty().bindBidirectional(tool.getCircleProperty());
+		res.selectedProperty().bindBidirectional(tool.getShapeProperty().getToggle(Shape.CIRCLE));
 		res.setToggleGroup(shapeGroup);
 		return res;
 	}
 	private ToggleButton getSquareButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/square_icon.png", "Square");
-		res.selectedProperty().bindBidirectional(tool.getSquareProperty());
+		res.selectedProperty().bindBidirectional(tool.getShapeProperty().getToggle(Shape.SQUARE));
 		res.setToggleGroup(shapeGroup);
 		return res;
 	}
 	private ToggleButton getDiamondButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/diamond_icon.png", "Diamond");
-		res.selectedProperty().bindBidirectional(tool.getDiamondProperty());
+		res.selectedProperty().bindBidirectional(tool.getShapeProperty().getToggle(Shape.DIAMOND));
 		res.setToggleGroup(shapeGroup);
 		return res;
 	}
 	
 	private ToggleButton getAirbrushButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/airbrush_icon.png", "Airbrush");
-		res.selectedProperty().bindBidirectional(tool.getAirbrushProperty());
+		res.selectedProperty().bindBidirectional(tool.getModeProperty().getToggle(Mode.AIRBRUSH));
 		res.setToggleGroup(modeGroup);
 		return res;
 	}
 	private ToggleButton getRoughButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/rough_icon.png", "Rough");
-		res.selectedProperty().bindBidirectional(tool.getRoughProperty());
+		res.selectedProperty().bindBidirectional(tool.getModeProperty().getToggle(Mode.ROUGH));
 		res.setToggleGroup(modeGroup);
 		return res;
 	}
 	private ToggleButton getNoiseButton(){
 		IconToggleButton res = new IconToggleButton("assets/textures/editor/noise_icon.png", "Noise");
-		res.selectedProperty().bindBidirectional(tool.getNoiseProperty());
+		res.selectedProperty().bindBidirectional(tool.getModeProperty().getToggle(Mode.NOISE));
 		res.setToggleGroup(modeGroup);
 		return res;
 	}

@@ -7,11 +7,12 @@ import javafx.scene.layout.VBox;
 import presenter.EditorPlatform;
 import presenter.WorldEditorPresenter;
 import presenter.common.WorldEditorInputListener;
-import view.controls.toolEditor.AtlasTab;
-import view.controls.toolEditor.HeighmapTab;
-import view.controls.toolEditor.PopulationTab;
-import view.controls.toolEditor.ToolEditor;
-import view.controls.toolEditor.TrinketTab;
+import presenter.worldEdition.WorldTool;
+import view.worldEdition.AtlasTab;
+import view.worldEdition.HeighmapTab;
+import view.worldEdition.PopulationTab;
+import view.worldEdition.ToolEditor;
+import view.worldEdition.TrinketTab;
 
 public class WorldEditorTab extends Tab {
 	private final WorldEditorPresenter presenter;
@@ -39,14 +40,14 @@ public class WorldEditorTab extends Tab {
 		
 		tabpane.selectionModelProperty().getValue().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			ToolEditor editor = (ToolEditor)newValue;
-			presenter.selectTool(editor.getTool());
+			presenter.selectTool((WorldTool)(editor.getTool()));
 			setSceneInputListening(true);
 		});
 		
 		selectedProperty().addListener(e -> {
 			ToolEditor editor = ((ToolEditor)tabpane.selectionModelProperty().getValue().getSelectedItem());
 			if(isSelected())
-				presenter.selectTool(editor.getTool());
+				presenter.selectTool((WorldTool)(editor.getTool()));
 			setSceneInputListening(isSelected());
 		});					
 
@@ -57,7 +58,7 @@ public class WorldEditorTab extends Tab {
 	private void setSceneInputListening(boolean value){
 		if(value && !EditorPlatform.getSceneInputManager().hasListener(inputListener))
 			EditorPlatform.getSceneInputManager().addListener(inputListener);
-		else
+		else if(!value && EditorPlatform.getSceneInputManager().hasListener(inputListener))
 			EditorPlatform.getSceneInputManager().removeListener(inputListener);
 	}
 }

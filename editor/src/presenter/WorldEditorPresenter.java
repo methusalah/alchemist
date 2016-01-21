@@ -1,29 +1,28 @@
 package presenter;
 
-import com.jme3.app.SimpleApplication;
-import com.jme3.app.state.AppStateManager;
+import com.jme3.scene.Node;
 
-import model.state.WorldToolState;
-import model.world.HeightMapToolPresenter;
-import model.world.PopulationTool;
-import model.world.Tool;
-import model.world.atlas.AtlasTool;
-import presenter.common.WorldEditorInputListener;
-import util.event.EventManager;
+import app.AppFacade;
+import controller.SpatialSelector;
+import presenter.worldEdition.HeightMapToolPresenter;
+import presenter.worldEdition.PopulationTool;
+import presenter.worldEdition.Tool;
+import presenter.worldEdition.WorldTool;
+import presenter.worldEdition.atlas.AtlasToolPresenter;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
-import view.HierarchyTab;
 import view.WorldEditorTab;
 
 public class WorldEditorPresenter {
 	private final HeightMapToolPresenter heightmapTool;
-	private final AtlasTool atlasTool;
+	private final AtlasToolPresenter atlasTool;
 	private final PopulationTool populationTool;
 
-	private Tool selectedTool = null;
+	private WorldTool selectedTool = null;
 	
 	public WorldEditorPresenter(WorldEditorTab view) {
 		heightmapTool = new HeightMapToolPresenter(EditorPlatform.getWorldData());
-		atlasTool = new AtlasTool(EditorPlatform.getWorldData());
+		atlasTool = new AtlasToolPresenter(EditorPlatform.getWorldData());
 		populationTool = new PopulationTool(EditorPlatform.getWorldData());
 	}
 
@@ -31,7 +30,7 @@ public class WorldEditorPresenter {
 		return heightmapTool;
 	}
 
-	public AtlasTool getAtlasTool() {
+	public AtlasToolPresenter getAtlasTool() {
 		return atlasTool;
 	}
 
@@ -39,9 +38,10 @@ public class WorldEditorPresenter {
 		return populationTool;
 	}
 	
-	public void selectTool(Tool tool){
+	public void selectTool(WorldTool tool){
+		LogUtil.info("select tool " + tool);
+
 		selectedTool = tool;
-		EditorPlatform.getScene().enqueue(app -> setTool(app, tool));
 		EditorPlatform.getSelectionProperty().setValue(null);
 	}
 	
@@ -49,21 +49,20 @@ public class WorldEditorPresenter {
 		EditorPlatform.getWorldData().saveDrawnRegions();
 	}
 	
-	static private boolean setTool(SimpleApplication app, Tool t) {
-		AppStateManager stateManager = app.getStateManager();
-		stateManager.getState(WorldToolState.class).setTool(t);
-		return true;
-	}
-	
 	public void handleTabOpened(){
 		
 	}
 	
-	public void doPrimaryActionAt(Point2D screenCoord){
+	public void doPrimaryAction(){
 		selectedTool.doPrimary();
 	}
 
-	public void doSecondaryActionAt(Point2D screenCoord){
+	public void doSecondaryAction(){
 		selectedTool.doSecondary();
+	}
+	
+	public void setNewMousePosition(Point2D screenCoord){
+		Node worldNode = (Node)AppFacade.getMainSceneNode().getChild("World");
+		selectedTool.setCoord(SpatialSelector.getCoord(worldNode, screenCoord));
 	}
 }

@@ -1,4 +1,4 @@
-package model.world;
+package presenter.worldEdition;
 
 import controller.ECS.SceneSelectorState;
 
@@ -16,6 +16,4 @@ public abstract class Tool {
 	
 	public void doPrimary(){}
 	public void doSecondary(){}
-	public void onUpdate(float elapsedTime) {}
-
 }
