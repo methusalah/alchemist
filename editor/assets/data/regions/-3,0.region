@@ -27,14 +27,19 @@
         "y" : 0.0
       }
     },
-    "texturing" : {
-      "diffuses" : [ "textures/grass02.jpg", "textures/road.jpg" ],
-      "normals" : [ null, null ],
-      "scales" : [ 32.0, 32.0 ],
-      "coverDiffuses" : [ "textures/transp.png" ],
-      "coverNormals" : [ null ],
-      "coverScales" : [ 1.0 ]
-    }
+    "texturing" : [ {
+      "diffuse" : "textures/grass02.jpg",
+      "normal" : null,
+      "scale" : 32.0
+    }, {
+      "diffuse" : "textures/paving2full.png",
+      "normal" : null,
+      "scale" : 32.0
+    }, {
+      "diffuse" : "textures/trans.png",
+      "normal" : null,
+      "scale" : 32.0
+    } ]
   },
   "modified" : false
 }

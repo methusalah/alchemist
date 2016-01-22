@@ -18,6 +18,7 @@ import util.geometry.geom2d.Point2D;
 import util.math.RandomUtil;
 
 public class HeightMapToolPresenter extends PencilToolPresenter {
+	
 	public enum Operation {
 		RAISE_LOW, NOISE_SMOOTH, UNIFORM_RESET
 	}
@@ -25,10 +26,6 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 	private final ToggledEnumProperty<Operation> operationProperty = new ToggledEnumProperty<>(Operation.class);
 
 	private double elevation = Double.NaN;
-
-	public HeightMapToolPresenter(WorldData world) {
-		super(world);
-	}
 
 	public void doPrimary(){
 		switch (operationProperty.getValue()) {

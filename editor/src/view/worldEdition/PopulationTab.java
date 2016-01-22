@@ -11,15 +11,15 @@ import javafx.scene.control.Tab;
 import javafx.util.Callback;
 import model.ES.serial.Blueprint;
 import model.ES.serial.BlueprintLibrary;
-import presenter.worldEdition.PopulationTool;
+import presenter.worldEdition.PopulationToolPresenter;
 import presenter.worldEdition.Tool;
 
 public class PopulationTab extends Tab implements ToolEditor {
 	private final ListProperty<Blueprint> blueprintList;
-	private final PopulationTool tool;
+	private final PopulationToolPresenter presenter;
 
-	public PopulationTab(PopulationTool tool) {
-		this.tool = tool;
+	public PopulationTab() {
+		presenter = new PopulationToolPresenter();
 		setText("Entities");
 		setClosable(false);
 		ListView<Blueprint> list = new ListView<>();
@@ -31,7 +31,7 @@ public class PopulationTab extends Tab implements ToolEditor {
 		
 		list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue != null)
-				tool.setBlueprint(newValue);
+				presenter.setBlueprint(newValue);
 		});
 		
 		list.setCellFactory(e -> {
@@ -54,7 +54,7 @@ public class PopulationTab extends Tab implements ToolEditor {
 	
 	@Override
 	public Tool getTool() {
-		return tool;
+		return presenter;
 	}
 
 }

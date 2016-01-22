@@ -15,12 +15,8 @@ import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 
-public class PopulationTool extends WorldTool {
+public class PopulationToolPresenter extends WorldTool {
 	
-	public PopulationTool(WorldData world) {
-		super(world);
-	}
-
 	private Blueprint bp;
 	
 	@Override

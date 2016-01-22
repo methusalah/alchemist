@@ -2,10 +2,11 @@ package model.world.terrain;
 
 import util.geometry.geom2d.Point2D;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import model.ES.component.world.TerrainTexturing;
 import model.world.terrain.atlas.Atlas;
 import model.world.terrain.heightmap.HeightMap;
 import model.world.terrain.heightmap.Parcelling;
@@ -14,7 +15,7 @@ public final class Terrain {
 	private final Parcelling parcelling;
 	private final Atlas atlas, cover;
 	private final HeightMap heighMap;
-	private final TerrainTexturing texturing;
+	private final List<TerrainTexture> texturing;
 	
 	private final int width, height;
 	
@@ -23,7 +24,7 @@ public final class Terrain {
 			@JsonProperty("atlas")Atlas atlas,
 			@JsonProperty("cover")Atlas cover,
 			@JsonProperty("heightMap")HeightMap heightMap,
-			@JsonProperty("texturing")TerrainTexturing texturing){
+			@JsonProperty("texturing")List<TerrainTexture> texturing){
 		this.width = width;
 		this.height = height;
 
@@ -34,7 +35,7 @@ public final class Terrain {
 		parcelling = new Parcelling(heighMap);
 	}
 	
-	public Terrain(int width, int height, TerrainTexturing texturing, Point2D coord) {
+	public Terrain(int width, int height, List<TerrainTexture> texturing, Point2D coord) {
 		this.width = width;
 		this.height = height;
 		this.texturing = texturing; 
@@ -68,7 +69,7 @@ public final class Terrain {
 		return height;
 	}
 
-	public TerrainTexturing getTexturing() {
+	public List<TerrainTexture> getTexturing() {
 		return texturing;
 	}
 	

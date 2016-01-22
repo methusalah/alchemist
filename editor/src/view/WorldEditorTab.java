@@ -33,9 +33,9 @@ public class WorldEditorTab extends Tab {
 		content.getChildren().add(saveButton);
 		
 		tabpane = new TabPane(
-				new HeighmapTab(presenter.getHeightmapTool()),
-				new AtlasTab(presenter.getAtlasTool()),
-				new PopulationTab(presenter.getPopulationTool()),
+				new HeighmapTab(),
+				new AtlasTab(),
+				new PopulationTab(),
 				new TrinketTab());
 		
 		tabpane.selectionModelProperty().getValue().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

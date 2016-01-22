@@ -4,18 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityId;
 
-import model.ES.component.world.TerrainTexturing;
-import model.ES.serial.Blueprint;
 import model.ES.serial.EntityInstance;
 import model.world.terrain.Terrain;
-import model.world.terrain.heightmap.Parcel;
-import model.world.terrain.heightmap.Parcelling;
+import model.world.terrain.TerrainTexture;
 import util.geometry.geom2d.Point2D;
-import view.drawingProcessors.TerrainDrawer;
 
 public class Region {
 	public static final int RESOLUTION = 64;
@@ -33,13 +28,11 @@ public class Region {
 	public Region(String id, Point2D coord){
 		this.id = id;
 		this.coord = coord;
-		TerrainTexturing t = new TerrainTexturing(
-				new ArrayList<String>(){{add("textures/grass02.jpg");add("textures/paving2full.png");}},
-				new ArrayList<String>(){{add(null);add(null);}},
-				new ArrayList<Double>(){{add(32d);add(32d);}},
-				new ArrayList<String>(){{add("textures/transp.png");}},
-				new ArrayList<String>(){{add(null);}},
-				new ArrayList<Double>(){{add(1d);}});
+		List<TerrainTexture> t = new ArrayList<TerrainTexture>(){{
+			add(new TerrainTexture("textures/grass02.jpg", null, 32));
+			add(new TerrainTexture("textures/paving2full.png", null, 32));
+			add(new TerrainTexture("textures/trans.png", null, 32));
+			}};
 		terrain = new Terrain(RESOLUTION+1, RESOLUTION+1, t, coord);
 		entities = new ArrayList<>();
 	}

@@ -41,8 +41,7 @@ public class PencilToolPresenter extends WorldTool {
 	private final IntegerProperty sizeProperty = new SimpleIntegerProperty(4);
 	private final DoubleProperty strengthProperty = new SimpleDoubleProperty(0.1);
 
-	public PencilToolPresenter(WorldData world) {
-		super(world);
+	public PencilToolPresenter() {
 		perlin = new PerlinNoise();
 	}
 	
