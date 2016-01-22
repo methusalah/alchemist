@@ -2,23 +2,17 @@ package view.drawingProcessors;
 
 import java.util.List;
 
-import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.renderer.queue.RenderQueue;
-import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
-import com.jme3.texture.Texture;
 
-import app.AppFacade;
 import model.world.terrain.Terrain;
 import model.world.terrain.heightmap.Parcel;
 import util.geometry.geom2d.Point2D;
 import view.SpatialPool;
-import view.jme.SilentTangentBinormalGenerator;
 import view.jme.TerrainSplatTexture;
-import view.material.MaterialManager;
 import view.math.TranslateUtil;
 
 public class TerrainDrawer {
@@ -86,8 +80,8 @@ public class TerrainDrawer {
 //			AppFacade.getApp().getStateManager().getState(BulletAppState.class).getPhysicsSpace().remove(g);
 //			AppFacade.getApp().getStateManager().getState(BulletAppState.class).getPhysicsSpace().add(g);
 
-			Geometry g2 = ((Geometry) SpatialPool.coverParcels.get(parcel));
-			g2.setMesh(jmeMesh);
+//			Geometry g2 = ((Geometry) SpatialPool.coverParcels.get(parcel));
+//			g2.setMesh(jmeMesh);
 		}
 	}
 
