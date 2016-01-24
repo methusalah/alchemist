@@ -6,13 +6,17 @@ package view.jme;
 import java.util.List;
 
 import com.jme3.material.Material;
+import com.jme3.scene.Spatial;
 import com.jme3.texture.Image;
+import com.jme3.texture.Image.Format;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
+import com.sun.corba.se.impl.ior.ByteBuffer;
 
 import app.AppFacade;
 import model.world.terrain.TerrainTexture;
 import model.world.terrain.atlas.Atlas;
+import util.LogUtil;
 
 /**
  * @author Benoît
@@ -40,20 +44,31 @@ public class TerrainSplatTexture extends Material {
 	public void updateTextures(){
 		int index = 0;
 		for (TerrainTexture tt : texturing) {
-			Texture diffuse = AppFacade.getAssetManager().loadTexture(tt.getDiffuse());
+			String indexHint = index == 0? "" : "_" + index;
+			Texture diffuse;
+			double scale;
+			if(tt == null){
+				diffuse = AppFacade.getAssetManager().loadTexture("textures/trans.png");
+				scale = 0;
+			} else{
+				try{
+					diffuse = AppFacade.getAssetManager().loadTexture(tt.getDiffuse());
+				} catch (Exception e) {
+					LogUtil.warning("Diffuse map was not found : " + tt.getDiffuse() + " in TerrainTexture #"+index);
+					diffuse = AppFacade.getAssetManager().loadTexture("textures/trans.png");
+				}
+				scale = tt.getScale();
+				if(tt.getNormal() != null && !tt.getNormal().isEmpty()){
+					Texture normal = AppFacade.getAssetManager().loadTexture(tt.getNormal());
+					normal.setAnisotropicFilter(8);
+					normal.setWrap(Texture.WrapMode.Repeat);
+					setTexture("NormalMap" + indexHint, normal);
+				}
+			}
 			diffuse.setWrap(Texture.WrapMode.Repeat);
 			diffuse.setAnisotropicFilter(8);
-			setTexture(index == 0? "DiffuseMap" : "DiffuseMap_" + index, diffuse);
-
-			double scale = tt.getScale();
+			setTexture("DiffuseMap"+indexHint, diffuse);
 			setFloat("DiffuseMap_" + index + "_scale", (float)scale);
-
-			if(tt.getNormal() != null){ 
-				Texture normal = AppFacade.getAssetManager().loadTexture(tt.getNormal());
-				normal.setAnisotropicFilter(8);
-				normal.setWrap(Texture.WrapMode.Repeat);
-				setTexture(index == 0? "NormalMap" : "NormalMap_" + index, normal);
-			}
 			index++;
 		}
 	}

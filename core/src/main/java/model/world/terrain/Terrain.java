@@ -15,7 +15,7 @@ public final class Terrain {
 	private final Parcelling parcelling;
 	private final Atlas atlas, cover;
 	private final HeightMap heighMap;
-	private final List<TerrainTexture> texturing;
+	private final TerrainTexturing texturing;
 	
 	private final int width, height;
 	
@@ -24,7 +24,7 @@ public final class Terrain {
 			@JsonProperty("atlas")Atlas atlas,
 			@JsonProperty("cover")Atlas cover,
 			@JsonProperty("heightMap")HeightMap heightMap,
-			@JsonProperty("texturing")List<TerrainTexture> texturing){
+			@JsonProperty("texturing")TerrainTexturing texturing){
 		this.width = width;
 		this.height = height;
 
@@ -35,16 +35,8 @@ public final class Terrain {
 		parcelling = new Parcelling(heighMap);
 	}
 	
-	public Terrain(int width, int height, List<TerrainTexture> texturing, Point2D coord) {
-		this.width = width;
-		this.height = height;
-		this.texturing = texturing; 
-
-		atlas = new Atlas(width, height);
-		cover = new Atlas(width, height);
-		heighMap = new HeightMap(width, height, coord);
-		
-		parcelling = new Parcelling(heighMap);
+	public Terrain(int width, int height, TerrainTexturing texturing, Point2D coord) {
+		this(width, height, new Atlas(width, height), new Atlas(width, height), new HeightMap(width, height, coord), texturing);
 	}
 	
 	

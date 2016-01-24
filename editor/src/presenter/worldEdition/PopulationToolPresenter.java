@@ -8,7 +8,7 @@ import com.simsilica.es.EntityComponent;
 import model.ES.component.motion.PlanarStance;
 import model.ES.serial.Blueprint;
 import model.ES.serial.EntityInstance;
-import model.world.RegionManager;
+import model.world.RegionLoader;
 import model.world.WorldData;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;

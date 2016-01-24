@@ -1,16 +1,21 @@
 package view.worldEdition;
 
+import java.util.Optional;
+
 import javafx.collections.ListChangeListener;
-import javafx.geometry.Pos;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.world.terrain.TerrainTexture;
 import presenter.worldEdition.Tool;
@@ -21,7 +26,8 @@ import view.controls.custom.TerrainTextureButton;
 
 public class AtlasTab extends Tab implements ToolEditor {
 	private final AtlasToolPresenter presenter;
-	private final VBox textureGrid; 
+	private final VBox textureGrid;
+	ToggleGroup textureGroup;
 
 	public AtlasTab() {
 		presenter = new AtlasToolPresenter(this);
@@ -34,7 +40,7 @@ public class AtlasTab extends Tab implements ToolEditor {
 		content.getChildren().add(new PencilEditor(presenter));
 		setContent(content);
 		updateTextureGrid();
-		presenter.getTextures().addListener((ListChangeListener.Change<? extends TerrainTexture> e) -> updateTextureGrid());
+		textureGroup = new ToggleGroup();
 	}
 	
 	private Node getOperationPane(){
@@ -83,24 +89,44 @@ public class AtlasTab extends Tab implements ToolEditor {
 	}
 	
 	private Node getTerrainTextureButton(int textureIndex){
-		Pane res = new Pane();
-		res.setMinSize(80, 100);
-		res.setMaxSize(80, 100);
-		if(presenter.getTextures().size() > textureIndex){
+		BorderPane res = new BorderPane();
+		res.setPrefSize(100, 100);
+		//res.setMaxSize(100, 100);
+		if(presenter.getTextures().size() > textureIndex && presenter.getTextures().get(textureIndex) != null){
 			TerrainTextureButton texButton = new TerrainTextureButton(presenter.getTextures().get(textureIndex));
-			texButton.prefWidthProperty().bind(res.widthProperty());
-			texButton.prefHeightProperty().bind(texButton.widthProperty());
+			texButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+			texButton.setToggleGroup(textureGroup);
+			texButton.setSelected(presenter.getActualTextureProperty().getValue() == textureIndex);
+			texButton.selectedProperty().addListener((obs, oldValue, newValue) -> {
+				if(newValue)
+					presenter.getActualTextureProperty().set(textureIndex);
+			});
+			
 			Button edit = new Button("Edit");
-			edit.prefWidthProperty().bind(res.widthProperty());
-			res.getChildren().add(new VBox(texButton, edit));		
+			edit.setOnMouseClicked(e -> presenter.editTerrainTexture(textureIndex));
+			edit.setMaxWidth(Double.MAX_VALUE);
+			edit.setPadding(new Insets(3));
+			Button delete = new Button("X");
+			delete.setOnMouseClicked(e -> presenter.deleteTerrainTexture(textureIndex)); 
+			delete.setPadding(new Insets(3));
+			BorderPane editionPane = new BorderPane(edit, null, delete, null, null);
+			editionPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+			
+			res.setCenter(texButton);
+			res.setBottom(editionPane);
 		} else {
-			Button set = new Button("Set texture");
-			set.prefWidthProperty().bind(res.widthProperty());
-			set.prefHeightProperty().bind(res.heightProperty());
-			res.getChildren().add(set);
+			ToggleButton set = new ToggleButton("Click to set texture");
+			set.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+			set.setToggleGroup(textureGroup);
+			set.setSelected(presenter.getActualTextureProperty().getValue() == textureIndex);
+			set.setOnMouseClicked(e -> presenter.editTerrainTexture(textureIndex));
+			res.setCenter(set);
 		}
 		return res;
 	}
 	
-
+	public Optional<TerrainTexture> showTerrainTextureDialog(TerrainTexture texture){
+		TerrainTextureDialog dialog = new TerrainTextureDialog(texture);
+		return dialog.showAndWait();
+	}
 }

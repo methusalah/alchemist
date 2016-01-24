@@ -39,7 +39,6 @@
       "diffuse" : "textures/trans.png",
       "normal" : null,
       "scale" : 32.0
-    } ]
-  },
-  "modified" : false
+    }, null, null, null, null, null ]
+  }
 }

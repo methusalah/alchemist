@@ -45,13 +45,12 @@ public class WorldData {
 	private List<TerrainDrawer> drawersToAttach = new ArrayList<TerrainDrawer>();
 	private List<TerrainDrawer> drawersToDetach = new ArrayList<TerrainDrawer>();
 
-	private HeightMapExplorer heightmapExplorer = new HeightMapExplorer();
 	private Region lastRegion;
 	public Region getLastRegion() {
 		return lastRegion;
 	}
 
-	private RegionManager regionManager = new RegionManager();
+	private RegionLoader regionLoader = new RegionLoader();
 	
 	public WorldData(EntityData ed) {
 		this.ed = ed;
@@ -62,7 +61,7 @@ public class WorldData {
 	}
 	
 	public void setCoord(Point2D coord){
-		Region actualRegion = regionManager.getRegion(coord);
+		Region actualRegion = regionLoader.getRegion(coord);
 		
 		if(actualRegion != lastRegion){
 			// We pass from a region to another
@@ -73,9 +72,10 @@ public class WorldData {
 	}
 	
 	private void loadAndDrawRegionsAround(Point2D coord){
+		List<Region> toDraw = get9RegionsAround(coord);
 		synchronized (drawnRegions) {
-			List<Region> toDraw = get9RegionsAround(coord);
 			for(Region r : toDraw){
+				// create an entity for this region
 				if(r.getEntityId() == null){
 					EntityId eid = ed.createEntity();
 					ed.setComponent(eid, new Naming("Region "+r.getId()));
@@ -83,12 +83,10 @@ public class WorldData {
 					r.setEntityId(eid);
 				}
 				
-				if(!drawers.containsKey(r))
-					drawers.put(r, new TerrainDrawer(r.getTerrain(), r.getCoord()));
-				
-				if(!drawnRegions.contains(r))
+				if(!drawnRegions.contains(r)){
+					drawnRegions.add(r);
 					drawRegion(r);
-				
+				}
 			}
 			
 			for(Region r : drawnRegions)
@@ -114,16 +112,17 @@ public class WorldData {
 	}
 
 	public void drawRegion(Region region){
+		if(!drawers.containsKey(region))
+			drawers.put(region, new TerrainDrawer(region.getTerrain(), region.getCoord()));
 		RegionArtisan.drawRegion(ed, region);
 		drawers.get(region).render();
 		synchronized (drawersToAttach) {
 			drawersToAttach.add(drawers.get(region));
 		}
-		heightmapExplorer.add(region.getTerrain().getHeightMap());
 	}
 	
 	private void undrawRegion(Region region){
-		RegionArtisan.undrawRegion(ed, worldEntity, region);
+		RegionArtisan.undrawRegion(ed, region);
 		synchronized (drawersToDetach) {
 			drawersToDetach.add(drawers.get(region));
 		}
@@ -138,23 +137,25 @@ public class WorldData {
 		int r = Region.RESOLUTION;
 		for(int x = -r; x <= r; x += r)
 			for(int y = -r; y <= r; y += r)
-				res.add(regionManager.getRegion(coord.getAddition(x, y)));
+				res.add(regionLoader.getRegion(coord.getAddition(x, y)));
 		return res;
 	}
 	
 	public List<Region> getRegions(Point2D coord){
 		coord = new Point2D((int)Math.floor(coord.x), (int)Math.floor(coord.y));
 		List<Region> res = new ArrayList<>();
-		res.add(regionManager.getRegion(coord));
+		res.add(regionLoader.getRegion(coord));
 		if(coord.x % Region.RESOLUTION == 0)
-			res.add(regionManager.getRegion(coord.getAddition(-1, 0)));
+			res.add(regionLoader.getRegion(coord.getAddition(-1, 0)));
 		if(coord.y % Region.RESOLUTION == 0)
-			res.add(regionManager.getRegion(coord.getAddition(0, -1)));
+			res.add(regionLoader.getRegion(coord.getAddition(0, -1)));
 		if(coord.x % Region.RESOLUTION == 0 && coord.y % Region.RESOLUTION == 0)
-			res.add(regionManager.getRegion(coord.getAddition(-1, -1)));
+			res.add(regionLoader.getRegion(coord.getAddition(-1, -1)));
 		for(Region r : res)
-			if(!drawnRegions.contains(r))
+			if(!drawnRegions.contains(r)){
+				drawnRegions.add(r);
 				drawRegion(r);
+			}
 		return res; 
 	}
 	
@@ -191,6 +192,6 @@ public class WorldData {
 	
 	public void saveDrawnRegions(){
 		for(Region r : drawnRegions)
-			RegionManager.saveRegion(r);
+			RegionLoader.saveRegion(r);
 	}
 }

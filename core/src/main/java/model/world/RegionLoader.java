@@ -13,7 +13,7 @@ import util.geometry.geom2d.Point2D;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-public class RegionManager {
+public class RegionLoader {
 	private static final String PATH = "assets/data/regions/";
 	private static final String EXT = ".region";
 	
@@ -21,7 +21,7 @@ public class RegionManager {
 	private final Map<String, Region> loadedRegions = new HashMap<>();
 	private final List<Region> cache = new ArrayList<>();
 
-	public RegionManager() {
+	public RegionLoader() {
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 	}
@@ -37,10 +37,14 @@ public class RegionManager {
 			cache.remove(res);
 		cache.add(0, res);
 		
+		int tryCount = 0;
 		if(cache.size() > 20)
-			while(cache.size() > 15){
-				loadedRegions.remove(cache.get(cache.size()-1).getId());
-				cache.remove(cache.size()-1);
+			while(cache.size() > 15 && tryCount++ < 50){
+				Region oldest = loadedRegions.get(cache.get(cache.size()-1).getId());
+				if(!oldest.isModified()){
+					loadedRegions.remove(oldest.getId());
+					cache.remove(oldest);
+				}
 			}
 		return res;
 	}
@@ -51,6 +55,7 @@ public class RegionManager {
 		try {
 			return mapper.readValue(f, Region.class);
 		} catch (IOException e) {
+			LogUtil.info("problem with region loading");
 			e.printStackTrace();
 		}
 		return null;

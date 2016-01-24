@@ -148,6 +148,7 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 					nodes.add(n);
 		}
 		for (Region r : regions) {
+			r.setModified(true);
 			synchronized (r.getTerrain().getParcelling()) {
 				r.getTerrain().getParcelling().updateParcelsContaining(nodes);
 			}

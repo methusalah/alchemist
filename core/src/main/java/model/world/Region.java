@@ -10,6 +10,7 @@ import com.simsilica.es.EntityId;
 import model.ES.serial.EntityInstance;
 import model.world.terrain.Terrain;
 import model.world.terrain.TerrainTexture;
+import model.world.terrain.TerrainTexturing;
 import util.geometry.geom2d.Point2D;
 
 public class Region {
@@ -28,16 +29,15 @@ public class Region {
 	public Region(String id, Point2D coord){
 		this.id = id;
 		this.coord = coord;
-		List<TerrainTexture> t = new ArrayList<TerrainTexture>(){{
-			add(new TerrainTexture("textures/grass02.jpg", null, 32));
-			add(new TerrainTexture("textures/paving2full.png", null, 32));
-			add(new TerrainTexture("textures/trans.png", null, 32));
-			}};
+		TerrainTexturing t = new TerrainTexturing(
+				new TerrainTexture("textures/grass02.jpg", null, 32),
+				new TerrainTexture("textures/paving2full.png", null, 32),
+				new TerrainTexture("textures/trans.png", null, 32));
 		terrain = new Terrain(RESOLUTION+1, RESOLUTION+1, t, coord);
 		entities = new ArrayList<>();
 	}
 	public Region(Point2D coord){
-		this(RegionManager.getRegionId(coord), RegionManager.getRegionCoord(coord));
+		this(RegionLoader.getRegionId(coord), RegionLoader.getRegionCoord(coord));
 	}
 	
 	public Region(@JsonProperty("id")String id,
@@ -66,6 +66,7 @@ public class Region {
 		return terrain;
 	}
 	
+	@JsonIgnore
 	public boolean isModified() {
 		return modified;
 	}

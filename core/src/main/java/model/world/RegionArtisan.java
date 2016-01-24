@@ -55,8 +55,7 @@ public class RegionArtisan {
 		}
 	}
 	
-	public static void undrawRegion(EntityData ed, EntityId worldEid, Region region){
-		//LogUtil.info("Undraw region "+region.getId()+" ("+RegionArtisan.class+")");
+	public static void undrawRegion(EntityData ed, Region region){
 		for(EntityInstance ei : region.getEntities())
 			ei.uninstanciate(ed);
 		for(EntityId eid : region.getTerrainColliders())

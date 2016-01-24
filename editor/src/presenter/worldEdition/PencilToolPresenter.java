@@ -126,6 +126,8 @@ public class PencilToolPresenter extends WorldTool {
 	}
 
 	protected List<Point2D> getNodes() {
+		if(coord == null)
+			return new ArrayList<Point2D>();
 		switch(shapeProperty.getValue()){
 		case CIRCLE : return getInCircle();
 		case DIAMOND :
