@@ -38,6 +38,10 @@ import view.math.TranslateUtil;
 public class WorldData {
 	private final EntityData ed;
 	private final EntityId worldEntity;
+	public EntityId getWorldEntity() {
+		return worldEntity;
+	}
+
 	private final Node worldNode;
 
 	private List<Region> drawnRegions = new ArrayList<Region>();

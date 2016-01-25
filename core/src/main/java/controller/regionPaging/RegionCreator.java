@@ -1,7 +1,8 @@
-package model.world;
+package controller.regionPaging;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import model.ES.component.Naming;
 import model.ES.component.hierarchy.Parenting;
@@ -9,6 +10,8 @@ import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.physic.EdgedCollisionShape;
 import model.ES.component.motion.physic.Physic;
 import model.ES.serial.EntityInstance;
+import model.world.Region;
+import model.world.RegionLoader;
 import model.world.terrain.heightmap.HeightMapNode;
 import model.world.terrain.heightmap.Parcel;
 import util.LogUtil;
@@ -20,6 +23,7 @@ import util.geometry.geom3d.Triangle3D;
 import util.math.Fraction;
 import view.drawingProcessors.TerrainDrawer;
 
+import com.google.common.base.Function;
 import com.jme3.scene.Node;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
@@ -27,9 +31,41 @@ import com.simsilica.es.EntityId;
 import controller.builder.Builder;
 import controller.builder.BuilderReference;
 
-public class RegionArtisan {
-	public static void drawRegion(EntityData ed, Region region){
-		//LogUtil.info("draw region "+region.getId()+" ("+RegionArtisan.class+")");
+public class RegionCreator implements BuilderReference {
+
+	private final Point2D coord;
+	private final RegionLoader loader;
+	private final EntityData ed;
+	private final EntityId worldEntity;
+	private final Consumer<Region, TerrainDrawer> resultHandler;
+	
+	private Region region;
+	private TerrainDrawer drawer;
+	
+	@FunctionalInterface
+	interface Consumer <A, B> {
+		public void accept(A a, B b);
+	}
+	
+	public RegionCreator(Point2D coord, RegionLoader loader, EntityData ed, EntityId worldEntity, Consumer<Region, TerrainDrawer> resultHandler) {
+		this.coord = coord;
+		this.loader = loader;
+		this.ed = ed;
+		this.worldEntity = worldEntity;
+		this.resultHandler = resultHandler;
+	}
+	
+	@Override
+	public void build(){
+		region = loader.getRegion(coord);
+		// create an entity for this region
+		if(region.getEntityId() == null){
+			EntityId eid = ed.createEntity();
+			ed.setComponent(eid, new Naming("Region "+region.getId()));
+			ed.setComponent(eid, new Parenting(worldEntity));
+			region.setEntityId(eid);
+		}
+		
 		// instantiation of entity blueprints
 		for(EntityInstance ei : region.getEntities())
 			ei.instanciate(ed, region.getEntityId());
@@ -56,8 +92,13 @@ public class RegionArtisan {
 				region.getTerrainColliders().add(pe);
 			}
 		}
+		
+		// creation of a terrain drawer
+		drawer = new TerrainDrawer(region.getTerrain(), region.getCoord());
+		drawer.render();
+		
 	}
-	
+
 	public static void undrawRegion(EntityData ed, Region region){
 		for(EntityInstance ei : region.getEntities())
 			ei.uninstanciate(ed);
@@ -93,4 +134,21 @@ public class RegionArtisan {
 		else
 			return null;
 	}
+
+	@Override
+	public int getPriority() {
+		return 0;
+	}
+
+	@Override
+	public void apply(Builder builder) {
+		resultHandler.accept(region, drawer);
+	}
+
+	@Override
+	public void release(Builder builder) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

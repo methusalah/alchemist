@@ -28,29 +28,33 @@ public class RegionLoader {
 
 	public Region getRegion(Point2D coord){
 		String rid = getRegionId(coord);
-		if(!loadedRegions.containsKey(rid))
-			loadedRegions.put(rid, loadRegion(rid, getRegionCoord(coord)));
-		Region res = loadedRegions.get(rid);
-		
-		// cleaning the cache
-		if(cache.contains(res))
-			cache.remove(res);
-		cache.add(0, res);
-		
-		int tryCount = 0;
-		if(cache.size() > 20)
-			while(cache.size() > 15 && tryCount++ < 50){
-				Region oldest = loadedRegions.get(cache.get(cache.size()-1).getId());
-				if(!oldest.isModified()){
-					loadedRegions.remove(oldest.getId());
-					cache.remove(oldest);
-				}
+		Region res;
+		synchronized (loadedRegions) {
+			if(!loadedRegions.containsKey(rid))
+				loadedRegions.put(rid, loadRegion(rid, getRegionCoord(coord)));
+			res = loadedRegions.get(rid);
+			
+			synchronized (cache) {
+				// cleaning the cache
+				if(cache.contains(res))
+					cache.remove(res);
+				cache.add(0, res);
+				
+				int tryCount = 0;
+				if(cache.size() > 20)
+					while(cache.size() > 15 && tryCount++ < 50){
+						Region oldest = loadedRegions.get(cache.get(cache.size()-1).getId());
+						if(!oldest.isModified()){
+							loadedRegions.remove(oldest.getId());
+							cache.remove(oldest);
+						}
+					}
 			}
+		}
 		return res;
 	}
 	
 	private Region loadRegion(String rid, Point2D coord) {
-		//LogUtil.info("    load region file : "+rid+" ("+RegionManager.class+")");
 		File f = getRegionFile(rid, coord);
 		try {
 			return mapper.readValue(f, Region.class);
