@@ -14,6 +14,7 @@ import app.AppFacade;
 import controller.ECS.DataState;
 import controller.ECS.EntitySystem;
 import controller.ECS.SceneSelectorState;
+import controller.regionPaging.RegionPager;
 import model.Command;
 import model.ES.component.motion.PlanarStance;
 import model.ES.serial.Blueprint;
@@ -50,6 +51,8 @@ public class ScenePresenter {
 		
 		stateManager.attach(new InstrumentUpdateState());
 
+		stateManager.attach(new RegionPager());
+		
 		DraggableCameraState cam = new DraggableCameraState(app.getCamera());
 		cam.setRotationSpeed(0.001f);
 		cam.setMoveSpeed(1f);

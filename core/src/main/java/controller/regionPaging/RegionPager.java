@@ -31,8 +31,8 @@ public class RegionPager extends BuilderState {
 	private WorldData worldData;
 	
 	private final List<Point2D> neededRegions = new ArrayList<>();
-	private final List<Region> builtRegions = new ArrayList<>();
-	private final Map<Region, TerrainDrawer> drawers = new HashMap<>();
+	public final List<Region> builtRegions = new ArrayList<>();
+	public final Map<Region, TerrainDrawer> drawers = new HashMap<>();
 	
 	private final Node worldNode;
 
@@ -50,8 +50,14 @@ public class RegionPager extends BuilderState {
 	}
 	
 	public void setNeededRegions(List<Point2D> newNeededRegions){
+		// we start by transforming points in region Ids
+		List<Point2D> stdPoints = new ArrayList<>();
+		for(Point2D p : newNeededRegions)
+			stdPoints.add(RegionLoader.getRegionCoord(p));
+		
+		// we have to find the built regions that are not needed anymore and discard them
 		List<Point2D> discardedRegions = new ArrayList<>(neededRegions);
-		discardedRegions.removeAll(newNeededRegions);
+		discardedRegions.removeAll(stdPoints);
 		for(Point2D coord : discardedRegions){
 			getBuilder().build(new RegionDestructor(coord, loader, entityData, (region) -> {
 				builtRegions.remove(region);
@@ -60,6 +66,7 @@ public class RegionPager extends BuilderState {
 			}));
 		}
 
+		// and the new regions to build
 		List<Point2D> missingRegions = new ArrayList<>(neededRegions);
 		missingRegions.removeAll(neededRegions);
 		for(Point2D coord : missingRegions){
@@ -71,6 +78,31 @@ public class RegionPager extends BuilderState {
 		}
 
 		neededRegions.clear();
-		neededRegions.addAll(newNeededRegions);
+		neededRegions.addAll(stdPoints);
 	}
+	
+	public List<Region> getRegionsAtOnce(Point2D coord){
+		coord = new Point2D((int)Math.floor(coord.x), (int)Math.floor(coord.y));
+		List<Region> res = new ArrayList<>();
+		res.add(loader.getRegion(coord));
+		if(coord.x % Region.RESOLUTION == 0)
+			res.add(loader.getRegion(coord.getAddition(-1, 0)));
+		if(coord.y % Region.RESOLUTION == 0)
+			res.add(loader.getRegion(coord.getAddition(0, -1)));
+		if(coord.x % Region.RESOLUTION == 0 && coord.y % Region.RESOLUTION == 0)
+			res.add(loader.getRegion(coord.getAddition(-1, -1)));
+		for(Region r : res)
+			if(!builtRegions.contains(r)){
+				builtRegions.add(r);
+				RegionCreator creator = new RegionCreator(coord, loader, entityData, worldData.getWorldEntity(), (region, drawer) -> {
+					builtRegions.add(region);
+					drawers.put(region, drawer);
+					worldNode.attachChild(drawer.mainNode);
+				});
+				creator.build();
+				creator.apply(getBuilder());
+			}
+		return res; 
+	}
+
 }

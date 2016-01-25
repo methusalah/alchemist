@@ -137,7 +137,7 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 	private void updateParcelsFor(List<Point2D> points){
 		List<Region> regions = new ArrayList<>();
 		for(Point2D p : points){
-			for(Region r : world.getRegions(p))
+			for(Region r : world.getRegionsAtOnce(p))
 				if(!regions.contains(r))
 					regions.add(r);
 		}

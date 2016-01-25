@@ -51,8 +51,8 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 			case ADD_DELETE: increment(); break;
 			case PROPAGATE_SMOOTH: propagate(); break;
 		}
-		if(coord != null && EditorPlatform.getWorldData().getRegions(coord).get(0) != lastRegion){
-			lastRegion = EditorPlatform.getWorldData().getRegions(coord).get(0);
+		if(coord != null && EditorPlatform.getWorldData().getRegionsAtOnce(coord).get(0) != lastRegion){
+			lastRegion = EditorPlatform.getWorldData().getRegionsAtOnce(coord).get(0);
 			textures.set(FXCollections.observableArrayList(lastRegion.getTerrain().getTexturing()));
 		}
 	}
@@ -68,7 +68,7 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 	private void increment() {
 		List<Region> involvedRegions = new ArrayList<>();
 		for (Pixel p : getInvolvedPixels()) {
-			for(Region r : world.getRegions(p.worldCoord)){
+			for(Region r : world.getRegionsAtOnce(p.worldCoord)){
 				if(!involvedRegions.contains(r))
 					involvedRegions.add(r);
 				

@@ -50,8 +50,6 @@ public class RegionDestructor implements BuilderReference {
 
 	@Override
 	public void release(Builder builder) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

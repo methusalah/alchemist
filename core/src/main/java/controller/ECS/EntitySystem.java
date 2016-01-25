@@ -88,7 +88,7 @@ public class EntitySystem extends AbstractAppState {
 	public String sceneReport = "Not computed";
 	@Override
 	public void update(float tpf) {
-    	world.attachDrawers();
+    	//world.attachDrawers();
     	StringBuilder sb = new StringBuilder();
     	reportSceneDeeply(sb, 0, AppFacade.getMainSceneNode());
     	sceneReport = sb.toString();
