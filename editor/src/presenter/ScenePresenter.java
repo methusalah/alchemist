@@ -52,6 +52,7 @@ public class ScenePresenter {
 		stateManager.attach(new InstrumentUpdateState());
 
 		stateManager.attach(new RegionPager());
+		stateManager.getState(RegionPager.class).setEnabled(true);
 		
 		DraggableCameraState cam = new DraggableCameraState(app.getCamera());
 		cam.setRotationSpeed(0.001f);

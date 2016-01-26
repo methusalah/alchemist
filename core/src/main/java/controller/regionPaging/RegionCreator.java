@@ -11,6 +11,7 @@ import model.ES.component.motion.physic.EdgedCollisionShape;
 import model.ES.component.motion.physic.Physic;
 import model.ES.serial.EntityInstance;
 import model.world.Region;
+import model.world.RegionId;
 import model.world.RegionLoader;
 import model.world.terrain.heightmap.HeightMapNode;
 import model.world.terrain.heightmap.Parcel;
@@ -33,31 +34,33 @@ import controller.builder.BuilderReference;
 
 public class RegionCreator implements BuilderReference {
 
-	private final Point2D coord;
+	private final RegionId id;
 	private final RegionLoader loader;
 	private final EntityData ed;
 	private final EntityId worldEntity;
-	private final Consumer<Region, TerrainDrawer> resultHandler;
+	private final Consumer2<Region, TerrainDrawer> applyHandler;
+	private final Consumer<Region> releaseHandler;
 	
 	private Region region;
 	private TerrainDrawer drawer;
 	
 	@FunctionalInterface
-	interface Consumer <A, B> {
+	interface Consumer2 <A, B> {
 		public void accept(A a, B b);
 	}
 	
-	public RegionCreator(Point2D coord, RegionLoader loader, EntityData ed, EntityId worldEntity, Consumer<Region, TerrainDrawer> resultHandler) {
-		this.coord = coord;
+	public RegionCreator(RegionId id, RegionLoader loader, EntityData ed, EntityId worldEntity, Consumer2<Region, TerrainDrawer> resultHandler, Consumer<Region> releaseHandler) {
+		this.id = id;
 		this.loader = loader;
 		this.ed = ed;
 		this.worldEntity = worldEntity;
-		this.resultHandler = resultHandler;
+		this.applyHandler = resultHandler;
+		this.releaseHandler = releaseHandler;
 	}
 	
 	@Override
 	public void build(){
-		region = loader.getRegion(coord);
+		region = loader.getRegion(id.getOffset());
 		// create an entity for this region
 		if(region.getEntityId() == null){
 			EntityId eid = ed.createEntity();
@@ -92,21 +95,12 @@ public class RegionCreator implements BuilderReference {
 				region.getTerrainColliders().add(pe);
 			}
 		}
-		
+
 		// creation of a terrain drawer
 		drawer = new TerrainDrawer(region.getTerrain(), region.getCoord());
 		drawer.render();
-		
 	}
 
-	public static void undrawRegion(EntityData ed, Region region){
-		for(EntityInstance ei : region.getEntities())
-			ei.uninstanciate(ed);
-		for(EntityId eid : region.getTerrainColliders())
-			ed.removeEntity(eid);
-		region.getTerrainColliders().clear();
-	}
-	
 	private static Point3D getPlaneIntersection(Segment3D seg){
 		Point3D planeNormal = Point3D.UNIT_Z; 
 		Point3D direction = seg.p1.getSubtraction(seg.p0);
@@ -142,13 +136,18 @@ public class RegionCreator implements BuilderReference {
 
 	@Override
 	public void apply(Builder builder) {
-		resultHandler.accept(region, drawer);
+		applyHandler.accept(region, drawer);
 	}
 
 	@Override
 	public void release(Builder builder) {
-		// TODO Auto-generated method stub
-		
+		region = loader.getRegion(id.getOffset());
+		for(EntityInstance ei : region.getEntities())
+			ei.uninstanciate(ed);
+		for(EntityId eid : region.getTerrainColliders())
+			ed.removeEntity(eid);
+		region.getTerrainColliders().clear();
+		releaseHandler.accept(region);
 	}
 
 }

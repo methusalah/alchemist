@@ -59,9 +59,9 @@ public class RegionLoader {
 		try {
 			return mapper.readValue(f, Region.class);
 		} catch (IOException e) {
-			LogUtil.info("problem with region loading");
 			e.printStackTrace();
 		}
+		LogUtil.warning("problem with region loading for " + rid);
 		return null;
 	}
 
@@ -70,7 +70,7 @@ public class RegionLoader {
 		int y = (int)Math.floor(coord.y/Region.RESOLUTION);
 		return x+","+y;
 	}
-
+	
 	public static Point2D getRegionCoord(Point2D coord){
 		int x = ((int)Math.floor(coord.x/Region.RESOLUTION))*Region.RESOLUTION;
 		int y = ((int)Math.floor(coord.y/Region.RESOLUTION))*Region.RESOLUTION;

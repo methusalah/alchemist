@@ -39,6 +39,8 @@ import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 
+import util.LogUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -125,6 +127,7 @@ public class BuilderState extends AbstractAppState {
     }
     
     protected void onEnable() {
+    	LogUtil.info("onEnabled");
         // We have to check because the first time through
         // it won't be paused.
         if( builder.isPaused() ) {

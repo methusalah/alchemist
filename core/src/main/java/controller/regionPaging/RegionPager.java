@@ -6,21 +6,18 @@ import java.util.List;
 import java.util.Map;
 
 import com.jme3.app.Application;
-import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.scene.Node;
 import com.simsilica.es.EntityData;
-import com.simsilica.es.EntityId;
 
 import app.AppFacade;
 import controller.ECS.DataState;
 import controller.builder.BuilderState;
-import model.ES.component.Naming;
-import model.ES.component.hierarchy.Parenting;
 import model.world.Region;
-import model.world.RegionArtisan;
+import model.world.RegionId;
 import model.world.RegionLoader;
 import model.world.WorldData;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import view.drawingProcessors.TerrainDrawer;
 
@@ -30,7 +27,8 @@ public class RegionPager extends BuilderState {
 	private EntityData entityData;
 	private WorldData worldData;
 	
-	private final List<Point2D> neededRegions = new ArrayList<>();
+	private final List<RegionId> neededRegions = new ArrayList<>();
+	private final Map<RegionId, RegionCreator> creators = new HashMap<>();
 	public final List<Region> builtRegions = new ArrayList<>();
 	public final Map<Region, TerrainDrawer> drawers = new HashMap<>();
 	
@@ -51,34 +49,50 @@ public class RegionPager extends BuilderState {
 	
 	public void setNeededRegions(List<Point2D> newNeededRegions){
 		// we start by transforming points in region Ids
-		List<Point2D> stdPoints = new ArrayList<>();
+		List<RegionId> ids = new ArrayList<>();
 		for(Point2D p : newNeededRegions)
-			stdPoints.add(RegionLoader.getRegionCoord(p));
+			ids.add(new RegionId(p));
+		LogUtil.info("pager.set needed regions : " + ids);
 		
 		// we have to find the built regions that are not needed anymore and discard them
-		List<Point2D> discardedRegions = new ArrayList<>(neededRegions);
-		discardedRegions.removeAll(stdPoints);
-		for(Point2D coord : discardedRegions){
-			getBuilder().build(new RegionDestructor(coord, loader, entityData, (region) -> {
-				builtRegions.remove(region);
-				worldNode.detachChild(drawers.get(region).mainNode);
-				drawers.remove(region);
-			}));
+		List<RegionId> discardedRegions = new ArrayList<>(neededRegions);
+		discardedRegions.removeAll(ids);
+		for(RegionId id : discardedRegions){
+			RegionId contained = null;
+			for(RegionId oid : creators.keySet())
+				if(oid.equals(id))
+					contained = oid;
+			if(contained != null){
+				getBuilder().release(creators.get(contained));
+				creators.remove(contained);
+			}
+
+			// this code don't work, don't know why
+//			if(creators.get(id) != null){
+//				getBuilder().release(creators.get(id));
+//				creators.remove(id);
+//			}
 		}
 
 		// and the new regions to build
-		List<Point2D> missingRegions = new ArrayList<>(neededRegions);
+		List<RegionId> missingRegions = new ArrayList<>(ids);
 		missingRegions.removeAll(neededRegions);
-		for(Point2D coord : missingRegions){
-			getBuilder().build(new RegionCreator(coord, loader, entityData, worldData.getWorldEntity(), (region, drawer) -> {
+		for(RegionId id : missingRegions){
+			RegionCreator creator = new RegionCreator(id, loader, AppFacade.getStateManager().getState(DataState.class).getEntityData(), AppFacade.getStateManager().getState(DataState.class).getWorldData().getWorldEntity(), (region, drawer) -> {
 				builtRegions.add(region);
 				drawers.put(region, drawer);
 				worldNode.attachChild(drawer.mainNode);
-			}));
+					}, (region) -> {
+				builtRegions.remove(region);
+				worldNode.detachChild(drawers.get(region).mainNode);
+				drawers.remove(region);
+					});
+			creators.put(id, creator);
+			getBuilder().build(creator);
 		}
 
 		neededRegions.clear();
-		neededRegions.addAll(stdPoints);
+		neededRegions.addAll(ids);
 	}
 	
 	public List<Region> getRegionsAtOnce(Point2D coord){
@@ -93,14 +107,21 @@ public class RegionPager extends BuilderState {
 			res.add(loader.getRegion(coord.getAddition(-1, -1)));
 		for(Region r : res)
 			if(!builtRegions.contains(r)){
+				RegionId id = new RegionId(coord);
 				builtRegions.add(r);
-				RegionCreator creator = new RegionCreator(coord, loader, entityData, worldData.getWorldEntity(), (region, drawer) -> {
+				RegionCreator creator = new RegionCreator(id, loader, entityData, worldData.getWorldEntity(), (region, drawer) -> {
 					builtRegions.add(region);
 					drawers.put(region, drawer);
 					worldNode.attachChild(drawer.mainNode);
-				});
+						},
+						(region) -> {
+					builtRegions.remove(region);
+					worldNode.detachChild(drawers.get(region).mainNode);
+					drawers.remove(region);
+						});
 				creator.build();
 				creator.apply(getBuilder());
+				creators.put(id, creator);
 			}
 		return res; 
 	}

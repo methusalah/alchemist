@@ -1,14 +1,8 @@
 package model.world;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.jme3.math.ColorRGBA;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.Node;
-import com.jme3.scene.shape.Line;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
@@ -16,25 +10,11 @@ import com.simsilica.es.EntityId;
 import app.AppFacade;
 import controller.regionPaging.RegionPager;
 import model.ES.component.Naming;
-import model.ES.component.hierarchy.Parenting;
 import model.ES.component.motion.PlanarStance;
-import model.ES.component.motion.physic.EdgedCollisionShape;
-import model.ES.component.motion.physic.Physic;
 import model.ES.serial.EntityInstance;
-import model.world.terrain.heightmap.HeightMapExplorer;
 import model.world.terrain.heightmap.HeightMapNode;
-import model.world.terrain.heightmap.Parcel;
-import model.world.terrain.heightmap.Parcelling;
-import util.LogUtil;
 import util.geometry.geom2d.Point2D;
-import util.geometry.geom2d.Segment2D;
-import util.geometry.geom3d.Point3D;
-import util.geometry.geom3d.Segment3D;
-import util.geometry.geom3d.Triangle3D;
-import util.math.Fraction;
 import view.drawingProcessors.TerrainDrawer;
-import view.material.MaterialManager;
-import view.math.TranslateUtil;
 
 public class WorldData {
 	private final EntityData ed;
