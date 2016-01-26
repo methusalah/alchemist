@@ -77,19 +77,7 @@ public class RegionPager extends BuilderState {
 		List<RegionId> missingRegions = new ArrayList<>(ids);
 		missingRegions.removeAll(neededRegions);
 		for(RegionId id : missingRegions){
-			RegionCreator creator = new RegionCreator(id, loader, AppFacade.getStateManager().getState(DataState.class).getEntityData(), AppFacade.getStateManager().getState(DataState.class).getWorldData().getWorldEntity(), (region, drawer) -> {
-				builtRegions.add(region);
-				drawers.put(region, drawer);
-				worldNode.attachChild(drawer.mainNode);
-					}, (region2) -> {
-				LogUtil.info("drawers : " + + drawers.size());
-				for(Region reg : drawers.keySet())
-					LogUtil.info("    region " + reg.getId() + " (" + reg + ") drawer : " + drawers.get(reg));
-						
-				builtRegions.remove(region2);
-				worldNode.detachChild(drawers.get(region2).mainNode);
-				drawers.remove(region2);
-					});
+			RegionCreator creator = getCreator(id);
 			creators.put(id, creator);
 			getBuilder().build(creator);
 		}
@@ -99,35 +87,48 @@ public class RegionPager extends BuilderState {
 	}
 	
 	public List<Region> getRegionsAtOnce(Point2D coord){
-//		coord = new Point2D((int)Math.floor(coord.x), (int)Math.floor(coord.y));
-//		List<Region> res = new ArrayList<>();
-//		res.add(loader.getRegion(coord));
-//		if(coord.x % Region.RESOLUTION == 0)
-//			res.add(loader.getRegion(coord.getAddition(-1, 0)));
-//		if(coord.y % Region.RESOLUTION == 0)
-//			res.add(loader.getRegion(coord.getAddition(0, -1)));
-//		if(coord.x % Region.RESOLUTION == 0 && coord.y % Region.RESOLUTION == 0)
-//			res.add(loader.getRegion(coord.getAddition(-1, -1)));
-//		for(Region r : res)
-//			if(!builtRegions.contains(r)){
-//				RegionId id = new RegionId(coord);
-//				builtRegions.add(r);
-//				RegionCreator creator = new RegionCreator(id, loader, AppFacade.getStateManager().getState(DataState.class).getEntityData(), AppFacade.getStateManager().getState(DataState.class).getWorldData().getWorldEntity(), (region, drawer) -> {
-//					builtRegions.add(region);
-//					drawers.put(region, drawer);
-//					worldNode.attachChild(drawer.mainNode);
-//						},
-//						(region) -> {
-//					builtRegions.remove(region);
-//					worldNode.detachChild(drawers.get(region).mainNode);
-//					drawers.remove(region);
-//						});
-//				creator.build();
-//				creator.apply(getBuilder());
-//				creators.put(id, creator);
-//			}
-//		return res; 
-		return null;
+		coord = new Point2D((int)Math.floor(coord.x), (int)Math.floor(coord.y));
+		List<Region> res = new ArrayList<>();
+		res.add(loader.getRegion(coord));
+		if(coord.x % Region.RESOLUTION == 0)
+			res.add(loader.getRegion(coord.getAddition(-1, 0)));
+		if(coord.y % Region.RESOLUTION == 0)
+			res.add(loader.getRegion(coord.getAddition(0, -1)));
+		if(coord.x % Region.RESOLUTION == 0 && coord.y % Region.RESOLUTION == 0)
+			res.add(loader.getRegion(coord.getAddition(-1, -1)));
+		for(Region r : res)
+			if(!builtRegions.contains(r)){
+				RegionId id = new RegionId(coord);
+				builtRegions.add(r);
+				RegionCreator creator = getCreator(id);
+				creator.build();
+				creator.apply(getBuilder());
+				creators.put(id, creator);
+			}
+		return res; 
+	}
+	
+	private RegionCreator getCreator(RegionId id){
+		return new RegionCreator(id,
+				loader,
+				AppFacade.getStateManager().getState(DataState.class).getEntityData(),
+				AppFacade.getStateManager().getState(DataState.class).getWorldData().getWorldEntity(),
+				(region, drawer) -> {
+					builtRegions.add(region);
+					drawers.put(region, drawer);
+					worldNode.attachChild(drawer.mainNode);
+				},
+				(region2) -> {
+					LogUtil.info("drawers : " + + drawers.size());
+					for(Region reg : drawers.keySet())
+						LogUtil.info("    region " + reg.getId() + " (" + reg + ") drawer : " + drawers.get(reg));
+							
+					LogUtil.info("asked region " + region2.getId() + " (" + region2 + ") drawer : " + drawers.get(region2));
+					builtRegions.remove(region2);
+					worldNode.detachChild(drawers.get(region2).mainNode);
+					drawers.remove(region2);
+				}
+				);
 	}
 
 }

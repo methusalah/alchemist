@@ -145,8 +145,6 @@ public class RegionCreator implements BuilderReference {
 
 	@Override
 	public void release(Builder builder) {
-		LogUtil.info("    releasing " + region.getId() + " (" + region + ") /drawer :  " + drawer + Thread.currentThread());
-		region = loader.getRegion(id.getOffset());
 		for(EntityInstance ei : region.getEntities())
 			ei.uninstanciate(ed);
 		for(EntityId eid : region.getTerrainColliders())
