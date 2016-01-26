@@ -52,7 +52,6 @@ public class RegionPager extends BuilderState {
 		List<RegionId> ids = new ArrayList<>();
 		for(Point2D p : newNeededRegions)
 			ids.add(new RegionId(p));
-		LogUtil.info("pager.set needed regions : " + ids);
 		
 		// we have to find the built regions that are not needed anymore and discard them
 		List<RegionId> discardedRegions = new ArrayList<>(neededRegions);
@@ -67,7 +66,7 @@ public class RegionPager extends BuilderState {
 				creators.remove(contained);
 			}
 
-			// this code don't work, don't know why
+			// this code doesn't work, don't know why
 //			if(creators.get(id) != null){
 //				getBuilder().release(creators.get(id));
 //				creators.remove(id);
@@ -82,10 +81,14 @@ public class RegionPager extends BuilderState {
 				builtRegions.add(region);
 				drawers.put(region, drawer);
 				worldNode.attachChild(drawer.mainNode);
-					}, (region) -> {
-				builtRegions.remove(region);
-				worldNode.detachChild(drawers.get(region).mainNode);
-				drawers.remove(region);
+					}, (region2) -> {
+				LogUtil.info("drawers : " + + drawers.size());
+				for(Region reg : drawers.keySet())
+					LogUtil.info("    region " + reg.getId() + " (" + reg + ") drawer : " + drawers.get(reg));
+						
+				builtRegions.remove(region2);
+				worldNode.detachChild(drawers.get(region2).mainNode);
+				drawers.remove(region2);
 					});
 			creators.put(id, creator);
 			getBuilder().build(creator);
@@ -96,34 +99,35 @@ public class RegionPager extends BuilderState {
 	}
 	
 	public List<Region> getRegionsAtOnce(Point2D coord){
-		coord = new Point2D((int)Math.floor(coord.x), (int)Math.floor(coord.y));
-		List<Region> res = new ArrayList<>();
-		res.add(loader.getRegion(coord));
-		if(coord.x % Region.RESOLUTION == 0)
-			res.add(loader.getRegion(coord.getAddition(-1, 0)));
-		if(coord.y % Region.RESOLUTION == 0)
-			res.add(loader.getRegion(coord.getAddition(0, -1)));
-		if(coord.x % Region.RESOLUTION == 0 && coord.y % Region.RESOLUTION == 0)
-			res.add(loader.getRegion(coord.getAddition(-1, -1)));
-		for(Region r : res)
-			if(!builtRegions.contains(r)){
-				RegionId id = new RegionId(coord);
-				builtRegions.add(r);
-				RegionCreator creator = new RegionCreator(id, loader, entityData, worldData.getWorldEntity(), (region, drawer) -> {
-					builtRegions.add(region);
-					drawers.put(region, drawer);
-					worldNode.attachChild(drawer.mainNode);
-						},
-						(region) -> {
-					builtRegions.remove(region);
-					worldNode.detachChild(drawers.get(region).mainNode);
-					drawers.remove(region);
-						});
-				creator.build();
-				creator.apply(getBuilder());
-				creators.put(id, creator);
-			}
-		return res; 
+//		coord = new Point2D((int)Math.floor(coord.x), (int)Math.floor(coord.y));
+//		List<Region> res = new ArrayList<>();
+//		res.add(loader.getRegion(coord));
+//		if(coord.x % Region.RESOLUTION == 0)
+//			res.add(loader.getRegion(coord.getAddition(-1, 0)));
+//		if(coord.y % Region.RESOLUTION == 0)
+//			res.add(loader.getRegion(coord.getAddition(0, -1)));
+//		if(coord.x % Region.RESOLUTION == 0 && coord.y % Region.RESOLUTION == 0)
+//			res.add(loader.getRegion(coord.getAddition(-1, -1)));
+//		for(Region r : res)
+//			if(!builtRegions.contains(r)){
+//				RegionId id = new RegionId(coord);
+//				builtRegions.add(r);
+//				RegionCreator creator = new RegionCreator(id, loader, AppFacade.getStateManager().getState(DataState.class).getEntityData(), AppFacade.getStateManager().getState(DataState.class).getWorldData().getWorldEntity(), (region, drawer) -> {
+//					builtRegions.add(region);
+//					drawers.put(region, drawer);
+//					worldNode.attachChild(drawer.mainNode);
+//						},
+//						(region) -> {
+//					builtRegions.remove(region);
+//					worldNode.detachChild(drawers.get(region).mainNode);
+//					drawers.remove(region);
+//						});
+//				creator.build();
+//				creator.apply(getBuilder());
+//				creators.put(id, creator);
+//			}
+//		return res; 
+		return null;
 	}
 
 }

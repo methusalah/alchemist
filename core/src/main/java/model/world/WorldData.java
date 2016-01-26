@@ -39,9 +39,16 @@ public class WorldData {
 	public void setCoord(Point2D coord){
 		List<Point2D> neededRegions = new ArrayList<Point2D>();
 		int r = Region.RESOLUTION;
-		for(int x = -r; x <= r; x += r)
-			for(int y = -r; y <= r; y += r)
-				neededRegions.add(coord.getAddition(x, y));
+//		for(int x = -r; x <= r; x += r)
+//			for(int y = -r; y <= r; y += r)
+//				neededRegions.add(coord.getAddition(x, y));
+		neededRegions.add(coord.getAddition(0, 0));
+		neededRegions.add(coord.getAddition(-r, 0));
+		neededRegions.add(coord.getAddition(r, 0));
+		neededRegions.add(coord.getAddition(-2*r, 0));
+		neededRegions.add(coord.getAddition(2*r, 0));
+		neededRegions.add(coord.getAddition(-3*r, 0));
+		neededRegions.add(coord.getAddition(3*r, 0));
 
 		AppFacade.getStateManager().getState(RegionPager.class).setNeededRegions(neededRegions);
 		

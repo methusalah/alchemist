@@ -43,6 +43,7 @@ public class RegionCreator implements BuilderReference {
 	
 	private Region region;
 	private TerrainDrawer drawer;
+	private boolean applied = false;
 	
 	@FunctionalInterface
 	interface Consumer2 <A, B> {
@@ -136,18 +137,24 @@ public class RegionCreator implements BuilderReference {
 
 	@Override
 	public void apply(Builder builder) {
+		LogUtil.info("applying " + region.getId() + " /drawer :  " + drawer + Thread.currentThread());
 		applyHandler.accept(region, drawer);
+		applied = true;
+		LogUtil.info("applied");
 	}
 
 	@Override
 	public void release(Builder builder) {
+		LogUtil.info("    releasing " + region.getId() + " (" + region + ") /drawer :  " + drawer + Thread.currentThread());
 		region = loader.getRegion(id.getOffset());
 		for(EntityInstance ei : region.getEntities())
 			ei.uninstanciate(ed);
 		for(EntityId eid : region.getTerrainColliders())
 			ed.removeEntity(eid);
 		region.getTerrainColliders().clear();
-		releaseHandler.accept(region);
+		if(applied)
+			releaseHandler.accept(region);
+		LogUtil.info("    released");
 	}
 
 }
