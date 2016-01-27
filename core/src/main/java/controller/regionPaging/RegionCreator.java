@@ -63,12 +63,9 @@ public class RegionCreator implements BuilderReference {
 	public void build(){
 		region = loader.getRegion(id.getOffset());
 		// create an entity for this region
-		if(region.getEntityId() == null){
-			EntityId eid = ed.createEntity();
-			ed.setComponent(eid, new Naming("Region "+region.getId()));
-			ed.setComponent(eid, new Parenting(worldEntity));
-			region.setEntityId(eid);
-		}
+		region.setEntityId(ed.createEntity());
+		ed.setComponent(region.getEntityId(), new Naming("Region "+region.getId()));
+		ed.setComponent(region.getEntityId(), new Parenting(worldEntity));
 		
 		// instantiation of entity blueprints
 		for(EntityInstance ei : region.getEntities())
@@ -137,10 +134,8 @@ public class RegionCreator implements BuilderReference {
 
 	@Override
 	public void apply(Builder builder) {
-		LogUtil.info("applying " + region.getId() + " /drawer :  " + drawer + Thread.currentThread());
 		applyHandler.accept(region, drawer);
 		applied = true;
-		LogUtil.info("applied");
 	}
 
 	@Override
@@ -149,10 +144,10 @@ public class RegionCreator implements BuilderReference {
 			ei.uninstanciate(ed);
 		for(EntityId eid : region.getTerrainColliders())
 			ed.removeEntity(eid);
+		ed.removeEntity(region.getEntityId());
 		region.getTerrainColliders().clear();
 		if(applied)
 			releaseHandler.accept(region);
-		LogUtil.info("    released");
 	}
 
 }

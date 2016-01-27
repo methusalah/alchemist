@@ -18,7 +18,7 @@ public class RegionLoader {
 	private static final String EXT = ".region";
 	
 	private final ObjectMapper mapper = new ObjectMapper();
-	private final Map<String, Region> loadedRegions = new HashMap<>();
+	private final Map<RegionId, Region> loadedRegions = new HashMap<>();
 	private final List<Region> cache = new ArrayList<>();
 
 	public RegionLoader() {
@@ -27,12 +27,12 @@ public class RegionLoader {
 	}
 
 	public Region getRegion(Point2D coord){
-		String rid = getRegionId(coord);
+		RegionId id = new RegionId(coord);
 		Region res;
 		synchronized (loadedRegions) {
-			if(!loadedRegions.containsKey(rid))
-				loadedRegions.put(rid, loadRegion(rid, getRegionCoord(coord)));
-			res = loadedRegions.get(rid);
+			if(!loadedRegions.containsKey(id))
+				loadedRegions.put(id, loadRegion(id, getRegionCoord(coord)));
+			res = loadedRegions.get(id);
 			
 			synchronized (cache) {
 				// cleaning the cache
@@ -43,7 +43,8 @@ public class RegionLoader {
 				int tryCount = 0;
 				if(cache.size() > 20)
 					while(cache.size() > 15 && tryCount++ < 50){
-						Region oldest = loadedRegions.get(cache.get(cache.size()-1).getId());
+						// TODO refactor with region Id in regions
+						Region oldest = new ArrayList<Region>(loadedRegions.values()).get(cache.size()-1);
 						if(!oldest.isModified()){
 							loadedRegions.remove(oldest.getId());
 							cache.remove(oldest);
@@ -54,15 +55,19 @@ public class RegionLoader {
 		return res;
 	}
 	
-	private Region loadRegion(String rid, Point2D coord) {
-		File f = getRegionFile(rid, coord);
-		try {
-			return mapper.readValue(f, Region.class);
-		} catch (IOException e) {
-			e.printStackTrace();
+	private Region loadRegion(RegionId id, Point2D coord) {
+		File f = new File(PATH+id.getId()+EXT);
+		if (!f.exists()) {
+			return new Region(id.getId(), id.getOffset());
+		} else{
+			try {
+				return mapper.readValue(f, Region.class);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			LogUtil.warning("problem with region loading for " + id);
+			return null;
 		}
-		LogUtil.warning("problem with region loading for " + rid);
-		return null;
 	}
 
 	public static String getRegionId(Point2D coord){
@@ -93,21 +98,5 @@ public class RegionLoader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	private static File getRegionFile(String regionId, Point2D coord){
-		File f = new File(PATH+regionId+EXT);
-		if (!f.exists()) {
-			try {
-				f.createNewFile();
-				ObjectMapper mapper = new ObjectMapper();
-				mapper.enable(SerializationFeature.INDENT_OUTPUT);
-				mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-				mapper.writeValue(f, new Region(regionId, coord));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return f;
 	}
 }

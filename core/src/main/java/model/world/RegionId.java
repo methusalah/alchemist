@@ -22,6 +22,11 @@ public class RegionId {
 		}
 		return super.equals(obj);
 	}
+	
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
 
 	public String getId() {
 		return id;

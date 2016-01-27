@@ -53,7 +53,7 @@ public class TerrainDrawer {
 //			g.setLocalTranslation(new Vector3f(5, 0, 0));
 //			g.setQueueBucket(Bucket.Transparent);
 
-			g.addControl(new RigidBodyControl(0));
+			//g.addControl(new RigidBodyControl(0));
 			SpatialPool.terrainParcels.put(parcel, g);
 			castAndReceiveNode.attachChild(g);
 			

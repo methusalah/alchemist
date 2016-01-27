@@ -24,8 +24,6 @@ import view.drawingProcessors.TerrainDrawer;
 public class RegionPager extends BuilderState {
 	
 	private final RegionLoader loader = new RegionLoader();
-	private EntityData entityData;
-	private WorldData worldData;
 	
 	private final List<RegionId> neededRegions = new ArrayList<>();
 	private final Map<RegionId, RegionCreator> creators = new HashMap<>();
@@ -40,13 +38,6 @@ public class RegionPager extends BuilderState {
 		AppFacade.getMainSceneNode().attachChild(worldNode);
 	}
 	
-	@Override
-	public void initialize(AppStateManager stateManager, Application app) {
-		super.initialize(stateManager, app);
-		worldData = stateManager.getState(DataState.class).getWorldData();
-		entityData = stateManager.getState(DataState.class).getEntityData();
-	}
-	
 	public void setNeededRegions(List<Point2D> newNeededRegions){
 		// we start by transforming points in region Ids
 		List<RegionId> ids = new ArrayList<>();
@@ -57,31 +48,22 @@ public class RegionPager extends BuilderState {
 		List<RegionId> discardedRegions = new ArrayList<>(neededRegions);
 		discardedRegions.removeAll(ids);
 		for(RegionId id : discardedRegions){
-			RegionId contained = null;
-			for(RegionId oid : creators.keySet())
-				if(oid.equals(id))
-					contained = oid;
-			if(contained != null){
-				getBuilder().release(creators.get(contained));
-				creators.remove(contained);
+			if(creators.containsKey(id)){
+				getBuilder().release(creators.get(id));
+				creators.remove(id);
 			}
-
-			// this code doesn't work, don't know why
-//			if(creators.get(id) != null){
-//				getBuilder().release(creators.get(id));
-//				creators.remove(id);
-//			}
 		}
 
 		// and the new regions to build
 		List<RegionId> missingRegions = new ArrayList<>(ids);
 		missingRegions.removeAll(neededRegions);
 		for(RegionId id : missingRegions){
-			RegionCreator creator = getCreator(id);
-			creators.put(id, creator);
-			getBuilder().build(creator);
+			RegionCreator creator = instanciateCreator(id);
+			if(!creators.containsKey(id)){
+				creators.put(id, creator);
+				getBuilder().build(creator);
+			}
 		}
-
 		neededRegions.clear();
 		neededRegions.addAll(ids);
 	}
@@ -100,7 +82,7 @@ public class RegionPager extends BuilderState {
 			if(!builtRegions.contains(r)){
 				RegionId id = new RegionId(coord);
 				builtRegions.add(r);
-				RegionCreator creator = getCreator(id);
+				RegionCreator creator = instanciateCreator(id);
 				creator.build();
 				creator.apply(getBuilder());
 				creators.put(id, creator);
@@ -108,7 +90,7 @@ public class RegionPager extends BuilderState {
 		return res; 
 	}
 	
-	private RegionCreator getCreator(RegionId id){
+	private RegionCreator instanciateCreator(RegionId id){
 		return new RegionCreator(id,
 				loader,
 				AppFacade.getStateManager().getState(DataState.class).getEntityData(),
@@ -119,11 +101,6 @@ public class RegionPager extends BuilderState {
 					worldNode.attachChild(drawer.mainNode);
 				},
 				(region2) -> {
-					LogUtil.info("drawers : " + + drawers.size());
-					for(Region reg : drawers.keySet())
-						LogUtil.info("    region " + reg.getId() + " (" + reg + ") drawer : " + drawers.get(reg));
-							
-					LogUtil.info("asked region " + region2.getId() + " (" + region2 + ") drawer : " + drawers.get(region2));
 					builtRegions.remove(region2);
 					worldNode.detachChild(drawers.get(region2).mainNode);
 					drawers.remove(region2);
