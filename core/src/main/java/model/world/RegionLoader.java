@@ -26,12 +26,11 @@ public class RegionLoader {
 		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 	}
 
-	public Region getRegion(Point2D coord){
-		RegionId id = new RegionId(coord);
+	public Region getRegion(RegionId id){
 		Region res;
 		synchronized (loadedRegions) {
 			if(!loadedRegions.containsKey(id))
-				loadedRegions.put(id, loadRegion(id, getRegionCoord(coord)));
+				loadedRegions.put(id, loadRegion(id, getRegionCoord(id.getOffset())));
 			res = loadedRegions.get(id);
 			
 			synchronized (cache) {
@@ -95,6 +94,7 @@ public class RegionLoader {
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
 			mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 			mapper.writeValue(f, region);
+			region.setModified(false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

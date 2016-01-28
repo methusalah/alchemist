@@ -1,0 +1,44 @@
+{
+  "id" : "6,-2",
+  "coord" : {
+    "x" : 180.0,
+    "y" : -60.0
+  },
+  "entities" : [ ],
+  "terrain" : {
+    "width" : 31,
+    "height" : 31,
+    "atlas" : {
+      "width" : 62,
+      "height" : 62,
+      "flatData" : "+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+12,7E,7C,79,7A,78,7C,7E,+35,7A,77,74,6E,6C,6A,6C,70,75,79,7E,+31,7B,78,71,65,5B,4D,45,3E,45,52,60,6E,78,7D,+2E,7E,7A,71,65,51,39,1C,03,F1,ED,F8,13,34,55,6C,78,7E,+2D,79,6F,5C,3E,13,E2,B5,92,80,80,90,B8,ED,27,53,6F,79,+2C,7D,73,5E,36,FE,B8,-07,9F,EC,32,60,75,7E,+2B,76,67,40,FE,AD,-09,B6,0D,4F,71,7B,+2A,7E,73,57,1C,C6,-0A,95,F5,41,6B,79,+2A,7C,70,4B,00,9B,-0A,86,F0,41,6B,79,+2A,7C,6F,48,F6,8B,-0A,97,F9,43,6B,79,+2A,7C,6F,46,FC,97,-0A,BB,12,52,71,7B,+2A,7C,71,53,13,BA,-09,9C,F4,3A,62,76,7E,+2A,7E,76,61,34,ED,9C,-07,9F,F1,2E,58,6F,7B,+2C,7A,6F,54,28,ED,B3,85,80,80,80,9E,CE,FF,35,59,6D,79,7E,+2C,7E,78,6C,55,32,0E,F5,E1,E4,F1,0D,2D,4A,61,6E,78,7E,+2E,7D,78,6E,61,51,42,3C,3B,44,52,5F,6D,75,7A,+32,79,75,6F,6B,6A,6B,6C,71,76,79,7E,+34,7E,7C,7A,79,79,7B,7D,+FA,+FA,+FA,+12,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-12,81,83,86,85,87,83,81,-35,85,88,8B,91,93,95,93,8F,8A,86,81,-31,84,87,8E,9A,A4,B2,BA,C1,BA,AD,9F,91,87,82,-2E,81,85,8E,9A,AE,C6,E3,FC,0E,12,07,EC,CB,AA,93,87,81,-2D,86,90,A3,C1,EC,1D,4A,6D,7F,7F,6F,47,12,D8,AC,90,86,-2C,82,8C,A1,C9,01,47,+07,60,13,CD,9F,8A,81,-2B,89,98,BF,01,52,+09,49,F2,B0,8E,84,-2A,81,8C,A8,E3,39,+0A,6A,0A,BE,94,86,-2A,83,8F,B4,FF,64,+0A,79,0F,BE,94,86,-2A,83,90,B7,09,74,+0A,68,06,BC,94,86,-2A,83,90,B9,03,68,+0A,44,ED,AD,8E,84,-2A,83,8E,AC,EC,45,+09,63,0B,C5,9D,89,81,-2A,81,89,9E,CB,12,63,+07,60,0E,D1,A7,90,84,-2C,85,90,AB,D7,12,4C,7A,7F,7F,7F,61,31,00,CA,A6,92,86,81,-2C,81,87,93,AA,CD,F1,0A,1E,1B,0E,F2,D2,B5,9E,91,87,81,-2E,82,87,91,9E,AE,BD,C3,C4,BB,AD,A0,92,8A,85,-32,86,8A,90,94,95,94,93,8E,89,86,81,-34,81,83,85,86,86,84,82,-FA,-FA,-FA,-12,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,"
+    },
+    "cover" : {
+      "width" : 62,
+      "height" : 62,
+      "flatData" : "+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,"
+    },
+    "heightMap" : {
+      "width" : 31,
+      "height" : 31,
+      "flatData" : "-000003C1,",
+      "coord" : {
+        "x" : 180.0,
+        "y" : -60.0
+      }
+    },
+    "texturing" : [ {
+      "diffuse" : "textures/grass02.jpg",
+      "normal" : null,
+      "scale" : 32.0
+    }, {
+      "diffuse" : "textures/paving2full.png",
+      "normal" : null,
+      "scale" : 32.0
+    }, {
+      "diffuse" : "textures/trans.png",
+      "normal" : null,
+      "scale" : 32.0
+    }, null, null, null, null, null ]
+  }
+}

@@ -1,8 +1,8 @@
 {
-  "id" : "-1,-2",
+  "id" : "7,-1",
   "coord" : {
-    "x" : -30.0,
-    "y" : -60.0
+    "x" : 210.0,
+    "y" : -30.0
   },
   "entities" : [ ],
   "terrain" : {
@@ -11,7 +11,7 @@
     "atlas" : {
       "width" : 62,
       "height" : 62,
-      "flatData" : "+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,"
+      "flatData" : "+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+F4,7E,7B,77,72,6E,6F,72,75,7C,+34,7C,74,69,5C,4E,41,3F,47,58,69,73,7D,+31,7A,71,5E,3E,17,F0,D1,D1,E9,11,38,5D,70,7C,+2F,7C,74,5C,30,EB,95,80,80,80,80,84,DD,29,57,71,7E,+2D,7E,75,65,38,E4,-08,D6,32,62,77,+2D,7D,71,52,14,99,-09,FA,4F,71,+1B,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-F4,81,84,88,8D,91,90,8D,8A,83,-34,83,8B,96,A3,B1,BE,C0,B8,A7,96,8C,82,-31,85,8E,A1,C1,E8,0F,2E,2E,16,EE,C7,A2,8F,83,-2F,83,8B,A3,CF,14,6A,7F,7F,7F,7F,7B,22,D6,A8,8E,81,-2D,81,8A,9A,C7,1B,+08,29,CD,9D,88,-2D,82,8E,AD,EB,66,+09,05,B0,8E,-1B,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,"
     },
     "cover" : {
       "width" : 62,
@@ -23,8 +23,8 @@
       "height" : 31,
       "flatData" : "-000003C1,",
       "coord" : {
-        "x" : -30.0,
-        "y" : -60.0
+        "x" : 210.0,
+        "y" : -30.0
       }
     },
     "texturing" : [ {

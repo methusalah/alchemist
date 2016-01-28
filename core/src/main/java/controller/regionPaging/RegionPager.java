@@ -33,7 +33,7 @@ public class RegionPager extends BuilderState {
 	private final Node worldNode;
 
 	public RegionPager() {
-		super("Region Builder", 20, 1);
+		super("Region Builder", 1, 1);
 		worldNode = new Node("World");
 		AppFacade.getMainSceneNode().attachChild(worldNode);
 	}
@@ -44,18 +44,24 @@ public class RegionPager extends BuilderState {
 		for(Point2D p : newNeededRegions)
 			ids.add(new RegionId(p));
 		
-		// we have to find the built regions that are not needed anymore and discard them
 		List<RegionId> discardedRegions = new ArrayList<>(neededRegions);
+		List<RegionId> missingRegions = new ArrayList<>(ids);
+
+		// we have to find the built regions that are not needed anymore and discard them
 		discardedRegions.removeAll(ids);
 		for(RegionId id : discardedRegions){
 			if(creators.containsKey(id)){
-				getBuilder().release(creators.get(id));
-				creators.remove(id);
+				if(creators.get(id).getRegion().isModified())
+					// 	we have to keep modified regions as needed, since they have to stay drawn while they are not saved
+					ids.add(id);
+				else{
+					getBuilder().release(creators.get(id));
+					creators.remove(id);
+				}
 			}
 		}
 
 		// and the new regions to build
-		List<RegionId> missingRegions = new ArrayList<>(ids);
 		missingRegions.removeAll(neededRegions);
 		for(RegionId id : missingRegions){
 			RegionCreator creator = instanciateCreator(id);
@@ -68,7 +74,15 @@ public class RegionPager extends BuilderState {
 		neededRegions.addAll(ids);
 	}
 	
+	/**
+	 * Meant to be called from another thread, to obtain regions immediately
+	 * 
+	 * @param coord
+	 * @return null if one or more required region is not built
+	 */
 	public List<Region> getRegionsAtOnce(Point2D coord){
+		// on a single point, we can have up to four regions.
+		// this happens on the borders and corners
 		coord = new Point2D((int)Math.floor(coord.x), (int)Math.floor(coord.y));
 		List<RegionId> ids = new ArrayList<>();
 		ids.add(new RegionId(coord));
@@ -78,17 +92,26 @@ public class RegionPager extends BuilderState {
 			ids.add(new RegionId(coord.getAddition(0, -1)));
 		if(coord.x % Region.RESOLUTION == 0 && coord.y % Region.RESOLUTION == 0)
 			ids.add(new RegionId(coord.getAddition(-1, -1)));
-		
+
+		// for each region ID, we get the existing regions or ask the Builder to build it
+		// since this method is made to obtain built regions, we wait for it to finish the job
 		List<Region> res = new ArrayList<>();
 		for(RegionId id : ids){
 			if(!creators.containsKey(id)){
 				RegionCreator creator = instanciateCreator(id);
-				creators.put(id, creator);
-				creator.build();
-				getBuilder().build(creator);
-				creator.apply(getBuilder());
+				synchronized (this) {
+					creators.put(id, creator);
+					neededRegions.add(id);
+					getBuilder().build(creator);
+				}
+				while(!builtRegions.contains(creator.getRegion()))
+					try {
+						Thread.sleep(5);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 			}
-			res.add(loader.getRegion(id.getOffset()));
+			res.add(loader.getRegion(id));
 		}
 		return res; 
 	}
@@ -103,16 +126,14 @@ public class RegionPager extends BuilderState {
 					drawers.put(region, drawer);
 					AppFacade.getApp().enqueue(() -> worldNode.attachChild(drawer.mainNode));
 				},
-				(region2) -> {
-					builtRegions.remove(region2);
-					AppFacade.getApp().enqueue(() -> drawers.remove(region2));
+				(region) -> {
+					builtRegions.remove(region);
+					AppFacade.getApp().enqueue(() -> {
+						worldNode.detachChild(drawers.get(region).mainNode);
+						drawers.remove(region);
+						return true;
+					});
 				}
 				);
 	}
-	
-	private void tagada(Region region2){
-		worldNode.detachChild(drawers.get(region2).mainNode);
-		drawers.remove(region2);
-	}
-
 }

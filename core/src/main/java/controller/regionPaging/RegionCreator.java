@@ -61,7 +61,7 @@ public class RegionCreator implements BuilderReference {
 	
 	@Override
 	public void build(){
-		region = loader.getRegion(id.getOffset());
+		region = loader.getRegion(id);
 		// create an entity for this region
 		region.setEntityId(ed.createEntity());
 		ed.setComponent(region.getEntityId(), new Naming("Region "+region.getId()));
@@ -149,4 +149,10 @@ public class RegionCreator implements BuilderReference {
 		if(applied)
 			releaseHandler.accept(region);
 	}
+
+	public Region getRegion() {
+		return region;
+	}
+	
+	
 }

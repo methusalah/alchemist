@@ -1,0 +1,44 @@
+{
+  "id" : "0,3",
+  "coord" : {
+    "x" : 0.0,
+    "y" : 90.0
+  },
+  "entities" : [ ],
+  "terrain" : {
+    "width" : 31,
+    "height" : 31,
+    "atlas" : {
+      "width" : 62,
+      "height" : 62,
+      "flatData" : "+FA,+FA,+FA,+FA,+FA,+FA,+FA,+8E,7D,7B,79,79,7B,7D,+36,7A,77,73,70,6F,6F,72,76,7A,7C,7E,+31,7C,78,70,66,59,52,4C,50,5A,66,71,78,7C,7E,+2C,7D,76,6F,67,5C,52,3C,26,14,03,05,13,2B,49,60,6E,77,7D,+2A,77,6C,60,53,45,37,27,08,DD,C2,B7,B3,B7,C8,EA,15,43,62,72,7B,7E,+27,7E,6D,59,4E,3C,2E,1F,0C,EF,BB,88,80,80,80,80,82,A9,E0,1F,4E,6A,78,7D,+26,7E,6F,54,3A,29,1A,12,FA,E4,BF,88,-06,86,BC,FF,3B,60,77,7D,+26,75,60,3E,1B,02,F6,FA,D9,C4,A7,-08,AB,F1,2F,59,75,7D,+25,7C,6E,53,2D,06,F1,F5,EC,D3,B8,A1,-08,B4,F1,31,58,73,7D,+25,78,69,54,24,FE,FE,F7,E6,CE,B6,8F,-07,8F,CC,0A,3E,5F,76,7E,+25,79,6A,57,30,09,FF,FC,F2,D9,BE,A0,-07,B0,F0,2A,50,69,7A,+26,7C,6F,5C,40,1F,06,FD,F8,DE,BF,AA,90,80,80,80,80,93,B9,ED,25,4E,61,73,+28,77,65,4E,3A,20,11,FE,EE,D4,C6,AE,91,91,A1,BF,E8,0A,30,59,67,75,7E,+29,78,64,50,44,36,22,0C,FF,F3,E5,E6,F3,06,20,3F,55,6C,76,7C,+2C,7B,6D,63,5E,51,43,34,2E,32,35,3F,50,61,72,7B,7D,+30,7C,79,78,71,6A,64,65,6D,6F,76,7C,7E,+36,7E,7C,7A,7C,+FA,+FA,+FA,+D3,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-8E,82,84,86,86,84,82,-36,85,88,8C,8F,90,90,8D,89,85,83,81,-31,83,87,8F,99,A6,AD,B3,AF,A5,99,8E,87,83,81,-2C,82,89,90,98,A3,AD,C3,D9,EB,FC,FA,EC,D4,B6,9F,91,88,82,-2A,88,93,9F,AC,BA,C8,D8,F7,22,3D,48,4C,48,37,15,EA,BC,9D,8D,84,81,-27,81,92,A6,B1,C3,D1,E0,F3,10,44,77,7F,7F,7F,7F,7D,56,1F,E0,B1,95,87,82,-26,81,90,AB,C5,D6,E5,ED,05,1B,40,77,+06,79,43,00,C4,9F,88,82,-26,8A,9F,C1,E4,FD,09,05,26,3B,58,+08,54,0E,D0,A6,8A,82,-25,83,91,AC,D2,F9,0E,0A,13,2C,47,5E,+08,4B,0E,CE,A7,8C,82,-25,87,96,AB,DB,01,01,08,19,31,49,70,+07,70,33,F5,C1,A0,89,81,-25,86,95,A8,CF,F6,00,03,0D,26,41,5F,+07,4F,0F,D5,AF,96,85,-26,83,90,A3,BF,E0,F9,02,07,21,40,55,6F,7F,7F,7F,7F,6C,46,12,DA,B1,9E,8C,-28,88,9A,B1,C5,DF,EE,01,11,2B,39,51,6E,6E,5E,40,17,F5,CF,A6,98,8A,81,-29,87,9B,AF,BB,C9,DD,F3,00,0C,1A,19,0C,F9,DF,C0,AA,93,89,83,-2C,84,92,9C,A1,AE,BC,CB,D1,CD,CA,C0,AF,9E,8D,84,82,-30,83,86,87,8E,95,9B,9A,92,90,89,83,81,-36,81,83,85,83,-FA,-FA,-FA,-D3,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,"
+    },
+    "cover" : {
+      "width" : 62,
+      "height" : 62,
+      "flatData" : "+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,"
+    },
+    "heightMap" : {
+      "width" : 31,
+      "height" : 31,
+      "flatData" : "-000003C1,",
+      "coord" : {
+        "x" : 0.0,
+        "y" : 90.0
+      }
+    },
+    "texturing" : [ {
+      "diffuse" : "textures/grass02.jpg",
+      "normal" : null,
+      "scale" : 32.0
+    }, {
+      "diffuse" : "textures/paving2full.png",
+      "normal" : null,
+      "scale" : 32.0
+    }, {
+      "diffuse" : "textures/trans.png",
+      "normal" : null,
+      "scale" : 32.0
+    }, null, null, null, null, null ]
+  }
+}
