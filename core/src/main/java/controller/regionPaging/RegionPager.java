@@ -70,23 +70,26 @@ public class RegionPager extends BuilderState {
 	
 	public List<Region> getRegionsAtOnce(Point2D coord){
 		coord = new Point2D((int)Math.floor(coord.x), (int)Math.floor(coord.y));
-		List<Region> res = new ArrayList<>();
-		res.add(loader.getRegion(coord));
+		List<RegionId> ids = new ArrayList<>();
+		ids.add(new RegionId(coord));
 		if(coord.x % Region.RESOLUTION == 0)
-			res.add(loader.getRegion(coord.getAddition(-1, 0)));
+			ids.add(new RegionId(coord.getAddition(-1, 0)));
 		if(coord.y % Region.RESOLUTION == 0)
-			res.add(loader.getRegion(coord.getAddition(0, -1)));
+			ids.add(new RegionId(coord.getAddition(0, -1)));
 		if(coord.x % Region.RESOLUTION == 0 && coord.y % Region.RESOLUTION == 0)
-			res.add(loader.getRegion(coord.getAddition(-1, -1)));
-		for(Region r : res)
-			if(!builtRegions.contains(r)){
-				RegionId id = new RegionId(coord);
-				builtRegions.add(r);
+			ids.add(new RegionId(coord.getAddition(-1, -1)));
+		
+		List<Region> res = new ArrayList<>();
+		for(RegionId id : ids){
+			if(!creators.containsKey(id)){
 				RegionCreator creator = instanciateCreator(id);
-				creator.build();
-				creator.apply(getBuilder());
 				creators.put(id, creator);
+				creator.build();
+				getBuilder().build(creator);
+				creator.apply(getBuilder());
 			}
+			res.add(loader.getRegion(id.getOffset()));
+		}
 		return res; 
 	}
 	
@@ -98,14 +101,18 @@ public class RegionPager extends BuilderState {
 				(region, drawer) -> {
 					builtRegions.add(region);
 					drawers.put(region, drawer);
-					worldNode.attachChild(drawer.mainNode);
+					AppFacade.getApp().enqueue(() -> worldNode.attachChild(drawer.mainNode));
 				},
 				(region2) -> {
 					builtRegions.remove(region2);
-					worldNode.detachChild(drawers.get(region2).mainNode);
-					drawers.remove(region2);
+					AppFacade.getApp().enqueue(() -> drawers.remove(region2));
 				}
 				);
+	}
+	
+	private void tagada(Region region2){
+		worldNode.detachChild(drawers.get(region2).mainNode);
+		drawers.remove(region2);
 	}
 
 }

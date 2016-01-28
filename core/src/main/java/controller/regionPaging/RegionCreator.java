@@ -149,5 +149,4 @@ public class RegionCreator implements BuilderReference {
 		if(applied)
 			releaseHandler.accept(region);
 	}
-
 }
