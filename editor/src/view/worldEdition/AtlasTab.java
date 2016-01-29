@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.world.terrain.TerrainTexture;
 import presenter.worldEdition.Tool;
@@ -77,21 +78,28 @@ public class AtlasTab extends Tab implements ToolEditor {
 	
 	public void updateTextureGrid(){
 		textureGrid.getChildren().clear();
-		HBox row1 = new HBox(getTerrainTextureButton(0),
-				getTerrainTextureButton(1),
-				getTerrainTextureButton(2),
-				getTerrainTextureButton(3));
-		HBox row2 = new HBox(getTerrainTextureButton(4),
-				getTerrainTextureButton(5),
-				getTerrainTextureButton(6),
-				getTerrainTextureButton(7));
-		textureGrid.getChildren().addAll(row1, row2);
+		textureGrid.setPrefSize(400, 200);
+		if(presenter.getTextures().getValue() == null){
+			BorderPane p = new BorderPane(new Label("Click on a region to show it's textures."));
+			p.setPrefSize(400, 200);
+			textureGrid.getChildren().add(p);
+		} else {
+			HBox row1 = new HBox(getTerrainTextureButton(0),
+					getTerrainTextureButton(1),
+					getTerrainTextureButton(2),
+					getTerrainTextureButton(3));
+			HBox row2 = new HBox(getTerrainTextureButton(4),
+					getTerrainTextureButton(5),
+					getTerrainTextureButton(6),
+					getTerrainTextureButton(7));
+			textureGrid.getChildren().addAll(row1, row2);
+		}
 	}
 	
 	private Node getTerrainTextureButton(int textureIndex){
 		BorderPane res = new BorderPane();
 		res.setPrefSize(100, 100);
-		//res.setMaxSize(100, 100);
+		//res.setMinSize(100, 100);
 		if(presenter.getTextures().size() > textureIndex && presenter.getTextures().get(textureIndex) != null){
 			TerrainTextureButton texButton = new TerrainTextureButton(presenter.getTextures().get(textureIndex));
 			texButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);

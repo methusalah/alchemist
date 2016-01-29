@@ -29,7 +29,7 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 
 	private final AtlasTab view;
 	
-	private final ListProperty<TerrainTexture> textures = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private final ListProperty<TerrainTexture> textures = new SimpleListProperty<>();
 	private final ToggledEnumProperty<Operation> operationProperty = new ToggledEnumProperty<>(Operation.class);
 	private final IntegerProperty actualTextureProperty = new SimpleIntegerProperty();
 	private Region lastRegion;
@@ -38,10 +38,12 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 	public AtlasToolPresenter(AtlasTab view) {
 		this.view = view;
 		textures.addListener((ListChangeListener.Change<? extends TerrainTexture> c) -> {
-			lastRegion.getTerrain().getTexturing().clear();
-			lastRegion.getTerrain().getTexturing().addAll(textures.getValue());
+			if(lastRegion != null){
+				lastRegion.getTerrain().getTexturing().clear();
+				lastRegion.getTerrain().getTexturing().addAll(textures.getValue());
+				EditorPlatform.getWorldData().getTerrainDrawer(lastRegion).updateTexturing();
+			}
 			view.updateTextureGrid();
-			EditorPlatform.getWorldData().getTerrainDrawer(lastRegion).updateTexturing();
 		});
 	}
 
@@ -51,7 +53,10 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 			case ADD_DELETE: increment(); break;
 			case PROPAGATE_SMOOTH: propagate(); break;
 		}
-		if(coord != null && EditorPlatform.getWorldData().getRegionsAtOnce(coord).get(0) != lastRegion){
+		if(coord == null){
+			lastRegion = null;
+			textures.set(null);
+		} else if(EditorPlatform.getWorldData().getRegionsAtOnce(coord).get(0) != lastRegion){
 			lastRegion = EditorPlatform.getWorldData().getRegionsAtOnce(coord).get(0);
 			textures.set(FXCollections.observableArrayList(lastRegion.getTerrain().getTexturing()));
 		}

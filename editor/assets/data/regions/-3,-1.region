@@ -1,0 +1,44 @@
+{
+  "id" : "-3,-1",
+  "coord" : {
+    "x" : -90.0,
+    "y" : -30.0
+  },
+  "entities" : [ ],
+  "terrain" : {
+    "width" : 31,
+    "height" : 31,
+    "atlas" : {
+      "width" : 62,
+      "height" : 62,
+      "flatData" : "+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+63,7D,+3A,7E,78,75,74,+38,7E,75,73,6F,6B,64,+36,7D,73,6E,68,5F,56,4B,41,+34,7C,72,6E,65,57,49,37,27,16,0B,+33,76,6F,63,55,42,2B,10,F4,DE,CB,C2,+32,71,6A,5A,46,28,06,DF,B9,9B,84,80,80,+31,70,67,53,35,0C,DC,AB,-06,+2F,7D,70,65,4F,2B,F6,BE,82,-07,+2E,7B,73,64,4F,29,F0,AA,-09,+2D,7B,75,67,53,2C,F1,A7,-0A,+2C,7D,75,6D,56,2F,FC,B3,-0B,+2B,7E,77,6D,5B,3D,09,CB,-0C,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-63,82,-3A,81,87,8A,8B,-38,81,8A,8C,90,94,9B,-36,82,8C,91,97,A0,A9,B4,BE,-34,83,8D,91,9A,A8,B6,C8,D8,E9,F4,-33,89,90,9C,AA,BD,D4,EF,0B,21,34,3D,-32,8E,95,A5,B9,D7,F9,20,46,64,7B,7F,7F,-31,8F,98,AC,CA,F3,23,54,+06,-2F,82,8F,9A,B0,D4,09,41,7D,+07,-2E,84,8C,9B,B0,D6,0F,55,+09,-2D,84,8A,98,AC,D3,0E,58,+0A,-2C,82,8A,92,A9,D0,03,4C,+0B,-2B,81,88,92,A4,C2,F6,34,+0C,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,"
+    },
+    "cover" : {
+      "width" : 62,
+      "height" : 62,
+      "flatData" : "+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+FA,+5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-FA,-5E,"
+    },
+    "heightMap" : {
+      "width" : 31,
+      "height" : 31,
+      "flatData" : "-000003C1,",
+      "coord" : {
+        "x" : -90.0,
+        "y" : -30.0
+      }
+    },
+    "texturing" : [ {
+      "diffuse" : "textures/grass02.jpg",
+      "normal" : null,
+      "scale" : 32.0
+    }, {
+      "diffuse" : "textures/paving2full.png",
+      "normal" : null,
+      "scale" : 32.0
+    }, {
+      "diffuse" : "textures/trans.png",
+      "normal" : null,
+      "scale" : 32.0
+    }, null, null, null, null, null ]
+  }
+}

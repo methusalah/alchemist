@@ -39,7 +39,6 @@ public class RegionPager extends BuilderState {
 	}
 	
 	public void setNeededRegions(List<Point2D> newNeededRegions){
-		LogUtil.info("setNeededRegions Thread : " + Thread.currentThread());
 
 		// we start by transforming points in region Ids
 		List<RegionId> ids = new ArrayList<>();
@@ -83,7 +82,6 @@ public class RegionPager extends BuilderState {
 	 * @return null if one or more required region is not built
 	 */
 	public List<Region> getRegionsAtOnce(Point2D coord){
-		LogUtil.info("getRegionsAtOnce Thread : " + Thread.currentThread());
 		// on a single point, we can have up to four regions.
 		// this happens on the borders and corners
 		coord = new Point2D((int)Math.floor(coord.x), (int)Math.floor(coord.y));
@@ -125,18 +123,14 @@ public class RegionPager extends BuilderState {
 				AppFacade.getStateManager().getState(DataState.class).getEntityData(),
 				AppFacade.getStateManager().getState(DataState.class).getWorldData().getWorldEntity(),
 				(region, drawer) -> {
-					LogUtil.info("Apply Thread : " + Thread.currentThread());
 					builtRegions.add(region);
 					drawers.put(region, drawer);
-					AppFacade.getApp().enqueue(() -> worldNode.attachChild(drawer.mainNode));
+					worldNode.attachChild(drawer.mainNode);
 				},
 				(region) -> {
 					builtRegions.remove(region);
-					AppFacade.getApp().enqueue(() -> {
-						worldNode.detachChild(drawers.get(region).mainNode);
-						drawers.remove(region);
-						return true;
-					});
+					worldNode.detachChild(drawers.get(region).mainNode);
+					drawers.remove(region);
 				}
 				);
 	}
