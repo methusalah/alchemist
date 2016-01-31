@@ -9,6 +9,7 @@ import com.simsilica.es.EntityComponent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 import presenter.InspectorPresenter;
@@ -29,6 +30,9 @@ public class InspectorTab extends Tab {
 		setText("Inspector");
 		setClosable(false);
 		
+		ScrollPane scroller = new ScrollPane();
+		
+		
 		VBox content = new VBox();
 		
 		info = new Label("");
@@ -41,8 +45,8 @@ public class InspectorTab extends Tab {
 		addCompButton.setVisible(false);
 		addCompButton.setOnAction(e -> showComponentChooser());
 		content.getChildren().add(addCompButton);
-		
-		setContent(content);
+		scroller.setContent(content);
+		setContent(scroller);
 	}
 	
 	public void inspectNewEntity(EntityNode ep){
