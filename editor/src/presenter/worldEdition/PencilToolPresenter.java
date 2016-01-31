@@ -23,7 +23,7 @@ import util.math.AngleUtil;
 
 
 public class PencilToolPresenter extends WorldTool {
-	public static final int MAX_SIZE = 12;
+	public static final int MAX_SIZE = 30;
 
 	public enum Shape {
 		SQUARE, DIAMOND, CIRCLE

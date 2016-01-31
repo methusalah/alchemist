@@ -7,6 +7,7 @@ import controller.ECS.Processor;
 import model.ES.component.LifeTime;
 import model.ES.component.Naming;
 import model.ES.component.ToRemove;
+import model.ES.component.assets.DamageCapacity;
 import model.ES.component.interaction.DamageOnTouch;
 import model.ES.component.interaction.Damaging;
 import model.ES.component.interaction.EffectOnTouch;
@@ -20,16 +21,14 @@ public class DamageOnTouchProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		registerDefault(DamageOnTouch.class, Touching.class);
+		registerDefault(DamageCapacity.class, DamageOnTouch.class, Touching.class);
 	}
 	
 	@Override
 	protected void onEntityAdded(Entity e) {
-		
-		DamageOnTouch dmg = e.get(DamageOnTouch.class);
-		Touching touching = e.get(Touching.class);
 		EntityId eid = entityData.createEntity();
 		entityData.setComponent(eid, new Naming("damaging"));
-		entityData.setComponent(eid, new Damaging(e.getId(), touching.getTouched(), dmg.damage));
+		entityData.setComponent(eid, new Damaging(e.getId(), e.get(Touching.class).getTouched()));
+		entityData.setComponent(eid, e.get(DamageCapacity.class));
 	}
 }

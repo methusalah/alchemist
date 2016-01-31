@@ -7,16 +7,13 @@ import model.ES.richData.Damage;
 
 public class Damaging implements EntityComponent{
 	public final EntityId source, target;
-	public final Damage damage;
 	
 	public Damaging() {
 		source = null;
 		target = null;
-		damage = new Damage(0);
 	}
 	
-	public Damaging(EntityId source, EntityId target, Damage damage) {
-		this.damage = damage;
+	public Damaging(EntityId source, EntityId target) {
 		this.source = source;
 		this.target = target;
 	}
@@ -27,9 +24,5 @@ public class Damaging implements EntityComponent{
 
 	public EntityId getTarget() {
 		return target;
-	}
-
-	public Damage getDamage() {
-		return damage;
 	}
 }

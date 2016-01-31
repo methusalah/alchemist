@@ -14,7 +14,7 @@ import model.world.terrain.TerrainTexturing;
 import util.geometry.geom2d.Point2D;
 
 public class Region {
-	public static final int RESOLUTION = 30;
+	public static final int RESOLUTION = 100;
 
 	private final String id;
 	private final Point2D coord;

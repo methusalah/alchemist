@@ -29,6 +29,12 @@ public class WorldEditorInputListener implements SceneInputListener {
 
 	@Override
 	public void onMousePressed(MouseEvent e){
+		presenter.beginAction();
+		if(e.getButton() == MouseButton.PRIMARY)
+			presenter.doPrimaryAction();
+		else if(e.getButton() == MouseButton.SECONDARY)
+			presenter.doSecondaryAction();
+
 //		ActionType type;
 //		switch(e.getButton()){
 //		case PRIMARY : type = ActionType.StartPrimary; break;
@@ -41,6 +47,8 @@ public class WorldEditorInputListener implements SceneInputListener {
 
 	@Override
 	public void onMouseMoved(MouseEvent e){
+		presenter.setNewMousePosition(new Point2D(e.getX(), e.getY()));
+
 //		jme.enqueue(app -> setSceneMouseCoord(app, new Point2D(e.getX(), e.getY())));
 	}
 

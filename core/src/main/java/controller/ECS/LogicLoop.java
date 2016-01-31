@@ -42,6 +42,7 @@ import model.ES.processor.shipGear.AttritionProc;
 import model.ES.processor.shipGear.LightThrusterProc;
 import model.ES.processor.shipGear.ParticleThrusterProc;
 import model.ES.processor.shipGear.RotationThrusterProc;
+import model.ES.processor.shipGear.SpawnOnDeathProc;
 import model.ES.processor.shipGear.ThrusterProc;
 import model.ES.processor.world.WorldProc;
 import model.world.WorldData;
@@ -106,6 +107,7 @@ public class LogicLoop implements Runnable {
 		stateManager.attach(new ShockwaveOnTouchProc());
 		
 		stateManager.attach(new LifeTimeProc());
+		stateManager.attach(new SpawnOnDeathProc());
 		stateManager.attach(new RemoveProc());
 		stateManager.attach(new ParentingCleanerProc());
     }

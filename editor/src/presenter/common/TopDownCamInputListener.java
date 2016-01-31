@@ -26,18 +26,18 @@ public class TopDownCamInputListener implements SceneInputListener{
 	
 	@Override
 	public void onMousePressed(MouseEvent e){
-		if(e.getButton() == MouseButton.SECONDARY)
-			oldCoord = new Point2D(e.getX(), e.getY());
+//		if(e.getButton() == MouseButton.SECONDARY)
+//			oldCoord = new Point2D(e.getX(), e.getY());
 	}
 	
 	@Override
 	public void onMouseDragged(MouseEvent e){
-		if(e.getButton() == MouseButton.SECONDARY){
-			Point2D newCoord = new Point2D(e.getX(), e.getY());
-			Point2D vec = newCoord.getSubtraction(oldCoord);
-			jme.enqueue((app) -> rotateCam(app, vec));
-			oldCoord = newCoord;
-		}
+//		if(e.getButton() == MouseButton.SECONDARY){
+//			Point2D newCoord = new Point2D(e.getX(), e.getY());
+//			Point2D vec = newCoord.getSubtraction(oldCoord);
+//			jme.enqueue((app) -> rotateCam(app, vec));
+//			oldCoord = newCoord;
+//		}
 	}
 	
 	@Override

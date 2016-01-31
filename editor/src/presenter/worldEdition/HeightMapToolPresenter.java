@@ -27,6 +27,7 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 
 	private double elevation = Double.NaN;
 
+	@Override
 	public void doPrimary(){
 		switch (operationProperty.getValue()) {
 		case RAISE_LOW: raise(); break;
@@ -35,6 +36,7 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 		}
 	}
 	
+	@Override
 	public void doSecondary(){
 		switch (operationProperty.getValue()) {
 		case RAISE_LOW: lower(); break;
@@ -42,8 +44,9 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 		case UNIFORM_RESET: reset(); break;
 		}
 	}
-	
-	public void doNothing(){
+
+	@Override
+	public void begin() {
 		elevation = Double.NaN;
 	}
 
@@ -131,7 +134,7 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 	}
 	
 	private double getAttenuatedAmplitude(Point2D p){
-		return 1 * getStrengthProperty().getValue() * getApplicationRatio(p);
+		return 3*getStrengthProperty().getValue() * getApplicationRatio(p);
 	}
 	
 	private void updateParcelsFor(List<Point2D> points){

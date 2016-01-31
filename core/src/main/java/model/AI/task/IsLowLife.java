@@ -16,7 +16,7 @@ public class IsLowLife extends LeafTask<ShipBlackboard> {
 	public void run() {
 		ShipBlackboard bb = getObject();
 		Attrition attrition = bb.entityData.getComponent(bb.eid, Attrition.class);
-		if((double)attrition.actualHitpoints / attrition.maxHitpoints < 0.2){
+		if((double)attrition.getActualHitpoints() / attrition.getMaxHitpoints() < 0.2){
 			success();
 		} else {
 			fail();

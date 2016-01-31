@@ -16,4 +16,5 @@ public abstract class Tool {
 	
 	public void doPrimary(){}
 	public void doSecondary(){}
+	public void begin(){}
 }

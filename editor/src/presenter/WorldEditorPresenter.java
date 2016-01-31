@@ -34,6 +34,10 @@ public class WorldEditorPresenter {
 		
 	}
 	
+	public void beginAction(){
+		selectedTool.begin();
+	}
+	
 	public void doPrimaryAction(){
 		selectedTool.doPrimary();
 	}
