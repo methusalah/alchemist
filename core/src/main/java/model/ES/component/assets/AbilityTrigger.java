@@ -17,7 +17,7 @@ public class AbilityTrigger implements EntityComponent{
 		this.triggers = triggers;
 		triggers.put("bonjour", true);
 		triggers.put("aurevoir", false);
-		triggers.put("ça va ?", true);
+		triggers.put("ca va ?", true);
 	}
 
 	public Map<String, Boolean> getTriggers() {
