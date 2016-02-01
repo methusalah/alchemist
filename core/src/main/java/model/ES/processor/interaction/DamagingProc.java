@@ -6,7 +6,7 @@ import com.simsilica.es.EntityId;
 import controller.ECS.Processor;
 import model.ES.component.ToRemove;
 import model.ES.component.assets.Attrition;
-import model.ES.component.assets.DamageCapacity;
+import model.ES.component.assets.damage.DamageCapacity;
 import model.ES.component.interaction.Damaging;
 
 public class DamagingProc extends Processor {

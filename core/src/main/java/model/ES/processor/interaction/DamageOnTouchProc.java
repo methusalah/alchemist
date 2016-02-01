@@ -7,7 +7,7 @@ import controller.ECS.Processor;
 import model.ES.component.LifeTime;
 import model.ES.component.Naming;
 import model.ES.component.ToRemove;
-import model.ES.component.assets.DamageCapacity;
+import model.ES.component.assets.damage.DamageCapacity;
 import model.ES.component.interaction.DamageOnTouch;
 import model.ES.component.interaction.Damaging;
 import model.ES.component.interaction.EffectOnTouch;
