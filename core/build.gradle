@@ -41,6 +41,7 @@ dependencies {
 	
 	//compile 'com.github.brainless-studios:tonegodgui:-SNAPSHOT'
 	compile 'com.github.brainless-studios:zay-es:-SNAPSHOT'
+	//compile 'com.github.brainless-studios:JME3-JFX:-SNAPSHOT'
 	
 	compile "com.badlogicgames.gdx:gdx-ai:1.6.0"
 	compile fileTree(dir: 'lib', include: ['*.jar'])

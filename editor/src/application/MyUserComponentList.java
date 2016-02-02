@@ -13,6 +13,7 @@ import model.ES.component.assets.ProjectileLauncher;
 import model.ES.component.assets.RotationThruster;
 import model.ES.component.assets.Thruster;
 import model.ES.component.assets.TriggerRepeater;
+import model.ES.component.assets.damage.DamageOverTime;
 import model.ES.component.audio.AudioSource;
 import model.ES.component.audio.ThrusterAudioSource;
 import model.ES.component.behavior.RagdollOnDestroy;
@@ -55,7 +56,6 @@ import model.ES.component.visuals.Sprite;
 import model.ES.component.world.PopulationTooling;
 import model.ES.component.world.TerrainTooling;
 import presenter.util.UserComponentList;
-import view.drawingProcessors.RagdollProc;
 
 public class MyUserComponentList extends UserComponentList {
 
@@ -118,5 +118,6 @@ public class MyUserComponentList extends UserComponentList {
 				Boost.class,
 				CircleCollisionShape.class,
 				EdgedCollisionShape.class,
-				RagdollOnDestroy.class);	}
+				RagdollOnDestroy.class,
+				DamageOverTime.class);	}
 }

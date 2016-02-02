@@ -19,6 +19,9 @@ public class PropertyEditorFactory {
 
 	
 	public static PropertyEditor getEditorFor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd){
+		if(pd.getPropertyType().isEnum()){
+			return new EnumEditor(presenter, comp, pd, pd.getPropertyType());
+		}
 		if(pd.getPropertyType() == Point2D.class){
 			return new Point2DEditor(presenter, comp, pd);
 		}
