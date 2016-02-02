@@ -3,7 +3,39 @@ package model.ES.processor.interaction.damage;
 import model.ES.component.assets.Attrition;
 
 public class DamageApplier {
-	public static Attrition apply(Attrition attrition, int base, double shieldModifier, double armorModifier, double fleshModifier){
+	private final static double BASE_FLESH = 1;
+	private final static double BASE_ARMOR = 0.8;
+	private final static double BASE_SHIELD = 1;
+
+	private final static double INCENDIARY_FLESH = 1.2;
+	private final static double INCENDIARY_ARMOR = 0.8;
+	private final static double INCENDIARY_SHIELD = 0.5;
+
+	private final static double CORROSIVE_FLESH = 0.8;
+	private final static double CORROSIVE_SHIELD = 0.8;
+	private final static double CORROSIVE_ARMOR = 2;
+
+	private final static double SHOCK_FLESH = 0.9;
+	private final static double SHOCK_ARMOR = 0.9;
+	private final static double SHOCK_SHIELD = 1.5;
+
+	public static Attrition applyBasic(Attrition attrition, int base){
+		return apply(attrition, base, BASE_FLESH, BASE_ARMOR, BASE_SHIELD);
+	}
+	
+	public static Attrition applyIncendiary(Attrition attrition, int base){
+		return apply(attrition, base, INCENDIARY_FLESH, INCENDIARY_ARMOR, INCENDIARY_SHIELD);
+	}
+	
+	public static Attrition applyCorrosive(Attrition attrition, int base){
+		return apply(attrition, base, CORROSIVE_FLESH, CORROSIVE_ARMOR, CORROSIVE_SHIELD);
+	}
+
+	public static Attrition applyShock(Attrition attrition, int base){
+		return apply(attrition, base, SHOCK_FLESH, SHOCK_ARMOR, SHOCK_SHIELD);
+	}
+	
+	private static Attrition apply(Attrition attrition, int base, double fleshModifier, double armorModifier, double shieldModifier){
 		
 		// damage shield
 		if(attrition.getActualShield() > 0){
