@@ -24,7 +24,7 @@ public class NeededRotationProc extends Processor {
 		MotionCapacity capacity = e.get(MotionCapacity.class);
 		PlanarStance stance = e.get(PlanarStance.class); 
 		
-		double maxRotation = capacity.maxRotationSpeed * LogicLoop.TIME_PER_FRAME;
+		double maxRotation = capacity.maxRotationSpeed * LogicLoop.getSecondPerTick();
 		maxRotation = Math.min(Math.abs(neededRotation.angle.getValue()), maxRotation);
 		double possibleRotation = maxRotation*Math.signum(neededRotation.angle.getValue());
 		

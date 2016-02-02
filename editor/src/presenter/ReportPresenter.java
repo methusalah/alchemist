@@ -42,9 +42,7 @@ public class ReportPresenter {
 		EntitySystem es = app.getStateManager().getState(EntitySystem.class);
 		double waitPerTick = (double)es.loop.getWaitTime() / es.loop.getTickCount();
 		es.loop.resetIdleStats();
-		Platform.runLater(() -> {
-			idelingRatio.setValue(waitPerTick/(LogicLoop.TIME_PER_FRAME*1000));
-		});
+		Platform.runLater(() -> idelingRatio.setValue(waitPerTick/(LogicLoop.getMillisPerTick())));
 		return true;
 	}
 	

@@ -48,12 +48,12 @@ import model.ES.processor.world.WorldProc;
 import model.world.WorldData;
 
 public class LogicLoop implements Runnable {
-    public static final double TIME_PER_FRAME = 0.02;
     private AppStateManager stateManager;
     private int tickCount = 0;
     private int waitTime = 0;
     
-    
+    private static int millisPerTick = 20;
+    private static double secondPerTick = (double)millisPerTick/1000;
     
     public LogicLoop(EntityData ed, WorldData world, Command command) {
     	stateManager = new AppStateManager(null);
@@ -129,8 +129,8 @@ public class LogicLoop implements Runnable {
 	public void run() {
 		while (!Thread.currentThread().isInterrupted()) {
 			long time = System.currentTimeMillis();
-			stateManager.update((float)TIME_PER_FRAME);
-			long nextTick = (long) (time+TIME_PER_FRAME*1000);
+			stateManager.update((float)secondPerTick);
+			long nextTick = (long) (time+millisPerTick);
 			long towait = nextTick - System.currentTimeMillis();
 
 			tickCount++;
@@ -144,4 +144,19 @@ public class LogicLoop implements Runnable {
 				}
 		}
 	}
+
+	public static int getMillisPerTick() {
+		return millisPerTick;
+	}
+
+	public static void setMillisPerTick(int millisPerTick) {
+		LogicLoop.millisPerTick = millisPerTick;
+		secondPerTick = (double)millisPerTick/1000;
+	}
+
+	public static double getSecondPerTick() {
+		return secondPerTick;
+	}
+	
+	
 }

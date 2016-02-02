@@ -1,6 +1,7 @@
 package view;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import presenter.RunPresenter;
 
@@ -16,5 +17,9 @@ public class RunPanel extends HBox {
 		Button stopButton = new Button("Stop");
 		stopButton.setOnAction(e -> presenter.stop());
 		getChildren().add(stopButton);
+		
+		Slider tickDurationSlider = new Slider(10, 200, 50);
+		tickDurationSlider.valueProperty().bindBidirectional(presenter.getMillisPerTickProperty());
+		getChildren().add(tickDurationSlider);
 	}
 }
