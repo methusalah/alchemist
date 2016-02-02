@@ -1,9 +1,23 @@
-package model.ES.component.assets;
+package model.ES.component.assets.damage;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
 
-public class DamageCapacity implements EntityComponent {
+public class BasicDamageCapacity implements EntityComponent {
+	public final static double CORROSIVE_FLESH = 0.8;
+	public final static double INCENDIARY_FLESH = 1.2;
+	public final static double SHOCK_FLESH = 0.9;
+
+	public final static double CORROSIVE_SHIELD = 0.8;
+	public final static double INCENDIARY_SHIELD = 0.5;
+	public final static double SHOCK_SHIELD = 1.5;
+
+	public final static double CORROSIVE_ARMOR = 2;
+	public final static double INCENDIARY_ARMOR = 0.8;
+	public final static double SHOCK_ARMOR = 0.9;
+
+	public enum DamageType {NORMAL, INCENDIARY, SHOCK, CORROSIVE, EXPLOSIVE}
+	
 	private final int base;
 
 	private final double incendiaryChance;
@@ -17,7 +31,7 @@ public class DamageCapacity implements EntityComponent {
 	
 	private final boolean isExplosive;
 	
-	public DamageCapacity() {
+	public BasicDamageCapacity() {
 		this.base = 0;
 		this.incendiaryChance = 0;
 		this.incendiaryDmg = 0;
@@ -28,7 +42,7 @@ public class DamageCapacity implements EntityComponent {
 		this.isExplosive = false;
 	}
 
-	public DamageCapacity(@JsonProperty("base")int base,
+	public BasicDamageCapacity(@JsonProperty("base")int base,
 			@JsonProperty("incendiaryChance")double incendiaryChance,
 			@JsonProperty("incendiaryDmg")int incendiaryDmg,
 			@JsonProperty("shockChance")double shockChance,

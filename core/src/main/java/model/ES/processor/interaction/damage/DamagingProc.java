@@ -1,4 +1,4 @@
-package model.ES.processor.interaction;
+package model.ES.processor.interaction.damage;
 
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
@@ -6,25 +6,11 @@ import com.simsilica.es.EntityId;
 import controller.ECS.Processor;
 import model.ES.component.ToRemove;
 import model.ES.component.assets.Attrition;
-import model.ES.component.assets.DamageCapacity;
+import model.ES.component.assets.damage.BasicDamageCapacity;
+import model.ES.component.assets.damage.BasicDamageCapacity.DamageType;
 import model.ES.component.interaction.Damaging;
 
 public class DamagingProc extends Processor {
-	private final static double CORROSIVE_FLESH = 0.8;
-	private final static double INCENDIARY_FLESH = 1.2;
-	private final static double SHOCK_FLESH = 0.9;
-
-	private final static double CORROSIVE_SHIELD = 0.8;
-	private final static double INCENDIARY_SHIELD = 0.5;
-	private final static double SHOCK_SHIELD = 1.5;
-
-	private final static double CORROSIVE_ARMOR = 2;
-	private final static double INCENDIARY_ARMOR = 0.8;
-	private final static double SHOCK_ARMOR = 0.9;
-
-	
-	private enum DamageType {NORMAL, INCENDIARY, SHOCK, CORROSIVE, EXPLOSIVE}
-
 	@Override
 	protected void registerSets() {
 		registerDefault(Damaging.class);
@@ -33,7 +19,7 @@ public class DamagingProc extends Processor {
 	@Override
 	protected void onEntityAdded(Entity e) {
 		Damaging damaging = e.get(Damaging.class);
-		DamageCapacity capacity = e.get(DamageCapacity.class);
+		BasicDamageCapacity capacity = e.get(BasicDamageCapacity.class);
 		
 		Attrition att = entityData.getComponent(damaging.target, Attrition.class);
 		if(att != null){
@@ -73,9 +59,9 @@ public class DamagingProc extends Processor {
 			int shield = att.getActualShield(); 
 			double damageOnShield = base;
 			switch(dmgType){
-			case SHOCK : damageOnShield *= SHOCK_SHIELD; break;
-			case CORROSIVE : damageOnShield *= CORROSIVE_SHIELD; break;
-			case INCENDIARY : damageOnShield *= INCENDIARY_SHIELD; break;
+			case SHOCK : damageOnShield *= BasicDamageCapacity.SHOCK_SHIELD; break;
+			case CORROSIVE : damageOnShield *= BasicDamageCapacity.CORROSIVE_SHIELD; break;
+			case INCENDIARY : damageOnShield *= BasicDamageCapacity.INCENDIARY_SHIELD; break;
 			default : break;
 			}
 			shield -= damageOnShield;
@@ -98,16 +84,16 @@ public class DamagingProc extends Processor {
 		double damageOnHitPoints = base;
 		if(att.isArmored())
 			switch(dmgType){
-			case SHOCK : damageOnHitPoints *= SHOCK_ARMOR; break;
-			case CORROSIVE : damageOnHitPoints *= CORROSIVE_ARMOR; break;
-			case INCENDIARY : damageOnHitPoints *= INCENDIARY_ARMOR; break;
+			case SHOCK : damageOnHitPoints *= BasicDamageCapacity.SHOCK_ARMOR; break;
+			case CORROSIVE : damageOnHitPoints *= BasicDamageCapacity.CORROSIVE_ARMOR; break;
+			case INCENDIARY : damageOnHitPoints *= BasicDamageCapacity.INCENDIARY_ARMOR; break;
 			default : break;
 			}
 		else
 			switch(dmgType){
-			case SHOCK : damageOnHitPoints *= SHOCK_FLESH; break;
-			case CORROSIVE : damageOnHitPoints *= CORROSIVE_FLESH; break;
-			case INCENDIARY : damageOnHitPoints *= INCENDIARY_FLESH; break;
+			case SHOCK : damageOnHitPoints *= BasicDamageCapacity.SHOCK_FLESH; break;
+			case CORROSIVE : damageOnHitPoints *= BasicDamageCapacity.CORROSIVE_FLESH; break;
+			case INCENDIARY : damageOnHitPoints *= BasicDamageCapacity.INCENDIARY_FLESH; break;
 			default : break;
 			}
 		entityData.setComponent(target, new Attrition(att.getMaxHitpoints(),

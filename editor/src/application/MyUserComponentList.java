@@ -8,7 +8,6 @@ import model.ES.component.assets.AbilityTrigger;
 import model.ES.component.assets.Attackable;
 import model.ES.component.assets.Attrition;
 import model.ES.component.assets.Boost;
-import model.ES.component.assets.Health;
 import model.ES.component.assets.Projectile;
 import model.ES.component.assets.ProjectileLauncher;
 import model.ES.component.assets.RotationThruster;
@@ -95,7 +94,6 @@ public class MyUserComponentList extends UserComponentList {
 				BoneHolding.class,
 				PlanarStanceControl.class,
 				Attrition.class,
-				Health.class,
 				Projectile.class,
 				ProjectileLauncher.class,
 				RotationThruster.class,
