@@ -14,7 +14,7 @@ import model.ES.processor.ability.AbilityTriggerResetProc;
 import model.ES.processor.ability.BoostProc;
 import model.ES.processor.ability.ProjectileLauncherProc;
 import model.ES.processor.ability.SpawningProc;
-import model.ES.processor.ability.TriggerCancelationProc;
+import model.ES.processor.ability.AbilityCoolDownProc;
 import model.ES.processor.ability.AbilityProc;
 import model.ES.processor.ability.TriggerRepeaterProc;
 import model.ES.processor.command.NeededRotationProc;
@@ -89,7 +89,7 @@ public class LogicLoop implements Runnable {
 		stateManager.attach(new BehaviorTreeProc());
 		stateManager.attach(new AbilityProc());
 		stateManager.attach(new AbilityTriggerResetProc());
-		stateManager.attach(new TriggerCancelationProc());
+		stateManager.attach(new AbilityCoolDownProc());
 		stateManager.attach(new TriggerRepeaterProc());
 		
 		
@@ -129,8 +129,8 @@ public class LogicLoop implements Runnable {
 	public void run() {
 		while (!Thread.currentThread().isInterrupted()) {
 			long time = System.currentTimeMillis();
-			stateManager.update((float)secondPerTick);
-			long nextTick = (long) (time+millisPerTick);
+			stateManager.update((float)0.02);
+			long nextTick = (long) (time+20);
 			long towait = nextTick - System.currentTimeMillis();
 
 			tickCount++;

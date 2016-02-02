@@ -18,7 +18,7 @@ public class RunPanel extends HBox {
 		stopButton.setOnAction(e -> presenter.stop());
 		getChildren().add(stopButton);
 		
-		Slider tickDurationSlider = new Slider(10, 200, 50);
+		Slider tickDurationSlider = new Slider(1, 50, 20);
 		tickDurationSlider.valueProperty().bindBidirectional(presenter.getMillisPerTickProperty());
 		getChildren().add(tickDurationSlider);
 	}

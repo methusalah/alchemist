@@ -2,6 +2,7 @@ package model.ES.processor.ability;
 
 import com.simsilica.es.Entity;
 
+import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
 import model.ES.component.assets.Ability;
 import model.ES.component.assets.TriggerRepeater;
@@ -16,20 +17,30 @@ public class TriggerRepeaterProc extends Processor {
 	
 	@Override
 	protected void onEntityEachTick(Entity e) {
-		Ability trigger = e.get(Ability.class);
+		Ability ability = e.get(Ability.class);
 		TriggerRepeater r = e.get(TriggerRepeater.class);
 		
-		if(trigger.isTriggered()){
-			long start = System.currentTimeMillis();
-			long nextPeriod = start + r.period + RandomUtil.between(0, r.periodRange);
-			setComp(e, new TriggerRepeater(r.maxDuration, r.period, r.periodRange, start, nextPeriod));
+		if(ability.isTriggered()){
+			// reset of the repeater to trigger again in "period+period range" millisecond
+			setComp(e, new TriggerRepeater(r.getMaxDuration(),
+					r.getPeriod(),
+					r.getPeriodRange(),
+					r.getMaxDuration(),
+					r.getPeriod() + RandomUtil.between(0, r.getPeriodRange())));
 		} else {
-			if(r.start + r.maxDuration > System.currentTimeMillis()){
-				if(r.nextPeriod < System.currentTimeMillis()){
-					setComp(e, new Ability(trigger.getName(), true));
-					long nextPeriod = System.currentTimeMillis() + r.period + RandomUtil.between(0, r.periodRange);
-					setComp(e, new TriggerRepeater(r.maxDuration, r.period, r.periodRange, r.start, nextPeriod));
-				}
+			if(r.getRemainingBeforePeriod() < 0 && r.getRemainingDuration() > 0){
+				setComp(e, new Ability(ability.getName(), true));
+				setComp(e, new TriggerRepeater(r.getMaxDuration(),
+						r.getPeriod(),
+						r.getPeriodRange(),
+						r.getRemainingDuration() - LogicLoop.getMillisPerTick(),
+						r.getPeriod() + RandomUtil.between(0, r.getPeriodRange())));
+			} else {
+				setComp(e, new TriggerRepeater(r.getMaxDuration(),
+						r.getPeriod(),
+						r.getPeriodRange(),
+						r.getRemainingDuration() - LogicLoop.getMillisPerTick(),
+						r.getRemainingBeforePeriod() - LogicLoop.getMillisPerTick()));
 			}
 		}
 	}

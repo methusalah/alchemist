@@ -55,8 +55,7 @@
     "radius" : 0.2
   }, {
     "class" : "model.ES.component.LifeTime",
-    "lifeStart" : 1453123536207,
-    "duration" : 4000.0
+    "duration" : 2000.0
   }, {
     "class" : "model.ES.component.command.PlanarNeededThrust",
     "direction" : {
@@ -141,9 +140,9 @@
       "distance" : 3.0,
       "innerAngle" : 0.0,
       "outerAngle" : 0.7,
-    "shadowIntensity" : {
-      "value" : 1.0
-    },
+      "shadowIntensity" : {
+        "value" : 1.0
+      },
       "activation" : {
         "value" : 0.0
       }

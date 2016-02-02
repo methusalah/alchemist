@@ -962,8 +962,8 @@
       "projectileBluePrint" : "PHAT missile"
     }, {
       "class" : "model.ES.component.Cooldown",
-      "start" : 1452181524755,
-      "duration" : 200.0
+      "remaining" : 0,
+      "duration" : 200
     }, {
       "class" : "model.ES.component.motion.PlanarStance",
       "coord" : {

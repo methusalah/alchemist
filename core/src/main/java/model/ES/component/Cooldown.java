@@ -4,24 +4,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
 
 public class Cooldown implements EntityComponent{
-	public final long start;
-	public final double duration;
+	private final int remaining;
+	private final int duration;
 	
 	public Cooldown() {
-		start = 0;
+		remaining = 0;
 		duration = 0;
 	}
 	
-	public Cooldown(@JsonProperty("start")long start, @JsonProperty("duration")double duration) {
-		this.start = start;
+	public Cooldown(@JsonProperty("remaining")int remaining, @JsonProperty("duration")int duration) {
+		this.remaining = remaining;
 		this.duration = duration;
 	}
 
-	public long getStart() {
-		return start;
+	public int getRemaining() {
+		return remaining;
 	}
 
-	public double getDuration() {
+	public int getDuration() {
 		return duration;
 	}
 }

@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
 
 public class TriggerRepeater implements EntityComponent {
-	public final long start, nextPeriod;
-	public final int maxDuration, period, periodRange;
+	private final int remainingDuration, remainingBeforePeriod;
+	private final int maxDuration, period, periodRange;
 	
 	public TriggerRepeater() {
-		start = 0;
-		nextPeriod = 0;
+		remainingDuration = 0;
+		remainingBeforePeriod = 0;
 		maxDuration = 0;
 		period = 0;
 		periodRange = 0;
@@ -18,21 +18,13 @@ public class TriggerRepeater implements EntityComponent {
 	public TriggerRepeater(@JsonProperty("duration")int maxDuration,
 			@JsonProperty("period")int period,
 			@JsonProperty("periodRange")int periodRange,
-			@JsonProperty("start")long start,
-			@JsonProperty("nextPeriod")long nextPeriod) {
+			@JsonProperty("remainingDuration")int remainingDuration,
+			@JsonProperty("remainingBeforePeriod")int remainingBeforePeriod) {
 		this.maxDuration = maxDuration;
 		this.period = period;
 		this.periodRange = periodRange;
-		this.start = start;
-		this.nextPeriod = nextPeriod;
-	}
-
-	public long getStart() {
-		return start;
-	}
-
-	public long getNextPeriod() {
-		return nextPeriod;
+		this.remainingDuration = remainingDuration;
+		this.remainingBeforePeriod = remainingBeforePeriod;
 	}
 
 	public int getMaxDuration() {
@@ -45,5 +37,13 @@ public class TriggerRepeater implements EntityComponent {
 
 	public int getPeriodRange() {
 		return periodRange;
+	}
+
+	public int getRemainingDuration() {
+		return remainingDuration;
+	}
+
+	public int getRemainingBeforePeriod() {
+		return remainingBeforePeriod;
 	}
 }

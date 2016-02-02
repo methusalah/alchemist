@@ -55,7 +55,6 @@
     "radius" : 0.2
   }, {
     "class" : "model.ES.component.LifeTime",
-    "lifeStart" : 1452284360826,
     "duration" : 4000.0
   }, {
     "class" : "model.ES.component.command.PlanarNeededThrust",

@@ -64,7 +64,7 @@ public class ProjectileLauncherProc extends Processor {
 			entityData.setComponent(eid, new Projectile(p, stance.coord));
 			
 			Cooldown cd = e.get(Cooldown.class);
-			setComp(e, new Cooldown(System.currentTimeMillis(), cd.duration));
+			setComp(e, new Cooldown(cd.getDuration(), cd.getDuration()));
 		}
 	}
 }

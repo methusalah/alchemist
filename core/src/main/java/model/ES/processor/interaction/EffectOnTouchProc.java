@@ -28,7 +28,7 @@ public class EffectOnTouchProc extends Processor {
 		entityData.setComponent(eid, new Naming("particle"));
 		entityData.setComponent(eid, getCaster1());
 		entityData.setComponent(eid, new PlanarStance(e.get(Touching.class).getCoord(), new Angle(0), 0.5, Point3D.UNIT_Z));
-		entityData.setComponent(eid, new LifeTime(System.currentTimeMillis(), 100));
+		entityData.setComponent(eid, new LifeTime(100));
 	}
 
 	

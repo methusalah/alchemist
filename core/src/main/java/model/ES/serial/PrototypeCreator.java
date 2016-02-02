@@ -30,11 +30,6 @@ public class PrototypeCreator {
 			EntityId child = create(childBPName, res);
 			entityData.setComponent(child, new Parenting(res));
 		}
-		Naming n = entityData.getComponent(res, Naming.class);
-		
-		if(entityData.getComponent(res, LifeTime.class) != null)
-			entityData.setComponent(res, new LifeTime(System.currentTimeMillis(), entityData.getComponent(res, LifeTime.class).getDuration()));
-
 		return res;
 	}
 }

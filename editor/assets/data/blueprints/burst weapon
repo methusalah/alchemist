@@ -18,15 +18,15 @@
     "projectileBluePrint" : ""
   }, {
     "class" : "model.ES.component.Cooldown",
-    "start" : 0,
-    "duration" : 1000.0
+    "remaining" : 0,
+    "duration" : 1000
   }, {
-    "class" : "model.ES.component.assets.TriggerRepeater",
-    "period" : 100,
-    "periodRange" : 0,
-    "start" : 0,
-    "nextPeriod" : 0,
-    "maxDuration" : 400
+      "class" : "model.ES.component.assets.TriggerRepeater",
+      "period" : 100,
+      "periodRange" : 0,
+      "remainingDuration" : 400,
+      "remainingBeforePeriod" : 0,
+      "maxDuration" : 400
   } ],
   "children" : [ ]
 }

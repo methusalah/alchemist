@@ -44,8 +44,6 @@ public class Blueprint {
 		EntityId res = ed.createEntity();
 		for(EntityComponent comp : getComps()){
 			ed.setComponent(res, comp);
-			if(comp instanceof LifeTime)
-				ed.setComponent(res, new LifeTime(System.currentTimeMillis(), ((LifeTime)comp).duration));
 		}
 		if(parent != null)
 			ed.setComponent(res, new Parenting(parent));

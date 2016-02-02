@@ -268,8 +268,7 @@
   }, {
     "class" : "model.ES.component.assets.Attrition",
     "maxHitpoints" : 30,
-    "actualHitpoints" : 30,
-    "spawnOnDeath" : null
+    "actualHitpoints" : 30
   }, {
     "class" : "model.ES.component.command.PlanarNeededThrust",
     "direction" : {
@@ -1061,14 +1060,14 @@
       "projectileBluePrint" : "PHAT missile"
     }, {
       "class" : "model.ES.component.Cooldown",
-      "start" : 1450275208872,
-      "duration" : 1000.0
+      "remaining" : 0,
+      "duration" : 1000
     }, {
       "class" : "model.ES.component.assets.TriggerRepeater",
       "period" : 100,
       "periodRange" : 0,
-      "start" : 1450275208511,
-      "nextPeriod" : 1450275208972,
+      "remainingDuration" : 400,
+      "remainingBeforePeriod" : 0,
       "maxDuration" : 400
     }, {
       "class" : "model.ES.component.motion.PlanarStance",
