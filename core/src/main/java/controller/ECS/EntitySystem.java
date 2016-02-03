@@ -19,6 +19,8 @@ import view.drawingProcessors.SpriteProc;
 import view.drawingProcessors.ModelRotationProc;
 import view.drawingProcessors.VelocityVisualisationProc;
 import view.drawingProcessors.audio.AbilityAudioProc;
+import view.drawingProcessors.audio.AudioSourcePlacingProc;
+import view.drawingProcessors.audio.AudioSourceProc;
 import view.drawingProcessors.audio.ThrusterAudioProc;
 
 import java.util.ArrayList;
@@ -70,6 +72,8 @@ public class EntitySystem extends AbstractAppState {
 		visualStates.add(new FloatingLabelProc());
 		
 		
+		audioStates.add(new AudioSourceProc());
+		audioStates.add(new AudioSourcePlacingProc());
 		audioStates.add(new ThrusterAudioProc());
 		audioStates.add(new AbilityAudioProc());
 		

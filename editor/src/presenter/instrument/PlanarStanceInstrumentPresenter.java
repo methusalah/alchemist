@@ -5,6 +5,7 @@ import com.simsilica.es.EntityId;
 import controller.SpatialSelector;
 import model.ES.component.motion.PlanarStance;
 import presenter.EditorPlatform;
+import presenter.common.EntityNode;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
@@ -82,9 +83,15 @@ public class PlanarStanceInstrumentPresenter implements InstrumentPresenter{
 	}
 	
 	private void updateAttachement(){
-		if(EditorPlatform.getSelectionProperty().getValue() != null){
-			selection = EditorPlatform.getSelectionProperty().getValue().getEntityId();
-			view.setVisible(EditorPlatform.getEntityData().getComponent(selection, PlanarStance.class) != null && UIConfig.expandedComponents.contains(PlanarStance.class));
+		EntityNode selectedNode = EditorPlatform.getSelectionProperty().getValue();
+		if(selectedNode != null &&
+				EditorPlatform.getEntityData().getComponent(selectedNode.getEntityId(), PlanarStance.class) != null && 
+				UIConfig.expandedComponents.contains(PlanarStance.class)){
+			selection = selectedNode.getEntityId();
+			view.setVisible(true);
+		} else {
+			selection = null;
+			view.setVisible(false);
 		}
 	}
 

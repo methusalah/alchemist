@@ -1,8 +1,8 @@
 {
-  "name" : "corrosive impact particle",
+  "name" : "incendiary impact particle",
   "comps" : [ {
     "class" : "model.ES.component.Naming",
-    "name" : "corrosive impact particle"
+    "name" : "incendiary impact particle"
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
@@ -32,15 +32,15 @@
     "endSize" : 0.4,
     "startColor" : {
       "a" : 255,
-      "r" : 102,
-      "g" : 153,
-      "b" : 102
+      "r" : 179,
+      "g" : 26,
+      "b" : 26
     },
     "endColor" : {
       "a" : 0,
-      "r" : 204,
-      "g" : 255,
-      "b" : 204
+      "r" : 255,
+      "g" : 153,
+      "b" : 102
     },
     "minLife" : 0.3,
     "maxLife" : 0.4,
@@ -56,6 +56,13 @@
   }, {
     "class" : "model.ES.component.LifeTime",
     "duration" : 1000.0
+  }, {
+    "class" : "model.ES.component.audio.AudioSource",
+    "path" : "impact_metal2.wav",
+    "loop" : false,
+    "volume" : {
+      "value" : 0.1
+    }
   } ],
   "children" : [ ]
 }

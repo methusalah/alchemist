@@ -4,11 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import util.LogUtil;
+import util.math.AngleUtil;
 import view.SpatialPool;
 import view.jme.CenteredQuad;
 import view.material.MaterialManager;
 import app.AppFacade;
 
+import com.jme3.material.RenderState.BlendMode;
+import com.jme3.math.Quaternion;
+import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
@@ -29,7 +33,8 @@ public class SpriteProc extends Processor {
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
-		AppFacade.getMainSceneNode().detachChild(SpatialPool.models.remove(e.getId()));
+		if(SpatialPool.models.containsKey(e.getId()))
+			AppFacade.getMainSceneNode().detachChild(SpatialPool.models.remove(e.getId()));
 	}
 
 	@Override
@@ -63,6 +68,10 @@ public class SpriteProc extends Processor {
 				Geometry g = new Geometry("Sprite");
 				g.setMesh(new CenteredQuad(1, 1));
 				g.setMaterial(MaterialManager.getLightingTexture("textures/"+spritePath));
+				g.getMaterial().setBoolean("UseAlpha",true);
+				g.setQueueBucket(Bucket.Transparent);
+				g.getMaterial().getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
+
 				spritePrototypes.put(spritePath, g);
 			} catch (IllegalStateException e) {
 				LogUtil.warning("Texture not found : textures/" + spritePath);

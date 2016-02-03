@@ -66,7 +66,7 @@ public class ModelProc extends Processor {
 		if(modelPath.isEmpty())
 			return null;
 		if (!modelPrototypes.containsKey(modelPath)) {
-			try{
+			try {
 				Spatial s = AppFacade.getAssetManager().loadModel("models/" + modelPath);
 				modelPrototypes.put(modelPath, s);
 			} catch (Exception e) {
