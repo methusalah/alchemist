@@ -23,5 +23,6 @@ public class DamageOnTouchProc extends Processor {
 		entityData.setComponent(eid, new Naming("damaging"));
 		entityData.setComponent(eid, new Damaging(e.getId(), e.get(Touching.class).getTouched()));
 		entityData.setComponent(eid, e.get(DamageCapacity.class));
+		
 	}
 }

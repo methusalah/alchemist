@@ -9,7 +9,7 @@ import model.ES.component.Naming;
 import model.ES.component.ToRemove;
 import model.ES.component.interaction.DamageOnTouch;
 import model.ES.component.interaction.Damaging;
-import model.ES.component.interaction.EffectOnTouch;
+import model.ES.component.interaction.SpawnOnTouch;
 import model.ES.component.interaction.senses.Touching;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.physic.Collisioning;

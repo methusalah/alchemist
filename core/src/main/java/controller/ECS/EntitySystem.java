@@ -8,6 +8,7 @@ import model.world.WorldData;
 import util.LogUtil;
 import view.drawingProcessors.CameraPlacingProc;
 import view.drawingProcessors.EdgeCollisionShapeDrawingProc;
+import view.drawingProcessors.FloatingLabelProc;
 import view.drawingProcessors.LightProc;
 import view.drawingProcessors.ModelProc;
 import view.drawingProcessors.ParticleCasterInPlaneProc;
@@ -66,6 +67,7 @@ public class EntitySystem extends AbstractAppState {
 		visualStates.add(new ModelRotationProc());
 		visualStates.add(new LightProc());
 		visualStates.add(new VelocityVisualisationProc());
+		visualStates.add(new FloatingLabelProc());
 		
 		
 		audioStates.add(new ThrusterAudioProc());

@@ -6,7 +6,7 @@ import com.simsilica.es.EntityId;
 import controller.ECS.Processor;
 import model.ES.component.LifeTime;
 import model.ES.component.Naming;
-import model.ES.component.interaction.EffectOnTouch;
+import model.ES.component.interaction.SpawnOnTouch;
 import model.ES.component.interaction.senses.Touching;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.visuals.ParticleCaster;
@@ -15,11 +15,11 @@ import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 import util.math.Fraction;
 
-public class EffectOnTouchProc extends Processor {
+public class SpawnOnTouchProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		registerDefault(EffectOnTouch.class, Touching.class);
+		registerDefault(SpawnOnTouch.class, Touching.class);
 	}
 	
 	@Override

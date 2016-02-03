@@ -1,7 +1,7 @@
 package model.ES.processor.interaction.damage;
 
 import model.ES.component.assets.Attrition;
-import util.LogUtil;
+import model.ES.component.assets.damage.DamageType;
 
 public class DamageApplier {
 	private final static double BASE_FLESH = 1;
@@ -20,37 +20,51 @@ public class DamageApplier {
 	private final static double SHOCK_ARMOR = 0.9;
 	private final static double SHOCK_SHIELD = 1.5;
 
-	public static Attrition applyBasic(Attrition attrition, int base){
-		return apply(attrition, base, BASE_FLESH, BASE_ARMOR, BASE_SHIELD);
-	}
 	
-	public static Attrition applyIncendiary(Attrition attrition, int base){
-		return apply(attrition, base, INCENDIARY_FLESH, INCENDIARY_ARMOR, INCENDIARY_SHIELD);
-	}
+	private int damageOnShield, damageOnHitPoints;
+	private Attrition result;
 	
-	public static Attrition applyCorrosive(Attrition attrition, int base){
-		return apply(attrition, base, CORROSIVE_FLESH, CORROSIVE_ARMOR, CORROSIVE_SHIELD);
-	}
-
-	public static Attrition applyShock(Attrition attrition, int base){
-		return apply(attrition, base, SHOCK_FLESH, SHOCK_ARMOR, SHOCK_SHIELD);
-	}
-	
-	private static Attrition apply(Attrition attrition, int base, double fleshModifier, double armorModifier, double shieldModifier){
+	public DamageApplier(Attrition attrition, DamageType type, int base) {
+		int remaining = base;
+		// creating modifiers
+		double fleshModifier, armorModifier, shieldModifier;
+		switch(type){
+		case BASIC :
+			fleshModifier = BASE_FLESH;
+			armorModifier = BASE_ARMOR;
+			shieldModifier = BASE_SHIELD;
+			break; 
+		case INCENDIARY :
+			fleshModifier = INCENDIARY_FLESH;
+			armorModifier = INCENDIARY_ARMOR;
+			shieldModifier = INCENDIARY_SHIELD;
+			break; 
+		case CORROSIVE :
+			fleshModifier = CORROSIVE_FLESH;
+			armorModifier = CORROSIVE_ARMOR;
+			shieldModifier = CORROSIVE_SHIELD;
+			break; 
+		case SHOCK :
+			fleshModifier = SHOCK_FLESH;
+			armorModifier = SHOCK_ARMOR;
+			shieldModifier = SHOCK_SHIELD;
+			break; 
+		default : throw new RuntimeException("damage type unkown : " + type);
+		}
+		
 		// damage shield
 		if(attrition.getActualShield() > 0){
 			int shield = attrition.getActualShield();
-			int modified = (int)Math.round(base * shieldModifier); 
+			int modified = (int)Math.round(remaining * shieldModifier); 
+			damageOnShield = Math.min(shield, modified);
+
 			shield -= modified;
-			
-			LogUtil.info("DamageApplier.apply shield amount : " + modified);
-			LogUtil.info("DamageApplier.apply shield  : " + shield);
 			// compute the remaining base damage
 			if(shield < 0){
-				base = -shield;
-				base = (int)Math.round((double)base / shieldModifier);
+				remaining = -shield;
+				remaining = (int)Math.round((double)remaining / shieldModifier);
 			} else
-				base = 0;
+				remaining = 0;
 			
 			// creation of the modified attrition
 			attrition = new Attrition(attrition.getMaxHitpoints(),
@@ -63,16 +77,28 @@ public class DamageApplier {
 		// damage hit points
 		int modified; 
 		if(attrition.isArmored())
-			modified = (int)Math.round(base * armorModifier); 
+			modified = (int)Math.round(remaining * armorModifier); 
 		else
-			modified = (int)Math.round(base * fleshModifier);
+			modified = (int)Math.round(remaining * fleshModifier);
 		
-		LogUtil.info("DamageApplier.apply hit points amount : " + modified);
-		LogUtil.info("DamageApplier.apply hit points  : " + (attrition.getActualHitpoints() - (int)Math.round(modified)));
-		return new Attrition(attrition.getMaxHitpoints(),
+		damageOnHitPoints = modified;
+		
+		result =  new Attrition(attrition.getMaxHitpoints(),
 				Math.max(0, attrition.getActualHitpoints() - (int)Math.round(modified)),
 				attrition.getMaxShield(),
 				attrition.getActualShield(),
 				attrition.isArmored());
+	}
+
+	public int getDamageOnShield() {
+		return damageOnShield;
+	}
+
+	public int getDamageOnHitPoints() {
+		return damageOnHitPoints;
+	}
+
+	public Attrition getResult() {
+		return result;
 	}
 }

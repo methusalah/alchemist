@@ -75,8 +75,6 @@
     }
   }, {
     "class" : "model.ES.component.interaction.DestroyedOnTouch"
-  }, {
-    "class" : "model.ES.component.interaction.EffectOnTouch"
   } ],
   "children" : [ {
     "name" : "main thruster",

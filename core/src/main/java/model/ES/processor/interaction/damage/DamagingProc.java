@@ -7,7 +7,6 @@ import model.ES.component.ToRemove;
 import model.ES.component.assets.Attrition;
 import model.ES.component.assets.damage.DamageCapacity;
 import model.ES.component.interaction.Damaging;
-import util.LogUtil;
 
 public class DamagingProc extends Processor {
 	
@@ -23,13 +22,13 @@ public class DamagingProc extends Processor {
 		if(att != null){
 			// the target is damageable by attrition
 			DamageCapacity capacity = e.get(DamageCapacity.class);
-			switch(capacity.getType()){
-			case BASIC : att = DamageApplier.applyBasic(att, capacity.getBase()); break; 
-			case INCENDIARY : att = DamageApplier.applyIncendiary(att, capacity.getBase()); break; 
-			case CORROSIVE : att = DamageApplier.applyCorrosive(att, capacity.getBase()); break; 
-			case SHOCK : att = DamageApplier.applyShock(att, capacity.getBase()); break; 
-			}
-			entityData.setComponent(damaging.target, att);
+			DamageApplier applier = new DamageApplier(att, capacity.getType(), capacity.getBase());
+			entityData.setComponent(damaging.target, applier.getResult());
+			
+			if(applier.getDamageOnShield() > 0)
+				DamageFloatingLabelCreator.create(entityData, damaging.target, capacity.getType(), applier.getDamageOnShield(), true, false);
+			if(applier.getDamageOnHitPoints() > 0)
+				DamageFloatingLabelCreator.create(entityData, damaging.target, capacity.getType(), applier.getDamageOnHitPoints(), false, false);
 		}
 		setComp(e, new ToRemove());
 	}

@@ -8,6 +8,7 @@ import model.ES.component.Cooldown;
 import model.ES.component.assets.Ability;
 import model.ES.component.assets.Projectile;
 import model.ES.component.assets.ProjectileLauncher;
+import model.ES.component.assets.damage.DamageCapacity;
 import model.ES.component.command.PlanarNeededThrust;
 import model.ES.component.hierarchy.Parenting;
 import model.ES.component.motion.PlanarStance;
@@ -34,18 +35,19 @@ public class ProjectileLauncherProc extends Processor {
 		if(trigger.isTriggered()){
 			ProjectileLauncher launcher = e.get(ProjectileLauncher.class);
 			PlanarStance stance = e.get(PlanarStance.class);
+			
 			// TODO locate aggressor better in the hierarchy
 			EntityId p = entityData.getComponent(e.getId(), Parenting.class).getParent();
 			double orientation = stance.orientation.getValue() + ((RandomUtil.next()-0.5)*(1-launcher.getPrecision().getValue()))*AngleUtil.FULL;
 			
 			Blueprint bp = BlueprintLibrary.getBlueprint(launcher.getProjectileBluePrint());
 			if(bp == null){
-				LogUtil.warning("Can't locate projectile's blueprint \""+launcher.getProjectileBluePrint()+"\".");
+				LogUtil.warning("Can't locate projectile's blueprint : "+launcher.getProjectileBluePrint()+".");
 				return;
 			}
 			EntityId eid = bp.createEntity(entityData, null);;
-
-			// adding the spanwer for collision exception
+			
+			// adding the spawner for collision exception
 			Physic ph =entityData.getComponent(eid, Physic.class); 
 			if(ph != null)
 				entityData.setComponent(eid, new Physic(ph.getVelocity(), ph.getType(), ph.getExceptions(), ph.getMass(), ph.getRestitution(), p));
@@ -62,6 +64,10 @@ public class ProjectileLauncherProc extends Processor {
 				
 			entityData.setComponent(eid, new PlanarStance(stance.coord.getTranslation(stance.orientation.getValue(), 0.2), new Angle(orientation), stance.elevation, Point3D.UNIT_Z));
 			entityData.setComponent(eid, new Projectile(p, stance.coord));
+			
+			DamageCapacity damageCapacity = entityData.getComponent(e.getId(), DamageCapacity.class);
+			if(damageCapacity != null)
+				entityData.setComponent(eid, damageCapacity);
 			
 			Cooldown cd = e.get(Cooldown.class);
 			setComp(e, new Cooldown(cd.getDuration(), cd.getDuration()));

@@ -9,7 +9,6 @@ import model.ES.component.ToRemove;
 import model.ES.component.assets.Attrition;
 import model.ES.component.assets.damage.DamageOverTime;
 import model.ES.component.interaction.Damaging;
-import util.LogUtil;
 
 public class DamagingOverTimeProc extends Processor {
 
@@ -31,13 +30,15 @@ public class DamagingOverTimeProc extends Processor {
 			if(timeSinceLastTick > timePerTick){
 				timeSinceLastTick -= timePerTick;
 				int damagePerTick = dot.getAmountPerSecond()/dot.getTickPerSecond();
-				switch(dot.getType()){
-				case BASIC : att = DamageApplier.applyBasic(att, damagePerTick); break; 
-				case INCENDIARY : att = DamageApplier.applyIncendiary(att, damagePerTick); break; 
-				case CORROSIVE : att = DamageApplier.applyCorrosive(att, damagePerTick); break; 
-				case SHOCK : att = DamageApplier.applyShock(att, damagePerTick); break; 
-				}
-				entityData.setComponent(damaging.target, att);
+				
+				DamageApplier applier = new DamageApplier(att, dot.getType(), damagePerTick);
+				entityData.setComponent(damaging.target, applier.getResult());
+
+				if(applier.getDamageOnShield() > 0)
+					DamageFloatingLabelCreator.create(entityData, damaging.target, dot.getType(), applier.getDamageOnShield(), true, true);
+				if(applier.getDamageOnHitPoints() > 0)
+					DamageFloatingLabelCreator.create(entityData, damaging.target, dot.getType(), applier.getDamageOnHitPoints(), false, true);
+
 			}
 			timeSinceLastTick += LogicLoop.getMillisPerTick();
 			setComp(e, new DamageOverTime(dot.getType(), dot.getAmountPerSecond(), dot.getTickPerSecond(), timeSinceLastTick));

@@ -52,8 +52,6 @@
       "exceptions" : [ ]
     }
   }, {
-    "class" : "model.ES.component.interaction.EffectOnTouch"
-  }, {
     "class" : "model.ES.component.debug.VelocityViewing",
     "velocities" : { }
   }, {
