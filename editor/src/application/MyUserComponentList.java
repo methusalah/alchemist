@@ -31,7 +31,7 @@ import model.ES.component.hierarchy.ThrusterControl;
 import model.ES.component.interaction.DamageOnTouch;
 import model.ES.component.interaction.Damaging;
 import model.ES.component.interaction.DestroyedOnTouch;
-import model.ES.component.interaction.EffectOnTouch;
+import model.ES.component.interaction.SpawnOnTouch;
 import model.ES.component.interaction.ShockwaveOnTouch;
 import model.ES.component.interaction.StickOnCollision;
 import model.ES.component.interaction.senses.Sighting;
@@ -77,7 +77,7 @@ public class MyUserComponentList extends UserComponentList {
 				DamageOnTouch.class,
 				Damaging.class,
 				DestroyedOnTouch.class,
-				EffectOnTouch.class,
+				SpawnOnTouch.class,
 				ShockwaveOnTouch.class,
 				StickOnCollision.class,
 				Collisioning.class,

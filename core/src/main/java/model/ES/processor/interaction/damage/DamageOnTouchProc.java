@@ -31,7 +31,7 @@ public class DamageOnTouchProc extends Processor {
 		entityData.setComponent(eid, capacity);
 		
 		// creating an optional damage over time
-		if(RandomUtil.next() < capacity.getDotChance()){
+		if(RandomUtil.next() < capacity.getDotChance().getValue()){
 			EntityId dotId = entityData.createEntity();
 			entityData.setComponent(dotId, new Naming("dot damaging"));
 			entityData.setComponent(dotId, new Damaging(e.getId(), e.get(Touching.class).getTouched()));

@@ -76,15 +76,7 @@
   }, {
     "class" : "model.ES.component.interaction.DestroyedOnTouch"
   }, {
-    "class" : "model.ES.component.interaction.EffectOnTouch"
-  }, {
     "class" : "model.ES.component.behavior.RagdollOnDestroy"
-  }, {
-    "class" : "model.ES.component.assets.damage.DamageCapacity",
-    "type" : "SHOCK",
-    "base" : 10,
-    "dotChance" : 0.1,
-    "dotPerSecond" : 9
   }, {
     "class" : "model.ES.component.interaction.DamageOnTouch"
   } ],

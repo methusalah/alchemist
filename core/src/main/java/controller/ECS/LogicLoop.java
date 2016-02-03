@@ -5,17 +5,16 @@ import com.simsilica.es.EntityData;
 
 import controller.cameraManagement.ChasingCameraProc;
 import model.Command;
-import model.ES.component.Naming;
 import model.ES.processor.LifeTimeProc;
 import model.ES.processor.ParentingCleanerProc;
 import model.ES.processor.RemoveProc;
 import model.ES.processor.AI.BehaviorTreeProc;
+import model.ES.processor.ability.AbilityCoolDownProc;
+import model.ES.processor.ability.AbilityProc;
 import model.ES.processor.ability.AbilityTriggerResetProc;
 import model.ES.processor.ability.BoostProc;
 import model.ES.processor.ability.ProjectileLauncherProc;
 import model.ES.processor.ability.SpawningProc;
-import model.ES.processor.ability.AbilityCoolDownProc;
-import model.ES.processor.ability.AbilityProc;
 import model.ES.processor.ability.TriggerRepeaterProc;
 import model.ES.processor.command.NeededRotationProc;
 import model.ES.processor.command.NeededThrustProc;
@@ -23,8 +22,8 @@ import model.ES.processor.command.PlayerAbilityControlProc;
 import model.ES.processor.holder.BoneHoldingProc;
 import model.ES.processor.holder.PlanarHoldingProc;
 import model.ES.processor.interaction.DestroyedOnTouchProc;
-import model.ES.processor.interaction.EffectOnTouchProc;
 import model.ES.processor.interaction.ShockwaveOnTouchProc;
+import model.ES.processor.interaction.SpawnOnTouchProc;
 import model.ES.processor.interaction.TouchingClearingProc;
 import model.ES.processor.interaction.damage.DamageOnTouchProc;
 import model.ES.processor.interaction.damage.DamagingOverTimeProc;
@@ -45,7 +44,6 @@ import model.ES.processor.shipGear.ParticleThrusterProc;
 import model.ES.processor.shipGear.RotationThrusterProc;
 import model.ES.processor.shipGear.SpawnOnDeathProc;
 import model.ES.processor.shipGear.ThrusterProc;
-import model.ES.processor.world.WorldProc;
 import model.world.WorldData;
 
 public class LogicLoop implements Runnable {
@@ -103,7 +101,7 @@ public class LogicLoop implements Runnable {
 
 		stateManager.attach(new SightProc());
 		
-		stateManager.attach(new EffectOnTouchProc());
+		stateManager.attach(new SpawnOnTouchProc());
 		stateManager.attach(new DamageOnTouchProc());
 		stateManager.attach(new DestroyedOnTouchProc());
 		stateManager.attach(new ShockwaveOnTouchProc());
