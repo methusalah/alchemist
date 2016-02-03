@@ -6,7 +6,7 @@ import com.simsilica.es.EntityComponent;
 public class Attrition implements EntityComponent {
 	private final int maxHitpoints, actualHitpoints;
 	private final int maxShield, actualShield;
-	private final boolean isArmored;
+	private final boolean armored;
 	
 	public Attrition() {
 		maxHitpoints = 0;
@@ -15,19 +15,19 @@ public class Attrition implements EntityComponent {
 		maxShield = 0;
 		actualShield = 0;
 		
-		isArmored = false;
+		armored = false;
 	}
 
 	public Attrition(@JsonProperty("maxHitpoints")int maxHitpoints,
 			@JsonProperty("actualHitpoints")int actualHitpoints,
 			@JsonProperty("maxShield")int maxShield,
 			@JsonProperty("actualShield")int actualShield,
-			@JsonProperty("isArmored")boolean isArmored) {
+			@JsonProperty("armored")boolean armored) {
 		this.maxHitpoints = maxHitpoints;
 		this.actualHitpoints = actualHitpoints;
 		this.maxShield = maxShield;
 		this.actualShield = actualShield;
-		this.isArmored = isArmored;
+		this.armored = armored;
 	}
 
 	public int getMaxHitpoints() {
@@ -47,6 +47,6 @@ public class Attrition implements EntityComponent {
 	}
 
 	public boolean isArmored() {
-		return isArmored;
+		return armored;
 	}
 }

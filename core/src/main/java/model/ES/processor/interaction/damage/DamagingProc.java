@@ -7,6 +7,7 @@ import model.ES.component.ToRemove;
 import model.ES.component.assets.Attrition;
 import model.ES.component.assets.damage.DamageCapacity;
 import model.ES.component.interaction.Damaging;
+import util.LogUtil;
 
 public class DamagingProc extends Processor {
 	

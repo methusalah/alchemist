@@ -13,6 +13,7 @@ import model.ES.component.assets.ProjectileLauncher;
 import model.ES.component.assets.RotationThruster;
 import model.ES.component.assets.Thruster;
 import model.ES.component.assets.TriggerRepeater;
+import model.ES.component.assets.damage.DamageCapacity;
 import model.ES.component.assets.damage.DamageOverTime;
 import model.ES.component.audio.AudioSource;
 import model.ES.component.audio.ThrusterAudioSource;
@@ -119,5 +120,7 @@ public class MyUserComponentList extends UserComponentList {
 				CircleCollisionShape.class,
 				EdgedCollisionShape.class,
 				RagdollOnDestroy.class,
-				DamageOverTime.class);	}
+				DamageOverTime.class,
+				DamageCapacity.class);
+		}
 }

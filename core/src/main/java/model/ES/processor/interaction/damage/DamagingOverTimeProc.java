@@ -9,6 +9,7 @@ import model.ES.component.ToRemove;
 import model.ES.component.assets.Attrition;
 import model.ES.component.assets.damage.DamageOverTime;
 import model.ES.component.interaction.Damaging;
+import util.LogUtil;
 
 public class DamagingOverTimeProc extends Processor {
 
@@ -27,7 +28,7 @@ public class DamagingOverTimeProc extends Processor {
 			int timeSinceLastTick = dot.getTimeSinceLastTick();
 			
 			int timePerTick = (int)Math.round(1000d/dot.getTickPerSecond());
-			if(dot.getTimeSinceLastTick() > timePerTick){
+			if(timeSinceLastTick > timePerTick){
 				timeSinceLastTick -= timePerTick;
 				int damagePerTick = dot.getAmountPerSecond()/dot.getTickPerSecond();
 				switch(dot.getType()){

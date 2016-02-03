@@ -27,6 +27,7 @@ import model.ES.processor.interaction.EffectOnTouchProc;
 import model.ES.processor.interaction.ShockwaveOnTouchProc;
 import model.ES.processor.interaction.TouchingClearingProc;
 import model.ES.processor.interaction.damage.DamageOnTouchProc;
+import model.ES.processor.interaction.damage.DamagingOverTimeProc;
 import model.ES.processor.interaction.damage.DamagingProc;
 import model.ES.processor.motion.RandomVelocityApplicationProc;
 import model.ES.processor.motion.VelocityApplicationProc;
@@ -97,6 +98,7 @@ public class LogicLoop implements Runnable {
 		stateManager.attach(new ProjectileLauncherProc());
 
 		stateManager.attach(new DamagingProc());
+		stateManager.attach(new DamagingOverTimeProc());
 		stateManager.attach(new AttritionProc());
 
 		stateManager.attach(new SightProc());
