@@ -6,11 +6,11 @@
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
-      "x" : -6.360164875412895,
-      "y" : 0.4052986190520316
+      "x" : 0.8788450139734837,
+      "y" : 1.9539624336073471
     },
     "orientation" : {
-      "value" : 102.98439336038254
+      "value" : 96.73540345410916
     },
     "elevation" : 1.0,
     "upVector" : {
@@ -57,8 +57,8 @@
   }, {
     "class" : "model.ES.component.motion.physic.Physic",
     "velocity" : {
-      "x" : -0.21570000904412717,
-      "y" : 0.07081635627722299
+      "x" : -1.5122288085930047,
+      "y" : -0.8930689989569338
     },
     "type" : "",
     "exceptions" : [ ],
@@ -91,19 +91,6 @@
   }, {
     "class" : "model.ES.component.motion.physic.CircleCollisionShape",
     "radius" : 0.8
-  }, {
-    "class" : "model.ES.component.interaction.senses.Touching",
-    "touched" : {
-      "id" : 295
-    },
-    "coord" : {
-      "x" : -26.40940713300705,
-      "y" : 12.682423465719797
-    },
-    "normal" : {
-      "x" : -0.9968417518913061,
-      "y" : -0.0794136114672526
-    }
   } ],
   "children" : [ {
     "name" : "camera",
@@ -113,24 +100,24 @@
     }, {
       "class" : "model.ES.component.camera.ChasingCamera",
       "maxSpeed" : 200.0,
-      "speed" : 0.3199999999999986,
+      "speed" : 1.9199999999999984,
       "acceleration" : 8.0,
       "deceleration" : 8.0,
       "pos" : {
-        "x" : -25.619275945831966,
-        "y" : 12.74499773809298,
+        "x" : 1.0696842818249457,
+        "y" : 2.0666655293904723,
         "z" : 20.0
       },
       "target" : {
-        "x" : -25.615849842501774,
-        "y" : 12.743882374199144,
+        "x" : 0.9090895901453437,
+        "y" : 1.9718238135864858,
         "z" : 1.0
       }
     }, {
       "class" : "model.ES.component.motion.PlanarStance",
       "coord" : {
-        "x" : -25.619275945831966,
-        "y" : 12.74499773809298
+        "x" : 1.0696842818249457,
+        "y" : 2.0666655293904723
       },
       "orientation" : {
         "value" : 0.0
@@ -175,7 +162,7 @@
         }
       }, {
         "class" : "model.ES.component.visuals.Sprite",
-        "path" : "red_nebula.jpg",
+        "path" : "",
         "size" : 100.0
       } ],
       "children" : [ ]
@@ -194,11 +181,11 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : -25.233958243134772,
-          "y" : 12.427738487447911
+          "x" : 1.275682847465752,
+          "y" : 1.6497918664757414
         },
         "orientation" : {
-          "value" : -0.6881642080806571
+          "value" : -0.6539688071744436
         },
         "elevation" : 1.0,
         "upVector" : {
@@ -310,11 +297,11 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : -25.233958243134772,
-            "y" : 12.427738487447911
+            "x" : 1.275682847465752,
+            "y" : 1.6497918664757414
           },
           "orientation" : {
-            "value" : -0.6881642080806571
+            "value" : -0.6539688071744436
           },
           "elevation" : 1.0,
           "upVector" : {
@@ -381,11 +368,11 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : -25.233958243134772,
-            "y" : 12.427738487447911
+            "x" : 1.275682847465752,
+            "y" : 1.6497918664757414
           },
           "orientation" : {
-            "value" : -0.6881642080806571
+            "value" : -0.6539688071744436
           },
           "elevation" : 1.0,
           "upVector" : {
@@ -400,6 +387,34 @@
         "comps" : [ {
           "class" : "model.ES.component.Naming",
           "name" : "sound"
+        }, {
+          "class" : "model.ES.component.audio.ThrusterAudioSource",
+          "startPath" : "thruster_start.wav",
+          "loopPath" : "thruster_loop.wav",
+          "endPath" : "thruster_stop.wav",
+          "volume" : {
+            "value" : 1.0
+          },
+          "startTime" : 0,
+          "loopTime" : 0
+        }, {
+          "class" : "model.ES.component.hierarchy.ThrusterControl",
+          "active" : true
+        }, {
+          "class" : "model.ES.component.motion.PlanarStance",
+          "coord" : {
+            "x" : 0.0,
+            "y" : 0.0
+          },
+          "orientation" : {
+            "value" : 0.0
+          },
+          "elevation" : 0.0,
+          "upVector" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 1.0
+          }
         } ],
         "children" : [ ]
       }, {
@@ -459,11 +474,11 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : -25.233958243134772,
-            "y" : 12.427738487447911
+            "x" : 1.275682847465752,
+            "y" : 1.6497918664757414
           },
           "orientation" : {
-            "value" : -0.6881642080806571
+            "value" : -0.6539688071744436
           },
           "elevation" : 1.0,
           "upVector" : {
@@ -482,11 +497,11 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : -25.99264220755616,
-          "y" : 12.92210539787968
+          "x" : 0.5005406337533478,
+          "y" : 2.117931320614178
         },
         "orientation" : {
-          "value" : 2.8897607585077054
+          "value" : 2.923956159413919
         },
         "elevation" : 1.0,
         "upVector" : {
@@ -580,11 +595,11 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : -25.99264220755616,
-            "y" : 12.92210539787968
+            "x" : 0.5005406337533478,
+            "y" : 2.117931320614178
           },
           "orientation" : {
-            "value" : 2.8897607585077054
+            "value" : 2.923956159413919
           },
           "elevation" : 1.0,
           "upVector" : {
@@ -603,11 +618,11 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : -25.865618154914518,
-          "y" : 13.076588050790916
+          "x" : 0.6222088606059901,
+          "y" : 2.2766664540110852
         },
         "orientation" : {
-          "value" : 2.017096132510531
+          "value" : 2.0512915334167445
         },
         "elevation" : 1.0,
         "upVector" : {
@@ -701,11 +716,11 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : -25.865618154914518,
-            "y" : 13.076588050790916
+            "x" : 0.6222088606059901,
+            "y" : 2.2766664540110852
           },
           "orientation" : {
-            "value" : 2.017096132510531
+            "value" : 2.0512915334167445
           },
           "elevation" : 1.0,
           "upVector" : {
@@ -724,11 +739,11 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : -25.55408561191546,
-          "y" : 12.432035900338727
+          "x" : 0.9555957038669756,
+          "y" : 1.6431420166446369
         },
         "orientation" : {
-          "value" : -1.6480952966775604
+          "value" : -1.6138998957713468
         },
         "elevation" : 1.0,
         "upVector" : {
@@ -822,11 +837,11 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : -25.55408561191546,
-            "y" : 12.432035900338727
+            "x" : 0.9555957038669756,
+            "y" : 1.6431420166446369
           },
           "orientation" : {
-            "value" : -1.6480952966775604
+            "value" : -1.6138998957713468
           },
           "elevation" : 1.0,
           "upVector" : {
@@ -845,11 +860,11 @@
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
         "coord" : {
-          "x" : -25.30003750663218,
-          "y" : 12.741001206161199
+          "x" : 1.1989321575722602,
+          "y" : 1.9606122834384516
         },
         "orientation" : {
-          "value" : 0.27176688051621767
+          "value" : 0.3059622814224312
         },
         "elevation" : 1.0,
         "upVector" : {
@@ -943,11 +958,11 @@
         }, {
           "class" : "model.ES.component.motion.PlanarStance",
           "coord" : {
-            "x" : -25.30003750663218,
-            "y" : 12.741001206161199
+            "x" : 1.1989321575722602,
+            "y" : 1.9606122834384516
           },
           "orientation" : {
-            "value" : 0.27176688051621767
+            "value" : 0.3059622814224312
           },
           "elevation" : 1.0,
           "upVector" : {
@@ -974,9 +989,9 @@
     }, {
       "class" : "model.ES.component.assets.ProjectileLauncher",
       "precision" : {
-        "value" : 0.95
+        "value" : 0.98
       },
-      "projectileBluePrint" : "PHAT missile"
+      "projectileBluePrint" : "red laser"
     }, {
       "class" : "model.ES.component.Cooldown",
       "remaining" : 0,
@@ -984,11 +999,11 @@
     }, {
       "class" : "model.ES.component.motion.PlanarStance",
       "coord" : {
-        "x" : -25.620164875412865,
-        "y" : 12.745298619052015
+        "x" : 0.8788450139734837,
+        "y" : 1.9539624336073471
       },
       "orientation" : {
-        "value" : 2.453428445509118
+        "value" : 2.4876238464153317
       },
       "elevation" : 1.0,
       "upVector" : {
@@ -1055,13 +1070,13 @@
     }, {
       "class" : "model.ES.component.motion.SpaceStance",
       "position" : {
-        "x" : -25.738594102272874,
-        "y" : 13.231070703702152,
+        "x" : 0.7438770874586323,
+        "y" : 2.4354015874079926,
         "z" : 1.0
       },
       "direction" : {
-        "x" : -0.6503910951589247,
-        "y" : 0.7595995150985646,
+        "x" : -0.6759806208588464,
+        "y" : 0.7369193987291205,
         "z" : 0.0
       }
     }, {
@@ -1103,13 +1118,13 @@
     }, {
       "class" : "model.ES.component.motion.SpaceStance",
       "position" : {
-        "x" : -26.1196662601978,
-        "y" : 12.767622744968444,
+        "x" : 0.37887240690070556,
+        "y" : 1.9591961872172707,
         "z" : 1.0
       },
       "direction" : {
-        "x" : -0.8709660477698229,
-        "y" : 0.49134320350668786,
+        "x" : -0.8872552795881309,
+        "y" : 0.46127873226823257,
         "z" : 0.0
       }
     }, {
