@@ -78,12 +78,6 @@
   }, {
     "class" : "model.ES.component.behavior.RagdollOnDestroy"
   }, {
-    "class" : "model.ES.component.assets.damage.DamageCapacity",
-    "type" : "INCENDIARY",
-    "base" : 10,
-    "dotChance" : 0.1,
-    "dotPerSecond" : 9
-  }, {
     "class" : "model.ES.component.interaction.DamageOnTouch"
   } ],
   "children" : [ {

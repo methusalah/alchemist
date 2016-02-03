@@ -1,5 +1,8 @@
 package model.ES.processor.ability;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
@@ -11,6 +14,7 @@ import model.ES.component.assets.ProjectileLauncher;
 import model.ES.component.assets.damage.DamageCapacity;
 import model.ES.component.command.PlanarNeededThrust;
 import model.ES.component.hierarchy.Parenting;
+import model.ES.component.interaction.SpawnOnTouch;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Physic;
@@ -66,8 +70,17 @@ public class ProjectileLauncherProc extends Processor {
 			entityData.setComponent(eid, new Projectile(p, stance.coord));
 			
 			DamageCapacity damageCapacity = entityData.getComponent(e.getId(), DamageCapacity.class);
-			if(damageCapacity != null)
+			if(damageCapacity != null) {
 				entityData.setComponent(eid, damageCapacity);
+				if(!damageCapacity.getBlueprintOnImpact().isEmpty()){
+					SpawnOnTouch spawn = entityData.getComponent(eid, SpawnOnTouch.class);
+					List<String> blueprintNames = new ArrayList<>();
+					if(spawn != null)
+						blueprintNames = spawn.getBlueprintNames();
+					blueprintNames.add(damageCapacity.getBlueprintOnImpact());
+					entityData.setComponent(eid, new SpawnOnTouch(blueprintNames));
+				}
+			}
 			
 			Cooldown cd = e.get(Cooldown.class);
 			setComp(e, new Cooldown(cd.getDuration(), cd.getDuration()));
