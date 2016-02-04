@@ -19,11 +19,11 @@
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
-      "x" : 0.0,
-      "y" : 0.0
+      "x" : -2.580000000000002,
+      "y" : -8.459999999999978
     },
     "orientation" : {
-      "value" : 0.0
+      "value" : 5.809421546304796
     },
     "elevation" : 0.0,
     "upVector" : {
@@ -31,6 +31,22 @@
       "y" : 0.0,
       "z" : 1.0
     }
+  }, {
+    "class" : "model.ES.component.motion.physic.Physic",
+    "velocity" : {
+      "x" : 0.3677223454978834,
+      "y" : -2.184177215486411
+    },
+    "type" : "",
+    "exceptions" : [ ],
+    "mass" : 1000.0,
+    "restitution" : {
+      "value" : 0.0
+    },
+    "spawnerException" : null
+  }, {
+    "class" : "model.ES.component.motion.physic.CircleCollisionShape",
+    "radius" : 0.7899999999999989
   } ],
   "children" : [ ]
 }

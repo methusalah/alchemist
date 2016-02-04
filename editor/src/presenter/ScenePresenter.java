@@ -81,7 +81,7 @@ public class ScenePresenter {
 		AppFacade.getFilterPostProcessor().addFilter(bf);
 		
 		FXAAFilter fxaa = new FXAAFilter();
-		fxaa.setEnabled(false);
+		//fxaa.setEnabled(false);
 		fxaa.setReduceMul(0.9f);
 		fxaa.setSpanMax(5f);
 		fxaa.setSubPixelShift(0f);
