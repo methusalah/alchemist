@@ -62,8 +62,11 @@
     "path" : "monoshot1.wav",
     "loop" : false,
     "volume" : {
-      "value" : 1.0
+      "value" : 0.5
     }
+  }, {
+    "class" : "model.ES.component.interaction.SpawnOnTouch",
+    "blueprintNames" : [ "incendiary impact particle" ]
   } ],
   "children" : [ ]
 }

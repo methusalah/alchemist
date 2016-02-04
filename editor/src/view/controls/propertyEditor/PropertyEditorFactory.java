@@ -47,7 +47,7 @@ public class PropertyEditorFactory {
 			return new AngleEditor(presenter, comp, pd);
 		}
 		if(pd.getPropertyType() == List.class){
-			return new ListEditor(presenter, comp, pd);
+			return new StringListEditor(presenter, comp, pd);
 		}
 		if(pd.getPropertyType() == Map.class){
 			return new MapEditor(presenter, comp, pd);

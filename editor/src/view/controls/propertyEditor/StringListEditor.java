@@ -7,22 +7,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import presenter.InspectorPresenter;
+import util.LogUtil;
 
 import com.simsilica.es.EntityComponent;
 
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
-public class ListEditor extends PropertyEditor{
+public class StringListEditor extends PropertyEditor{
 	
 	ListView<String> list;
 	final String contentTypeName;
 	
-	public ListEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
+	public StringListEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
 		super(presenter, comp, pd);
 		Type t = pd.getReadMethod().getGenericReturnType();
 		if(t instanceof ParameterizedType)
@@ -35,29 +41,32 @@ public class ListEditor extends PropertyEditor{
 
 	@Override
 	protected void createEditor() {
-		HBox box = new HBox(5);
-		box.setMaxWidth(Double.MAX_VALUE);
-		box.setAlignment(Pos.CENTER_LEFT);
-		
 		list = new ListView<>();
 		list.setMaxWidth(Double.MAX_VALUE);
-		setMinHeight(75);
+		setMinHeight(100);
 		list.setEditable(true);
-		list.setOnEditCommit(new EventHandler<ListView.EditEvent<String>>() {
-			@Override
-			public void handle(ListView.EditEvent<String> t) {
-				list.getItems().set(t.getIndex(), t.getNewValue());
+		list.setOnEditCommit(e -> {
+				list.getItems().set(e.getIndex(), e.getNewValue());
+				applyChange(null);
+		});
+		//list.itemsProperty().getValue().addListener((ListChangeListener<String>) e -> applyChange(null));
+		
+		TextField addField = new TextField();
+		Button addButton = new Button("+");
+		addButton.setOnAction(e -> {
+			if(!addField.getText().isEmpty()){
+				list.getItems().add(addField.getText());
 				applyChange(null);
 			}
 		});
-
-		list.setOnEditCancel(new EventHandler<ListView.EditEvent<String>>() {
-			@Override
-			public void handle(ListView.EditEvent<String> t) {
+		Button removeButton = new Button("-");
+		removeButton.setOnAction(e -> {
+			if(!list.getSelectionModel().isEmpty()){
+				list.getItems().remove(list.getSelectionModel().getSelectedIndex());	
+				applyChange(null);
 			}
 		});
-		list.addEventHandler(ActionEvent.ACTION, e -> applyChange(e));
-		setCenter(list);
+		setCenter(new VBox(list, new BorderPane(addField, null, new BorderPane(null, null, removeButton, null, addButton), null, null)));
 	}
 
 	@Override

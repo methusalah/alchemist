@@ -38,10 +38,9 @@ public class ComponentEditor extends TitledPane {
 				UIConfig.expandedComponents.remove(comp.getClass());
 		});
 		setExpanded(UIConfig.expandedComponents.contains(comp.getClass()));
-
-		
 		setAnimated(false);
 		setText(comp.getClass().getSimpleName());
+
 		VBox content = new VBox();
 		setContent(content);
 		

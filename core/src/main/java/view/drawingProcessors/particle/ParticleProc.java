@@ -40,7 +40,6 @@ public class ParticleProc extends Processor {
 			AppFacade.getMainSceneNode().detachChild(SpatialPool.emitters.get(e.getId()));
 		
 		MyParticleEmitter pe = getEmiterFromCaster(e.get(ParticleCaster.class));
-		
 		SpatialPool.emitters.put(e.getId(), pe);
 		AppFacade.getMainSceneNode().attachChild(pe);
 	}

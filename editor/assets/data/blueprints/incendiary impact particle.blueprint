@@ -26,15 +26,15 @@
     "initialSpeed" : 0.0,
     "fanning" : 0.0,
     "randomSprite" : false,
-    "maxCount" : 1,
-    "perSecond" : 0,
+    "maxCount" : 20,
+    "perSecond" : 20,
     "startSize" : 0.1,
     "endSize" : 0.4,
     "startColor" : {
       "a" : 255,
-      "r" : 179,
-      "g" : 26,
-      "b" : 26
+      "r" : 233,
+      "g" : 80,
+      "b" : 0
     },
     "endColor" : {
       "a" : 0,
@@ -44,15 +44,15 @@
     },
     "minLife" : 0.3,
     "maxLife" : 0.4,
-    "rotationSpeed" : 1.0,
+    "rotationSpeed" : 3.0,
     "gravity" : false,
     "facing" : "Camera",
     "add" : false,
-    "startVariation" : 0.0,
-    "allAtOnce" : true
+    "startVariation" : 0.15,
+    "allAtOnce" : false
   }, {
     "class" : "model.ES.component.LifeTime",
-    "duration" : 1000.0
+    "duration" : 400.0
   }, {
     "class" : "model.ES.component.audio.AudioSource",
     "path" : "impact_metal1.wav",

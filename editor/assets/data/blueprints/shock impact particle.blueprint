@@ -26,10 +26,10 @@
     "initialSpeed" : 0.0,
     "fanning" : 0.0,
     "randomSprite" : true,
-    "maxCount" : 1,
-    "perSecond" : 1,
-    "startSize" : 0.2,
-    "endSize" : 0.6,
+    "maxCount" : 20,
+    "perSecond" : 20,
+    "startSize" : 0.15,
+    "endSize" : 0.3,
     "startColor" : {
       "a" : 255,
       "r" : 121,
@@ -42,17 +42,17 @@
       "g" : 102,
       "b" : 204
     },
-    "minLife" : 0.3,
+    "minLife" : 0.1,
     "maxLife" : 0.4,
-    "rotationSpeed" : 1.0,
+    "rotationSpeed" : 0.0,
     "gravity" : false,
     "facing" : "Camera",
     "add" : false,
-    "startVariation" : 0.0,
-    "allAtOnce" : true
+    "startVariation" : 0.15,
+    "allAtOnce" : false
   }, {
     "class" : "model.ES.component.LifeTime",
-    "duration" : 1000.0
+    "duration" : 600.0
   } ],
   "children" : [ ]
 }

@@ -31,11 +31,10 @@ public class InspectorTab extends Tab {
 		
 		setText("Inspector");
 		setClosable(false);
-		
+
 		ScrollPane scroller = new ScrollPane();
 		
 		VBox content = new VBox();
-		content.prefWidthProperty().bind(scroller.widthProperty());
 		info = new Label("");
 		content.getChildren().add(info);
 		
@@ -48,6 +47,7 @@ public class InspectorTab extends Tab {
 		content.getChildren().add(addCompButton);
 		scroller.setContent(content);
 		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
+		scroller.setFitToWidth(true);
 		setContent(scroller);
 	}
 	
