@@ -58,10 +58,10 @@
     "duration" : 1000.0
   }, {
     "class" : "model.ES.component.audio.AudioSource",
-    "path" : "impact_metal2.wav",
+    "path" : "impact_metal1.wav",
     "loop" : false,
     "volume" : {
-      "value" : 0.1
+      "value" : 0.4
     }
   } ],
   "children" : [ ]
