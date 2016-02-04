@@ -49,10 +49,7 @@
     "facing" : "Camera",
     "add" : false,
     "startVariation" : 0.0,
-    "allAtOnce" : true,
-    "actualPerSecond" : {
-      "value" : 1.0
-    }
+    "allAtOnce" : true
   }, {
     "class" : "model.ES.component.LifeTime",
     "duration" : 1000.0
@@ -63,7 +60,6 @@
     "volume" : {
       "value" : 0.4
     }
->>>>>>> branch 'master' of https://github.com/brainless-studios/cosmovania
   } ],
   "children" : [ ]
 }

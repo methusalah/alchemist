@@ -1,4 +1,4 @@
-package view.drawingProcessors;
+package view.drawingProcessors.ui;
 
 import model.ES.component.debug.VelocityViewing;
 import model.ES.component.motion.PlanarStance;

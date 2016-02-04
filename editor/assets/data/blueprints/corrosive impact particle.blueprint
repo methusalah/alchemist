@@ -49,10 +49,7 @@
     "facing" : "Camera",
     "add" : false,
     "startVariation" : 0.0,
-    "allAtOnce" : true,
-    "actualPerSecond" : {
-      "value" : 1.0
-    }
+    "allAtOnce" : true
   }, {
     "class" : "model.ES.component.LifeTime",
     "duration" : 1000.0

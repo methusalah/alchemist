@@ -40,11 +40,11 @@ import model.ES.processor.motion.physic.collisionDetection.EdgeEdgeCollisionProc
 import model.ES.processor.senses.SightProc;
 import model.ES.processor.shipGear.AttritionProc;
 import model.ES.processor.shipGear.LightThrusterProc;
-import model.ES.processor.shipGear.ParticleThrusterProc;
 import model.ES.processor.shipGear.RotationThrusterProc;
 import model.ES.processor.shipGear.SpawnOnDeathProc;
 import model.ES.processor.shipGear.ThrusterProc;
 import model.world.WorldData;
+import view.drawingProcessors.particle.ParticleThrusterProc;
 
 public class LogicLoop implements Runnable {
     private AppStateManager stateManager;
@@ -80,7 +80,6 @@ public class LogicLoop implements Runnable {
 		// relations	
 		stateManager.attach(new BoneHoldingProc());
 		stateManager.attach(new PlanarHoldingProc());
-		stateManager.attach(new ParticleThrusterProc());
 		stateManager.attach(new LightThrusterProc());
 		
 		// ability

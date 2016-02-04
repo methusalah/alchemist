@@ -1,4 +1,4 @@
-package model.ES.processor.shipGear;
+package view.drawingProcessors.particle;
 
 import com.simsilica.es.Entity;
 
@@ -10,20 +10,22 @@ import model.ES.component.hierarchy.ThrusterControl;
 import model.ES.component.visuals.ParticleCaster;
 import util.LogUtil;
 import util.math.Fraction;
+import view.SpatialPool;
+import view.jme.MyParticleEmitter;
 
 public class ParticleThrusterProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		register("rotation", ParticleCaster.class, ThrusterControl.class);
+		registerDefault(ParticleCaster.class, ThrusterControl.class);
 	}
 	
 	@Override
 	protected void onEntityEachTick(Entity e) {
-		ParticleCaster c = e.get(ParticleCaster.class);
+		ParticleCaster caster = e.get(ParticleCaster.class);
 		ThrusterControl control = e.get(ThrusterControl.class);
-		
 		if(control.isActive()){
+			MyParticleEmitter pe = SpatialPool.emitters.get(e.getId());
 			Thruster t = Controlling.getControl(Thruster.class, e.getId(), entityData);
 			RotationThruster rt = Controlling.getControl(RotationThruster.class, e.getId(), entityData);
 			
@@ -32,30 +34,12 @@ public class ParticleThrusterProc extends Processor {
 				activationRate = rt.activation.getValue();
 			else if(t != null)
 				activationRate = t.activation.getValue();
-			else
+			else{
+				LogUtil.warning("Can't find the controlling thruster for thruster controlled entity "+ e.getId());
 				return;
-			
-			setComp(e, new ParticleCaster(c.getSpritePath(),
-					c.getNbCol(),
-					c.getNbRow(),
-					c.getInitialSpeed(),
-					c.getFanning(),
-					c.isRandomSprite(),
-					c.getMaxCount(),
-					c.getPerSecond(),
-					c.getStartSize(),
-					c.getEndSize(),
-					c.getStartColor(),
-					c.getEndColor(),
-					c.getMinLife(),
-					c.getMaxLife(),
-					c.getRotationSpeed(),
-					c.isGravity(),
-					c.getFacing(),
-					c.isAdd(),
-					c.getStartVariation(),
-					c.isAllAtOnce(),
-					new Fraction(activationRate)));
+			}
+			pe.setParticlesPerSec((int)Math.round(caster.getPerSecond()*activationRate));
+
 		}
 	}
 }

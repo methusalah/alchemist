@@ -1,4 +1,4 @@
-package view.drawingProcessors;
+package view.drawingProcessors.ui;
 
 import java.util.HashMap;
 import java.util.Map;

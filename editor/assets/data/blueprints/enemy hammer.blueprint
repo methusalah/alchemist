@@ -374,10 +374,7 @@
           "facing" : "Camera",
           "add" : false,
           "startVariation" : 0.01,
-          "allAtOnce" : false,
-          "actualPerSecond" : {
-            "value" : 0.0
-          }
+          "allAtOnce" : false
         }, {
           "class" : "model.ES.component.hierarchy.PlanarStanceControl",
           "active" : true,
@@ -445,10 +442,7 @@
           "facing" : "Camera",
           "add" : false,
           "startVariation" : 0.0,
-          "allAtOnce" : false,
-          "actualPerSecond" : {
-            "value" : 0.0
-          }
+          "allAtOnce" : false
         }, {
           "class" : "model.ES.component.hierarchy.PlanarStanceControl",
           "active" : true,
@@ -523,10 +517,7 @@
           "facing" : "Camera",
           "add" : false,
           "startVariation" : 0.01,
-          "allAtOnce" : false,
-          "actualPerSecond" : {
-            "value" : 0.0
-          }
+          "allAtOnce" : false
         }, {
           "class" : "model.ES.component.hierarchy.PlanarStanceControl",
           "active" : true,
@@ -644,10 +635,7 @@
           "facing" : "Camera",
           "add" : false,
           "startVariation" : 0.01,
-          "allAtOnce" : false,
-          "actualPerSecond" : {
-            "value" : 0.0
-          }
+          "allAtOnce" : false
         }, {
           "class" : "model.ES.component.hierarchy.PlanarStanceControl",
           "active" : true,
@@ -765,10 +753,7 @@
           "facing" : "Camera",
           "add" : false,
           "startVariation" : 0.01,
-          "allAtOnce" : false,
-          "actualPerSecond" : {
-            "value" : 0.0
-          }
+          "allAtOnce" : false
         }, {
           "class" : "model.ES.component.hierarchy.PlanarStanceControl",
           "active" : true,
@@ -886,10 +871,7 @@
           "facing" : "Camera",
           "add" : false,
           "startVariation" : 0.01,
-          "allAtOnce" : false,
-          "actualPerSecond" : {
-            "value" : 0.0
-          }
+          "allAtOnce" : false
         }, {
           "class" : "model.ES.component.hierarchy.PlanarStanceControl",
           "active" : true,
@@ -1007,10 +989,7 @@
           "facing" : "Camera",
           "add" : false,
           "startVariation" : 0.01,
-          "allAtOnce" : false,
-          "actualPerSecond" : {
-            "value" : 0.0
-          }
+          "allAtOnce" : false
         }, {
           "class" : "model.ES.component.hierarchy.PlanarStanceControl",
           "active" : true,

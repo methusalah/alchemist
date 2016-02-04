@@ -30,7 +30,6 @@ public class ParticleCaster implements EntityComponent{
 	private final boolean add;
 	private final double startVariation;
 	private final boolean allAtOnce;
-	private final Fraction actualPerSecond;
 	
 	public ParticleCaster(){
 		this.spritePath = "";
@@ -53,7 +52,6 @@ public class ParticleCaster implements EntityComponent{
 		this.add = false;
 		this.startVariation = 0;
 		this.allAtOnce = false;
-		this.actualPerSecond = new Fraction(1);
 	}
 	
 	public ParticleCaster(@JsonProperty("spritePath")String spritePath,
@@ -75,8 +73,7 @@ public class ParticleCaster implements EntityComponent{
 			@JsonProperty("facing")Facing facing,
 			@JsonProperty("add")boolean add,
 			@JsonProperty("startVariation")double startVariation,
-			@JsonProperty("allAtOnce")boolean allAtOnce,
-			@JsonProperty("actualPerSecond")Fraction actualPerSecond) {
+			@JsonProperty("allAtOnce")boolean allAtOnce) {
 		this.spritePath = spritePath;
 		this.nbCol = nbCol;
 		this.nbRow = nbRow;
@@ -97,7 +94,6 @@ public class ParticleCaster implements EntityComponent{
 		this.add = add;
 		this.startVariation = startVariation;
 		this.allAtOnce = allAtOnce;
-		this.actualPerSecond = actualPerSecond;
 	}
 
 	public String getSpritePath() {
@@ -179,10 +175,4 @@ public class ParticleCaster implements EntityComponent{
 	public boolean isAllAtOnce() {
 		return allAtOnce;
 	}
-
-	public Fraction getActualPerSecond() {
-		return actualPerSecond;
-	}
-	
-	
 }

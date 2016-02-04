@@ -1,4 +1,4 @@
-package view.drawingProcessors;
+package view.drawingProcessors.model;
 
 import com.simsilica.es.Entity;
 

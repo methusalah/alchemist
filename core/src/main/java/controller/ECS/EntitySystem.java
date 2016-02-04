@@ -7,21 +7,23 @@ import model.ES.processor.world.WorldProc;
 import model.world.WorldData;
 import util.LogUtil;
 import view.drawingProcessors.CameraPlacingProc;
-import view.drawingProcessors.EdgeCollisionShapeDrawingProc;
-import view.drawingProcessors.FloatingLabelProc;
 import view.drawingProcessors.LightProc;
-import view.drawingProcessors.ModelProc;
-import view.drawingProcessors.ParticleCasterInPlaneProc;
 import view.drawingProcessors.RagdollProc;
-import view.drawingProcessors.ModelPlacingProc;
-import view.drawingProcessors.SpritePlacingProc;
-import view.drawingProcessors.SpriteProc;
-import view.drawingProcessors.ModelRotationProc;
-import view.drawingProcessors.VelocityVisualisationProc;
 import view.drawingProcessors.audio.AbilityAudioProc;
 import view.drawingProcessors.audio.AudioSourcePlacingProc;
 import view.drawingProcessors.audio.AudioSourceProc;
 import view.drawingProcessors.audio.ThrusterAudioProc;
+import view.drawingProcessors.model.ModelPlacingProc;
+import view.drawingProcessors.model.ModelProc;
+import view.drawingProcessors.model.ModelRotationProc;
+import view.drawingProcessors.particle.ParticlePlacingProc;
+import view.drawingProcessors.particle.ParticleProc;
+import view.drawingProcessors.particle.ParticleThrusterProc;
+import view.drawingProcessors.sprite.SpritePlacingProc;
+import view.drawingProcessors.sprite.SpriteProc;
+import view.drawingProcessors.ui.EdgeCollisionShapeDrawingProc;
+import view.drawingProcessors.ui.FloatingLabelProc;
+import view.drawingProcessors.ui.VelocityVisualisationProc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,14 +59,16 @@ public class EntitySystem extends AbstractAppState {
 		loop = new LogicLoop(ed, world, command);
 		
 		
-		visualStates.add(new ParticleCasterInPlaneProc());
 		visualStates.add(new ModelProc());
 		visualStates.add(new SpriteProc());
+		visualStates.add(new ParticleProc());
 		//visualStates.add(new RagdollProc());
 		//visualStates.add(new EdgeCollisionShapeDrawingProc());
 		
 		visualStates.add(new ModelPlacingProc());
 		visualStates.add(new SpritePlacingProc());
+		visualStates.add(new ParticlePlacingProc());
+		visualStates.add(new ParticleThrusterProc());
 		
 		visualStates.add(new ModelRotationProc());
 		visualStates.add(new LightProc());

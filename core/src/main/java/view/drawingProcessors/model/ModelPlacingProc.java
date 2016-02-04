@@ -1,7 +1,8 @@
-package view.drawingProcessors;
+package view.drawingProcessors.model;
 
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.visuals.Model;
+import util.LogUtil;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
 import view.SpatialPool;
@@ -14,7 +15,7 @@ import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
 
-public class PlacingModelProc extends Processor {
+public class ModelPlacingProc extends Processor {
 
 	@Override
 	protected void registerSets() {
@@ -22,7 +23,11 @@ public class PlacingModelProc extends Processor {
 	}
 	
 	@Override
-	protected void onEntityEachTick(Entity e) {
+	protected void onEntityAdded(Entity e) {
+		onEntityUpdated(e);
+	}
+	@Override
+	protected void onEntityUpdated(Entity e) {
 		Model model = e.get(Model.class);
 		Spatial s = SpatialPool.models.get(e.getId());
 		
