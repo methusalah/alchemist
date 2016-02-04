@@ -15,6 +15,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 import presenter.InspectorPresenter;
 import presenter.common.EntityNode;
+import util.LogUtil;
 import view.controls.ComponentEditor;
 
 public class InspectorTab extends Tab {
@@ -33,9 +34,8 @@ public class InspectorTab extends Tab {
 		
 		ScrollPane scroller = new ScrollPane();
 		
-		
 		VBox content = new VBox();
-		
+		content.prefWidthProperty().bind(scroller.widthProperty());
 		info = new Label("");
 		content.getChildren().add(info);
 		
