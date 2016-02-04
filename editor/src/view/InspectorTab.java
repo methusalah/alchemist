@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 import presenter.InspectorPresenter;
@@ -46,6 +47,7 @@ public class InspectorTab extends Tab {
 		addCompButton.setOnAction(e -> showComponentChooser());
 		content.getChildren().add(addCompButton);
 		scroller.setContent(content);
+		scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
 		setContent(scroller);
 	}
 	
