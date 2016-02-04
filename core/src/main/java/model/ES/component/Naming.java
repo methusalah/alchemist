@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
 
 public class Naming implements EntityComponent {
-	public final String name;
+	private final String name;
 	
 	public Naming() {
 		name = "Unnamed";
