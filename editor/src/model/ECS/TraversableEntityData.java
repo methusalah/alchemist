@@ -57,7 +57,7 @@ public class TraversableEntityData extends DefaultEntityData{
 		super.removeEntity(eid);
 		Platform.runLater(() -> {
 			Parenting parenting = getComponent(eid, Parenting.class);
-			removePresenterFromParent(getNode(eid), parenting);
+			removeNodeFromParent(getNode(eid), parenting);
 			entityNodes.remove(eid);
 		});
 	}
@@ -70,7 +70,7 @@ public class TraversableEntityData extends DefaultEntityData{
 		return entityNodes.get(eid);
 	}
 	
-	private void removePresenterFromParent(EntityNode ep, Parenting parenting){
+	private void removeNodeFromParent(EntityNode ep, Parenting parenting){
 		if(parenting != null){
 			EntityNode parentPresenter = getNode(parenting.getParent());
 			if(parentPresenter != null)
@@ -82,7 +82,7 @@ public class TraversableEntityData extends DefaultEntityData{
 	private void handleComponentChange(EntityId eid, Class<? extends EntityComponent> compClass, EntityComponent lastComp, EntityComponent newComp){
 		Platform.runLater(() -> {
 				if(compClass == Parenting.class){
-					removePresenterFromParent(getNode(eid), (Parenting)lastComp);
+					removeNodeFromParent(getNode(eid), (Parenting)lastComp);
 					if(newComp != null){
 						// The entity has a new parent. We register the entity in the new parent's presenter's children list
 						EntityNode newParent = entityNodes.get(((Parenting)newComp).getParent());

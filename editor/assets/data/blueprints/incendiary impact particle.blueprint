@@ -25,9 +25,9 @@
     "nbRow" : 2,
     "initialSpeed" : 0.0,
     "fanning" : 0.0,
-    "randomSprite" : true,
+    "randomSprite" : false,
     "maxCount" : 1,
-    "perSecond" : 1,
+    "perSecond" : 0,
     "startSize" : 0.1,
     "endSize" : 0.4,
     "startColor" : {
@@ -39,8 +39,8 @@
     "endColor" : {
       "a" : 0,
       "r" : 255,
-      "g" : 204,
-      "b" : 128
+      "g" : 153,
+      "b" : 102
     },
     "minLife" : 0.3,
     "maxLife" : 0.4,
@@ -56,6 +56,14 @@
   }, {
     "class" : "model.ES.component.LifeTime",
     "duration" : 1000.0
+  }, {
+    "class" : "model.ES.component.audio.AudioSource",
+    "path" : "impact_metal1.wav",
+    "loop" : false,
+    "volume" : {
+      "value" : 0.4
+    }
+>>>>>>> branch 'master' of https://github.com/brainless-studios/cosmovania
   } ],
   "children" : [ ]
 }

@@ -25,7 +25,7 @@
     "nbRow" : 2,
     "initialSpeed" : 0.0,
     "fanning" : 0.0,
-    "randomSprite" : true,
+    "randomSprite" : false,
     "maxCount" : 1,
     "perSecond" : 0,
     "startSize" : 0.1,

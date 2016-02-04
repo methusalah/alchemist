@@ -33,12 +33,7 @@
     }
   }, {
     "class" : "model.ES.component.assets.AbilityTrigger",
-    "triggers" : {
-      "bonjour" : true,
-      "aurevoir" : false,
-      "ça va ?" : true,
-      "ca va ?" : true
-    }
+    "triggers" : { }
   }, {
     "class" : "model.ES.component.motion.PlanarVelocityToApply",
     "vector" : {

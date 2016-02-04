@@ -1,8 +1,8 @@
 {
-  "name" : "player ship",
+  "name" : "player ship test",
   "comps" : [ {
     "class" : "model.ES.component.Naming",
-    "name" : "player ship"
+    "name" : "player ship test"
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
