@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+
+import org.reflections.Reflections;
 
 import com.simsilica.es.EntityComponent;
-
-import model.ES.component.Naming;
 
 public class UserComponentList extends HashMap<String, Class<? extends EntityComponent>>{
 	/**
@@ -16,7 +17,12 @@ public class UserComponentList extends HashMap<String, Class<? extends EntityCom
 	private static final long serialVersionUID = 1L;
 
 	public UserComponentList() {
-		add(Naming.class);
+		Reflections reflections = new Reflections();    
+		Set<Class<? extends EntityComponent>> components = reflections.getSubTypesOf(EntityComponent.class);
+		
+		for (Class<? extends EntityComponent> component: components) {
+			add(component);
+		}
 	}
 	
 	@SafeVarargs

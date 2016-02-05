@@ -18,6 +18,7 @@ repositories {
 dependencies {
 	compile fileTree(dir: 'lib', include: ['*.jar'])
 	compile project(':core')
+	compile 'org.reflections:reflections:0.9.10'
 }
 
 
