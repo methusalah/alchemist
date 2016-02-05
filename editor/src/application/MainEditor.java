@@ -1,5 +1,6 @@
 package application;
 	
+import presenter.util.UserComponentList;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import util.LogUtil;
@@ -14,7 +15,7 @@ public class MainEditor extends Application {
 		LogUtil.init();
 		
 		view = new Overview(primaryStage);
-		view.setComponentList(new MyUserComponentList());
+		view.setComponentList(new UserComponentList());
 	}
 	
 	public static void main(String[] args) {
