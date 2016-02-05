@@ -1,12 +1,14 @@
 package view;
 
+import java.io.File;
+import java.net.MalformedURLException;
+
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.ES.component.motion.physic.CircleCollisionShape;
 import presenter.EditorPlatform;
 import presenter.OverviewPresenter;
 import presenter.util.UserComponentList;
@@ -41,6 +43,11 @@ public class Overview {
 		
 
 		Scene s = new Scene(root);
+		try {
+			s.getStylesheets().add(new File("assets/interface/darktheme.css").toURI().toURL().toString());
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		}
 		sceneViewer.registerKeyInputs(s);
 		stage.setScene(s);
 		stage.show();

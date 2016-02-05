@@ -11,7 +11,6 @@ public class RunPanel extends HBox {
 	private final RunPresenter presenter = new RunPresenter();
 
 	public RunPanel() {
-		setStyle("-fx-background-color: darkgrey");
 		Button runButton = new Button("Run");
 		runButton.setOnAction(e -> presenter.run());
 		getChildren().add(runButton);

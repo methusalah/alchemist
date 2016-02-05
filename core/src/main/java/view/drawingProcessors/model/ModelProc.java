@@ -3,9 +3,6 @@ package view.drawingProcessors.model;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.jme3.app.state.AppStateManager;
-import com.jme3.bullet.BulletAppState;
-import com.jme3.bullet.PhysicsSpace;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
@@ -13,7 +10,6 @@ import com.simsilica.es.Entity;
 import app.AppFacade;
 import controller.ECS.Processor;
 import model.ES.component.Naming;
-import model.ES.component.behavior.RagdollOnDestroy;
 import model.ES.component.visuals.Model;
 import util.LogUtil;
 import view.SpatialPool;
