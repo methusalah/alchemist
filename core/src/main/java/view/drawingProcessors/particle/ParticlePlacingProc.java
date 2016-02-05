@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.OnscreenKeyboard;
 import com.jme3.effect.Particle;
+import com.jme3.effect.ParticleEmitter;
 import com.jme3.effect.ParticleMesh.Type;
 import com.jme3.effect.shapes.EmitterSphereShape;
 import com.jme3.material.Material;
@@ -45,7 +46,7 @@ public class ParticlePlacingProc extends Processor {
 		Point3D pos = stance.getCoord().get3D(stance.elevation);
 		Point3D velocity = Point2D.ORIGIN.getTranslation(stance.orientation.getValue(), caster.getInitialSpeed()).get3D(0);
 
-		MyParticleEmitter pe = SpatialPool.emitters.get(e.getId());
+		ParticleEmitter pe = SpatialPool.emitters.get(e.getId());
 		pe.setLocalTranslation(TranslateUtil.toVector3f(pos));
 		pe.getParticleInfluencer().setInitialVelocity(TranslateUtil.toVector3f(velocity));
 

@@ -1,5 +1,6 @@
 package view.drawingProcessors.particle;
 
+import com.jme3.effect.ParticleEmitter;
 import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
@@ -25,7 +26,7 @@ public class ParticleThrusterProc extends Processor {
 		ParticleCaster caster = e.get(ParticleCaster.class);
 		ThrusterControl control = e.get(ThrusterControl.class);
 		if(control.isActive()){
-			MyParticleEmitter pe = SpatialPool.emitters.get(e.getId());
+			ParticleEmitter pe = SpatialPool.emitters.get(e.getId());
 			Thruster t = Controlling.getControl(Thruster.class, e.getId(), entityData);
 			RotationThruster rt = Controlling.getControl(RotationThruster.class, e.getId(), entityData);
 			

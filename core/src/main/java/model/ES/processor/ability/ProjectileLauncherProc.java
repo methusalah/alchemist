@@ -76,7 +76,7 @@ public class ProjectileLauncherProc extends Processor {
 					SpawnOnTouch spawn = entityData.getComponent(eid, SpawnOnTouch.class);
 					List<String> blueprintNames = new ArrayList<>();
 					if(spawn != null)
-						blueprintNames = spawn.getBlueprintNames();
+						blueprintNames.addAll(spawn.getBlueprintNames());
 					blueprintNames.add(damageCapacity.getBlueprintOnImpact());
 					entityData.setComponent(eid, new SpawnOnTouch(blueprintNames));
 				}

@@ -12,7 +12,7 @@ import util.math.Angle;
 public class PlanarStance implements EntityComponent{
 	public final Point2D coord;
 	public final Angle orientation;
-	public final double elevation; 
+	public final double elevation;
 	public final Point3D upVector;
 	
 	public PlanarStance() {

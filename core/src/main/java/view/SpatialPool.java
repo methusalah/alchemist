@@ -23,7 +23,7 @@ public class SpatialPool {
 	public static final Map<EntityId, Spatial> inertias = new HashMap<>();
 	public static final Map<EntityId, Spatial> appliedVelocities = new HashMap<>();
 	public static final Map<EntityId, Spatial> resultingVelocity = new HashMap<>();
-	public static final Map<EntityId, MyParticleEmitter> emitters = new HashMap<>();
+	public static final Map<EntityId, ParticleEmitter> emitters = new HashMap<>();
 	public static final Map<EntityId, Light> lights = new HashMap<>();
 	public static final Map<VelocityView, Spatial> velocities = new HashMap<>();
 	public static final Map<EntityId, AudioNode> playingSounds = new HashMap<>();

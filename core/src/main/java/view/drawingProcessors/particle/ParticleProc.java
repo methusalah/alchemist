@@ -3,6 +3,7 @@ package view.drawingProcessors.particle;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jme3.effect.ParticleEmitter;
 import com.jme3.effect.ParticleMesh.Type;
 import com.jme3.effect.shapes.EmitterSphereShape;
 import com.jme3.material.Material;
@@ -22,7 +23,7 @@ import view.jme.MyParticleEmitter;
 import view.math.TranslateUtil;
 
 public class ParticleProc extends Processor {
-	List<MyParticleEmitter> toRemove = new ArrayList<MyParticleEmitter>(); 
+	List<ParticleEmitter> toRemove = new ArrayList<ParticleEmitter>(); 
 
 	@Override
 	protected void registerSets() {
@@ -39,14 +40,14 @@ public class ParticleProc extends Processor {
 		if(SpatialPool.emitters.containsKey(e.getId()))
 			AppFacade.getMainSceneNode().detachChild(SpatialPool.emitters.get(e.getId()));
 		
-		MyParticleEmitter pe = getEmiterFromCaster(e.get(ParticleCaster.class));
+		ParticleEmitter pe = getEmiterFromCaster(e.get(ParticleCaster.class));
 		SpatialPool.emitters.put(e.getId(), pe);
 		AppFacade.getMainSceneNode().attachChild(pe);
 	}
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
-		MyParticleEmitter pe = SpatialPool.emitters.get(e.getId());
+		ParticleEmitter pe = SpatialPool.emitters.get(e.getId());
 		pe.setParticlesPerSec(0);
 		toRemove.add(pe);
 	}
@@ -54,15 +55,15 @@ public class ParticleProc extends Processor {
 	@Override
 	protected void onUpdated() {
 		// to remove the finished emitters
-		for(MyParticleEmitter pe : new ArrayList<>(toRemove))
+		for(ParticleEmitter pe : new ArrayList<>(toRemove))
 			if(pe.getNumVisibleParticles() == 0){
 				AppFacade.getMainSceneNode().detachChild(pe);
 				toRemove.remove(pe);
 			}
 	}
 	
-	private MyParticleEmitter getEmiterFromCaster(ParticleCaster caster){
-		MyParticleEmitter res = new MyParticleEmitter("Particle caster", Type.Triangle, caster.getMaxCount());
+	private ParticleEmitter getEmiterFromCaster(ParticleCaster caster){
+		ParticleEmitter res = new ParticleEmitter("Particle caster", Type.Triangle, caster.getMaxCount());
 		res.setParticlesPerSec(caster.getPerSecond());
 
 		// material
