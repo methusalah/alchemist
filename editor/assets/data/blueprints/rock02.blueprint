@@ -4,7 +4,7 @@
     "class" : "model.ES.component.Naming",
     "name" : "rock02"
   }, {
-    "class" : "model.ES.component.visuals.Model",
+    "class" : "model.ES.component.assets.Model",
     "path" : "floor assets/rocks/rock02.j3o",
     "scale" : 0.007,
     "yawFix" : {

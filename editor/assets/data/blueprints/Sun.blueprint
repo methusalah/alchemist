@@ -4,7 +4,7 @@
     "class" : "model.ES.component.Naming",
     "name" : "Sun"
   }, {
-    "class" : "model.ES.component.visuals.Lighting",
+    "class" : "model.ES.component.assets.Lighting",
     "color" : {
       "a" : 255,
       "r" : 255,

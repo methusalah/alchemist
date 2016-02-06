@@ -1,14 +1,23 @@
 package controller.ECS;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.jme3.app.state.AbstractAppState;
+import com.jme3.app.state.AppState;
+import com.jme3.app.state.AppStateManager;
+import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
+import com.simsilica.es.EntityData;
+
+import app.AppFacade;
 import model.Command;
 import model.ES.processor.command.PlayerRotationControlProc;
 import model.ES.processor.command.PlayerThrustControlProc;
 import model.ES.processor.world.WorldProc;
 import model.world.WorldData;
-import util.LogUtil;
 import view.drawingProcessors.CameraPlacingProc;
 import view.drawingProcessors.LightProc;
-import view.drawingProcessors.RagdollProc;
 import view.drawingProcessors.audio.AbilityAudioProc;
 import view.drawingProcessors.audio.AudioSourcePlacingProc;
 import view.drawingProcessors.audio.AudioSourceProc;
@@ -21,21 +30,8 @@ import view.drawingProcessors.particle.ParticleProc;
 import view.drawingProcessors.particle.ParticleThrusterProc;
 import view.drawingProcessors.sprite.SpritePlacingProc;
 import view.drawingProcessors.sprite.SpriteProc;
-import view.drawingProcessors.ui.EdgeCollisionShapeDrawingProc;
 import view.drawingProcessors.ui.FloatingLabelProc;
 import view.drawingProcessors.ui.VelocityVisualisationProc;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import com.jme3.app.state.AbstractAppState;
-import com.jme3.app.state.AppState;
-import com.jme3.app.state.AppStateManager;
-import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
-import com.simsilica.es.EntityData;
-
-import app.AppFacade;
 
 public class EntitySystem extends AbstractAppState {
 	private AppStateManager stateManager;

@@ -4,7 +4,7 @@
     "class" : "model.ES.component.Naming",
     "name" : "asteroid"
   }, {
-    "class" : "model.ES.component.visuals.Model",
+    "class" : "model.ES.component.assets.Model",
     "path" : "env/exterior01/asteroid/asteroid_export_01.j3o",
     "scale" : 1.0,
     "yawFix" : {
@@ -45,7 +45,7 @@
     },
     "spawnerException" : null
   }, {
-    "class" : "model.ES.component.visuals.ModelRotation",
+    "class" : "model.ES.component.assets.ModelRotation",
     "xPeriod" : 100.0,
     "yPeriod" : 0.0,
     "zPeriod" : 200.0

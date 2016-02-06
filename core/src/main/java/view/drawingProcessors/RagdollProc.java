@@ -17,7 +17,7 @@ import com.simsilica.es.EntityId;
 import app.AppFacade;
 import controller.ECS.Processor;
 import model.ES.component.assets.Model;
-import model.ES.component.event.RagdollOnDecay;
+import model.ES.component.assets.RagdollOnDecay;
 import model.ES.component.motion.physic.Physic;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;

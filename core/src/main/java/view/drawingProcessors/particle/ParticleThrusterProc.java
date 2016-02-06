@@ -9,6 +9,7 @@ import model.ES.component.assets.ParticleCaster;
 import model.ES.component.motion.RotationThruster;
 import model.ES.component.motion.Thruster;
 import model.ES.component.motion.ThrusterControl;
+import model.ES.component.motion.ThrustControl;
 import util.LogUtil;
 import util.math.Fraction;
 import view.SpatialPool;

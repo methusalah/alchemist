@@ -1,4 +1,4 @@
-package model.ES.component.event;
+package model.ES.component.lifeCycle;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,5 +20,4 @@ public class SpawnOnTouch implements EntityComponent {
 	public List<String> getBlueprintNames() {
 		return blueprintNames;
 	}
-	
 }

@@ -3,7 +3,7 @@ package model.ES.processor.world;
 import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
-import model.ES.component.camera.ChasingCamera;
+import model.ES.component.motion.ChasingCamera;
 import model.ES.component.motion.PlanarStance;
 import model.world.WorldData;
 import util.LogUtil;

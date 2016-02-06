@@ -3,7 +3,7 @@
     "class" : "model.ES.component.Naming",
     "name" : "player ship"
   }, {
-    "class" : "model.ES.component.command.PlayerControl"
+    "class" : "model.ES.component.ability.PlayerControl"
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
@@ -92,7 +92,7 @@
         "z" : 1.0
       }
     }, {
-      "class" : "model.ES.component.Cooldown",
+      "class" : "model.ES.component.ability.Cooldown",
       "start" : 0,
       "duration" : 100.0
     }, {
@@ -130,7 +130,7 @@
         "z" : 1.0
       }
     }, {
-      "class" : "model.ES.component.Cooldown",
+      "class" : "model.ES.component.ability.Cooldown",
       "start" : 0,
       "duration" : 100.0
     }, {
@@ -160,7 +160,7 @@
         "z" : 1.0
       }
     }, {
-      "class" : "model.ES.component.camera.ChasingCamera",
+      "class" : "model.ES.component.motion.ChasingCamera",
       "maxSpeed" : 3.0,
       "speed" : 0.0,
       "acceleration" : 0.5,

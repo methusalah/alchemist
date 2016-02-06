@@ -19,7 +19,7 @@
       "z" : 1.0
     }
   }, {
-    "class" : "model.ES.component.visuals.ParticleCaster",
+    "class" : "model.ES.component.assets.ParticleCaster",
     "spritePath" : "particles/flame.png",
     "nbCol" : 2,
     "nbRow" : 2,
@@ -51,10 +51,10 @@
     "startVariation" : 0.15,
     "allAtOnce" : false
   }, {
-    "class" : "model.ES.component.LifeTime",
+    "class" : "model.ES.component.lifeCycle.LifeTime",
     "duration" : 1000.0
   }, {
-    "class" : "model.ES.component.audio.AudioSource",
+    "class" : "model.ES.component.assets.AudioSource",
     "path" : "corrosive_impact.wav",
     "loop" : false,
     "volume" : {

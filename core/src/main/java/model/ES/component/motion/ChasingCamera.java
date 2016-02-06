@@ -1,4 +1,4 @@
-package model.ES.component.camera;
+package model.ES.component.motion;
 
 import util.geometry.geom3d.Point3D;
 

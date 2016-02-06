@@ -41,7 +41,7 @@
     "class" : "model.ES.component.motion.physic.CircleCollisionShape",
     "radius" : 0.2
   }, {
-    "class" : "model.ES.component.LifeTime",
+    "class" : "model.ES.component.lifeCycle.LifeTime",
     "duration" : 2000.0
   }, {
     "class" : "model.ES.component.motion.PlanarVelocityToApply",
@@ -50,22 +50,22 @@
       "y" : 0.0
     }
   }, {
-    "class" : "model.ES.component.interaction.DestroyedOnTouch"
+    "class" : "model.ES.component.lifeCycle.DecayOnTouch"
   }, {
-    "class" : "model.ES.component.interaction.DamageOnTouch"
+    "class" : "model.ES.component.combat.damage.DamageOnTouch"
   }, {
-    "class" : "model.ES.component.visuals.Sprite",
+    "class" : "model.ES.component.assets.Sprite",
     "path" : "laser_shot_red.png",
     "size" : 0.4
   }, {
-    "class" : "model.ES.component.audio.AudioSource",
+    "class" : "model.ES.component.assets.AudioSource",
     "path" : "monoshot1.wav",
     "loop" : false,
     "volume" : {
       "value" : 0.5
     }
   }, {
-    "class" : "model.ES.component.interaction.SpawnOnTouch",
+    "class" : "model.ES.component.lifeCycle.SpawnOnTouch",
     "blueprintNames" : [ "incendiary impact particle" ]
   } ],
   "children" : [ ]

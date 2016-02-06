@@ -4,24 +4,24 @@
     "class" : "model.ES.component.Naming",
     "name" : "burst weapon"
   }, {
-    "class" : "model.ES.component.hierarchy.AbilityTriggerControl",
+    "class" : "model.ES.component.ability.AbilityTriggerControl",
     "active" : true
   }, {
-    "class" : "model.ES.component.assets.Ability",
+    "class" : "model.ES.component.ability.Ability",
     "name" : "",
     "triggered" : false
   }, {
-    "class" : "model.ES.component.assets.ProjectileLauncher",
+    "class" : "model.ES.component.combat.damage.ProjectileLauncher",
     "precision" : {
       "value" : 0.95
     },
     "projectileBluePrint" : ""
   }, {
-    "class" : "model.ES.component.Cooldown",
+    "class" : "model.ES.component.ability.Cooldown",
     "remaining" : 0,
     "duration" : 1000
   }, {
-      "class" : "model.ES.component.assets.TriggerRepeater",
+      "class" : "model.ES.component.ability.TriggerRepeater",
       "period" : 100,
       "periodRange" : 0,
       "remainingDuration" : 400,

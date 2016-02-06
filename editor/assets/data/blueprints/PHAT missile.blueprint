@@ -19,7 +19,7 @@
       "z" : 1.0
     }
   }, {
-    "class" : "model.ES.component.visuals.Model",
+    "class" : "model.ES.component.assets.Model",
     "path" : "projectiles/missiles/missile02.mesh.xml",
     "scale" : 0.003,
     "yawFix" : {
@@ -54,10 +54,10 @@
     "class" : "model.ES.component.motion.physic.CircleCollisionShape",
     "radius" : 0.2
   }, {
-    "class" : "model.ES.component.LifeTime",
+    "class" : "model.ES.component.lifeCycle.LifeTime",
     "duration" : 2000.0
   }, {
-    "class" : "model.ES.component.command.PlanarNeededThrust",
+    "class" : "model.ES.component.motion.PlanarNeededThrust",
     "direction" : {
       "x" : 1.0,
       "y" : 0.0
@@ -69,16 +69,16 @@
       "y" : 0.0
     }
   }, {
-    "class" : "model.ES.component.command.PlanarNeededRotation",
+    "class" : "model.ES.component.motion.PlanarNeededRotation",
     "angle" : {
       "value" : 0.0
     }
   }, {
-    "class" : "model.ES.component.interaction.DestroyedOnTouch"
+    "class" : "model.ES.component.lifeCycle.DecayOnTouch"
   }, {
-    "class" : "model.ES.component.behavior.RagdollOnDestroy"
+    "class" : "model.ES.component.assets.RagdollOnDecay"
   }, {
-    "class" : "model.ES.component.interaction.DamageOnTouch"
+    "class" : "model.ES.component.combat.damage.DamageOnTouch"
   } ],
   "children" : [ {
     "name" : "main thruster",
@@ -101,7 +101,7 @@
         "z" : 1.0
       }
     }, {
-      "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+      "class" : "model.ES.component.motion.PlanarStanceControl",
       "active" : true,
       "localPosition" : {
         "x" : -0.2,
@@ -112,7 +112,7 @@
         "value" : 3.141592653589793
       }
     }, {
-      "class" : "model.ES.component.assets.Thruster",
+      "class" : "model.ES.component.motion.Thruster",
       "direction" : {
         "x" : 1.0,
         "y" : 0.0,
@@ -126,10 +126,10 @@
       },
       "onOff" : true
     }, {
-      "class" : "model.ES.component.hierarchy.ThrustControl",
+      "class" : "model.ES.component.motion.ThrustControl",
       "active" : true
     }, {
-      "class" : "model.ES.component.visuals.Lighting",
+      "class" : "model.ES.component.assets.Lighting",
       "color" : {
         "a" : 255,
         "r" : 255,
@@ -153,7 +153,7 @@
         "class" : "model.ES.component.Naming",
         "name" : "trail particle"
       }, {
-        "class" : "model.ES.component.visuals.ParticleCaster",
+        "class" : "model.ES.component.assets.ParticleCaster",
         "spritePath" : "particles/flame.png",
         "nbCol" : 2,
         "nbRow" : 2,
@@ -185,7 +185,7 @@
         "startVariation" : 0.01,
         "allAtOnce" : false
       }, {
-        "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+        "class" : "model.ES.component.motion.PlanarStanceControl",
         "active" : true,
         "localPosition" : {
           "x" : 0.0,
@@ -196,7 +196,7 @@
           "value" : 0.0
         }
       }, {
-        "class" : "model.ES.component.hierarchy.ThrusterControl",
+        "class" : "model.ES.component.motion.ThrusterControl",
         "active" : true
       }, {
         "class" : "model.ES.component.motion.PlanarStance",
@@ -221,7 +221,7 @@
         "class" : "model.ES.component.Naming",
         "name" : "main particle"
       }, {
-        "class" : "model.ES.component.visuals.ParticleCaster",
+        "class" : "model.ES.component.assets.ParticleCaster",
         "spritePath" : "particles/flame.png",
         "nbCol" : 2,
         "nbRow" : 2,
@@ -253,7 +253,7 @@
         "startVariation" : 0.01,
         "allAtOnce" : false
       }, {
-        "class" : "model.ES.component.hierarchy.PlanarStanceControl",
+        "class" : "model.ES.component.motion.PlanarStanceControl",
         "active" : true,
         "localPosition" : {
           "x" : 0.0,
@@ -279,7 +279,7 @@
           "z" : 1.0
         }
       }, {
-        "class" : "model.ES.component.hierarchy.ThrusterControl",
+        "class" : "model.ES.component.motion.ThrusterControl",
         "active" : true
       } ],
       "children" : [ ]

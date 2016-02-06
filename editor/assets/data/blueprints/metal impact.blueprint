@@ -19,10 +19,10 @@
       "z" : 1.0
     }
   }, {
-    "class" : "model.ES.component.LifeTime",
+    "class" : "model.ES.component.lifeCycle.LifeTime",
     "duration" : 1000.0
   }, {
-    "class" : "model.ES.component.audio.AudioSource",
+    "class" : "model.ES.component.assets.AudioSource",
     "path" : "impact_metal1.wav",
     "loop" : false,
     "volume" : {

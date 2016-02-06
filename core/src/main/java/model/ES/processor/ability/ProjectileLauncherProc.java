@@ -13,7 +13,7 @@ import model.ES.component.ability.Cooldown;
 import model.ES.component.combat.damage.DamageCapacity;
 import model.ES.component.combat.damage.Projectile;
 import model.ES.component.combat.damage.ProjectileLauncher;
-import model.ES.component.event.SpawnOnTouch;
+import model.ES.component.lifeCycle.SpawnOnTouch;
 import model.ES.component.motion.PlanarNeededThrust;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;

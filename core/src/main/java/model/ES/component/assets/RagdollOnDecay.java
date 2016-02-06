@@ -1,4 +1,4 @@
-package model.ES.component.event;
+package model.ES.component.assets;
 
 import com.simsilica.es.EntityComponent;
 

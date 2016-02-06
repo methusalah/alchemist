@@ -14,7 +14,6 @@ import model.ES.processor.ability.AbilityProc;
 import model.ES.processor.ability.AbilityTriggerResetProc;
 import model.ES.processor.ability.BoostProc;
 import model.ES.processor.ability.ProjectileLauncherProc;
-import model.ES.processor.ability.SpawningProc;
 import model.ES.processor.ability.TriggerRepeaterProc;
 import model.ES.processor.command.NeededRotationProc;
 import model.ES.processor.command.NeededThrustProc;
@@ -23,6 +22,8 @@ import model.ES.processor.holder.BoneHoldingProc;
 import model.ES.processor.holder.PlanarHoldingProc;
 import model.ES.processor.interaction.DestroyedOnTouchProc;
 import model.ES.processor.interaction.ShockwaveOnTouchProc;
+import model.ES.processor.interaction.SpawnMultipleOnBornProc;
+import model.ES.processor.interaction.SpawnOnDecayProc;
 import model.ES.processor.interaction.SpawnOnTouchProc;
 import model.ES.processor.interaction.TouchingClearingProc;
 import model.ES.processor.interaction.damage.DamageOnTouchProc;
@@ -41,10 +42,8 @@ import model.ES.processor.senses.SightProc;
 import model.ES.processor.shipGear.AttritionProc;
 import model.ES.processor.shipGear.LightThrusterProc;
 import model.ES.processor.shipGear.RotationThrusterProc;
-import model.ES.processor.shipGear.SpawnOnDeathProc;
 import model.ES.processor.shipGear.ThrusterProc;
 import model.world.WorldData;
-import view.drawingProcessors.particle.ParticleThrusterProc;
 
 public class LogicLoop implements Runnable {
     private AppStateManager stateManager;
@@ -91,7 +90,7 @@ public class LogicLoop implements Runnable {
 		stateManager.attach(new TriggerRepeaterProc());
 		
 		
-		stateManager.attach(new SpawningProc());
+		stateManager.attach(new SpawnMultipleOnBornProc());
 		stateManager.attach(new ProjectileLauncherProc());
 
 		stateManager.attach(new DamagingProc());
@@ -106,7 +105,7 @@ public class LogicLoop implements Runnable {
 		stateManager.attach(new ShockwaveOnTouchProc());
 		
 		stateManager.attach(new LifeTimeProc());
-		stateManager.attach(new SpawnOnDeathProc());
+		stateManager.attach(new SpawnOnDecayProc());
 		stateManager.attach(new RemoveProc());
 		stateManager.attach(new ParentingCleanerProc());
     }

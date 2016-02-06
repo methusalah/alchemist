@@ -3,8 +3,6 @@ package model.ES.component.combat.damage;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityId;
 
-import model.ES.richData.Damage;
-
 public class Damaging implements EntityComponent{
 	public final EntityId source, target;
 	
