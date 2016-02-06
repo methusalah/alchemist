@@ -15,6 +15,7 @@ import model.ES.processor.ability.AbilityTriggerResetProc;
 import model.ES.processor.ability.BoostProc;
 import model.ES.processor.ability.ProjectileLauncherProc;
 import model.ES.processor.ability.TriggerRepeaterProc;
+import model.ES.processor.combat.resistance.ShieldProc;
 import model.ES.processor.command.NeededRotationProc;
 import model.ES.processor.command.NeededThrustProc;
 import model.ES.processor.command.PlayerAbilityControlProc;
@@ -96,6 +97,7 @@ public class LogicLoop implements Runnable {
 		stateManager.attach(new DamagingProc());
 		stateManager.attach(new DamagingOverTimeProc());
 		stateManager.attach(new AttritionProc());
+		stateManager.attach(new ShieldProc());
 
 		stateManager.attach(new SightProc());
 		

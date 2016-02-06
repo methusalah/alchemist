@@ -6,8 +6,8 @@
   }, {
     "class" : "model.ES.component.motion.PlanarStance",
     "coord" : {
-      "x" : 2.0,
-      "y" : 2.0
+      "x" : -0.7308920621871948,
+      "y" : -1.1852514743804932
     },
     "orientation" : {
       "value" : -0.7208064947449373
@@ -83,6 +83,12 @@
   }, {
     "class" : "model.ES.component.motion.physic.CircleCollisionShape",
     "radius" : 0.8
+  }, {
+    "class" : "model.ES.component.combat.resistance.Shield",
+    "capacity" : 500,
+    "rechargeRate" : 100,
+    "rechargeDelay" : 5,
+    "delay" : 0
   } ],
   "children" : [ {
     "name" : "thrusters",

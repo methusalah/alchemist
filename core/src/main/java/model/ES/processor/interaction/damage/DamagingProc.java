@@ -6,6 +6,7 @@ import controller.ECS.Processor;
 import model.ES.component.combat.damage.DamageCapacity;
 import model.ES.component.combat.damage.Damaging;
 import model.ES.component.combat.resistance.Attrition;
+import model.ES.component.combat.resistance.Shield;
 import model.ES.component.lifeCycle.ToRemove;
 
 public class DamagingProc extends Processor {
@@ -25,8 +26,12 @@ public class DamagingProc extends Processor {
 			DamageApplier applier = new DamageApplier(att, capacity.getType(), capacity.getBase());
 			entityData.setComponent(damaging.target, applier.getResult());
 			
-			if(applier.getDamageOnShield() > 0)
+			if(applier.getDamageOnShield() > 0){
 				DamageFloatingLabelCreator.create(entityData, damaging.target, capacity.getType(), applier.getDamageOnShield(), true, false);
+				Shield shield = entityData.getComponent(damaging.target, Shield.class);
+				if(shield != null)
+					entityData.setComponent(damaging.target, new Shield(shield.getCapacity(), shield.getRechargeRate(), shield.getRechargeDelay(), shield.getRechargeDelay()));
+			}
 			if(applier.getDamageOnHitPoints() > 0)
 				DamageFloatingLabelCreator.create(entityData, damaging.target, capacity.getType(), applier.getDamageOnHitPoints(), false, false);
 		}
