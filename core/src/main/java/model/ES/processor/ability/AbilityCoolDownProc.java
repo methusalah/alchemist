@@ -1,7 +1,7 @@
 package model.ES.processor.ability;
 
-import model.ES.component.Cooldown;
-import model.ES.component.assets.Ability;
+import model.ES.component.ability.Ability;
+import model.ES.component.ability.Cooldown;
 
 import com.simsilica.es.Entity;
 

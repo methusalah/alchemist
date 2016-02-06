@@ -3,9 +3,9 @@ package model.ES.processor.ability;
 import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
-import model.ES.component.assets.Ability;
-import model.ES.component.assets.Boost;
-import model.ES.component.hierarchy.Parenting;
+import model.ES.component.Parenting;
+import model.ES.component.ability.Ability;
+import model.ES.component.motion.Boost;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Physic;

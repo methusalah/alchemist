@@ -1,8 +1,8 @@
 package model.ES.processor.command;
 
 import model.Command;
-import model.ES.component.command.PlanarNeededRotation;
-import model.ES.component.command.PlayerControl;
+import model.ES.component.ability.PlayerControl;
+import model.ES.component.motion.PlanarNeededRotation;
 import model.ES.component.motion.PlanarStance;
 import util.geometry.geom2d.Point2D;
 import util.math.Angle;

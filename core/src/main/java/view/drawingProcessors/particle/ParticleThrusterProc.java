@@ -5,10 +5,10 @@ import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
 import model.ES.commonLogic.Controlling;
-import model.ES.component.assets.RotationThruster;
-import model.ES.component.assets.Thruster;
-import model.ES.component.hierarchy.ThrusterControl;
-import model.ES.component.visuals.ParticleCaster;
+import model.ES.component.assets.ParticleCaster;
+import model.ES.component.motion.RotationThruster;
+import model.ES.component.motion.Thruster;
+import model.ES.component.motion.ThrusterControl;
 import util.LogUtil;
 import util.math.Fraction;
 import view.SpatialPool;

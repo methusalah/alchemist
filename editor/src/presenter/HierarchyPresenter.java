@@ -5,7 +5,7 @@ import com.simsilica.es.EntityId;
 import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
 import model.ES.component.Naming;
-import model.ES.component.hierarchy.Parenting;
+import model.ES.component.Parenting;
 import model.ES.serial.Blueprint;
 import presenter.common.EntityNode;
 import view.HierarchyTab;

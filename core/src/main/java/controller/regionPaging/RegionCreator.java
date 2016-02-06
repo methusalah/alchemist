@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import model.ES.component.Naming;
-import model.ES.component.hierarchy.Parenting;
+import model.ES.component.Parenting;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.physic.EdgedCollisionShape;
 import model.ES.component.motion.physic.Physic;

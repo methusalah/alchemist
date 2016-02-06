@@ -1,8 +1,8 @@
 package model.ES.processor.command;
 
 import model.Command;
-import model.ES.component.command.PlanarNeededThrust;
-import model.ES.component.command.PlayerControl;
+import model.ES.component.ability.PlayerControl;
+import model.ES.component.motion.PlanarNeededThrust;
 import model.ES.component.motion.PlanarStance;
 import util.math.AngleUtil;
 

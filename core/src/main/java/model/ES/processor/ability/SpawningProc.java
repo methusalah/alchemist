@@ -1,6 +1,6 @@
 package model.ES.processor.ability;
 
-import model.ES.component.assets.Spawning;
+import model.ES.component.event.Spawning;
 import model.ES.component.motion.PlanarStance;
 import model.ES.serial.PrototypeCreator;
 import util.math.RandomUtil;

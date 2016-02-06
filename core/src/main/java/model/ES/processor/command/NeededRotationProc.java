@@ -1,7 +1,7 @@
 package model.ES.processor.command;
 
-import model.ES.component.command.PlanarNeededRotation;
 import model.ES.component.motion.MotionCapacity;
+import model.ES.component.motion.PlanarNeededRotation;
 import model.ES.component.motion.PlanarStance;
 import util.math.Angle;
 import util.math.AngleUtil;

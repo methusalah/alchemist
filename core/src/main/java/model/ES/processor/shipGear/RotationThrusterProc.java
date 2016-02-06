@@ -1,10 +1,10 @@
 package model.ES.processor.shipGear;
 
 import model.ES.commonLogic.Controlling;
-import model.ES.component.assets.RotationThruster;
-import model.ES.component.command.PlanarNeededRotation;
-import model.ES.component.hierarchy.Parenting;
-import model.ES.component.hierarchy.ThrustControl;
+import model.ES.component.Parenting;
+import model.ES.component.motion.PlanarNeededRotation;
+import model.ES.component.motion.RotationThruster;
+import model.ES.component.motion.ThrustControl;
 import util.LogUtil;
 import util.math.Fraction;
 

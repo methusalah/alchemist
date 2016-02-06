@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.ES.component.Naming;
+import model.ES.component.assets.Model;
 import model.ES.component.motion.physic.EdgedCollisionShape;
-import model.ES.component.visuals.Model;
 import util.LogUtil;
 import util.geometry.geom2d.Segment2D;
 import util.geometry.geom3d.Segment3D;

@@ -9,7 +9,7 @@ import com.simsilica.es.base.DefaultEntityData;
 
 import javafx.application.Platform;
 import model.ES.component.Naming;
-import model.ES.component.hierarchy.Parenting;
+import model.ES.component.Parenting;
 import presenter.common.EntityNode;
 
 /***
@@ -22,6 +22,8 @@ import presenter.common.EntityNode;
 public class TraversableEntityData extends DefaultEntityData{
 	private final EntityNode rootEntityNode;
 	private final Map<EntityId, EntityNode> entityNodes = new HashMap<>();
+	
+	
 
 	public TraversableEntityData() {
 		rootEntityNode = new EntityNode(null, "root");
@@ -81,6 +83,14 @@ public class TraversableEntityData extends DefaultEntityData{
 	
 	private void handleComponentChange(EntityId eid, Class<? extends EntityComponent> compClass, EntityComponent lastComp, EntityComponent newComp){
 		Platform.runLater(() -> {
+			if(!entityNodes.containsKey(eid)){
+				EntityNode ep = new EntityNode(eid, "Just created. Should not be seen.");
+				rootEntityNode.childrenListProperty().add(ep);
+				entityNodes.put(ep.getEntityId(), ep);
+			}
+		});
+
+		Platform.runLater(() -> {
 				if(compClass == Parenting.class){
 					removeNodeFromParent(getNode(eid), (Parenting)lastComp);
 					if(newComp != null){
@@ -109,5 +119,22 @@ public class TraversableEntityData extends DefaultEntityData{
 					}
 				}
 		});
+	}
+	
+	public void setState(Map<EntityId, Map<Class<? extends EntityComponent>, EntityComponent>> entities){
+		// we remove all entities that we can find
+		// this trick seems ugly...
+		long l = createEntity().getId();
+		for(long i = 0; i <= l; i++)
+			removeEntity(new EntityId(i));
+		
+		// then we set all components that have been stored by the observer
+		for(EntityId eid : entities.keySet()){
+			Map<Class<? extends EntityComponent>, EntityComponent> components = entities.get(eid);
+			for(EntityComponent comp : components.values())
+				setComponent(eid, comp);
+		}
+		// will it work with a new instance of entity data, where the entity Ids havn't already been created??
+		// it remains to be tested
 	}
 }

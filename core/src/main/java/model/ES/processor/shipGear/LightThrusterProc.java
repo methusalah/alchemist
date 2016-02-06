@@ -3,8 +3,8 @@ package model.ES.processor.shipGear;
 import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
-import model.ES.component.assets.Thruster;
-import model.ES.component.visuals.Lighting;
+import model.ES.component.assets.Lighting;
+import model.ES.component.motion.Thruster;
 
 public class LightThrusterProc extends Processor {
 

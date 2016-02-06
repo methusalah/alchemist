@@ -4,6 +4,7 @@ import controller.ECS.SceneSelectorState;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import model.Command;
+import model.ECS.EntityDataObserver;
 import model.ECS.TraversableEntityData;
 import model.world.WorldData;
 import presenter.common.EntityNode;
@@ -25,6 +26,7 @@ public class EditorPlatform {
 	private static final ObjectProperty<RunState> runStateProperty = new SimpleObjectProperty<>();
 	private static final SceneInputManager sceneInputManager = new SceneInputManager();
 	
+	public static EntityDataObserver observer = new EntityDataObserver();
 	
 	static {
 		userComponentListProperty.setValue(new UserComponentList());
@@ -35,6 +37,7 @@ public class EditorPlatform {
 	}
 	public static void setEntityData(TraversableEntityData entityData) {
 		EditorPlatform.entityData = entityData;
+		entityData.addEntityComponentListener(observer);
 	}
 	public static WorldData getWorldData() {
 		return worldData;

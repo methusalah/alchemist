@@ -1,6 +1,6 @@
 package util.math;
 
-import model.ES.component.command.PlanarNeededRotation;
+import model.ES.component.motion.PlanarNeededRotation;
 import util.geometry.geom2d.Point2D;
 
 public class AngleUtil {

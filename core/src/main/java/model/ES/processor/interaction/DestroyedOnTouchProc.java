@@ -1,8 +1,8 @@
 package model.ES.processor.interaction;
 
-import model.ES.component.ToRemove;
-import model.ES.component.interaction.DestroyedOnTouch;
-import model.ES.component.interaction.senses.Touching;
+import model.ES.component.lifeCycle.DecayOnTouch;
+import model.ES.component.lifeCycle.ToRemove;
+import model.ES.component.motion.Touching;
 
 import com.simsilica.es.Entity;
 
@@ -12,7 +12,7 @@ public class DestroyedOnTouchProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		registerDefault(DestroyedOnTouch.class, Touching.class);
+		registerDefault(DecayOnTouch.class, Touching.class);
 
 	}
 

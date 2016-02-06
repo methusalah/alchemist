@@ -10,8 +10,8 @@ import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
-import model.ES.component.LifeTime;
-import model.ES.component.hierarchy.Parenting;
+import model.ES.component.Parenting;
+import model.ES.component.lifeCycle.LifeTime;
 
 public class Blueprint {
 	private final String name;

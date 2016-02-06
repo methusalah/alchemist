@@ -3,10 +3,10 @@ package model.ES.processor.interaction.damage;
 import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
-import model.ES.component.ToRemove;
-import model.ES.component.assets.Attrition;
-import model.ES.component.assets.damage.DamageCapacity;
-import model.ES.component.interaction.Damaging;
+import model.ES.component.combat.damage.DamageCapacity;
+import model.ES.component.combat.damage.Damaging;
+import model.ES.component.combat.resistance.Attrition;
+import model.ES.component.lifeCycle.ToRemove;
 
 public class DamagingProc extends Processor {
 	

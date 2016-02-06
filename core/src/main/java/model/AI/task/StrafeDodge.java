@@ -4,7 +4,7 @@ import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
 
 import model.AI.blackboard.ShipBlackboard;
-import model.ES.component.command.PlanarNeededThrust;
+import model.ES.component.motion.PlanarNeededThrust;
 import util.math.AngleUtil;
 import util.math.RandomUtil;
 

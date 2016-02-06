@@ -21,7 +21,7 @@ import com.jme3.texture.Texture;
 import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
-import model.ES.component.visuals.Sprite;
+import model.ES.component.assets.Sprite;
 
 public class SpriteProc extends Processor {
 	Map<String, Spatial> spritePrototypes = new HashMap<>();

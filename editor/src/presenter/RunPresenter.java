@@ -28,6 +28,9 @@ public class RunPresenter {
 	}
 	
 	public void run(){
+		// stop saving entity data
+		EditorPlatform.getEntityData().removeEntityComponentListener(EditorPlatform.observer);
+		
 		savedListeners.addAll(EditorPlatform.getSceneInputManager().getListeners());
 		EditorPlatform.getSceneInputManager().getListeners().clear();
 		EditorPlatform.getSceneInputManager().addListener(game);
@@ -37,6 +40,11 @@ public class RunPresenter {
 	}
 
 	public void stop(){
+		// entity data restoring
+		EditorPlatform.getEntityData().setState(EditorPlatform.observer.entities);
+		EditorPlatform.getEntityData().addEntityComponentListener(EditorPlatform.observer);
+		
+		
 		EditorPlatform.getSceneInputManager().getListeners().clear();
 		EditorPlatform.getSceneInputManager().getListeners().addAll(savedListeners);
 		savedListeners.clear();

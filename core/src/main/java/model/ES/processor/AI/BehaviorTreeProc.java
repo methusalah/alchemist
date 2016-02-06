@@ -14,8 +14,8 @@ import com.simsilica.es.EntityId;
 
 import controller.ECS.Processor;
 import model.AI.blackboard.ShipBlackboard;
-import model.ES.component.assets.Attackable;
-import model.ES.component.interaction.senses.Sighting;
+import model.ES.component.ability.Sighting;
+import model.ES.component.combat.Attackable;
 import model.ES.component.motion.PlanarStance;
 import util.LogUtil;
 

@@ -13,8 +13,8 @@ import com.simsilica.es.Entity;
 
 import app.AppFacade;
 import controller.ECS.Processor;
+import model.ES.component.assets.ParticleCaster;
 import model.ES.component.motion.PlanarStance;
-import model.ES.component.visuals.ParticleCaster;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;

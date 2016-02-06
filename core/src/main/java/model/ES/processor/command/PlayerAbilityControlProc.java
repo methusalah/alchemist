@@ -2,8 +2,8 @@ package model.ES.processor.command;
 
 
 import model.Command;
-import model.ES.component.assets.AbilityTrigger;
-import model.ES.component.command.PlayerControl;
+import model.ES.component.ability.AbilityTrigger;
+import model.ES.component.ability.PlayerControl;
 
 import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.Entity;

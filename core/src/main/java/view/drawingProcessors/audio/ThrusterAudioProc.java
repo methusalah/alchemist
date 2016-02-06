@@ -10,11 +10,11 @@ import com.simsilica.es.EntityId;
 import app.AppFacade;
 import controller.ECS.Processor;
 import model.ES.commonLogic.Controlling;
-import model.ES.component.assets.Thruster;
-import model.ES.component.audio.ThrusterAudioSource;
-import model.ES.component.hierarchy.Parenting;
-import model.ES.component.hierarchy.ThrusterControl;
+import model.ES.component.Parenting;
+import model.ES.component.assets.ThrusterAudioSource;
 import model.ES.component.motion.PlanarStance;
+import model.ES.component.motion.Thruster;
+import model.ES.component.motion.ThrusterControl;
 import util.LogUtil;
 import view.SpatialPool;
 

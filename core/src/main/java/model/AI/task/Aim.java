@@ -6,8 +6,8 @@ import com.badlogic.gdx.ai.btree.annotation.TaskAttribute;
 import com.sun.org.apache.bcel.internal.generic.IFNE;
 
 import model.AI.blackboard.ShipBlackboard;
-import model.ES.component.command.PlanarNeededRotation;
-import model.ES.component.command.PlanarNeededThrust;
+import model.ES.component.motion.PlanarNeededRotation;
+import model.ES.component.motion.PlanarNeededThrust;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.physic.Physic;
 import util.LogUtil;

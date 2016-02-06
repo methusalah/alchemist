@@ -1,8 +1,8 @@
 package model.ES.processor.holder;
 
-import model.ES.component.hierarchy.BoneHolding;
+import model.ES.component.assets.Skeleton;
+import model.ES.component.motion.BoneHolding;
 import model.ES.component.motion.SpaceStance;
-import model.ES.component.visuals.Skeleton;
 
 import com.simsilica.es.Entity;
 

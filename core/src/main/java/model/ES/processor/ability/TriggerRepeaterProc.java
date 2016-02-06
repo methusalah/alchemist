@@ -4,8 +4,8 @@ import com.simsilica.es.Entity;
 
 import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
-import model.ES.component.assets.Ability;
-import model.ES.component.assets.TriggerRepeater;
+import model.ES.component.ability.Ability;
+import model.ES.component.ability.TriggerRepeater;
 import util.math.RandomUtil;
 
 public class TriggerRepeaterProc extends Processor {

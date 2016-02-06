@@ -1,11 +1,10 @@
 package model.ES.processor;
 
-import model.ES.component.Removed;
-import model.ES.component.ToRemove;
-
 import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
+import model.ES.component.lifeCycle.Removed;
+import model.ES.component.lifeCycle.ToRemove;
 
 public class RemoveProc extends Processor {
 

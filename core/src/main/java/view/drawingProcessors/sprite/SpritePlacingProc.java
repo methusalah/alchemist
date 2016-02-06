@@ -6,8 +6,8 @@ import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 
 import controller.ECS.Processor;
+import model.ES.component.assets.Sprite;
 import model.ES.component.motion.PlanarStance;
-import model.ES.component.visuals.Sprite;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
 import view.SpatialPool;

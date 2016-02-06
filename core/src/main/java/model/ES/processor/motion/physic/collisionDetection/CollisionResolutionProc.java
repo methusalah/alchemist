@@ -6,9 +6,9 @@ import com.simsilica.es.EntityId;
 
 import controller.ECS.Processor;
 import model.ES.component.Naming;
-import model.ES.component.ToRemove;
-import model.ES.component.interaction.senses.Touching;
+import model.ES.component.lifeCycle.ToRemove;
 import model.ES.component.motion.PlanarVelocityToApply;
+import model.ES.component.motion.Touching;
 import model.ES.component.motion.physic.Collisioning;
 import model.ES.component.motion.physic.Physic;
 import util.LogUtil;

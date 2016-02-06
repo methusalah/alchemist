@@ -4,13 +4,13 @@ import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
 import controller.ECS.Processor;
-import model.ES.component.LifeTime;
 import model.ES.component.Naming;
-import model.ES.component.assets.damage.DamageCapacity;
-import model.ES.component.assets.damage.DamageOverTime;
-import model.ES.component.interaction.DamageOnTouch;
-import model.ES.component.interaction.Damaging;
-import model.ES.component.interaction.senses.Touching;
+import model.ES.component.combat.damage.DamageCapacity;
+import model.ES.component.combat.damage.DamageOnTouch;
+import model.ES.component.combat.damage.DamageOverTime;
+import model.ES.component.combat.damage.Damaging;
+import model.ES.component.lifeCycle.LifeTime;
+import model.ES.component.motion.Touching;
 import util.math.RandomUtil;
 
 public class DamageOnTouchProc extends Processor {

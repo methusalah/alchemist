@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ES.component.Naming;
-import model.ES.component.ToRemove;
-import model.ES.component.interaction.senses.Touching;
+import model.ES.component.lifeCycle.ToRemove;
 import model.ES.component.motion.PlanarStance;
+import model.ES.component.motion.Touching;
 import model.ES.component.motion.physic.CircleCollisionShape;
 import model.ES.component.motion.physic.Collisioning;
 import model.ES.component.motion.physic.EdgedCollisionShape;

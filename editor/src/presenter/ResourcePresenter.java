@@ -8,7 +8,7 @@ import com.simsilica.es.EntityComponent;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
-import model.ES.component.hierarchy.Parenting;
+import model.ES.component.Parenting;
 import model.ES.serial.Blueprint;
 import model.ES.serial.BlueprintLibrary;
 import presenter.common.EntityNode;

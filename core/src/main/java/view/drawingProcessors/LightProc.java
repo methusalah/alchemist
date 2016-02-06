@@ -17,9 +17,9 @@ import com.simsilica.es.Entity;
 
 import app.AppFacade;
 import controller.ECS.Processor;
+import model.ES.component.assets.Lighting;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.SpaceStance;
-import model.ES.component.visuals.Lighting;
 import util.LogUtil;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;

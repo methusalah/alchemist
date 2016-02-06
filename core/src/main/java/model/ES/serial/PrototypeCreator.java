@@ -1,9 +1,9 @@
 package model.ES.serial;
 
 import util.LogUtil;
-import model.ES.component.LifeTime;
 import model.ES.component.Naming;
-import model.ES.component.hierarchy.Parenting;
+import model.ES.component.Parenting;
+import model.ES.component.lifeCycle.LifeTime;
 
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;

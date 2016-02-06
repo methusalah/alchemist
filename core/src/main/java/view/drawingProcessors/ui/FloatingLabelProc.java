@@ -11,8 +11,8 @@ import com.simsilica.es.EntityId;
 
 import app.AppFacade;
 import controller.ECS.Processor;
+import model.ES.component.assets.FloatingLabel;
 import model.ES.component.motion.PlanarStance;
-import model.ES.component.visuals.FloatingLabel;
 import util.LogUtil;
 import view.math.TranslateUtil;
 

@@ -5,11 +5,11 @@ import com.simsilica.es.EntityId;
 
 import controller.ECS.Processor;
 import model.ES.commonLogic.Controlling;
-import model.ES.component.assets.Thruster;
-import model.ES.component.command.PlanarNeededThrust;
-import model.ES.component.hierarchy.Parenting;
-import model.ES.component.hierarchy.ThrustControl;
+import model.ES.component.Parenting;
+import model.ES.component.motion.PlanarNeededThrust;
 import model.ES.component.motion.PlanarStance;
+import model.ES.component.motion.ThrustControl;
+import model.ES.component.motion.Thruster;
 import util.math.AngleUtil;
 import util.math.Fraction;
 

@@ -4,8 +4,8 @@ import com.simsilica.es.Entity;
 
 import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
-import model.ES.component.visuals.Model;
-import model.ES.component.visuals.ModelRotation;
+import model.ES.component.assets.Model;
+import model.ES.component.assets.ModelRotation;
 import util.math.Angle;
 import util.math.AngleUtil;
 

@@ -2,8 +2,8 @@ package model.ES.processor.motion.physic.collisionDetection;
 
 import java.util.List;
 
-import model.ES.component.interaction.senses.Touching;
 import model.ES.component.motion.PlanarStance;
+import model.ES.component.motion.Touching;
 import model.ES.component.motion.physic.CircleCollisionShape;
 import model.ES.component.motion.physic.EdgedCollisionShape;
 import model.ES.component.motion.physic.Physic;

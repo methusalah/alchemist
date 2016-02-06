@@ -4,9 +4,9 @@ import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
 
 import model.AI.blackboard.ShipBlackboard;
-import model.ES.component.assets.Attackable;
-import model.ES.component.assets.Projectile;
-import model.ES.component.interaction.senses.Touching;
+import model.ES.component.combat.Attackable;
+import model.ES.component.combat.damage.Projectile;
+import model.ES.component.motion.Touching;
 
 public class IsEnemyTouching extends LeafTask<ShipBlackboard> {
 

@@ -3,8 +3,8 @@ package model.ES.processor;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntitySet;
 
-import model.ES.component.LifeTime;
-import model.ES.component.ToRemove;
+import model.ES.component.lifeCycle.LifeTime;
+import model.ES.component.lifeCycle.ToRemove;
 import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
 

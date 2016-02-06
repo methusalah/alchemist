@@ -1,8 +1,8 @@
 package view.drawingProcessors.audio;
 
-import model.ES.component.audio.AudioSource;
+import model.ES.component.assets.AudioSource;
+import model.ES.component.assets.Model;
 import model.ES.component.motion.PlanarStance;
-import model.ES.component.visuals.Model;
 import util.LogUtil;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;

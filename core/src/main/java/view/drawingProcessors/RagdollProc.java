@@ -16,9 +16,9 @@ import com.simsilica.es.EntityId;
 
 import app.AppFacade;
 import controller.ECS.Processor;
-import model.ES.component.behavior.RagdollOnDestroy;
+import model.ES.component.assets.Model;
+import model.ES.component.event.RagdollOnDecay;
 import model.ES.component.motion.physic.Physic;
-import model.ES.component.visuals.Model;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
@@ -34,7 +34,7 @@ public class RagdollProc extends Processor{
 
 	@Override
 	protected void registerSets() {
-		registerDefault(Model.class, RagdollOnDestroy.class, Physic.class);
+		registerDefault(Model.class, RagdollOnDecay.class, Physic.class);
 	}
 	
 	@Override

@@ -2,9 +2,9 @@ package model.ES.processor.ability;
 
 
 import model.ES.commonLogic.Controlling;
-import model.ES.component.assets.Ability;
-import model.ES.component.assets.AbilityTrigger;
-import model.ES.component.hierarchy.AbilityTriggerControl;
+import model.ES.component.ability.Ability;
+import model.ES.component.ability.AbilityTrigger;
+import model.ES.component.ability.AbilityTriggerControl;
 
 import com.simsilica.es.Entity;
 

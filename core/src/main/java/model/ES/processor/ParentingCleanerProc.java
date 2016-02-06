@@ -1,8 +1,8 @@
 package model.ES.processor;
 
-import model.ES.component.Removed;
-import model.ES.component.ToRemove;
-import model.ES.component.hierarchy.Parenting;
+import model.ES.component.Parenting;
+import model.ES.component.lifeCycle.Removed;
+import model.ES.component.lifeCycle.ToRemove;
 
 import com.simsilica.es.Entity;
 

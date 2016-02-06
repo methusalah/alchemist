@@ -10,7 +10,7 @@ import com.simsilica.es.Entity;
 import app.AppFacade;
 import controller.ECS.Processor;
 import model.ES.component.Naming;
-import model.ES.component.visuals.Model;
+import model.ES.component.assets.Model;
 import util.LogUtil;
 import view.SpatialPool;
 

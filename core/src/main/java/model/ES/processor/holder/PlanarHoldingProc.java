@@ -1,8 +1,8 @@
 package model.ES.processor.holder;
 
 import model.ES.commonLogic.Controlling;
-import model.ES.component.hierarchy.PlanarStanceControl;
 import model.ES.component.motion.PlanarStance;
+import model.ES.component.motion.PlanarStanceControl;
 import model.ES.component.motion.SpaceStance;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;

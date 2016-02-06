@@ -4,11 +4,11 @@ import com.simsilica.es.Entity;
 
 import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
-import model.ES.component.LifeTime;
-import model.ES.component.ToRemove;
-import model.ES.component.assets.Attrition;
-import model.ES.component.assets.damage.DamageOverTime;
-import model.ES.component.interaction.Damaging;
+import model.ES.component.combat.damage.DamageOverTime;
+import model.ES.component.combat.damage.Damaging;
+import model.ES.component.combat.resistance.Attrition;
+import model.ES.component.lifeCycle.LifeTime;
+import model.ES.component.lifeCycle.ToRemove;
 
 public class DamagingOverTimeProc extends Processor {
 

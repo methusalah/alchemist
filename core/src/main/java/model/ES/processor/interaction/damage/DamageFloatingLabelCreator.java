@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
-import model.ES.component.LifeTime;
 import model.ES.component.Naming;
-import model.ES.component.assets.damage.DamageType;
+import model.ES.component.assets.FloatingLabel;
+import model.ES.component.combat.damage.DamageType;
+import model.ES.component.lifeCycle.LifeTime;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Physic;
-import model.ES.component.visuals.FloatingLabel;
 import model.ES.richData.ColorData;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;

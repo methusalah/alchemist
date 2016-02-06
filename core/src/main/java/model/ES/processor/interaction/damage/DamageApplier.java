@@ -1,7 +1,7 @@
 package model.ES.processor.interaction.damage;
 
-import model.ES.component.assets.Attrition;
-import model.ES.component.assets.damage.DamageType;
+import model.ES.component.combat.damage.DamageType;
+import model.ES.component.combat.resistance.Attrition;
 
 public class DamageApplier {
 	private final static double BASE_FLESH = 1;

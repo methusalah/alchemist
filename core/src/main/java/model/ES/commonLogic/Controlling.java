@@ -4,7 +4,7 @@ import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
-import model.ES.component.hierarchy.Parenting;
+import model.ES.component.Parenting;
 import util.LogUtil;
 
 public class Controlling {
