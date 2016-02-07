@@ -49,6 +49,11 @@ public class ParticlePlacingProc extends Processor {
 		ParticleEmitter pe = SpatialPool.emitters.get(e.getId());
 		pe.setLocalTranslation(TranslateUtil.toVector3f(pos));
 		pe.getParticleInfluencer().setInitialVelocity(TranslateUtil.toVector3f(velocity));
+		
+		// the all at once behavior is launched here, because the emitter needs to be well placed before that call.
+		if(caster.isAllAtOnce())
+			pe.emitAllParticles();
+
 
 //		// trick to interpolate position of the particles when emitter moves between two frames
 //		// as jMonkey doesn't manage it

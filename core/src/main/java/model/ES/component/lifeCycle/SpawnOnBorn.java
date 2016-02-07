@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
 
 public class SpawnOnBorn implements EntityComponent {
@@ -13,7 +14,7 @@ public class SpawnOnBorn implements EntityComponent {
 		blueprintNames = Collections.unmodifiableList(new ArrayList<>());
 	}
 	
-	public SpawnOnBorn(List<String> blueprintNames) {
+	public SpawnOnBorn(@JsonProperty("blueprintNames")List<String> blueprintNames) {
 		this.blueprintNames = Collections.unmodifiableList(new ArrayList<>(blueprintNames));
 	}
 

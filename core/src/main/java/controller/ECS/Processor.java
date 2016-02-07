@@ -54,7 +54,9 @@ public abstract class Processor extends AbstractAppState {
 	        }
 	        onUpdated();
     	} catch(RuntimeException e){
-    		LogUtil.severe("Exception : "+e.getMessage());
+    		LogUtil.severe("Exception in processor : " + this.getClass().getSimpleName() + " : " + e.getMessage());
+    		e.printStackTrace();
+    		
     	}
     }
 

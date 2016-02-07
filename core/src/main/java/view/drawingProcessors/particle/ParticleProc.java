@@ -34,7 +34,7 @@ public class ParticleProc extends Processor {
 	protected void onEntityAdded(Entity e) {
 		onEntityUpdated(e);
 	}
-	
+
 	@Override
 	protected void onEntityUpdated(Entity e) {
 		if(SpatialPool.emitters.containsKey(e.getId()))
@@ -48,6 +48,7 @@ public class ParticleProc extends Processor {
 	@Override
 	protected void onEntityRemoved(Entity e) {
 		ParticleEmitter pe = SpatialPool.emitters.get(e.getId());
+		SpatialPool.emitters.remove(e.getId());
 		pe.setParticlesPerSec(0);
 		toRemove.add(pe);
 	}
@@ -64,13 +65,17 @@ public class ParticleProc extends Processor {
 	
 	private ParticleEmitter getEmiterFromCaster(ParticleCaster caster){
 		ParticleEmitter res = new ParticleEmitter("Particle caster", Type.Triangle, caster.getMaxCount());
-		res.setParticlesPerSec(caster.getPerSecond());
+		res.setParticlesPerSec((float)caster.getPerSecond());
 
 		// material
 		Material m = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Particle.j3md");
 		res.setMaterial(m);
 		if(!caster.getSpritePath().isEmpty())
-			m.setTexture("Texture", AppFacade.getAssetManager().loadTexture("textures/" + caster.getSpritePath()));
+			if(caster.getNbCol() == 0 || caster.getNbRow() == 0)
+				LogUtil.warning("Can't apply particle material. You must specify colum and row count.");
+			else
+				m.setTexture("Texture", AppFacade.getAssetManager().loadTexture("textures/" + caster.getSpritePath()));
+		
 		m.getAdditionalRenderState().setBlendMode(caster.isAdd()? RenderState.BlendMode.Additive : RenderState.BlendMode.AlphaAdditive);
 		
 		// sprite
@@ -105,8 +110,6 @@ public class ParticleProc extends Processor {
 		
 		res.setGravity(caster.isGravity()? Vector3f.UNIT_Z.negate() : Vector3f.ZERO);
 		
-		if(caster.isAllAtOnce())
-			res.emitAllParticles();
 		return res;
 	}
 }
