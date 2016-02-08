@@ -7,7 +7,8 @@ import controller.cameraManagement.ChasingCameraProc;
 import model.Command;
 import model.ES.processor.LifeTimeProc;
 import model.ES.processor.ParentingCleanerProc;
-import model.ES.processor.RemoveProc;
+import model.ES.processor.RemovedCleanerProc;
+import model.ES.processor.RemoverProc;
 import model.ES.processor.AI.BehaviorTreeProc;
 import model.ES.processor.ability.AbilityCoolDownProc;
 import model.ES.processor.ability.AbilityProc;
@@ -109,7 +110,9 @@ public class LogicLoop implements Runnable {
 		
 		stateManager.attach(new LifeTimeProc());
 		stateManager.attach(new SpawnOnDecayProc());
-		stateManager.attach(new RemoveProc());
+		
+		stateManager.attach(new RemovedCleanerProc());
+		stateManager.attach(new RemoverProc());
 		stateManager.attach(new ParentingCleanerProc());
     }
 

@@ -23,7 +23,7 @@ public class EntityNode {
 	
 	public EntityNode(EntityId id, String name) {
 		this.entityId = id;
-		this.name.setValue(name);
+		this.name.setValue(name + id);
 	}
 
 	@Override

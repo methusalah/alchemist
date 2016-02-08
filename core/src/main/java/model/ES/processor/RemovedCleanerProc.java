@@ -6,17 +6,16 @@ import controller.ECS.Processor;
 import model.ES.component.lifeCycle.Removed;
 import model.ES.component.lifeCycle.ToRemove;
 
-public class RemoveProc extends Processor {
+public class RemovedCleanerProc extends Processor {
 
 	@Override
 	protected void registerSets() {
-		registerDefault(ToRemove.class);
+		registerDefault(Removed.class);
 	}
 	
 	@Override
 	protected void onEntityAdded(Entity e) {
 		entityData.removeEntity(e.getId());
-		setComp(e, new Removed());
 	}
 
 }

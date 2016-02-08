@@ -10,16 +10,17 @@ import controller.ECS.EntitySystem;
 import controller.ECS.LogicLoop;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import model.ECS.EntityDataMemento;
 import presenter.common.GameInputListener;
 import presenter.common.RunState;
-import presenter.common.SceneInputListener;
-import util.LogUtil;
 import presenter.common.RunState.State;
+import presenter.common.SceneInputListener;
 
 public class RunPresenter {
 	private final GameInputListener game;
 	private final List<SceneInputListener> savedListeners = new ArrayList<>();
 	private final IntegerProperty millisPerTickProperty = new SimpleIntegerProperty();
+	private EntityDataMemento memento; 
 	
 	public RunPresenter() {
 		game = new GameInputListener(EditorPlatform.getScene());
@@ -28,8 +29,7 @@ public class RunPresenter {
 	}
 	
 	public void run(){
-		// stop saving entity data
-		EditorPlatform.getEntityData().removeEntityComponentListener(EditorPlatform.observer);
+		memento = EditorPlatform.getEntityData().createMemento();
 		
 		savedListeners.addAll(EditorPlatform.getSceneInputManager().getListeners());
 		EditorPlatform.getSceneInputManager().getListeners().clear();
@@ -41,10 +41,6 @@ public class RunPresenter {
 
 	public void stop(){
 		// entity data restoring
-		EditorPlatform.getEntityData().setState(EditorPlatform.observer.entities);
-		EditorPlatform.getEntityData().addEntityComponentListener(EditorPlatform.observer);
-		
-		
 		EditorPlatform.getSceneInputManager().getListeners().clear();
 		EditorPlatform.getSceneInputManager().getListeners().addAll(savedListeners);
 		savedListeners.clear();
@@ -53,7 +49,7 @@ public class RunPresenter {
 		EditorPlatform.getScene().enqueue(app -> stopGame(app));
 	}
 
-	static public boolean runGame(SimpleApplication app){
+	public boolean runGame(SimpleApplication app){
 		AppStateManager stateManager = app.getStateManager();
 		EntitySystem es = stateManager.getState(EntitySystem.class);
 		
@@ -64,7 +60,7 @@ public class RunPresenter {
 		return true;
 	}
 
-	static public boolean stopGame(SimpleApplication app){
+	public boolean stopGame(SimpleApplication app){
 		AppStateManager stateManager = app.getStateManager();
 		EntitySystem es = stateManager.getState(EntitySystem.class);
 		
@@ -72,6 +68,9 @@ public class RunPresenter {
 		es.initAudio(false);
 		es.initCommand(false);
 		es.initLogic(false);
+		
+		// state has to be set in the jme thread, to ensure that no entity is added after cleanup
+		EditorPlatform.getEntityData().setMemento(memento);
 		return true;
 	}
 

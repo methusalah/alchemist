@@ -83,7 +83,7 @@ public class EntitySystem extends AbstractAppState {
 	public void stateAttached(AppStateManager stateManager) {
 		this.stateManager = stateManager;
 		stateManager.attach(new DataState(ed, command));
-    	stateManager.attach(new WorldProc());
+    	//stateManager.attach(new WorldProc());
     	stateManager.attach(new CommandState(command));
     	stateManager.attach(new SceneSelectorState());
 	}

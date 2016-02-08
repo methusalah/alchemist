@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import model.ES.component.Naming;
 import model.ES.component.Parenting;
 import presenter.common.EntityNode;
+import util.LogUtil;
 
 /***
  * A Sepacialized EntityData that maintain a tree of nodes representing the hierarchy of the entities and their components
@@ -19,7 +20,7 @@ import presenter.common.EntityNode;
  * @author benoit
  *
  */
-public class TraversableEntityData extends DefaultEntityData{
+public class TraversableEntityData extends SavableEntityData{
 	private final EntityNode rootEntityNode;
 	private final Map<EntityId, EntityNode> entityNodes = new HashMap<>();
 	
@@ -45,12 +46,14 @@ public class TraversableEntityData extends DefaultEntityData{
 
 	@Override
 	public void removeEntity(EntityId eid) {
+		super.removeEntity(eid);
+		
 		Platform.runLater(() -> {
-			Parenting parenting = getComponent(eid, Parenting.class);
-			removeNodeFromParent(getNode(eid), parenting);
+			// after the entity has been removed, the node will necessarily be in the root node.
+			if(!rootEntityNode.childrenListProperty().remove(getNode(eid)))
+				throw new RuntimeException("rootnode should have contained the removed entity node");
 			entityNodes.remove(eid);
 		});
-		super.removeEntity(eid);
 	}
 	
 	public EntityNode getRootNode() {
@@ -63,11 +66,12 @@ public class TraversableEntityData extends DefaultEntityData{
 	
 	private void removeNodeFromParent(EntityNode ep, Parenting parenting){
 		if(parenting != null){
-			EntityNode parentPresenter = getNode(parenting.getParent());
-			if(parentPresenter != null)
-				parentPresenter.childrenListProperty().remove(ep);
-		} else
+			EntityNode parentNode = getNode(parenting.getParent());
+			if(parentNode != null)
+				parentNode.childrenListProperty().remove(ep);
+		} else{
 			rootEntityNode.childrenListProperty().remove(ep);
+		}
 	}
 	
 	private void handleComponentChange(EntityId eid, Class<? extends EntityComponent> compClass, EntityComponent lastComp, EntityComponent newComp){
@@ -93,7 +97,7 @@ public class TraversableEntityData extends DefaultEntityData{
 					rootEntityNode.childrenListProperty().add(node);
 			} else if(compClass == Naming.class){
 				Naming naming = (Naming)newComp;
-				node.nameProperty().setValue(newComp == null? "Unnamed" : naming.getName());
+				node.nameProperty().setValue(newComp == null? "Unnamed" + eid : naming.getName() + eid);
 			}
 			
 			if(node != null){
@@ -111,22 +115,5 @@ public class TraversableEntityData extends DefaultEntityData{
 				}
 			}
 		});
-	}
-	
-	public void setState(Map<EntityId, Map<Class<? extends EntityComponent>, EntityComponent>> entities){
-		// we remove all entities that we can find
-		// this trick seems ugly...
-		long l = createEntity().getId();
-		for(long i = 0; i <= l; i++)
-			removeEntity(new EntityId(i));
-		
-		// then we set all components that have been stored by the observer
-		for(EntityId eid : entities.keySet()){
-			Map<Class<? extends EntityComponent>, EntityComponent> components = entities.get(eid);
-			for(EntityComponent comp : components.values())
-				setComponent(eid, comp);
-		}
-		// will it work with a new instance of entity data, where the entity Ids havn't already been created??
-		// it remains to be tested
 	}
 }
