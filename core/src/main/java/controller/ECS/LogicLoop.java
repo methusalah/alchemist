@@ -45,7 +45,6 @@ import model.ES.processor.shipGear.AttritionProc;
 import model.ES.processor.shipGear.LightThrusterProc;
 import model.ES.processor.shipGear.RotationThrusterProc;
 import model.ES.processor.shipGear.ThrusterProc;
-import model.world.WorldData;
 
 public class LogicLoop implements Runnable {
     private AppStateManager stateManager;
@@ -55,10 +54,10 @@ public class LogicLoop implements Runnable {
     private static int millisPerTick = 20;
     private static double secondPerTick = (double)millisPerTick/1000;
     
-    public LogicLoop(EntityData ed, WorldData world, Command command) {
+    public LogicLoop(EntityData ed, Command command) {
     	stateManager = new AppStateManager(null);
 
-    	stateManager.attach(new DataState(ed, world, command));
+    	stateManager.attach(new DataState(ed, command));
 
 		stateManager.attach(new ChasingCameraProc());
 		stateManager.attach(new RotationThrusterProc());

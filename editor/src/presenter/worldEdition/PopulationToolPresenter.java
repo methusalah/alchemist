@@ -5,13 +5,11 @@ import java.util.List;
 
 import com.simsilica.es.EntityComponent;
 
+import app.AppFacade;
 import model.ES.component.motion.PlanarStance;
+import model.ES.processor.world.WorldProc;
 import model.ES.serial.Blueprint;
 import model.ES.serial.EntityInstance;
-import model.world.RegionLoader;
-import model.world.WorldData;
-import util.LogUtil;
-import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 
@@ -27,7 +25,7 @@ public class PopulationToolPresenter extends WorldTool {
 		
 		EntityInstance i = new EntityInstance(bp.getName(), comps);
 		
-		world.addEntityInstance(i);
+		AppFacade.getStateManager().getState(WorldProc.class).addEntityInstance(i);
 	}
 
 	public void setBlueprint(Blueprint bp) {

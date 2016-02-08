@@ -5,19 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.jme3.app.Application;
-import com.jme3.app.state.AppStateManager;
 import com.jme3.scene.Node;
-import com.simsilica.es.EntityData;
 
 import app.AppFacade;
 import controller.ECS.DataState;
 import controller.builder.BuilderState;
+import model.ES.processor.world.WorldProc;
 import model.world.Region;
 import model.world.RegionId;
 import model.world.RegionLoader;
-import model.world.WorldData;
-import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import view.drawingProcessors.TerrainDrawer;
 
@@ -122,7 +118,7 @@ public class RegionPager extends BuilderState {
 		return new RegionCreator(id,
 				loader,
 				AppFacade.getStateManager().getState(DataState.class).getEntityData(),
-				AppFacade.getStateManager().getState(DataState.class).getWorldData().getWorldEntity(),
+				AppFacade.getStateManager().getState(WorldProc.class).getWorldEntity(),
 				(region, drawer) -> {
 					builtRegions.add(region);
 					drawers.put(region, drawer);

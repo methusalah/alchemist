@@ -15,7 +15,6 @@ import model.Command;
 import model.ES.processor.command.PlayerRotationControlProc;
 import model.ES.processor.command.PlayerThrustControlProc;
 import model.ES.processor.world.WorldProc;
-import model.world.WorldData;
 import view.drawingProcessors.CameraPlacingProc;
 import view.drawingProcessors.LightProc;
 import view.drawingProcessors.audio.AbilityAudioProc;
@@ -39,7 +38,6 @@ public class EntitySystem extends AbstractAppState {
 	public final LogicLoop loop; 
 
 	private final EntityData ed;
-	private final WorldData world;
 	private final Command command;
 
 	
@@ -48,11 +46,10 @@ public class EntitySystem extends AbstractAppState {
 	List<AppState> commandStates = new ArrayList<>();
 	List<AppState> logicStates = new ArrayList<>();
 
-	public EntitySystem(EntityData ed, WorldData world, Command command) {
+	public EntitySystem(EntityData ed, Command command) {
 		this.ed = ed;
-		this.world = world;
 		this.command = command;
-		loop = new LogicLoop(ed, world, command);
+		loop = new LogicLoop(ed, command);
 		
 		
 		visualStates.add(new ModelProc());
@@ -85,8 +82,8 @@ public class EntitySystem extends AbstractAppState {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		this.stateManager = stateManager;
-		stateManager.attach(new DataState(ed, world, command));
-    	stateManager.attach(new WorldProc(world));
+		stateManager.attach(new DataState(ed, command));
+    	stateManager.attach(new WorldProc());
     	stateManager.attach(new CommandState(command));
     	stateManager.attach(new SceneSelectorState());
 	}

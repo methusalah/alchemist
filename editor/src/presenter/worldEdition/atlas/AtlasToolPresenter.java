@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import app.AppFacade;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import model.ES.processor.world.WorldProc;
 import model.world.Region;
-import model.world.WorldData;
 import model.world.terrain.TerrainTexture;
 import model.world.terrain.atlas.Atlas;
 import model.world.terrain.atlas.AtlasLayer;
 import presenter.EditorPlatform;
 import presenter.util.ToggledEnumProperty;
 import presenter.worldEdition.PencilToolPresenter;
-import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import view.worldEdition.AtlasTab;
 
@@ -41,7 +41,7 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 			if(lastRegion != null){
 				lastRegion.getTerrain().getTexturing().clear();
 				lastRegion.getTerrain().getTexturing().addAll(textures.getValue());
-				EditorPlatform.getWorldData().getTerrainDrawer(lastRegion).updateTexturing();
+				getWorld().getTerrainDrawer(lastRegion).updateTexturing();
 			}
 			view.updateTextureGrid();
 		});
@@ -56,8 +56,8 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 		if(coord == null){
 			lastRegion = null;
 			textures.set(null);
-		} else if(EditorPlatform.getWorldData().getRegionsAtOnce(coord).get(0) != lastRegion){
-			lastRegion = EditorPlatform.getWorldData().getRegionsAtOnce(coord).get(0);
+		} else if(getWorld().getRegionsAtOnce(coord).get(0) != lastRegion){
+			lastRegion = getWorld().getRegionsAtOnce(coord).get(0);
 			textures.set(FXCollections.observableArrayList(lastRegion.getTerrain().getTexturing()));
 		}
 	}
@@ -73,7 +73,7 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 	private void increment() {
 		List<Region> involvedRegions = new ArrayList<>();
 		for (Pixel p : getInvolvedPixels()) {
-			for(Region r : world.getRegionsAtOnce(p.worldCoord)){
+			for(Region r : getWorld().getRegionsAtOnce(p.worldCoord)){
 				if(!involvedRegions.contains(r))
 					involvedRegions.add(r);
 				
@@ -84,7 +84,7 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 		}
 		for(Region r : involvedRegions){
 			r.setModified(true);
-			world.getTerrainDrawer(r).updateAtlas();
+			getWorld().getTerrainDrawer(r).updateAtlas();
 		}
 	}
 	
@@ -161,5 +161,7 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 	public IntegerProperty getActualTextureProperty() {
 		return actualTextureProperty;
 	}
-
+	private WorldProc getWorld() {
+		return AppFacade.getStateManager().getState(WorldProc.class);
+	}
 }

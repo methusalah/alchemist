@@ -3,17 +3,12 @@ package presenter.worldEdition;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import app.AppFacade;
+import model.ES.processor.world.WorldProc;
 import model.world.Region;
-import model.world.WorldData;
 import model.world.terrain.heightmap.HeightMapNode;
 import presenter.EditorPlatform;
 import presenter.util.ToggledEnumProperty;
-import presenter.worldEdition.atlas.AtlasToolPresenter.Operation;
-import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.math.RandomUtil;
 
@@ -53,7 +48,7 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 	private void raise(){
 		List<Point2D> points = getNodes();
 		for (Point2D p : points) {
-			for(HeightMapNode n : world.getHeights(p)){
+			for(HeightMapNode n : getWorld().getHeights(p)){
 				n.elevate(getAttenuatedAmplitude(p));
 			}
 		}
@@ -63,7 +58,7 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 	private void lower() {
 		List<Point2D> points = getNodes(); 
 		for (Point2D p : points) {
-			for(HeightMapNode n : world.getHeights(p))
+			for(HeightMapNode n : getWorld().getHeights(p))
 				n.elevate(-getAttenuatedAmplitude(p));
 		}
 		updateParcelsFor(points);
@@ -73,7 +68,7 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 		List<Point2D> points = getNodes(); 
 		for (Point2D p : points) {
 			double randomElevation = RandomUtil.between(-1.0, 1.0) * getAttenuatedAmplitude(p);
-			for(HeightMapNode n : world.getHeights(p))
+			for(HeightMapNode n : getWorld().getHeights(p))
 				n.elevate(randomElevation);
 		}
 		updateParcelsFor(points);
@@ -82,12 +77,12 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 	private void smooth() {
 		List<Point2D> points = getNodes(); 
 		for (Point2D p : points) {
-			for(HeightMapNode n : world.getHeights(p)){
+			for(HeightMapNode n : getWorld().getHeights(p)){
 				double average = 0;
-				for (HeightMapNode neib : world.get4HeightsAround(p)) {
+				for (HeightMapNode neib : getWorld().get4HeightsAround(p)) {
 					average += neib.getElevation();
 				}
-				average /= world.get4HeightsAround(p).size();
+				average /= getWorld().get4HeightsAround(p).size();
 	
 				double diff = average - n.getElevation();
 				if (diff > 0) {
@@ -102,14 +97,14 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 
 	private void uniformize() {
 		if(Double.isNaN(elevation)){
-			HeightMapNode h = world.getHeights(coord).get(0);
+			HeightMapNode h = getWorld().getHeights(coord).get(0);
 			if(h != null)
 				elevation = h.getElevation();
 		}
 		if(!Double.isNaN(elevation)){
 			List<Point2D> points = getNodes(); 
 			for (Point2D p : points) {
-				for(HeightMapNode n : world.getHeights(p)){
+				for(HeightMapNode n : getWorld().getHeights(p)){
 					double diff = elevation - n.getElevation();
 					double attenuatedAmplitude = getAttenuatedAmplitude(p);
 					if (diff > 0) {
@@ -126,7 +121,7 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 	private void reset() {
 		List<Point2D> points = getNodes(); 
 		for (Point2D p : points) {
-			for(HeightMapNode n : world.getHeights(p)){
+			for(HeightMapNode n : getWorld().getHeights(p)){
 				n.setElevation(0);
 			}
 		}
@@ -140,13 +135,13 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 	private void updateParcelsFor(List<Point2D> points){
 		List<Region> regions = new ArrayList<>();
 		for(Point2D p : points){
-			for(Region r : world.getRegionsAtOnce(p))
+			for(Region r : getWorld().getRegionsAtOnce(p))
 				if(!regions.contains(r))
 					regions.add(r);
 		}
 		List<HeightMapNode> nodes = new ArrayList<>();
 		for(Point2D p : points){
-			for(HeightMapNode n : world.get4HeightsAround(p))
+			for(HeightMapNode n : getWorld().get4HeightsAround(p))
 				if(!nodes.contains(n))
 					nodes.add(n);
 		}
@@ -157,7 +152,7 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 			}
 			EditorPlatform.getScene().enqueue(() -> {
 				synchronized (r.getTerrain().getParcelling()) {
-					world.getTerrainDrawer(r).updateParcels(r.getTerrain().getParcelling().getParcelsContaining(nodes));
+					getWorld().getTerrainDrawer(r).updateParcels(r.getTerrain().getParcelling().getParcelsContaining(nodes));
 				}
 			});
 		}
@@ -165,6 +160,10 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 
 	public ToggledEnumProperty<Operation> getOperationProperty() {
 		return operationProperty;
+	}
+	
+	private WorldProc getWorld() {
+		return AppFacade.getStateManager().getState(WorldProc.class);
 	}
 
 	

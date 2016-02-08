@@ -3,7 +3,6 @@ package app;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
-import com.jme3.bullet.PhysicsSpace;
 import com.jme3.input.InputManager;
 import com.jme3.light.AmbientLight;
 import com.jme3.math.ColorRGBA;
@@ -13,9 +12,6 @@ import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Node;
-import com.simsilica.es.EntityData;
-
-import model.world.WorldData;
 
 public class AppFacade {
 

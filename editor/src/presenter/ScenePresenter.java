@@ -21,7 +21,6 @@ import model.ES.serial.Blueprint;
 import model.state.DraggableCameraState;
 import model.state.InstrumentUpdateState;
 import model.state.WorldLocaliserState;
-import model.world.WorldData;
 import presenter.common.SceneInputManager;
 import presenter.common.TopDownCamInputListener;
 import util.geometry.geom2d.Point2D;
@@ -35,7 +34,7 @@ public class ScenePresenter {
 	public ScenePresenter() {
 		if(EditorPlatform.getScene() == null){
 			JmeImageView jmeScene = new JmeImageView();
-			jmeScene.enqueue((app) -> createScene(app, EditorPlatform.getEntityData(), EditorPlatform.getWorldData(), EditorPlatform.getCommand()));
+			jmeScene.enqueue((app) -> createScene(app, EditorPlatform.getEntityData(), EditorPlatform.getCommand()));
 			EditorPlatform.setScene(jmeScene);
 		}
 		
@@ -43,7 +42,7 @@ public class ScenePresenter {
 		EditorPlatform.getSceneInputManager().addListener(camera);
 	}
 	
-	static private boolean createScene(SimpleApplication app, EntityData ed, WorldData world, Command command) {
+	static private boolean createScene(SimpleApplication app, EntityData ed, Command command) {
 		AppFacade.setApp(app);
 		app.getViewPort().addProcessor(new FilterPostProcessor(app.getAssetManager()));
 		
@@ -62,7 +61,7 @@ public class ScenePresenter {
 		stateManager.attach(new SceneSelectorState());
 		stateManager.attach(new WorldLocaliserState());
 		
-		EntitySystem es = new EntitySystem(ed, world, command);
+		EntitySystem es = new EntitySystem(ed, command);
 		stateManager.attach(es);
 		es.initVisuals(true);
 		es.initAudio(false);

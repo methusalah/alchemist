@@ -13,7 +13,6 @@ import controller.ECS.EntitySystem;
 import controller.topdown.TopdownCtrl;
 import model.Command;
 import model.ES.serial.BlueprintLibrary;
-import model.world.WorldData;
 import util.LogUtil;
 import util.event.AppStateChangeEvent;
 import view.material.MaterialManager;
@@ -52,7 +51,7 @@ public class MainGame extends CosmoVania {
 		ctrl.setEnabled(true);
 		
 		EntityData ed = new DefaultEntityData();
-		es = new EntitySystem(ed, new WorldData(ed), new Command());
+		es = new EntitySystem(ed, new Command());
 		stateManager.attach(es);
 		es.initVisuals(true);
 		es.initAudio(true);

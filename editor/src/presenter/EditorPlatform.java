@@ -6,7 +6,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import model.Command;
 import model.ECS.EntityDataObserver;
 import model.ECS.TraversableEntityData;
-import model.world.WorldData;
 import presenter.common.EntityNode;
 import presenter.common.RunState;
 import presenter.common.SceneInputManager;
@@ -16,7 +15,6 @@ import view.instrument.planarStance.PlanarStanceInstrumentState;
 
 public class EditorPlatform {
 	private static TraversableEntityData entityData;
-	private static WorldData worldData;
 	private static Command command;
 	private static SceneSelectorState sceneSelector;
 	private static PlanarStanceInstrumentState handle;
@@ -38,12 +36,6 @@ public class EditorPlatform {
 	public static void setEntityData(TraversableEntityData entityData) {
 		EditorPlatform.entityData = entityData;
 		entityData.addEntityComponentListener(observer);
-	}
-	public static WorldData getWorldData() {
-		return worldData;
-	}
-	public static void setWorldData(WorldData worldData) {
-		EditorPlatform.worldData = worldData;
 	}
 	public static SceneSelectorState getSceneSelector() {
 		return sceneSelector;
