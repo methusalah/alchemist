@@ -1,14 +1,19 @@
 package view;
 
+
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import presentation.ViewLoader;
+import presentation.resources.ResourcesController;
 import presenter.EditorPlatform;
 import presenter.OverviewPresenter;
 import presenter.util.UserComponentList;
@@ -18,12 +23,11 @@ import view.instrument.planarStance.PlanarStanceInstrument;
 public class Overview {
 	private final OverviewPresenter presenter = new OverviewPresenter();
 	
-	public Overview(Stage stage) {
+	public Overview(Stage stage) throws IOException {
 		SceneView sceneViewer = new SceneView();
 		
 		BorderPane scenePane = new BorderPane(sceneViewer, new RunPanel(), null, null, null);
-		
-		SplitPane leftRegion = new SplitPane(new TabPane(new HierarchyTab()), new TabPane(new ResourceTab()));
+		SplitPane leftRegion = new SplitPane(new TabPane(new HierarchyTab()), new TabPane((Tab)ViewLoader.load(ResourcesController.class)));
 		leftRegion.setOrientation(Orientation.VERTICAL);
 		
 		TabPane editors = new TabPane(new InspectorTab(), new WorldEditorTab(), new ReportTab());

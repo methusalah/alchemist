@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+
+<SplitPane fx:id="root" dividerPositions="0.2, 0.8" maxHeight="-Infinity"
+	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+	prefHeight="960.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.72"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="alchemist.controller.OverviewController">
+	<items>
+		<SplitPane fx:id="leftRegion" orientation="VERTICAL">
+			<items>
+				<TabPane >
+					<tabs>
+						<fx:include fx:id="hierarchyTab" source="Hierarchy.fxml"/>
+						<fx:include fx:id="ressourcesTab" source="Resources.fxml"/>
+
+					</tabs>
+				</TabPane>
+			</items>
+		</SplitPane>
+		<fx:include source="Scene.fxml"/>
+		<TabPane fx:id="editors" maxHeight="500.0" minWidth="300.0">
+			<tabs>
+				<Tab fx:id="inspectorTab" closable="false" text="Inspector">
+               <content>
+                  <ScrollPane>
+                  	<VBox>
+                     <children>
+                        <Label text=" " />
+				<VBox fx:id="compControl">
+					<children>
+
+					</children>
+
+				</VBox>
+				<Button text="Add component" visible="false"></Button>
+			</children>
+			</VBox>
+			</ScrollPane>
+			</content>
+			</Tab>
+				<Tab fx:id="worldEditorTab">
+					<content>
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0"
+							prefWidth="100.0" />
+					</content>
+				</Tab>
+				<fx:include fx:id="reportTab" source="Report.fxml"/>
+			</tabs>
+		</TabPane>
+	</items>
+</SplitPane>
