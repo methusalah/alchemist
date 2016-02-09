@@ -1,24 +1,35 @@
 .root {
-	-fx-base: rgb(80, 80, 85);
-	-fx-background: rgb(50, 50, 55);
-	-fx-control-inner-background:  rgb(80, 80, 85);
+	-fx-base: #424246;
+	-fx-background: #212124;
+	-fx-control-inner-background:  #303033;
+	-fx-button: #606060;
+	-fx-button-hover: #555555;
+	-fx-button-pressed: #505050;
 }
- 
+
+
+/*============ TAB PANE ======================== */
+
+/*------------ Tab ----------------------------- */
 .tab{
 	-fx-background-color: transparent;
 	-fx-border-color: transparent transparent transparent transparent;
 	-fx-background-insets : 0
 }
 
-
 .tab:selected {
 	-fx-background-color: -fx-base;
-	-fx-background-radius: 2 2 0 0;
+	-fx-background-radius: 5 5 0 0;
 }
 
 .tab:selected .focus-indicator {
-    -fx-border-radius: 11 11 0 0, 10 10 0 0;
+	-fx-border-color: transparent;
+    -fx-border-radius: 5 5 0 0, 10 10 0 0;
+    
+    -fx-border-insets: 0;
 }
+
+/*----------- header --------------*/
 
 .tab-header-area {
 	-fx-padding : 0, 0, 0, 0
@@ -33,43 +44,38 @@
 }
 
 .tab-pane {
-	-fx-padding : 3, 0, 3, 0
-}
-
-.menu-bar {
-	-fx-background-color: linear-gradient(to bottom, -fx-base, derive(-fx-base,30%));
+	-fx-padding : 5, 0, 5, 0
 }
  
 .tool-bar:horizontal {
 	-fx-background-color:
 	linear-gradient(to bottom, derive(-fx-base,+50%), derive(-fx-base,-40%), derive(-fx-base,-20%));
 }
- 
+
+/* =================== Button ========================*/
+
 .button {
-	-fx-background-color: -fx-base;
-	-fx-background-insets: 0, 5 0 5 0;
+	-fx-background-color: -fx-button;
+	-fx-background-insets: 2 2 2 2;
+	-fx-background-radius: 1 1 1 1;
 }
 
 .button:hover {
-	-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
-	-fx-color: -fx-hover-base;
+	-fx-background-color: -fx-button-hover;
+}
+
+.button:pressed {
+	-fx-background-color: -fx-button-pressed;
 }
 
 .scroll-pane {
 	-fx-background-color: transparent;
 }
 
- 
-/*.button:hover {
-	-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
-	-fx-color: -fx-hover-base;
-}*/
- 
 .table-view {
 	-fx-table-cell-border-color:derive(-fx-base,+10%);
 	-fx-table-header-border-color:derive(-fx-base,+20%);
 }
-
 
 .split-pane-divider {
 	-fx-background-color: -fx-background;
