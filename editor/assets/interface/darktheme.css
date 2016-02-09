@@ -44,7 +44,8 @@
 }
 
 .tab-pane {
-	-fx-padding : 5, 0, 5, 0
+	-fx-padding : 5, 0, 5, 0;
+	-fx-effect: dropshadow( gaussian , #151520 , 7, 0.5, 0, 0);
 }
  
 .tool-bar:horizontal {
