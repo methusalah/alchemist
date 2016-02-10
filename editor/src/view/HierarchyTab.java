@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.VBox;
+import model.ES.component.Parenting;
+import presenter.EditorPlatform;
 import presenter.HierarchyPresenter;
 import presenter.common.EntityNode;
 import view.controls.EntityTreeView;
@@ -26,13 +28,16 @@ public class HierarchyTab extends Tab {
 		setContent(content);
 		
 		// tree
-		tree = new EntityTreeView(presenter);
+		tree = new EntityTreeView(presenter.getRootNode());
 		tree.setMaxHeight(Double.MAX_VALUE);
 		content.getChildren().add(tree);
 		tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue != null && newValue.getValue() != null)
 				presenter.select(newValue.getValue());
 		});
+		tree.setOnCreateNewEntity((bp, en) -> presenter.createNewEntity(bp, en));
+		tree.setOnUpdateParenting((child, parent) -> presenter.updateParenting(child, parent));
+
 
 		// add button
 		Button btnAdd = new Button("Add entity");

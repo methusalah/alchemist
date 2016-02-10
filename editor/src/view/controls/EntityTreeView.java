@@ -6,21 +6,28 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import model.ES.serial.Blueprint;
+import presentation.util.Consumer2;
 import presenter.HierarchyPresenter;
 import presenter.common.EntityNode;
+import util.LogUtil;
 import view.Dragpool;
 
+
 public class EntityTreeView extends TreeView<EntityNode> {
-	final HierarchyPresenter presenter;
 	
-	public EntityTreeView(HierarchyPresenter presenter) {
-		this.presenter = presenter;
-		EntityNodeItem root = new EntityNodeItem(presenter.getRootNode());
+	private Consumer2<EntityNode, EntityNode> updateParenting = null;
+	private Consumer2<Blueprint, EntityNode> createNewEntity = null;
+	
+	public EntityTreeView(EntityNode rootNode) {
 		setShowRoot(false);
-		for(EntityNode n : presenter.getRootNode().childrenListProperty())
+		EntityNodeItem root = new EntityNodeItem(rootNode);
+		for(EntityNode n : rootNode.childrenListProperty())
 			addItem(root, n);
 		setRoot(root);
 		configureCellFactoryForDragAndDrop();
+	}
+	
+	public void setRootNode(){
 	}
 	
 	private void addItem(EntityNodeItem parent, EntityNode ep){
@@ -32,7 +39,7 @@ public class EntityTreeView extends TreeView<EntityNode> {
 	}
 	
 	private void configureCellFactoryForDragAndDrop(){
-		setCellFactory(callback ->{
+		setCellFactory(callback -> {
             TreeCell<EntityNode> cell = new TreeCell<EntityNode>() {
 
             	@Override
@@ -64,31 +71,41 @@ public class EntityTreeView extends TreeView<EntityNode> {
             });
             
             cell.setOnDragExited(e -> {
-                     if (e.getGestureSource() != cell &&
-                             e.getDragboard().hasString()) {
-                         cell.setStyle(null);
-                     }
-                     e.consume();
+                 if (e.getGestureSource() != cell &&
+                         e.getDragboard().hasString()) {
+                     cell.setStyle(null);
+                 }
+                 e.consume();
             });
             
             
             cell.setOnDragOver(e -> {
-                    if (e.getGestureSource() != cell && !Dragpool.isEmpty()) {
-                		e.acceptTransferModes(TransferMode.ANY);
-                    }
-                    e.consume();
+                if (e.getGestureSource() != cell && !Dragpool.isEmpty()) {
+            		e.acceptTransferModes(TransferMode.ANY);
+                }
+                e.consume();
             });
             
             
             cell.setOnDragDropped(e -> {
 				if(!Dragpool.isEmpty()) {
                 	if(Dragpool.containsType(EntityNode.class))
-                		presenter.updateParenting(Dragpool.grabContent(EntityNode.class), cell.getItem());
+                		updateParenting.accept(Dragpool.grabContent(EntityNode.class), cell.getItem());
 					else if(Dragpool.containsType(Blueprint.class))
-						presenter.createNewEntity(Dragpool.grabContent(Blueprint.class), cell.getItem());
+						createNewEntity.accept(Dragpool.grabContent(Blueprint.class), cell.getItem());
 				}
 			});
             return cell;
 	    });
+		
+		
+	}
+
+	public void setOnUpdateParenting(Consumer2<EntityNode, EntityNode> updateParenting) {
+		this.updateParenting = updateParenting;
+	}
+
+	public void setOnCreateNewEntity(Consumer2<Blueprint, EntityNode> createNewEntity) {
+		this.createNewEntity = createNewEntity;
 	}
 }

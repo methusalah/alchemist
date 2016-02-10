@@ -21,32 +21,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TitledPane?>
 
-
 <fx:root prefHeight="788.0" prefWidth="254.0" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
-      			<children>
-      				<TreeView fx:id="EntityTreeView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </TreeView>
-      			</children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </VBox>
-   </center>
    <padding>
       <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
    </padding>
    <bottom>
       <BorderPane BorderPane.alignment="CENTER">
          <right>
-      				<Button fx:id="ReniveEntityBtn" mnemonicParsing="false" text="Remove entity" BorderPane.alignment="CENTER" />
+      				<Button fx:id="ReniveEntityBtn" mnemonicParsing="false" onAction="#removeEntity" text="Remove entity" BorderPane.alignment="CENTER" />
          </right>
          <left>
-      				<Button fx:id="AddEntityBtn" mnemonicParsing="false" text="Add entity" BorderPane.alignment="CENTER" />
+      				<Button fx:id="AddEntityBtn" mnemonicParsing="false" onAction="#createNewEntity" text="Add entity" BorderPane.alignment="CENTER" />
          </left>
          <padding>
             <Insets bottom="3.0" top="3.0" />
