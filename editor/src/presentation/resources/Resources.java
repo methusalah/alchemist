@@ -1,4 +1,4 @@
-package presentation.resource;
+package presentation.resources;
 
 import java.util.ArrayList;
 import java.util.List;

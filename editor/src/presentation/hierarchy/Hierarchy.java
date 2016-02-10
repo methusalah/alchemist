@@ -1,8 +1,14 @@
 package presentation.hierarchy;
 
-public class Hierarchy {
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import presentation.util.ViewLoader;
 
+public class Hierarchy extends BorderPane {
 	
+	public Hierarchy() {
+		ViewLoader.loadFXMLForControl(this);
+	}
 //	public void createNewEntity(){
 //		EntityId eid = EditorPlatform.getEntityData().createEntity();
 //		EditorPlatform.getEntityData().setComponent(eid, new Naming("Unamed entity"));

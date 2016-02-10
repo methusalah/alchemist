@@ -11,6 +11,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import presentation.resources.ResourcesTab;
 import presenter.EditorPlatform;
 import presenter.OverviewPresenter;
 import presenter.util.UserComponentList;
@@ -24,7 +25,7 @@ public class Overview {
 		SceneView sceneViewer = new SceneView();
 		
 		BorderPane scenePane = new BorderPane(sceneViewer, new RunPanel(), null, null, null);
-		SplitPane leftRegion = new SplitPane(new TabPane(new HierarchyTab()), new TabPane(new ResourceTab()));
+		SplitPane leftRegion = new SplitPane(new TabPane(new presentation.hierarchy.HierarchyTab()), new TabPane(new ResourcesTab()));
 		leftRegion.setOrientation(Orientation.VERTICAL);
 		
 		TabPane editors = new TabPane(new InspectorTab(), new WorldEditorTab(), new ReportTab());

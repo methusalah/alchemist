@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
@@ -17,16 +21,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TitledPane?>
 
-<SplitPane fx:id="root" dividerPositions="0.2, 0.8" maxHeight="-Infinity"
-	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-	prefHeight="960.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.72"
-	xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane fx:id="root" dividerPositions="0.2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
 	<items>
 		<SplitPane fx:id="leftRegion" orientation="VERTICAL">
 			<items>
-				<TabPane >
-					<tabs>
-					</tabs>
+				<TabPane>
+               <tabs>
+                  
+               </tabs>
 				</TabPane>
 			</items>
 		</SplitPane>
@@ -44,7 +46,7 @@
 					</children>
 
 				</VBox>
-				<Button text="Add component" visible="false"></Button>
+				<Button text="Add component" visible="false" />
 			</children>
 			</VBox>
 			</ScrollPane>
@@ -52,8 +54,7 @@
 			</Tab>
 				<Tab fx:id="worldEditorTab">
 					<content>
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0"
-							prefWidth="100.0" />
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
 					</content>
 				</Tab>
 			</tabs>

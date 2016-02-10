@@ -26,6 +26,11 @@ public class ViewLoader {
 		return res;
 	}
 	
+	/**
+	 * This method will load an FXML file with the name of the given object class,
+	 * concatenated with the fxml file extension and localized in the same package.
+	 * @param control
+	 */
 	public static void loadFXMLForControl(Object control){
         FXMLLoader fxmlLoader = new FXMLLoader(control.getClass().getResource(control.getClass().getSimpleName() + ".fxml"));
         fxmlLoader.setRoot(control);
@@ -38,6 +43,11 @@ public class ViewLoader {
         }
 	}
 
+	/**
+	 * This method will load an FXML file localized in the path given in parameter, relatively
+	 * to the given object package.
+	 * @param control
+	 */
 	public static void loadFXMLForControl(Object control, String fxmlPath){
         FXMLLoader fxmlLoader = new FXMLLoader(control.getClass().getResource(fxmlPath));
         fxmlLoader.setRoot(control);
