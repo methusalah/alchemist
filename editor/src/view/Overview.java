@@ -5,18 +5,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import presentation.commonControl.OverviewTab;
-import presentation.resource.Resources;
-import presentation.resource.ResourcesTab;
-import presentation.util.ViewLoader;
 import presenter.EditorPlatform;
 import presenter.OverviewPresenter;
 import presenter.util.UserComponentList;
@@ -30,7 +24,7 @@ public class Overview {
 		SceneView sceneViewer = new SceneView();
 		
 		BorderPane scenePane = new BorderPane(sceneViewer, new RunPanel(), null, null, null);
-		SplitPane leftRegion = new SplitPane(new TabPane(new HierarchyTab()), new TabPane(new ResourcesTab()));
+		SplitPane leftRegion = new SplitPane(new TabPane(new HierarchyTab()), new TabPane(new ResourceTab()));
 		leftRegion.setOrientation(Orientation.VERTICAL);
 		
 		TabPane editors = new TabPane(new InspectorTab(), new WorldEditorTab(), new ReportTab());
@@ -49,7 +43,8 @@ public class Overview {
 		
 		
 
-		Scene s = new Scene(FXMLLoader.load(presentation.overview.Overview.class.getResource("test.fxml")));
+		//Scene s = new Scene(FXMLLoader.load(presentation.overview.Overview.class.getResource("test.fxml")));
+		Scene s = new Scene(root);
 		try {
 			s.getStylesheets().add(new File("assets/interface/darktheme.css").toURI().toURL().toString());
 		} catch (MalformedURLException e1) {
