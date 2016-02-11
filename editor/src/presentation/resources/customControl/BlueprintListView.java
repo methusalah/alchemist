@@ -9,9 +9,9 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.util.Callback;
 import model.ES.serial.Blueprint;
+import presentation.Dragpool;
 import presenter.common.EntityNode;
 import util.LogUtil;
-import view.Dragpool;
 
 public class BlueprintListView extends ListView<Blueprint>{
 	

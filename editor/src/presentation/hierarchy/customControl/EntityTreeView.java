@@ -6,9 +6,9 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import model.ES.serial.Blueprint;
+import presentation.Dragpool;
 import presentation.util.Consumer2;
 import presenter.common.EntityNode;
-import view.Dragpool;
 
 
 public class EntityTreeView extends TreeView<EntityNode> {
