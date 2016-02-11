@@ -1,4 +1,4 @@
-package presentation.resources;
+package presentation.resources.customControl;
 
 import java.util.function.Consumer;
 

@@ -1,4 +1,4 @@
-package view.controls;
+package presentation.inspector.customControl;
 
 
 import java.beans.BeanInfo;
@@ -17,10 +17,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import presentation.inspector.customControl.propertyEditor.PropertyEditor;
+import presentation.inspector.customControl.propertyEditor.PropertyEditorFactory;
 import presenter.InspectorPresenter;
 import view.UIConfig;
-import view.controls.propertyEditor.PropertyEditor;
-import view.controls.propertyEditor.PropertyEditorFactory;
 
 public class ComponentEditor extends TitledPane {
 	final InspectorPresenter presenter;

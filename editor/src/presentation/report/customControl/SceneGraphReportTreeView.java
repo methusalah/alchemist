@@ -1,4 +1,4 @@
-package view.controls;
+package presentation.report.customControl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,15 +19,15 @@ public class SceneGraphReportTreeView extends TreeView<SceneGraphReportNode>{
 	private List<Spatial> selection = new ArrayList<>();
 	
 	public SceneGraphReportTreeView(ObjectProperty<SceneGraphReportNode> rootNodeProperty) {
-		setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		setPrefHeight(2000);
 		setShowRoot(false);
 		
 		TreeItem<SceneGraphReportNode> root = new TreeItem<>();
 		root.valueProperty().bind(rootNodeProperty);
 		root.valueProperty().addListener((observable, oldValue, newValue) -> {
+			List<Spatial> selectionSave = new ArrayList<>(selection);
+			this.getSelectionModel().clearSelection();
+			selection = selectionSave;
 			root.getChildren().clear();
-			//this.getSelectionModel().clearSelection();
 			addItem(root, newValue);
 		});
 		

@@ -1,4 +1,4 @@
-package view.controls.propertyEditor;
+package presentation.inspector.customControl.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
@@ -10,9 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import presentation.commonControl.Knob;
 import util.math.Angle;
 import util.math.AngleUtil;
-import view.controls.Knob;
 
 public class AngleEditor extends PropertyEditor{
 	TextField valueField;

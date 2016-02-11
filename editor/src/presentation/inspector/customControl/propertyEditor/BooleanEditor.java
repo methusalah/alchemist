@@ -1,4 +1,4 @@
-package view.controls.propertyEditor;
+package presentation.inspector.customControl.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 

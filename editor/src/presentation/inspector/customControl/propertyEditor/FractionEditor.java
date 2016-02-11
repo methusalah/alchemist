@@ -1,4 +1,4 @@
-package view.controls.propertyEditor;
+package presentation.inspector.customControl.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
@@ -13,10 +13,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import presentation.commonControl.Knob;
 import util.math.Angle;
 import util.math.AngleUtil;
 import util.math.Fraction;
-import view.controls.Knob;
 
 public class FractionEditor extends PropertyEditor{
 	TextField valueField;

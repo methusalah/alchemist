@@ -1,4 +1,4 @@
-package view.controls;
+package presentation.hierarchy.customControl;
 
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeView;
@@ -7,9 +7,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import model.ES.serial.Blueprint;
 import presentation.util.Consumer2;
-import presenter.HierarchyPresenter;
 import presenter.common.EntityNode;
-import util.LogUtil;
 import view.Dragpool;
 
 

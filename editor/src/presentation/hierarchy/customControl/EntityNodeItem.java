@@ -1,4 +1,4 @@
-package view.controls;
+package presentation.hierarchy.customControl;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.TreeItem;

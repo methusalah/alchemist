@@ -1,24 +1,26 @@
-package view.controls.propertyEditor;
+package presentation.inspector.customControl.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
 import presenter.InspectorPresenter;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
 import com.simsilica.es.EntityComponent;
-import com.simsilica.es.EntityId;
 
-public class EntityIdEditor extends PropertyEditor{
+public class DoubleEditor extends PropertyEditor{
 	
 	TextField valueField;
 	
-	public EntityIdEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
+	public DoubleEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
 		super(presenter, comp, pd);
 	}
 
@@ -33,16 +35,13 @@ public class EntityIdEditor extends PropertyEditor{
 
 	@Override
 	protected Object getPropertyValue() {
-		return new EntityId(Long.parseLong(valueField.getText()));  
+		return Double.parseDouble(valueField.getText());  
 	}
 
 	@Override
 	protected void setPropertyValue(Object o) {
-		EntityId v = (EntityId)o;
-		if(v == null)
-			valueField.setText(null);
-		else
-			valueField.setText(Long.toString(v.getId()));
+		double v = (Double)o;
+		valueField.setText(Double.toString(v));
 	}
 	
 	
