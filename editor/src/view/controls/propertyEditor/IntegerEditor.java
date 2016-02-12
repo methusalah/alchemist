@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import presentation.util.Consumer3;
 import util.geometry.geom2d.Point2D;
 
 import com.simsilica.es.EntityComponent;
@@ -17,8 +18,8 @@ public class IntegerEditor extends PropertyEditor{
 	
 	TextField valueField;
 	
-	public IntegerEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
-		super(presenter, comp, pd);
+	public IntegerEditor(EntityComponent comp, PropertyDescriptor pd, Consumer3<EntityComponent, String, Object> updateCompFunction) {
+		super(comp, pd, updateCompFunction);
 	}
 
 	@Override

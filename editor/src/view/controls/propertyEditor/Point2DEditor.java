@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import presentation.util.Consumer3;
 import util.geometry.geom2d.Point2D;
 
 import com.simsilica.es.EntityComponent;
@@ -17,8 +18,8 @@ public class Point2DEditor extends PropertyEditor{
 
 	TextField xField, yField;
 	
-	public Point2DEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
-		super(presenter, comp, pd);
+	public Point2DEditor(EntityComponent comp, PropertyDescriptor pd, Consumer3<EntityComponent, String, Object> updateCompFunction) {
+		super(comp, pd, updateCompFunction);
 	}
 
 	@Override

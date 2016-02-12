@@ -28,7 +28,7 @@ public class Overview {
 		SplitPane leftRegion = new SplitPane(new TabPane(new presentation.hierarchy.HierarchyTab()), new TabPane(new ResourcesTab()));
 		leftRegion.setOrientation(Orientation.VERTICAL);
 		
-		TabPane editors = new TabPane(new InspectorTab(), new WorldEditorTab(), new ReportTab());
+		TabPane editors = new TabPane(new presentation.inspector.InspectorTab(), new WorldEditorTab(), new ReportTab());
 		editors.setMinWidth(300);
 		editors.setMaxWidth(500);
 

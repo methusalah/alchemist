@@ -25,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
+import presentation.util.Consumer3;
 import util.LogUtil;
 
 public class MapEditor extends PropertyEditor{
@@ -33,8 +34,8 @@ public class MapEditor extends PropertyEditor{
 	TableView<Map.Entry<String,Object>> table;
 	final String contentTypeName;
 
-	public MapEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
-		super(presenter, comp, pd);
+	public MapEditor(EntityComponent comp, PropertyDescriptor pd, Consumer3<EntityComponent, String, Object> updateCompFunction) {
+		super(comp, pd, updateCompFunction);
 		Type t = pd.getReadMethod().getGenericReturnType();
 		if(t instanceof ParameterizedType){
 			if(((ParameterizedType)t).getActualTypeArguments()[0].getTypeName() != String.class.getName())

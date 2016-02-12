@@ -22,14 +22,15 @@ import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import presentation.util.Consumer3;
 
 public class StringListEditor extends PropertyEditor{
 	
 	ListView<String> list;
 	final String contentTypeName;
 	
-	public StringListEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
-		super(presenter, comp, pd);
+	public StringListEditor(EntityComponent comp, PropertyDescriptor pd, Consumer3<EntityComponent, String, Object> updateCompFunction) {
+		super(comp, pd, updateCompFunction);
 		Type t = pd.getReadMethod().getGenericReturnType();
 		if(t instanceof ParameterizedType)
 			contentTypeName = ((ParameterizedType)t).getActualTypeArguments()[0].getTypeName();

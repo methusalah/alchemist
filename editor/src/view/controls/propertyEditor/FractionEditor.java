@@ -13,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import presentation.util.Consumer3;
 import util.math.Angle;
 import util.math.AngleUtil;
 import util.math.Fraction;
@@ -22,8 +23,8 @@ public class FractionEditor extends PropertyEditor{
 	TextField valueField;
 	Slider slider;
 	
-	public FractionEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
-		super(presenter, comp, pd);
+	public FractionEditor(EntityComponent comp, PropertyDescriptor pd, Consumer3<EntityComponent, String, Object> updateCompFunction) {
+		super(comp, pd, updateCompFunction);
 	}
 
 	@Override

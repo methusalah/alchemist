@@ -10,14 +10,15 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import presentation.util.Consumer3;
 
 import com.simsilica.es.EntityComponent;
 
 public class EnumEditor extends PropertyEditor{
 	ChoiceBox<Object> choiceBox;
 	
-	public EnumEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd, Class<?> enumClass) {
-		super(presenter, comp, pd);
+	public EnumEditor(EntityComponent comp, PropertyDescriptor pd, Class<?> enumClass, Consumer3<EntityComponent, String, Object> updateCompFunction) {
+		super(comp, pd, updateCompFunction);
 		choiceBox.getItems().setAll(FXCollections.observableArrayList(enumClass.getEnumConstants()));
 	}
 

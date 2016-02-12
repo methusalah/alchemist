@@ -60,7 +60,7 @@ public class InspectorTab extends Tab {
 			return;
 		}
 		for(EntityComponent comp : ep.componentListProperty()){
-			ComponentEditor editor = new ComponentEditor(presenter, comp);
+			ComponentEditor editor = new ComponentEditor(comp, compClass -> presenter.removeComponent(compClass), (c, propertyName, value) -> presenter.updateComponent(c, propertyName, value));
 			editors.put(comp.getClass(), editor);
 			compControl.getChildren().add(editor);
 		}
@@ -75,7 +75,7 @@ public class InspectorTab extends Tab {
 	}
 	
 	public void addComponentEditor(EntityComponent comp){
-		ComponentEditor editor = new ComponentEditor(presenter, comp);
+		ComponentEditor editor = new ComponentEditor(comp, compClass -> presenter.removeComponent(compClass), (c, propertyName, value) -> presenter.updateComponent(c, propertyName, value));
 		editors.put(comp.getClass(), editor);
 		compControl.getChildren().add(editor);
 	}

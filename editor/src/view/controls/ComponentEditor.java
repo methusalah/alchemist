@@ -7,6 +7,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import com.simsilica.es.EntityComponent;
 
@@ -17,20 +18,22 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import presentation.util.Consumer3;
 import presenter.InspectorPresenter;
 import view.UIConfig;
 import view.controls.propertyEditor.PropertyEditor;
 import view.controls.propertyEditor.PropertyEditorFactory;
 
 public class ComponentEditor extends TitledPane {
-	final InspectorPresenter presenter;
+	final Consumer<Class<? extends EntityComponent>> removeCompFunction;
 	final EntityComponent comp;
 
 	final List<PropertyEditor> editors = new ArrayList<>();
 
-	public ComponentEditor(InspectorPresenter presenter, EntityComponent comp) {
+	
+	public ComponentEditor(EntityComponent comp, Consumer<Class<? extends EntityComponent>> removeCompFunction, Consumer3<EntityComponent, String, Object> updateCompFunction) {
+		this.removeCompFunction = removeCompFunction;
 		this.comp = comp;
-		this.presenter = presenter;
 		expandedProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue && !UIConfig.expandedComponents.contains(comp.getClass()))
 				UIConfig.expandedComponents.add(comp.getClass());
@@ -48,7 +51,7 @@ public class ComponentEditor extends TitledPane {
 		try {
 			bi = Introspector.getBeanInfo(comp.getClass(), Object.class);
 			for (PropertyDescriptor pd : bi.getPropertyDescriptors()) {
-				PropertyEditor editor = PropertyEditorFactory.getEditorFor(presenter, comp, pd);
+				PropertyEditor editor = PropertyEditorFactory.getEditorFor(comp, pd, updateCompFunction);
 				if (editor != null) {
 					editors.add(editor);
 					content.getChildren().add(editor);
@@ -75,7 +78,7 @@ public class ComponentEditor extends TitledPane {
 
 		Button btn = new Button("remove");
 		btn.setMaxWidth(Double.MAX_VALUE);
-		btn.setOnAction(e -> presenter.removeComponent(comp.getClass()));
+		btn.setOnAction(e -> removeCompFunction.accept(comp.getClass()));
 		
 		bp.setLeft(label);
 		bp.setRight(btn);

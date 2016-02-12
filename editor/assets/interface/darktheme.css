@@ -1,7 +1,7 @@
 .root {
 	-fx-base: #424246;
 	-fx-background: #212124;
-	-fx-control-inner-background:  #303033;
+	-fx-control-inner-background: #303033;
 	-fx-button: #606060;
 	-fx-button-hover: #555555;
 	-fx-button-pressed: #505050;
@@ -73,6 +73,10 @@
 	-fx-background-color: transparent;
 }
 
+.content {
+	-fx-background-color: -fx-control-inner-background;
+}
+
 .table-view {
 	-fx-table-cell-border-color:derive(-fx-base,+10%);
 	-fx-table-header-border-color:derive(-fx-base,+20%);
@@ -80,6 +84,14 @@
 
 .split-pane-divider {
 	-fx-background-color: -fx-background;
+}
+
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+.scroll-pane {
+	-fx-background-color: transparent;
 }
 
 .split-pane:horizontal > * > .split-pane-divider {

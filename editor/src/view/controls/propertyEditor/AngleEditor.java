@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import presentation.util.Consumer3;
 import util.math.Angle;
 import util.math.AngleUtil;
 import view.controls.Knob;
@@ -18,8 +19,8 @@ public class AngleEditor extends PropertyEditor{
 	TextField valueField;
 	Knob knob;
 	
-	public AngleEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
-		super(presenter, comp, pd);
+	public AngleEditor(EntityComponent comp, PropertyDescriptor pd, Consumer3<EntityComponent, String, Object> updateCompFunction) {
+		super(comp, pd, updateCompFunction);
 	}
 
 	@Override

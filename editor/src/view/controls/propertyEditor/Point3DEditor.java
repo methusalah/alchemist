@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import presentation.util.Consumer3;
 
 import com.simsilica.es.EntityComponent;
 
@@ -18,8 +19,8 @@ public class Point3DEditor extends PropertyEditor{
 	
 	TextField xField, yField, zField;
 	
-	public Point3DEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
-		super(presenter, comp, pd);
+	public Point3DEditor(EntityComponent comp, PropertyDescriptor pd, Consumer3<EntityComponent, String, Object> updateCompFunction) {
+		super(comp, pd, updateCompFunction);
 	}
 
 	@Override

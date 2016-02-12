@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import presentation.util.Consumer3;
 
 import com.simsilica.es.EntityComponent;
 
@@ -15,8 +16,8 @@ public class BooleanEditor extends PropertyEditor{
 	
 	CheckBox valueBox;
 	
-	public BooleanEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
-		super(presenter, comp, pd);
+	public BooleanEditor(EntityComponent comp, PropertyDescriptor pd, Consumer3<EntityComponent, String, Object> updateCompFunction) {
+		super(comp, pd, updateCompFunction);
 	}
 
 	@Override

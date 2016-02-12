@@ -13,20 +13,21 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.OverrunStyle;
 import javafx.scene.layout.BorderPane;
+import presentation.util.Consumer3;
 import presenter.InspectorPresenter;
 
 public abstract class PropertyEditor extends BorderPane {
 	protected final DecimalFormat df;
-
-	final InspectorPresenter presenter;
+	private final Consumer3<EntityComponent, String, Object> updateCompFunction;
+	
 	EntityComponent comp;
 	PropertyDescriptor pd;
 	
 	private boolean ready = false;
 	protected boolean editionMode = false;
 	
-	public PropertyEditor(InspectorPresenter presenter, EntityComponent comp, PropertyDescriptor pd) {
-		this.presenter = presenter;
+	public PropertyEditor(EntityComponent comp, PropertyDescriptor pd, Consumer3<EntityComponent, String, Object> updateCompFunction) {
+		this.updateCompFunction = updateCompFunction;
 		df = (DecimalFormat)DecimalFormat.getNumberInstance(Locale.ENGLISH);
 		df.setMinimumFractionDigits(2);
 		
@@ -71,7 +72,7 @@ public abstract class PropertyEditor extends BorderPane {
 	
 	protected void applyChange(ActionEvent event){
 		if(ready){
-			presenter.updateComponent(comp, pd.getName(), getPropertyValue());
+			updateCompFunction.accept(comp, pd.getName(), getPropertyValue());
 			this.requestFocus();
 		}
 	}
