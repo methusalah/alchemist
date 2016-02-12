@@ -13,10 +13,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
-import presentation.inspector.ComponentEditor;
+import presentation.inspector.customControl.ComponentEditor;
 import presenter.InspectorPresenter;
 import presenter.common.EntityNode;
-import util.LogUtil;
 
 public class InspectorTab extends Tab {
 	final InspectorPresenter presenter;

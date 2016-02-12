@@ -12,6 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import model.ES.serial.Blueprint;
+import presentation.Dragpool;
 import presenter.EditorPlatform;
 import presenter.ScenePresenter;
 import presenter.common.EntityNode;

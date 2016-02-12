@@ -1,19 +1,16 @@
-package presentation.inspector.propertyEditor;
+package presentation.inspector.customControl.propertyEditor;
 
 import java.beans.PropertyDescriptor;
-
-import presenter.InspectorPresenter;
 
 import com.simsilica.es.EntityComponent;
 
 import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import presentation.commonControl.Knob;
 import presentation.util.Consumer3;
 import util.math.Angle;
 import util.math.AngleUtil;
-import view.controls.Knob;
 
 public class AngleEditor extends PropertyEditor{
 	TextField valueField;

@@ -1,31 +1,39 @@
-package presentation.inspector.propertyEditor;
+package presentation.inspector.customControl.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
 import presenter.InspectorPresenter;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import presentation.util.Consumer3;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
+import view.controls.custom.KeyReleasedConsumingTextField;
 
 import com.simsilica.es.EntityComponent;
 
-public class IntegerEditor extends PropertyEditor{
+public class StringEditor extends PropertyEditor{
 	
 	TextField valueField;
 	
-	public IntegerEditor(EntityComponent comp, PropertyDescriptor pd, Consumer3<EntityComponent, String, Object> updateCompFunction) {
+	public StringEditor(EntityComponent comp, PropertyDescriptor pd, Consumer3<EntityComponent, String, Object> updateCompFunction) {
 		super(comp, pd, updateCompFunction);
 	}
 
 	@Override
 	protected void createEditor() {
+		HBox box = new HBox(5);
+		box.setMaxWidth(Double.MAX_VALUE);
+		box.setAlignment(Pos.CENTER_LEFT);
+		
 		valueField = new TextField();
-		valueField.setPrefWidth(100);
+		valueField.setMaxWidth(Double.MAX_VALUE);
 		valueField.addEventHandler(ActionEvent.ACTION, e -> applyChange(e));
 		valueField.focusedProperty().addListener(e -> setEditionMode());
 		setCenter(valueField);
@@ -33,13 +41,13 @@ public class IntegerEditor extends PropertyEditor{
 
 	@Override
 	protected Object getPropertyValue() {
-		return Integer.parseInt(valueField.getText());  
+		return valueField.getText();  
 	}
 
 	@Override
 	protected void setPropertyValue(Object o) {
-		int v = (Integer)o;
-		valueField.setText(Integer.toString(v));
+		String v = (String)o;
+		valueField.setText(v);
 	}
 	
 	

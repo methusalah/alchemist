@@ -1,4 +1,4 @@
-package presentation.inspector;
+package presentation.inspector.customControl;
 
 
 import java.beans.BeanInfo;
@@ -18,8 +18,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import presentation.inspector.propertyEditor.PropertyEditor;
-import presentation.inspector.propertyEditor.PropertyEditorFactory;
+import presentation.inspector.customControl.propertyEditor.PropertyEditor;
+import presentation.inspector.customControl.propertyEditor.PropertyEditorFactory;
 import presentation.util.Consumer3;
 import presenter.InspectorPresenter;
 import view.UIConfig;

@@ -8,10 +8,10 @@ import javafx.scene.layout.BorderPane;
 import model.ES.component.Naming;
 import model.ES.component.Parenting;
 import model.ES.serial.Blueprint;
+import presentation.hierarchy.customControl.EntityTreeView;
 import presentation.util.ViewLoader;
 import presenter.EditorPlatform;
 import presenter.common.EntityNode;
-import view.controls.EntityTreeView;
 
 public class Hierarchy extends BorderPane {
 	
