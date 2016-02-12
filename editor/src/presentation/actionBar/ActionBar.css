@@ -1,0 +1,7 @@
+.toggle-button {
+	-fx-graphic: url('/resources/play.png');
+}
+
+.toggle-button:selected {
+	-fx-graphic: url('/resources/play2.png');
+}

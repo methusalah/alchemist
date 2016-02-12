@@ -23,6 +23,7 @@ import presentation.common.RunState;
 import presentation.common.SceneInputListener;
 import presentation.common.RunState.State;
 import presentation.util.ViewLoader;
+import util.LogUtil;
 
 public class ActionBar extends BorderPane {
 	
@@ -65,6 +66,7 @@ public class ActionBar extends BorderPane {
 	private EntityDataMemento memento; 
 
 	public void run(){
+		LogUtil.info("start !");
 		memento = EditorPlatform.getEntityData().createMemento();
 		
 		savedListeners.addAll(EditorPlatform.getSceneInputManager().getListeners());
@@ -76,6 +78,7 @@ public class ActionBar extends BorderPane {
 	}
 
 	public void stop(){
+		LogUtil.info("stop !");
 		// entity data restoring
 		EditorPlatform.getSceneInputManager().getListeners().clear();
 		EditorPlatform.getSceneInputManager().getListeners().addAll(savedListeners);

@@ -31,6 +31,7 @@ import model.state.DraggableCameraState;
 import model.state.InstrumentUpdateState;
 import model.state.WorldLocaliserState;
 import presentation.Dragpool;
+import presentation.UIConfig;
 import presentation.common.SceneInputManager;
 import presentation.common.TopDownCamInputListener;
 import presentation.scene.customControl.JmeImageView;
@@ -43,11 +44,7 @@ public class SceneView extends Pane {
 
 	public SceneView() {
 		// presentation
-		if(EditorPlatform.getScene() == null){
-			JmeImageView jmeScene = new JmeImageView();
-			jmeScene.enqueue((app) -> createScene(app, EditorPlatform.getEntityData(), EditorPlatform.getCommand()));
-			EditorPlatform.setScene(jmeScene);
-		}
+		EditorPlatform.getScene().enqueue((app) -> createScene(app, EditorPlatform.getEntityData(), EditorPlatform.getCommand()));
 		
 		camera = new TopDownCamInputListener(EditorPlatform.getScene());
 		EditorPlatform.getSceneInputManager().addListener(camera);
@@ -70,15 +67,15 @@ public class SceneView extends Pane {
 		EditorPlatform.getScene().bind(image);
 		
 		getChildren().add(image);
-		
+		UIConfig.JavaFXScene.addListener((obs, oldValue, newValue) -> registerKeyInputs(newValue));
 	}
 	
 	// VIEW LOGIC
 	public void registerKeyInputs(Scene rootScene){
 		// camera motion
 		rootScene.setOnKeyPressed(e -> {
-			getInputManager().onKeyPressed(e);
 			pressed.add(e.getCode());
+			getInputManager().onKeyPressed(e);
 		});
 		rootScene.setOnKeyReleased(e -> {
 			if(pressed.contains(e.getCode())){

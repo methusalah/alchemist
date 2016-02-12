@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="600.0" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="600.0" stylesheets="@ActionBar.css" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <StackPane BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ToggleButton fx:id="playButton" mnemonicParsing="false" prefHeight="74.0" prefWidth="38.0" style="-fx-graphic: assets\textures\editor\play.png;" text="Play" />
+                  <ToggleButton fx:id="playButton" maxHeight="28.0" maxWidth="71.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="71.0" text="Play" />
                   <Pane prefHeight="25.0" prefWidth="27.0" />
                   <Slider fx:id="tickDurationSlider" prefHeight="25.0" prefWidth="140.0" />
                   <TextField fx:id="tickDurationField" prefHeight="25.0" prefWidth="51.0" />
