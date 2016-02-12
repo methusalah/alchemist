@@ -2,13 +2,10 @@ package view.worldEdition;
 
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
-import javafx.util.Callback;
 import model.ES.serial.Blueprint;
 import model.ES.serial.BlueprintLibrary;
 import presenter.worldEdition.PopulationToolPresenter;

@@ -1,9 +1,9 @@
-package view.instrument.planarStance;
+package presentation.instrument.planarStance;
 
-import presenter.EditorPlatform;
+import model.EditorPlatform;
+import presentation.instrument.InstrumentInputListener;
+import presentation.scene.customControl.JmeImageView;
 import presenter.instrument.PlanarStanceInstrumentPresenter;
-import view.controls.jmeScene.JmeImageView;
-import view.instrument.InstrumentInputListener;
 
 public class PlanarStanceInstrument {
 	private final PlanarStanceInstrumentPresenter presenter;

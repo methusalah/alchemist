@@ -2,20 +2,11 @@ package presentation.inspector.customControl.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
-import presenter.InspectorPresenter;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import presentation.util.Consumer3;
-import util.LogUtil;
-import util.geometry.geom2d.Point2D;
-
 import com.simsilica.es.EntityComponent;
+
+import javafx.event.ActionEvent;
+import javafx.scene.control.TextField;
+import presentation.util.Consumer3;
 
 public class DoubleEditor extends PropertyEditor{
 	

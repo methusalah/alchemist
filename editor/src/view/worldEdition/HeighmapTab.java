@@ -1,15 +1,13 @@
 package view.worldEdition;
 
 import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import presenter.worldEdition.HeightMapToolPresenter;
-import presenter.worldEdition.Tool;
 import presenter.worldEdition.HeightMapToolPresenter.Operation;
+import presenter.worldEdition.Tool;
 import view.controls.custom.IconToggleButton;
 
 public class HeighmapTab extends Tab implements ToolEditor {

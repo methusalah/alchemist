@@ -6,7 +6,6 @@ import java.util.List;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import util.LogUtil;
 
 public class SceneInputManager {
 	private final List<SceneInputListener> listeners = new ArrayList<>();

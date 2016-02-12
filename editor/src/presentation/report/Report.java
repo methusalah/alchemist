@@ -27,10 +27,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
+import model.EditorPlatform;
 import model.ES.component.Naming;
 import presentation.report.customControl.SceneGraphReportTreeView;
 import presentation.util.ViewLoader;
-import presenter.EditorPlatform;
 
 public class Report extends BorderPane {
 

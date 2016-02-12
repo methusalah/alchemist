@@ -1,34 +1,22 @@
-package view.instrument;
+package presentation.instrument;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.g3d.environment.ShadowMap;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
-import com.jme3.light.AmbientLight;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
-import com.jme3.post.FilterPostProcessor;
-import com.jme3.post.filters.BloomFilter;
-import com.jme3.post.filters.FXAAFilter;
-import com.jme3.renderer.Camera;
-import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
-import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 
 import app.AppFacade;
 import controller.SpatialSelector;
 import controller.ECS.SceneSelectorState;
-import javafx.scene.shape.DrawMode;
-import model.state.InstrumentUpdateState;
+import presentation.instrument.customControl.InstrumentPart;
 import presenter.instrument.InstrumentPresenter;
-import util.LogUtil;
 import util.geometry.geom3d.Point3D;
-import view.controls.jmeScene.InstrumentPart;
 import view.math.TranslateUtil;
 
 public abstract class AbstractInstrumentState extends AbstractAppState {

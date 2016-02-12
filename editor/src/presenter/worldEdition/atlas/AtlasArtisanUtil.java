@@ -2,12 +2,11 @@ package presenter.worldEdition.atlas;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
-import util.LogUtil;
-import util.geometry.geom2d.Point2D;
 import model.world.terrain.atlas.Atlas;
 import model.world.terrain.atlas.AtlasLayer;
+import util.LogUtil;
+import util.geometry.geom2d.Point2D;
 
 public abstract class AtlasArtisanUtil {
 

@@ -1,16 +1,16 @@
-package presenter;
+package model;
 
 import controller.ECS.SceneSelectorState;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import model.Command;
 import model.ECS.TraversableEntityData;
+import presentation.instrument.planarStance.PlanarStanceInstrumentState;
+import presentation.scene.customControl.JmeImageView;
 import presenter.common.EntityNode;
 import presenter.common.RunState;
 import presenter.common.SceneInputManager;
 import presenter.util.UserComponentList;
-import view.controls.jmeScene.JmeImageView;
-import view.instrument.planarStance.PlanarStanceInstrumentState;
 
 public class EditorPlatform {
 	private static TraversableEntityData entityData;

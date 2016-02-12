@@ -1,11 +1,9 @@
-package view.instrument.circleCollisionShape;
+package presentation.instrument.circleCollisionShape;
 
-import presenter.EditorPlatform;
+import model.EditorPlatform;
+import presentation.instrument.InstrumentInputListener;
+import presentation.scene.customControl.JmeImageView;
 import presenter.instrument.CircleCollisionShapeInstrumentPresenter;
-import util.LogUtil;
-import view.controls.jmeScene.JmeImageView;
-import view.instrument.InstrumentInputListener;
-import view.instrument.planarStance.PlanarStanceInstrumentState;
 
 public class CircleCollisionShapeInstrument {
 	private final CircleCollisionShapeInstrumentPresenter presenter;

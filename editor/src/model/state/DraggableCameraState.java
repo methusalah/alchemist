@@ -1,8 +1,5 @@
 package model.state;
 
-import util.geometry.geom2d.Point2D;
-import view.math.TranslateUtil;
-
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.collision.MotionAllowedListener;
 import com.jme3.input.InputManager;
@@ -10,6 +7,9 @@ import com.jme3.math.Matrix3f;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+
+import util.geometry.geom2d.Point2D;
+import view.math.TranslateUtil;
 
 public class DraggableCameraState extends AbstractAppState {
 	private static String[] mappings = new String[] { "FLYCAM_Left", "FLYCAM_Right", "FLYCAM_Up", "FLYCAM_Down",

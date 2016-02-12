@@ -2,17 +2,14 @@ package presentation.inspector.customControl.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
-import presenter.InspectorPresenter;
-import util.geometry.geom3d.Point3D;
+import com.simsilica.es.EntityComponent;
+
 import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import presentation.util.Consumer3;
-
-import com.simsilica.es.EntityComponent;
+import util.geometry.geom3d.Point3D;
 
 public class Point3DEditor extends PropertyEditor{
 	private static final int WIDTH = 60;

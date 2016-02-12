@@ -3,7 +3,6 @@ package view.controls.custom;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

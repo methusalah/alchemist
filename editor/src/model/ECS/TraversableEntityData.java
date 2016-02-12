@@ -5,13 +5,11 @@ import java.util.Map;
 
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityId;
-import com.simsilica.es.base.DefaultEntityData;
 
 import javafx.application.Platform;
 import model.ES.component.Naming;
 import model.ES.component.Parenting;
 import presenter.common.EntityNode;
-import util.LogUtil;
 
 /***
  * A Sepacialized EntityData that maintain a tree of nodes representing the hierarchy of the entities and their components
@@ -97,7 +95,7 @@ public class TraversableEntityData extends SavableEntityData{
 					rootEntityNode.childrenListProperty().add(node);
 			} else if(compClass == Naming.class){
 				Naming naming = (Naming)newComp;
-				node.nameProperty().setValue(newComp == null? "Unnamed" + eid : naming.getName() + eid);
+				node.nameProperty().setValue(newComp == null? "Unnamed" : naming.getName());
 			}
 			
 			if(node != null){

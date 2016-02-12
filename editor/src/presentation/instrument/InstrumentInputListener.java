@@ -1,4 +1,4 @@
-package view.instrument;
+package presentation.instrument;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
@@ -8,9 +8,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import presentation.scene.customControl.JmeImageView;
 import presenter.common.SceneInputListener;
 import util.geometry.geom2d.Point2D;
-import view.controls.jmeScene.JmeImageView;
 
 public class InstrumentInputListener implements SceneInputListener {
 	private final JmeImageView jme;

@@ -1,14 +1,14 @@
-package view.controls.jmeScene;
+package presentation.scene.customControl;
 
 import java.util.concurrent.Future;
 import java.util.function.Function;
-
-import javafx.scene.image.ImageView;
 
 import com.jme3.app.DebugKeysAppState;
 import com.jme3.app.SimpleApplication;
 import com.jme3.system.AppSettings;
 import com.jme3x.jfx.injfx.SceneProcessorCopyToImageView;
+
+import javafx.scene.image.ImageView;
 
 /**
  * JmeForImageView create a jme'SimpleApplication viewable into an JavaFX's ImageView.

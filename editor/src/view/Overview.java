@@ -11,20 +11,21 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.EditorPlatform;
+import presentation.instrument.circleCollisionShape.CircleCollisionShapeInstrument;
+import presentation.instrument.planarStance.PlanarStanceInstrument;
 import presentation.resources.ResourcesTab;
-import presenter.EditorPlatform;
+import presentation.scene.SceneTab;
 import presenter.OverviewPresenter;
 import presenter.util.UserComponentList;
-import view.instrument.circleCollisionShape.CircleCollisionShapeInstrument;
-import view.instrument.planarStance.PlanarStanceInstrument;
 
 public class Overview {
 	private final OverviewPresenter presenter = new OverviewPresenter();
 	
 	public Overview(Stage stage) throws IOException {
-		SceneView sceneViewer = new SceneView();
+		SceneTab sceneViewer = new SceneTab();
 		
-		BorderPane scenePane = new BorderPane(sceneViewer, new RunPanel(), null, null, null);
+		BorderPane scenePane = new BorderPane(new TabPane(sceneViewer), new RunPanel(), null, null, null);
 		SplitPane leftRegion = new SplitPane(new TabPane(new presentation.hierarchy.HierarchyTab()), new TabPane(new ResourcesTab()));
 		leftRegion.setOrientation(Orientation.VERTICAL);
 		
@@ -51,7 +52,7 @@ public class Overview {
 		} catch (MalformedURLException e1) {
 			e1.printStackTrace();
 		}
-		sceneViewer.registerKeyInputs(s);
+		((presentation.scene.SceneView)sceneViewer.getContent()).registerKeyInputs(s);
 		stage.setScene(s);
 		stage.show();
 		stage.setTitle("Alchimist, Zay's Entity Editor");

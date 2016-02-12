@@ -3,15 +3,15 @@ package presenter.instrument;
 import com.simsilica.es.EntityId;
 
 import controller.SpatialSelector;
+import model.EditorPlatform;
 import model.ES.component.motion.PlanarStance;
-import presenter.EditorPlatform;
+import presentation.instrument.planarStance.PlanarStanceInstrument;
 import presenter.common.EntityNode;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 import util.math.AngleUtil;
 import view.UIConfig;
-import view.instrument.planarStance.PlanarStanceInstrument;
 
 public class PlanarStanceInstrumentPresenter implements InstrumentPresenter{
 	public enum Tool{X, Y, Z, XY, YAW};

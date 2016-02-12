@@ -2,18 +2,13 @@ package presentation.inspector.customControl.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
-import presenter.InspectorPresenter;
+import com.simsilica.es.EntityComponent;
+
+import javafx.event.ActionEvent;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.paint.Color;
 import model.ES.richData.ColorData;
 import presentation.util.Consumer3;
-import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-
-import com.simsilica.es.EntityComponent;
 
 public class ColorDataEditor extends PropertyEditor{
 	

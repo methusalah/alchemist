@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.AppFacade;
+import model.EditorPlatform;
 import model.ES.processor.world.WorldProc;
 import model.world.Region;
 import model.world.terrain.heightmap.HeightMapNode;
-import presenter.EditorPlatform;
 import presenter.util.ToggledEnumProperty;
 import util.geometry.geom2d.Point2D;
 import util.math.RandomUtil;

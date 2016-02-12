@@ -8,7 +8,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import presenter.EditorPlatform;
 import presenter.WorldEditorPresenter;
 import util.geometry.geom2d.Point2D;
 

@@ -1,14 +1,14 @@
-package view.instrument.circleCollisionShape;
+package presentation.instrument.circleCollisionShape;
 
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.shape.Torus;
 
 import app.AppFacade;
+import presentation.instrument.AbstractInstrumentState;
+import presentation.instrument.customControl.InstrumentPart;
 import presenter.instrument.CircleCollisionShapeInstrumentPresenter;
 import util.geometry.geom3d.Point3D;
-import view.controls.jmeScene.InstrumentPart;
-import view.instrument.AbstractInstrumentState;
 import view.math.TranslateUtil;
 
 public class CircleCollisionShapeInstrumentState extends AbstractInstrumentState {

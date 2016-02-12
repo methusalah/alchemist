@@ -2,17 +2,12 @@ package presentation.inspector.customControl.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
-import presenter.InspectorPresenter;
+import com.simsilica.es.EntityComponent;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import presentation.util.Consumer3;
-
-import com.simsilica.es.EntityComponent;
 
 public class EnumEditor extends PropertyEditor{
 	ChoiceBox<Object> choiceBox;

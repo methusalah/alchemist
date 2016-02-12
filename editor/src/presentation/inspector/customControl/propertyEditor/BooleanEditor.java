@@ -2,15 +2,11 @@ package presentation.inspector.customControl.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
-import presenter.InspectorPresenter;
-import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
-import javafx.scene.control.CheckBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import presentation.util.Consumer3;
-
 import com.simsilica.es.EntityComponent;
+
+import javafx.event.ActionEvent;
+import javafx.scene.control.CheckBox;
+import presentation.util.Consumer3;
 
 public class BooleanEditor extends PropertyEditor{
 	

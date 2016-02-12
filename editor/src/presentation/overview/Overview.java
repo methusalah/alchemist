@@ -3,8 +3,8 @@ package presentation.overview;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import model.EditorPlatform;
 import presentation.hierarchy.Hierarchy;
-import presenter.EditorPlatform;
 
 public class Overview {
 	

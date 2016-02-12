@@ -5,12 +5,12 @@ import com.simsilica.es.EntityId;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.BorderPane;
+import model.EditorPlatform;
 import model.ES.component.Naming;
 import model.ES.component.Parenting;
 import model.ES.serial.Blueprint;
 import presentation.hierarchy.customControl.EntityTreeView;
 import presentation.util.ViewLoader;
-import presenter.EditorPlatform;
 import presenter.common.EntityNode;
 
 public class Hierarchy extends BorderPane {
@@ -19,6 +19,12 @@ public class Hierarchy extends BorderPane {
 	
 	public Hierarchy() {
 		ViewLoader.loadFXMLForControl(this);
+		EditorPlatform.getSelectionProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue == null)
+				clearSelection();
+			else
+				updateSelection(newValue);
+		});
 	}
 	
 	@FXML

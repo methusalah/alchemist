@@ -1,21 +1,16 @@
-package view.controls.jmeScene;
+package presentation.instrument.customControl;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 import com.google.common.collect.Iterables;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
-import com.jme3.renderer.Camera;
-import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 
-import app.AppFacade;
 import util.geometry.geom3d.Point3D;
 import view.material.MaterialManager;
 import view.math.TranslateUtil;

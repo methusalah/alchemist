@@ -3,13 +3,10 @@ package presentation.commonControl;
 
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 

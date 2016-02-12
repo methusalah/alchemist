@@ -1,6 +1,7 @@
 package presenter;
 
 import model.Command;
+import model.EditorPlatform;
 import model.ECS.TraversableEntityData;
 import presenter.util.UserComponentList;
 

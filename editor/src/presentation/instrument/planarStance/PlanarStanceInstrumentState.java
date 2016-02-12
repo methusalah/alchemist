@@ -1,21 +1,18 @@
-package view.instrument.planarStance;
+package presentation.instrument.planarStance;
 
 
-import com.jme3.app.state.AppStateManager;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Torus;
 
-import model.state.InstrumentUpdateState;
+import presentation.instrument.AbstractInstrumentState;
+import presentation.instrument.customControl.InstrumentPart;
 import presenter.instrument.PlanarStanceInstrumentPresenter;
 import presenter.instrument.PlanarStanceInstrumentPresenter.Tool;
-import util.LogUtil;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
-import view.controls.jmeScene.InstrumentPart;
-import view.instrument.AbstractInstrumentState;
 import view.jme.Cone;
 import view.math.TranslateUtil;
 

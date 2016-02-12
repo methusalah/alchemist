@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.OverrunStyle;
 import javafx.scene.layout.BorderPane;
 import presentation.util.Consumer3;
-import presenter.InspectorPresenter;
 
 public abstract class PropertyEditor extends BorderPane {
 	protected final DecimalFormat df;

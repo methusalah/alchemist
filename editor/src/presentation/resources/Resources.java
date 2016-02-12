@@ -10,24 +10,14 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 import model.ES.component.Parenting;
 import model.ES.serial.Blueprint;
 import model.ES.serial.BlueprintLibrary;
 import presentation.resources.customControl.BlueprintListView;
-import presentation.util.Dragpool;
 import presentation.util.ViewLoader;
 import presenter.common.EntityNode;
 import presenter.util.BlueprintComparator;
-import util.LogUtil;
 
 
 public class Resources extends BorderPane {

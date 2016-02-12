@@ -2,21 +2,13 @@ package presentation.inspector.customControl.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
-import presenter.InspectorPresenter;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import presentation.util.Consumer3;
-import util.LogUtil;
-import util.geometry.geom2d.Point2D;
-import view.controls.custom.KeyReleasedConsumingTextField;
-
 import com.simsilica.es.EntityComponent;
+
+import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import presentation.util.Consumer3;
 
 public class StringEditor extends PropertyEditor{
 	

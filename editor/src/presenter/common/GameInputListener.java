@@ -3,22 +3,17 @@ package presenter.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jme3.app.SimpleApplication;
+
+import controller.ECS.DataState;
+import controller.ECS.SceneSelectorState;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import model.Command;
-import util.LogUtil;
+import presentation.scene.customControl.JmeImageView;
 import util.geometry.geom2d.Point2D;
-import view.controls.jmeScene.JmeImageView;
-
-import com.jme3.app.SimpleApplication;
-import com.jme3.app.state.AppStateManager;
-import com.jme3x.jfx.injfx.JmeForImageView;
-
-import controller.ECS.DataState;
-import controller.ECS.SceneSelectorState;
-import controller.topdown.TopdownMapping;
 
 public class GameInputListener implements SceneInputListener {
 	private static enum ActionType {StartPrimary,

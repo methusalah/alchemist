@@ -4,7 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
-import presenter.EditorPlatform;
+import model.EditorPlatform;
 import presenter.WorldEditorPresenter;
 import presenter.common.WorldEditorInputListener;
 import presenter.worldEdition.WorldTool;

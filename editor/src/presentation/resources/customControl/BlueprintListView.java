@@ -7,11 +7,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.util.Callback;
 import model.ES.serial.Blueprint;
 import presentation.Dragpool;
 import presenter.common.EntityNode;
-import util.LogUtil;
 
 public class BlueprintListView extends ListView<Blueprint>{
 	

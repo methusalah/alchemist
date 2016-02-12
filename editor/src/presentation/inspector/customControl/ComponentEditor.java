@@ -21,7 +21,6 @@ import javafx.scene.layout.VBox;
 import presentation.inspector.customControl.propertyEditor.PropertyEditor;
 import presentation.inspector.customControl.propertyEditor.PropertyEditorFactory;
 import presentation.util.Consumer3;
-import presenter.InspectorPresenter;
 import view.UIConfig;
 
 public class ComponentEditor extends TitledPane {

@@ -1,17 +1,14 @@
 package presenter.common;
 
-import model.state.DraggableCameraState;
-
 import com.jme3.app.SimpleApplication;
-import com.jme3x.jfx.injfx.JmeForImageView;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import model.state.DraggableCameraState;
+import presentation.scene.customControl.JmeImageView;
 import util.geometry.geom2d.Point2D;
-import view.controls.jmeScene.JmeImageView;
 
 public class TopDownCamInputListener implements SceneInputListener{
 	private final JmeImageView jme;

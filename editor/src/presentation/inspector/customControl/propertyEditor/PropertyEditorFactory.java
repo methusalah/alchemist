@@ -4,8 +4,6 @@ import java.beans.PropertyDescriptor;
 import java.util.List;
 import java.util.Map;
 
-import presenter.InspectorPresenter;
-
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityId;
 

@@ -25,9 +25,6 @@ public class EntityTreeView extends TreeView<EntityNode> {
 		configureCellFactoryForDragAndDrop();
 	}
 	
-	public void setRootNode(){
-	}
-	
 	private void addItem(EntityNodeItem parent, EntityNode ep){
 		EntityNodeItem i = new EntityNodeItem(ep);
 		parent.getChildren().add(i);

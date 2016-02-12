@@ -1,10 +1,8 @@
 package presentation.util;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import util.LogUtil;
 
 public class ViewLoader {

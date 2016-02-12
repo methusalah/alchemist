@@ -11,7 +11,6 @@ import controller.SceneGraphReportNode;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import util.LogUtil;
 
 public class SceneGraphReportTreeView extends TreeView<SceneGraphReportNode>{
 
