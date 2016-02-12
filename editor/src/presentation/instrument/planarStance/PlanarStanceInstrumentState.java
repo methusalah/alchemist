@@ -9,8 +9,7 @@ import com.jme3.scene.shape.Torus;
 
 import presentation.instrument.AbstractInstrumentState;
 import presentation.instrument.customControl.InstrumentPart;
-import presenter.instrument.PlanarStanceInstrumentPresenter;
-import presenter.instrument.PlanarStanceInstrumentPresenter.Tool;
+import presentation.instrument.planarStance.PlanarStanceInstrumentPresenter.Tool;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
 import view.jme.Cone;

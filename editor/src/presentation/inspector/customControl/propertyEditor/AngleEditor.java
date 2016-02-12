@@ -7,7 +7,7 @@ import com.simsilica.es.EntityComponent;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import presentation.commonControl.Knob;
+import presentation.control.Knob;
 import presentation.util.Consumer3;
 import util.math.Angle;
 import util.math.AngleUtil;

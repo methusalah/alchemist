@@ -14,10 +14,10 @@ import javafx.scene.layout.BorderPane;
 import model.ES.component.Parenting;
 import model.ES.serial.Blueprint;
 import model.ES.serial.BlueprintLibrary;
+import presentation.common.EntityNode;
 import presentation.resources.customControl.BlueprintListView;
+import presentation.util.BlueprintComparator;
 import presentation.util.ViewLoader;
-import presenter.common.EntityNode;
-import presenter.util.BlueprintComparator;
 
 
 public class Resources extends BorderPane {

@@ -7,7 +7,6 @@ import com.jme3.scene.shape.Torus;
 import app.AppFacade;
 import presentation.instrument.AbstractInstrumentState;
 import presentation.instrument.customControl.InstrumentPart;
-import presenter.instrument.CircleCollisionShapeInstrumentPresenter;
 import util.geometry.geom3d.Point3D;
 import view.math.TranslateUtil;
 

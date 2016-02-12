@@ -15,7 +15,6 @@ import app.AppFacade;
 import controller.SpatialSelector;
 import controller.ECS.SceneSelectorState;
 import presentation.instrument.customControl.InstrumentPart;
-import presenter.instrument.InstrumentPresenter;
 import util.geometry.geom3d.Point3D;
 import view.math.TranslateUtil;
 

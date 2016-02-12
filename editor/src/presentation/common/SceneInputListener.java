@@ -1,4 +1,4 @@
-package presenter.common;
+package presentation.common;
 
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;

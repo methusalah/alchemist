@@ -8,8 +8,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import presentation.common.SceneInputListener;
 import presentation.scene.customControl.JmeImageView;
-import presenter.common.SceneInputListener;
 import util.geometry.geom2d.Point2D;
 
 public class InstrumentInputListener implements SceneInputListener {

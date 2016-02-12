@@ -31,9 +31,9 @@ import model.state.DraggableCameraState;
 import model.state.InstrumentUpdateState;
 import model.state.WorldLocaliserState;
 import presentation.Dragpool;
+import presentation.common.SceneInputManager;
+import presentation.common.TopDownCamInputListener;
 import presentation.scene.customControl.JmeImageView;
-import presenter.common.SceneInputManager;
-import presenter.common.TopDownCamInputListener;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 

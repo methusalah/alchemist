@@ -13,11 +13,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.world.terrain.TerrainTexture;
+import presentation.control.IconToggleButton;
+import presentation.control.TerrainTextureButton;
 import presenter.worldEdition.Tool;
 import presenter.worldEdition.atlas.AtlasToolPresenter;
 import presenter.worldEdition.atlas.AtlasToolPresenter.Operation;
-import view.controls.custom.IconToggleButton;
-import view.controls.custom.TerrainTextureButton;
 
 public class AtlasTab extends Tab implements ToolEditor {
 	private final AtlasToolPresenter presenter;

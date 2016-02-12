@@ -8,7 +8,7 @@ import model.EditorPlatform;
 import model.ES.processor.world.WorldProc;
 import model.world.Region;
 import model.world.terrain.heightmap.HeightMapNode;
-import presenter.util.ToggledEnumProperty;
+import presentation.util.ToggledEnumProperty;
 import util.geometry.geom2d.Point2D;
 import util.math.RandomUtil;
 

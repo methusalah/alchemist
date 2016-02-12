@@ -7,7 +7,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import presenter.util.ToggledEnumProperty;
+import presentation.util.ToggledEnumProperty;
 import util.geometry.collections.PointRing;
 import util.geometry.geom2d.BoundingCircle;
 import util.geometry.geom2d.Point2D;

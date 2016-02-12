@@ -7,10 +7,10 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import presentation.control.IconToggleButton;
 import presenter.worldEdition.PencilToolPresenter;
 import presenter.worldEdition.PencilToolPresenter.Mode;
 import presenter.worldEdition.PencilToolPresenter.Shape;
-import view.controls.custom.IconToggleButton;
 
 public class PencilEditor extends BorderPane {
 	private final PencilToolPresenter tool;

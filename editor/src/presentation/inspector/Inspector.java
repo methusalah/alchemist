@@ -20,9 +20,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import model.EditorPlatform;
+import presentation.common.EntityNode;
 import presentation.inspector.customControl.ComponentEditor;
 import presentation.util.ViewLoader;
-import presenter.common.EntityNode;
 import util.LogUtil;
 
 public class Inspector extends BorderPane {

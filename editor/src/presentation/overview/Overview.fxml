@@ -21,43 +21,19 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TitledPane?>
 
-<SplitPane fx:id="root" dividerPositions="0.2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
-	<items>
-		<SplitPane fx:id="leftRegion" orientation="VERTICAL">
-			<items>
-				<TabPane>
-               <tabs>
-                  
-               </tabs>
-				</TabPane>
-			</items>
-		</SplitPane>
-		<TabPane fx:id="editors" maxHeight="500.0" minWidth="300.0">
-			<tabs>
-				<Tab fx:id="inspectorTab" closable="false" text="Inspector">
-               <content>
-                  <ScrollPane>
-                  	<VBox>
-                     <children>
-                        <Label text=" " />
-				<VBox fx:id="compControl">
-					<children>
-
-					</children>
-
-				</VBox>
-				<Button text="Add component" visible="false" />
-			</children>
-			</VBox>
-			</ScrollPane>
-			</content>
-			</Tab>
-				<Tab fx:id="worldEditorTab">
-					<content>
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-					</content>
-				</Tab>
-			</tabs>
-		</TabPane>
-	</items>
-</SplitPane>
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1600.0" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <SplitPane dividerPositions="0.1927409261576971, 0.7878598247809763" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+            <SplitPane dividerPositions="0.6106471816283925" orientation="VERTICAL" prefHeight="160.0" prefWidth="200.0">
+               <items>
+                  <TabPane fx:id="hierarchyTabPane" tabClosingPolicy="UNAVAILABLE" />
+                  <TabPane fx:id="resourcesTabPane" tabClosingPolicy="UNAVAILABLE" />
+               </items>
+            </SplitPane>
+            <TabPane fx:id="sceneViewTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" />
+            <TabPane fx:id="inspectorTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" />
+        </items>
+      </SplitPane>
+   </center>
+</fx:root>

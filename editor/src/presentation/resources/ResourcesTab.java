@@ -1,6 +1,6 @@
 package presentation.resources;
 
-import presentation.commonControl.OverviewTab;
+import presentation.control.OverviewTab;
 import presentation.util.ViewLoader;
 
 public class ResourcesTab extends OverviewTab {

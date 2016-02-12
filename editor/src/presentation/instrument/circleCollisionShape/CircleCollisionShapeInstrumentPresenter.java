@@ -1,14 +1,14 @@
-package presenter.instrument;
+package presentation.instrument.circleCollisionShape;
 
 import com.simsilica.es.EntityId;
 
 import model.EditorPlatform;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.physic.CircleCollisionShape;
-import presentation.instrument.circleCollisionShape.CircleCollisionShapeInstrument;
+import presentation.UIConfig;
+import presentation.instrument.InstrumentPresenter;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
-import view.UIConfig;
 
 public class CircleCollisionShapeInstrumentPresenter implements InstrumentPresenter{
 	private final CircleCollisionShapeInstrument view;

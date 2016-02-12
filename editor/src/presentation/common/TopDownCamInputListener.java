@@ -1,4 +1,4 @@
-package presenter.common;
+package presentation.common;
 
 import com.jme3.app.SimpleApplication;
 

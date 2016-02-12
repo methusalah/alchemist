@@ -18,10 +18,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import presentation.UIConfig;
 import presentation.inspector.customControl.propertyEditor.PropertyEditor;
 import presentation.inspector.customControl.propertyEditor.PropertyEditorFactory;
 import presentation.util.Consumer3;
-import view.UIConfig;
 
 public class ComponentEditor extends TitledPane {
 	final Consumer<Class<? extends EntityComponent>> removeCompFunction;

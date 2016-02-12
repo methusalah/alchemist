@@ -1,4 +1,4 @@
-package presentation.commonControl;
+package presentation.control;
 
 import javafx.scene.control.Tab;
 

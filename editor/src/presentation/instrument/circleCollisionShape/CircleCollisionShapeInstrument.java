@@ -3,7 +3,6 @@ package presentation.instrument.circleCollisionShape;
 import model.EditorPlatform;
 import presentation.instrument.InstrumentInputListener;
 import presentation.scene.customControl.JmeImageView;
-import presenter.instrument.CircleCollisionShapeInstrumentPresenter;
 
 public class CircleCollisionShapeInstrument {
 	private final CircleCollisionShapeInstrumentPresenter presenter;

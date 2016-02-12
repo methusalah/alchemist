@@ -1,4 +1,4 @@
-package presenter.common;
+package presentation.common;
 
 public class RunState {
 	public enum State{Run, Stop, Pause}

@@ -1,4 +1,4 @@
-package view.controls.custom;
+package presentation.control;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

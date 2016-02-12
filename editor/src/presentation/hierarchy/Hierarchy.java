@@ -9,9 +9,9 @@ import model.EditorPlatform;
 import model.ES.component.Naming;
 import model.ES.component.Parenting;
 import model.ES.serial.Blueprint;
+import presentation.common.EntityNode;
 import presentation.hierarchy.customControl.EntityTreeView;
 import presentation.util.ViewLoader;
-import presenter.common.EntityNode;
 
 public class Hierarchy extends BorderPane {
 	

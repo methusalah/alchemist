@@ -1,4 +1,4 @@
-package presenter.instrument;
+package presentation.instrument;
 
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;

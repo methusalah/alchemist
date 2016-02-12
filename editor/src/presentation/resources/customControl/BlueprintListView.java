@@ -9,13 +9,15 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import model.ES.serial.Blueprint;
 import presentation.Dragpool;
-import presenter.common.EntityNode;
+import presentation.common.EntityNode;
 
 public class BlueprintListView extends ListView<Blueprint>{
 	
 	Consumer<EntityNode> saveEntityFunction = null;
 	
 	public BlueprintListView() {
+		setPrefSize(USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
+		setMaxSize(USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
 		setCellFactory(callback -> {
 			ListCell<Blueprint> cell = new ListCell<Blueprint>() {
 

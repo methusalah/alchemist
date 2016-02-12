@@ -1,6 +1,6 @@
 package presentation.scene;
 
-import presentation.commonControl.OverviewTab;
+import presentation.control.OverviewTab;
 
 public class SceneTab extends OverviewTab {
 

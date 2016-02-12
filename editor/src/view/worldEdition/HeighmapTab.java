@@ -5,10 +5,10 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import presentation.control.IconToggleButton;
 import presenter.worldEdition.HeightMapToolPresenter;
 import presenter.worldEdition.HeightMapToolPresenter.Operation;
 import presenter.worldEdition.Tool;
-import view.controls.custom.IconToggleButton;
 
 public class HeighmapTab extends Tab implements ToolEditor {
 	private final HeightMapToolPresenter presenter;

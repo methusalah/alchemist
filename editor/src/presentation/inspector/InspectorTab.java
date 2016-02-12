@@ -1,6 +1,6 @@
 package presentation.inspector;
 
-import presentation.commonControl.OverviewTab;
+import presentation.control.OverviewTab;
 
 public class InspectorTab extends OverviewTab {
 

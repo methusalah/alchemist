@@ -1,6 +1,6 @@
 package presentation.report;
 
-import presentation.commonControl.OverviewTab;
+import presentation.control.OverviewTab;
 
 public class ReportTab extends OverviewTab {
 

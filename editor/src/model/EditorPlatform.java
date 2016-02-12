@@ -5,12 +5,12 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import model.Command;
 import model.ECS.TraversableEntityData;
+import presentation.common.EntityNode;
+import presentation.common.RunState;
+import presentation.common.SceneInputManager;
 import presentation.instrument.planarStance.PlanarStanceInstrumentState;
 import presentation.scene.customControl.JmeImageView;
-import presenter.common.EntityNode;
-import presenter.common.RunState;
-import presenter.common.SceneInputManager;
-import presenter.util.UserComponentList;
+import presentation.util.UserComponentList;
 
 public class EditorPlatform {
 	private static TraversableEntityData entityData;

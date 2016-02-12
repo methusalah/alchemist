@@ -3,7 +3,6 @@ package presentation.instrument.planarStance;
 import model.EditorPlatform;
 import presentation.instrument.InstrumentInputListener;
 import presentation.scene.customControl.JmeImageView;
-import presenter.instrument.PlanarStanceInstrumentPresenter;
 
 public class PlanarStanceInstrument {
 	private final PlanarStanceInstrumentPresenter presenter;

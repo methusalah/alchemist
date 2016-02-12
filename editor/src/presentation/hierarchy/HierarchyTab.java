@@ -1,6 +1,6 @@
 package presentation.hierarchy;
 
-import presentation.commonControl.OverviewTab;
+import presentation.control.OverviewTab;
 
 public class HierarchyTab extends OverviewTab {
 

@@ -16,7 +16,7 @@ import model.world.Region;
 import model.world.terrain.TerrainTexture;
 import model.world.terrain.atlas.Atlas;
 import model.world.terrain.atlas.AtlasLayer;
-import presenter.util.ToggledEnumProperty;
+import presentation.util.ToggledEnumProperty;
 import presenter.worldEdition.PencilToolPresenter;
 import util.geometry.geom2d.Point2D;
 import view.worldEdition.AtlasTab;

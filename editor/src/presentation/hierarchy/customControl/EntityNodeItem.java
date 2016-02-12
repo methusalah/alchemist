@@ -2,8 +2,8 @@ package presentation.hierarchy.customControl;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.TreeItem;
-import presenter.common.EntityNode;
-import view.UIConfig;
+import presentation.UIConfig;
+import presentation.common.EntityNode;
 
 public class EntityNodeItem extends TreeItem<EntityNode> {
 	
