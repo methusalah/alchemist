@@ -1,4 +1,4 @@
-package view.controls.propertyEditor;
+package presentation.inspector.propertyEditor;
 
 import java.beans.PropertyDescriptor;
 
@@ -6,20 +6,24 @@ import presenter.InspectorPresenter;
 
 import com.simsilica.es.EntityComponent;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import presentation.util.Consumer3;
 import util.math.Angle;
 import util.math.AngleUtil;
+import util.math.Fraction;
 import view.controls.Knob;
 
-public class AngleEditor extends PropertyEditor{
+public class FractionEditor extends PropertyEditor{
 	TextField valueField;
-	Knob knob;
+	Slider slider;
 	
-	public AngleEditor(EntityComponent comp, PropertyDescriptor pd, Consumer3<EntityComponent, String, Object> updateCompFunction) {
+	public FractionEditor(EntityComponent comp, PropertyDescriptor pd, Consumer3<EntityComponent, String, Object> updateCompFunction) {
 		super(comp, pd, updateCompFunction);
 	}
 
@@ -34,38 +38,33 @@ public class AngleEditor extends PropertyEditor{
 		valueField.focusedProperty().addListener(e -> setEditionMode());
 		box.getChildren().add(valueField);
 		
-		knob = new Knob(0);
-		knob.addEventHandler(ActionEvent.ACTION, e -> applyChange(e));
-		knob.focusedProperty().addListener(e -> setEditionMode());
-		box.getChildren().add(knob);
+		slider = new Slider();
+		slider.setMax(1);
+		slider.setMin(0);
+		slider.focusedProperty().addListener(e -> setEditionMode());
+		slider.valueProperty().addListener(e -> applyChange(new ActionEvent(slider, null)));
+		box.getChildren().add(slider);
 	}
 
 	@Override
 	protected Object getPropertyValue() {
-		return new Angle(AngleUtil.toRadians(knob.getOrientation()));
+		return new Fraction(Double.parseDouble(valueField.getText()));
 	}
 
 	@Override
 	protected void setPropertyValue(Object o) {
-		Angle a = (Angle)o;
-		valueField.setText(df.format(AngleUtil.toDegrees(a.getValue())));
-		knob.setOrientation(AngleUtil.toDegrees(a.getValue()));
+		Fraction a = (Fraction)o;
+		valueField.setText(df.format(a.getValue()));
+		slider.setValue(a.getValue());
 	}
 	
 	@Override
 	protected void applyChange(ActionEvent event) {
-		if(event.getSource() == knob)
-			valueField.setText(df.format(knob.getOrientation()));
+		if(event.getSource() == slider)
+			valueField.setText(df.format(slider.getValue()));
 		else{
-			// we normalize the angle if the user input is out of range
-			double angle = Double.parseDouble(valueField.getText());
-			angle = AngleUtil.toDegrees(AngleUtil.normalize(AngleUtil.toRadians(angle)));
-			valueField.setText(df.format(angle));
-			knob.setOrientation(angle);
+			slider.setValue(Double.parseDouble(valueField.getText()));
 		}
 		super.applyChange(event);
 	}
-	
-	
-
 }

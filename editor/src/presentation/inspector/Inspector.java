@@ -24,7 +24,6 @@ import presenter.EditorPlatform;
 import presenter.common.EntityNode;
 import util.LogUtil;
 import view.InspectorTab;
-import view.controls.ComponentEditor;
 
 public class Inspector extends BorderPane {
 

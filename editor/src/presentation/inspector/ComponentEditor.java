@@ -1,4 +1,4 @@
-package view.controls;
+package presentation.inspector;
 
 
 import java.beans.BeanInfo;
@@ -18,11 +18,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import presentation.inspector.propertyEditor.PropertyEditor;
+import presentation.inspector.propertyEditor.PropertyEditorFactory;
 import presentation.util.Consumer3;
 import presenter.InspectorPresenter;
 import view.UIConfig;
-import view.controls.propertyEditor.PropertyEditor;
-import view.controls.propertyEditor.PropertyEditorFactory;
 
 public class ComponentEditor extends TitledPane {
 	final Consumer<Class<? extends EntityComponent>> removeCompFunction;
