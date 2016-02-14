@@ -6,7 +6,7 @@ import app.AppFacade;
 import controller.SpatialSelector;
 import model.EditorPlatform;
 import model.ES.processor.world.WorldProc;
-import presenter.worldEdition.WorldTool;
+import presentation.worldEditor.presenter.WorldTool;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import view.WorldEditorTab;
@@ -14,12 +14,7 @@ import view.WorldEditorTab;
 public class WorldEditorPresenter {
 	private WorldTool selectedTool = null;
 	
-	public WorldEditorPresenter(WorldEditorTab view) {
-	}
-
 	public void selectTool(WorldTool tool){
-		LogUtil.info("select tool " + tool);
-
 		selectedTool = tool;
 		EditorPlatform.getSelectionProperty().setValue(null);
 	}

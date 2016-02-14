@@ -1,4 +1,4 @@
-package presenter.worldEdition;
+package presentation.worldEditor.presenter;
 
 import controller.ECS.SceneSelectorState;
 

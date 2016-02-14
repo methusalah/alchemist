@@ -8,8 +8,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import model.ES.serial.Blueprint;
 import model.ES.serial.BlueprintLibrary;
-import presenter.worldEdition.PopulationToolPresenter;
-import presenter.worldEdition.Tool;
+import presentation.worldEditor.presenter.PopulationToolPresenter;
+import presentation.worldEditor.presenter.Tool;
 
 public class PopulationTab extends Tab implements ToolEditor {
 	private final ListProperty<Blueprint> blueprintList;

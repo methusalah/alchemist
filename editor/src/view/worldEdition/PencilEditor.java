@@ -8,9 +8,9 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import presentation.control.IconToggleButton;
-import presenter.worldEdition.PencilToolPresenter;
-import presenter.worldEdition.PencilToolPresenter.Mode;
-import presenter.worldEdition.PencilToolPresenter.Shape;
+import presentation.worldEditor.presenter.PencilToolPresenter;
+import presentation.worldEditor.presenter.PencilToolPresenter.Mode;
+import presentation.worldEditor.presenter.PencilToolPresenter.Shape;
 
 public class PencilEditor extends BorderPane {
 	private final PencilToolPresenter tool;

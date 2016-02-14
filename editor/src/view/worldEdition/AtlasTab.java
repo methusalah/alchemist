@@ -15,9 +15,9 @@ import javafx.scene.layout.VBox;
 import model.world.terrain.TerrainTexture;
 import presentation.control.IconToggleButton;
 import presentation.control.TerrainTextureButton;
-import presenter.worldEdition.Tool;
-import presenter.worldEdition.atlas.AtlasToolPresenter;
-import presenter.worldEdition.atlas.AtlasToolPresenter.Operation;
+import presentation.worldEditor.presenter.Tool;
+import presentation.worldEditor.presenter.atlas.AtlasToolPresenter;
+import presentation.worldEditor.presenter.atlas.AtlasToolPresenter.Operation;
 
 public class AtlasTab extends Tab implements ToolEditor {
 	private final AtlasToolPresenter presenter;

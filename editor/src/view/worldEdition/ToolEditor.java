@@ -1,6 +1,6 @@
 package view.worldEdition;
 
-import presenter.worldEdition.Tool;
+import presentation.worldEditor.presenter.Tool;
 
 public interface ToolEditor {
 

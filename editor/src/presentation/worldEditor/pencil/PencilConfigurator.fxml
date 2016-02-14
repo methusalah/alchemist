@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.0" prefWidth="536.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <center>
+            <HBox prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ToggleButton mnemonicParsing="false" text="ToggleButton" />
+                  <ToggleButton mnemonicParsing="false" text="ToggleButton" />
+                  <ToggleButton mnemonicParsing="false" text="ToggleButton" />
+               </children>
+            </HBox>
+         </center>
+         <left>
+            <Label minWidth="150.0" text="Label" BorderPane.alignment="CENTER" />
+         </left>
+      </BorderPane>
+      <BorderPane>
+         <center>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ToggleButton mnemonicParsing="false" text="ToggleButton" />
+                  <ToggleButton mnemonicParsing="false" text="ToggleButton" />
+                  <ToggleButton mnemonicParsing="false" text="ToggleButton" />
+               </children>
+            </HBox>
+         </center>
+         <left>
+            <Label minWidth="150.0" text="Label" BorderPane.alignment="CENTER" />
+         </left>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </BorderPane>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <center>
+            <Slider BorderPane.alignment="CENTER" />
+         </center>
+         <right>
+            <TextField BorderPane.alignment="CENTER" />
+         </right>
+         <left>
+            <Label minWidth="150.0" text="Label" BorderPane.alignment="CENTER" />
+         </left>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </BorderPane>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <center>
+            <Slider BorderPane.alignment="CENTER" />
+         </center>
+         <right>
+            <TextField BorderPane.alignment="CENTER" />
+         </right>
+         <left>
+            <Label minWidth="150.0" text="Label" BorderPane.alignment="CENTER" />
+         </left>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </BorderPane>
+   </children>
+</VBox>

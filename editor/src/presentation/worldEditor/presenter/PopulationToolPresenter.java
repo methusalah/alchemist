@@ -1,4 +1,4 @@
-package presenter.worldEdition;
+package presentation.worldEditor.presenter;
 
 import java.util.ArrayList;
 import java.util.List;
