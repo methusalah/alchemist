@@ -2,7 +2,7 @@ package view.worldEdition;
 
 import presentation.worldEditor.presenter.Tool;
 
-public interface ToolEditor {
+public interface Toolconfigurator {
 
 	public Tool getTool();
 }

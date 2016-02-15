@@ -9,8 +9,10 @@ import presentation.worldEditor.presenter.HeightMapToolPresenter;
 import presentation.worldEditor.presenter.PencilToolPresenter;
 import presentation.worldEditor.presenter.HeightMapToolPresenter.Operation;
 import presentation.worldEditor.presenter.PencilToolPresenter.Shape;
+import presentation.worldEditor.presenter.Tool;
+import view.worldEdition.Toolconfigurator;
 
-public class HeightmapConfigurator extends VBox {
+public class HeightmapConfigurator extends VBox implements Toolconfigurator {
 
 	private final HeightMapToolPresenter presenter;
 
@@ -31,5 +33,8 @@ public class HeightmapConfigurator extends VBox {
 		getChildren().add(new PencilConfigurator(presenter));
 	}
 
-
+	@Override
+	public Tool getTool() {
+		return presenter;
+	}
 }

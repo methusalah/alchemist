@@ -10,7 +10,7 @@ import presentation.worldEditor.presenter.HeightMapToolPresenter;
 import presentation.worldEditor.presenter.Tool;
 import presentation.worldEditor.presenter.HeightMapToolPresenter.Operation;
 
-public class HeighmapTab extends Tab implements ToolEditor {
+public class HeighmapTab extends Tab implements Toolconfigurator {
 	private final HeightMapToolPresenter presenter;
 
 	public HeighmapTab() {

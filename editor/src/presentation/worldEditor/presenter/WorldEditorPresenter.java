@@ -1,4 +1,4 @@
-package presenter;
+package presentation.worldEditor.presenter;
 
 import com.jme3.scene.Node;
 
@@ -6,7 +6,6 @@ import app.AppFacade;
 import controller.SpatialSelector;
 import model.EditorPlatform;
 import model.ES.processor.world.WorldProc;
-import presentation.worldEditor.presenter.WorldTool;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import view.WorldEditorTab;
@@ -21,10 +20,6 @@ public class WorldEditorPresenter {
 	
 	public void saveWorld(){
 		AppFacade.getStateManager().getState(WorldProc.class).saveDrawnRegions();
-	}
-	
-	public void handleTabOpened(){
-		
 	}
 	
 	public void beginAction(){

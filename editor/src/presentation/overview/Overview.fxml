@@ -21,9 +21,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TitledPane?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1600.0" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1600.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <SplitPane dividerPositions="0.1927409261576971, 0.7878598247809763" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.1927409261576971, 0.7878598247809763" minWidth="100.0" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
             <SplitPane dividerPositions="0.6106471816283925" orientation="VERTICAL" prefHeight="160.0" prefWidth="200.0">
                <items>
@@ -32,7 +32,7 @@
                </items>
             </SplitPane>
             <TabPane fx:id="sceneViewTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" />
-            <TabPane fx:id="inspectorTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" />
+            <TabPane fx:id="inspectorTabPane" minWidth="150.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" />
         </items>
       </SplitPane>
    </center>

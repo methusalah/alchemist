@@ -26,7 +26,7 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 		ADD_DELETE, PROPAGATE_SMOOTH
 	}
 
-	private final AtlasTab view;
+	private final AtlasViewable view;
 	
 	private final ListProperty<TerrainTexture> textures = new SimpleListProperty<>();
 	private final ToggledEnumProperty<Operation> operationProperty = new ToggledEnumProperty<>(Operation.class);
@@ -34,7 +34,7 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 	private Region lastRegion;
 	
 	
-	public AtlasToolPresenter(AtlasTab view) {
+	public AtlasToolPresenter(AtlasViewable view) {
 		this.view = view;
 		textures.addListener((ListChangeListener.Change<? extends TerrainTexture> c) -> {
 			if(lastRegion != null){

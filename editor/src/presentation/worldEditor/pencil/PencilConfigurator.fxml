@@ -5,14 +5,14 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.0" prefWidth="536.0" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane prefHeight="30.0">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
          <center>
-            <HBox prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <HBox BorderPane.alignment="CENTER">
                <children>
                   <ToggleButton fx:id="circleButton" mnemonicParsing="false" text="circle" />
                   <ToggleButton fx:id="squareButton" mnemonicParsing="false" text="square" />
@@ -26,7 +26,7 @@
       </BorderPane>
       <BorderPane prefHeight="30.0">
          <center>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox>
                <children>
                   <ToggleButton fx:id="airbrushButton" mnemonicParsing="false" text="airbrush" />
                   <ToggleButton fx:id="roughButton" mnemonicParsing="false" text="rough" />
@@ -43,13 +43,13 @@
       </BorderPane>
       <BorderPane prefHeight="30.0">
          <center>
-            <Slider fx:id="sizeSlider" max="30.0" min="1.0" value="4.0" BorderPane.alignment="CENTER" />
+            <Slider fx:id="sizeSlider" max="30.0" min="1.0" prefWidth="50.0" value="4.0" BorderPane.alignment="CENTER" />
          </center>
          <right>
             <TextField fx:id="sizeField" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </right>
          <left>
-            <Label minWidth="150.0" text="Size" BorderPane.alignment="CENTER" />
+            <Label prefWidth="150.0" text="Size" BorderPane.alignment="CENTER" />
          </left>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -57,13 +57,13 @@
       </BorderPane>
       <BorderPane prefHeight="30.0">
          <center>
-            <Slider fx:id="strengthSlider" max="1.0" value="0.3" BorderPane.alignment="CENTER" />
+            <Slider fx:id="strengthSlider" max="1.0" prefWidth="50.0" value="0.3" BorderPane.alignment="CENTER" />
          </center>
          <right>
             <TextField fx:id="strengthField" prefWidth="50.0" BorderPane.alignment="CENTER" />
          </right>
          <left>
-            <Label minWidth="150.0" text="strength" BorderPane.alignment="CENTER" />
+            <Label maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="strength" BorderPane.alignment="CENTER" />
          </left>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

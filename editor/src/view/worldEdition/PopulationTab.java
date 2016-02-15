@@ -11,7 +11,7 @@ import model.ES.serial.BlueprintLibrary;
 import presentation.worldEditor.presenter.PopulationToolPresenter;
 import presentation.worldEditor.presenter.Tool;
 
-public class PopulationTab extends Tab implements ToolEditor {
+public class PopulationTab extends Tab implements Toolconfigurator {
 	private final ListProperty<Blueprint> blueprintList;
 	private final PopulationToolPresenter presenter;
 

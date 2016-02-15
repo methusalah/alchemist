@@ -44,8 +44,8 @@ public class PencilConfigurator extends VBox {
 		sizeSlider.valueProperty().bindBidirectional(presenter.getSizeProperty());
 		sizeField.textProperty().bindBidirectional(presenter.getSizeProperty(), new NumberStringConverter());
 		
-		strengthSlider.valueProperty().bindBidirectional(presenter.getSizeProperty());
-		strengthField.textProperty().bindBidirectional(presenter.getSizeProperty(), new NumberStringConverter());
+		strengthSlider.valueProperty().bindBidirectional(presenter.getStrengthProperty());
+		strengthField.textProperty().bindBidirectional(presenter.getStrengthProperty(), new NumberStringConverter());
 	}
 
 }

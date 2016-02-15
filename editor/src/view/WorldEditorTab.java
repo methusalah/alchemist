@@ -6,12 +6,12 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import model.EditorPlatform;
 import presentation.common.WorldEditorInputListener;
+import presentation.worldEditor.presenter.WorldEditorPresenter;
 import presentation.worldEditor.presenter.WorldTool;
-import presenter.WorldEditorPresenter;
 import view.worldEdition.AtlasTab;
 import view.worldEdition.HeighmapTab;
 import view.worldEdition.PopulationTab;
-import view.worldEdition.ToolEditor;
+import view.worldEdition.Toolconfigurator;
 import view.worldEdition.TrinketTab;
 
 public class WorldEditorTab extends Tab {
@@ -39,13 +39,13 @@ public class WorldEditorTab extends Tab {
 				new TrinketTab());
 		
 		tabpane.selectionModelProperty().getValue().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			ToolEditor editor = (ToolEditor)newValue;
+			Toolconfigurator editor = (Toolconfigurator)newValue;
 			presenter.selectTool((WorldTool)(editor.getTool()));
 			setSceneInputListening(true);
 		});
 		
 		selectedProperty().addListener(e -> {
-			ToolEditor editor = ((ToolEditor)tabpane.selectionModelProperty().getValue().getSelectedItem());
+			Toolconfigurator editor = ((Toolconfigurator)tabpane.selectionModelProperty().getValue().getSelectedItem());
 			if(isSelected())
 				presenter.selectTool((WorldTool)(editor.getTool()));
 			setSceneInputListening(isSelected());

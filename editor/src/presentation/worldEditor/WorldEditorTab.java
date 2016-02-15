@@ -6,6 +6,6 @@ public class WorldEditorTab extends OverviewTab {
 
 	public WorldEditorTab() {
 		setText("World edition");
-		setContent(new WorldEditor());
+		setContent(new WorldEditor(this));
 	}
 }

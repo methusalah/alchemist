@@ -1,74 +1,53 @@
-package view.worldEdition;
+package presentation.worldEditor.atlas;
 
 import java.util.Optional;
 
+import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.world.terrain.TerrainTexture;
-import presentation.control.IconToggleButton;
 import presentation.control.TerrainTextureButton;
+import presentation.util.ViewLoader;
+import presentation.worldEditor.pencil.PencilConfigurator;
 import presentation.worldEditor.presenter.Tool;
 import presentation.worldEditor.presenter.atlas.AtlasToolPresenter;
-import presentation.worldEditor.presenter.atlas.AtlasViewable;
 import presentation.worldEditor.presenter.atlas.AtlasToolPresenter.Operation;
+import presentation.worldEditor.presenter.atlas.AtlasViewable;
+import view.worldEdition.TerrainTextureDialog;
+import view.worldEdition.Toolconfigurator;
 
-public class AtlasTab extends Tab implements Toolconfigurator, AtlasViewable {
+public class AtlasConfigurator extends VBox implements Toolconfigurator, AtlasViewable {
 	private final AtlasToolPresenter presenter;
-	private final VBox textureGrid;
 	ToggleGroup textureGroup;
 
-	public AtlasTab() {
+	@FXML
+	private ToggleButton addDeleteButton, propagateSmoothButton;
+
+	@FXML
+	private VBox textureGrid;
+	
+	public AtlasConfigurator() {
 		presenter = new AtlasToolPresenter(this);
-		setText("Texture Atlas");
-		setClosable(false);
-		textureGrid = new VBox();
-		VBox content = new VBox();
-		content.getChildren().add(getOperationPane());
-		content.getChildren().add(getTexturePane());
-		content.getChildren().add(new PencilEditor(presenter));
-		setContent(content);
-		updateTextureGrid();
-		textureGroup = new ToggleGroup();
+		ViewLoader.loadFXMLForControl(this);
 	}
 	
-	private Node getOperationPane(){
-		VBox res = new VBox();
-		res.getChildren().add(new Label("Operation"));
-		res.getChildren().add(new BorderPane(getPropagateSmoothButton(), null, getAddDeleteButton(), null, null));
-		return res;
-	}
-	
-	private ToggleButton getAddDeleteButton(){
-		IconToggleButton res = new IconToggleButton("assets/textures/editor/rise_low_icon.png", "Rise/Low");
-		res.selectedProperty().bindBidirectional(presenter.getOperationProperty().getToggle(Operation.ADD_DELETE));
-		res.setSelected(true);
-		return res;
+	@FXML
+	private void initialize(){
+		addDeleteButton.selectedProperty().bindBidirectional(presenter.getOperationProperty().getToggle(Operation.ADD_DELETE));
+		propagateSmoothButton.selectedProperty().bindBidirectional(presenter.getOperationProperty().getToggle(Operation.PROPAGATE_SMOOTH));
+		getChildren().add(new PencilConfigurator(presenter));
 	}
 
-	private ToggleButton getPropagateSmoothButton(){
-		IconToggleButton res = new IconToggleButton("assets/textures/editor/noise_smooth_icon.png", "Propagate/Smooth");
-		res.selectedProperty().bindBidirectional(presenter.getOperationProperty().getToggle(Operation.PROPAGATE_SMOOTH));
-		return res;
-	}
-	
 	@Override
 	public Tool getTool() {
 		return presenter;
-	}
-	
-	private Node getTexturePane(){
-		VBox res = new VBox();
-		res.getChildren().add(new Label("Texture"));
-		res.getChildren().add(textureGrid);
-		return res;
 	}
 	
 	@Override
