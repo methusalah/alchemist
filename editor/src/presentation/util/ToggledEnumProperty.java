@@ -6,6 +6,7 @@ import java.util.Map;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import util.LogUtil;
 
 public class ToggledEnumProperty<T extends Enum<T>> extends SimpleObjectProperty<T>{
 	

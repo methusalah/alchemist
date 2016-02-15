@@ -11,9 +11,11 @@ import presentation.actionBar.ActionBar;
 import presentation.hierarchy.Hierarchy;
 import presentation.hierarchy.HierarchyTab;
 import presentation.inspector.InspectorTab;
+import presentation.report.ReportTab;
 import presentation.resources.ResourcesTab;
 import presentation.scene.SceneTab;
 import presentation.util.ViewLoader;
+import presentation.worldEditor.WorldEditorTab;
 
 public class Overview extends BorderPane {
 	
@@ -28,7 +30,7 @@ public class Overview extends BorderPane {
 	public void initialize() {
 		setTop(new ActionBar());
 		hierarchyTabPane.getTabs().add(new HierarchyTab());
-		inspectorTabPane.getTabs().add(new InspectorTab());
+		inspectorTabPane.getTabs().addAll(new InspectorTab(), new ReportTab(), new WorldEditorTab());
 		resourcesTabPane.getTabs().add(new ResourcesTab());
 		sceneViewTabPane.getTabs().add(new SceneTab());
 		

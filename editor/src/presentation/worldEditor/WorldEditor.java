@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import presentation.util.ViewLoader;
+import presentation.worldEditor.heightmap.HeightmapConfigurator;
 
 public class WorldEditor extends BorderPane{
 	
@@ -12,6 +13,11 @@ public class WorldEditor extends BorderPane{
 	
 	public WorldEditor() {
 		ViewLoader.loadFXMLForControl(this);
+	}
+	
+	@FXML
+	private void initialize(){
+		reliefTab.setContent(new HeightmapConfigurator());
 	}
 
 }

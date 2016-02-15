@@ -21,7 +21,7 @@ public class WorldEditorTab extends Tab {
 	TabPane tabpane;
 	
 	public WorldEditorTab() {
-		presenter = new WorldEditorPresenter(this);
+		presenter = new WorldEditorPresenter();
 		inputListener = new WorldEditorInputListener(presenter);
 		
 		setText("World editor");
