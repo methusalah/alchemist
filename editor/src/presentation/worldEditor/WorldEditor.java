@@ -11,6 +11,7 @@ import presentation.worldEditor.atlas.AtlasConfigurator;
 import presentation.worldEditor.heightmap.HeightmapConfigurator;
 import presentation.worldEditor.presenter.WorldEditorPresenter;
 import presentation.worldEditor.presenter.WorldTool;
+import util.LogUtil;
 import view.worldEdition.Toolconfigurator;
 
 public class WorldEditor extends BorderPane{
@@ -37,12 +38,22 @@ public class WorldEditor extends BorderPane{
 		reliefTab.setContent(new HeightmapConfigurator());
 		textureTab.setContent(new AtlasConfigurator());
 		
+		// we listen for the editor tab selection, to disable/enable the scene input listening when user leave/come back.
 		container.selectedProperty().addListener((obs, oldValue, newValue) -> {
-			Toolconfigurator editor = (Toolconfigurator)(toolTabPane.selectionModelProperty().getValue().getSelectedItem());
+			Toolconfigurator editor = (Toolconfigurator)(toolTabPane.selectionModelProperty().getValue().getSelectedItem().getContent());
 			if(newValue)
 				presenter.selectTool((WorldTool)(editor.getTool()));
 			setSceneInputListening(newValue);
-		});					
+		});
+		
+		// we listen for the tool selection to select the tool to trigger.
+		// we have to enable the scene listener each time a tool is selected because user may
+		// go elsewhere and desactivate it, without deselecting the editor tab
+		toolTabPane.selectionModelProperty().getValue().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+			Toolconfigurator editor = (Toolconfigurator)newValue.getContent();
+			presenter.selectTool((WorldTool)(editor.getTool()));
+			setSceneInputListening(true);
+		});
 	}
 	
 	private void setSceneInputListening(boolean value){

@@ -52,7 +52,7 @@ public class ModelProc extends Processor {
 				s.setName("unnamed entity #"+e.getId());
 			s.scale((float)model.scale);
 			s.setUserData("EntityId", e.getId().getId());
-			s.setShadowMode(ShadowMode.Cast);
+			s.setShadowMode(ShadowMode.CastAndReceive);
 			SpatialPool.models.put(e.getId(), s);
 			AppFacade.getMainSceneNode().attachChild(s);
 		}

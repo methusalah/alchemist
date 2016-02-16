@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
@@ -51,7 +52,7 @@ public class TerrainDrawer {
 			g.setMesh(jmeMesh);
 			g.setMaterial(groundTexture);
 //			g.setLocalTranslation(new Vector3f(5, 0, 0));
-//			g.setQueueBucket(Bucket.Transparent);
+			g.setQueueBucket(Bucket.Opaque);
 
 			//g.addControl(new RigidBodyControl(0));
 			SpatialPool.terrainParcels.put(parcel, g);

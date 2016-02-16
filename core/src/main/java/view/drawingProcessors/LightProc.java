@@ -8,9 +8,11 @@ import com.jme3.light.PointLight;
 import com.jme3.light.SpotLight;
 import com.jme3.post.Filter;
 import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.SceneProcessor;
 import com.jme3.post.filters.BloomFilter;
 import com.jme3.post.filters.FXAAFilter;
 import com.jme3.shadow.DirectionalLightShadowFilter;
+import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.EdgeFilteringMode;
 import com.jme3.shadow.SpotLightShadowFilter;
 import com.simsilica.es.Entity;
@@ -64,6 +66,12 @@ public class LightProc extends Processor {
 			AppFacade.getMainSceneNode().addLight(light);
 
 			if(l.shadowIntensity.getValue() > 0){
+//				DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(AppFacade.getAssetManager(), 4096, 1);
+//				//sr.setEnabled(false);
+//				//sr.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
+//				sr.setShadowZExtend(4096);
+//				sr.setLight(light);
+//				AppFacade.getViewPort().addProcessor(sr);
 				DirectionalLightShadowFilter sf = getShadowFilter();
 				if(sf != null){
 					sf.setEnabled(true);

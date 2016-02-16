@@ -43,6 +43,7 @@ public class AtlasConfigurator extends VBox implements Toolconfigurator, AtlasVi
 		addDeleteButton.selectedProperty().bindBidirectional(presenter.getOperationProperty().getToggle(Operation.ADD_DELETE));
 		propagateSmoothButton.selectedProperty().bindBidirectional(presenter.getOperationProperty().getToggle(Operation.PROPAGATE_SMOOTH));
 		getChildren().add(new PencilConfigurator(presenter));
+		updateTextureGrid();
 	}
 
 	@Override
@@ -56,7 +57,8 @@ public class AtlasConfigurator extends VBox implements Toolconfigurator, AtlasVi
 		textureGrid.setPrefSize(400, 200);
 		if(presenter.getTextures().getValue() == null){
 			BorderPane p = new BorderPane(new Label("Click on a region to show it's textures."));
-			p.setPrefSize(400, 200);
+			p.setMinSize(400, 200);
+			
 			textureGrid.getChildren().add(p);
 		} else {
 			HBox row1 = new HBox(getTerrainTextureButton(0),

@@ -9,6 +9,7 @@ import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
 import com.jme3.post.filters.FXAAFilter;
 import com.jme3.shadow.DirectionalLightShadowFilter;
+import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.EdgeFilteringMode;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
@@ -98,7 +99,6 @@ public class SceneView extends Pane {
 			e.consume();
 			EditorPlatform.getScene().enqueue(app -> {
 				Point2D planarCoord = app.getStateManager().getState(SceneSelectorState.class).getPointedCoordInPlan(new Point2D(e.getX(), -e.getY()));
-				LogUtil.info("pointed = " + new Point2D(e.getX(), this.getHeight()-e.getY()));
 				return true;
 			});
         });
@@ -146,6 +146,13 @@ public class SceneView extends Pane {
 		sf.setShadowZExtend(SHADOWMAP_SIZE);
 		AppFacade.getFilterPostProcessor().addFilter(sf);
 
+//		DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(AppFacade.getAssetManager(), SHADOWMAP_SIZE, 1);
+//		//sr.setEnabled(false);
+//		sr.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
+//		sr.setShadowZExtend(SHADOWMAP_SIZE);
+//		//AppFacade.getFilterPostProcessor().addFilter(sr);
+
+		
 		BloomFilter bf = new BloomFilter(BloomFilter.GlowMode.Objects);
 		//bf.setEnabled(false);
 		AppFacade.getFilterPostProcessor().addFilter(bf);

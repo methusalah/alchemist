@@ -9,17 +9,15 @@
    <children>
       <BorderPane prefHeight="30.0">
          <left>
-            <ToggleButton fx:id="raiseLowButton" mnemonicParsing="false" text="raise/low" BorderPane.alignment="CENTER" />
+            <ToggleButton fx:id="addDeleteButton" mnemonicParsing="false" text="add/delete" BorderPane.alignment="CENTER" />
          </left>
          <center>
-            <ToggleButton fx:id="noiseSmoothButton" mnemonicParsing="false" text="noise/smooth" BorderPane.alignment="CENTER" />
+            <ToggleButton fx:id="propagateSmoothButton" mnemonicParsing="false" text="propagate/smooth" BorderPane.alignment="CENTER" />
          </center>
-         <right>
-            <ToggleButton fx:id="uniformResetButton" mnemonicParsing="false" text="uniform/reset" BorderPane.alignment="CENTER" />
-         </right>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </BorderPane>
+      <VBox fx:id="textureGrid" maxHeight="1.7976931348623157E308" />
    </children>
 </fx:root>
