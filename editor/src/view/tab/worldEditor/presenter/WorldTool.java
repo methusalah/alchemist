@@ -1,0 +1,11 @@
+package view.tab.worldEditor.presenter;
+
+import util.geometry.geom2d.Point2D;
+
+public abstract class WorldTool extends Tool {
+	protected Point2D coord = Point2D.ORIGIN;
+	
+	public void setCoord(Point2D coordInScene){
+		coord = coordInScene;
+	}
+}

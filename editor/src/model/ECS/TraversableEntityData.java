@@ -9,7 +9,7 @@ import com.simsilica.es.EntityId;
 import javafx.application.Platform;
 import model.ES.component.Naming;
 import model.ES.component.Parenting;
-import presentation.common.EntityNode;
+import presentation.EntityNode;
 
 /***
  * A Sepacialized EntityData that maintain a tree of nodes representing the hierarchy of the entities and their components
