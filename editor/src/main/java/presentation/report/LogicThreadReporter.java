@@ -13,8 +13,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
 import main.java.model.EditorPlatform;
 import main.java.model.ECS.builtInComponent.Naming;
-import main.java.model.tempImport.EntitySystem;
-import main.java.model.tempImport.LogicLoop;
+import main.java.model.ECS.pipeline.EntitySystem;
+import main.java.model.ECS.pipeline.LogicLoop;
 
 public class LogicThreadReporter {
 	private final IntegerProperty entityCount = new SimpleIntegerProperty();

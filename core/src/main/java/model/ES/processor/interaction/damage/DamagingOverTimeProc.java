@@ -2,7 +2,7 @@ package model.ES.processor.interaction.damage;
 
 import com.simsilica.es.Entity;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ES.component.combat.damage.DamageOverTime;
 import model.ES.component.combat.damage.Damaging;
 import model.ES.component.combat.resistance.Attrition;

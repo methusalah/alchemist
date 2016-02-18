@@ -2,7 +2,7 @@ package main.java.model;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import main.java.model.ECS.TraversableEntityData;
+import main.java.model.ECS.data.TraversableEntityData;
 import main.java.model.state.SceneSelectorState;
 import main.java.presentation.EntityNode;
 import main.java.presentation.RunState;

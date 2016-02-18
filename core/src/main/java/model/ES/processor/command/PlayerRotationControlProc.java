@@ -12,7 +12,7 @@ import util.math.AngleUtil;
 import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.Entity;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 
 public class PlayerRotationControlProc extends Processor {
 

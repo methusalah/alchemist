@@ -1,4 +1,4 @@
-package controller.ECS;
+package main.java.model.ECS.pipeline;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,8 +10,7 @@ import com.simsilica.es.Entity;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntitySet;
-
-import model.tempImport.DataState;
+import main.java.model.state.DataState;
 import util.LogUtil;
 
 

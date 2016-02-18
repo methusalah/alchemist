@@ -2,7 +2,7 @@ package view.drawingProcessors.model;
 
 import com.simsilica.es.Entity;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ES.component.assets.Model;
 import model.ES.component.assets.ModelRotation;
 import model.tempImport.LogicLoop;

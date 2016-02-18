@@ -1,4 +1,4 @@
-package main.java.model.tempImport;
+package main.java.model.ECS.pipeline;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,7 @@ import main.java.model.Command;
 import main.java.model.ES.processor.command.PlayerRotationControlProc;
 import main.java.model.ES.processor.command.PlayerThrustControlProc;
 import main.java.model.ES.processor.world.WorldProc;
+import main.java.model.state.DataState;
 import main.java.model.state.SceneSelectorState;
 import main.java.view.drawingProcessors.CameraPlacingProc;
 import main.java.view.drawingProcessors.LightProc;
@@ -40,7 +41,6 @@ public class EntitySystem extends AbstractAppState {
 	public final LogicLoop loop; 
 
 	private final EntityData ed;
-	private final Command command;
 
 	
 	List<AppState> visualStates = new ArrayList<>();
@@ -48,7 +48,7 @@ public class EntitySystem extends AbstractAppState {
 	List<AppState> commandStates = new ArrayList<>();
 	List<AppState> logicStates = new ArrayList<>();
 
-	public EntitySystem(EntityData ed, Command command) {
+	public EntitySystem(EntityData ed) {
 		this.ed = ed;
 		this.command = command;
 		loop = new LogicLoop(ed, command);

@@ -8,7 +8,6 @@ import com.jme3.scene.shape.Box;
 import com.simsilica.es.EntityId;
 
 import main.java.model.tempImport.AppFacade;
-import main.java.model.tempImport.SpatialSelector;
 import main.java.model.tempImport.TranslateUtil;
 import util.geometry.geom2d.Point2D;
 

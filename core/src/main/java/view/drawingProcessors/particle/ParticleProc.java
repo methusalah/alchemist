@@ -12,7 +12,7 @@ import com.jme3.math.Vector3f;
 import com.simsilica.es.Entity;
 
 import app.AppFacade;
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ES.component.assets.ParticleCaster;
 import model.ES.component.motion.PlanarStance;
 import util.LogUtil;

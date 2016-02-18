@@ -9,8 +9,8 @@ import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityId;
 
 import app.AppFacade;
-import controller.ECS.Processor;
 import controller.regionPaging.RegionPager;
+import main.java.model.ECS.pipeline.Processor;
 import model.ECS.Naming;
 import model.ES.component.motion.ChasingCamera;
 import model.ES.component.motion.PlanarStance;

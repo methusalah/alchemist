@@ -11,12 +11,12 @@ import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
 import main.java.model.EditorPlatform;
+import main.java.model.ECS.blueprint.Blueprint;
+import main.java.model.ECS.pipeline.EntitySystem;
 import main.java.model.state.DraggableCameraState;
 import main.java.model.state.InstrumentUpdateState;
 import main.java.model.state.SceneSelectorState;
 import main.java.model.tempImport.AppFacade;
-import main.java.model.tempImport.Blueprint;
-import main.java.model.tempImport.EntitySystem;
 import main.java.presentation.base.AbstractPresenter;
 import main.java.presentation.base.Viewer;
 import main.java.view.TopDownCamInputListener;

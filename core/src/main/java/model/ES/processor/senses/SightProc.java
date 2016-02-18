@@ -11,7 +11,7 @@ import util.math.AngleUtil;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 
 public class SightProc extends Processor {
 

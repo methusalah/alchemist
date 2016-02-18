@@ -3,7 +3,7 @@ package model.ES.processor.interaction;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ES.component.combat.resistance.Attrition;
 import model.ES.component.lifeCycle.LifeTime;
 import model.ES.component.lifeCycle.SpawnOnBorn;

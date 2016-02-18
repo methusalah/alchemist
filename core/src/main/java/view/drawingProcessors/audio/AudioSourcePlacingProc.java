@@ -15,7 +15,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 
 public class AudioSourcePlacingProc extends Processor {
 

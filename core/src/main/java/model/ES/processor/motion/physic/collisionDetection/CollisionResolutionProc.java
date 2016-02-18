@@ -4,7 +4,7 @@ import com.simsilica.es.Entity;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ECS.Naming;
 import model.ES.component.lifeCycle.ToRemove;
 import model.ES.component.motion.PlanarVelocityToApply;

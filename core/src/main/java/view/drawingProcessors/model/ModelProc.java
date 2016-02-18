@@ -8,7 +8,7 @@ import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 
 import app.AppFacade;
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ECS.Naming;
 import model.ES.component.assets.Model;
 import util.LogUtil;

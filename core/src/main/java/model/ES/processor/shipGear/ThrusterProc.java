@@ -3,7 +3,7 @@ package model.ES.processor.shipGear;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ECS.Parenting;
 import model.ES.commonLogic.Controlling;
 import model.ES.component.motion.PlanarNeededThrust;

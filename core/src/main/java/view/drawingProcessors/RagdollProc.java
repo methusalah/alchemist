@@ -15,7 +15,7 @@ import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
 import app.AppFacade;
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ES.component.assets.Model;
 import model.ES.component.assets.RagdollOnDecay;
 import model.ES.component.motion.physic.Physic;

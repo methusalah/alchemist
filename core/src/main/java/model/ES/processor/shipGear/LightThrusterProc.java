@@ -2,7 +2,7 @@ package model.ES.processor.shipGear;
 
 import com.simsilica.es.Entity;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ES.component.assets.Lighting;
 import model.ES.component.motion.Thruster;
 

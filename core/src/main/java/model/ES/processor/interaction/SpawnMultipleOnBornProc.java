@@ -9,7 +9,7 @@ import util.math.RandomUtil;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 
 public class SpawnMultipleOnBornProc extends Processor {
 

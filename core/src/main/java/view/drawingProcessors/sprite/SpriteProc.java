@@ -9,6 +9,7 @@ import view.MaterialManager;
 import view.SpatialPool;
 import view.jme.CenteredQuad;
 import app.AppFacade;
+import main.java.model.ECS.pipeline.Processor;
 
 import com.jme3.material.RenderState.BlendMode;
 import com.jme3.math.Quaternion;
@@ -20,7 +21,6 @@ import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
 import com.simsilica.es.Entity;
 
-import controller.ECS.Processor;
 import model.ES.component.assets.Sprite;
 
 public class SpriteProc extends Processor {

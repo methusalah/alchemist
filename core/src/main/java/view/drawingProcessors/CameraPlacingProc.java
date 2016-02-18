@@ -2,12 +2,12 @@ package view.drawingProcessors;
 
 import view.math.TranslateUtil;
 import app.AppFacade;
+import main.java.model.ECS.pipeline.Processor;
 
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.simsilica.es.Entity;
 
-import controller.ECS.Processor;
 import model.ES.component.motion.ChasingCamera;
 
 public class CameraPlacingProc extends Processor {

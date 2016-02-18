@@ -10,7 +10,7 @@ import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
 import app.AppFacade;
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ES.component.assets.FloatingLabel;
 import model.ES.component.motion.PlanarStance;
 import util.LogUtil;

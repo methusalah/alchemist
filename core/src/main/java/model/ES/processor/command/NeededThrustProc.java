@@ -2,7 +2,7 @@ package model.ES.processor.command;
 
 import com.simsilica.es.Entity;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarNeededThrust;
 import model.ES.component.motion.PlanarStance;

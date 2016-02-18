@@ -3,7 +3,7 @@ package model.ES.processor.interaction.damage;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ECS.Naming;
 import model.ES.component.combat.damage.DamageCapacity;
 import model.ES.component.combat.damage.DamageOnTouch;

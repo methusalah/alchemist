@@ -7,7 +7,7 @@ import com.jme3.audio.AudioNode;
 import com.simsilica.es.Entity;
 
 import app.AppFacade;
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ES.commonLogic.Controlling;
 import model.ES.component.ability.Ability;
 import model.ES.component.ability.AbilityControl;

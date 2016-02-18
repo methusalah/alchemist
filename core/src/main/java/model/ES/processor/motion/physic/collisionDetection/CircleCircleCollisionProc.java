@@ -22,7 +22,7 @@ import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 
 public class CircleCircleCollisionProc extends Processor {
 	

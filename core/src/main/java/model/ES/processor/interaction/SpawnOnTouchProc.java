@@ -3,7 +3,7 @@ package model.ES.processor.interaction;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ECS.Naming;
 import model.ES.component.assets.ParticleCaster;
 import model.ES.component.lifeCycle.LifeTime;

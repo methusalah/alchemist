@@ -6,7 +6,7 @@ import model.ES.component.motion.SpaceStance;
 
 import com.simsilica.es.Entity;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 
 public class BoneHoldingProc extends Processor {
 

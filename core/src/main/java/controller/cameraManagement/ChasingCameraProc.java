@@ -15,7 +15,7 @@ import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import model.tempImport.LogicLoop;
 import controller.CameraManager;
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 
 public class ChasingCameraProc extends Processor {
 	

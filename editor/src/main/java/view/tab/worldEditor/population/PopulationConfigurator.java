@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
-import main.java.model.tempImport.Blueprint;
+import main.java.model.ECS.blueprint.Blueprint;
 import main.java.presentation.worldEditor.PopulationToolPresenter;
 import main.java.presentation.worldEditor.Tool;
 import main.java.view.tab.worldEditor.Toolconfigurator;

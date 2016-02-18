@@ -13,6 +13,7 @@ import view.MaterialManager;
 import view.SpatialPool;
 import view.math.TranslateUtil;
 import app.AppFacade;
+import main.java.model.ECS.pipeline.Processor;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
@@ -21,8 +22,6 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Line;
 import com.simsilica.es.Entity;
-
-import controller.ECS.Processor;
 
 public class EdgeCollisionShapeDrawingProc extends Processor {
 	Map<String, Spatial> modelPrototypes = new HashMap<>();

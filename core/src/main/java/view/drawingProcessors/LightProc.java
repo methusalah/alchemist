@@ -18,7 +18,7 @@ import com.jme3.shadow.SpotLightShadowFilter;
 import com.simsilica.es.Entity;
 
 import app.AppFacade;
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ES.component.assets.Lighting;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.SpaceStance;

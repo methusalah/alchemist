@@ -5,7 +5,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import main.java.model.tempImport.Blueprint;
+import main.java.model.ECS.blueprint.Blueprint;
 import main.java.presentation.EntityNode;
 import main.java.view.util.Consumer2;
 import main.java.view.util.Dragpool;

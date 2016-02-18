@@ -2,7 +2,7 @@ package main.java.presentation;
 
 import java.util.Comparator;
 
-import main.java.model.tempImport.Blueprint;
+import main.java.model.ECS.blueprint.Blueprint;
 
 
 public class BlueprintComparator implements Comparator<Blueprint> {

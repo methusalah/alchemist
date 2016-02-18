@@ -2,7 +2,7 @@ package model.ES.processor.motion.physic;
 
 import com.simsilica.es.Entity;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Dragging;
 import model.ES.component.motion.physic.Physic;

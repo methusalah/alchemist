@@ -9,13 +9,12 @@ import view.MaterialManager;
 import view.SpatialPool;
 import view.math.TranslateUtil;
 import app.AppFacade;
+import main.java.model.ECS.pipeline.Processor;
 
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Line;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntitySet;
-
-import controller.ECS.Processor;
 
 public class VelocityVisualisationProc extends Processor {
 

@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.StreamUtils;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.AI.blackboard.ShipBlackboard;
 import model.ES.component.ability.Sighting;
 import model.ES.component.combat.Attackable;

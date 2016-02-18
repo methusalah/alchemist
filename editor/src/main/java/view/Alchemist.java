@@ -7,7 +7,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.java.model.EditorPlatform;
-import main.java.model.ECS.TraversableEntityData;
+import main.java.model.ECS.data.TraversableEntityData;
 import main.java.view.overview.Overview;
 import main.java.view.tab.scene.customControl.JmeImageView;
 import main.java.view.util.UserComponentList;
@@ -35,16 +35,11 @@ public class Alchemist extends Application {
 		Scene s = new Scene(overview);
 		ViewPlatform.JavaFXScene.setValue(s);
 		
-		s.getStylesheets().add("resources/darktheme.css");//File("assets/interface/darktheme.css").toURI().toURL().toString());
+		s.getStylesheets().add("resources/darktheme.css");
 		
 		primaryStage.setScene(s);
 		primaryStage.show();
 		primaryStage.setTitle("Alchimist, Zay's Entity Editor");
 		primaryStage.setOnCloseRequest(e -> EditorPlatform.getScene().stop(false));
-		
-	}
-	
-	public static void main(String[] args) {
-		launch(args);
 	}
 }

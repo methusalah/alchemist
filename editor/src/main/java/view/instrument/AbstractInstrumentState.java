@@ -12,8 +12,8 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 
 import main.java.model.state.SceneSelectorState;
+import main.java.model.state.SpatialSelector;
 import main.java.model.tempImport.AppFacade;
-import main.java.model.tempImport.SpatialSelector;
 import main.java.model.tempImport.TranslateUtil;
 import main.java.view.instrument.customControl.InstrumentPart;
 import util.geometry.geom3d.Point3D;

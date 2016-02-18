@@ -2,7 +2,7 @@ package model.ES.processor;
 
 import com.simsilica.es.Entity;
 
-import controller.ECS.Processor;
+import main.java.model.ECS.pipeline.Processor;
 import model.ES.component.lifeCycle.Removed;
 import model.ES.component.lifeCycle.ToRemove;
 

@@ -1,4 +1,4 @@
-package main.java.model.ECS;
+package main.java.model.ECS.data;
 
 import java.util.Map;
 
