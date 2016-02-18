@@ -2,10 +2,10 @@ package view.drawingProcessors.model;
 
 import com.simsilica.es.Entity;
 
-import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
 import model.ES.component.assets.Model;
 import model.ES.component.assets.ModelRotation;
+import model.tempImport.LogicLoop;
 import util.math.Angle;
 import util.math.AngleUtil;
 

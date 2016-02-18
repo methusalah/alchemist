@@ -1,4 +1,4 @@
-package controller.ECS;
+package model.tempImport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +82,7 @@ public class EntitySystem extends AbstractAppState {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		this.stateManager = stateManager;
-		stateManager.attach(new DataState(ed, command));
+		stateManager.attach(new DataState(ed));
     	stateManager.attach(new WorldProc());
     	stateManager.attach(new CommandState(command));
     	stateManager.attach(new SceneSelectorState());

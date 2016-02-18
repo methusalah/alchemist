@@ -17,8 +17,25 @@ repositories {
 
 dependencies {
 	compile fileTree(dir: 'lib', include: ['*.jar'])
-	compile project(':core')
 	compile 'org.reflections:reflections:0.9.10'
+	
+	// jmonkey
+	compile "com.jme3:jme3-core:$jmonkeyengine_version"
+	compile "com.jme3:jme3-effects:$jmonkeyengine_version" 
+	compile "com.jme3:jme3-networking:$jmonkeyengine_version"
+	compile "com.jme3:jme3-blender:$jmonkeyengine_version"
+	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version"
+	compile "com.jme3:jme3-lwjgl:$jmonkeyengine_version"
+
+	// jackson
+	compile 'com.fasterxml.jackson.core:jackson-core:2.5.3'
+	compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.3'
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
+	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.5.0'
+
+	// Simple Logging Facade
+	compile 'org.slf4j:slf4j-simple:1.6.1'
+	
 }
 
 

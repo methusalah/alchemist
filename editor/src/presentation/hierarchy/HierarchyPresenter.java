@@ -3,9 +3,9 @@ package presentation.hierarchy;
 import com.simsilica.es.EntityId;
 
 import model.EditorPlatform;
-import model.ES.component.Naming;
-import model.ES.component.Parenting;
-import model.ES.serial.Blueprint;
+import model.ECS.builtInComponent.Naming;
+import model.ECS.builtInComponent.Parenting;
+import model.tempImport.Blueprint;
 import presentation.EntityNode;
 import presentation.base.AbstractPresenter;
 

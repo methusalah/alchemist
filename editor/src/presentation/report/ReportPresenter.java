@@ -1,6 +1,5 @@
 package presentation.report;
 
-import controller.SceneGraphExplorer;
 import model.EditorPlatform;
 import presentation.base.AbstractPresenter;
 

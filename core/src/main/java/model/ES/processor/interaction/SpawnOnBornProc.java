@@ -10,8 +10,8 @@ import model.ES.component.lifeCycle.SpawnOnBorn;
 import model.ES.component.lifeCycle.SpawnOnDecay;
 import model.ES.component.lifeCycle.ToRemove;
 import model.ES.component.motion.PlanarStance;
-import model.ES.serial.BlueprintLibrary;
 import model.ES.serial.PrototypeCreator;
+import model.tempImport.BlueprintLibrary;
 
 /**
  * Must be called before ToRemove processor

@@ -2,10 +2,10 @@ package model.ES.processor.ability;
 
 import com.simsilica.es.Entity;
 
-import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
 import model.ES.component.ability.Ability;
 import model.ES.component.ability.TriggerRepeater;
+import model.tempImport.LogicLoop;
 import util.math.RandomUtil;
 
 public class TriggerRepeaterProc extends Processor {

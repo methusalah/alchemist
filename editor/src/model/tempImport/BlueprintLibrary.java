@@ -1,4 +1,4 @@
-package model.ES.serial;
+package model.tempImport;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,9 +9,6 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-
-import util.LogUtil;
-import util.exception.TechnicalException;
 
 public class BlueprintLibrary {
 	private static final String PATH = "assets/data/blueprints/";
@@ -24,7 +21,6 @@ public class BlueprintLibrary {
 		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 		blueprintMap = new HashMap<>();
 		loadBlueprints();
-		LogUtil.info("blueprints loaded : "+blueprintMap.values().size());
 	}
 	
 	private BlueprintLibrary(){
@@ -54,7 +50,7 @@ public class BlueprintLibrary {
 		ArrayList<File> res = new ArrayList<>();
 		File folder = new File(folderPath);
 		if (!folder.exists()) {
-			throw new TechnicalException("the folder " + folderPath +  " was not found.");
+			throw new RuntimeException("the folder " + folderPath +  " was not found.");
 		}
 		for (File f : folder.listFiles()) {
 			if(f.isDirectory())

@@ -5,7 +5,7 @@ import com.simsilica.es.EntitySet;
 
 import model.ES.component.lifeCycle.LifeTime;
 import model.ES.component.lifeCycle.ToRemove;
-import controller.ECS.LogicLoop;
+import model.tempImport.LogicLoop;
 import controller.ECS.Processor;
 
 public class LifeTimeProc extends Processor{

@@ -1,11 +1,11 @@
 package controller.topdown;
 
-import model.Command;
 import util.LogUtil;
 import util.event.AppStateChangeEvent;
 import util.event.EventManager;
 import view.TopdownView;
 import controller.InputInterpreter;
+import model.tempImport.Command;
 
 public class TopdownInputInterpreter extends InputInterpreter {
 

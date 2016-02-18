@@ -7,8 +7,8 @@ import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityId;
 
 import javafx.application.Platform;
-import model.ES.component.Naming;
-import model.ES.component.Parenting;
+import model.ECS.builtInComponent.Naming;
+import model.ECS.builtInComponent.Parenting;
 import presentation.EntityNode;
 
 /***

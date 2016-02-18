@@ -1,4 +1,4 @@
-package model.ES.component;
+package model.ECS.builtInComponent;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;

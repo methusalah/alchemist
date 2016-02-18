@@ -2,10 +2,10 @@ package model.ES.processor.ability;
 
 import model.ES.component.ability.Ability;
 import model.ES.component.ability.Cooldown;
+import model.tempImport.LogicLoop;
 
 import com.simsilica.es.Entity;
 
-import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
 
 public class AbilityCoolDownProc extends Processor {

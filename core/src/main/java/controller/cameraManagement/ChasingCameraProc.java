@@ -9,12 +9,12 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.simsilica.es.Entity;
 
-import model.ES.component.Parenting;
+import model.ECS.Parenting;
 import model.ES.component.motion.ChasingCamera;
 import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
+import model.tempImport.LogicLoop;
 import controller.CameraManager;
-import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
 
 public class ChasingCameraProc extends Processor {

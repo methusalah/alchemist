@@ -11,6 +11,9 @@ import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
+import model.tempImport.Blueprint;
+import model.tempImport.BlueprintLibrary;
+
 public class EntityInstance {
 
 	private final String blueprintName;

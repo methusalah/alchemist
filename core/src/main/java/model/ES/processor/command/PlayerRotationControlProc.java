@@ -1,9 +1,10 @@
 package model.ES.processor.command;
 
-import model.Command;
 import model.ES.component.ability.PlayerControl;
 import model.ES.component.motion.PlanarNeededRotation;
 import model.ES.component.motion.PlanarStance;
+import model.tempImport.Command;
+import model.tempImport.DataState;
 import util.geometry.geom2d.Point2D;
 import util.math.Angle;
 import util.math.AngleUtil;
@@ -11,7 +12,6 @@ import util.math.AngleUtil;
 import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.Entity;
 
-import controller.ECS.DataState;
 import controller.ECS.Processor;
 
 public class PlayerRotationControlProc extends Processor {

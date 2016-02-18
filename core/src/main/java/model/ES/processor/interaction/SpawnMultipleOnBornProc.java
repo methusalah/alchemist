@@ -2,8 +2,8 @@ package model.ES.processor.interaction;
 
 import model.ES.component.lifeCycle.SpawnMultipleOnBorn;
 import model.ES.component.motion.PlanarStance;
-import model.ES.serial.BlueprintLibrary;
 import model.ES.serial.PrototypeCreator;
+import model.tempImport.BlueprintLibrary;
 import util.math.RandomUtil;
 
 import com.simsilica.es.Entity;

@@ -2,7 +2,6 @@ package model.ES.processor.interaction.damage;
 
 import com.simsilica.es.Entity;
 
-import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
 import model.ES.component.combat.damage.DamageOverTime;
 import model.ES.component.combat.damage.Damaging;
@@ -10,6 +9,7 @@ import model.ES.component.combat.resistance.Attrition;
 import model.ES.component.combat.resistance.Shield;
 import model.ES.component.lifeCycle.LifeTime;
 import model.ES.component.lifeCycle.ToRemove;
+import model.tempImport.LogicLoop;
 
 public class DamagingOverTimeProc extends Processor {
 

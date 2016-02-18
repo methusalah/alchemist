@@ -4,14 +4,14 @@ import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
 import controller.ECS.Processor;
-import model.ES.component.Naming;
+import model.ECS.Naming;
 import model.ES.component.assets.ParticleCaster;
 import model.ES.component.lifeCycle.LifeTime;
 import model.ES.component.lifeCycle.SpawnOnTouch;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.Touching;
 import model.ES.richData.ColorData;
-import model.ES.serial.BlueprintLibrary;
+import model.tempImport.BlueprintLibrary;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 import util.math.Fraction;

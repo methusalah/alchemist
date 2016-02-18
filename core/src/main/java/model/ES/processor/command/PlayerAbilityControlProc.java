@@ -1,14 +1,14 @@
 package model.ES.processor.command;
 
 
-import model.Command;
 import model.ES.component.ability.AbilityTrigger;
 import model.ES.component.ability.PlayerControl;
+import model.tempImport.Command;
+import model.tempImport.DataState;
 
 import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.Entity;
 
-import controller.ECS.DataState;
 import controller.ECS.Processor;
 
 public class PlayerAbilityControlProc extends Processor {

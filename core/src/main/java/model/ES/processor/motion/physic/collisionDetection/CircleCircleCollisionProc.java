@@ -3,7 +3,7 @@ package model.ES.processor.motion.physic.collisionDetection;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.ES.component.Naming;
+import model.ECS.Naming;
 import model.ES.component.lifeCycle.ToRemove;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.Touching;

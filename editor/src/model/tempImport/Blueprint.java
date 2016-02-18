@@ -1,4 +1,4 @@
-package model.ES.serial;
+package model.tempImport;
 
 import java.util.List;
 
@@ -10,8 +10,7 @@ import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
-import model.ES.component.Parenting;
-import model.ES.component.lifeCycle.LifeTime;
+import model.ECS.builtInComponent.Parenting;
 
 public class Blueprint {
 	private final String name;

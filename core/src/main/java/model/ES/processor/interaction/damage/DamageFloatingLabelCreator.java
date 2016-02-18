@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
-import model.ES.component.Naming;
+import model.ECS.Naming;
 import model.ES.component.assets.FloatingLabel;
 import model.ES.component.combat.damage.DamageType;
 import model.ES.component.lifeCycle.LifeTime;

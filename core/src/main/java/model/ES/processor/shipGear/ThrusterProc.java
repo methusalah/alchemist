@@ -4,8 +4,8 @@ import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
 import controller.ECS.Processor;
+import model.ECS.Parenting;
 import model.ES.commonLogic.Controlling;
-import model.ES.component.Parenting;
 import model.ES.component.motion.PlanarNeededThrust;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.ThrustControl;

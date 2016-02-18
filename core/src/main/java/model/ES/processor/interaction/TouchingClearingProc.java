@@ -4,7 +4,7 @@ import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
 import controller.ECS.Processor;
-import model.ES.component.Naming;
+import model.ECS.Naming;
 import model.ES.component.combat.damage.DamageOnTouch;
 import model.ES.component.combat.damage.Damaging;
 import model.ES.component.lifeCycle.LifeTime;

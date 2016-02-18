@@ -1,15 +1,15 @@
 package model.ES.processor.command;
 
 import util.LogUtil;
-import model.Command;
 import model.ES.component.ability.PlayerControl;
 import model.ES.component.motion.PlanarNeededThrust;
 import model.ES.component.motion.PlanarStance;
+import model.tempImport.Command;
+import model.tempImport.DataState;
 
 import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.Entity;
 
-import controller.ECS.DataState;
 import controller.ECS.Processor;
 
 public class PlayerThrustControlProc extends Processor {

@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
-import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
-import model.ES.component.Naming;
+import model.ECS.Naming;
 import model.ES.component.assets.FloatingLabel;
 import model.ES.component.combat.resistance.Attrition;
 import model.ES.component.combat.resistance.Shield;
@@ -16,6 +15,7 @@ import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Physic;
 import model.ES.richData.ColorData;
+import model.tempImport.LogicLoop;
 import util.geometry.geom2d.Point2D;
 import util.math.Fraction;
 

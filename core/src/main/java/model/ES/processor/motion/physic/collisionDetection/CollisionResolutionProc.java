@@ -5,7 +5,7 @@ import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
 import controller.ECS.Processor;
-import model.ES.component.Naming;
+import model.ECS.Naming;
 import model.ES.component.lifeCycle.ToRemove;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.Touching;

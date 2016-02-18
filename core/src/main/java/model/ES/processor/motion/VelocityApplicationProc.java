@@ -2,12 +2,12 @@ package model.ES.processor.motion;
 
 import com.simsilica.es.Entity;
 
-import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
 import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Physic;
+import model.tempImport.LogicLoop;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 

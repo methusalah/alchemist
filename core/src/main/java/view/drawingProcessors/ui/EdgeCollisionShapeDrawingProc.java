@@ -3,7 +3,7 @@ package view.drawingProcessors.ui;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.ES.component.Naming;
+import model.ECS.Naming;
 import model.ES.component.assets.Model;
 import model.ES.component.motion.physic.EdgedCollisionShape;
 import util.LogUtil;

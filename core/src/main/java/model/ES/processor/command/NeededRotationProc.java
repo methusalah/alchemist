@@ -3,12 +3,12 @@ package model.ES.processor.command;
 import model.ES.component.motion.MotionCapacity;
 import model.ES.component.motion.PlanarNeededRotation;
 import model.ES.component.motion.PlanarStance;
+import model.tempImport.LogicLoop;
 import util.math.Angle;
 import util.math.AngleUtil;
 
 import com.simsilica.es.Entity;
 
-import controller.ECS.LogicLoop;
 import controller.ECS.Processor;
 
 public class NeededRotationProc extends Processor {

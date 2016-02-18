@@ -1,6 +1,6 @@
 package model.ES.processor;
 
-import model.ES.component.Parenting;
+import model.ECS.Parenting;
 import model.ES.component.lifeCycle.Removed;
 import model.ES.component.lifeCycle.ToRemove;
 

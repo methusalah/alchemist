@@ -7,8 +7,8 @@ import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
 import model.ES.component.motion.PlanarStance;
-import model.ES.serial.Blueprint;
-import model.ES.serial.BlueprintLibrary;
+import model.tempImport.Blueprint;
+import model.tempImport.BlueprintLibrary;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 

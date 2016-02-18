@@ -8,7 +8,7 @@ import com.simsilica.es.Entity;
 
 import app.AppFacade;
 import controller.ECS.Processor;
-import model.ES.component.Naming;
+import model.ECS.Naming;
 import model.ES.component.assets.AudioSource;
 import util.LogUtil;
 import view.SpatialPool;

@@ -8,7 +8,7 @@ import model.ES.commonLogic.Spawner;
 import model.ES.component.combat.resistance.Attrition;
 import model.ES.component.combat.resistance.SpawnOnShieldDepleted;
 import model.ES.component.motion.PlanarStance;
-import model.ES.serial.BlueprintLibrary;
+import model.tempImport.BlueprintLibrary;
 
 public class SpawnOnShieldDepletedProc extends Processor {
 
