@@ -44,6 +44,8 @@ dependencies {
 	//compile 'com.github.jMonkeyEngine-Contributions:zay-es:-SNAPSHOT'
 	//compile 'com.github.brainless-studios:JME3-JFX:-SNAPSHOT'
 	
+	compile 'com.github.brainless-studios:myGeom:-SNAPSHOT'
+	
 	compile "com.badlogicgames.gdx:gdx-ai:1.6.0"
 }
 
