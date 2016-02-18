@@ -1,6 +1,6 @@
 package view.tab.worldEditor;
 
-import view.tab.worldEditor.presenter.Tool;
+import presentation.worldEditor.Tool;
 
 public interface Toolconfigurator {
 

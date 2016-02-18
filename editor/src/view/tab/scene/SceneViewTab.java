@@ -2,9 +2,9 @@ package view.tab.scene;
 
 import view.control.OverviewTab;
 
-public class SceneTab extends OverviewTab {
+public class SceneViewTab extends OverviewTab {
 
-	public SceneTab() {
+	public SceneViewTab() {
 		setText("Scene");
 		setContent(new SceneView());
 	}

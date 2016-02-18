@@ -12,9 +12,15 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import presentation.EntityNode;
+import view.common.SceneInputManager;
 
 public class ViewPlatform {
 	public static final ListProperty<Class<? extends EntityComponent>> expandedComponents = new SimpleListProperty<>(FXCollections.observableArrayList());
 	public static final List<EntityNode> expandedEntityNodes = new ArrayList<>();
 	public static final ObjectProperty<Scene> JavaFXScene = new SimpleObjectProperty<>();
+	private static final SceneInputManager sceneInputManager = new SceneInputManager();
+
+	public static SceneInputManager getSceneInputManager() {
+		return sceneInputManager;
+	}
 }

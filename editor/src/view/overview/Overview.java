@@ -11,7 +11,7 @@ import view.tab.hierarchy.HierarchyTab;
 import view.tab.inspector.InspectorTab;
 import view.tab.report.ReportTab;
 import view.tab.resources.ResourcesTab;
-import view.tab.scene.SceneTab;
+import view.tab.scene.SceneViewTab;
 import view.tab.worldEditor.WorldEditorTab;
 import view.util.ViewLoader;
 
@@ -30,7 +30,7 @@ public class Overview extends BorderPane {
 		hierarchyTabPane.getTabs().add(new HierarchyTab());
 		inspectorTabPane.getTabs().addAll(new InspectorTab(), new ReportTab(), new WorldEditorTab());
 		resourcesTabPane.getTabs().add(new ResourcesTab());
-		sceneViewTabPane.getTabs().add(new SceneTab());
+		sceneViewTabPane.getTabs().add(new SceneViewTab());
 		
 		new PlanarStanceInstrument(EditorPlatform.getScene());
 		new CircleCollisionShapeInstrument(EditorPlatform.getScene());

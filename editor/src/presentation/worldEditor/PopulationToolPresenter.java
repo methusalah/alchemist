@@ -1,4 +1,4 @@
-package view.tab.worldEditor.presenter;
+package presentation.worldEditor;
 
 import java.util.ArrayList;
 import java.util.List;

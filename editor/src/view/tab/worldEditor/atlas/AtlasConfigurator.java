@@ -13,13 +13,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.world.terrain.TerrainTexture;
+import presentation.worldEditor.Tool;
+import presentation.worldEditor.atlas.AtlasToolPresenter;
+import presentation.worldEditor.atlas.AtlasViewable;
+import presentation.worldEditor.atlas.AtlasToolPresenter.Operation;
 import view.control.TerrainTextureButton;
 import view.tab.worldEditor.Toolconfigurator;
 import view.tab.worldEditor.pencil.PencilConfigurator;
-import view.tab.worldEditor.presenter.Tool;
-import view.tab.worldEditor.presenter.atlas.AtlasToolPresenter;
-import view.tab.worldEditor.presenter.atlas.AtlasViewable;
-import view.tab.worldEditor.presenter.atlas.AtlasToolPresenter.Operation;
 import view.util.ViewLoader;
 
 public class AtlasConfigurator extends VBox implements Toolconfigurator, AtlasViewable {

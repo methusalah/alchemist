@@ -1,4 +1,4 @@
-package view.tab.worldEditor.presenter.atlas;
+package presentation.worldEditor.atlas;
 
 import java.util.Optional;
 

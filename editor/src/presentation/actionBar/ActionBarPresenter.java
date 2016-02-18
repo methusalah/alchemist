@@ -20,14 +20,11 @@ import view.common.GameInputListener;
 import view.common.SceneInputListener;
 
 public class ActionBarPresenter extends AbstractPresenter<ActionBarViewer> {
-	private final GameInputListener game;
-	private final List<SceneInputListener> savedListeners = new ArrayList<>();
 	private final IntegerProperty millisPerTickProperty = new SimpleIntegerProperty();
 	private EntityDataMemento memento; 
 
 	public ActionBarPresenter(ActionBarViewer viewer) {
 		super(viewer);
-		game = new GameInputListener(EditorPlatform.getScene());
 		millisPerTickProperty.setValue(LogicLoop.getMillisPerTick());
 		millisPerTickProperty.addListener((observable, oldValue, newValue) -> LogicLoop.setMillisPerTick(newValue.intValue()));
 	}
@@ -42,21 +39,16 @@ public class ActionBarPresenter extends AbstractPresenter<ActionBarViewer> {
 
 	private void run(){
 		memento = EditorPlatform.getEntityData().createMemento();
-		
-		savedListeners.addAll(EditorPlatform.getSceneInputManager().getListeners());
-		EditorPlatform.getSceneInputManager().getListeners().clear();
-		EditorPlatform.getSceneInputManager().addListener(game);
+
+		viewer.setGameInputListener();
 
 		EditorPlatform.getRunStateProperty().set(new RunState(State.Run));
 		EditorPlatform.getScene().enqueue(app -> jmeRun(app));
 	}
 
 	private void stop(){
+		viewer.removeGameInputlistener();
 		// entity data restoring
-		EditorPlatform.getSceneInputManager().getListeners().clear();
-		EditorPlatform.getSceneInputManager().getListeners().addAll(savedListeners);
-		savedListeners.clear();
-		
 		EditorPlatform.getRunStateProperty().set(new RunState(State.Stop));
 		EditorPlatform.getScene().enqueue(app -> jmeStop(app));
 	}

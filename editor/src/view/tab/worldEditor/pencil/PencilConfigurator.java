@@ -7,9 +7,9 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.NumberStringConverter;
-import view.tab.worldEditor.presenter.PencilToolPresenter;
-import view.tab.worldEditor.presenter.PencilToolPresenter.Mode;
-import view.tab.worldEditor.presenter.PencilToolPresenter.Shape;
+import presentation.worldEditor.PencilToolPresenter;
+import presentation.worldEditor.PencilToolPresenter.Mode;
+import presentation.worldEditor.PencilToolPresenter.Shape;
 import view.util.ViewLoader;
 
 public class PencilConfigurator extends VBox {

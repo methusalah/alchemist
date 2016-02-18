@@ -1,4 +1,4 @@
-package view.tab.worldEditor.presenter;
+package presentation.worldEditor;
 
 import util.geometry.geom2d.Point2D;
 

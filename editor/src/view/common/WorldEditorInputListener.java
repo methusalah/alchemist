@@ -8,8 +8,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import presentation.worldEditor.WorldEditorPresenter;
 import util.geometry.geom2d.Point2D;
-import view.tab.worldEditor.presenter.WorldEditorPresenter;
 
 public class WorldEditorInputListener implements SceneInputListener {
 	private static enum ActionType {StartPrimary,

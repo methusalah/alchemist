@@ -4,13 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-import model.EditorPlatform;
+import presentation.worldEditor.WorldEditorPresenter;
+import presentation.worldEditor.WorldTool;
+import view.ViewPlatform;
 import view.common.WorldEditorInputListener;
 import view.tab.worldEditor.atlas.AtlasConfigurator;
 import view.tab.worldEditor.heightmap.HeightmapConfigurator;
 import view.tab.worldEditor.population.PopulationConfigurator;
-import view.tab.worldEditor.presenter.WorldEditorPresenter;
-import view.tab.worldEditor.presenter.WorldTool;
 import view.util.ViewLoader;
 
 public class WorldEditor extends BorderPane{
@@ -57,9 +57,9 @@ public class WorldEditor extends BorderPane{
 	}
 	
 	private void setSceneInputListening(boolean value){
-		if(value && !EditorPlatform.getSceneInputManager().hasListener(inputListener))
-			EditorPlatform.getSceneInputManager().addListener(inputListener);
-		else if(!value && EditorPlatform.getSceneInputManager().hasListener(inputListener))
-			EditorPlatform.getSceneInputManager().removeListener(inputListener);
+		if(value && !ViewPlatform.getSceneInputManager().hasListener(inputListener))
+			ViewPlatform.getSceneInputManager().addListener(inputListener);
+		else if(!value && ViewPlatform.getSceneInputManager().hasListener(inputListener))
+			ViewPlatform.getSceneInputManager().removeListener(inputListener);
 	}
 }

@@ -1,4 +1,4 @@
-package view.tab.worldEditor.presenter.atlas;
+package presentation.worldEditor.atlas;
 
 import util.geometry.geom2d.Point2D;
 

@@ -9,7 +9,7 @@ import com.jme3.scene.Spatial;
 
 import app.AppFacade;
 
-public class SceneGraphReporter extends AbstractAppState {
+public class SceneGraphExplorer extends AbstractAppState {
 
 	public SceneGraphReportNode getReport(){
 		return reportSceneDeeply(AppFacade.getApp().getRootNode());

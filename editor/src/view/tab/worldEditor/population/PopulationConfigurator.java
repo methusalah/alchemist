@@ -6,9 +6,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import model.ES.serial.Blueprint;
+import presentation.worldEditor.PopulationToolPresenter;
+import presentation.worldEditor.Tool;
 import view.tab.worldEditor.Toolconfigurator;
-import view.tab.worldEditor.presenter.PopulationToolPresenter;
-import view.tab.worldEditor.presenter.Tool;
 import view.util.ViewLoader;
 
 public class PopulationConfigurator extends VBox implements Toolconfigurator {

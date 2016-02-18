@@ -3,13 +3,13 @@ package view.tab.worldEditor.heightmap;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
+import presentation.worldEditor.HeightMapToolPresenter;
+import presentation.worldEditor.PencilToolPresenter;
+import presentation.worldEditor.Tool;
+import presentation.worldEditor.HeightMapToolPresenter.Operation;
+import presentation.worldEditor.PencilToolPresenter.Shape;
 import view.tab.worldEditor.Toolconfigurator;
 import view.tab.worldEditor.pencil.PencilConfigurator;
-import view.tab.worldEditor.presenter.HeightMapToolPresenter;
-import view.tab.worldEditor.presenter.PencilToolPresenter;
-import view.tab.worldEditor.presenter.Tool;
-import view.tab.worldEditor.presenter.HeightMapToolPresenter.Operation;
-import view.tab.worldEditor.presenter.PencilToolPresenter.Shape;
 import view.util.ViewLoader;
 
 public class HeightmapConfigurator extends VBox implements Toolconfigurator {

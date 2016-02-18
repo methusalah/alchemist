@@ -21,7 +21,6 @@ public class EditorPlatform {
 	private static final ObjectProperty<UserComponentList> userComponentListProperty = new SimpleObjectProperty<>();
 	private static final ObjectProperty<EntityNode> selectionProperty = new SimpleObjectProperty<>();
 	private static final ObjectProperty<RunState> runStateProperty = new SimpleObjectProperty<>();
-	private static final SceneInputManager sceneInputManager = new SceneInputManager();
 	
 	static {
 		userComponentListProperty.setValue(new UserComponentList());
@@ -71,8 +70,5 @@ public class EditorPlatform {
 	}
 	public static ObjectProperty<UserComponentList> getUserComponentList() {
 		return userComponentListProperty;
-	}
-	public static SceneInputManager getSceneInputManager() {
-		return sceneInputManager;
 	}
 }

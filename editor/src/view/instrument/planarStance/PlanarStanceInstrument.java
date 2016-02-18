@@ -1,6 +1,6 @@
 package view.instrument.planarStance;
 
-import model.EditorPlatform;
+import view.ViewPlatform;
 import view.instrument.InstrumentInputListener;
 import view.tab.scene.customControl.JmeImageView;
 
@@ -23,12 +23,12 @@ public class PlanarStanceInstrument {
 	}
 	
 	public void setVisible(boolean value){
-		if(value && !EditorPlatform.getSceneInputManager().hasListener(inputListener)){
+		if(value && !ViewPlatform.getSceneInputManager().hasListener(inputListener)){
 			jme.enqueue(app -> app.getStateManager().attach(state));
-			EditorPlatform.getSceneInputManager().addListener(inputListener);
-		} else if(!value && EditorPlatform.getSceneInputManager().hasListener(inputListener)){
+			ViewPlatform.getSceneInputManager().addListener(inputListener);
+		} else if(!value && ViewPlatform.getSceneInputManager().hasListener(inputListener)){
 			jme.enqueue(app -> app.getStateManager().detach(state));
-			EditorPlatform.getSceneInputManager().removeListener(inputListener);
+			ViewPlatform.getSceneInputManager().removeListener(inputListener);
 		}
 	}
 }
