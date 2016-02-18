@@ -15,7 +15,7 @@ import model.tempImport.Command;
 import model.tempImport.EntitySystem;
 import util.LogUtil;
 import util.event.AppStateChangeEvent;
-import view.material.MaterialManager;
+import view.MaterialManager;
 
 public class MainGame extends CosmoVania {
 	private Controller currentAppState;

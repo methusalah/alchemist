@@ -12,7 +12,7 @@ import model.ES.component.lifeCycle.LifeTime;
 import model.ES.component.motion.PlanarStance;
 import model.ES.component.motion.PlanarVelocityToApply;
 import model.ES.component.motion.physic.Physic;
-import model.ES.richData.ColorData;
+import model.tempImport.ColorData;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 import util.math.Fraction;

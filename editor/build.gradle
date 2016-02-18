@@ -1,7 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'eclipse'
-apply plugin: 'maven'
 
 mainClassName = 'application.MainEditor'
 if (!hasProperty('mainClass')) {
@@ -10,13 +9,16 @@ if (!hasProperty('mainClass')) {
 
 repositories {
     mavenCentral()
-    maven {
-        url  "http://dl.bintray.com/empirephoenix/VGS-OSS-Releases" 
-    }
+    maven { url "https://jitpack.io" }
+    //maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    //maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    //maven { url "http://dl.bintray.com/empirephoenix/VGS-OSS-Releases/" }
 }
 
 dependencies {
 	compile fileTree(dir: 'lib', include: ['*.jar'])
+	
+	// reflection
 	compile 'org.reflections:reflections:0.9.10'
 	
 	// jmonkey
@@ -33,11 +35,16 @@ dependencies {
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
 	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.5.0'
 
+	// myGeom
+	compile 'com.github.brainless-studios:myGeom:-SNAPSHOT'
+	
 	// Simple Logging Facade
 	compile 'org.slf4j:slf4j-simple:1.6.1'
 	
 }
-
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
 
 sourceSets {
 	main {

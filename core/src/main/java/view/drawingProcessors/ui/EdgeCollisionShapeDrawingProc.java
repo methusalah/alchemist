@@ -9,8 +9,8 @@ import model.ES.component.motion.physic.EdgedCollisionShape;
 import util.LogUtil;
 import util.geometry.geom2d.Segment2D;
 import util.geometry.geom3d.Segment3D;
+import view.MaterialManager;
 import view.SpatialPool;
-import view.material.MaterialManager;
 import view.math.TranslateUtil;
 import app.AppFacade;
 

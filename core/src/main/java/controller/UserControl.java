@@ -7,6 +7,8 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 
+import model.tempImport.SpatialSelector;
+
 public class UserControl extends AbstractAppState{
 	
 	private final SpatialSelector selector = new SpatialSelector();

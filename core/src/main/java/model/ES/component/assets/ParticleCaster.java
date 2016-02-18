@@ -3,7 +3,7 @@ package model.ES.component.assets;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
 
-import model.ES.richData.ColorData;
+import model.tempImport.ColorData;
 import util.math.Fraction;
 
 public class ParticleCaster implements EntityComponent{

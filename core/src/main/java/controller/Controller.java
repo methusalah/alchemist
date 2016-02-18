@@ -6,6 +6,7 @@ package controller;
 
 import view.View;
 import app.AppFacade;
+import model.tempImport.SpatialSelector;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;

@@ -5,9 +5,9 @@ import java.util.Map;
 
 import util.LogUtil;
 import util.math.AngleUtil;
+import view.MaterialManager;
 import view.SpatialPool;
 import view.jme.CenteredQuad;
-import view.material.MaterialManager;
 import app.AppFacade;
 
 import com.jme3.material.RenderState.BlendMode;

@@ -3,7 +3,6 @@ package view;
 import util.LogUtil;
 import util.event.EventManager;
 import util.event.MapResetEvent;
-import view.material.MaterialManager;
 import app.AppFacade;
 
 import com.google.common.eventbus.Subscribe;

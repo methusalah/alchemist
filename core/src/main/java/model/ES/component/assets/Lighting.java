@@ -1,10 +1,11 @@
 package model.ES.component.assets;
 
-import model.ES.richData.ColorData;
 import util.math.Fraction;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
+
+import model.tempImport.ColorData;
 
 public class Lighting implements EntityComponent {
 	public final ColorData color;

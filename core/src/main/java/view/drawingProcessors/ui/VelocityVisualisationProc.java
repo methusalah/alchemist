@@ -5,8 +5,8 @@ import model.ES.component.motion.PlanarStance;
 import model.ES.richData.VelocityView;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
+import view.MaterialManager;
 import view.SpatialPool;
-import view.material.MaterialManager;
 import view.math.TranslateUtil;
 import app.AppFacade;
 
