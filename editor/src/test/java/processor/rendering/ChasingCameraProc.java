@@ -1,4 +1,4 @@
-package controller.cameraManagement;
+package test.java.processor.rendering;
 
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;

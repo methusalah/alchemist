@@ -8,18 +8,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.java.model.EditorPlatform;
 import main.java.model.ECS.data.TraversableEntityData;
+import main.java.model.ECS.pipeline.PipelineProvider;
 import main.java.view.overview.Overview;
 import main.java.view.tab.scene.customControl.JmeImageView;
 import main.java.view.util.UserComponentList;
-import util.LogUtil;
-
 
 public class Alchemist extends Application {
 
+	protected PipelineProvider pipelineProvider = new PipelineProvider();
+	
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-		LogUtil.init();
-
 		// Model instanciation
 		EditorPlatform.setEntityData(new TraversableEntityData());
 		EditorPlatform.getUserComponentList().setValue(new UserComponentList());
@@ -41,5 +40,11 @@ public class Alchemist extends Application {
 		primaryStage.show();
 		primaryStage.setTitle("Alchimist, Zay's Entity Editor");
 		primaryStage.setOnCloseRequest(e -> EditorPlatform.getScene().stop(false));
+		
+		
+	}
+	
+	protected void onIntialize(){
+		
 	}
 }

@@ -3,6 +3,8 @@ package main.java.model.ECS.pipeline;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.LoggerFactory;
+
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -10,8 +12,8 @@ import com.simsilica.es.Entity;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntitySet;
+
 import main.java.model.state.DataState;
-import util.LogUtil;
 
 
 public abstract class Processor extends AbstractAppState {
@@ -54,7 +56,7 @@ public abstract class Processor extends AbstractAppState {
 	        }
 	        onUpdated();
     	} catch(RuntimeException e){
-    		LogUtil.severe("Exception in processor : " + this.getClass().getSimpleName() + " : " + e.getMessage());
+    		LoggerFactory.getLogger(getClass()).error("Exception in processor : " + this.getClass().getSimpleName() + " : " + e.getMessage());
     		e.printStackTrace();
     		
     	}
