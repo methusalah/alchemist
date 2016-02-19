@@ -1,0 +1,8 @@
+{
+  "name" : "Unamed entityEntityId[30]",
+  "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "Unamed entity"
+  } ],
+  "children" : [ ]
+}

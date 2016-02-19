@@ -1,40 +1,71 @@
 apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
 
-version = '1.0'
+//mainClassName = 'application.MainEditor'
+//if (!hasProperty('mainClass')) {
+//	ext.mainClass = 'application.MainEditor'
+//}
 
-allprojects {
-	apply plugin: "eclipse"
-	apply plugin: "idea"
-	apply plugin: 'pmd'
-	apply plugin: 'findbugs'
-	apply plugin: 'java'
-
-	version = '0.0.1'
-	ext {
-		appName = 'cosmovania'
+ext {
+		appName = 'alchemist'
 		jmonkeyengine_version = '3.0.10'
-		//jmonkeyengine_version = '3.1.0-SNAPSHOT'
 	}
-	sourceCompatibility = 1.8
-	targetCompatibility = 1.8
-	compileJava {
-		sourceCompatibility = '1.8'
-	 }
+	
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+    	url "https://jitpack.io"
+    	url "http://updates.jmonkeyengine.org/maven"
+    }
+}
 
-	repositories {
-		mavenLocal()
-		mavenCentral()
-		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-		maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-		maven { url 'http://updates.jmonkeyengine.org/maven' }	
-		maven { url 'http://jcenter.bintray.com' }
-	}
+dependencies {
+	// local libraries
+	compile fileTree(dir: 'lib', include: ['*.jar'])
 	
-	pmd {
-		ignoreFailures = true
-	}
+	// reflection
+	compile 'org.reflections:reflections:0.9.10'
 	
-	findbugs {
-		ignoreFailures = true
+	// jMonkey Engine
+	compile "com.jme3:jme3-core:$jmonkeyengine_version"
+	compile "com.jme3:jme3-effects:$jmonkeyengine_version" 
+	compile "com.jme3:jme3-networking:$jmonkeyengine_version"
+	compile "com.jme3:jme3-blender:$jmonkeyengine_version"
+	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version"
+	compile "com.jme3:jme3-lwjgl:$jmonkeyengine_version"
+
+	// FasterXML - jackson
+	compile 'com.fasterxml.jackson.core:jackson-core:2.5.3'
+	compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.3'
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
+	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.5.0'
+
+	// myGeom
+	compile 'com.github.brainless-studios:myGeom:-SNAPSHOT'
+	
+	// Simple Logging Facade
+	compile 'org.slf4j:slf4j-simple:1.6.1'
+	
+}
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+sourceSets {
+	main {
+		java {
+			//srcDir 'src'
+		}
+		resources { srcDir 'assets' }
+	}
+
+}
+
+eclipse {
+	jdt {
+		sourceCompatibility = 1.8
+		targetCompatibility = 1.8
 	}
 }

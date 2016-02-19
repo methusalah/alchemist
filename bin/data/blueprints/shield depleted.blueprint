@@ -1,0 +1,65 @@
+{
+  "name" : "shield depleted",
+  "comps" : [ {
+    "class" : "model.ES.component.assets.AudioSource",
+    "path" : "monoexplosion1.wav",
+    "loop" : false,
+    "volume" : {
+      "value" : 0.5
+    }
+  }, {
+    "class" : "model.ES.component.Naming",
+    "name" : "shield depleted"
+  }, {
+    "class" : "model.ES.component.lifeCycle.LifeTime",
+    "duration" : 1980.0
+  }, {
+    "class" : "model.ES.component.assets.ParticleCaster",
+    "spritePath" : "particles/shockwave.png",
+    "nbCol" : 1,
+    "nbRow" : 1,
+    "initialSpeed" : 0.0,
+    "fanning" : 0.0,
+    "randomSprite" : false,
+    "maxCount" : 1,
+    "perSecond" : 0.0,
+    "startSize" : 0.5,
+    "endSize" : 2.0,
+    "startColor" : {
+      "a" : 255,
+      "r" : 51,
+      "g" : 77,
+      "b" : 179
+    },
+    "endColor" : {
+      "a" : 0,
+      "r" : 102,
+      "g" : 128,
+      "b" : 230
+    },
+    "minLife" : 0.3,
+    "maxLife" : 0.3,
+    "rotationSpeed" : 0.0,
+    "gravity" : false,
+    "facing" : "Camera",
+    "add" : false,
+    "startVariation" : 0.0,
+    "allAtOnce" : true
+  }, {
+    "class" : "model.ES.component.motion.PlanarStance",
+    "coord" : {
+      "x" : 0.0,
+      "y" : 0.0
+    },
+    "orientation" : {
+      "value" : 0.0
+    },
+    "elevation" : 0.0,
+    "upVector" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 1.0
+    }
+  } ],
+  "children" : [ ]
+}

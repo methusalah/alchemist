@@ -1,0 +1,36 @@
+{
+  "name" : "rock02",
+  "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "rock02"
+  }, {
+    "class" : "model.ES.component.assets.Model",
+    "path" : "floor assets/rocks/rock02.j3o",
+    "scale" : 0.007,
+    "yawFix" : {
+      "value" : 0.0
+    },
+    "pitchFix" : {
+      "value" : 0.0
+    },
+    "rollFix" : {
+      "value" : 0.0
+    }
+  }, {
+    "class" : "model.ES.component.motion.PlanarStance",
+    "coord" : {
+      "x" : -3.600000000000002,
+      "y" : 1.0600000000000007
+    },
+    "orientation" : {
+      "value" : 0.0
+    },
+    "elevation" : 0.0,
+    "upVector" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 1.0
+    }
+  } ],
+  "children" : [ ]
+}

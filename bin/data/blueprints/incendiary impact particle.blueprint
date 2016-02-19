@@ -1,0 +1,65 @@
+{
+  "name" : "incendiary impact particle",
+  "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "incendiary impact particle"
+  }, {
+    "class" : "model.ES.component.motion.PlanarStance",
+    "coord" : {
+      "x" : 0.0,
+      "y" : 0.0
+    },
+    "orientation" : {
+      "value" : 0.0
+    },
+    "elevation" : 0.0,
+    "upVector" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 1.0
+    }
+  }, {
+    "class" : "model.ES.component.assets.ParticleCaster",
+    "spritePath" : "particles/flame.png",
+    "nbCol" : 2,
+    "nbRow" : 2,
+    "initialSpeed" : 0.0,
+    "fanning" : 0.0,
+    "randomSprite" : false,
+    "maxCount" : 20,
+    "perSecond" : 20,
+    "startSize" : 0.1,
+    "endSize" : 0.4,
+    "startColor" : {
+      "a" : 255,
+      "r" : 233,
+      "g" : 80,
+      "b" : 0
+    },
+    "endColor" : {
+      "a" : 0,
+      "r" : 255,
+      "g" : 153,
+      "b" : 102
+    },
+    "minLife" : 0.3,
+    "maxLife" : 0.4,
+    "rotationSpeed" : 3.0,
+    "gravity" : false,
+    "facing" : "Camera",
+    "add" : false,
+    "startVariation" : 0.15,
+    "allAtOnce" : false
+  }, {
+    "class" : "model.ES.component.lifeCycle.LifeTime",
+    "duration" : 400.0
+  }, {
+    "class" : "model.ES.component.assets.AudioSource",
+    "path" : "impact_metal1.wav",
+    "loop" : false,
+    "volume" : {
+      "value" : 0.4
+    }
+  } ],
+  "children" : [ ]
+}

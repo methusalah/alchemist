@@ -1,0 +1,18 @@
+package processor.logic.interaction;
+
+import com.simsilica.es.Entity;
+
+import model.ECS.pipeline.Processor;
+
+public class TouchingClearingProc extends Processor {
+
+	@Override
+	protected void registerSets() {
+		registerDefault(Touching.class);
+	}
+	
+	@Override
+	protected void onEntityEachTick(Entity e) {
+		removeComp(e, Touching.class);
+	}
+}

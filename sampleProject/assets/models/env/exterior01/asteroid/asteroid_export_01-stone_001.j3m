@@ -1,0 +1,25 @@
+Material MyMaterial : Common/MatDefs/Light/Lighting.j3md {
+    MaterialParameters {
+        Diffuse : 0.63827187 0.45725024 0.2893687 1.0
+        UseMaterialColors : true
+        ParallaxHeight : 0.05
+        Ambient : 0.63827187 0.45725024 0.2893687 1.0
+        GlowColor : 0.0 0.0 0.0 1.0
+        DiffuseMap : Repeat models/env/exterior01/asteroid/AO.png
+        Specular : 0.52949804 0.52949804 0.52949804 1.0
+        Shininess : 12.5
+        NormalMap : Repeat models/env/exterior01/asteroid/Normal.png
+        PCFEdge : 0.0
+    }
+    AdditionalRenderState {
+      PointSprite Off
+      FaceCull Back
+      AlphaTestFalloff 0.0
+      DepthWrite On
+      ColorWrite On
+      PolyOffset 0.0 0.0
+      DepthTest On
+      Blend Off
+      Wireframe Off
+    }
+}

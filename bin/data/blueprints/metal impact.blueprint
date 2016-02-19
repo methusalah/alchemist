@@ -1,0 +1,33 @@
+{
+  "name" : "metal impact",
+  "comps" : [ {
+    "class" : "model.ES.component.Naming",
+    "name" : "metal impact"
+  }, {
+    "class" : "model.ES.component.motion.PlanarStance",
+    "coord" : {
+      "x" : 0.0,
+      "y" : 0.0
+    },
+    "orientation" : {
+      "value" : 0.0
+    },
+    "elevation" : 0.0,
+    "upVector" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 1.0
+    }
+  }, {
+    "class" : "model.ES.component.lifeCycle.LifeTime",
+    "duration" : 1000.0
+  }, {
+    "class" : "model.ES.component.assets.AudioSource",
+    "path" : "impact_metal1.wav",
+    "loop" : false,
+    "volume" : {
+      "value" : 0.4
+    }
+  } ],
+  "children" : [ ]
+}
