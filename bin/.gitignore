@@ -1,13 +1,17 @@
 /AI/
+/app/
 /commonLogic/
 /component/
-/mainTest.class
-/processor/
-/view/
-/model/
-/SpatialPool.class
-/app/
-/presentation/
-/Nouveau dossier/
 /controller/
-/plugin/
+/data/
+/interface/
+/matdefs/
+/materials/
+/model/
+/models/
+/presentation/
+/processor/
+/resources/
+/sounds/
+/textures/
+/view/
