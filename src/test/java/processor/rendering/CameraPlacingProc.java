@@ -4,6 +4,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.simsilica.es.Entity;
 
+import component.motion.ChasingCamera;
 import model.ECS.pipeline.Processor;
 import model.tempImport.AppFacade;
 import model.tempImport.TranslateUtil;

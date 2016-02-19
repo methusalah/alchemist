@@ -3,6 +3,7 @@ package view.drawingProcessors.particle;
 import com.jme3.effect.ParticleEmitter;
 import com.simsilica.es.Entity;
 
+import SpatialPool;
 import main.java.model.ECS.pipeline.Processor;
 import model.ES.commonLogic.Controlling;
 import model.ES.component.assets.ParticleCaster;
@@ -12,7 +13,6 @@ import model.ES.component.motion.ThrusterControl;
 import model.ES.component.motion.ThrustControl;
 import util.LogUtil;
 import util.math.Fraction;
-import view.SpatialPool;
 import view.jme.MyParticleEmitter;
 
 public class ParticleThrusterProc extends Processor {

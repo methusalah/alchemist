@@ -10,7 +10,6 @@ import util.LogUtil;
 import util.geometry.geom2d.Segment2D;
 import util.geometry.geom3d.Segment3D;
 import view.MaterialManager;
-import view.SpatialPool;
 import view.math.TranslateUtil;
 import app.AppFacade;
 import main.java.model.ECS.pipeline.Processor;
@@ -22,6 +21,8 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Line;
 import com.simsilica.es.Entity;
+
+import SpatialPool;
 
 public class EdgeCollisionShapeDrawingProc extends Processor {
 	Map<String, Spatial> modelPrototypes = new HashMap<>();

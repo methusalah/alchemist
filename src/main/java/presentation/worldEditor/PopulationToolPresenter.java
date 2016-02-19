@@ -5,14 +5,12 @@ import java.util.List;
 
 import com.simsilica.es.EntityComponent;
 
-import app.AppFacade;
-import javafx.beans.property.SimpleListProperty;
+import component.motion.PlanarStance;
 import javafx.collections.FXCollections;
-import model.ES.component.motion.PlanarStance;
-import model.ES.processor.world.WorldProc;
-import model.ES.serial.Blueprint;
-import model.ES.serial.BlueprintLibrary;
-import model.ES.serial.EntityInstance;
+import model.ECS.blueprint.Blueprint;
+import model.ECS.blueprint.BlueprintLibrary;
+import model.tempImport.AppFacade;
+import processor.logic.world.WorldProc;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 import view.tab.worldEditor.population.PopulationConfigurator;

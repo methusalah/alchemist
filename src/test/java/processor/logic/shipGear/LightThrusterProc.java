@@ -2,7 +2,8 @@ package processor.logic.shipGear;
 
 import com.simsilica.es.Entity;
 
-import javafx.scene.effect.Lighting;
+import component.assets.Lighting;
+import component.motion.Thruster;
 import model.ECS.pipeline.Processor;
 
 public class LightThrusterProc extends Processor {

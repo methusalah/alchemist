@@ -1,8 +1,5 @@
 package presentation.actionBar;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 
@@ -10,14 +7,9 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import model.EditorPlatform;
 import model.ECS.data.EntityDataMemento;
-import model.ECS.pipeline.EntitySystem;
-import model.ECS.pipeline.LogicLoop;
 import presentation.RunState;
 import presentation.RunState.State;
 import presentation.base.AbstractPresenter;
-import util.LogUtil;
-import view.GameInputListener;
-import view.common.SceneInputListener;
 
 public class ActionBarPresenter extends AbstractPresenter<ActionBarViewer> {
 	private final IntegerProperty millisPerTickProperty = new SimpleIntegerProperty();

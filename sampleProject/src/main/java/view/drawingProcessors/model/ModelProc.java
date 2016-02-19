@@ -7,12 +7,12 @@ import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 
+import SpatialPool;
 import app.AppFacade;
 import main.java.model.ECS.pipeline.Processor;
 import model.ECS.Naming;
 import model.ES.component.assets.Model;
 import util.LogUtil;
-import view.SpatialPool;
 
 public class ModelProc extends Processor {
 	Map<String, Spatial> modelPrototypes = new HashMap<>();

@@ -10,9 +10,13 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Line;
 import com.simsilica.es.Entity;
 
+import commonLogic.SpatialPool;
+import component.motion.physic.EdgedCollisionShape;
+import model.ECS.builtInComponent.Naming;
 import model.ECS.pipeline.Processor;
 import model.tempImport.AppFacade;
 import model.tempImport.TranslateUtil;
+import util.geometry.geom2d.Segment2D;
 import view.MaterialManager;
 
 public class EdgeCollisionShapeDrawingProc extends Processor {

@@ -2,9 +2,9 @@ package view.instrument.circleCollisionShape;
 
 import com.simsilica.es.EntityId;
 
+import component.motion.PlanarStance;
+import component.motion.physic.CircleCollisionShape;
 import model.EditorPlatform;
-import model.ES.component.motion.PlanarStance;
-import model.ES.component.motion.physic.CircleCollisionShape;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import view.ViewPlatform;

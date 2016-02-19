@@ -2,19 +2,20 @@ package view.drawingProcessors.ui;
 
 import model.ES.component.debug.VelocityViewing;
 import model.ES.component.motion.PlanarStance;
-import model.ES.richData.VelocityView;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import view.MaterialManager;
-import view.SpatialPool;
 import view.math.TranslateUtil;
 import app.AppFacade;
+import commonLogic.VelocityView;
 import main.java.model.ECS.pipeline.Processor;
 
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Line;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntitySet;
+
+import SpatialPool;
 
 public class VelocityVisualisationProc extends Processor {
 

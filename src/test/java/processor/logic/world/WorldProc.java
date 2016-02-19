@@ -8,10 +8,18 @@ import com.simsilica.es.Entity;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityId;
 
+import commonLogic.EntityInstance;
+import component.motion.ChasingCamera;
+import component.motion.PlanarStance;
+import model.ECS.builtInComponent.Naming;
 import model.ECS.pipeline.Processor;
 import model.state.DataState;
 import model.tempImport.AppFacade;
+import model.world.Region;
+import model.world.RegionLoader;
+import model.world.terrain.heightmap.HeightMapNode;
 import processor.rendering.TerrainDrawer;
+import util.geometry.geom2d.Point2D;
 
 public class WorldProc extends Processor {
 	

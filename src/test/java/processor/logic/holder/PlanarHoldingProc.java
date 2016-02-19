@@ -2,8 +2,15 @@ package processor.logic.holder;
 
 import com.simsilica.es.Entity;
 
-import javafx.geometry.Point3D;
+import commonLogic.Controlling;
+import component.motion.PlanarStance;
+import component.motion.PlanarStanceControl;
+import component.motion.SpaceStance;
 import model.ECS.pipeline.Processor;
+import util.geometry.geom2d.Point2D;
+import util.geometry.geom3d.Point3D;
+import util.math.Angle;
+import util.math.AngleUtil;
 
 public class PlanarHoldingProc extends Processor {
 

@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.NumberStringConverter;
 import presentation.worldEditor.PencilToolPresenter;

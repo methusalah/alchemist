@@ -2,10 +2,10 @@ package presentation.worldEditor;
 
 import com.jme3.scene.Node;
 
-import app.AppFacade;
-import controller.SpatialSelector;
 import model.EditorPlatform;
-import model.ES.processor.world.WorldProc;
+import model.state.SpatialSelector;
+import model.tempImport.AppFacade;
+import processor.logic.world.WorldProc;
 import util.geometry.geom2d.Point2D;
 
 public class WorldEditorPresenter {

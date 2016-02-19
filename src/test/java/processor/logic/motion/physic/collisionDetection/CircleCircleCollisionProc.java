@@ -5,7 +5,12 @@ import java.util.List;
 
 import com.simsilica.es.Entity;
 
+import component.motion.PlanarStance;
+import component.motion.physic.CircleCollisionShape;
+import component.motion.physic.Physic;
 import model.ECS.pipeline.Processor;
+import util.geometry.geom2d.Circle2D;
+import util.geometry.geom2d.Point2D;
 
 public class CircleCircleCollisionProc extends Processor {
 	

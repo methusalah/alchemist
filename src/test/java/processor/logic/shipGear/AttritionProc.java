@@ -2,6 +2,8 @@ package processor.logic.shipGear;
 
 import com.simsilica.es.Entity;
 
+import component.combat.resistance.Attrition;
+import component.lifeCycle.ToRemove;
 import model.ECS.pipeline.Processor;
 
 public class AttritionProc extends Processor {

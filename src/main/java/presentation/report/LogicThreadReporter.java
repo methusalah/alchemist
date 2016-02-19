@@ -2,9 +2,9 @@ package presentation.report;
 
 import com.jme3.app.SimpleApplication;
 
+import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.animation.Animation.Status;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -13,8 +13,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
 import model.EditorPlatform;
 import model.ECS.builtInComponent.Naming;
-import model.ECS.pipeline.EntitySystem;
-import model.ECS.pipeline.LogicLoop;
 
 public class LogicThreadReporter {
 	private final IntegerProperty entityCount = new SimpleIntegerProperty();

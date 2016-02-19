@@ -3,7 +3,6 @@ package presentation.worldEditor.atlas;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.world.terrain.atlas.Atlas;
 import util.geometry.geom2d.Point2D;
 
 /**

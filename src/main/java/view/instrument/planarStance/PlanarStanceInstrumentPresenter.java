@@ -2,7 +2,9 @@ package view.instrument.planarStance;
 
 import com.simsilica.es.EntityId;
 
+import component.motion.PlanarStance;
 import model.EditorPlatform;
+import model.state.SpatialSelector;
 import presentation.EntityNode;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;

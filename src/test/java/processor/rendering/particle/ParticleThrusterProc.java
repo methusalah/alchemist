@@ -3,7 +3,14 @@ package processor.rendering.particle;
 import com.jme3.effect.ParticleEmitter;
 import com.simsilica.es.Entity;
 
+import commonLogic.Controlling;
+import commonLogic.SpatialPool;
+import component.assets.ParticleCaster;
+import component.motion.RotationThruster;
+import component.motion.Thruster;
+import component.motion.ThrusterControl;
 import model.ECS.pipeline.Processor;
+import util.LogUtil;
 
 public class ParticleThrusterProc extends Processor {
 

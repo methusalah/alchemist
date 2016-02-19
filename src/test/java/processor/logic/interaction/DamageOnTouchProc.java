@@ -3,6 +3,11 @@ package processor.logic.interaction;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
+import component.combat.damage.DamageCapacity;
+import component.combat.damage.DamageOnTouch;
+import component.combat.damage.Damaging;
+import component.motion.Touching;
+import model.ECS.builtInComponent.Naming;
 import model.ECS.pipeline.Processor;
 
 public class DamageOnTouchProc extends Processor {

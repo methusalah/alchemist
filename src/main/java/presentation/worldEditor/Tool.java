@@ -1,6 +1,6 @@
 package presentation.worldEditor;
 
-import controller.ECS.SceneSelectorState;
+import model.state.SceneSelectorState;
 
 public abstract class Tool {
 

@@ -7,11 +7,15 @@ import com.jme3.post.Filter;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.simsilica.es.Entity;
 
-import javafx.geometry.Point3D;
-import javafx.scene.effect.Lighting;
+import commonLogic.SpatialPool;
+import component.assets.Lighting;
+import component.motion.PlanarStance;
+import component.motion.SpaceStance;
 import model.ECS.pipeline.Processor;
 import model.tempImport.AppFacade;
 import model.tempImport.TranslateUtil;
+import util.geometry.geom3d.Point3D;
+import util.math.AngleUtil;
 
 public class LightProc extends Processor {
 

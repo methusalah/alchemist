@@ -9,8 +9,12 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 
+import commonLogic.CenteredQuad;
+import commonLogic.SpatialPool;
+import component.assets.Sprite;
 import model.ECS.pipeline.Processor;
 import model.tempImport.AppFacade;
+import util.LogUtil;
 import view.MaterialManager;
 
 public class SpriteProc extends Processor {

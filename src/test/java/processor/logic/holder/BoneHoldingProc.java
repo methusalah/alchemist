@@ -2,6 +2,9 @@ package processor.logic.holder;
 
 import com.simsilica.es.Entity;
 
+import component.assets.Skeleton;
+import component.motion.BoneHolding;
+import component.motion.SpaceStance;
 import model.ECS.pipeline.Processor;
 
 public class BoneHoldingProc extends Processor {

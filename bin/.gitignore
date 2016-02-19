@@ -1,9 +1,13 @@
-/main/
+/AI/
+/commonLogic/
+/component/
 /mainTest.class
 /processor/
-/model/
-/presentation/
-/resources/
 /view/
+/model/
+/SpatialPool.class
+/app/
+/presentation/
 /Nouveau dossier/
-/test/
+/controller/
+/plugin/

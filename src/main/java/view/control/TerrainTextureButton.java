@@ -7,7 +7,6 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import model.world.terrain.TerrainTexture;
 
 public class TerrainTextureButton extends ToggleButton {
 	public TerrainTextureButton(TerrainTexture texture) {

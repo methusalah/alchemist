@@ -2,7 +2,12 @@ package processor.logic.command;
 
 import com.simsilica.es.Entity;
 
+import component.motion.MotionCapacity;
+import component.motion.PlanarNeededRotation;
+import component.motion.PlanarStance;
+import model.ECS.pipeline.Pipeline;
 import model.ECS.pipeline.Processor;
+import util.math.Angle;
 
 public class NeededRotationProc extends Processor {
 	
@@ -17,7 +22,7 @@ public class NeededRotationProc extends Processor {
 		MotionCapacity capacity = e.get(MotionCapacity.class);
 		PlanarStance stance = e.get(PlanarStance.class); 
 		
-		double maxRotation = capacity.maxRotationSpeed * LogicLoop.getSecondPerTick();
+		double maxRotation = capacity.maxRotationSpeed * Pipeline.getSecondPerTick();
 		maxRotation = Math.min(Math.abs(neededRotation.angle.getValue()), maxRotation);
 		double possibleRotation = maxRotation*Math.signum(neededRotation.angle.getValue());
 		

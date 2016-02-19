@@ -4,7 +4,14 @@ import com.simsilica.es.Entity;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
+import component.lifeCycle.ToRemove;
+import component.motion.PlanarVelocityToApply;
+import component.motion.Touching;
+import component.motion.physic.Collisioning;
+import component.motion.physic.Physic;
+import model.ECS.builtInComponent.Naming;
 import model.ECS.pipeline.Processor;
+import util.geometry.geom2d.Point2D;
 
 public class CollisionResolutionProc extends Processor {
 	

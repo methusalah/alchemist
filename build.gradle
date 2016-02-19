@@ -13,12 +13,9 @@ ext {
 	}
 	
 repositories {
-    mavenLocal()
     mavenCentral()
-    maven {
-    	url "https://jitpack.io"
-    	url "http://updates.jmonkeyengine.org/maven"
-    }
+    maven { url "https://jitpack.io" }
+    maven { url "http://updates.jmonkeyengine.org/maven" }
 }
 
 dependencies {
@@ -47,6 +44,10 @@ dependencies {
 	
 	// Simple Logging Facade
 	compile 'org.slf4j:slf4j-simple:1.6.1'
+	
+	// LibGDX-AI
+	compile "com.badlogicgames.gdx:gdx-ai:1.6.0"
+	
 	
 }
 configurations.all {

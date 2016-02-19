@@ -3,6 +3,9 @@ package processor.logic.interaction;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
+import component.lifeCycle.SpawnOnTouch;
+import component.motion.PlanarStance;
+import component.motion.Touching;
 import model.ECS.blueprint.BlueprintLibrary;
 import model.ECS.pipeline.Processor;
 

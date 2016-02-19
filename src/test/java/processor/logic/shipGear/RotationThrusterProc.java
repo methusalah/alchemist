@@ -2,7 +2,12 @@ package processor.logic.shipGear;
 
 import com.simsilica.es.Entity;
 
+import commonLogic.Controlling;
+import component.motion.PlanarNeededRotation;
+import component.motion.RotationThruster;
+import component.motion.ThrustControl;
 import model.ECS.pipeline.Processor;
+import util.math.Fraction;
 
 public class RotationThrusterProc extends Processor {
 

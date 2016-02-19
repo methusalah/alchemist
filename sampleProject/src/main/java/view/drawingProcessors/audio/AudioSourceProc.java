@@ -6,12 +6,12 @@ import java.util.Map;
 import com.jme3.audio.AudioNode;
 import com.simsilica.es.Entity;
 
+import SpatialPool;
 import app.AppFacade;
 import main.java.model.ECS.pipeline.Processor;
 import model.ECS.Naming;
 import model.ES.component.assets.AudioSource;
 import util.LogUtil;
-import view.SpatialPool;
 
 public class AudioSourceProc extends Processor {
 	Map<String, AudioNode> soundPrototypes = new HashMap<>();

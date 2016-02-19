@@ -2,7 +2,14 @@ package processor.logic.shipGear;
 
 import com.simsilica.es.Entity;
 
+import commonLogic.Controlling;
+import component.motion.PlanarNeededThrust;
+import component.motion.PlanarStance;
+import component.motion.ThrustControl;
+import component.motion.Thruster;
 import model.ECS.pipeline.Processor;
+import util.math.AngleUtil;
+import util.math.Fraction;
 
 public class ThrusterProc extends Processor {
 

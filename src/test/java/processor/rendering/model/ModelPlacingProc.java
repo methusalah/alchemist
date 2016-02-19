@@ -5,9 +5,13 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 
-import javafx.geometry.Point3D;
+import commonLogic.SpatialPool;
+import component.assets.Model;
+import component.motion.PlanarStance;
 import model.ECS.pipeline.Processor;
 import model.tempImport.TranslateUtil;
+import util.geometry.geom3d.Point3D;
+import util.math.AngleUtil;
 
 public class ModelPlacingProc extends Processor {
 

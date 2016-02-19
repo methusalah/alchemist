@@ -6,7 +6,6 @@ import model.ECS.data.TraversableEntityData;
 import model.state.SceneSelectorState;
 import presentation.EntityNode;
 import presentation.RunState;
-import view.common.SceneInputManager;
 import view.instrument.planarStance.PlanarStanceInstrumentState;
 import view.tab.scene.customControl.JmeImageView;
 import view.util.UserComponentList;

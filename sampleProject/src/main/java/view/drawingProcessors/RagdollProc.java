@@ -14,6 +14,7 @@ import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
+import SpatialPool;
 import app.AppFacade;
 import main.java.model.ECS.pipeline.Processor;
 import model.ES.component.assets.Model;
@@ -23,7 +24,6 @@ import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 import util.math.RandomUtil;
-import view.SpatialPool;
 import view.math.TranslateUtil;
 
 public class RagdollProc extends Processor{

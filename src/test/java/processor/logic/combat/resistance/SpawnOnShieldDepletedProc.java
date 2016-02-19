@@ -2,6 +2,9 @@ package processor.logic.combat.resistance;
 
 import com.simsilica.es.Entity;
 
+import commonLogic.Spawner;
+import component.combat.resistance.Attrition;
+import component.combat.resistance.SpawnOnShieldDepleted;
 import model.ECS.pipeline.Processor;
 
 public class SpawnOnShieldDepletedProc extends Processor {

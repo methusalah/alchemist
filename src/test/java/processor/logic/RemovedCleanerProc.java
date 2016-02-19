@@ -2,6 +2,7 @@ package processor.logic;
 
 import com.simsilica.es.Entity;
 
+import component.lifeCycle.Removed;
 import model.ECS.pipeline.Processor;
 
 public class RemovedCleanerProc extends Processor {

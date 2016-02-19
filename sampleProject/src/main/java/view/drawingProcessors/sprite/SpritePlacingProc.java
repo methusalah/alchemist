@@ -5,12 +5,12 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 
+import SpatialPool;
 import main.java.model.ECS.pipeline.Processor;
 import model.ES.component.assets.Sprite;
 import model.ES.component.motion.PlanarStance;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
-import view.SpatialPool;
 import view.math.TranslateUtil;
 
 public class SpritePlacingProc extends Processor {

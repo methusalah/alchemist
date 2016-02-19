@@ -17,6 +17,7 @@ import com.jme3.shadow.EdgeFilteringMode;
 import com.jme3.shadow.SpotLightShadowFilter;
 import com.simsilica.es.Entity;
 
+import SpatialPool;
 import app.AppFacade;
 import main.java.model.ECS.pipeline.Processor;
 import model.ES.component.assets.Lighting;
@@ -25,7 +26,6 @@ import model.ES.component.motion.SpaceStance;
 import util.LogUtil;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
-import view.SpatialPool;
 import view.math.TranslateUtil;
 
 public class LightProc extends Processor {

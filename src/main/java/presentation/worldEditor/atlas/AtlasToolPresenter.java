@@ -4,20 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import app.AppFacade;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import model.ES.processor.world.WorldProc;
-import model.world.Region;
-import model.world.terrain.TerrainTexture;
-import model.world.terrain.atlas.Atlas;
-import model.world.terrain.atlas.AtlasLayer;
+import model.tempImport.AppFacade;
 import presentation.ToggledEnumProperty;
 import presentation.worldEditor.PencilToolPresenter;
+import processor.logic.world.WorldProc;
 import util.geometry.geom2d.Point2D;
 
 public class AtlasToolPresenter extends PencilToolPresenter {

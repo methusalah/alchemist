@@ -12,7 +12,6 @@ import javafx.util.converter.NumberStringConverter;
 import model.EditorPlatform;
 import presentation.actionBar.ActionBarPresenter;
 import presentation.actionBar.ActionBarViewer;
-import view.GameInputListener;
 import view.ViewPlatform;
 import view.common.SceneInputListener;
 import view.util.ViewLoader;

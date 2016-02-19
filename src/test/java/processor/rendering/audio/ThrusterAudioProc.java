@@ -6,6 +6,12 @@ import java.util.Map;
 import com.jme3.audio.AudioNode;
 import com.simsilica.es.Entity;
 
+import commonLogic.Controlling;
+import commonLogic.SpatialPool;
+import component.assets.ThrusterAudioSource;
+import component.motion.PlanarStance;
+import component.motion.Thruster;
+import component.motion.ThrusterControl;
 import model.ECS.pipeline.Processor;
 import model.tempImport.AppFacade;
 

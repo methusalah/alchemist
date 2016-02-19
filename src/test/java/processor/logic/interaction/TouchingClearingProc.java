@@ -2,6 +2,7 @@ package processor.logic.interaction;
 
 import com.simsilica.es.Entity;
 
+import component.motion.Touching;
 import model.ECS.pipeline.Processor;
 
 public class TouchingClearingProc extends Processor {

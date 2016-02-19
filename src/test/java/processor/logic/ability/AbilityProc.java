@@ -3,6 +3,10 @@ package processor.logic.ability;
 
 import com.simsilica.es.Entity;
 
+import commonLogic.Controlling;
+import component.ability.Ability;
+import component.ability.AbilityTrigger;
+import component.ability.AbilityTriggerControl;
 import model.ECS.pipeline.Processor;
 
 public class AbilityProc extends Processor {

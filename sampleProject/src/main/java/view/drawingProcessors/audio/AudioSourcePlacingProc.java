@@ -6,7 +6,6 @@ import model.ES.component.motion.PlanarStance;
 import util.LogUtil;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
-import view.SpatialPool;
 import view.math.TranslateUtil;
 
 import com.jme3.audio.AudioNode;
@@ -15,6 +14,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 
+import SpatialPool;
 import main.java.model.ECS.pipeline.Processor;
 
 public class AudioSourcePlacingProc extends Processor {

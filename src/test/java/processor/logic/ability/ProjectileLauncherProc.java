@@ -6,11 +6,25 @@ import java.util.List;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
-import javafx.geometry.Point3D;
+import component.ability.Ability;
+import component.ability.Cooldown;
+import component.combat.damage.DamageCapacity;
+import component.combat.damage.Projectile;
+import component.combat.damage.ProjectileLauncher;
+import component.lifeCycle.SpawnOnTouch;
+import component.motion.PlanarNeededThrust;
+import component.motion.PlanarStance;
+import component.motion.PlanarVelocityToApply;
+import component.motion.physic.Physic;
 import model.ECS.blueprint.Blueprint;
 import model.ECS.blueprint.BlueprintLibrary;
 import model.ECS.builtInComponent.Parenting;
 import model.ECS.pipeline.Processor;
+import util.LogUtil;
+import util.geometry.geom3d.Point3D;
+import util.math.Angle;
+import util.math.AngleUtil;
+import util.math.RandomUtil;
 
 public class ProjectileLauncherProc extends Processor {
 

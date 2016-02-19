@@ -2,6 +2,13 @@ package processor.logic.interaction.damage;
 
 import com.simsilica.es.Entity;
 
+import component.combat.damage.DamageOverTime;
+import component.combat.damage.Damaging;
+import component.combat.resistance.Attrition;
+import component.combat.resistance.Shield;
+import component.lifeCycle.LifeTime;
+import component.lifeCycle.ToRemove;
+import model.ECS.pipeline.Pipeline;
 import model.ECS.pipeline.Processor;
 
 public class DamagingOverTimeProc extends Processor {
@@ -38,7 +45,7 @@ public class DamagingOverTimeProc extends Processor {
 					DamageFloatingLabelCreator.create(entityData, damaging.target, dot.getType(), applier.getDamageOnHitPoints(), false, true);
 
 			}
-			timeSinceLastTick += LogicLoop.getMillisPerTick();
+			timeSinceLastTick += Pipeline.getMillisPerTick();
 			setComp(e, new DamageOverTime(dot.getType(), dot.getAmountPerSecond(), dot.getTickPerSecond(), timeSinceLastTick));
 		} else
 			setComp(e, new ToRemove());

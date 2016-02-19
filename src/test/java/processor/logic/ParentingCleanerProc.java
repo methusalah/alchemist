@@ -2,6 +2,8 @@ package processor.logic;
 
 import com.simsilica.es.Entity;
 
+import component.lifeCycle.Removed;
+import component.lifeCycle.ToRemove;
 import model.ECS.builtInComponent.Parenting;
 import model.ECS.pipeline.Processor;
 

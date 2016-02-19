@@ -7,7 +7,6 @@ import javafx.scene.layout.BorderPane;
 import presentation.worldEditor.WorldEditorPresenter;
 import presentation.worldEditor.WorldTool;
 import view.ViewPlatform;
-import view.WorldEditorInputListener;
 import view.tab.worldEditor.atlas.AtlasConfigurator;
 import view.tab.worldEditor.heightmap.HeightmapConfigurator;
 import view.tab.worldEditor.population.PopulationConfigurator;

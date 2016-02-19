@@ -3,8 +3,15 @@ package processor.logic.interaction;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
-import javafx.geometry.Point3D;
+import component.lifeCycle.LifeTime;
+import component.motion.PlanarStance;
+import component.motion.ShockwaveOnTouch;
+import component.motion.Touching;
+import component.motion.physic.PhysicForce;
+import model.ECS.builtInComponent.Naming;
 import model.ECS.pipeline.Processor;
+import util.geometry.geom3d.Point3D;
+import util.math.Angle;
 
 public class ShockwaveOnTouchProc extends Processor{
 	@Override

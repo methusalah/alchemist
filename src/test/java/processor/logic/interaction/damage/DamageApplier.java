@@ -1,5 +1,8 @@
 package processor.logic.interaction.damage;
 
+import component.combat.damage.DamageType;
+import component.combat.resistance.Attrition;
+
 public class DamageApplier {
 	private final static double BASE_FLESH = 1;
 	private final static double BASE_ARMOR = 0.8;

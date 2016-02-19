@@ -7,9 +7,13 @@ import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
-import com.jme3.terrain.Terrain;
 
+import commonLogic.SpatialPool;
+import commonLogic.TerrainSplatTexture;
 import model.tempImport.TranslateUtil;
+import model.world.terrain.Terrain;
+import model.world.terrain.heightmap.Parcel;
+import util.geometry.geom2d.Point2D;
 
 public class TerrainDrawer {
 	private final Terrain terrain;

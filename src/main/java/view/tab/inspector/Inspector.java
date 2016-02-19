@@ -1,29 +1,20 @@
 package view.tab.inspector;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.simsilica.es.EntityComponent;
 
-import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import model.EditorPlatform;
 import presentation.EntityNode;
 import presentation.inspector.InspectorPresenter;
 import presentation.inspector.InspectorViewer;
-import util.LogUtil;
 import view.tab.inspector.customControl.ComponentEditor;
 import view.util.ViewLoader;
 

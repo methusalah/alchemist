@@ -2,6 +2,7 @@ package processor.logic.ability;
 
 import com.simsilica.es.Entity;
 
+import component.ability.AbilityTrigger;
 import model.ECS.pipeline.Processor;
 
 public class AbilityTriggerResetProc extends Processor {

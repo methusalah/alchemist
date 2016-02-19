@@ -4,9 +4,14 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Line;
 import com.simsilica.es.Entity;
 
+import commonLogic.SpatialPool;
+import commonLogic.VelocityView;
+import component.debug.VelocityViewing;
+import component.motion.PlanarStance;
 import model.ECS.pipeline.Processor;
 import model.tempImport.AppFacade;
 import model.tempImport.TranslateUtil;
+import util.geometry.geom2d.Point2D;
 import view.MaterialManager;
 
 public class VelocityVisualisationProc extends Processor {

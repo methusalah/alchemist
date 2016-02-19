@@ -3,6 +3,10 @@ package processor.logic.command;
 import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.Entity;
 
+import component.ability.PlayerControl;
+import component.motion.PlanarNeededThrust;
+import component.motion.PlanarStance;
+import model.Command;
 import model.ECS.pipeline.Processor;
 import model.state.DataState;
 

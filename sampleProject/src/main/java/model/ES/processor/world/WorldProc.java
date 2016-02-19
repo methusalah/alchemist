@@ -9,12 +9,12 @@ import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityId;
 
 import app.AppFacade;
+import commonLogic.EntityInstance;
 import controller.regionPaging.RegionPager;
 import main.java.model.ECS.pipeline.Processor;
 import model.ECS.Naming;
 import model.ES.component.motion.ChasingCamera;
 import model.ES.component.motion.PlanarStance;
-import model.ES.serial.EntityInstance;
 import model.tempImport.DataState;
 import model.world.Region;
 import model.world.RegionLoader;

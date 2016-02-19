@@ -9,11 +9,11 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 
+import SpatialPool;
+import commonLogic.TerrainSplatTexture;
 import model.world.terrain.Terrain;
 import model.world.terrain.heightmap.Parcel;
 import util.geometry.geom2d.Point2D;
-import view.SpatialPool;
-import view.jme.TerrainSplatTexture;
 import view.math.TranslateUtil;
 
 public class TerrainDrawer {

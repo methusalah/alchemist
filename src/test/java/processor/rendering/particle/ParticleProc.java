@@ -11,9 +11,12 @@ import com.jme3.material.RenderState;
 import com.jme3.math.Vector3f;
 import com.simsilica.es.Entity;
 
+import commonLogic.SpatialPool;
+import component.assets.ParticleCaster;
 import model.ECS.pipeline.Processor;
 import model.tempImport.AppFacade;
 import model.tempImport.TranslateUtil;
+import util.LogUtil;
 
 public class ParticleProc extends Processor {
 	List<ParticleEmitter> toRemove = new ArrayList<ParticleEmitter>(); 

@@ -1,7 +1,7 @@
 {
   "1.0": {
-    "project_path": ":core",
-    "project_dir": "C:\\Users\\benoit\\git\\alchemist\\core",
+    "project_path": ":sampleProject",
+    "project_dir": "C:\\Users\\benoit\\git\\alchemist\\sampleProject",
     "connection_project_dir": "C:\\Users\\benoit\\git\\alchemist",
     "connection_gradle_user_home": null,
     "connection_gradle_distribution": "GRADLE_DISTRIBUTION(WRAPPER)",

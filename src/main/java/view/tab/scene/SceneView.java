@@ -3,16 +3,6 @@ package view.tab.scene;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jme3.app.SimpleApplication;
-import com.jme3.app.state.AppStateManager;
-import com.jme3.post.FilterPostProcessor;
-import com.jme3.post.filters.BloomFilter;
-import com.jme3.post.filters.FXAAFilter;
-import com.jme3.shadow.DirectionalLightShadowFilter;
-import com.jme3.shadow.EdgeFilteringMode;
-import com.simsilica.es.EntityData;
-import com.simsilica.es.EntityId;
-
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -20,14 +10,11 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import model.EditorPlatform;
 import model.ECS.blueprint.Blueprint;
-import model.state.DraggableCameraState;
-import model.state.InstrumentUpdateState;
 import model.state.SceneSelectorState;
 import presentation.sceneView.SceneViewPresenter;
 import presentation.sceneView.SceneViewViewer;
 import util.geometry.geom2d.Point2D;
 import view.ViewPlatform;
-import view.common.SceneInputManager;
 import view.util.Dragpool;
 
 public class SceneView extends Pane implements SceneViewViewer{

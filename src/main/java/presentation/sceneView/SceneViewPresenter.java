@@ -10,9 +10,10 @@ import com.jme3.shadow.EdgeFilteringMode;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
+import component.motion.PlanarStance;
 import model.EditorPlatform;
 import model.ECS.blueprint.Blueprint;
-import model.ECS.pipeline.EntitySystem;
+import model.state.DataState;
 import model.state.DraggableCameraState;
 import model.state.InstrumentUpdateState;
 import model.state.SceneSelectorState;
@@ -20,8 +21,6 @@ import model.tempImport.AppFacade;
 import presentation.base.AbstractPresenter;
 import presentation.base.Viewer;
 import util.geometry.geom2d.Point2D;
-import view.TopDownCamInputListener;
-import view.common.SceneInputManager;
 
 public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 	private static final int SHADOWMAP_SIZE = 4096;

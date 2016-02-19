@@ -2,8 +2,15 @@ package processor.logic.ability;
 
 import com.simsilica.es.Entity;
 
+import component.ability.Ability;
+import component.motion.Boost;
+import component.motion.PlanarStance;
+import component.motion.PlanarVelocityToApply;
+import component.motion.physic.Physic;
 import model.ECS.builtInComponent.Parenting;
 import model.ECS.pipeline.Processor;
+import util.geometry.geom2d.Point2D;
+import util.math.AngleUtil;
 
 public class BoostProc extends Processor {
 

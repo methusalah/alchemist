@@ -2,7 +2,12 @@ package processor.logic.motion.physic;
 
 import com.simsilica.es.Entity;
 
+import component.motion.PlanarVelocityToApply;
+import component.motion.physic.Dragging;
+import component.motion.physic.Physic;
 import model.ECS.pipeline.Processor;
+import util.geometry.geom2d.Point2D;
+import util.math.PrecisionUtil;
 
 public class DraggingProc extends Processor {
 	@Override

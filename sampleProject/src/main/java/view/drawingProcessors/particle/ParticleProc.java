@@ -11,6 +11,7 @@ import com.jme3.material.RenderState;
 import com.jme3.math.Vector3f;
 import com.simsilica.es.Entity;
 
+import SpatialPool;
 import app.AppFacade;
 import main.java.model.ECS.pipeline.Processor;
 import model.ES.component.assets.ParticleCaster;
@@ -18,7 +19,6 @@ import model.ES.component.motion.PlanarStance;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
-import view.SpatialPool;
 import view.jme.MyParticleEmitter;
 import view.math.TranslateUtil;
 

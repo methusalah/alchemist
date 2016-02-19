@@ -2,7 +2,11 @@ package processor.logic.ability;
 
 import com.simsilica.es.Entity;
 
+import component.ability.Ability;
+import component.ability.TriggerRepeater;
+import model.ECS.pipeline.Pipeline;
 import model.ECS.pipeline.Processor;
+import util.math.RandomUtil;
 
 public class TriggerRepeaterProc extends Processor {
 
@@ -29,16 +33,17 @@ public class TriggerRepeaterProc extends Processor {
 				setComp(e, new TriggerRepeater(r.getMaxDuration(),
 						r.getPeriod(),
 						r.getPeriodRange(),
-						r.getRemainingDuration() - LogicLoop.getMillisPerTick(),
+						r.getRemainingDuration() - Pipeline.getMillisPerTick(),
 						r.getPeriod() + RandomUtil.between(0, r.getPeriodRange())));
 			} else {
 				setComp(e, new TriggerRepeater(r.getMaxDuration(),
 						r.getPeriod(),
 						r.getPeriodRange(),
-						r.getRemainingDuration() - LogicLoop.getMillisPerTick(),
-						r.getRemainingBeforePeriod() - LogicLoop.getMillisPerTick()));
+						r.getRemainingDuration() - Pipeline.getMillisPerTick(),
+						r.getRemainingBeforePeriod() - Pipeline.getMillisPerTick()));
 			}
 		}
 	}
+
 
 }

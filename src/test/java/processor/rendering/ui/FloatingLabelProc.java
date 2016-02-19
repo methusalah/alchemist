@@ -8,6 +8,8 @@ import com.jme3.font.BitmapText;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
+import component.assets.FloatingLabel;
+import component.motion.PlanarStance;
 import model.ECS.pipeline.Processor;
 import model.tempImport.AppFacade;
 import model.tempImport.TranslateUtil;

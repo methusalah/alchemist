@@ -14,9 +14,16 @@ import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
+import commonLogic.SpatialPool;
+import component.assets.Model;
+import component.assets.RagdollOnDecay;
+import component.motion.physic.Physic;
 import model.ECS.pipeline.Processor;
 import model.tempImport.AppFacade;
 import model.tempImport.TranslateUtil;
+import util.geometry.geom2d.Point2D;
+import util.math.AngleUtil;
+import util.math.RandomUtil;
 
 public class RagdollProc extends Processor{
 	private PhysicsSpace physicsSpace;
