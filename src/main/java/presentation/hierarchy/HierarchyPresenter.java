@@ -6,8 +6,8 @@ import model.EditorPlatform;
 import model.ECS.blueprint.Blueprint;
 import model.ECS.builtInComponent.Naming;
 import model.ECS.builtInComponent.Parenting;
-import presentation.EntityNode;
 import presentation.base.AbstractPresenter;
+import presentation.common.EntityNode;
 
 public class HierarchyPresenter extends AbstractPresenter<HierarchyViewer> {
 

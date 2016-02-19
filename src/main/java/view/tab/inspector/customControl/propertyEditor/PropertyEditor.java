@@ -3,6 +3,7 @@ package view.tab.inspector.customControl.propertyEditor;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Locale;
 
 import com.simsilica.es.EntityComponent;
@@ -27,7 +28,7 @@ public abstract class PropertyEditor extends BorderPane {
 	
 	public PropertyEditor(EntityComponent comp, PropertyDescriptor pd, Consumer3<EntityComponent, String, Object> updateCompFunction) {
 		this.updateCompFunction = updateCompFunction;
-		df = (DecimalFormat)DecimalFormat.getNumberInstance(Locale.ENGLISH);
+		df = (DecimalFormat)NumberFormat.getNumberInstance(Locale.ENGLISH);
 		df.setMinimumFractionDigits(2);
 		
 		this.comp = comp;

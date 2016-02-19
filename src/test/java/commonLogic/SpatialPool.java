@@ -10,8 +10,7 @@ import com.jme3.light.Light;
 import com.jme3.scene.Spatial;
 import com.simsilica.es.EntityId;
 
-import model.world.terrain.heightmap.Parcel;
-import util.LogUtil;
+import plugin.infiniteWorld.world.terrain.heightmap.Parcel;
 
 public class SpatialPool {
 

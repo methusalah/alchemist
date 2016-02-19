@@ -13,7 +13,7 @@ import commonLogic.CenteredQuad;
 import commonLogic.SpatialPool;
 import component.assets.Sprite;
 import model.ECS.pipeline.Processor;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import util.LogUtil;
 import view.MaterialManager;
 
@@ -28,7 +28,7 @@ public class SpriteProc extends Processor {
 	@Override
 	protected void onEntityRemoved(Entity e) {
 		if(SpatialPool.models.containsKey(e.getId()))
-			AppFacade.getMainSceneNode().detachChild(SpatialPool.models.remove(e.getId()));
+			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.models.remove(e.getId()));
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class SpriteProc extends Processor {
 	@Override
 	protected void onEntityUpdated(Entity e) {
 		if(SpatialPool.models.containsKey(e.getId()))
-			AppFacade.getMainSceneNode().detachChild(SpatialPool.models.get(e.getId()));
+			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.models.get(e.getId()));
 		
 		Sprite sprite = e.get(Sprite.class);
 		
@@ -50,7 +50,7 @@ public class SpriteProc extends Processor {
 			s.scale((float)sprite.getSize());
 			s.setUserData("EntityId", e.getId().getId());
 			SpatialPool.models.put(e.getId(), s);
-			AppFacade.getMainSceneNode().attachChild(s);
+			RendererPlatform.getMainSceneNode().attachChild(s);
 		}
 	}
 	

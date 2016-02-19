@@ -9,7 +9,7 @@ import component.motion.PlanarStance;
 import javafx.collections.FXCollections;
 import model.ECS.blueprint.Blueprint;
 import model.ECS.blueprint.BlueprintLibrary;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import processor.logic.world.WorldProc;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
@@ -31,7 +31,7 @@ public class PopulationToolPresenter extends WorldTool {
 		
 		EntityInstance i = new EntityInstance(bp.getName(), comps);
 		
-		AppFacade.getStateManager().getState(WorldProc.class).addEntityInstance(i);
+		RendererPlatform.getStateManager().getState(WorldProc.class).addEntityInstance(i);
 	}
 
 	public void setBlueprint(Blueprint bp) {

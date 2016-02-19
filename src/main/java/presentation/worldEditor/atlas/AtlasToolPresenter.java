@@ -10,8 +10,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import model.tempImport.AppFacade;
-import presentation.ToggledEnumProperty;
+import model.tempImport.RendererPlatform;
+import presentation.common.ToggledEnumProperty;
 import presentation.worldEditor.PencilToolPresenter;
 import processor.logic.world.WorldProc;
 import util.geometry.geom2d.Point2D;
@@ -156,6 +156,6 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 		return actualTextureProperty;
 	}
 	private WorldProc getWorld() {
-		return AppFacade.getStateManager().getState(WorldProc.class);
+		return RendererPlatform.getStateManager().getState(WorldProc.class);
 	}
 }

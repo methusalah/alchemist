@@ -2,6 +2,7 @@ package presentation.report;
 
 import com.jme3.app.SimpleApplication;
 
+import javafx.animation.Animation;
 import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -20,7 +21,7 @@ public class SceneGraphReporter {
 	}));
 	
 	public SceneGraphReporter() {
-		worker.setCycleCount(Timeline.INDEFINITE);
+		worker.setCycleCount(Animation.INDEFINITE);
 	}
 
 	private boolean refreshSceneGraphReport(SimpleApplication app) {

@@ -6,7 +6,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import model.ECS.blueprint.Blueprint;
-import presentation.EntityNode;
+import presentation.common.EntityNode;
 import view.util.Consumer2;
 import view.util.Dragpool;
 

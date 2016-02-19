@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.EditorPlatform;
-import model.tempImport.AppFacade;
-import presentation.ToggledEnumProperty;
+import model.tempImport.RendererPlatform;
+import presentation.common.ToggledEnumProperty;
 import processor.logic.world.WorldProc;
 import util.geometry.geom2d.Point2D;
 import util.math.RandomUtil;
@@ -161,7 +161,7 @@ public class HeightMapToolPresenter extends PencilToolPresenter {
 	}
 	
 	private WorldProc getWorld() {
-		return AppFacade.getStateManager().getState(WorldProc.class);
+		return RendererPlatform.getStateManager().getState(WorldProc.class);
 	}
 
 	

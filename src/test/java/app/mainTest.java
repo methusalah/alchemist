@@ -1,6 +1,8 @@
 package app;
 
 import model.ECS.pipeline.Pipeline;
+import presentation.sceneView.RegionPager;
+import presentation.sceneView.WorldLocaliserState;
 import processor.logic.ChasingCameraProc;
 import processor.logic.LifeTimeProc;
 import processor.logic.ParentingCleanerProc;
@@ -156,5 +158,10 @@ public class mainTest extends Alchemist {
 		logicPipeline.addProcessor(new RemoverProc());
 		logicPipeline.addProcessor(new ParentingCleanerProc());
 		
+		
+		stateManager.attach(new WorldLocaliserState());
+		stateManager.attach(new RegionPager());
+		stateManager.getState(RegionPager.class).setEnabled(true);
+
 	}
 }

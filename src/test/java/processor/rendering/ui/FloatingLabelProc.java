@@ -11,7 +11,7 @@ import com.simsilica.es.EntityId;
 import component.assets.FloatingLabel;
 import component.motion.PlanarStance;
 import model.ECS.pipeline.Processor;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import model.tempImport.TranslateUtil;
 
 public class FloatingLabelProc extends Processor {
@@ -20,7 +20,7 @@ public class FloatingLabelProc extends Processor {
 	private Map<EntityId, BitmapText> bitmaps = new HashMap<>();
 
 	public FloatingLabelProc() {
-		font = AppFacade.getAssetManager().loadFont("Interface/Fonts/Default.fnt");
+		font = RendererPlatform.getAssetManager().loadFont("Interface/Fonts/Default.fnt");
 	}
 	
 	@Override
@@ -40,7 +40,7 @@ public class FloatingLabelProc extends Processor {
 		
 		bitmaps.put(e.getId(), bt);
 		//AppFacade.getMainSceneNode().attachChild(bt);
-		AppFacade.getApp().getGuiNode().attachChild(bt);
+		RendererPlatform.getApp().getGuiNode().attachChild(bt);
 		onEntityUpdated(e);
 	}
 	
@@ -53,14 +53,14 @@ public class FloatingLabelProc extends Processor {
 		PlanarStance stance = e.get(PlanarStance.class);
 
 		// translation
-		bt.setLocalTranslation(AppFacade.getCamera().getScreenCoordinates(TranslateUtil.toVector3f(stance.coord.get3D(stance.elevation))));
+		bt.setLocalTranslation(RendererPlatform.getCamera().getScreenCoordinates(TranslateUtil.toVector3f(stance.coord.get3D(stance.elevation))));
 	}
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
 		BitmapText bt = bitmaps.get(e.getId());
 		//AppFacade.getMainSceneNode().detachChild(bt);
-		AppFacade.getApp().getGuiNode().detachChild(bt);
+		RendererPlatform.getApp().getGuiNode().detachChild(bt);
 
 		bitmaps.remove(e.getId());
 	}

@@ -5,7 +5,6 @@ import com.badlogic.gdx.ai.btree.Task;
 import com.badlogic.gdx.ai.btree.annotation.TaskAttribute;
 
 import AI.blackboard.ShipBlackboard;
-import util.LogUtil;
 import util.math.RandomUtil;
 
 public class CooldownTimer extends Decorator<ShipBlackboard> {

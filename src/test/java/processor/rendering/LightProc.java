@@ -12,7 +12,7 @@ import component.assets.Lighting;
 import component.motion.PlanarStance;
 import component.motion.SpaceStance;
 import model.ECS.pipeline.Processor;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import model.tempImport.TranslateUtil;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
@@ -52,7 +52,7 @@ public class LightProc extends Processor {
 		if(!SpatialPool.lights.containsKey(e.getId()) || !(SpatialPool.lights.get(e.getId()) instanceof DirectionalLight)){
 			DirectionalLight light = new DirectionalLight();
 			SpatialPool.lights.put(e.getId(), light);
-			AppFacade.getMainSceneNode().addLight(light);
+			RendererPlatform.getMainSceneNode().addLight(light);
 
 			if(l.shadowIntensity.getValue() > 0){
 //				DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(AppFacade.getAssetManager(), 4096, 1);
@@ -81,7 +81,7 @@ public class LightProc extends Processor {
 	}
 	
 	private DirectionalLightShadowFilter getShadowFilter(){
-		for(Filter f : AppFacade.getFilterPostProcessor().getFilterList())
+		for(Filter f : RendererPlatform.getFilterPostProcessor().getFilterList())
 			if(f instanceof DirectionalLightShadowFilter)
 				return (DirectionalLightShadowFilter)f;
 		return null;
@@ -91,7 +91,7 @@ public class LightProc extends Processor {
 		if(!SpatialPool.lights.containsKey(e.getId()) || !(SpatialPool.lights.get(e.getId()) instanceof PointLight)){
 			PointLight light = new PointLight();
 			SpatialPool.lights.put(e.getId(), light);
-			AppFacade.getMainSceneNode().addLight(light);
+			RendererPlatform.getMainSceneNode().addLight(light);
 		}
 		PointLight light = (PointLight)SpatialPool.lights.get(e.getId());
 
@@ -104,7 +104,7 @@ public class LightProc extends Processor {
 		if(!SpatialPool.lights.containsKey(e.getId()) || !(SpatialPool.lights.get(e.getId()) instanceof SpotLight)){
 			SpotLight light = new SpotLight();
 			SpatialPool.lights.put(e.getId(), light);
-			AppFacade.getMainSceneNode().addLight(light);
+			RendererPlatform.getMainSceneNode().addLight(light);
 			
 //			if(l.shadowCaster){
 //				SpotLightShadowFilter sf = new SpotLightShadowFilter(AppFacade.getAssetManager(), 1024);
@@ -127,6 +127,6 @@ public class LightProc extends Processor {
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
-		AppFacade.getMainSceneNode().removeLight(SpatialPool.lights.remove(e.getId()));
+		RendererPlatform.getMainSceneNode().removeLight(SpatialPool.lights.remove(e.getId()));
 	}
 }

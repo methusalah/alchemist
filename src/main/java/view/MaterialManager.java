@@ -10,7 +10,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
 
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 
 public class MaterialManager {
 	static Map<String, Material> texturesMap = new HashMap<String, Material>();
@@ -51,7 +51,7 @@ public class MaterialManager {
 	}
 	
 	public static Material getColor(ColorRGBA color) {
-		Material res = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+		Material res = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		res.setColor("Color", color);
 		return res;
 	}
@@ -64,7 +64,7 @@ public class MaterialManager {
 
 		// At this point, we know that the color doesn't exist.
 		// We must create a new material, add it to the map and return it.
-		Material res = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
+		Material res = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
 		res.setColor("Diffuse", color);
 		res.setFloat("Shininess", 10f);
 		res.setBoolean("UseMaterialColors", true);
@@ -77,7 +77,7 @@ public class MaterialManager {
 	private static Texture getTexture(String path) {
 		Texture res = textureFileMap.get(path);
 		if (res == null) {
-			res = AppFacade.getAssetManager().loadTexture(path);
+			res = RendererPlatform.getAssetManager().loadTexture(path);
 			textureFileMap.put(path, res);
 		}
 		return res;
@@ -92,8 +92,8 @@ public class MaterialManager {
 
 		// At this point, we know that the texture doesn't exist.
 		// We must create a new material, add it to the map and return it.
-		Material res = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
-		Texture t = AppFacade.getAssetManager().loadTexture(texturePath);
+		Material res = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
+		Texture t = RendererPlatform.getAssetManager().loadTexture(texturePath);
 		t.setWrap(WrapMode.Repeat);
 		t.setAnisotropicFilter(8);
 		res.setTexture("DiffuseMap", t);
@@ -139,26 +139,26 @@ public class MaterialManager {
 
 		//AppFacade.getAssetManager().registerLocator("assets/", FileLocator.class.getName());
 
-		contourMaterial = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+		contourMaterial = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		contourMaterial.setColor("Color", blackConcreteColor);
 
-		blockContourMaterial = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+		blockContourMaterial = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		blockContourMaterial.setColor("Color", redConcreteColor);
 
-		lotContourMaterial = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+		lotContourMaterial = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		lotContourMaterial.setColor("Color", blueConcreteColor);
 
-		lotMaterial1 = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+		lotMaterial1 = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		lotMaterial1.setColor("Color", lotColorBase);
 
-		lotMaterial2 = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+		lotMaterial2 = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		lotMaterial2.setColor("Color", lotColorBase);
 
-		lotMaterial3 = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+		lotMaterial3 = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		lotMaterial3.setColor("Color", lotColorBase);
 
 		// debug material
-		debugMaterial = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+		debugMaterial = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		debugMaterial.setColor("Color", redConcreteColor);
 		// debug texture material
 		// debugTextureMaterial = new Material(assetManager, "Common/MatDefs/Misc/SimpleTextured.j3md");
@@ -167,43 +167,43 @@ public class MaterialManager {
 		// debugTextureMaterial.setFloat("Shininess", 128f); // [0,128]
 
 		// Red Material
-		redMaterial = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+		redMaterial = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		redMaterial.setColor("Color", redConcreteColor);
 		redMaterial.setColor("GlowColor", redConcreteColor);
 
 		// Concrete Material
-		yellowMaterial = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+		yellowMaterial = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		yellowMaterial.setColor("Color", yellowConcreteColor);
 
 		// Concrete Material
-		cyanMaterial = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+		cyanMaterial = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		cyanMaterial.setColor("Color", cyanConcreteColor);
 		cyanMaterial.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 
 		// Concrete Material
-		blackMaterial = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+		blackMaterial = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		blackMaterial.setColor("Color", blackConcreteColor);
 
 		// Concrete Material
-		greenMaterial = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+		greenMaterial = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		greenMaterial.setColor("Color", greenConcreteColor);
 		greenMaterial.setColor("GlowColor", greenConcreteColor);
 
 		// Item Material
-		itemMaterial = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
+		itemMaterial = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
 		itemMaterial.setColor("Diffuse", itemColor);
 		itemMaterial.setBoolean("UseMaterialColors", true);
 
 		// gradient blue
 		for (int i = 0; i < 4; i++) {
-			gradientMaterial.add(new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md"));
+			gradientMaterial.add(new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md"));
 			gradientMaterial.get(i).setColor("Color", new ColorRGBA(i * 30 / 255f, i * 30 / 255f, i * 85 / 255f, 1));
 		}
 	}
 
 	public static Material getMaterial(String materialPath) {
 		if(materials.get(materialPath) == null)
-			materials.put(materialPath, AppFacade.getAssetManager().loadMaterial(materialPath));
+			materials.put(materialPath, RendererPlatform.getAssetManager().loadMaterial(materialPath));
 		return materials.get(materialPath);
 	}
 }

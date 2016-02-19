@@ -34,7 +34,7 @@ public class ShieldProc extends Processor {
 		if(shield.getDelay() > 0)
 			setComp(e, new Shield(shield.getCapacity(), shield.getRechargeRate(), shield.getRechargeDelay(), Math.max(0, shield.getDelay()-Pipeline.getMillisPerTick())));
 		else if(att.getActualShield() < shield.getCapacity()){
-			int newShield = Math.min(shield.getCapacity(), att.getActualShield() + (int)Math.round((double)shield.getRechargeRate() * Pipeline.getSecondPerTick())); 
+			int newShield = Math.min(shield.getCapacity(), att.getActualShield() + (int)Math.round(shield.getRechargeRate() * Pipeline.getSecondPerTick())); 
 			setComp(e, new Attrition(att.getMaxHitpoints(), att.getActualHitpoints(), att.getMaxShield(), newShield, att.isArmored()));
 			
 			EntityId eid = entityData.createEntity();

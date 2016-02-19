@@ -14,7 +14,7 @@ import com.simsilica.es.Entity;
 import commonLogic.SpatialPool;
 import component.assets.ParticleCaster;
 import model.ECS.pipeline.Processor;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import model.tempImport.TranslateUtil;
 import util.LogUtil;
 
@@ -34,11 +34,11 @@ public class ParticleProc extends Processor {
 	@Override
 	protected void onEntityUpdated(Entity e) {
 		if(SpatialPool.emitters.containsKey(e.getId()))
-			AppFacade.getMainSceneNode().detachChild(SpatialPool.emitters.get(e.getId()));
+			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.emitters.get(e.getId()));
 		
 		ParticleEmitter pe = getEmiterFromCaster(e.get(ParticleCaster.class));
 		SpatialPool.emitters.put(e.getId(), pe);
-		AppFacade.getMainSceneNode().attachChild(pe);
+		RendererPlatform.getMainSceneNode().attachChild(pe);
 	}
 	
 	@Override
@@ -54,23 +54,23 @@ public class ParticleProc extends Processor {
 		// to remove the finished emitters
 		for(ParticleEmitter pe : new ArrayList<>(toRemove))
 			if(pe.getNumVisibleParticles() == 0){
-				AppFacade.getMainSceneNode().detachChild(pe);
+				RendererPlatform.getMainSceneNode().detachChild(pe);
 				toRemove.remove(pe);
 			}
 	}
 	
 	private ParticleEmitter getEmiterFromCaster(ParticleCaster caster){
 		ParticleEmitter res = new ParticleEmitter("Particle caster", Type.Triangle, caster.getMaxCount());
-		res.setParticlesPerSec((float)caster.getPerSecond());
+		res.setParticlesPerSec(caster.getPerSecond());
 
 		// material
-		Material m = new Material(AppFacade.getAssetManager(), "Common/MatDefs/Misc/Particle.j3md");
+		Material m = new Material(RendererPlatform.getAssetManager(), "Common/MatDefs/Misc/Particle.j3md");
 		res.setMaterial(m);
 		if(!caster.getSpritePath().isEmpty())
 			if(caster.getNbCol() == 0 || caster.getNbRow() == 0)
 				LogUtil.warning("Can't apply particle material. You must specify colum and row count.");
 			else
-				m.setTexture("Texture", AppFacade.getAssetManager().loadTexture("textures/" + caster.getSpritePath()));
+				m.setTexture("Texture", RendererPlatform.getAssetManager().loadTexture("textures/" + caster.getSpritePath()));
 		
 		m.getAdditionalRenderState().setBlendMode(caster.isAdd()? RenderState.BlendMode.Additive : RenderState.BlendMode.AlphaAdditive);
 		

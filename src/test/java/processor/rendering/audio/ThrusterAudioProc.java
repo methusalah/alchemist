@@ -13,7 +13,7 @@ import component.motion.PlanarStance;
 import component.motion.Thruster;
 import component.motion.ThrusterControl;
 import model.ECS.pipeline.Processor;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 
 public class ThrusterAudioProc extends Processor {
 	Map<String, AudioNode> sounds = new HashMap<>();
@@ -90,8 +90,8 @@ public class ThrusterAudioProc extends Processor {
 	
 	protected AudioNode getAudioNode(String soundPath) {
 		if (!sounds.containsKey(soundPath)) {
-			sounds.put(soundPath, new AudioNode(AppFacade.getAssetManager(), "sounds/" + soundPath));
-			AppFacade.getMainSceneNode().attachChild(sounds.get(soundPath));
+			sounds.put(soundPath, new AudioNode(RendererPlatform.getAssetManager(), "sounds/" + soundPath));
+			RendererPlatform.getMainSceneNode().attachChild(sounds.get(soundPath));
 		}
 		return sounds.get(soundPath).clone();
 	}

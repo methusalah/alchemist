@@ -11,7 +11,7 @@ import commonLogic.SpatialPool;
 import component.assets.Model;
 import model.ECS.builtInComponent.Naming;
 import model.ECS.pipeline.Processor;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import util.LogUtil;
 
 public class ModelProc extends Processor {
@@ -25,7 +25,7 @@ public class ModelProc extends Processor {
 	@Override
 	protected void onEntityRemoved(Entity e) {
 		if(SpatialPool.models.keySet().contains(e.getId())){
-			AppFacade.getMainSceneNode().detachChild(SpatialPool.models.get(e.getId()));
+			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.models.get(e.getId()));
 		}
 	}
 
@@ -37,7 +37,7 @@ public class ModelProc extends Processor {
 	@Override
 	protected void onEntityUpdated(Entity e) {
 		if(SpatialPool.models.containsKey(e.getId()))
-			AppFacade.getMainSceneNode().detachChild(SpatialPool.models.get(e.getId()));
+			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.models.get(e.getId()));
 		
 		Model model = e.get(Model.class);
 		
@@ -54,7 +54,7 @@ public class ModelProc extends Processor {
 			s.setUserData("EntityId", e.getId().getId());
 			s.setShadowMode(ShadowMode.CastAndReceive);
 			SpatialPool.models.put(e.getId(), s);
-			AppFacade.getMainSceneNode().attachChild(s);
+			RendererPlatform.getMainSceneNode().attachChild(s);
 		}
 	}
 	
@@ -63,7 +63,7 @@ public class ModelProc extends Processor {
 			return null;
 		if (!modelPrototypes.containsKey(modelPath)) {
 			try {
-				Spatial s = AppFacade.getAssetManager().loadModel("models/" + modelPath);
+				Spatial s = RendererPlatform.getAssetManager().loadModel("models/" + modelPath);
 				modelPrototypes.put(modelPath, s);
 			} catch (Exception e) {
 				LogUtil.warning("Model not found : models/" + modelPath + " ("+ e + ")");

@@ -14,10 +14,11 @@ import component.motion.PlanarStance;
 import model.ECS.builtInComponent.Naming;
 import model.ECS.pipeline.Processor;
 import model.state.DataState;
-import model.tempImport.AppFacade;
-import model.world.Region;
-import model.world.RegionLoader;
-import model.world.terrain.heightmap.HeightMapNode;
+import model.tempImport.RendererPlatform;
+import plugin.infiniteWorld.pager.regionPaging.RegionPager;
+import plugin.infiniteWorld.world.Region;
+import plugin.infiniteWorld.world.RegionLoader;
+import plugin.infiniteWorld.world.terrain.heightmap.HeightMapNode;
 import processor.rendering.TerrainDrawer;
 import util.geometry.geom2d.Point2D;
 
@@ -65,15 +66,15 @@ public class WorldProc extends Processor {
 			for(int y = -r; y <= r; y += r)
 				neededRegions.add(coord.getAddition(x, y));
 
-		AppFacade.getStateManager().getState(RegionPager.class).setNeededRegions(neededRegions);
+		RendererPlatform.getStateManager().getState(RegionPager.class).setNeededRegions(neededRegions);
 	}
 	
 	public TerrainDrawer getTerrainDrawer(Region region){
-		return AppFacade.getStateManager().getState(RegionPager.class).drawers.get(region);
+		return RendererPlatform.getStateManager().getState(RegionPager.class).drawers.get(region);
 	}
 	
 	public List<Region> getRegionsAtOnce(Point2D coord){
-		return AppFacade.getStateManager().getState(RegionPager.class).getRegionsAtOnce(coord);
+		return RendererPlatform.getStateManager().getState(RegionPager.class).getRegionsAtOnce(coord);
 	}
 
 	
@@ -109,7 +110,7 @@ public class WorldProc extends Processor {
 	}
 	
 	public void saveDrawnRegions(){
-		for(Region r : AppFacade.getStateManager().getState(RegionPager.class).builtRegions)
+		for(Region r : RendererPlatform.getStateManager().getState(RegionPager.class).builtRegions)
 			RegionLoader.saveRegion(r);
 	}
 

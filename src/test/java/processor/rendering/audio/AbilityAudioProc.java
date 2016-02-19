@@ -12,7 +12,7 @@ import component.ability.Ability;
 import component.ability.AbilityControl;
 import component.assets.AudioSource;
 import model.ECS.pipeline.Processor;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 
 public class AbilityAudioProc extends Processor {
 	Map<String, AudioNode> sounds = new HashMap<>();
@@ -52,8 +52,8 @@ public class AbilityAudioProc extends Processor {
 	
 	protected AudioNode getAudioNode(String soundPath) {
 		if (!sounds.containsKey(soundPath)) {
-			sounds.put(soundPath, new AudioNode(AppFacade.getAssetManager(), "sounds/" + soundPath));
-			AppFacade.getMainSceneNode().attachChild(sounds.get(soundPath));
+			sounds.put(soundPath, new AudioNode(RendererPlatform.getAssetManager(), "sounds/" + soundPath));
+			RendererPlatform.getMainSceneNode().attachChild(sounds.get(soundPath));
 		}
 		return sounds.get(soundPath).clone();
 	}

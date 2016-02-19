@@ -4,6 +4,7 @@ package processor.logic.command;
 import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.Entity;
 
+import commonLogic.CommandState;
 import component.ability.AbilityTrigger;
 import component.ability.PlayerControl;
 import model.Command;
@@ -16,7 +17,7 @@ public class PlayerAbilityControlProc extends Processor {
 	
 	@Override
 	protected void onInitialized(AppStateManager stateManager) {
-		command = stateManager.getState(DataState.class).getCommand();
+		command = stateManager.getState(CommandState.class).getCommand();
 	}
 	
 	@Override

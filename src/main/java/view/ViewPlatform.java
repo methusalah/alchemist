@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
-import presentation.EntityNode;
+import presentation.common.EntityNode;
 import view.common.SceneInputManager;
 
 public class ViewPlatform {

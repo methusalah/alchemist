@@ -9,7 +9,7 @@ import commonLogic.VelocityView;
 import component.debug.VelocityViewing;
 import component.motion.PlanarStance;
 import model.ECS.pipeline.Processor;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import model.tempImport.TranslateUtil;
 import util.geometry.geom2d.Point2D;
 import view.MaterialManager;
@@ -30,7 +30,7 @@ public class VelocityVisualisationProc extends Processor {
 				Geometry body = new Geometry("velocity");
 				body.setMaterial(MaterialManager.getColor(TranslateUtil.toColorRGBA(v.color)));
 				SpatialPool.velocities.put(v, body);
-				AppFacade.getMainSceneNode().attachChild(body);
+				RendererPlatform.getMainSceneNode().attachChild(body);
 			}
 			Geometry g = (Geometry)SpatialPool.velocities.get(v);
 			Point2D end = stance.coord.getAddition(v.velocity);

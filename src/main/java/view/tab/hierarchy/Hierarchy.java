@@ -3,7 +3,7 @@ package view.tab.hierarchy;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.BorderPane;
-import presentation.EntityNode;
+import presentation.common.EntityNode;
 import presentation.hierarchy.HierarchyPresenter;
 import presentation.hierarchy.HierarchyViewer;
 import view.tab.hierarchy.customControl.EntityTreeView;

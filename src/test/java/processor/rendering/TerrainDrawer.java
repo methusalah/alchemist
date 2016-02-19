@@ -11,8 +11,8 @@ import com.jme3.scene.Node;
 import commonLogic.SpatialPool;
 import commonLogic.TerrainSplatTexture;
 import model.tempImport.TranslateUtil;
-import model.world.terrain.Terrain;
-import model.world.terrain.heightmap.Parcel;
+import plugin.infiniteWorld.world.terrain.Terrain;
+import plugin.infiniteWorld.world.terrain.heightmap.Parcel;
 import util.geometry.geom2d.Point2D;
 
 public class TerrainDrawer {

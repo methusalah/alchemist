@@ -17,7 +17,7 @@ import model.state.DataState;
 import model.state.DraggableCameraState;
 import model.state.InstrumentUpdateState;
 import model.state.SceneSelectorState;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import presentation.base.AbstractPresenter;
 import presentation.base.Viewer;
 import util.geometry.geom2d.Point2D;
@@ -31,7 +31,7 @@ public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 	}
 	
 	static private boolean createScene(SimpleApplication app, EntityData ed) {
-		AppFacade.setApp(app);
+		RendererPlatform.setApp(app);
 		app.getViewPort().addProcessor(new FilterPostProcessor(app.getAssetManager()));
 		
 		AppStateManager stateManager = app.getStateManager();
@@ -45,10 +45,6 @@ public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 
 		stateManager.attach(new SceneSelectorState());
 		
-		stateManager.attach(new WorldLocaliserState());
-		stateManager.attach(new RegionPager());
-		stateManager.getState(RegionPager.class).setEnabled(true);
-		
 		EntitySystem es = new EntitySystem(ed);
 		stateManager.attach(es);
 		es.initVisuals(true);
@@ -57,11 +53,11 @@ public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 		es.initLogic(false);
 
 		// adding filters
-		DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(AppFacade.getAssetManager(), SHADOWMAP_SIZE, 1);
+		DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(RendererPlatform.getAssetManager(), SHADOWMAP_SIZE, 1);
 		sf.setEnabled(false);
 		sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
 		sf.setShadowZExtend(SHADOWMAP_SIZE);
-		AppFacade.getFilterPostProcessor().addFilter(sf);
+		RendererPlatform.getFilterPostProcessor().addFilter(sf);
 
 //		DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(AppFacade.getAssetManager(), SHADOWMAP_SIZE, 1);
 //		//sr.setEnabled(false);
@@ -72,7 +68,7 @@ public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 		
 		BloomFilter bf = new BloomFilter(BloomFilter.GlowMode.Objects);
 		//bf.setEnabled(false);
-		AppFacade.getFilterPostProcessor().addFilter(bf);
+		RendererPlatform.getFilterPostProcessor().addFilter(bf);
 		
 		FXAAFilter fxaa = new FXAAFilter();
 		//fxaa.setEnabled(false);
@@ -80,7 +76,7 @@ public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 		fxaa.setSpanMax(5f);
 		fxaa.setSubPixelShift(0f);
 		fxaa.setVxOffset(10f);
-		AppFacade.getFilterPostProcessor().addFilter(fxaa);
+		RendererPlatform.getFilterPostProcessor().addFilter(fxaa);
 
 		return true;
 	}

@@ -5,7 +5,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import model.tempImport.TranslateUtil;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
@@ -42,24 +42,24 @@ public class SpatialSelector {
 	}
 
 	public static Point2D getCoord(Node n, Point2D screenCoord) {
-		Vector3f origin = AppFacade.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 0f);
-		Vector3f direction = AppFacade.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 1f);
+		Vector3f origin = RendererPlatform.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 0f);
+		Vector3f direction = RendererPlatform.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 1f);
 		direction.subtractLocal(origin).normalizeLocal();
 		Ray r = new Ray(origin, direction);
 		return PointUtil.getPointedCoord(n, r);
 	}
 
 	public static Point3D getPoint(Node n, Point2D screenCoord) {
-		Vector3f origin = AppFacade.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 0f);
-		Vector3f direction = AppFacade.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 1f);
+		Vector3f origin = RendererPlatform.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 0f);
+		Vector3f direction = RendererPlatform.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 1f);
 		direction.subtractLocal(origin).normalizeLocal();
 		Ray r = new Ray(origin, direction);
 		return PointUtil.getPointedCoord3D(n, r);
 	}
 
 	public static Geometry getPointedGeometry(Node n, Point2D screenCoord) {
-		Vector3f origin = AppFacade.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 0f);
-		Vector3f direction = AppFacade.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 1f);
+		Vector3f origin = RendererPlatform.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 0f);
+		Vector3f direction = RendererPlatform.getCamera().getWorldCoordinates(TranslateUtil.toVector2f(screenCoord), 1f);
 		direction.subtractLocal(origin).normalizeLocal();
 		Ray r = new Ray(origin, direction);
 		return PointUtil.getPointedGeometry(n, r);
@@ -67,18 +67,18 @@ public class SpatialSelector {
 
 	public static Point2D getScreenCoord(Point3D pos) {
 		Vector3f vPos = TranslateUtil.toVector3f(pos);
-		Vector3f screenCoord = AppFacade.getCamera().getScreenCoordinates(vPos);
+		Vector3f screenCoord = RendererPlatform.getCamera().getScreenCoordinates(vPos);
 		return TranslateUtil.toPoint3D(screenCoord).get2D();
 	}
 
 	private Ray getMouseRay() {
-		Vector3f origin = AppFacade.getCamera().getWorldCoordinates(AppFacade.getInputManager().getCursorPosition(), 0f);
-		Vector3f direction = AppFacade.getCamera().getWorldCoordinates(AppFacade.getInputManager().getCursorPosition(), 1f);
+		Vector3f origin = RendererPlatform.getCamera().getWorldCoordinates(RendererPlatform.getInputManager().getCursorPosition(), 0f);
+		Vector3f direction = RendererPlatform.getCamera().getWorldCoordinates(RendererPlatform.getInputManager().getCursorPosition(), 1f);
 		direction.subtractLocal(origin).normalizeLocal();
 		return new Ray(origin, direction);
 	}
 
 	private Ray getCameraRay() {
-		return new Ray(AppFacade.getCamera().getLocation(), AppFacade.getCamera().getDirection());
+		return new Ray(RendererPlatform.getCamera().getLocation(), RendererPlatform.getCamera().getDirection());
 	}
 }

@@ -7,7 +7,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.simsilica.es.EntityId;
 
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import model.tempImport.TranslateUtil;
 import util.geometry.geom2d.Point2D;
 
@@ -26,8 +26,8 @@ public class SceneSelectorState extends AbstractAppState {
 	
 	@Override
 	public void update(float tpf) {
-		if(AppFacade.getInputManager() != null)
-			coordInScreenSpace = TranslateUtil.toPoint2D(AppFacade.getInputManager().getCursorPosition());
+		if(RendererPlatform.getInputManager() != null)
+			coordInScreenSpace = TranslateUtil.toPoint2D(RendererPlatform.getInputManager().getCursorPosition());
 	}
 	
 	public void setCoordInScreenSpace(Point2D coord){
@@ -44,7 +44,7 @@ public class SceneSelectorState extends AbstractAppState {
 	}
 	
 	public EntityId getPointedEntity(){
-		Spatial s = SpatialSelector.getPointedGeometry(AppFacade.getMainSceneNode(), coordInScreenSpace);
+		Spatial s = SpatialSelector.getPointedGeometry(RendererPlatform.getMainSceneNode(), coordInScreenSpace);
 		while(s != null){
 			if(s.getUserData("EntityId") != null){
 				return new EntityId(s.getUserData("EntityId"));
@@ -55,6 +55,6 @@ public class SceneSelectorState extends AbstractAppState {
 	}
 
 	public Geometry getPointedGeometry(){
-		return SpatialSelector.getPointedGeometry(AppFacade.getMainSceneNode(), coordInScreenSpace);
+		return SpatialSelector.getPointedGeometry(RendererPlatform.getMainSceneNode(), coordInScreenSpace);
 	}
 }

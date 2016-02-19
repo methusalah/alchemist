@@ -49,7 +49,7 @@ public class InspectorPresenter extends AbstractPresenter<InspectorViewer> {
 		JsonNode n = mapper.valueToTree(EditorPlatform.getEntityData().getComponent(EditorPlatform.getSelectionProperty().getValue().getEntityId(), comp.getClass()));
 		Iterator<Entry<String, JsonNode>> i = n.fields();
 		while (i.hasNext()) {
-			Entry<String, JsonNode> entry = (Entry<String, JsonNode>) i.next();
+			Entry<String, JsonNode> entry = i.next();
 			if(entry.getKey().equals(propertyName)){
 				entry.setValue(mapper.valueToTree(value));
 				break;

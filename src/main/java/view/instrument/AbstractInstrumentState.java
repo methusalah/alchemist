@@ -13,7 +13,7 @@ import com.jme3.scene.Node;
 
 import model.state.SceneSelectorState;
 import model.state.SpatialSelector;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import model.tempImport.TranslateUtil;
 import util.geometry.geom3d.Point3D;
 import view.instrument.customControl.InstrumentPart;
@@ -61,7 +61,7 @@ public abstract class AbstractInstrumentState extends AbstractAppState {
 			gripNode.setLocalRotation(new Quaternion().fromAngles(0, 0, (float)orientation));
 			
 			// scale
-			double camDistance = AppFacade.getCamera().getLocation().distance(TranslateUtil.toVector3f(pos));
+			double camDistance = RendererPlatform.getCamera().getLocation().distance(TranslateUtil.toVector3f(pos));
 			drawnNode.setLocalScale((float)camDistance);
 			gripNode.setLocalScale((float)camDistance);
 		}
@@ -84,7 +84,7 @@ public abstract class AbstractInstrumentState extends AbstractAppState {
 	@Override
 	public void stateAttached(AppStateManager stateManager) {
 		super.stateAttached(stateManager);
-		AppFacade.getInstrumentNode().attachChild(drawnNode);
+		RendererPlatform.getInstrumentNode().attachChild(drawnNode);
 
 //		stateManager.getState(InstrumentUpdateState.class).addNode(drawnNode);
 //		Camera c = AppFacade.getCamera().clone();

@@ -1,6 +1,5 @@
 package commonLogic;
 
-import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.MyMesh;
 import util.geometry.geom3d.Point3D;

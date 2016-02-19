@@ -2,7 +2,7 @@ package view.tab.hierarchy.customControl;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.TreeItem;
-import presentation.EntityNode;
+import presentation.common.EntityNode;
 import view.ViewPlatform;
 
 public class EntityNodeItem extends TreeItem<EntityNode> {

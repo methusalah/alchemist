@@ -7,7 +7,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import presentation.ToggledEnumProperty;
+import presentation.common.ToggledEnumProperty;
 import util.geometry.collections.PointRing;
 import util.geometry.geom2d.BoundingCircle;
 import util.geometry.geom2d.Point2D;
@@ -43,8 +43,8 @@ public class PencilToolPresenter extends WorldTool {
 		List<Point2D> res = new ArrayList<>();
 		BoundingCircle circle = new BoundingCircle(coord, (sizeProperty.getValue() / 2) + 0.01);
 
-		for (int x = -(int) sizeProperty.getValue(); x < (int) sizeProperty.getValue(); x++) {
-			for (int y = -(int) sizeProperty.getValue(); y < (int) sizeProperty.getValue(); y++) {
+		for (int x = -(int) sizeProperty.getValue(); x < sizeProperty.getValue(); x++) {
+			for (int y = -(int) sizeProperty.getValue(); y < sizeProperty.getValue(); y++) {
 				Point2D p = coord.getAddition(x, y);
 				if (circle.contains(p)) {
 					res.add(p);
@@ -58,8 +58,8 @@ public class PencilToolPresenter extends WorldTool {
 		List<Point2D> res = new ArrayList<>();
 		Polygon quad = getOrientedQuad(coord);
 
-		for (int x = -(int) sizeProperty.getValue(); x < (int) sizeProperty.getValue(); x++) {
-			for (int y = -(int) sizeProperty.getValue(); y < (int) sizeProperty.getValue(); y++) {
+		for (int x = -(int) sizeProperty.getValue(); x < sizeProperty.getValue(); x++) {
+			for (int y = -(int) sizeProperty.getValue(); y < sizeProperty.getValue(); y++) {
 				Point2D p = coord.getAddition(x, y);
 				if (quad.hasInside(p)) {
 					res.add(p);

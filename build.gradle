@@ -48,6 +48,9 @@ dependencies {
 	// LibGDX-AI
 	compile "com.badlogicgames.gdx:gdx-ai:1.6.0"
 	
+	// Simsilica Pager
+	//compile 'com.github.simsilica:pager:-SNAPSHOT'
+	
 	
 }
 configurations.all {

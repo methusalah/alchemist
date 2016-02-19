@@ -11,9 +11,9 @@ import javafx.collections.FXCollections;
 import model.ECS.blueprint.Blueprint;
 import model.ECS.blueprint.BlueprintLibrary;
 import model.ECS.builtInComponent.Parenting;
-import presentation.BlueprintComparator;
-import presentation.EntityNode;
 import presentation.base.AbstractPresenter;
+import presentation.base.BlueprintComparator;
+import presentation.common.EntityNode;
 
 public class ResourcesPresenter extends AbstractPresenter<ResourcesViewer> {
 

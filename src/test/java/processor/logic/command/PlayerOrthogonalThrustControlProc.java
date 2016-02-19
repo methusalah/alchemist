@@ -3,6 +3,7 @@ package processor.logic.command;
 import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.Entity;
 
+import commonLogic.CommandState;
 import component.ability.PlayerControl;
 import component.motion.PlanarNeededThrust;
 import component.motion.PlanarStance;
@@ -17,7 +18,7 @@ public class PlayerOrthogonalThrustControlProc extends Processor {
 	
 	@Override
 	protected void onInitialized(AppStateManager stateManager) {
-		command = stateManager.getState(DataState.class).getCommand();
+		command = stateManager.getState(CommandState.class).getCommand();
 	}
 	
 	@Override

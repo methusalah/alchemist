@@ -4,7 +4,7 @@ import com.jme3.scene.Node;
 
 import model.EditorPlatform;
 import model.state.SpatialSelector;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import processor.logic.world.WorldProc;
 import util.geometry.geom2d.Point2D;
 
@@ -17,7 +17,7 @@ public class WorldEditorPresenter {
 	}
 	
 	public void saveWorld(){
-		AppFacade.getStateManager().getState(WorldProc.class).saveDrawnRegions();
+		RendererPlatform.getStateManager().getState(WorldProc.class).saveDrawnRegions();
 	}
 	
 	public void beginAction(){
@@ -33,7 +33,7 @@ public class WorldEditorPresenter {
 	}
 	
 	public void setNewMousePosition(Point2D screenCoord){
-		Node worldNode = (Node)AppFacade.getMainSceneNode().getChild("World");
+		Node worldNode = (Node)RendererPlatform.getMainSceneNode().getChild("World");
 		selectedTool.setCoord(SpatialSelector.getCoord(worldNode, screenCoord));
 	}
 }

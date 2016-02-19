@@ -4,7 +4,7 @@ package view.instrument.circleCollisionShape;
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.shape.Torus;
 
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import model.tempImport.TranslateUtil;
 import util.geometry.geom3d.Point3D;
 import view.instrument.AbstractInstrumentState;
@@ -28,7 +28,7 @@ public class CircleCollisionShapeInstrumentState extends AbstractInstrumentState
 	}
 	private void updateShape(double radius){
 		Point3D pos = presenter.getPosition();
-		double camDistance = AppFacade.getCamera().getLocation().distance(TranslateUtil.toVector3f(pos));
+		double camDistance = RendererPlatform.getCamera().getLocation().distance(TranslateUtil.toVector3f(pos));
 		circle.setViewMesh("0", new Torus(25, 3, 0.0015f, (float)(radius/camDistance)));
 		circle.setGripMesh("0", new Torus(12, 3, 0.005f, (float)(radius/camDistance)));
 	}

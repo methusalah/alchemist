@@ -14,7 +14,7 @@ import commonLogic.SpatialPool;
 import component.motion.physic.EdgedCollisionShape;
 import model.ECS.builtInComponent.Naming;
 import model.ECS.pipeline.Processor;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import model.tempImport.TranslateUtil;
 import util.geometry.geom2d.Segment2D;
 import view.MaterialManager;
@@ -30,7 +30,7 @@ public class EdgeCollisionShapeDrawingProc extends Processor {
 	@Override
 	protected void onEntityRemoved(Entity e) {
 		if(SpatialPool.models.keySet().contains(e.getId()))
-			AppFacade.getMainSceneNode().detachChild(SpatialPool.models.remove(e.getId()));
+			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.models.remove(e.getId()));
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class EdgeCollisionShapeDrawingProc extends Processor {
 	@Override
 	protected void onEntityUpdated(Entity e) {
 		if(SpatialPool.models.containsKey(e.getId()))
-			AppFacade.getMainSceneNode().detachChild(SpatialPool.models.get(e.getId()));
+			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.models.get(e.getId()));
 		
 		EdgedCollisionShape shape = e.get(EdgedCollisionShape.class);
 		
@@ -61,6 +61,6 @@ public class EdgeCollisionShapeDrawingProc extends Processor {
 			node.attachChild(g);
 		}
 		SpatialPool.models.put(e.getId(), node);
-		AppFacade.getMainSceneNode().attachChild(node);
+		RendererPlatform.getMainSceneNode().attachChild(node);
 	}
 }

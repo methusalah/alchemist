@@ -8,7 +8,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import model.ECS.blueprint.Blueprint;
-import presentation.EntityNode;
+import presentation.common.EntityNode;
 import view.util.Dragpool;
 
 public class BlueprintListView extends ListView<Blueprint>{
@@ -51,7 +51,7 @@ public class BlueprintListView extends ListView<Blueprint>{
 
 		setOnDragDropped(e -> {
 			if (Dragpool.containsType(EntityNode.class) && saveEntityFunction != null){
-				saveEntityFunction.accept((EntityNode) Dragpool.grabContent(EntityNode.class));
+				saveEntityFunction.accept(Dragpool.grabContent(EntityNode.class));
 			}
 		});
 	}

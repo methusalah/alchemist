@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.util.converter.NumberStringConverter;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import presentation.report.ReportPresenter;
 import presentation.report.ReportViewer;
 import view.tab.report.customControl.SceneGraphReportTreeView;
@@ -50,7 +50,7 @@ public class Report extends BorderPane implements ReportViewer {
 					sb.append(" (geometry) mesh faces : " + g.getMesh().getTriangleCount() + System.lineSeparator());
 				}
 				sb.append("FilterPostProcessor : "+ System.lineSeparator());
-				for(Filter f : AppFacade.getFilterPostProcessor().getFilterList())
+				for(Filter f : RendererPlatform.getFilterPostProcessor().getFilterList())
 					sb.append("    " + f + System.lineSeparator());
 				
 				spatialLabel.setText(sb.toString());

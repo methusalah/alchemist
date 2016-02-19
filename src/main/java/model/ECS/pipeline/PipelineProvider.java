@@ -4,12 +4,12 @@ import com.jme3.app.state.AppStateManager;
 
 import model.EditorPlatform;
 import model.state.DataState;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 
 public class PipelineProvider {
 	
 	public Pipeline createRendererPipeline(){
-		return new Pipeline(AppFacade.getStateManager(), "Unnamed renderer pipeline");
+		return new Pipeline(RendererPlatform.getStateManager(), "Unnamed renderer pipeline");
 	}
 
 	public Pipeline createIndependantPipeline(){
@@ -20,7 +20,7 @@ public class PipelineProvider {
 			while (!Thread.currentThread().isInterrupted()) {
 				long time = System.currentTimeMillis();
 				stateManager.update((float)0.02);
-				long nextTick = (long) (time+20);
+				long nextTick = time+20;
 				long towait = nextTick - System.currentTimeMillis();
 
 				res.tickCount++;

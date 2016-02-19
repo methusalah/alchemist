@@ -2,8 +2,6 @@ package commonLogic;
 
 import java.awt.Color;
 
-import com.simsilica.es.EntityId;
-
 import util.geometry.geom2d.Point2D;
 
 public class VelocityView {

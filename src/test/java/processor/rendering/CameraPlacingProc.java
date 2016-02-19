@@ -6,7 +6,7 @@ import com.simsilica.es.Entity;
 
 import component.motion.ChasingCamera;
 import model.ECS.pipeline.Processor;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import model.tempImport.TranslateUtil;
 
 public class CameraPlacingProc extends Processor {
@@ -19,7 +19,7 @@ public class CameraPlacingProc extends Processor {
 	@Override
 	protected void onEntityEachTick(Entity e) {
 		ChasingCamera cc = e.get(ChasingCamera.class);
-		Camera cam = AppFacade.getApp().getCamera();
+		Camera cam = RendererPlatform.getApp().getCamera();
 		
 		cam.setLocation(TranslateUtil.toVector3f(cc.pos));
 		cam.lookAt(TranslateUtil.toVector3f(cc.target), Vector3f.UNIT_Y);

@@ -19,7 +19,7 @@ import component.assets.Model;
 import component.assets.RagdollOnDecay;
 import component.motion.physic.Physic;
 import model.ECS.pipeline.Processor;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import model.tempImport.TranslateUtil;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
@@ -44,7 +44,7 @@ public class RagdollProc extends Processor{
 			if(managed.get(s).longValue()+5000 < time)
 				toRemove.add(s);
 		for(Spatial s : toRemove){
-			AppFacade.getMainSceneNode().detachChild(s);
+			RendererPlatform.getMainSceneNode().detachChild(s);
 			physicsSpace.remove(s);
 			managed.remove(s);
 			SpatialPool.models.remove(s);
@@ -87,7 +87,7 @@ public class RagdollProc extends Processor{
 		control.setAngularVelocity(TranslateUtil.toVector3f(velocities.get(e.getId()).getScaled(RandomUtil.between(0.1, 3)).getRotation(AngleUtil.RIGHT*RandomUtil.between(0.8, 1.2))));
 		
 		physicsSpace.add(s);
-		AppFacade.getMainSceneNode().attachChild(s);
+		RendererPlatform.getMainSceneNode().attachChild(s);
 
 	}
 }

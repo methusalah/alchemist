@@ -12,7 +12,7 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import presentation.EntityNode;
+import presentation.common.EntityNode;
 import presentation.inspector.InspectorPresenter;
 import presentation.inspector.InspectorViewer;
 import view.tab.inspector.customControl.ComponentEditor;

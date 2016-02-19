@@ -10,9 +10,9 @@ import com.jme3.texture.Image;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
 
-import model.tempImport.AppFacade;
-import model.world.terrain.TerrainTexture;
-import model.world.terrain.atlas.Atlas;
+import model.tempImport.RendererPlatform;
+import plugin.infiniteWorld.world.terrain.TerrainTexture;
+import plugin.infiniteWorld.world.terrain.atlas.Atlas;
 import util.LogUtil;
 
 /**
@@ -26,7 +26,7 @@ public class TerrainSplatTexture extends Material {
 	public boolean transp = false;
 	
 	public TerrainSplatTexture(Atlas atlas, List<TerrainTexture> texturing) {
-		super(AppFacade.getAssetManager(), "matdefs/MyTerrainLighting.j3md");
+		super(RendererPlatform.getAssetManager(), "matdefs/MyTerrainLighting.j3md");
 		this.atlas = atlas;
 		this.texturing = texturing;
 		updateTextures();
@@ -45,18 +45,18 @@ public class TerrainSplatTexture extends Material {
 			Texture diffuse;
 			double scale;
 			if(tt == null){
-				diffuse = AppFacade.getAssetManager().loadTexture("textures/trans.png");
+				diffuse = RendererPlatform.getAssetManager().loadTexture("textures/trans.png");
 				scale = 0;
 			} else{
 				try{
-					diffuse = AppFacade.getAssetManager().loadTexture(tt.getDiffuse());
+					diffuse = RendererPlatform.getAssetManager().loadTexture(tt.getDiffuse());
 				} catch (Exception e) {
 					LogUtil.warning("Diffuse map was not found : " + tt.getDiffuse() + " in TerrainTexture #"+index);
-					diffuse = AppFacade.getAssetManager().loadTexture("textures/trans.png");
+					diffuse = RendererPlatform.getAssetManager().loadTexture("textures/trans.png");
 				}
 				scale = tt.getScale();
 				if(tt.getNormal() != null && !tt.getNormal().isEmpty()){
-					Texture normal = AppFacade.getAssetManager().loadTexture(tt.getNormal());
+					Texture normal = RendererPlatform.getAssetManager().loadTexture(tt.getNormal());
 					normal.setAnisotropicFilter(8);
 					normal.setWrap(Texture.WrapMode.Repeat);
 					setTexture("NormalMap" + indexHint, normal);

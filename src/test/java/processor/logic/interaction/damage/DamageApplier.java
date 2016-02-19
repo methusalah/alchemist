@@ -62,7 +62,7 @@ public class DamageApplier {
 			// compute the remaining base damage
 			if(shield < 0){
 				remaining = -shield;
-				remaining = (int)Math.round((double)remaining / shieldModifier);
+				remaining = (int)Math.round(remaining / shieldModifier);
 			} else
 				remaining = 0;
 			
@@ -84,7 +84,7 @@ public class DamageApplier {
 		damageOnHitPoints = modified;
 		
 		result =  new Attrition(attrition.getMaxHitpoints(),
-				Math.max(0, attrition.getActualHitpoints() - (int)Math.round(modified)),
+				Math.max(0, attrition.getActualHitpoints() - Math.round(modified)),
 				attrition.getMaxShield(),
 				attrition.getActualShield(),
 				attrition.isArmored());

@@ -7,8 +7,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import model.EditorPlatform;
 import model.ECS.data.EntityDataMemento;
-import presentation.RunState;
-import presentation.RunState.State;
+import model.ECS.pipeline.Pipeline;
+import presentation.actionBar.RunState.State;
 import presentation.base.AbstractPresenter;
 
 public class ActionBarPresenter extends AbstractPresenter<ActionBarViewer> {
@@ -17,8 +17,8 @@ public class ActionBarPresenter extends AbstractPresenter<ActionBarViewer> {
 
 	public ActionBarPresenter(ActionBarViewer viewer) {
 		super(viewer);
-		millisPerTickProperty.setValue(LogicLoop.getMillisPerTick());
-		millisPerTickProperty.addListener((observable, oldValue, newValue) -> LogicLoop.setMillisPerTick(newValue.intValue()));
+		millisPerTickProperty.setValue(Pipeline.getMillisPerTick());
+		millisPerTickProperty.addListener((observable, oldValue, newValue) -> Pipeline.setMillisPerTick(newValue.intValue()));
 	}
 	
 	public void setRun(boolean value){

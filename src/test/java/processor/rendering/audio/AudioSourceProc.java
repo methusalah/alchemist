@@ -10,7 +10,7 @@ import commonLogic.SpatialPool;
 import component.assets.AudioSource;
 import model.ECS.builtInComponent.Naming;
 import model.ECS.pipeline.Processor;
-import model.tempImport.AppFacade;
+import model.tempImport.RendererPlatform;
 import util.LogUtil;
 
 public class AudioSourceProc extends Processor {
@@ -29,7 +29,7 @@ public class AudioSourceProc extends Processor {
 	@Override
 	protected void onEntityUpdated(Entity e) {
 		if(SpatialPool.playingSounds.containsKey(e.getId()))
-			AppFacade.getMainSceneNode().detachChild(SpatialPool.playingSounds.get(e.getId()));
+			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.playingSounds.get(e.getId()));
 		
 		AudioSource source = e.get(AudioSource.class);
 		AudioNode node = getPrototype(source.getPath());
@@ -50,7 +50,7 @@ public class AudioSourceProc extends Processor {
 			node.play();
 			
 			SpatialPool.playingSounds.put(e.getId(), node);
-			AppFacade.getMainSceneNode().attachChild(node);
+			RendererPlatform.getMainSceneNode().attachChild(node);
 		}
 	}
 	
@@ -58,7 +58,7 @@ public class AudioSourceProc extends Processor {
 	protected void onEntityRemoved(Entity e) {
 		if(SpatialPool.playingSounds.keySet().contains(e.getId())){
 			SpatialPool.playingSounds.get(e.getId()).stop();
-			AppFacade.getMainSceneNode().detachChild(SpatialPool.playingSounds.get(e.getId()));
+			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.playingSounds.get(e.getId()));
 		}
 	}
 	
@@ -68,7 +68,7 @@ public class AudioSourceProc extends Processor {
 
 		if (!soundPrototypes.containsKey(soundPath)) {
 			try {
-				AudioNode audio = new AudioNode(AppFacade.getAssetManager(), "sounds/" + soundPath);
+				AudioNode audio = new AudioNode(RendererPlatform.getAssetManager(), "sounds/" + soundPath);
 				soundPrototypes.put(soundPath, audio);
 			} catch (Exception e) {
 				LogUtil.warning("Sound not found : sounds/" + soundPath + " ("+ e + ")");
