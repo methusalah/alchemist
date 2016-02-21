@@ -1,4 +1,4 @@
-package view.tab.worldEditor.pencil;
+package plugin.infiniteWorld.editor.view.pencil;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
@@ -6,14 +6,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.NumberStringConverter;
-import presentation.worldEditor.PencilToolPresenter;
-import presentation.worldEditor.PencilToolPresenter.Mode;
-import presentation.worldEditor.PencilToolPresenter.Shape;
+import plugin.infiniteWorld.editor.presentation.PencilConfiguratorPresenter;
+import plugin.infiniteWorld.editor.presentation.PencilConfiguratorPresenter.Mode;
+import plugin.infiniteWorld.editor.presentation.PencilConfiguratorPresenter.Shape;
 import view.util.ViewLoader;
 
 public class PencilConfigurator extends VBox {
 	
-	private final PencilToolPresenter presenter;
+	private final PencilConfiguratorPresenter presenter;
 	
 	@FXML
 	private ToggleButton circleButton, squareButton, diamondButton, airbrushButton, roughButton, noiseButton;
@@ -24,7 +24,7 @@ public class PencilConfigurator extends VBox {
 	@FXML
 	private TextField sizeField, strengthField;
 	
-	public PencilConfigurator(PencilToolPresenter presenter) {
+	public PencilConfigurator(PencilConfiguratorPresenter presenter) {
 		this.presenter = presenter;
 		ViewLoader.loadFXMLForControl(this);
 	}
@@ -39,7 +39,7 @@ public class PencilConfigurator extends VBox {
 		roughButton.selectedProperty().bindBidirectional(presenter.getModeProperty().getToggle(Mode.ROUGH));
 		noiseButton.selectedProperty().bindBidirectional(presenter.getModeProperty().getToggle(Mode.NOISE));
 		
-		sizeSlider.setMax(PencilToolPresenter.MAX_SIZE);
+		sizeSlider.setMax(PencilConfiguratorPresenter.MAX_SIZE);
 		sizeSlider.valueProperty().bindBidirectional(presenter.getSizeProperty());
 		sizeField.textProperty().bindBidirectional(presenter.getSizeProperty(), new NumberStringConverter());
 		

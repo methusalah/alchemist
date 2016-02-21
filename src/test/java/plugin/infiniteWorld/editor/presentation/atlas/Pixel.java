@@ -1,4 +1,4 @@
-package presentation.worldEditor.atlas;
+package plugin.infiniteWorld.editor.presentation.atlas;
 
 import util.geometry.geom2d.Point2D;
 

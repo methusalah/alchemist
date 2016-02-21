@@ -1,8 +1,8 @@
 package app;
 
+import model.EditorPlatform;
 import model.ECS.pipeline.Pipeline;
-import presentation.sceneView.RegionPager;
-import presentation.sceneView.WorldLocaliserState;
+import plugin.infiniteWorld.pager.regionPaging.RegionPager;
 import processor.logic.ChasingCameraProc;
 import processor.logic.LifeTimeProc;
 import processor.logic.ParentingCleanerProc;
@@ -74,7 +74,7 @@ public class mainTest extends Alchemist {
 	
 	@Override
 	protected void onIntialize() {
-		Pipeline visualPipeline = pipelineProvider.createRendererPipeline();
+		Pipeline visualPipeline = EditorPlatform.getPipelineManager().createPipeline("visual", true, true);
 		visualPipeline.addProcessor(new ModelProc());
 		visualPipeline.addProcessor(new SpriteProc());
 		visualPipeline.addProcessor(new ParticleProc());
@@ -91,18 +91,18 @@ public class mainTest extends Alchemist {
 		visualPipeline.addProcessor(new VelocityVisualisationProc());
 		visualPipeline.addProcessor(new FloatingLabelProc());
 
-		Pipeline audioPipeline = pipelineProvider.createRendererPipeline();
+		Pipeline audioPipeline = EditorPlatform.getPipelineManager().createPipeline("audio", true, false);
 		audioPipeline.addProcessor(new AudioSourceProc());
 		audioPipeline.addProcessor(new AudioSourcePlacingProc());
 		audioPipeline.addProcessor(new ThrusterAudioProc());
 		audioPipeline.addProcessor(new AbilityAudioProc());
 
-		Pipeline commandPipeline = pipelineProvider.createRendererPipeline();
+		Pipeline commandPipeline = EditorPlatform.getPipelineManager().createPipeline("command", true, false);
 		commandPipeline.addProcessor(new PlayerRotationControlProc());
 		commandPipeline.addProcessor(new PlayerThrustControlProc());
 		commandPipeline.addProcessor(new CameraPlacingProc());
 		
-		Pipeline logicPipeline = pipelineProvider.createIndependantPipeline();
+		Pipeline logicPipeline = EditorPlatform.getPipelineManager().createPipeline("logic", false, false);
 		logicPipeline.addProcessor(new ChasingCameraProc());
 		logicPipeline.addProcessor(new RotationThrusterProc());
 		logicPipeline.addProcessor(new ThrusterProc());

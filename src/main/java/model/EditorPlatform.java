@@ -3,6 +3,7 @@ package model;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import model.ECS.data.TraversableEntityData;
+import model.ECS.pipeline.PipelineManager;
 import model.state.SceneSelectorState;
 import presentation.actionBar.RunState;
 import presentation.common.EntityNode;
@@ -15,6 +16,7 @@ public class EditorPlatform {
 	private static SceneSelectorState sceneSelector;
 	private static PlanarStanceInstrumentState handle;
 	private static JmeImageView scene, preview;
+	private static PipelineManager pipelineManager;
 	private static final ObjectProperty<UserComponentList> userComponentListProperty = new SimpleObjectProperty<>();
 	private static final ObjectProperty<EntityNode> selectionProperty = new SimpleObjectProperty<>();
 	private static final ObjectProperty<RunState> runStateProperty = new SimpleObjectProperty<>();
@@ -73,5 +75,13 @@ public class EditorPlatform {
 	
 	public static ObjectProperty<UserComponentList> getUserComponentList() {
 		return userComponentListProperty;
+	}
+
+	public static PipelineManager getPipelineManager() {
+		return pipelineManager;
+	}
+
+	public static void setPipelineManager(PipelineManager pipelineManager) {
+		EditorPlatform.pipelineManager = pipelineManager;
 	}
 }

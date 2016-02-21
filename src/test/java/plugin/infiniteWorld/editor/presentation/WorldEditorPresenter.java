@@ -1,4 +1,4 @@
-package presentation.worldEditor;
+package plugin.infiniteWorld.editor.presentation;
 
 import com.jme3.scene.Node;
 

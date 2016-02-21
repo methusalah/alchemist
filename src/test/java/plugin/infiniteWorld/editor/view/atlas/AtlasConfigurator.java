@@ -1,4 +1,4 @@
-package view.tab.worldEditor.atlas;
+package plugin.infiniteWorld.editor.view.atlas;
 
 import java.util.Optional;
 
@@ -12,17 +12,17 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import presentation.worldEditor.Tool;
-import presentation.worldEditor.atlas.AtlasToolPresenter;
-import presentation.worldEditor.atlas.AtlasToolPresenter.Operation;
-import presentation.worldEditor.atlas.AtlasViewable;
-import view.control.TerrainTextureButton;
-import view.tab.worldEditor.Toolconfigurator;
-import view.tab.worldEditor.pencil.PencilConfigurator;
+import plugin.infiniteWorld.editor.presentation.Tool;
+import plugin.infiniteWorld.editor.presentation.atlas.AtlasConfiguratorPresenter;
+import plugin.infiniteWorld.editor.presentation.atlas.AtlasConfiguratorViewer;
+import plugin.infiniteWorld.editor.presentation.atlas.AtlasConfiguratorPresenter.Operation;
+import plugin.infiniteWorld.editor.view.Toolconfigurator;
+import plugin.infiniteWorld.editor.view.pencil.PencilConfigurator;
+import plugin.infiniteWorld.world.terrain.TerrainTexture;
 import view.util.ViewLoader;
 
-public class AtlasConfigurator extends VBox implements Toolconfigurator, AtlasViewable {
-	private final AtlasToolPresenter presenter;
+public class AtlasConfigurator extends VBox implements Toolconfigurator, AtlasConfiguratorViewer {
+	private final AtlasConfiguratorPresenter presenter;
 	ToggleGroup textureGroup;
 
 	@FXML
@@ -32,7 +32,7 @@ public class AtlasConfigurator extends VBox implements Toolconfigurator, AtlasVi
 	private VBox textureGrid;
 	
 	public AtlasConfigurator() {
-		presenter = new AtlasToolPresenter(this);
+		presenter = new AtlasConfiguratorPresenter(this);
 		ViewLoader.loadFXMLForControl(this);
 	}
 	

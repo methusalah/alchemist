@@ -1,4 +1,4 @@
-package view.control;
+package plugin.infiniteWorld.editor.view.atlas;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,8 +7,9 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import plugin.infiniteWorld.world.terrain.TerrainTexture;
 
-public class TerrainTextureButton extends ToggleButton {
+class TerrainTextureButton extends ToggleButton {
 	public TerrainTextureButton(TerrainTexture texture) {
 		Image icon = null;
 		try {

@@ -1,4 +1,4 @@
-package presentation.worldEditor;
+package plugin.infiniteWorld.editor.presentation;
 
 import util.geometry.geom2d.Point2D;
 

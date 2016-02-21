@@ -1,15 +1,15 @@
-package view.tab.worldEditor;
+package plugin.infiniteWorld.editor.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-import presentation.worldEditor.WorldEditorPresenter;
-import presentation.worldEditor.WorldTool;
+import plugin.infiniteWorld.editor.presentation.WorldEditorPresenter;
+import plugin.infiniteWorld.editor.presentation.WorldTool;
+import plugin.infiniteWorld.editor.view.atlas.AtlasConfigurator;
+import plugin.infiniteWorld.editor.view.heightmap.HeightmapConfigurator;
+import plugin.infiniteWorld.editor.view.population.PopulationConfigurator;
 import view.ViewPlatform;
-import view.tab.worldEditor.atlas.AtlasConfigurator;
-import view.tab.worldEditor.heightmap.HeightmapConfigurator;
-import view.tab.worldEditor.population.PopulationConfigurator;
 import view.util.ViewLoader;
 
 public class WorldEditor extends BorderPane{

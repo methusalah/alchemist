@@ -1,8 +1,10 @@
-package presentation.worldEditor.atlas;
+package plugin.infiniteWorld.editor.presentation.atlas;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import plugin.infiniteWorld.world.terrain.atlas.Atlas;
+import plugin.infiniteWorld.world.terrain.atlas.AtlasLayer;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 

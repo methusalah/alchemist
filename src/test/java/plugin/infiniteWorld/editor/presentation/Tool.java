@@ -1,4 +1,4 @@
-package presentation.worldEditor;
+package plugin.infiniteWorld.editor.presentation;
 
 import model.state.SceneSelectorState;
 

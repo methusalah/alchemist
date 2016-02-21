@@ -1,4 +1,4 @@
-package presentation.worldEditor;
+package plugin.infiniteWorld.editor.presentation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import util.geometry.geom2d.algorithm.PerlinNoise;
 import util.math.AngleUtil;
 
 
-public class PencilToolPresenter extends WorldTool {
+public class PencilConfiguratorPresenter extends WorldTool {
 	public static final int MAX_SIZE = 30;
 
 	public enum Shape {
@@ -35,7 +35,7 @@ public class PencilToolPresenter extends WorldTool {
 	private final IntegerProperty sizeProperty = new SimpleIntegerProperty(4);
 	private final DoubleProperty strengthProperty = new SimpleDoubleProperty(0.1);
 
-	public PencilToolPresenter() {
+	public PencilConfiguratorPresenter() {
 		perlin = new PerlinNoise();
 	}
 	

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import model.EditorPlatform;
+import plugin.infiniteWorld.editor.view.WorldEditorTab;
 import view.actionBar.ActionBar;
 import view.instrument.circleCollisionShape.CircleCollisionShapeInstrument;
 import view.instrument.planarStance.PlanarStanceInstrument;
@@ -12,7 +13,6 @@ import view.tab.inspector.InspectorTab;
 import view.tab.report.ReportTab;
 import view.tab.resources.ResourcesTab;
 import view.tab.scene.SceneViewTab;
-import view.tab.worldEditor.WorldEditorTab;
 import view.util.ViewLoader;
 
 public class Overview extends BorderPane {

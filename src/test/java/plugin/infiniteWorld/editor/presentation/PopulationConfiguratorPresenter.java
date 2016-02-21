@@ -1,25 +1,26 @@
-package presentation.worldEditor;
+package plugin.infiniteWorld.editor.presentation;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.simsilica.es.EntityComponent;
 
+import commonLogic.EntityInstance;
 import component.motion.PlanarStance;
 import javafx.collections.FXCollections;
 import model.ECS.blueprint.Blueprint;
 import model.ECS.blueprint.BlueprintLibrary;
 import model.tempImport.RendererPlatform;
+import plugin.infiniteWorld.editor.view.population.PopulationConfigurator;
 import processor.logic.world.WorldProc;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
-import view.tab.worldEditor.population.PopulationConfigurator;
 
-public class PopulationToolPresenter extends WorldTool {
+public class PopulationConfiguratorPresenter extends WorldTool {
 	
 	private Blueprint bp;
 	
-	public PopulationToolPresenter(PopulationConfigurator view) {
+	public PopulationConfiguratorPresenter(PopulationConfigurator view) {
 		view.majBlueprintList(FXCollections.observableArrayList(BlueprintLibrary.getAllBlueprints()));
 	}
 	

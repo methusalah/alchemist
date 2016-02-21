@@ -1,25 +1,25 @@
-package view.tab.worldEditor.heightmap;
+package plugin.infiniteWorld.editor.view.heightmap;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
-import presentation.worldEditor.HeightMapToolPresenter;
-import presentation.worldEditor.HeightMapToolPresenter.Operation;
-import presentation.worldEditor.Tool;
-import view.tab.worldEditor.Toolconfigurator;
-import view.tab.worldEditor.pencil.PencilConfigurator;
+import plugin.infiniteWorld.editor.presentation.HeightmapConfiguratorPresenter;
+import plugin.infiniteWorld.editor.presentation.Tool;
+import plugin.infiniteWorld.editor.presentation.HeightmapConfiguratorPresenter.Operation;
+import plugin.infiniteWorld.editor.view.Toolconfigurator;
+import plugin.infiniteWorld.editor.view.pencil.PencilConfigurator;
 import view.util.ViewLoader;
 
 public class HeightmapConfigurator extends VBox implements Toolconfigurator {
 
-	private final HeightMapToolPresenter presenter;
+	private final HeightmapConfiguratorPresenter presenter;
 
 	@FXML
 	private ToggleButton raiseLowButton, noiseSmoothButton, uniformResetButton;
 
 	
 	public HeightmapConfigurator() {
-		presenter = new HeightMapToolPresenter();
+		presenter = new HeightmapConfiguratorPresenter();
 		ViewLoader.loadFXMLForControl(this);
 	}
 	

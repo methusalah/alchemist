@@ -1,4 +1,4 @@
-package view.tab.worldEditor;
+package plugin.infiniteWorld.editor.view;
 
 import view.control.OverviewTab;
 

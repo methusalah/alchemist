@@ -1,4 +1,4 @@
-package view.tab.worldEditor.population;
+package plugin.infiniteWorld.editor.view.population;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -6,18 +6,18 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import model.ECS.blueprint.Blueprint;
-import presentation.worldEditor.PopulationToolPresenter;
-import presentation.worldEditor.Tool;
-import view.tab.worldEditor.Toolconfigurator;
+import plugin.infiniteWorld.editor.presentation.PopulationConfiguratorPresenter;
+import plugin.infiniteWorld.editor.presentation.Tool;
+import plugin.infiniteWorld.editor.view.Toolconfigurator;
 import view.util.ViewLoader;
 
 public class PopulationConfigurator extends VBox implements Toolconfigurator {
-	private final PopulationToolPresenter presenter;
+	private final PopulationConfiguratorPresenter presenter;
 	private final ListView<Blueprint> list = new ListView<>();
 	
 	public PopulationConfigurator() {
 		ViewLoader.loadFXMLForControl(this);
-		presenter = new PopulationToolPresenter(this);
+		presenter = new PopulationConfiguratorPresenter(this);
 	}
 	
 	@FXML

@@ -13,6 +13,7 @@ import com.simsilica.es.EntityId;
 import component.motion.PlanarStance;
 import model.EditorPlatform;
 import model.ECS.blueprint.Blueprint;
+import model.ECS.pipeline.Pipeline;
 import model.state.DataState;
 import model.state.DraggableCameraState;
 import model.state.InstrumentUpdateState;
@@ -45,12 +46,7 @@ public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 
 		stateManager.attach(new SceneSelectorState());
 		
-		EntitySystem es = new EntitySystem(ed);
-		stateManager.attach(es);
-		es.initVisuals(true);
-		es.initAudio(false);
-		es.initCommand(false);
-		es.initLogic(false);
+		EditorPlatform.getPipelineManager().runEditionPiplines();
 
 		// adding filters
 		DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(RendererPlatform.getAssetManager(), SHADOWMAP_SIZE, 1);

@@ -1,4 +1,4 @@
-package view.tab.worldEditor.atlas;
+package plugin.infiniteWorld.editor.view.atlas;
 
 import java.io.File;
 
@@ -11,8 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
+import plugin.infiniteWorld.world.terrain.TerrainTexture;
 
-public class TerrainTextureDialog extends Dialog<TerrainTexture> {
+class TerrainTextureDialog extends Dialog<TerrainTexture> {
 	public TerrainTextureDialog(){
 		this(new TerrainTexture("", "", 0));
 	}

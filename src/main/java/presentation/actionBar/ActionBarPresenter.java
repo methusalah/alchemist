@@ -46,24 +46,14 @@ public class ActionBarPresenter extends AbstractPresenter<ActionBarViewer> {
 	}
 
 	public boolean jmeRun(SimpleApplication app){
-		AppStateManager stateManager = app.getStateManager();
-		EntitySystem es = stateManager.getState(EntitySystem.class);
-		
-		es.initVisuals(true);
-		es.initAudio(true);
-		es.initCommand(true);
-		es.initLogic(true);
+		EditorPlatform.getPipelineManager().stopEditionPiplines();
+		EditorPlatform.getPipelineManager().runPipelines();
 		return true;
 	}
 
 	public boolean jmeStop(SimpleApplication app){
-		AppStateManager stateManager = app.getStateManager();
-		EntitySystem es = stateManager.getState(EntitySystem.class);
-		
-		es.initVisuals(true);
-		es.initAudio(false);
-		es.initCommand(false);
-		es.initLogic(false);
+		EditorPlatform.getPipelineManager().stopPiplines();
+		EditorPlatform.getPipelineManager().runEditionPiplines();
 		
 		// state has to be set in the jme thread, to ensure that no entity is added after cleanup
 		EditorPlatform.getEntityData().setMemento(memento);

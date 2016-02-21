@@ -1,16 +1,18 @@
-package presentation.worldEditor;
+package plugin.infiniteWorld.editor.presentation;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import model.EditorPlatform;
 import model.tempImport.RendererPlatform;
+import plugin.infiniteWorld.world.Region;
+import plugin.infiniteWorld.world.terrain.heightmap.HeightMapNode;
 import presentation.common.ToggledEnumProperty;
 import processor.logic.world.WorldProc;
 import util.geometry.geom2d.Point2D;
 import util.math.RandomUtil;
 
-public class HeightMapToolPresenter extends PencilToolPresenter {
+public class HeightmapConfiguratorPresenter extends PencilConfiguratorPresenter {
 	
 	public enum Operation {
 		RAISE_LOW, NOISE_SMOOTH, UNIFORM_RESET

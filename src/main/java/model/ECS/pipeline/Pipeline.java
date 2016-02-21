@@ -6,8 +6,8 @@ import java.util.Map;
 import com.jme3.app.state.AppStateManager;
 
 public class Pipeline {
-	private final AppStateManager manager;
 	private final String name;
+	final boolean inRendererThread;
 	
     private static int millisPerTick = 20;
     private static double secondPerTick = (double)millisPerTick/1000;
@@ -17,21 +17,19 @@ public class Pipeline {
 
 	private final Map<Class<? extends Processor>, Processor> processors = new HashMap<>();
 	
-	Pipeline(AppStateManager manager, String name) {
+	Pipeline(String name, boolean inRendererThread) {
 		this.name = name;
-		this.manager = manager;
+		this.inRendererThread = inRendererThread;
 	}
 	
 	public void addProcessor(Processor processor){
 		if(processors.containsKey(processor.getClass()))
 				throw new RuntimeException("The processor " + processor.getClass().getSimpleName() + " is already attached to this pipeline. A single pipeline can hold only one instance of a processor class");
 		processors.put(processor.getClass(), processor);
-		manager.attach(processor);
 	}
 	
 	public void removeProcessor(Class<? extends Processor> processorClass){
 		processors.remove(processorClass);
-		manager.detach(manager.getState(processorClass));
 	}
 	
     public int getTickCount() {
@@ -59,4 +57,10 @@ public class Pipeline {
 	public static double getSecondPerTick() {
 		return secondPerTick;
 	}
+
+	public Map<Class<? extends Processor>, Processor> getProcessors() {
+		return processors;
+	}
+	
+	
 }

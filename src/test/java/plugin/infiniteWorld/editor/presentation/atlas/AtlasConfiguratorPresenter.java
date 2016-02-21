@@ -1,4 +1,4 @@
-package presentation.worldEditor.atlas;
+package plugin.infiniteWorld.editor.presentation.atlas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,17 +11,21 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import model.tempImport.RendererPlatform;
+import plugin.infiniteWorld.editor.presentation.PencilConfiguratorPresenter;
+import plugin.infiniteWorld.world.Region;
+import plugin.infiniteWorld.world.terrain.TerrainTexture;
+import plugin.infiniteWorld.world.terrain.atlas.Atlas;
+import plugin.infiniteWorld.world.terrain.atlas.AtlasLayer;
 import presentation.common.ToggledEnumProperty;
-import presentation.worldEditor.PencilToolPresenter;
 import processor.logic.world.WorldProc;
 import util.geometry.geom2d.Point2D;
 
-public class AtlasToolPresenter extends PencilToolPresenter {
+public class AtlasConfiguratorPresenter extends PencilConfiguratorPresenter {
 	public enum Operation {
 		ADD_DELETE, PROPAGATE_SMOOTH
 	}
 
-	private final AtlasViewable view;
+	private final AtlasConfiguratorViewer view;
 	
 	private final ListProperty<TerrainTexture> textures = new SimpleListProperty<>();
 	private final ToggledEnumProperty<Operation> operationProperty = new ToggledEnumProperty<>(Operation.class);
@@ -29,7 +33,7 @@ public class AtlasToolPresenter extends PencilToolPresenter {
 	private Region lastRegion;
 	
 	
-	public AtlasToolPresenter(AtlasViewable view) {
+	public AtlasConfiguratorPresenter(AtlasConfiguratorViewer view) {
 		this.view = view;
 		textures.addListener((ListChangeListener.Change<? extends TerrainTexture> c) -> {
 			if(lastRegion != null){
