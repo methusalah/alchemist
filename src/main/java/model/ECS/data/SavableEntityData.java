@@ -13,7 +13,7 @@ import com.simsilica.es.base.DefaultEntityData;
 
 /**
  * An extended EntityData able to give snapshot states (memento) and reset to a previously created state.
- * @author Benoît
+ * @author BenoÃ®t
  *
  */
 public class SavableEntityData extends DefaultEntityData implements Cloneable{
