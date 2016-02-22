@@ -2,51 +2,21 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'eclipse'
 
-mainClassName = 'cosmovania.app.MainDev'
+mainClassName = 'app.MainSample'
 if (!hasProperty('mainClass')) {
-	ext.mainClass = 'cosmovania.app.MainDev'
+	ext.mainClass = 'app.MainSample'
 }
 
 // In this section you declare where to find the dependencies of your project
 repositories {
 	mavenCentral()
-	//maven { url 'https://dl.bintray.com/brainless-studios/tonegodgui' }
 	maven { url "https://jitpack.io" }
-	maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-    maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-    maven { url "http://dl.bintray.com/empirephoenix/VGS-OSS-Releases/" }
-    
 }
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-	compile fileTree(dir: 'lib', include: ['*.jar'])
-	compile "com.jme3:jme3-core:$jmonkeyengine_version"
-	compile "com.jme3:jme3-effects:$jmonkeyengine_version" 
-	compile "com.jme3:jme3-networking:$jmonkeyengine_version"
-	compile "com.jme3:jme3-blender:$jmonkeyengine_version"
-	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version"
-	compile "com.jme3:jme3-lwjgl:$jmonkeyengine_version"
-
-	compile 'org.slf4j:slf4j-simple:1.6.1'
-
-	compile 'org.bushe:eventbus:1.4'
-	compile 'com.google.guava:guava:18.0'
-	//compile 'org.reflections:reflections:0.9.5-RC2'
-	compile 'org.apache.commons:commons-lang3:3.3.2'
-
-	compile 'com.fasterxml.jackson.core:jackson-core:2.5.3'
-	compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.3'
-	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
-	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.5.0'
-	
-	//compile 'com.github.brainless-studios:tonegodgui:-SNAPSHOT'
-	//compile 'com.github.jMonkeyEngine-Contributions:zay-es:-SNAPSHOT'
-	//compile 'com.github.brainless-studios:JME3-JFX:-SNAPSHOT'
-	
-	compile 'com.github.brainless-studios:myGeom:-SNAPSHOT'
-	
 	compile "com.badlogicgames.gdx:gdx-ai:1.6.0"
+	compile rootProject
 }
 
 
@@ -68,7 +38,7 @@ eclipse {
 	}
 
 	project { 
-		name = appName + "-sample" 
+		name = appName + "-sample"
 		natures 'org.springsource.ide.eclipse.gradle.core.nature'
 	}
 }

@@ -1,10 +1,11 @@
-/component/
-/controller/
-/model/
-/processor/
-/plugin/
-/commonLogic/
-/presentation/
-/app/
+/data/
+/interface/
+/matdefs/
+/materials/
+/models/
+/resources/
+/sounds/
+/textures/
 /view/
-/Nouveau dossier/
+/model/
+/presentation/
