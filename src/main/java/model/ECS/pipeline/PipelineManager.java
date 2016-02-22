@@ -60,7 +60,6 @@ public class PipelineManager {
 		for(Pipeline pr : pipelineSet.keySet()){
 			for(Processor p : pr.getProcessors()){
 				RendererPlatform.enqueue(() -> pr.getStateManager().attach(p));
-				LogUtil.info("order : " + p.getClass().getSimpleName());
 			}
 			if(pr.getRunnable() != null){
 				Thread thread = new Thread(pr.getRunnable());
