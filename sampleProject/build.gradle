@@ -11,6 +11,7 @@ if (!hasProperty('mainClass')) {
 repositories {
 	mavenCentral()
 	maven { url "https://jitpack.io" }
+	maven { url 'http://updates.jmonkeyengine.org/maven' }	
 }
 
 // In this section you declare the dependencies for your production and test code
