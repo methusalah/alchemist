@@ -1,7 +1,10 @@
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
 
+version = '1.0'	
+	
 ext {
 		appName = 'alchemist'
 		jmonkeyengine_version = '3.0.10'
@@ -45,6 +48,29 @@ dependencies {
 	
 	// Simsilica Pager
 	//compile 'com.github.simsilica:pager:-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+compileJava {
+	sourceCompatibility = '1.8'
+ }
+
+
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+ 
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//	classifier = 'javadoc'
+//	from javadoc.destinationDir
+//}
+
+artifacts {
+	archives sourcesJar
+//	archives javadocJar
 }
 
 configurations.all {
