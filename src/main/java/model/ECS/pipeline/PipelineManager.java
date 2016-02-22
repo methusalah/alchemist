@@ -58,9 +58,9 @@ public class PipelineManager {
 	
 	private void run(Map<Pipeline, Thread> pipelineSet){
 		for(Pipeline pr : pipelineSet.keySet()){
-			LogUtil.info("order : " + pr.getName());
-			for(Processor p : pr.getProcessors().values()){
+			for(Processor p : pr.getProcessors()){
 				RendererPlatform.enqueue(() -> pr.getStateManager().attach(p));
+				LogUtil.info("order : " + p.getClass().getSimpleName());
 			}
 			if(pr.getRunnable() != null){
 				Thread thread = new Thread(pr.getRunnable());
@@ -79,7 +79,7 @@ public class PipelineManager {
 	
 	private void stop(Map<Pipeline, Thread> pipelineSet){
 		for(Pipeline pr : pipelineSet.keySet()){
-			for(Processor p : pr.getProcessors().values())
+			for(Processor p : pr.getProcessors())
 				RendererPlatform.enqueue(() -> pr.getStateManager().detach(p));
 			if(pr.getRunnable() != null){
 				pipelineSet.get(pr).interrupt();

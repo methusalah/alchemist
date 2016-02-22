@@ -1,7 +1,10 @@
 package model.ECS.pipeline;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.jme3.app.state.AppState;
 import com.jme3.app.state.AppStateManager;
@@ -19,7 +22,7 @@ public class Pipeline {
     int tickCount = 0;
     int waitTime = 0;
 
-	private final Map<Class<? extends Processor>, Processor> processors = new HashMap<>();
+	private final List<Processor> processors = new ArrayList<>();
 	
 	Pipeline(String name, AppStateManager stateManager) {
 		this.name = name;
@@ -27,13 +30,17 @@ public class Pipeline {
 	}
 	
 	public void addProcessor(Processor processor){
-		if(processors.containsKey(processor.getClass()))
+		if(find(processor.getClass()).isPresent())
 				throw new RuntimeException("The processor " + processor.getClass().getSimpleName() + " is already attached to this pipeline. A single pipeline can hold only one instance of a processor class");
-		processors.put(processor.getClass(), processor);
+		processors.add(processor);
+	}
+	
+	private Optional<Processor> find(Class<? extends Processor> processorClass){
+		return processors.stream().filter(p -> p.getClass().equals(processorClass)).findFirst();
 	}
 	
 	public void removeProcessor(Class<? extends Processor> processorClass){
-		processors.remove(processorClass);
+		find(processorClass).ifPresent(p -> processors.remove(p));
 	}
 	
     public int getTickCount() {
@@ -62,7 +69,7 @@ public class Pipeline {
 		return secondPerTick;
 	}
 
-	public Map<Class<? extends Processor>, Processor> getProcessors() {
+	public List<Processor> getProcessors() {
 		return processors;
 	}
 

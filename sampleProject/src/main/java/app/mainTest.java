@@ -89,6 +89,40 @@ public class mainTest extends Alchemist {
 	
 	@Override
 	protected void onIntialize() {
+		RendererPlatform.enqueue(() -> createPipelines());		
+		
+		// adding state to the renderer
+		RendererPlatform.getStateManager().attach(new WorldLocaliserState());
+		RendererPlatform.getStateManager().attach(new RegionPager());
+		RendererPlatform.getStateManager().getState(RegionPager.class).setEnabled(true);
+		
+		// adding scene view behavior to place blueprint in view with correct planar stance
+		SceneViewBehavior.createEntityFunction = (blueprint, screenCoord) -> {
+			EditorPlatform.getScene().enqueue(app -> {
+				EntityData ed = app.getStateManager().getState(DataState.class).getEntityData(); 
+				EntityId newEntity = blueprint.createEntity(ed, null);
+				PlanarStance stance = ed.getComponent(newEntity, PlanarStance.class); 
+				if(stance != null){
+					Point2D planarCoord = app.getStateManager().getState(SceneSelectorState.class).getPointedCoordInPlan(screenCoord);
+					ed.setComponent(newEntity, new PlanarStance(planarCoord, stance.getOrientation(), stance.getElevation(), stance.getUpVector()));
+				}
+				return true;
+			});
+			return null;
+		};
+		
+		// adding instruments
+		new PlanarStanceInstrument(EditorPlatform.getScene());
+		new CircleCollisionShapeInstrument(EditorPlatform.getScene());
+
+		// adding the world editor window
+		ViewPlatform.inspectorTabPane.getTabs().add(new WorldEditorTab());
+		
+		// adding the playtime listener
+		ViewPlatform.game = new GameInputListener(EditorPlatform.getScene());
+	}
+	
+	private boolean createPipelines(){
 		Pipeline visualPipeline = EditorPlatform.getPipelineManager().createPipeline("visual", true, true);
 		visualPipeline.addProcessor(new ModelProc());
 		visualPipeline.addProcessor(new SpriteProc());
@@ -172,36 +206,6 @@ public class mainTest extends Alchemist {
 		logicPipeline.addProcessor(new RemovedCleanerProc());
 		logicPipeline.addProcessor(new RemoverProc());
 		logicPipeline.addProcessor(new ParentingCleanerProc());
-		
-		
-		// adding state to the renderer
-		RendererPlatform.getStateManager().attach(new WorldLocaliserState());
-		RendererPlatform.getStateManager().attach(new RegionPager());
-		RendererPlatform.getStateManager().getState(RegionPager.class).setEnabled(true);
-		
-		// adding scene view behavior to place blueprint in view with correct planar stance
-		SceneViewBehavior.createEntityFunction = (blueprint, screenCoord) -> {
-			EditorPlatform.getScene().enqueue(app -> {
-				EntityData ed = app.getStateManager().getState(DataState.class).getEntityData(); 
-				EntityId newEntity = blueprint.createEntity(ed, null);
-				PlanarStance stance = ed.getComponent(newEntity, PlanarStance.class); 
-				if(stance != null){
-					Point2D planarCoord = app.getStateManager().getState(SceneSelectorState.class).getPointedCoordInPlan(screenCoord);
-					ed.setComponent(newEntity, new PlanarStance(planarCoord, stance.getOrientation(), stance.getElevation(), stance.getUpVector()));
-				}
-				return true;
-			});
-			return null;
-		};
-		
-		// adding instruments
-		new PlanarStanceInstrument(EditorPlatform.getScene());
-		new CircleCollisionShapeInstrument(EditorPlatform.getScene());
-
-		// adding the world editor window
-		ViewPlatform.inspectorTabPane.getTabs().add(new WorldEditorTab());
-		
-		// adding the playtime listener
-		ViewPlatform.game = new GameInputListener(EditorPlatform.getScene());
+		return true;
 	}
 }
