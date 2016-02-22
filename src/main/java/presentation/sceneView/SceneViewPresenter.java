@@ -8,12 +8,9 @@ import com.jme3.post.filters.FXAAFilter;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.EdgeFilteringMode;
 import com.simsilica.es.EntityData;
-import com.simsilica.es.EntityId;
 
-import component.motion.PlanarStance;
 import model.EditorPlatform;
 import model.ECS.blueprint.Blueprint;
-import model.ECS.pipeline.Pipeline;
 import model.state.DataState;
 import model.state.DraggableCameraState;
 import model.state.InstrumentUpdateState;
@@ -44,6 +41,7 @@ public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 		cam.setMoveSpeed(1f);
 		stateManager.attach(cam);
 
+		stateManager.attach(new DataState(EditorPlatform.getEntityData()));
 		stateManager.attach(new SceneSelectorState());
 		
 		EditorPlatform.getPipelineManager().runEditionPiplines();
@@ -78,16 +76,8 @@ public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 	}
 	
 	public void createEntityAt(Blueprint blueprint, Point2D screenCoord){
-		EditorPlatform.getScene().enqueue(app -> {
-			EntityData ed = app.getStateManager().getState(DataState.class).getEntityData(); 
-			EntityId newEntity = blueprint.createEntity(ed, null);
-			PlanarStance stance = ed.getComponent(newEntity, PlanarStance.class); 
-			if(stance != null){
-				Point2D planarCoord = app.getStateManager().getState(SceneSelectorState.class).getPointedCoordInPlan(screenCoord);
-				ed.setComponent(newEntity, new PlanarStance(planarCoord, stance.getOrientation(), stance.getElevation(), stance.getUpVector()));
-			}
-			return true;
-		});
+		SceneViewBehavior.createEntityFunction.apply(blueprint, screenCoord);
+		
 	}
 
 }

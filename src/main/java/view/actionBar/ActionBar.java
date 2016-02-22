@@ -18,7 +18,6 @@ import view.util.ViewLoader;
 
 public class ActionBar extends BorderPane implements ActionBarViewer {
 	private final ActionBarPresenter presenter;
-	private final GameInputListener game;
 	private final List<SceneInputListener> savedListeners = new ArrayList<>();
 
 	@FXML
@@ -32,7 +31,6 @@ public class ActionBar extends BorderPane implements ActionBarViewer {
 	
 	public ActionBar() {
 		presenter = new ActionBarPresenter(this);
-		game = new GameInputListener(EditorPlatform.getScene());
 		ViewLoader.loadFXMLForControl(this);
 	}
 
@@ -48,7 +46,8 @@ public class ActionBar extends BorderPane implements ActionBarViewer {
 	public void setGameInputListener() {
 		savedListeners.addAll(ViewPlatform.getSceneInputManager().getListeners());
 		ViewPlatform.getSceneInputManager().getListeners().clear();
-		ViewPlatform.getSceneInputManager().addListener(game);
+		if(ViewPlatform.game != null)
+			ViewPlatform.getSceneInputManager().addListener(ViewPlatform.game);
 	}
 
 	@Override

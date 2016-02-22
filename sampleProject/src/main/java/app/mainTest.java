@@ -1,10 +1,21 @@
 package app;
 
+import com.simsilica.es.EntityData;
+import com.simsilica.es.EntityId;
+
+import commonLogic.GameInputListener;
 import component.WorldLocaliserState;
+import component.motion.PlanarStance;
 import model.EditorPlatform;
 import model.ECS.pipeline.Pipeline;
+import model.state.DataState;
+import model.state.SceneSelectorState;
 import model.tempImport.RendererPlatform;
+import plugin.circleCollisionShapeInstrument.CircleCollisionShapeInstrument;
+import plugin.infiniteWorld.editor.view.WorldEditorTab;
 import plugin.infiniteWorld.pager.regionPaging.RegionPager;
+import plugin.planarStanceInstrument.PlanarStanceInstrument;
+import presentation.sceneView.SceneViewBehavior;
 import processor.logic.ChasingCameraProc;
 import processor.logic.LifeTimeProc;
 import processor.logic.ParentingCleanerProc;
@@ -65,7 +76,9 @@ import processor.rendering.sprite.SpritePlacingProc;
 import processor.rendering.sprite.SpriteProc;
 import processor.rendering.ui.FloatingLabelProc;
 import processor.rendering.ui.VelocityVisualisationProc;
+import util.geometry.geom2d.Point2D;
 import view.Alchemist;
+import view.ViewPlatform;
 
 public class mainTest extends Alchemist {
 	
@@ -161,9 +174,34 @@ public class mainTest extends Alchemist {
 		logicPipeline.addProcessor(new ParentingCleanerProc());
 		
 		
+		// adding state to the renderer
 		RendererPlatform.getStateManager().attach(new WorldLocaliserState());
 		RendererPlatform.getStateManager().attach(new RegionPager());
 		RendererPlatform.getStateManager().getState(RegionPager.class).setEnabled(true);
+		
+		// adding scene view behavior to place blueprint in view with correct planar stance
+		SceneViewBehavior.createEntityFunction = (blueprint, screenCoord) -> {
+			EditorPlatform.getScene().enqueue(app -> {
+				EntityData ed = app.getStateManager().getState(DataState.class).getEntityData(); 
+				EntityId newEntity = blueprint.createEntity(ed, null);
+				PlanarStance stance = ed.getComponent(newEntity, PlanarStance.class); 
+				if(stance != null){
+					Point2D planarCoord = app.getStateManager().getState(SceneSelectorState.class).getPointedCoordInPlan(screenCoord);
+					ed.setComponent(newEntity, new PlanarStance(planarCoord, stance.getOrientation(), stance.getElevation(), stance.getUpVector()));
+				}
+				return true;
+			});
+			return null;
+		};
+		
+		// adding instruments
+		new PlanarStanceInstrument(EditorPlatform.getScene());
+		new CircleCollisionShapeInstrument(EditorPlatform.getScene());
 
+		// adding the world editor window
+		ViewPlatform.inspectorTabPane.getTabs().add(new WorldEditorTab());
+		
+		// adding the playtime listener
+		ViewPlatform.game = new GameInputListener(EditorPlatform.getScene());
 	}
 }

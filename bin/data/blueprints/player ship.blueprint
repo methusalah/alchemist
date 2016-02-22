@@ -1,10 +1,10 @@
 {
   "name" : "player ship",
   "comps" : [ {
-    "class" : "model.ES.component.Naming",
+    "class" : "model.ECS.builtInComponent.Naming",
     "name" : "player ship"
   }, {
-    "class" : "model.ES.component.motion.PlanarStance",
+    "class" : "component.motion.PlanarStance",
     "coord" : {
       "x" : 0.8788450139734837,
       "y" : 1.9539624336073471
@@ -19,7 +19,7 @@
       "z" : 1.0
     }
   }, {
-    "class" : "model.ES.component.ability.PlayerControl",
+    "class" : "component.ability.PlayerControl",
     "color" : {
       "a" : 255,
       "r" : 150,
@@ -33,7 +33,7 @@
     "listdeboule" : [ true, false, true ],
     "doubles" : [ 1.0, 3.0, 8.0 ]
   }, {
-    "class" : "model.ES.component.assets.Model",
+    "class" : "component.assets.Model",
     "path" : "test.mesh.xml",
     "scale" : 0.0025,
     "yawFix" : {
@@ -46,16 +46,16 @@
       "value" : 0.0
     }
   }, {
-    "class" : "model.ES.component.ability.AbilityTrigger",
+    "class" : "component.ability.AbilityTrigger",
     "triggers" : {
       "bonjour" : true,
       "aurevoir" : false,
       "ca va ?" : true
     }
   }, {
-    "class" : "model.ES.component.combat.Attackable"
+    "class" : "component.combat.Attackable"
   }, {
-    "class" : "model.ES.component.motion.physic.Physic",
+    "class" : "component.motion.physic.Physic",
     "velocity" : {
       "x" : -1.5122288085930047,
       "y" : -0.8930689989569338
@@ -68,37 +68,37 @@
     },
     "spawnerException" : null
   }, {
-    "class" : "model.ES.component.motion.PlanarVelocityToApply",
+    "class" : "component.motion.PlanarVelocityToApply",
     "vector" : {
       "x" : 0.0,
       "y" : 0.0
     }
   }, {
-    "class" : "model.ES.component.motion.physic.Dragging",
+    "class" : "component.motion.physic.Dragging",
     "dragging" : 0.3
   }, {
-    "class" : "model.ES.component.motion.MotionCapacity",
+    "class" : "component.motion.MotionCapacity",
     "maxRotationSpeed" : 24.0,
     "thrustPower" : 30.0,
     "lateralThrustPower" : 10.0,
     "frontalThrustPower" : 10.0
   }, {
-    "class" : "model.ES.component.motion.PlanarNeededThrust",
+    "class" : "component.motion.PlanarNeededThrust",
     "direction" : {
       "x" : 0.0,
       "y" : 0.0
     }
   }, {
-    "class" : "model.ES.component.motion.physic.CircleCollisionShape",
+    "class" : "component.motion.physic.CircleCollisionShape",
     "radius" : 0.8
   } ],
   "children" : [ {
     "name" : "camera",
     "comps" : [ {
-      "class" : "model.ES.component.Naming",
+      "class" : "model.ECS.builtInComponent.Naming",
       "name" : "camera"
     }, {
-      "class" : "model.ES.component.motion.ChasingCamera",
+      "class" : "component.motion.ChasingCamera",
       "maxSpeed" : 200.0,
       "speed" : 1.9199999999999984,
       "acceleration" : 8.0,
@@ -114,7 +114,7 @@
         "z" : 1.0
       }
     }, {
-      "class" : "model.ES.component.motion.PlanarStance",
+      "class" : "component.motion.PlanarStance",
       "coord" : {
         "x" : 1.0696842818249457,
         "y" : 2.0666655293904723
@@ -132,10 +132,10 @@
     "children" : [ {
       "name" : "background",
       "comps" : [ {
-        "class" : "model.ES.component.Naming",
+        "class" : "model.ECS.builtInComponent.Naming",
         "name" : "background"
       }, {
-        "class" : "model.ES.component.motion.PlanarStance",
+        "class" : "component.motion.PlanarStance",
         "coord" : {
           "x" : 0.0,
           "y" : 0.0
@@ -150,7 +150,7 @@
           "z" : 1.0
         }
       }, {
-        "class" : "model.ES.component.motion.PlanarStanceControl",
+        "class" : "component.motion.PlanarStanceControl",
         "active" : false,
         "localPosition" : {
           "x" : 0.0,
@@ -161,7 +161,7 @@
           "value" : 0.0
         }
       }, {
-        "class" : "model.ES.component.assets.Sprite",
+        "class" : "component.assets.Sprite",
         "path" : "",
         "size" : 100.0
       } ],
@@ -170,16 +170,16 @@
   }, {
     "name" : "thrusters",
     "comps" : [ {
-      "class" : "model.ES.component.Naming",
+      "class" : "model.ECS.builtInComponent.Naming",
       "name" : "thrusters"
     } ],
     "children" : [ {
       "name" : "main thruster",
       "comps" : [ {
-        "class" : "model.ES.component.Naming",
+        "class" : "model.ECS.builtInComponent.Naming",
         "name" : "main thruster"
       }, {
-        "class" : "model.ES.component.motion.PlanarStance",
+        "class" : "component.motion.PlanarStance",
         "coord" : {
           "x" : 1.275682847465752,
           "y" : 1.6497918664757414
@@ -194,7 +194,7 @@
           "z" : 1.0
         }
       }, {
-        "class" : "model.ES.component.motion.PlanarStanceControl",
+        "class" : "component.motion.PlanarStanceControl",
         "active" : true,
         "localPosition" : {
           "x" : -0.5,
@@ -205,7 +205,7 @@
           "value" : 3.141592653589793
         }
       }, {
-        "class" : "model.ES.component.motion.Thruster",
+        "class" : "component.motion.Thruster",
         "direction" : {
           "x" : 1.0,
           "y" : 0.0,
@@ -219,10 +219,10 @@
         },
         "onOff" : true
       }, {
-        "class" : "model.ES.component.motion.ThrustControl",
+        "class" : "component.motion.ThrustControl",
         "active" : true
       }, {
-        "class" : "model.ES.component.assets.Lighting",
+        "class" : "component.assets.Lighting",
         "color" : {
           "a" : 255,
           "r" : 255,
@@ -243,10 +243,10 @@
       "children" : [ {
         "name" : "main particle",
         "comps" : [ {
-          "class" : "model.ES.component.Naming",
+          "class" : "model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
-          "class" : "model.ES.component.assets.ParticleCaster",
+          "class" : "component.assets.ParticleCaster",
           "spritePath" : "particles/flame.png",
           "nbCol" : 2,
           "nbRow" : 2,
@@ -278,7 +278,7 @@
           "startVariation" : 0.01,
           "allAtOnce" : false
         }, {
-          "class" : "model.ES.component.motion.PlanarStanceControl",
+          "class" : "component.motion.PlanarStanceControl",
           "active" : true,
           "localPosition" : {
             "x" : 0.0,
@@ -289,10 +289,10 @@
             "value" : 0.0
           }
         }, {
-          "class" : "model.ES.component.motion.ThrusterControl",
+          "class" : "component.motion.ThrusterControl",
           "active" : true
         }, {
-          "class" : "model.ES.component.motion.PlanarStance",
+          "class" : "component.motion.PlanarStance",
           "coord" : {
             "x" : 1.275682847465752,
             "y" : 1.6497918664757414
@@ -311,10 +311,10 @@
       }, {
         "name" : "debris particle",
         "comps" : [ {
-          "class" : "model.ES.component.Naming",
+          "class" : "model.ECS.builtInComponent.Naming",
           "name" : "debris particle"
         }, {
-          "class" : "model.ES.component.assets.ParticleCaster",
+          "class" : "component.assets.ParticleCaster",
           "spritePath" : "particles/flame.png",
           "nbCol" : 2,
           "nbRow" : 2,
@@ -346,7 +346,7 @@
           "startVariation" : 0.0,
           "allAtOnce" : false
         }, {
-          "class" : "model.ES.component.motion.PlanarStanceControl",
+          "class" : "component.motion.PlanarStanceControl",
           "active" : true,
           "localPosition" : {
             "x" : 0.0,
@@ -357,10 +357,10 @@
             "value" : 0.0
           }
         }, {
-          "class" : "model.ES.component.motion.ThrusterControl",
+          "class" : "component.motion.ThrusterControl",
           "active" : true
         }, {
-          "class" : "model.ES.component.motion.PlanarStance",
+          "class" : "component.motion.PlanarStance",
           "coord" : {
             "x" : 1.275682847465752,
             "y" : 1.6497918664757414
@@ -379,10 +379,10 @@
       }, {
         "name" : "sound",
         "comps" : [ {
-          "class" : "model.ES.component.Naming",
+          "class" : "model.ECS.builtInComponent.Naming",
           "name" : "sound"
         }, {
-          "class" : "model.ES.component.assets.ThrusterAudioSource",
+          "class" : "component.assets.ThrusterAudioSource",
           "startPath" : "thruster_start.wav",
           "loopPath" : "thruster_loop.wav",
           "endPath" : "thruster_stop.wav",
@@ -392,10 +392,10 @@
           "startTime" : 0,
           "loopTime" : 0
         }, {
-          "class" : "model.ES.component.motion.ThrusterControl",
+          "class" : "component.motion.ThrusterControl",
           "active" : true
         }, {
-          "class" : "model.ES.component.motion.PlanarStance",
+          "class" : "component.motion.PlanarStance",
           "coord" : {
             "x" : 0.0,
             "y" : 0.0
@@ -414,10 +414,10 @@
       }, {
         "name" : "trail particle",
         "comps" : [ {
-          "class" : "model.ES.component.Naming",
+          "class" : "model.ECS.builtInComponent.Naming",
           "name" : "trail particle"
         }, {
-          "class" : "model.ES.component.assets.ParticleCaster",
+          "class" : "component.assets.ParticleCaster",
           "spritePath" : "particles/flame.png",
           "nbCol" : 2,
           "nbRow" : 2,
@@ -449,7 +449,7 @@
           "startVariation" : 0.01,
           "allAtOnce" : false
         }, {
-          "class" : "model.ES.component.motion.PlanarStanceControl",
+          "class" : "component.motion.PlanarStanceControl",
           "active" : true,
           "localPosition" : {
             "x" : 0.0,
@@ -460,10 +460,10 @@
             "value" : 0.0
           }
         }, {
-          "class" : "model.ES.component.motion.ThrusterControl",
+          "class" : "component.motion.ThrusterControl",
           "active" : true
         }, {
-          "class" : "model.ES.component.motion.PlanarStance",
+          "class" : "component.motion.PlanarStance",
           "coord" : {
             "x" : 1.275682847465752,
             "y" : 1.6497918664757414
@@ -483,10 +483,10 @@
     }, {
       "name" : "frontal left thruster",
       "comps" : [ {
-        "class" : "model.ES.component.Naming",
+        "class" : "model.ECS.builtInComponent.Naming",
         "name" : "frontal left thruster"
       }, {
-        "class" : "model.ES.component.motion.PlanarStance",
+        "class" : "component.motion.PlanarStance",
         "coord" : {
           "x" : 0.5005406337533478,
           "y" : 2.117931320614178
@@ -501,7 +501,7 @@
           "z" : 1.0
         }
       }, {
-        "class" : "model.ES.component.motion.PlanarStanceControl",
+        "class" : "component.motion.PlanarStanceControl",
         "active" : true,
         "localPosition" : {
           "x" : 0.4,
@@ -512,7 +512,7 @@
           "value" : 0.4363323129985824
         }
       }, {
-        "class" : "model.ES.component.motion.Thruster",
+        "class" : "component.motion.Thruster",
         "direction" : {
           "x" : -1.0,
           "y" : -1.0,
@@ -526,16 +526,16 @@
         },
         "onOff" : true
       }, {
-        "class" : "model.ES.component.motion.ThrustControl",
+        "class" : "component.motion.ThrustControl",
         "active" : true
       } ],
       "children" : [ {
         "name" : "main particle",
         "comps" : [ {
-          "class" : "model.ES.component.Naming",
+          "class" : "model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
-          "class" : "model.ES.component.assets.ParticleCaster",
+          "class" : "component.assets.ParticleCaster",
           "spritePath" : "particles/flame.png",
           "nbCol" : 2,
           "nbRow" : 2,
@@ -567,7 +567,7 @@
           "startVariation" : 0.01,
           "allAtOnce" : false
         }, {
-          "class" : "model.ES.component.motion.PlanarStanceControl",
+          "class" : "component.motion.PlanarStanceControl",
           "active" : true,
           "localPosition" : {
             "x" : 0.0,
@@ -578,10 +578,10 @@
             "value" : 0.0
           }
         }, {
-          "class" : "model.ES.component.motion.ThrusterControl",
+          "class" : "component.motion.ThrusterControl",
           "active" : true
         }, {
-          "class" : "model.ES.component.motion.PlanarStance",
+          "class" : "component.motion.PlanarStance",
           "coord" : {
             "x" : 0.5005406337533478,
             "y" : 2.117931320614178
@@ -601,10 +601,10 @@
     }, {
       "name" : "frontal right thruster",
       "comps" : [ {
-        "class" : "model.ES.component.Naming",
+        "class" : "model.ECS.builtInComponent.Naming",
         "name" : "frontal right thruster"
       }, {
-        "class" : "model.ES.component.motion.PlanarStance",
+        "class" : "component.motion.PlanarStance",
         "coord" : {
           "x" : 0.6222088606059901,
           "y" : 2.2766664540110852
@@ -619,7 +619,7 @@
           "z" : 1.0
         }
       }, {
-        "class" : "model.ES.component.motion.PlanarStanceControl",
+        "class" : "component.motion.PlanarStanceControl",
         "active" : true,
         "localPosition" : {
           "x" : 0.4,
@@ -630,7 +630,7 @@
           "value" : -0.4363323129985824
         }
       }, {
-        "class" : "model.ES.component.motion.Thruster",
+        "class" : "component.motion.Thruster",
         "direction" : {
           "x" : -1.0,
           "y" : 1.0,
@@ -644,16 +644,16 @@
         },
         "onOff" : true
       }, {
-        "class" : "model.ES.component.motion.ThrustControl",
+        "class" : "component.motion.ThrustControl",
         "active" : true
       } ],
       "children" : [ {
         "name" : "main particle",
         "comps" : [ {
-          "class" : "model.ES.component.Naming",
+          "class" : "model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
-          "class" : "model.ES.component.assets.ParticleCaster",
+          "class" : "component.assets.ParticleCaster",
           "spritePath" : "particles/flame.png",
           "nbCol" : 2,
           "nbRow" : 2,
@@ -685,7 +685,7 @@
           "startVariation" : 0.01,
           "allAtOnce" : false
         }, {
-          "class" : "model.ES.component.motion.PlanarStanceControl",
+          "class" : "component.motion.PlanarStanceControl",
           "active" : true,
           "localPosition" : {
             "x" : 0.0,
@@ -696,10 +696,10 @@
             "value" : 0.0
           }
         }, {
-          "class" : "model.ES.component.motion.ThrusterControl",
+          "class" : "component.motion.ThrusterControl",
           "active" : true
         }, {
-          "class" : "model.ES.component.motion.PlanarStance",
+          "class" : "component.motion.PlanarStance",
           "coord" : {
             "x" : 0.6222088606059901,
             "y" : 2.2766664540110852
@@ -719,10 +719,10 @@
     }, {
       "name" : "rear left thruster",
       "comps" : [ {
-        "class" : "model.ES.component.Naming",
+        "class" : "model.ECS.builtInComponent.Naming",
         "name" : "rear left thruster"
       }, {
-        "class" : "model.ES.component.motion.PlanarStance",
+        "class" : "component.motion.PlanarStance",
         "coord" : {
           "x" : 0.9555957038669756,
           "y" : 1.6431420166446369
@@ -737,7 +737,7 @@
           "z" : 1.0
         }
       }, {
-        "class" : "model.ES.component.motion.PlanarStanceControl",
+        "class" : "component.motion.PlanarStanceControl",
         "active" : true,
         "localPosition" : {
           "x" : -0.25,
@@ -748,7 +748,7 @@
           "value" : 2.1816615649929116
         }
       }, {
-        "class" : "model.ES.component.motion.Thruster",
+        "class" : "component.motion.Thruster",
         "direction" : {
           "x" : 1.0,
           "y" : -1.5,
@@ -762,16 +762,16 @@
         },
         "onOff" : true
       }, {
-        "class" : "model.ES.component.motion.ThrustControl",
+        "class" : "component.motion.ThrustControl",
         "active" : true
       } ],
       "children" : [ {
         "name" : "main particle",
         "comps" : [ {
-          "class" : "model.ES.component.Naming",
+          "class" : "model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
-          "class" : "model.ES.component.assets.ParticleCaster",
+          "class" : "component.assets.ParticleCaster",
           "spritePath" : "particles/flame.png",
           "nbCol" : 2,
           "nbRow" : 2,
@@ -803,7 +803,7 @@
           "startVariation" : 0.01,
           "allAtOnce" : false
         }, {
-          "class" : "model.ES.component.motion.PlanarStanceControl",
+          "class" : "component.motion.PlanarStanceControl",
           "active" : true,
           "localPosition" : {
             "x" : 0.0,
@@ -814,10 +814,10 @@
             "value" : 0.0
           }
         }, {
-          "class" : "model.ES.component.motion.ThrusterControl",
+          "class" : "component.motion.ThrusterControl",
           "active" : true
         }, {
-          "class" : "model.ES.component.motion.PlanarStance",
+          "class" : "component.motion.PlanarStance",
           "coord" : {
             "x" : 0.9555957038669756,
             "y" : 1.6431420166446369
@@ -837,10 +837,10 @@
     }, {
       "name" : "rear right thruster",
       "comps" : [ {
-        "class" : "model.ES.component.Naming",
+        "class" : "model.ECS.builtInComponent.Naming",
         "name" : "rear right thruster"
       }, {
-        "class" : "model.ES.component.motion.PlanarStance",
+        "class" : "component.motion.PlanarStance",
         "coord" : {
           "x" : 1.1989321575722602,
           "y" : 1.9606122834384516
@@ -855,7 +855,7 @@
           "z" : 1.0
         }
       }, {
-        "class" : "model.ES.component.motion.PlanarStanceControl",
+        "class" : "component.motion.PlanarStanceControl",
         "active" : true,
         "localPosition" : {
           "x" : -0.25,
@@ -866,7 +866,7 @@
           "value" : -2.1816615649929116
         }
       }, {
-        "class" : "model.ES.component.motion.Thruster",
+        "class" : "component.motion.Thruster",
         "direction" : {
           "x" : 1.0,
           "y" : 1.5,
@@ -880,16 +880,16 @@
         },
         "onOff" : true
       }, {
-        "class" : "model.ES.component.motion.ThrustControl",
+        "class" : "component.motion.ThrustControl",
         "active" : true
       } ],
       "children" : [ {
         "name" : "main particle",
         "comps" : [ {
-          "class" : "model.ES.component.Naming",
+          "class" : "model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
-          "class" : "model.ES.component.assets.ParticleCaster",
+          "class" : "component.assets.ParticleCaster",
           "spritePath" : "particles/flame.png",
           "nbCol" : 2,
           "nbRow" : 2,
@@ -921,7 +921,7 @@
           "startVariation" : 0.01,
           "allAtOnce" : false
         }, {
-          "class" : "model.ES.component.motion.PlanarStanceControl",
+          "class" : "component.motion.PlanarStanceControl",
           "active" : true,
           "localPosition" : {
             "x" : 0.0,
@@ -932,10 +932,10 @@
             "value" : 0.0
           }
         }, {
-          "class" : "model.ES.component.motion.ThrusterControl",
+          "class" : "component.motion.ThrusterControl",
           "active" : true
         }, {
-          "class" : "model.ES.component.motion.PlanarStance",
+          "class" : "component.motion.PlanarStance",
           "coord" : {
             "x" : 1.1989321575722602,
             "y" : 1.9606122834384516
@@ -956,27 +956,27 @@
   }, {
     "name" : "weapon",
     "comps" : [ {
-      "class" : "model.ES.component.Naming",
+      "class" : "model.ECS.builtInComponent.Naming",
       "name" : "weapon"
     }, {
-      "class" : "model.ES.component.ability.AbilityTriggerControl",
+      "class" : "component.ability.AbilityTriggerControl",
       "active" : true
     }, {
-      "class" : "model.ES.component.ability.Ability",
+      "class" : "component.ability.Ability",
       "name" : "gun",
       "triggered" : false
     }, {
-      "class" : "model.ES.component.combat.damage.ProjectileLauncher",
+      "class" : "component.combat.damage.ProjectileLauncher",
       "precision" : {
         "value" : 0.98
       },
       "projectileBluePrint" : "red laser"
     }, {
-      "class" : "model.ES.component.ability.Cooldown",
+      "class" : "component.ability.Cooldown",
       "remaining" : 0,
       "duration" : 200
     }, {
-      "class" : "model.ES.component.motion.PlanarStance",
+      "class" : "component.motion.PlanarStance",
       "coord" : {
         "x" : 0.8788450139734837,
         "y" : 1.9539624336073471
@@ -991,7 +991,7 @@
         "z" : 1.0
       }
     }, {
-      "class" : "model.ES.component.motion.PlanarStanceControl",
+      "class" : "component.motion.PlanarStanceControl",
       "active" : true,
       "localPosition" : {
         "x" : 0.0,
@@ -1002,7 +1002,7 @@
         "value" : 0.0
       }
     }, {
-      "class" : "model.ES.component.combat.damage.DamageCapacity",
+      "class" : "component.combat.damage.DamageCapacity",
       "type" : "SHOCK",
       "base" : 20,
       "dotChance" : {
@@ -1016,27 +1016,27 @@
   }, {
     "name" : "Boost",
     "comps" : [ {
-      "class" : "model.ES.component.Naming",
+      "class" : "model.ECS.builtInComponent.Naming",
       "name" : "Boost"
     }, {
-      "class" : "model.ES.component.ability.Ability",
+      "class" : "component.ability.Ability",
       "name" : "boost",
       "triggered" : false
     }, {
-      "class" : "model.ES.component.ability.AbilityTriggerControl",
+      "class" : "component.ability.AbilityTriggerControl",
       "active" : true
     }, {
-      "class" : "model.ES.component.motion.Boost",
+      "class" : "component.motion.Boost",
       "force" : 40.0
     } ],
     "children" : [ ]
   }, {
     "name" : "right front light",
     "comps" : [ {
-      "class" : "model.ES.component.Naming",
+      "class" : "model.ECS.builtInComponent.Naming",
       "name" : "right front light"
     }, {
-      "class" : "model.ES.component.motion.PlanarStanceControl",
+      "class" : "component.motion.PlanarStanceControl",
       "active" : true,
       "localPosition" : {
         "x" : 0.4,
@@ -1047,7 +1047,7 @@
         "value" : -0.17453292519943295
       }
     }, {
-      "class" : "model.ES.component.motion.SpaceStance",
+      "class" : "component.motion.SpaceStance",
       "position" : {
         "x" : 0.7438770874586323,
         "y" : 2.4354015874079926,
@@ -1059,7 +1059,7 @@
         "z" : 0.0
       }
     }, {
-      "class" : "model.ES.component.assets.Lighting",
+      "class" : "component.assets.Lighting",
       "color" : {
         "a" : 255,
         "r" : 255,
@@ -1081,10 +1081,10 @@
   }, {
     "name" : "left front light",
     "comps" : [ {
-      "class" : "model.ES.component.Naming",
+      "class" : "model.ECS.builtInComponent.Naming",
       "name" : "left front light"
     }, {
-      "class" : "model.ES.component.motion.PlanarStanceControl",
+      "class" : "component.motion.PlanarStanceControl",
       "active" : true,
       "localPosition" : {
         "x" : 0.4,
@@ -1095,7 +1095,7 @@
         "value" : 0.17453292519943295
       }
     }, {
-      "class" : "model.ES.component.motion.SpaceStance",
+      "class" : "component.motion.SpaceStance",
       "position" : {
         "x" : 0.37887240690070556,
         "y" : 1.9591961872172707,
@@ -1107,7 +1107,7 @@
         "z" : 0.0
       }
     }, {
-      "class" : "model.ES.component.assets.Lighting",
+      "class" : "component.assets.Lighting",
       "color" : {
         "a" : 255,
         "r" : 255,

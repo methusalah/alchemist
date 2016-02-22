@@ -1,10 +1,10 @@
 {
   "name" : "rock01",
   "comps" : [ {
-    "class" : "model.ES.component.Naming",
+    "class" : "model.ECS.builtInComponent.Naming",
     "name" : "rock01"
   }, {
-    "class" : "model.ES.component.assets.Model",
+    "class" : "component.assets.Model",
     "path" : "floor assets/rocks/rock01.j3o",
     "scale" : 0.35,
     "yawFix" : {
@@ -17,7 +17,7 @@
       "value" : 2.8404962927294126
     }
   }, {
-    "class" : "model.ES.component.motion.PlanarStance",
+    "class" : "component.motion.PlanarStance",
     "coord" : {
       "x" : -2.580000000000002,
       "y" : -8.459999999999978
@@ -32,7 +32,7 @@
       "z" : 1.0
     }
   }, {
-    "class" : "model.ES.component.motion.physic.Physic",
+    "class" : "component.motion.physic.Physic",
     "velocity" : {
       "x" : 0.3677223454978834,
       "y" : -2.184177215486411
@@ -45,7 +45,7 @@
     },
     "spawnerException" : null
   }, {
-    "class" : "model.ES.component.motion.physic.CircleCollisionShape",
+    "class" : "component.motion.physic.CircleCollisionShape",
     "radius" : 0.7899999999999989
   } ],
   "children" : [ ]

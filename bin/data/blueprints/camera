@@ -1,10 +1,10 @@
 {
   "name" : "camera",
   "comps" : [ {
-    "class" : "model.ES.component.Naming",
+    "class" : "model.ECS.builtInComponent.Naming",
     "name" : "camera"
   }, {
-    "class" : "model.ES.component.motion.PlanarStance",
+    "class" : "component.motion.PlanarStance",
     "coord" : {
       "x" : 0.0,
       "y" : 0.0
@@ -19,7 +19,7 @@
       "z" : 1.0
     }
   }, {
-    "class" : "model.ES.component.motion.ChasingCamera",
+    "class" : "component.motion.ChasingCamera",
     "maxSpeed" : 0.0,
     "speed" : 0.0,
     "acceleration" : 0.0,
@@ -38,10 +38,10 @@
   "children" : [ {
     "name" : "background",
     "comps" : [ {
-      "class" : "model.ES.component.Naming",
+      "class" : "model.ECS.builtInComponent.Naming",
       "name" : "background"
     }, {
-      "class" : "model.ES.component.motion.PlanarStance",
+      "class" : "component.motion.PlanarStance",
       "coord" : {
         "x" : 0.0,
         "y" : 0.0
@@ -56,7 +56,7 @@
         "z" : 1.0
       }
     }, {
-      "class" : "model.ES.component.motion.PlanarStanceControl",
+      "class" : "component.motion.PlanarStanceControl",
       "active" : false,
       "localPosition" : {
         "x" : 0.0,
@@ -67,7 +67,7 @@
         "value" : 0.0
       }
     }, {
-      "class" : "model.ES.component.assets.Sprite",
+      "class" : "component.assets.Sprite",
       "path" : "red_nebula.jpg",
       "size" : 100.0
     } ],

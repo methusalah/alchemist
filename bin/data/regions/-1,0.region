@@ -7,7 +7,7 @@
   "entities" : [ {
     "blueprintName" : "Sun",
     "comps" : [ {
-      "class" : "model.ES.component.motion.PlanarStance",
+      "class" : "component.motion.PlanarStance",
       "coord" : {
         "x" : -2.177751302719116,
         "y" : 3.0973141193389893

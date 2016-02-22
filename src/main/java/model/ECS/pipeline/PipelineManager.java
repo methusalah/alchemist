@@ -1,11 +1,14 @@
 package model.ECS.pipeline;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.jme3.app.state.AppStateManager;
 
 import model.tempImport.RendererPlatform;
+import util.LogUtil;
 
 public class PipelineManager {
 	private final Map<PipelineRun, Thread> editionPipelines = new HashMap<>();
@@ -40,12 +43,17 @@ public class PipelineManager {
 		}
 			
 		pipelines.put(pr, null);
-		if(inEditionMode)
+		if(inEditionMode){
 			editionPipelines.put(pr, null);
+		}
 		return res;
 	}
 
 	public void runEditionPiplines(){
+		LogUtil.info("running : ");
+		for(PipelineRun taggle : editionPipelines.keySet()){
+			LogUtil.info("    pipeline " + taggle.getPipeline().getName());
+		}
 		run(editionPipelines);
 	}
 	
@@ -55,8 +63,9 @@ public class PipelineManager {
 	
 	private void run(Map<PipelineRun, Thread> pipelineSet){
 		for(PipelineRun pr : pipelineSet.keySet()){
-			for(Processor p : pr.getPipeline().getProcessors().values())
+			for(Processor p : pr.getPipeline().getProcessors().values()){
 				pr.getStateManager().attach(p);
+			}
 			if(pr.getRunnable() != null){
 				Thread thread = new Thread(pr.getRunnable());
 				pipelineSet.put(pr, thread);
@@ -80,6 +89,15 @@ public class PipelineManager {
 				pipelineSet.get(pr).interrupt();
 			}
 		}
+	}
+	
+	public List<Pipeline> getIndependantPipelines(){
+		List<Pipeline> res = new ArrayList<>();
+		for(PipelineRun pr : pipelines.keySet()){
+			if(pr.getRunnable() != null)
+				res.add(pr.getPipeline());
+		}
+		return res;
 	}
 
 }

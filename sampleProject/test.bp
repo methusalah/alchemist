@@ -1,11 +1,11 @@
 {
   "comps" : [ {
-    "class" : "model.ES.component.Naming",
+    "class" : "model.ECS.builtInComponent.Naming",
     "name" : "player ship"
   }, {
-    "class" : "model.ES.component.ability.PlayerControl"
+    "class" : "component.ability.PlayerControl"
   }, {
-    "class" : "model.ES.component.motion.PlanarStance",
+    "class" : "component.motion.PlanarStance",
     "coord" : {
       "x" : 1.0,
       "y" : 1.0
@@ -18,17 +18,17 @@
       "z" : 1.0
     }
   }, {
-    "class" : "model.ES.component.motion.physic.Dragging",
+    "class" : "component.motion.physic.Dragging",
     "dragging" : 0.05
   }, {
-    "class" : "model.ES.component.motion.MotionCapacity",
+    "class" : "component.motion.MotionCapacity",
     "maxSpeed" : 3.0,
     "maxRotationSpeed" : 6.283185307179586,
     "thrustPower" : 3.0,
     "lateralThrustPower" : 1.5,
     "frontalThrustPower" : 1.5
   }, {
-    "class" : "model.ES.component.visuals.Model",
+    "class" : "component.visuals.Model",
     "path" : "human/adav/adav02b.mesh.xml",
     "scale" : 0.0025,
     "yawFix" : 0.0,
@@ -36,7 +36,7 @@
     "rollFix" : 0.0,
     "created" : false
   }, {
-    "class" : "model.ES.component.motion.physic.Physic",
+    "class" : "component.motion.physic.Physic",
     "velocity" : {
       "x" : 0.0,
       "y" : 0.0
@@ -52,26 +52,26 @@
       "exceptions" : [ ]
     }
   }, {
-    "class" : "model.ES.component.debug.VelocityViewing",
+    "class" : "component.debug.VelocityViewing",
     "velocities" : { }
   }, {
-    "class" : "model.ES.component.motion.PlanarVelocityToApply",
+    "class" : "component.motion.PlanarVelocityToApply",
     "vector" : {
       "x" : 0.0,
       "y" : 0.0
     }
   }, {
-    "class" : "model.ES.component.relation.Attackable"
+    "class" : "component.relation.Attackable"
   }, {
-    "class" : "model.ES.component.relation.AbilityTriggerList",
+    "class" : "component.relation.AbilityTriggerList",
     "triggers" : { }
   } ],
   "children" : [ {
     "comps" : [ {
-      "class" : "model.ES.component.Naming",
+      "class" : "model.ECS.builtInComponent.Naming",
       "name" : "weapon left"
     }, {
-      "class" : "model.ES.component.relation.PlanarHolding",
+      "class" : "component.relation.PlanarHolding",
       "localPosition" : {
         "x" : 0.0,
         "y" : 0.3,
@@ -79,7 +79,7 @@
       },
       "localOrientation" : 0.0
     }, {
-      "class" : "model.ES.component.motion.PlanarStance",
+      "class" : "component.motion.PlanarStance",
       "coord" : {
         "x" : 0.0,
         "y" : 0.0
@@ -92,24 +92,24 @@
         "z" : 1.0
       }
     }, {
-      "class" : "model.ES.component.ability.Cooldown",
+      "class" : "component.ability.Cooldown",
       "start" : 0,
       "duration" : 100.0
     }, {
-      "class" : "model.ES.component.shipGear.Trigger",
+      "class" : "component.shipGear.Trigger",
       "name" : "gun",
       "triggered" : false
     }, {
-      "class" : "model.ES.component.shipGear.ProjectileLauncher",
+      "class" : "component.shipGear.ProjectileLauncher",
       "precision" : 0.03490658503988659
     } ],
     "children" : [ ]
   }, {
     "comps" : [ {
-      "class" : "model.ES.component.Naming",
+      "class" : "model.ECS.builtInComponent.Naming",
       "name" : "weapon right"
     }, {
-      "class" : "model.ES.component.relation.PlanarHolding",
+      "class" : "component.relation.PlanarHolding",
       "localPosition" : {
         "x" : 0.0,
         "y" : -0.3,
@@ -117,7 +117,7 @@
       },
       "localOrientation" : 0.0
     }, {
-      "class" : "model.ES.component.motion.PlanarStance",
+      "class" : "component.motion.PlanarStance",
       "coord" : {
         "x" : 0.0,
         "y" : 0.0
@@ -130,24 +130,24 @@
         "z" : 1.0
       }
     }, {
-      "class" : "model.ES.component.ability.Cooldown",
+      "class" : "component.ability.Cooldown",
       "start" : 0,
       "duration" : 100.0
     }, {
-      "class" : "model.ES.component.shipGear.Trigger",
+      "class" : "component.shipGear.Trigger",
       "name" : "gun",
       "triggered" : false
     }, {
-      "class" : "model.ES.component.shipGear.ProjectileLauncher",
+      "class" : "component.shipGear.ProjectileLauncher",
       "precision" : 0.03490658503988659
     } ],
     "children" : [ ]
   }, {
     "comps" : [ {
-      "class" : "model.ES.component.Naming",
+      "class" : "model.ECS.builtInComponent.Naming",
       "name" : "camera"
     }, {
-      "class" : "model.ES.component.motion.PlanarStance",
+      "class" : "component.motion.PlanarStance",
       "coord" : {
         "x" : 1.0,
         "y" : 1.0
@@ -160,13 +160,13 @@
         "z" : 1.0
       }
     }, {
-      "class" : "model.ES.component.motion.ChasingCamera",
+      "class" : "component.motion.ChasingCamera",
       "maxSpeed" : 3.0,
       "speed" : 0.0,
       "acceleration" : 0.5,
       "deceleration" : 0.5
     }, {
-      "class" : "model.ES.component.motion.MotionCapacity",
+      "class" : "component.motion.MotionCapacity",
       "maxSpeed" : 1.0,
       "maxRotationSpeed" : 8.726646259971647,
       "thrustPower" : 1.0,

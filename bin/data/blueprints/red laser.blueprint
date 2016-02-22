@@ -1,10 +1,10 @@
 {
   "name" : "red laser",
   "comps" : [ {
-    "class" : "model.ES.component.Naming",
+    "class" : "model.ECS.builtInComponent.Naming",
     "name" : "red laser"
   }, {
-    "class" : "model.ES.component.motion.PlanarStance",
+    "class" : "component.motion.PlanarStance",
     "coord" : {
       "x" : -0.34,
       "y" : 0.6200000000000002
@@ -19,13 +19,13 @@
       "z" : 1.0
     }
   }, {
-    "class" : "model.ES.component.motion.MotionCapacity",
+    "class" : "component.motion.MotionCapacity",
     "maxRotationSpeed" : 0.0,
     "thrustPower" : 1.0,
     "lateralThrustPower" : 0.0,
     "frontalThrustPower" : 0.0
   }, {
-    "class" : "model.ES.component.motion.physic.Physic",
+    "class" : "component.motion.physic.Physic",
     "velocity" : {
       "x" : 0.0,
       "y" : 0.0
@@ -38,34 +38,34 @@
     },
     "spawnerException" : null
   }, {
-    "class" : "model.ES.component.motion.physic.CircleCollisionShape",
+    "class" : "component.motion.physic.CircleCollisionShape",
     "radius" : 0.2
   }, {
-    "class" : "model.ES.component.lifeCycle.LifeTime",
+    "class" : "component.lifeCycle.LifeTime",
     "duration" : 2000.0
   }, {
-    "class" : "model.ES.component.motion.PlanarVelocityToApply",
+    "class" : "component.motion.PlanarVelocityToApply",
     "vector" : {
       "x" : 10.0,
       "y" : 0.0
     }
   }, {
-    "class" : "model.ES.component.lifeCycle.DecayOnTouch"
+    "class" : "component.lifeCycle.DecayOnTouch"
   }, {
-    "class" : "model.ES.component.combat.damage.DamageOnTouch"
+    "class" : "component.combat.damage.DamageOnTouch"
   }, {
-    "class" : "model.ES.component.assets.Sprite",
+    "class" : "component.assets.Sprite",
     "path" : "laser_shot_red.png",
     "size" : 0.4
   }, {
-    "class" : "model.ES.component.assets.AudioSource",
+    "class" : "component.assets.AudioSource",
     "path" : "monoshot1.wav",
     "loop" : false,
     "volume" : {
       "value" : 0.5
     }
   }, {
-    "class" : "model.ES.component.lifeCycle.SpawnOnTouch",
+    "class" : "component.lifeCycle.SpawnOnTouch",
     "blueprintNames" : [ "incendiary impact particle" ]
   } ],
   "children" : [ ]

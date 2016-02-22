@@ -1,20 +1,20 @@
 {
   "name" : "shield depleted",
   "comps" : [ {
-    "class" : "model.ES.component.assets.AudioSource",
+    "class" : "component.assets.AudioSource",
     "path" : "monoexplosion1.wav",
     "loop" : false,
     "volume" : {
       "value" : 0.5
     }
   }, {
-    "class" : "model.ES.component.Naming",
+    "class" : "model.ECS.builtInComponent.Naming",
     "name" : "shield depleted"
   }, {
-    "class" : "model.ES.component.lifeCycle.LifeTime",
+    "class" : "component.lifeCycle.LifeTime",
     "duration" : 1980.0
   }, {
-    "class" : "model.ES.component.assets.ParticleCaster",
+    "class" : "component.assets.ParticleCaster",
     "spritePath" : "particles/shockwave.png",
     "nbCol" : 1,
     "nbRow" : 1,
@@ -46,7 +46,7 @@
     "startVariation" : 0.0,
     "allAtOnce" : true
   }, {
-    "class" : "model.ES.component.motion.PlanarStance",
+    "class" : "component.motion.PlanarStance",
     "coord" : {
       "x" : 0.0,
       "y" : 0.0

@@ -11,7 +11,9 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import presentation.common.EntityNode;
+import view.common.SceneInputListener;
 import view.common.SceneInputManager;
 
 public class ViewPlatform {
@@ -19,6 +21,10 @@ public class ViewPlatform {
 	public static final List<EntityNode> expandedEntityNodes = new ArrayList<>();
 	public static final ObjectProperty<Scene> JavaFXScene = new SimpleObjectProperty<>();
 	private static final SceneInputManager sceneInputManager = new SceneInputManager();
+
+	public static TabPane hierarchyTabPane, inspectorTabPane, resourcesTabPane, sceneViewTabPane;
+	public static SceneInputListener camera;
+	public static SceneInputListener game = null;
 
 	public static SceneInputManager getSceneInputManager() {
 		return sceneInputManager;

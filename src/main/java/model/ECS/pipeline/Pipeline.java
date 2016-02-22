@@ -61,6 +61,10 @@ public class Pipeline {
 	public Map<Class<? extends Processor>, Processor> getProcessors() {
 		return processors;
 	}
+
+	public String getName() {
+		return name;
+	}
 	
 	
 }

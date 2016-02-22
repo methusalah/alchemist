@@ -1,10 +1,10 @@
 {
   "name" : "rock02",
   "comps" : [ {
-    "class" : "model.ES.component.Naming",
+    "class" : "model.ECS.builtInComponent.Naming",
     "name" : "rock02"
   }, {
-    "class" : "model.ES.component.assets.Model",
+    "class" : "component.assets.Model",
     "path" : "floor assets/rocks/rock02.j3o",
     "scale" : 0.007,
     "yawFix" : {
@@ -17,7 +17,7 @@
       "value" : 0.0
     }
   }, {
-    "class" : "model.ES.component.motion.PlanarStance",
+    "class" : "component.motion.PlanarStance",
     "coord" : {
       "x" : -3.600000000000002,
       "y" : 1.0600000000000007

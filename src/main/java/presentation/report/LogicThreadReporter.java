@@ -14,6 +14,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
 import model.EditorPlatform;
 import model.ECS.builtInComponent.Naming;
+import model.ECS.pipeline.Pipeline;
+import model.ECS.pipeline.PipelineManager;
 
 public class LogicThreadReporter {
 	private final IntegerProperty entityCount = new SimpleIntegerProperty();
@@ -28,10 +30,16 @@ public class LogicThreadReporter {
 	}
 
 	private boolean refreshLogicThreadReport(SimpleApplication app) {
-		EntitySystem es = app.getStateManager().getState(EntitySystem.class);
-		double waitPerTick = (double)es.loop.getWaitTime() / es.loop.getTickCount();
-		es.loop.resetIdleStats();
-		Platform.runLater(() -> idelingRatio.setValue(waitPerTick/(LogicLoop.getMillisPerTick())));
+		PipelineManager manager = EditorPlatform.getPipelineManager();
+		int count = 0;
+		double idleTime = 0;
+		for(Pipeline p : manager.getIndependantPipelines()){
+			idleTime += (double)p.getWaitTime() / p.getTickCount();
+			p.resetIdleStats();
+			count++;
+		}
+		final double average = idleTime/count;
+		Platform.runLater(() -> idelingRatio.setValue(average/(Pipeline.getMillisPerTick())));
 		return true;
 	}
 

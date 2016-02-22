@@ -15,8 +15,7 @@ public class TopDownCamInputListener implements SceneInputListener{
 	private final JmeImageView jme;
 	
 	private boolean zPressed = false, sPressed = false, qPressed = false, dPressed = false;
-	Point2D camVelocity = Point2D.ORIGIN;
-	Point2D oldCoord = null;
+	private Point2D camVelocity = Point2D.ORIGIN;
 
 	public TopDownCamInputListener(JmeImageView jme) {
 		this.jme = jme;
@@ -24,23 +23,14 @@ public class TopDownCamInputListener implements SceneInputListener{
 	
 	@Override
 	public void onMousePressed(MouseEvent e){
-//		if(e.getButton() == MouseButton.SECONDARY)
-//			oldCoord = new Point2D(e.getX(), e.getY());
 	}
 	
 	@Override
 	public void onMouseDragged(MouseEvent e){
-//		if(e.getButton() == MouseButton.SECONDARY){
-//			Point2D newCoord = new Point2D(e.getX(), e.getY());
-//			Point2D vec = newCoord.getSubtraction(oldCoord);
-//			jme.enqueue((app) -> rotateCam(app, vec));
-//			oldCoord = newCoord;
-//		}
 	}
 	
 	@Override
 	public void onMouseReleased(MouseEvent e){
-		
 	}
 	
 	@Override

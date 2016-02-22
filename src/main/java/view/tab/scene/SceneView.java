@@ -14,19 +14,18 @@ import model.state.SceneSelectorState;
 import presentation.sceneView.SceneViewPresenter;
 import presentation.sceneView.SceneViewViewer;
 import util.geometry.geom2d.Point2D;
+import view.BaseCamera;
 import view.ViewPlatform;
 import view.util.Dragpool;
 
 public class SceneView extends Pane implements SceneViewViewer{
 	private final SceneViewPresenter presenter;
 	private final List<KeyCode> pressed = new ArrayList<KeyCode>();
-	private final TopDownCamInputListener camera;
 
 	public SceneView() {
 		presenter = new SceneViewPresenter(this);
 		
-		camera = new TopDownCamInputListener(EditorPlatform.getScene());
-		ViewPlatform.getSceneInputManager().addListener(camera);
+		ViewPlatform.getSceneInputManager().addListener(new BaseCamera(EditorPlatform.getScene()));
 
 		ImageView image = new ImageView();
 		setStyle("-fx-background-color: gray");
@@ -73,10 +72,6 @@ public class SceneView extends Pane implements SceneViewViewer{
 			if(Dragpool.containsType(Blueprint.class))
         		e.acceptTransferModes(TransferMode.ANY);
 			e.consume();
-			EditorPlatform.getScene().enqueue(app -> {
-				Point2D planarCoord = app.getStateManager().getState(SceneSelectorState.class).getPointedCoordInPlan(new Point2D(e.getX(), -e.getY()));
-				return true;
-			});
         });
         
         setOnDragDropped(e -> {

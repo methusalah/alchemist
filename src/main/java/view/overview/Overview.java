@@ -3,11 +3,9 @@ package view.overview;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-import model.EditorPlatform;
-import plugin.infiniteWorld.editor.view.WorldEditorTab;
+import util.LogUtil;
+import view.ViewPlatform;
 import view.actionBar.ActionBar;
-import view.instrument.circleCollisionShape.CircleCollisionShapeInstrument;
-import view.instrument.planarStance.PlanarStanceInstrument;
 import view.tab.hierarchy.HierarchyTab;
 import view.tab.inspector.InspectorTab;
 import view.tab.report.ReportTab;
@@ -27,14 +25,15 @@ public class Overview extends BorderPane {
 	@FXML
 	public void initialize() {
 		setTop(new ActionBar());
+		ViewPlatform.hierarchyTabPane = hierarchyTabPane;
+		ViewPlatform.inspectorTabPane = inspectorTabPane;
+		ViewPlatform.resourcesTabPane = resourcesTabPane;
+		ViewPlatform.sceneViewTabPane = sceneViewTabPane;
+		
 		hierarchyTabPane.getTabs().add(new HierarchyTab());
-		inspectorTabPane.getTabs().addAll(new InspectorTab(), new ReportTab(), new WorldEditorTab());
+		inspectorTabPane.getTabs().addAll(new InspectorTab(), new ReportTab());
 		resourcesTabPane.getTabs().add(new ResourcesTab());
 		sceneViewTabPane.getTabs().add(new SceneViewTab());
-		
-		new PlanarStanceInstrument(EditorPlatform.getScene());
-		new CircleCollisionShapeInstrument(EditorPlatform.getScene());
-		
 	}
 	
 }

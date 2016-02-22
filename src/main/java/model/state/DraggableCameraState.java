@@ -88,6 +88,26 @@ public class DraggableCameraState extends AbstractAppState {
 		cam.setLocation(pos);
 	}
 
+	public void strafeCamera(float value, boolean leftRight) {
+		Vector3f vel = new Vector3f();
+		Vector3f pos = cam.getLocation().clone();
+
+		if(leftRight) {
+			cam.getLeft(vel);
+		} else {
+			cam.getUp(vel);
+		}
+		vel.multLocal(value * moveSpeed);
+
+		if (motionAllowed != null)
+			motionAllowed.checkMotionAllowed(pos, vel);
+		else
+			pos.addLocal(vel);
+
+		cam.setLocation(pos);
+		moveSpeed = Math.max(1, cam.getLocation().z/20);
+	}
+
 	public void moveCamera(float value, boolean sideways) {
 		Vector3f vel = new Vector3f();
 		Vector3f pos = cam.getLocation().clone();
