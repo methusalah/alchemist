@@ -43,6 +43,7 @@ public class Alchemist extends Application {
 		primaryStage.setOnCloseRequest(e -> EditorPlatform.getScene().stop(false));
 		
 		onIntialize();
+		EditorPlatform.getPipelineManager().runEditionPiplines();
 	}
 	
 	protected void onIntialize(){

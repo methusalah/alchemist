@@ -1,5 +1,7 @@
 package model.tempImport;
 
+import java.util.concurrent.Callable;
+
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
@@ -70,5 +72,9 @@ public class RendererPlatform {
 			if(proc instanceof FilterPostProcessor)
 				return (FilterPostProcessor)proc;
 		throw new RuntimeException("No FilterPostProcessor on that scene.");
+	}
+	
+	public static void enqueue(Callable<?> callable){
+		app.enqueue(callable);
 	}
 }

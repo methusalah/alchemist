@@ -11,18 +11,17 @@ import model.tempImport.RendererPlatform;
 import util.LogUtil;
 
 public class PipelineManager {
-	private final Map<PipelineRun, Thread> editionPipelines = new HashMap<>();
-	private final Map<PipelineRun, Thread> pipelines = new HashMap<>();
-	
+	private final Map<Pipeline, Thread> editionPipelines = new HashMap<>();
+	private final Map<Pipeline, Thread> pipelines = new HashMap<>();
 	
 	public Pipeline createPipeline(String name, boolean inRendererThread, boolean inEditionMode){
-		Pipeline res = new Pipeline(name, inRendererThread);
-		PipelineRun pr;
+		final Pipeline res;
 		if(inRendererThread) {
-			pr = new PipelineRun(res, RendererPlatform.getStateManager(), null);
+			res = new Pipeline(name, RendererPlatform.getStateManager());
 		} else {
 			AppStateManager stateManager = new AppStateManager(null);
-			pr = new PipelineRun(res, stateManager, () -> {
+			res = new Pipeline(name, stateManager);
+			res.setRunnable(() -> {
 				while (!Thread.currentThread().isInterrupted()) {
 					long time = System.currentTimeMillis();
 					stateManager.update((float)0.02);
@@ -42,18 +41,14 @@ public class PipelineManager {
 			});
 		}
 			
-		pipelines.put(pr, null);
+		pipelines.put(res, null);
 		if(inEditionMode){
-			editionPipelines.put(pr, null);
+			editionPipelines.put(res, null);
 		}
 		return res;
 	}
 
 	public void runEditionPiplines(){
-		LogUtil.info("running : ");
-		for(PipelineRun taggle : editionPipelines.keySet()){
-			LogUtil.info("    pipeline " + taggle.getPipeline().getName());
-		}
 		run(editionPipelines);
 	}
 	
@@ -61,10 +56,11 @@ public class PipelineManager {
 		run(pipelines);
 	}
 	
-	private void run(Map<PipelineRun, Thread> pipelineSet){
-		for(PipelineRun pr : pipelineSet.keySet()){
-			for(Processor p : pr.getPipeline().getProcessors().values()){
-				pr.getStateManager().attach(p);
+	private void run(Map<Pipeline, Thread> pipelineSet){
+		for(Pipeline pr : pipelineSet.keySet()){
+			LogUtil.info("order : " + pr.getName());
+			for(Processor p : pr.getProcessors().values()){
+				RendererPlatform.enqueue(() -> pr.getStateManager().attach(p));
 			}
 			if(pr.getRunnable() != null){
 				Thread thread = new Thread(pr.getRunnable());
@@ -81,10 +77,10 @@ public class PipelineManager {
 		stop(pipelines);
 	}
 	
-	private void stop(Map<PipelineRun, Thread> pipelineSet){
-		for(PipelineRun pr : pipelineSet.keySet()){
-			for(Processor p : pr.getPipeline().getProcessors().values())
-				pr.getStateManager().detach(p);
+	private void stop(Map<Pipeline, Thread> pipelineSet){
+		for(Pipeline pr : pipelineSet.keySet()){
+			for(Processor p : pr.getProcessors().values())
+				RendererPlatform.enqueue(() -> pr.getStateManager().detach(p));
 			if(pr.getRunnable() != null){
 				pipelineSet.get(pr).interrupt();
 			}
@@ -93,9 +89,9 @@ public class PipelineManager {
 	
 	public List<Pipeline> getIndependantPipelines(){
 		List<Pipeline> res = new ArrayList<>();
-		for(PipelineRun pr : pipelines.keySet()){
+		for(Pipeline pr : pipelines.keySet()){
 			if(pr.getRunnable() != null)
-				res.add(pr.getPipeline());
+				res.add(pr);
 		}
 		return res;
 	}

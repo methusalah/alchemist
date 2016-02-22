@@ -44,14 +44,12 @@ public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 		stateManager.attach(new DataState(EditorPlatform.getEntityData()));
 		stateManager.attach(new SceneSelectorState());
 		
-		EditorPlatform.getPipelineManager().runEditionPiplines();
-
 		// adding filters
 		DirectionalLightShadowFilter sf = new DirectionalLightShadowFilter(RendererPlatform.getAssetManager(), SHADOWMAP_SIZE, 1);
 		sf.setEnabled(false);
 		sf.setEdgeFilteringMode(EdgeFilteringMode.PCF4);
 		sf.setShadowZExtend(SHADOWMAP_SIZE);
-		RendererPlatform.getFilterPostProcessor().addFilter(sf);
+		//RendererPlatform.getFilterPostProcessor().addFilter(sf);
 
 //		DirectionalLightShadowRenderer sr = new DirectionalLightShadowRenderer(AppFacade.getAssetManager(), SHADOWMAP_SIZE, 1);
 //		//sr.setEnabled(false);

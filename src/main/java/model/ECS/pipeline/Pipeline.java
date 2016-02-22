@@ -3,12 +3,16 @@ package model.ECS.pipeline;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.jme3.app.state.AppState;
 import com.jme3.app.state.AppStateManager;
+
+import util.LogUtil;
 
 public class Pipeline {
 	private final String name;
-	final boolean inRendererThread;
-	
+	private final AppStateManager stateManager;
+	private Runnable runnable = null;
+
     private static int millisPerTick = 20;
     private static double secondPerTick = (double)millisPerTick/1000;
 
@@ -17,9 +21,9 @@ public class Pipeline {
 
 	private final Map<Class<? extends Processor>, Processor> processors = new HashMap<>();
 	
-	Pipeline(String name, boolean inRendererThread) {
+	Pipeline(String name, AppStateManager stateManager) {
 		this.name = name;
-		this.inRendererThread = inRendererThread;
+		this.stateManager = stateManager;
 	}
 	
 	public void addProcessor(Processor processor){
@@ -66,5 +70,15 @@ public class Pipeline {
 		return name;
 	}
 	
-	
+	public AppStateManager getStateManager() {
+		return stateManager;
+	}
+
+	public Runnable getRunnable() {
+		return runnable;
+	}
+
+	public void setRunnable(Runnable runnable) {
+		this.runnable = runnable;
+	}
 }

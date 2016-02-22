@@ -2,10 +2,11 @@
 /interface/
 /matdefs/
 /materials/
+/model/
 /models/
+/plugin/
+/presentation/
 /resources/
 /sounds/
 /textures/
 /view/
-/model/
-/presentation/

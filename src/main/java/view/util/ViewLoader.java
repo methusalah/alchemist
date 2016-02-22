@@ -33,7 +33,6 @@ public class ViewLoader {
         FXMLLoader fxmlLoader = new FXMLLoader(control.getClass().getResource(control.getClass().getSimpleName() + ".fxml"));
         fxmlLoader.setRoot(control);
         fxmlLoader.setController(control);
-    	LogUtil.info("location : " + control.getClass().getSimpleName() + ".fxml");
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
