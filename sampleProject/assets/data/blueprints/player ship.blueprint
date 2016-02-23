@@ -1,6 +1,6 @@
 {
   "name" : "player ship",
-  "comps" : [ {
+  "components" : [ {
     "class" : "model.ECS.builtInComponent.Naming",
     "name" : "player ship"
   }, {
@@ -94,7 +94,7 @@
   } ],
   "children" : [ {
     "name" : "camera",
-    "comps" : [ {
+    "components" : [ {
       "class" : "model.ECS.builtInComponent.Naming",
       "name" : "camera"
     }, {
@@ -131,7 +131,7 @@
     } ],
     "children" : [ {
       "name" : "background",
-      "comps" : [ {
+      "components" : [ {
         "class" : "model.ECS.builtInComponent.Naming",
         "name" : "background"
       }, {
@@ -169,13 +169,13 @@
     } ]
   }, {
     "name" : "thrusters",
-    "comps" : [ {
+    "components" : [ {
       "class" : "model.ECS.builtInComponent.Naming",
       "name" : "thrusters"
     } ],
     "children" : [ {
       "name" : "main thruster",
-      "comps" : [ {
+      "components" : [ {
         "class" : "model.ECS.builtInComponent.Naming",
         "name" : "main thruster"
       }, {
@@ -242,7 +242,7 @@
       } ],
       "children" : [ {
         "name" : "main particle",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
@@ -310,7 +310,7 @@
         "children" : [ ]
       }, {
         "name" : "debris particle",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "debris particle"
         }, {
@@ -378,7 +378,7 @@
         "children" : [ ]
       }, {
         "name" : "sound",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "sound"
         }, {
@@ -413,7 +413,7 @@
         "children" : [ ]
       }, {
         "name" : "trail particle",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "trail particle"
         }, {
@@ -482,7 +482,7 @@
       } ]
     }, {
       "name" : "frontal left thruster",
-      "comps" : [ {
+      "components" : [ {
         "class" : "model.ECS.builtInComponent.Naming",
         "name" : "frontal left thruster"
       }, {
@@ -531,7 +531,7 @@
       } ],
       "children" : [ {
         "name" : "main particle",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
@@ -600,7 +600,7 @@
       } ]
     }, {
       "name" : "frontal right thruster",
-      "comps" : [ {
+      "components" : [ {
         "class" : "model.ECS.builtInComponent.Naming",
         "name" : "frontal right thruster"
       }, {
@@ -649,7 +649,7 @@
       } ],
       "children" : [ {
         "name" : "main particle",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
@@ -718,7 +718,7 @@
       } ]
     }, {
       "name" : "rear left thruster",
-      "comps" : [ {
+      "components" : [ {
         "class" : "model.ECS.builtInComponent.Naming",
         "name" : "rear left thruster"
       }, {
@@ -767,7 +767,7 @@
       } ],
       "children" : [ {
         "name" : "main particle",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
@@ -836,7 +836,7 @@
       } ]
     }, {
       "name" : "rear right thruster",
-      "comps" : [ {
+      "components" : [ {
         "class" : "model.ECS.builtInComponent.Naming",
         "name" : "rear right thruster"
       }, {
@@ -885,7 +885,7 @@
       } ],
       "children" : [ {
         "name" : "main particle",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
@@ -955,7 +955,7 @@
     } ]
   }, {
     "name" : "weapon",
-    "comps" : [ {
+    "components" : [ {
       "class" : "model.ECS.builtInComponent.Naming",
       "name" : "weapon"
     }, {
@@ -1015,7 +1015,7 @@
     "children" : [ ]
   }, {
     "name" : "Boost",
-    "comps" : [ {
+    "components" : [ {
       "class" : "model.ECS.builtInComponent.Naming",
       "name" : "Boost"
     }, {
@@ -1032,7 +1032,7 @@
     "children" : [ ]
   }, {
     "name" : "right front light",
-    "comps" : [ {
+    "components" : [ {
       "class" : "model.ECS.builtInComponent.Naming",
       "name" : "right front light"
     }, {
@@ -1080,7 +1080,7 @@
     "children" : [ ]
   }, {
     "name" : "left front light",
-    "comps" : [ {
+    "components" : [ {
       "class" : "model.ECS.builtInComponent.Naming",
       "name" : "left front light"
     }, {

@@ -1,6 +1,6 @@
 {
   "name" : "shield depleted",
-  "comps" : [ {
+  "components" : [ {
     "class" : "component.assets.AudioSource",
     "path" : "monoexplosion1.wav",
     "loop" : false,

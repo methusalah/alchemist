@@ -1,6 +1,6 @@
 {
   "name" : "burst weapon",
-  "comps" : [ {
+  "components" : [ {
     "class" : "model.ECS.builtInComponent.Naming",
     "name" : "burst weapon"
   }, {

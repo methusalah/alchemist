@@ -1,6 +1,6 @@
 {
   "name" : "metal impact",
-  "comps" : [ {
+  "components" : [ {
     "class" : "model.ECS.builtInComponent.Naming",
     "name" : "metal impact"
   }, {

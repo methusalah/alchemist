@@ -1,28 +1,18 @@
 package processor.logic.command;
 
-import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.Entity;
 
-import commonLogic.CommandState;
 import component.ability.PlayerControl;
 import component.motion.PlanarNeededRotation;
 import component.motion.PlanarStance;
-import model.Command;
+import model.CommandPlatform;
 import model.ECS.pipeline.Processor;
-import model.state.DataState;
 import util.geometry.geom2d.Point2D;
 import util.math.Angle;
 import util.math.AngleUtil;
 
 public class PlayerRotationControlProc extends Processor {
 
-	private Command command; 
-	
-	@Override
-	protected void onInitialized(AppStateManager stateManager) {
-		command = stateManager.getState(CommandState.class).getCommand();
-	}
-	
 	@Override
 	protected void registerSets() {
 		registerDefault(PlanarStance.class, PlayerControl.class);
@@ -30,16 +20,16 @@ public class PlayerRotationControlProc extends Processor {
 	
 	@Override
 	protected void onEntityEachTick(Entity e) {
-		if(command.target == null)
+		if(CommandPlatform.target == null)
 			return;
 		
 		PlanarStance stance = e.get(PlanarStance.class);
-		double angleToTarget = command.target.getSubtraction(stance.coord).getAngle();
+		double angleToTarget = CommandPlatform.target.getSubtraction(stance.coord).getAngle();
 
 		// rotation
 		double neededRotAngle = 0;
 		Point2D front = stance.coord.getTranslation(stance.orientation.getValue(), 1);
-		int turn = AngleUtil.getTurn(stance.coord, front, command.target);
+		int turn = AngleUtil.getTurn(stance.coord, front, CommandPlatform.target);
 		if(turn != AngleUtil.NONE){// || angleToTarget != stance.getOrientation()){
 			double diff = AngleUtil.getSmallestDifference(stance.orientation.getValue(), angleToTarget);
 			if(turn >= 0)

@@ -1,6 +1,6 @@
 {
   "name" : "asteroid",
-  "comps" : [ {
+  "components" : [ {
     "class" : "model.ECS.builtInComponent.Naming",
     "name" : "asteroid"
   }, {

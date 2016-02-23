@@ -1,6 +1,6 @@
 {
   "name" : "PHAT missile",
-  "comps" : [ {
+  "components" : [ {
     "class" : "model.ECS.builtInComponent.Naming",
     "name" : "PHAT missile"
   }, {
@@ -82,7 +82,7 @@
   } ],
   "children" : [ {
     "name" : "main thruster",
-    "comps" : [ {
+    "components" : [ {
       "class" : "model.ECS.builtInComponent.Naming",
       "name" : "main thruster"
     }, {
@@ -149,7 +149,7 @@
     } ],
     "children" : [ {
       "name" : "trail particle",
-      "comps" : [ {
+      "components" : [ {
         "class" : "model.ECS.builtInComponent.Naming",
         "name" : "trail particle"
       }, {
@@ -217,7 +217,7 @@
       "children" : [ ]
     }, {
       "name" : "main particle",
-      "comps" : [ {
+      "components" : [ {
         "class" : "model.ECS.builtInComponent.Naming",
         "name" : "main particle"
       }, {

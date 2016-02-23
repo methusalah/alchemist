@@ -1,6 +1,6 @@
 {
   "name" : "rock02",
-  "comps" : [ {
+  "components" : [ {
     "class" : "model.ECS.builtInComponent.Naming",
     "name" : "rock02"
   }, {

@@ -1,6 +1,6 @@
 {
   "name" : "Sun",
-  "comps" : [ {
+  "components" : [ {
     "class" : "model.ECS.builtInComponent.Naming",
     "name" : "Sun"
   }, {

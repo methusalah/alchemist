@@ -10,12 +10,23 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+/**
+ * Singleton class that provide access to blueprints on the file system.
+ * It deserializes all blueprints file found in "assets/data/blueprints/" at application start,
+ * and can save a blue print at the same place.
+ * 
+ * @author benoit
+ *
+ */
 public class BlueprintLibrary {
 	private static final String PATH = "assets/data/blueprints/";
 	private static final String EXTENSION = ".blueprint";
 	private static final ObjectMapper mapper = new ObjectMapper();
 	private static final Map<String, Blueprint> blueprintMap;
 
+	/**
+	 * Eager deserialization of the blueprints found in PATH
+	 */
 	static {
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
@@ -23,10 +34,17 @@ public class BlueprintLibrary {
 		loadBlueprints();
 	}
 	
+	/**
+	 * Private constructor for singleton pattern
+	 */
 	private BlueprintLibrary(){
 		
 	}
 	
+	/**
+	 * Save the given blueprint in a file stored in the default folder.
+	 * @param bp
+	 */
 	public static void saveBlueprint(Blueprint bp){
 		try {
 			mapper.writeValue(new File(PATH + bp.getName() + EXTENSION), bp);
@@ -61,10 +79,20 @@ public class BlueprintLibrary {
 		return res;
 	}
 	
+	/**
+	 * Returns a list containing all blueprints
+	 * @param name
+	 * @return
+	 */
 	public static List<Blueprint> getAllBlueprints(){
 		return new ArrayList<>(blueprintMap.values());
 	}
 	
+	/**
+	 * Returns a specific blueprint
+	 * @param name
+	 * @return the blueprint, or null if no such blueprint exists in the library
+	 */
 	public static Blueprint getBlueprint(String name){
 		return blueprintMap.get(name);
 	}

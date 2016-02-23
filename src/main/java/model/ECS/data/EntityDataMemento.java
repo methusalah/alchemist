@@ -5,6 +5,12 @@ import java.util.Map;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityId;
 
+/**
+ * Memento of an entity data, used to restore a previously saved state.
+ * 
+ * @author benoit
+ *
+ */
 public class EntityDataMemento {
 	private final SavableEntityData originator;
 	private final Map<EntityId, Map<Class<? extends EntityComponent>, EntityComponent>> state;

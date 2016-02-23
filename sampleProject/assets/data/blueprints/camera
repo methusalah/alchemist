@@ -1,6 +1,6 @@
 {
   "name" : "camera",
-  "comps" : [ {
+  "components" : [ {
     "class" : "model.ECS.builtInComponent.Naming",
     "name" : "camera"
   }, {
@@ -37,7 +37,7 @@
   } ],
   "children" : [ {
     "name" : "background",
-    "comps" : [ {
+    "components" : [ {
       "class" : "model.ECS.builtInComponent.Naming",
       "name" : "background"
     }, {

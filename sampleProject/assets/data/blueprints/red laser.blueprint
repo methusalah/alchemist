@@ -1,6 +1,6 @@
 {
   "name" : "red laser",
-  "comps" : [ {
+  "components" : [ {
     "class" : "model.ECS.builtInComponent.Naming",
     "name" : "red laser"
   }, {

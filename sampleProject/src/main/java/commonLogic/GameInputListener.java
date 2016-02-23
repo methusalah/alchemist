@@ -9,7 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import model.Command;
+import model.CommandPlatform;
 import model.state.DataState;
 import model.state.SceneSelectorState;
 import util.geometry.geom2d.Point2D;
@@ -36,9 +36,14 @@ public class GameInputListener implements SceneInputListener {
 	public void onMousePressed(MouseEvent e){
 		ActionType type;
 		switch(e.getButton()){
-		case PRIMARY : type = ActionType.StartPrimary; break;
-		case SECONDARY : type = ActionType.StartSecondary; break;
-		default : type = null;
+		case PRIMARY :
+			type = ActionType.StartPrimary;
+			break;
+		case SECONDARY :
+			type = ActionType.StartSecondary;
+			break;
+		default :
+			type = null;
 		}
 		if(type != null)
 			jme.enqueue(app -> setAction(app, type));
@@ -61,7 +66,6 @@ public class GameInputListener implements SceneInputListener {
 			jme.enqueue(app -> setAction(app, ActionType.OnceSecondary));
 			break;
 		default:
-			break;
 		}
 	}
 	
@@ -109,34 +113,31 @@ public class GameInputListener implements SceneInputListener {
 		SceneSelectorState sceneSelector = app.getStateManager().getState(SceneSelectorState.class);
 		sceneSelector.setCoordInScreenSpace(coord);
 
-		Command c = app.getStateManager().getState(CommandState.class).getCommand();
-		c.target = sceneSelector.getPointedCoordInPlan();
+		CommandPlatform.target = sceneSelector.getPointedCoordInPlan();
 		return true;
 	}
 
 	static private boolean addThrust(SimpleApplication app, double x, double y) {
-		Command c = app.getStateManager().getState(CommandState.class).getCommand();
-		c.thrust = c.thrust.getAddition(new Point2D(x, y));
+		CommandPlatform.thrust = CommandPlatform.thrust.getAddition(new Point2D(x, y));
 		return true;
 	}
 	
 	static private boolean setAction(SimpleApplication app, ActionType type) {
-		Command c = app.getStateManager().getState(CommandState.class).getCommand();
 		switch(type){
 		case OncePrimary : break;
 		case OnceSecondary : break;
-		case StartPrimary : c.abilities.add("gun"); break;
-		case StartSecondary : c.abilities.add("boost"); break;
+		case StartPrimary : CommandPlatform.abilities.add("gun"); break;
+		case StartSecondary : CommandPlatform.abilities.add("boost"); break;
 		case StopPrimary : 
-			for(int i = 0; i < c.abilities.size(); i++)
-				if(c.abilities.get(i).equals("gun")){
-					c.abilities.remove(i);
+			for(int i = 0; i < CommandPlatform.abilities.size(); i++)
+				if(CommandPlatform.abilities.get(i).equals("gun")){
+					CommandPlatform.abilities.remove(i);
 				}
 			break;
 		case StopSecondary :
-			for(int i = 0; i < c.abilities.size(); i++)
-				if(c.abilities.get(i).equals("boost")){
-					c.abilities.remove(i);
+			for(int i = 0; i < CommandPlatform.abilities.size(); i++)
+				if(CommandPlatform.abilities.get(i).equals("boost")){
+					CommandPlatform.abilities.remove(i);
 				}
 			break;
 		}

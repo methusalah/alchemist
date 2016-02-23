@@ -1,7 +1,8 @@
 package model.state;
 
-import com.jme3.app.state.AbstractAppState;
 import com.simsilica.es.EntityData;
+
+import model.ECS.pipeline.Processor;
 
 /**
  * The EntityData of the game is stored in this AppState to allow
@@ -9,7 +10,7 @@ import com.simsilica.es.EntityData;
  *
  * @author Eike Foede, roah
  */
-public class DataState extends AbstractAppState {
+public class DataState extends Processor {
 	private final EntityData entityData;
 	
     public DataState(EntityData entityData) {
@@ -19,4 +20,8 @@ public class DataState extends AbstractAppState {
     public EntityData getEntityData() {
         return entityData;
     }
+
+	@Override
+	protected void registerSets() {
+	}
 }

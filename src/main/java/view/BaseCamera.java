@@ -14,20 +14,25 @@ import view.tab.scene.customControl.JmeImageView;
 public class BaseCamera implements SceneInputListener{
 	private final JmeImageView jme;
 	
+	Point2D last = null;
+	
 	public BaseCamera(JmeImageView jme) {
 		this.jme = jme;
 	}
 	
 	@Override
 	public void onMousePressed(MouseEvent e){
+		last = new Point2D(e.getX(), e.getY());
 	}
 	
 	@Override
 	public void onMouseDragged(MouseEvent e){
+		Point2D vec = new Point2D(e.getX(), e.getY()).getSubtraction(last);
 		if(e.isSecondaryButtonDown())
-			jme.enqueue((app) -> rotateCam(app, new Point2D(e.getX(), e.getY())));
+			jme.enqueue((app) -> rotateCam(app, vec));
 		else if(e.isMiddleButtonDown())
-			jme.enqueue((app) -> rotateCam(app, new Point2D(e.getX(), e.getY())));
+			jme.enqueue((app) -> moveCam(app, vec));
+		last = new Point2D(e.getX(), e.getY());
 	}
 	
 	@Override

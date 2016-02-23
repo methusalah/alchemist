@@ -1,6 +1,6 @@
 {
   "name" : "corrosive impact particle",
-  "comps" : [ {
+  "components" : [ {
     "class" : "model.ECS.builtInComponent.Naming",
     "name" : "corrosive impact particle"
   }, {

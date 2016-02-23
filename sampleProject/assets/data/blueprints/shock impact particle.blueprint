@@ -1,6 +1,6 @@
 {
   "name" : "shock impact particle",
-  "comps" : [ {
+  "components" : [ {
     "class" : "model.ECS.builtInComponent.Naming",
     "name" : "shock impact particle"
   }, {

@@ -38,7 +38,7 @@ public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 
 		DraggableCameraState cam = new DraggableCameraState(app.getCamera());
 		cam.setRotationSpeed(0.001f);
-		cam.setMoveSpeed(1f);
+		cam.setMoveSpeed(0.00001f);
 		stateManager.attach(cam);
 
 		stateManager.attach(new DataState(EditorPlatform.getEntityData()));

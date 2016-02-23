@@ -20,7 +20,7 @@ public class DraggableCameraState extends AbstractAppState {
 
 	protected Camera cam;
 	protected Vector3f initialUpVec;
-	protected float rotationSpeed = 1f;
+	protected float rotationSpeed = 0.01f;
 	protected float moveSpeed = 3f;
 	protected MotionAllowedListener motionAllowed = null;
 	protected boolean enabled = true;

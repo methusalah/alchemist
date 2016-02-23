@@ -7,6 +7,8 @@ import java.util.Map;
 
 import com.jme3.app.state.AppStateManager;
 
+import model.EditorPlatform;
+import model.state.DataState;
 import model.tempImport.RendererPlatform;
 import util.LogUtil;
 
@@ -21,6 +23,7 @@ public class PipelineManager {
 		} else {
 			AppStateManager stateManager = new AppStateManager(null);
 			res = new Pipeline(name, stateManager);
+			res.addProcessor(new DataState(EditorPlatform.getEntityData()));
 			res.setRunnable(() -> {
 				while (!Thread.currentThread().isInterrupted()) {
 					long time = System.currentTimeMillis();
@@ -63,6 +66,7 @@ public class PipelineManager {
 			}
 			if(pr.getRunnable() != null){
 				Thread thread = new Thread(pr.getRunnable());
+				thread.start();
 				pipelineSet.put(pr, thread);
 			}
 		}

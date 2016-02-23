@@ -1,26 +1,16 @@
 package processor.logic.command;
 
-import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.Entity;
 
-import commonLogic.CommandState;
 import component.ability.PlayerControl;
 import component.motion.PlanarNeededThrust;
 import component.motion.PlanarStance;
-import model.Command;
+import model.CommandPlatform;
 import model.ECS.pipeline.Processor;
-import model.state.DataState;
 import util.math.AngleUtil;
 
 public class PlayerOrthogonalThrustControlProc extends Processor {
 
-	private Command command; 
-	
-	@Override
-	protected void onInitialized(AppStateManager stateManager) {
-		command = stateManager.getState(CommandState.class).getCommand();
-	}
-	
 	@Override
 	protected void registerSets() {
 		registerDefault(PlanarStance.class, PlayerControl.class);
@@ -28,13 +18,13 @@ public class PlayerOrthogonalThrustControlProc extends Processor {
 	
 	@Override
 	protected void onEntityEachTick(Entity e) {
-		if(command.target == null)
+		if(CommandPlatform.target == null)
 			return;
 
 		PlanarStance stance = e.get(PlanarStance.class);
-		if(!command.thrust.isOrigin()
-				&& stance.coord.getDistance(command.target) > 0.1){
-    		PlanarNeededThrust thrust = new PlanarNeededThrust(command.thrust.getRotation(AngleUtil.RIGHT));
+		if(!CommandPlatform.thrust.isOrigin()
+				&& stance.coord.getDistance(CommandPlatform.target) > 0.1){
+    		PlanarNeededThrust thrust = new PlanarNeededThrust(CommandPlatform.thrust.getRotation(AngleUtil.RIGHT));
     		setComp(e, thrust);
 		}
 	}

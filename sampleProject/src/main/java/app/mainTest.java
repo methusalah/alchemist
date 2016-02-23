@@ -4,6 +4,7 @@ import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
 import commonLogic.GameInputListener;
+import commonLogic.TopDownCamInputListener;
 import component.WorldLocaliserState;
 import component.motion.PlanarStance;
 import model.EditorPlatform;
@@ -84,12 +85,11 @@ public class mainTest extends Alchemist {
 	
 	public static void main(String[] args) {
 		launch(args);
-		
 	}
 	
 	@Override
 	protected void onIntialize() {
-		RendererPlatform.enqueue(() -> createPipelines());		
+		RendererPlatform.enqueue(() -> createPipelines());
 		
 		// adding state to the renderer
 		RendererPlatform.getStateManager().attach(new WorldLocaliserState());
@@ -117,6 +117,8 @@ public class mainTest extends Alchemist {
 
 		// adding the world editor window
 		ViewPlatform.inspectorTabPane.getTabs().add(new WorldEditorTab());
+		ViewPlatform.getSceneInputManager().removeListener(ViewPlatform.camera);
+		ViewPlatform.getSceneInputManager().addListener(new TopDownCamInputListener(EditorPlatform.getScene()));
 		
 		// adding the playtime listener
 		ViewPlatform.game = new GameInputListener(EditorPlatform.getScene());

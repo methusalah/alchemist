@@ -1,6 +1,6 @@
 {
   "name" : "enemy hammer",
-  "comps" : [ {
+  "components" : [ {
     "class" : "model.ECS.builtInComponent.Naming",
     "name" : "enemy hammer"
   }, {
@@ -285,13 +285,13 @@
   } ],
   "children" : [ {
     "name" : "thrusters",
-    "comps" : [ {
+    "components" : [ {
       "class" : "model.ECS.builtInComponent.Naming",
       "name" : "thrusters"
     } ],
     "children" : [ {
       "name" : "main thruster",
-      "comps" : [ {
+      "components" : [ {
         "class" : "model.ECS.builtInComponent.Naming",
         "name" : "main thruster"
       }, {
@@ -340,7 +340,7 @@
       } ],
       "children" : [ {
         "name" : "main particle",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
@@ -408,7 +408,7 @@
         "children" : [ ]
       }, {
         "name" : "debris particle",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "debris particle"
         }, {
@@ -476,14 +476,14 @@
         "children" : [ ]
       }, {
         "name" : "sound",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "sound"
         } ],
         "children" : [ ]
       }, {
         "name" : "trail particle",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "trail particle"
         }, {
@@ -552,7 +552,7 @@
       } ]
     }, {
       "name" : "frontal left thruster",
-      "comps" : [ {
+      "components" : [ {
         "class" : "model.ECS.builtInComponent.Naming",
         "name" : "frontal left thruster"
       }, {
@@ -601,7 +601,7 @@
       } ],
       "children" : [ {
         "name" : "main particle",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
@@ -670,7 +670,7 @@
       } ]
     }, {
       "name" : "frontal right thruster",
-      "comps" : [ {
+      "components" : [ {
         "class" : "model.ECS.builtInComponent.Naming",
         "name" : "frontal right thruster"
       }, {
@@ -719,7 +719,7 @@
       } ],
       "children" : [ {
         "name" : "main particle",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
@@ -788,7 +788,7 @@
       } ]
     }, {
       "name" : "rear left thruster",
-      "comps" : [ {
+      "components" : [ {
         "class" : "model.ECS.builtInComponent.Naming",
         "name" : "rear left thruster"
       }, {
@@ -837,7 +837,7 @@
       } ],
       "children" : [ {
         "name" : "main particle",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
@@ -906,7 +906,7 @@
       } ]
     }, {
       "name" : "rear right thruster",
-      "comps" : [ {
+      "components" : [ {
         "class" : "model.ECS.builtInComponent.Naming",
         "name" : "rear right thruster"
       }, {
@@ -955,7 +955,7 @@
       } ],
       "children" : [ {
         "name" : "main particle",
-        "comps" : [ {
+        "components" : [ {
           "class" : "model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
@@ -1025,7 +1025,7 @@
     } ]
   }, {
     "name" : "burst weapon",
-    "comps" : [ {
+    "components" : [ {
       "class" : "model.ECS.builtInComponent.Naming",
       "name" : "burst weapon"
     }, {
