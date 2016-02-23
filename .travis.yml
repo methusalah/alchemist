@@ -7,5 +7,11 @@ notifications:
     recipients:
       - dev@meltzow.net
 
-script: ./gradlew build
+sudo: false
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
+script: ./gradlew clean build
 
