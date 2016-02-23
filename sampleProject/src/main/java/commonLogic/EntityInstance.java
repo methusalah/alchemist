@@ -19,14 +19,14 @@ public class EntityInstance {
 	private final String blueprintName;
 	
 	@JsonTypeInfo(use=Id.CLASS, include=As.PROPERTY, property="class")
-	private final List<EntityComponent> comps;
+	private final List<EntityComponent> components;
 	
 	private EntityId instanceId;
 	
 	public EntityInstance(@JsonProperty("blueprintName")String blueprintName,
-			@JsonProperty("comps")List<EntityComponent> comps) {
+			@JsonProperty("components")List<EntityComponent> components) {
 		this.blueprintName = blueprintName;
-		this.comps = comps;
+		this.components = components;
 	}
 
 	@JsonIgnore
@@ -38,14 +38,14 @@ public class EntityInstance {
 		return blueprintName;
 	}
 
-	public List<EntityComponent> getComps() {
-		return comps;
+	public List<EntityComponent> getComponents() {
+		return components;
 	}
 
 	public void instanciate(EntityData ed, EntityId parent) {
 		if(!isInstanciated()){
 			instanceId = getBlueprint().createEntity(ed, parent);
-			for(EntityComponent comp : getComps())
+			for(EntityComponent comp : getComponents())
 				ed.setComponent(instanceId, comp);
 		}
 	}

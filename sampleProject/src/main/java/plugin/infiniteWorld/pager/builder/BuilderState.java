@@ -127,7 +127,6 @@ public class BuilderState extends AbstractAppState {
     }
     
     protected void onEnable() {
-    	LogUtil.info("onEnabled");
         // We have to check because the first time through
         // it won't be paused.
         if( builder.isPaused() ) {

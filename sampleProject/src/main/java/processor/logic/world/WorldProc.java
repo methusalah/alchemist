@@ -101,7 +101,7 @@ public class WorldProc extends Processor {
 	}
 	
 	public void addEntityInstance(EntityInstance ei){
-		for(EntityComponent comp : ei.getComps())
+		for(EntityComponent comp : ei.getComponents())
 			if(comp instanceof PlanarStance){
 				Point2D coord = ((PlanarStance)comp).getCoord();
 				getRegionsAtOnce(coord).get(0).getEntities().add(ei);

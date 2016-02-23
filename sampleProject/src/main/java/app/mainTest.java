@@ -61,8 +61,10 @@ import processor.logic.shipGear.AttritionProc;
 import processor.logic.shipGear.LightThrusterProc;
 import processor.logic.shipGear.RotationThrusterProc;
 import processor.logic.shipGear.ThrusterProc;
+import processor.logic.world.WorldProc;
 import processor.rendering.CameraPlacingProc;
 import processor.rendering.LightProc;
+import processor.rendering.MouseTargetingProc;
 import processor.rendering.audio.AbilityAudioProc;
 import processor.rendering.audio.AudioSourcePlacingProc;
 import processor.rendering.audio.AudioSourceProc;
@@ -89,12 +91,7 @@ public class mainTest extends Alchemist {
 	
 	@Override
 	protected void onIntialize() {
-		RendererPlatform.enqueue(() -> createPipelines());
-		
-		// adding state to the renderer
-		RendererPlatform.getStateManager().attach(new WorldLocaliserState());
-		RendererPlatform.getStateManager().attach(new RegionPager());
-		RendererPlatform.getStateManager().getState(RegionPager.class).setEnabled(true);
+		RendererPlatform.enqueue(() -> addRendererSystems());
 		
 		// adding scene view behavior to place blueprint in view with correct planar stance
 		SceneViewBehavior.createEntityFunction = (blueprint, screenCoord) -> {
@@ -124,7 +121,7 @@ public class mainTest extends Alchemist {
 		ViewPlatform.game = new GameInputListener(EditorPlatform.getScene());
 	}
 	
-	private boolean createPipelines(){
+	private boolean addRendererSystems(){
 		Pipeline visualPipeline = EditorPlatform.getPipelineManager().createPipeline("visual", true, true);
 		visualPipeline.addProcessor(new ModelProc());
 		visualPipeline.addProcessor(new SpriteProc());
@@ -141,6 +138,8 @@ public class mainTest extends Alchemist {
 		visualPipeline.addProcessor(new LightProc());
 		visualPipeline.addProcessor(new VelocityVisualisationProc());
 		visualPipeline.addProcessor(new FloatingLabelProc());
+
+		visualPipeline.addProcessor(new WorldProc());
 
 		Pipeline audioPipeline = EditorPlatform.getPipelineManager().createPipeline("audio", true, false);
 		audioPipeline.addProcessor(new AudioSourceProc());
@@ -208,6 +207,14 @@ public class mainTest extends Alchemist {
 		logicPipeline.addProcessor(new RemovedCleanerProc());
 		logicPipeline.addProcessor(new RemoverProc());
 		logicPipeline.addProcessor(new ParentingCleanerProc());
+		
+		// adding state to the renderer
+		RendererPlatform.getStateManager().attach(new WorldLocaliserState());
+		RendererPlatform.getStateManager().attach(new RegionPager());
+		RendererPlatform.getStateManager().getState(RegionPager.class).setEnabled(true);
+		RendererPlatform.getStateManager().attach(new MouseTargetingProc());
+
+
 		return true;
 	}
 }
