@@ -12,10 +12,25 @@ import model.state.DataState;
 import model.tempImport.RendererPlatform;
 import util.LogUtil;
 
+/**
+ * The pipeline manager creates, holds and manage life cycle of the application piplines.
+ * 
+ * @author Benoît
+ *
+ */
 public class PipelineManager {
 	private final Map<Pipeline, Thread> editionPipelines = new HashMap<>();
 	private final Map<Pipeline, Thread> pipelines = new HashMap<>();
-	
+
+	/**
+	 * Create a new pipeline preconfigured accordingly to the given parameters 
+	 * @param name the pipline name for user convenience
+	 * @param inRendererThread true if the pipeline should be executed by the renderer thread.
+	 * If false, the pipeline will have it's own thread, at 50 tick per seconds maximum
+	 * @param inEditionMode true if the pipeline should be executed in edition mode.
+	 * If false, the pipeline will be executed in playtime and runtime
+	 * @return the created pipeline.
+	 */
 	public Pipeline createPipeline(String name, boolean inRendererThread, boolean inEditionMode){
 		final Pipeline res;
 		if(inRendererThread) {
@@ -51,10 +66,16 @@ public class PipelineManager {
 		return res;
 	}
 
+	/**
+	 * Run only pipelines that are assigned to the edition mode
+	 */
 	public void runEditionPiplines(){
 		run(editionPipelines);
 	}
 	
+	/**
+	 * Run all pipelines
+	 */
 	public void runPipelines(){
 		run(pipelines);
 	}
@@ -72,10 +93,16 @@ public class PipelineManager {
 		}
 	}
 	
+	/**
+	 * Stops only pipelines that are assigned to the edition mode
+	 */
 	public void stopEditionPiplines(){
 		stop(editionPipelines);
 	}
 	
+	/**
+	 * Stops all pipelines
+	 */
 	public void stopPiplines(){
 		stop(pipelines);
 	}
@@ -90,6 +117,10 @@ public class PipelineManager {
 		}
 	}
 	
+	/**
+	 * Returns a list of the pipeline that are running on their own thread
+	 * @return
+	 */
 	public List<Pipeline> getIndependantPipelines(){
 		List<Pipeline> res = new ArrayList<>();
 		for(Pipeline pr : pipelines.keySet()){

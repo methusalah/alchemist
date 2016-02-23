@@ -12,17 +12,15 @@ import model.ECS.builtInComponent.Parenting;
 import presentation.common.EntityNode;
 
 /***
- * A Sepacialized EntityData that maintain a tree of nodes representing the hierarchy of the entities and their components
+ * A Specialized EntityData that maintain a tree of nodes representing the hierarchy of the entities and their components.
+ * Used to observe all data changes and find entities by parenting relationship.
  * 
- * Used to observe all data changes
  * @author benoit
  *
  */
 public class TraversableEntityData extends SavableEntityData{
 	private final EntityNode rootEntityNode;
 	private final Map<EntityId, EntityNode> entityNodes = new HashMap<>();
-	
-	
 
 	public TraversableEntityData() {
 		rootEntityNode = new EntityNode(null, "root");
@@ -54,10 +52,19 @@ public class TraversableEntityData extends SavableEntityData{
 		});
 	}
 	
+	/**
+	 * Return the root node, that contains all entities that have no parent.
+	 * @return
+	 */
 	public EntityNode getRootNode() {
 		return rootEntityNode;
 	}
 	
+	/**
+	 * Return an entity node related to the given entity id.
+	 * @param eid
+	 * @return
+	 */
 	public EntityNode getNode(EntityId eid){
 		return entityNodes.get(eid);
 	}
