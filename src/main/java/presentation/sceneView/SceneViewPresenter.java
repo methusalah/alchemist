@@ -13,7 +13,6 @@ import model.EditorPlatform;
 import model.ECS.blueprint.Blueprint;
 import model.state.DataState;
 import model.state.DraggableCameraState;
-import model.state.InstrumentUpdateState;
 import model.state.SceneSelectorState;
 import model.tempImport.RendererPlatform;
 import presentation.base.AbstractPresenter;
@@ -34,8 +33,6 @@ public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 		
 		AppStateManager stateManager = app.getStateManager();
 		
-		stateManager.attach(new InstrumentUpdateState());
-
 		DraggableCameraState cam = new DraggableCameraState(app.getCamera());
 		cam.setRotationSpeed(0.001f);
 		cam.setMoveSpeed(0.00001f);

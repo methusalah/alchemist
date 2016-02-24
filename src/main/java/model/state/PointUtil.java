@@ -13,6 +13,7 @@ import util.geometry.geom3d.Point3D;
 
 public abstract class PointUtil {
 
+	
 	public static Geometry getPointedGeometry(Node n, Ray r) {
 		CollisionResult collision = getCollision(n, r);
 		if (collision == null) {

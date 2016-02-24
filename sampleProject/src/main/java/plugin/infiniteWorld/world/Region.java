@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityId;
 
-import commonLogic.EntityInstance;
 import plugin.infiniteWorld.world.terrain.Terrain;
 import plugin.infiniteWorld.world.terrain.TerrainTexture;
 import plugin.infiniteWorld.world.terrain.TerrainTexturing;

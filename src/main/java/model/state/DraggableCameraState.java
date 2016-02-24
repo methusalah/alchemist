@@ -11,6 +11,12 @@ import com.jme3.renderer.Camera;
 import model.tempImport.TranslateUtil;
 import util.geometry.geom2d.Point2D;
 
+/**
+ * App state for camera control.
+ * 
+ * @author benoit
+ *
+ */
 public class DraggableCameraState extends AbstractAppState {
 	private static String[] mappings = new String[] { "FLYCAM_Left", "FLYCAM_Right", "FLYCAM_Up", "FLYCAM_Down",
 
@@ -33,6 +39,10 @@ public class DraggableCameraState extends AbstractAppState {
 		initialUpVec = cam.getUp().clone();
 	}
 
+	/**
+	 * Set the top direction of the camera, typically 0, 0, 1
+	 * @param upVec
+	 */
 	public void setUpVector(Vector3f upVec) {
 		initialUpVec.set(upVec);
 	}
@@ -41,18 +51,34 @@ public class DraggableCameraState extends AbstractAppState {
 		this.motionAllowed = listener;
 	}
 
+	/**
+	 * Set the speed of the camera in world units per second.
+	 * @param moveSpeed
+	 */
 	public void setMoveSpeed(float moveSpeed) {
 		this.moveSpeed = moveSpeed;
 	}
 
+	/**
+	 * Get the speed of the camera in world units per second.
+	 * @return
+	 */
 	public float getMoveSpeed() {
 		return moveSpeed;
 	}
 
+	/**
+	 * Set the rotation speed of the camera in radians per second.
+	 * @param moveSpeed
+	 */
 	public void setRotationSpeed(float rotationSpeed) {
 		this.rotationSpeed = rotationSpeed;
 	}
 
+	/**
+	 * Get the rotation speed of the camera in radians per second.
+	 * @return
+	 */
 	public float getRotationSpeed() {
 		return rotationSpeed;
 	}

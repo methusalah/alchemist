@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import ECS.processor.logic.world.WorldProc;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -17,7 +18,6 @@ import plugin.infiniteWorld.world.terrain.TerrainTexture;
 import plugin.infiniteWorld.world.terrain.atlas.Atlas;
 import plugin.infiniteWorld.world.terrain.atlas.AtlasLayer;
 import presentation.common.ToggledEnumProperty;
-import processor.logic.world.WorldProc;
 import util.geometry.geom2d.Point2D;
 
 public class AtlasConfiguratorPresenter extends PencilConfiguratorPresenter {

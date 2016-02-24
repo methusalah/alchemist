@@ -8,12 +8,13 @@ import model.ECS.builtInComponent.Naming;
 import model.ECS.builtInComponent.Parenting;
 import plugin.infiniteWorld.pager.builder.Builder;
 import plugin.infiniteWorld.pager.builder.BuilderReference;
+import plugin.infiniteWorld.rendering.TerrainDrawer;
+import plugin.infiniteWorld.world.EntityInstance;
 import plugin.infiniteWorld.world.Region;
 import plugin.infiniteWorld.world.RegionId;
 import plugin.infiniteWorld.world.RegionLoader;
 import plugin.infiniteWorld.world.terrain.heightmap.HeightMapNode;
 import plugin.infiniteWorld.world.terrain.heightmap.Parcel;
-import processor.rendering.TerrainDrawer;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom2d.Segment2D;
 import util.geometry.geom3d.Point3D;
@@ -24,10 +25,9 @@ import util.math.Fraction;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
-import commonLogic.EntityInstance;
-import component.motion.PlanarStance;
-import component.motion.physic.EdgedCollisionShape;
-import component.motion.physic.Physic;
+import ECS.component.motion.PlanarStance;
+import ECS.component.motion.physic.EdgedCollisionShape;
+import ECS.component.motion.physic.Physic;
 
 public class RegionCreator implements BuilderReference {
 

@@ -7,14 +7,14 @@ import java.util.Map;
 
 import com.jme3.scene.Node;
 
+import ECS.processor.logic.world.WorldProc;
 import model.state.DataState;
 import model.tempImport.RendererPlatform;
 import plugin.infiniteWorld.pager.builder.BuilderState;
+import plugin.infiniteWorld.rendering.TerrainDrawer;
 import plugin.infiniteWorld.world.Region;
 import plugin.infiniteWorld.world.RegionId;
 import plugin.infiniteWorld.world.RegionLoader;
-import processor.logic.world.WorldProc;
-import processor.rendering.TerrainDrawer;
 import util.geometry.geom2d.Point2D;
 
 public class RegionPager extends BuilderState {

@@ -5,14 +5,14 @@ import java.util.List;
 
 import com.simsilica.es.EntityComponent;
 
-import commonLogic.EntityInstance;
-import component.motion.PlanarStance;
+import ECS.component.motion.PlanarStance;
+import ECS.processor.logic.world.WorldProc;
 import javafx.collections.FXCollections;
 import model.ECS.blueprint.Blueprint;
 import model.ECS.blueprint.BlueprintLibrary;
 import model.tempImport.RendererPlatform;
 import plugin.infiniteWorld.editor.view.population.PopulationConfigurator;
-import processor.logic.world.WorldProc;
+import plugin.infiniteWorld.world.EntityInstance;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 

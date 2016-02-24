@@ -2,7 +2,6 @@ package view;
 
 import com.jme3.app.SimpleApplication;
 
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
