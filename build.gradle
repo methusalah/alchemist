@@ -89,7 +89,10 @@ sourceSets {
 		java {
 			//srcDir 'src'
 		}
-		resources { srcDir 'assets' }
+		resources {
+	        srcDirs = ["src/main/java", "assets"]
+			includes = ["**/*.fxml"]
+		}
 	}
 
 }
