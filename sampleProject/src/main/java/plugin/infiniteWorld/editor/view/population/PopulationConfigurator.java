@@ -1,15 +1,16 @@
 package plugin.infiniteWorld.editor.view.population;
 
+import com.brainless.alchemist.model.ECS.blueprint.Blueprint;
+import com.brainless.alchemist.view.util.ViewLoader;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
-import model.ECS.blueprint.Blueprint;
 import plugin.infiniteWorld.editor.presentation.PopulationConfiguratorPresenter;
 import plugin.infiniteWorld.editor.presentation.Tool;
 import plugin.infiniteWorld.editor.view.Toolconfigurator;
-import view.util.ViewLoader;
 
 public class PopulationConfigurator extends VBox implements Toolconfigurator {
 	private final PopulationConfiguratorPresenter presenter;

@@ -1,11 +1,11 @@
 package logic.processor.logic;
 
+import com.brainless.alchemist.model.ECS.builtInComponent.Parenting;
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.lifeCycle.Removed;
 import component.lifeCycle.ToRemove;
-import model.ECS.builtInComponent.Parenting;
-import model.ECS.pipeline.Processor;
 
 public class ParentingCleanerProc extends Processor {
 

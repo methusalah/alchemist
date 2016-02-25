@@ -1,10 +1,10 @@
 package logic.processor.logic.motion.physic;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.motion.physic.Dragging;
 import component.motion.physic.RandomDragging;
-import model.ECS.pipeline.Processor;
 import util.math.RandomUtil;
 
 public class RandomDraggingProc extends Processor {

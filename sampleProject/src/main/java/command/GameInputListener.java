@@ -3,17 +3,17 @@ package command;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.brainless.alchemist.model.state.DataState;
+import com.brainless.alchemist.model.state.SceneSelectorState;
+import com.brainless.alchemist.view.common.SceneInputListener;
+import com.brainless.alchemist.view.tab.scene.customControl.JmeImageView;
 import com.jme3.app.SimpleApplication;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import model.state.DataState;
-import model.state.SceneSelectorState;
 import util.geometry.geom2d.Point2D;
-import view.common.SceneInputListener;
-import view.tab.scene.customControl.JmeImageView;
 
 public class GameInputListener implements SceneInputListener {
 	private static enum ActionType {StartPrimary,

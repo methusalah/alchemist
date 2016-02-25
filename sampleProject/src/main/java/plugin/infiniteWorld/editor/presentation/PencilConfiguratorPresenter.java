@@ -3,11 +3,12 @@ package plugin.infiniteWorld.editor.presentation;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.brainless.alchemist.presentation.common.ToggledEnumProperty;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import presentation.common.ToggledEnumProperty;
 import util.geometry.collections.PointRing;
 import util.geometry.geom2d.BoundingCircle;
 import util.geometry.geom2d.Point2D;

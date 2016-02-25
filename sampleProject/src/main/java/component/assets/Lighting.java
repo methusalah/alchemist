@@ -1,9 +1,9 @@
 package component.assets;
 
+import com.brainless.alchemist.model.tempImport.ColorData;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
 
-import model.tempImport.ColorData;
 import util.math.Fraction;
 
 public class Lighting implements EntityComponent {

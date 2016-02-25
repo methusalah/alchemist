@@ -1,10 +1,10 @@
 package logic.processor.logic.shipGear;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.assets.Lighting;
 import component.motion.Thruster;
-import model.ECS.pipeline.Processor;
 
 public class LightThrusterProc extends Processor {
 

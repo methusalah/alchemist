@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import model.ECS.builtInComponent.Naming;
-import model.ECS.builtInComponent.Parenting;
 import plugin.infiniteWorld.pager.builder.Builder;
 import plugin.infiniteWorld.pager.builder.BuilderReference;
 import plugin.infiniteWorld.rendering.TerrainDrawer;
@@ -22,6 +20,8 @@ import util.geometry.geom3d.Segment3D;
 import util.geometry.geom3d.Triangle3D;
 import util.math.Fraction;
 
+import com.brainless.alchemist.model.ECS.builtInComponent.Naming;
+import com.brainless.alchemist.model.ECS.builtInComponent.Parenting;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 

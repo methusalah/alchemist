@@ -1,17 +1,17 @@
 package plugin.planarStanceInstrument;
 
+import com.brainless.alchemist.model.EditorPlatform;
+import com.brainless.alchemist.model.state.SpatialSelector;
+import com.brainless.alchemist.presentation.common.EntityNode;
+import com.brainless.alchemist.view.ViewPlatform;
+import com.brainless.alchemist.view.instrument.InstrumentPresenter;
 import com.simsilica.es.EntityId;
 
 import component.motion.PlanarStance;
-import model.EditorPlatform;
-import model.state.SpatialSelector;
-import presentation.common.EntityNode;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 import util.math.AngleUtil;
-import view.ViewPlatform;
-import view.instrument.InstrumentPresenter;
 
 public class PlanarStanceInstrumentPresenter implements InstrumentPresenter{
 	public enum Tool{X, Y, Z, XY, YAW};

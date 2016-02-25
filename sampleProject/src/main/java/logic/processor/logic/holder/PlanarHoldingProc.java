@@ -1,12 +1,12 @@
 package logic.processor.logic.holder;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.motion.PlanarStance;
 import component.motion.PlanarStanceControl;
 import component.motion.SpaceStance;
 import logic.commonLogic.Controlling;
-import model.ECS.pipeline.Processor;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;

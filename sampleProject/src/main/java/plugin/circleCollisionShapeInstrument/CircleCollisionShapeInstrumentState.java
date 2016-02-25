@@ -1,14 +1,14 @@
 package plugin.circleCollisionShapeInstrument;
 
 
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
+import com.brainless.alchemist.model.tempImport.TranslateUtil;
+import com.brainless.alchemist.view.instrument.AbstractInstrumentState;
+import com.brainless.alchemist.view.instrument.customControl.InstrumentPart;
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.shape.Torus;
 
-import model.tempImport.RendererPlatform;
-import model.tempImport.TranslateUtil;
 import util.geometry.geom3d.Point3D;
-import view.instrument.AbstractInstrumentState;
-import view.instrument.customControl.InstrumentPart;
 
 public class CircleCollisionShapeInstrumentState extends AbstractInstrumentState {
 	InstrumentPart circle;

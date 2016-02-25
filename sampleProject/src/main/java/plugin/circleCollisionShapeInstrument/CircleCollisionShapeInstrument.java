@@ -1,8 +1,8 @@
 package plugin.circleCollisionShapeInstrument;
 
-import view.ViewPlatform;
-import view.instrument.InstrumentInputListener;
-import view.tab.scene.customControl.JmeImageView;
+import com.brainless.alchemist.view.ViewPlatform;
+import com.brainless.alchemist.view.instrument.InstrumentInputListener;
+import com.brainless.alchemist.view.tab.scene.customControl.JmeImageView;
 
 public class CircleCollisionShapeInstrument {
 	private final CircleCollisionShapeInstrumentPresenter presenter;

@@ -1,11 +1,11 @@
 package logic.processor.logic.ability;
 
+import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.ability.Ability;
 import component.ability.Cooldown;
-import model.ECS.pipeline.Pipeline;
-import model.ECS.pipeline.Processor;
 
 public class AbilityCoolDownProc extends Processor {
 

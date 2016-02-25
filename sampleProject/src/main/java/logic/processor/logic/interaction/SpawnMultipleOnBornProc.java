@@ -1,12 +1,12 @@
 package logic.processor.logic.interaction;
 
+import com.brainless.alchemist.model.ECS.blueprint.BlueprintLibrary;
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
 import component.lifeCycle.SpawnMultipleOnBorn;
 import component.motion.PlanarStance;
-import model.ECS.blueprint.BlueprintLibrary;
-import model.ECS.pipeline.Processor;
 import util.math.RandomUtil;
 
 public class SpawnMultipleOnBornProc extends Processor {

@@ -3,6 +3,10 @@ package logic.processor.logic.ability;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.brainless.alchemist.model.ECS.blueprint.Blueprint;
+import com.brainless.alchemist.model.ECS.blueprint.BlueprintLibrary;
+import com.brainless.alchemist.model.ECS.builtInComponent.Parenting;
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
@@ -16,10 +20,6 @@ import component.motion.PlanarNeededThrust;
 import component.motion.PlanarStance;
 import component.motion.PlanarVelocityToApply;
 import component.motion.physic.Physic;
-import model.ECS.blueprint.Blueprint;
-import model.ECS.blueprint.BlueprintLibrary;
-import model.ECS.builtInComponent.Parenting;
-import model.ECS.pipeline.Processor;
 import util.LogUtil;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;

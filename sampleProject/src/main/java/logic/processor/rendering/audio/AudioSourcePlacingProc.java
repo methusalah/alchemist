@@ -1,13 +1,13 @@
 package logic.processor.rendering.audio;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.jme3.audio.AudioNode;
 import com.simsilica.es.Entity;
 
 import component.assets.AudioSource;
 import component.motion.PlanarStance;
 import logic.processor.SpatialPool;
-import model.ECS.pipeline.Processor;
-import model.tempImport.TranslateUtil;
 
 public class AudioSourcePlacingProc extends Processor {
 

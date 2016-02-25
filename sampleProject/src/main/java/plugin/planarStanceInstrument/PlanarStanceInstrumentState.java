@@ -1,18 +1,18 @@
 package plugin.planarStanceInstrument;
 
 
+import com.brainless.alchemist.model.tempImport.TranslateUtil;
+import com.brainless.alchemist.view.instrument.AbstractInstrumentState;
+import com.brainless.alchemist.view.instrument.customControl.InstrumentPart;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Torus;
 
-import model.tempImport.TranslateUtil;
 import plugin.planarStanceInstrument.PlanarStanceInstrumentPresenter.Tool;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
-import view.instrument.AbstractInstrumentState;
-import view.instrument.customControl.InstrumentPart;
 
 public class PlanarStanceInstrumentState extends AbstractInstrumentState {
 	public PlanarStanceInstrumentState(PlanarStanceInstrumentPresenter presenter) {

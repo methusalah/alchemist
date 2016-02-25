@@ -1,12 +1,12 @@
 package logic.processor.logic.command;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.motion.MotionCapacity;
 import component.motion.PlanarNeededThrust;
 import component.motion.PlanarStance;
 import component.motion.PlanarVelocityToApply;
-import model.ECS.pipeline.Processor;
 import util.geometry.geom2d.Point2D;
 
 public class NeededThrustProc extends Processor {

@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.slf4j.LoggerFactory;
 
+import com.brainless.alchemist.model.ECS.blueprint.Blueprint;
+import com.brainless.alchemist.model.ECS.blueprint.BlueprintLibrary;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
 import component.motion.PlanarStance;
-import model.ECS.blueprint.Blueprint;
-import model.ECS.blueprint.BlueprintLibrary;
 import util.geometry.geom2d.Point2D;
 
 public class Spawner {

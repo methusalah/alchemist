@@ -1,10 +1,10 @@
 package plugin.infiniteWorld.world;
 
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
+import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.jme3.app.state.AbstractAppState;
 
 import logic.processor.logic.world.WorldProc;
-import model.tempImport.RendererPlatform;
-import model.tempImport.TranslateUtil;
 import util.geometry.geom2d.Point2D;
 
 public class WorldLocaliserState extends AbstractAppState {

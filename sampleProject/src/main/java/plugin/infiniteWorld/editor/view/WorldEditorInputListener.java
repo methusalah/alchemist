@@ -1,5 +1,7 @@
 package plugin.infiniteWorld.editor.view;
 
+import com.brainless.alchemist.model.state.SceneSelectorState;
+import com.brainless.alchemist.view.common.SceneInputListener;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 
@@ -7,10 +9,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import model.state.SceneSelectorState;
 import plugin.infiniteWorld.editor.presentation.WorldEditorPresenter;
 import util.geometry.geom2d.Point2D;
-import view.common.SceneInputListener;
 
 public class WorldEditorInputListener implements SceneInputListener {
 	private static enum ActionType {StartPrimary,

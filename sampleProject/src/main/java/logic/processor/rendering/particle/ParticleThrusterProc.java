@@ -1,5 +1,6 @@
 package logic.processor.rendering.particle;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.jme3.effect.ParticleEmitter;
 import com.simsilica.es.Entity;
 
@@ -9,7 +10,6 @@ import component.motion.Thruster;
 import component.motion.ThrusterControl;
 import logic.commonLogic.Controlling;
 import logic.processor.SpatialPool;
-import model.ECS.pipeline.Processor;
 import util.LogUtil;
 
 public class ParticleThrusterProc extends Processor {

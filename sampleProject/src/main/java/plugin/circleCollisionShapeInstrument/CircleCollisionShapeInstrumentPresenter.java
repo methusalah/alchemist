@@ -1,14 +1,14 @@
 package plugin.circleCollisionShapeInstrument;
 
+import com.brainless.alchemist.model.EditorPlatform;
+import com.brainless.alchemist.view.ViewPlatform;
+import com.brainless.alchemist.view.instrument.InstrumentPresenter;
 import com.simsilica.es.EntityId;
 
 import component.motion.PlanarStance;
 import component.motion.physic.CircleCollisionShape;
-import model.EditorPlatform;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
-import view.ViewPlatform;
-import view.instrument.InstrumentPresenter;
 
 public class CircleCollisionShapeInstrumentPresenter implements InstrumentPresenter{
 	private final CircleCollisionShapeInstrument view;

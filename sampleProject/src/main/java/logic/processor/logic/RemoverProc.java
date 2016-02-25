@@ -1,10 +1,10 @@
 package logic.processor.logic;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.lifeCycle.Removed;
 import component.lifeCycle.ToRemove;
-import model.ECS.pipeline.Processor;
 
 public class RemoverProc extends Processor {
 

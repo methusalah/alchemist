@@ -2,6 +2,8 @@ package plugin.infiniteWorld.world;
 
 import java.util.List;
 
+import com.brainless.alchemist.model.ECS.blueprint.Blueprint;
+import com.brainless.alchemist.model.ECS.blueprint.BlueprintLibrary;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -10,9 +12,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
-
-import model.ECS.blueprint.Blueprint;
-import model.ECS.blueprint.BlueprintLibrary;
 
 public class EntityInstance {
 

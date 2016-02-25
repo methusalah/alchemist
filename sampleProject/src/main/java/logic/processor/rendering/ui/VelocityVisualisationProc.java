@@ -1,5 +1,9 @@
 package logic.processor.rendering.ui;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
+import com.brainless.alchemist.model.tempImport.TranslateUtil;
+import com.brainless.alchemist.view.MaterialManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Line;
 import com.simsilica.es.Entity;
@@ -7,11 +11,7 @@ import com.simsilica.es.Entity;
 import component.debug.VelocityViewing;
 import component.motion.PlanarStance;
 import logic.processor.SpatialPool;
-import model.ECS.pipeline.Processor;
-import model.tempImport.RendererPlatform;
-import model.tempImport.TranslateUtil;
 import util.geometry.geom2d.Point2D;
-import view.MaterialManager;
 
 public class VelocityVisualisationProc extends Processor {
 

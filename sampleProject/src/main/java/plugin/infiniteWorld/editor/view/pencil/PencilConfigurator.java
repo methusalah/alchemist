@@ -1,5 +1,7 @@
 package plugin.infiniteWorld.editor.view.pencil;
 
+import com.brainless.alchemist.view.util.ViewLoader;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -9,7 +11,6 @@ import javafx.util.converter.NumberStringConverter;
 import plugin.infiniteWorld.editor.presentation.PencilConfiguratorPresenter;
 import plugin.infiniteWorld.editor.presentation.PencilConfiguratorPresenter.Mode;
 import plugin.infiniteWorld.editor.presentation.PencilConfiguratorPresenter.Shape;
-import view.util.ViewLoader;
 
 public class PencilConfigurator extends VBox {
 	

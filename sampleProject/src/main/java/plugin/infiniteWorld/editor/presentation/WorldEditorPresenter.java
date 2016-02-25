@@ -1,11 +1,11 @@
 package plugin.infiniteWorld.editor.presentation;
 
+import com.brainless.alchemist.model.EditorPlatform;
+import com.brainless.alchemist.model.state.SpatialSelector;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.jme3.scene.Node;
 
 import logic.processor.logic.world.WorldProc;
-import model.EditorPlatform;
-import model.state.SpatialSelector;
-import model.tempImport.RendererPlatform;
 import util.geometry.geom2d.Point2D;
 
 public class WorldEditorPresenter {

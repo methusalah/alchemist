@@ -3,15 +3,15 @@ package logic.processor.rendering.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.brainless.alchemist.model.ECS.builtInComponent.Naming;
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 
 import component.assets.Model;
 import logic.processor.SpatialPool;
-import model.ECS.builtInComponent.Naming;
-import model.ECS.pipeline.Processor;
-import model.tempImport.RendererPlatform;
 import util.LogUtil;
 
 public class ModelProc extends Processor {

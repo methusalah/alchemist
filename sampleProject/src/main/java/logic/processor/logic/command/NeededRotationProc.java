@@ -1,12 +1,12 @@
 package logic.processor.logic.command;
 
+import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.motion.MotionCapacity;
 import component.motion.PlanarNeededRotation;
 import component.motion.PlanarStance;
-import model.ECS.pipeline.Pipeline;
-import model.ECS.pipeline.Processor;
 import util.math.Angle;
 
 public class NeededRotationProc extends Processor {

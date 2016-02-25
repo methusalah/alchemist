@@ -1,13 +1,13 @@
 package logic.processor.rendering;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
+import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.simsilica.es.Entity;
 
 import component.motion.ChasingCamera;
-import model.ECS.pipeline.Processor;
-import model.tempImport.RendererPlatform;
-import model.tempImport.TranslateUtil;
 
 public class CameraPlacingProc extends Processor {
 

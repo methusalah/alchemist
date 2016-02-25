@@ -1,11 +1,11 @@
 package logic.processor.logic;
 
+import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.lifeCycle.LifeTime;
 import component.lifeCycle.ToRemove;
-import model.ECS.pipeline.Pipeline;
-import model.ECS.pipeline.Processor;
 
 public class LifeTimeProc extends Processor{
 

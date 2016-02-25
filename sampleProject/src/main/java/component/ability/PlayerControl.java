@@ -3,9 +3,9 @@ package component.ability;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.brainless.alchemist.model.tempImport.ColorData;
 import com.simsilica.es.EntityComponent;
 
-import model.tempImport.ColorData;
 import util.math.Angle;
 
 public class PlayerControl implements EntityComponent{

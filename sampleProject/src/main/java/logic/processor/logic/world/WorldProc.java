@@ -3,6 +3,10 @@ package logic.processor.logic.world;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.brainless.alchemist.model.ECS.builtInComponent.Naming;
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.state.DataState;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.jme3.app.state.AppStateManager;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityComponent;
@@ -10,10 +14,6 @@ import com.simsilica.es.EntityId;
 
 import component.motion.ChasingCamera;
 import component.motion.PlanarStance;
-import model.ECS.builtInComponent.Naming;
-import model.ECS.pipeline.Processor;
-import model.state.DataState;
-import model.tempImport.RendererPlatform;
 import plugin.infiniteWorld.pager.regionPaging.RegionPager;
 import plugin.infiniteWorld.rendering.TerrainDrawer;
 import plugin.infiniteWorld.world.EntityInstance;

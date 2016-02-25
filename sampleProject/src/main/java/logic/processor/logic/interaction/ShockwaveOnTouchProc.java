@@ -1,5 +1,7 @@
 package logic.processor.logic.interaction;
 
+import com.brainless.alchemist.model.ECS.builtInComponent.Naming;
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
@@ -8,8 +10,6 @@ import component.motion.PlanarStance;
 import component.motion.ShockwaveOnTouch;
 import component.motion.Touching;
 import component.motion.physic.PhysicForce;
-import model.ECS.builtInComponent.Naming;
-import model.ECS.pipeline.Processor;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 

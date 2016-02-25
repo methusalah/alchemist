@@ -1,13 +1,13 @@
 package logic.processor.logic.interaction;
 
+import com.brainless.alchemist.model.ECS.blueprint.BlueprintLibrary;
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
 import component.lifeCycle.SpawnOnDecay;
 import component.lifeCycle.ToRemove;
 import component.motion.PlanarStance;
-import model.ECS.blueprint.BlueprintLibrary;
-import model.ECS.pipeline.Processor;
 
 /**
  * Must be called before ToRemove processor

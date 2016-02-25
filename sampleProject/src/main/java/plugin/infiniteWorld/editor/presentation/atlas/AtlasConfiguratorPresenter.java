@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
+import com.brainless.alchemist.presentation.common.ToggledEnumProperty;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -11,13 +14,11 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import logic.processor.logic.world.WorldProc;
-import model.tempImport.RendererPlatform;
 import plugin.infiniteWorld.editor.presentation.PencilConfiguratorPresenter;
 import plugin.infiniteWorld.world.Region;
 import plugin.infiniteWorld.world.terrain.TerrainTexture;
 import plugin.infiniteWorld.world.terrain.atlas.Atlas;
 import plugin.infiniteWorld.world.terrain.atlas.AtlasLayer;
-import presentation.common.ToggledEnumProperty;
 import util.geometry.geom2d.Point2D;
 
 public class AtlasConfiguratorPresenter extends PencilConfiguratorPresenter {

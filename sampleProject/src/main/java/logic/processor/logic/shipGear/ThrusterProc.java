@@ -1,5 +1,6 @@
 package logic.processor.logic.shipGear;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.motion.PlanarNeededThrust;
@@ -7,7 +8,6 @@ import component.motion.PlanarStance;
 import component.motion.ThrustControl;
 import component.motion.Thruster;
 import logic.commonLogic.Controlling;
-import model.ECS.pipeline.Processor;
 import util.math.AngleUtil;
 import util.math.Fraction;
 

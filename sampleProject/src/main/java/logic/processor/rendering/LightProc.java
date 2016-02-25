@@ -1,5 +1,8 @@
 package logic.processor.rendering;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
+import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.jme3.light.DirectionalLight;
 import com.jme3.light.PointLight;
 import com.jme3.light.SpotLight;
@@ -11,9 +14,6 @@ import component.assets.Lighting;
 import component.motion.PlanarStance;
 import component.motion.SpaceStance;
 import logic.processor.SpatialPool;
-import model.ECS.pipeline.Processor;
-import model.tempImport.RendererPlatform;
-import model.tempImport.TranslateUtil;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
 

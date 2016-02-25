@@ -1,15 +1,15 @@
 package plugin;
 
+import com.brainless.alchemist.model.state.DraggableCameraState;
+import com.brainless.alchemist.view.common.SceneInputListener;
+import com.brainless.alchemist.view.tab.scene.customControl.JmeImageView;
 import com.jme3.app.SimpleApplication;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import model.state.DraggableCameraState;
 import util.geometry.geom2d.Point2D;
-import view.common.SceneInputListener;
-import view.tab.scene.customControl.JmeImageView;
 
 public class TopDownCamInputListener implements SceneInputListener{
 	private final JmeImageView jme;

@@ -1,12 +1,12 @@
 package logic.processor.logic;
 
+import com.brainless.alchemist.model.ECS.builtInComponent.Parenting;
+import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.motion.ChasingCamera;
 import component.motion.PlanarStance;
-import model.ECS.builtInComponent.Parenting;
-import model.ECS.pipeline.Pipeline;
-import model.ECS.pipeline.Processor;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 

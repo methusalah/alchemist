@@ -1,13 +1,13 @@
 package logic.processor.rendering.particle;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.jme3.effect.ParticleEmitter;
 import com.simsilica.es.Entity;
 
 import component.assets.ParticleCaster;
 import component.motion.PlanarStance;
 import logic.processor.SpatialPool;
-import model.ECS.pipeline.Processor;
-import model.tempImport.TranslateUtil;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 

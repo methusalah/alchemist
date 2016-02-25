@@ -1,13 +1,13 @@
 package logic.processor.logic.interaction;
 
+import com.brainless.alchemist.model.ECS.blueprint.BlueprintLibrary;
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
 import component.lifeCycle.SpawnOnTouch;
 import component.motion.PlanarStance;
 import component.motion.Touching;
-import model.ECS.blueprint.BlueprintLibrary;
-import model.ECS.pipeline.Processor;
 
 public class SpawnOnTouchProc extends Processor {
 

@@ -3,14 +3,14 @@ package plugin.infiniteWorld.editor.presentation;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.brainless.alchemist.model.ECS.blueprint.Blueprint;
+import com.brainless.alchemist.model.ECS.blueprint.BlueprintLibrary;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.simsilica.es.EntityComponent;
 
 import component.motion.PlanarStance;
 import javafx.collections.FXCollections;
 import logic.processor.logic.world.WorldProc;
-import model.ECS.blueprint.Blueprint;
-import model.ECS.blueprint.BlueprintLibrary;
-import model.tempImport.RendererPlatform;
 import plugin.infiniteWorld.editor.view.population.PopulationConfigurator;
 import plugin.infiniteWorld.world.EntityInstance;
 import util.geometry.geom3d.Point3D;

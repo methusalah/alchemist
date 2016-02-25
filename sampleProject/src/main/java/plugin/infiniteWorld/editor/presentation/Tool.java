@@ -1,6 +1,6 @@
 package plugin.infiniteWorld.editor.presentation;
 
-import model.state.SceneSelectorState;
+import com.brainless.alchemist.model.state.SceneSelectorState;
 
 public abstract class Tool {
 

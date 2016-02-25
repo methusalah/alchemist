@@ -1,9 +1,8 @@
 package component.assets;
 
+import com.brainless.alchemist.model.tempImport.ColorData;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simsilica.es.EntityComponent;
-
-import model.tempImport.ColorData;
 
 public class ParticleCaster implements EntityComponent{
 	public static enum Facing {

@@ -1,13 +1,13 @@
 package logic.processor.logic.ability;
 
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.ability.Ability;
 import component.ability.AbilityTrigger;
 import component.ability.AbilityTriggerControl;
 import logic.commonLogic.Controlling;
-import model.ECS.pipeline.Processor;
 
 public class AbilityProc extends Processor {
 

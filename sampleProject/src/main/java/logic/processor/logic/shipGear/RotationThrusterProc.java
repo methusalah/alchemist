@@ -1,12 +1,12 @@
 package logic.processor.logic.shipGear;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.motion.PlanarNeededRotation;
 import component.motion.RotationThruster;
 import component.motion.ThrustControl;
 import logic.commonLogic.Controlling;
-import model.ECS.pipeline.Processor;
 import util.math.Fraction;
 
 public class RotationThrusterProc extends Processor {

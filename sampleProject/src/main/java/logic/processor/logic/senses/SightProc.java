@@ -3,12 +3,12 @@ package logic.processor.logic.senses;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
 import component.ability.Sighting;
 import component.motion.PlanarStance;
-import model.ECS.pipeline.Processor;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 

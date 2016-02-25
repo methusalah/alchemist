@@ -3,6 +3,11 @@ package logic.processor.rendering.ui;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.brainless.alchemist.model.ECS.builtInComponent.Naming;
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
+import com.brainless.alchemist.model.tempImport.TranslateUtil;
+import com.brainless.alchemist.view.MaterialManager;
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
@@ -12,12 +17,7 @@ import com.simsilica.es.Entity;
 
 import component.motion.physic.EdgedCollisionShape;
 import logic.processor.SpatialPool;
-import model.ECS.builtInComponent.Naming;
-import model.ECS.pipeline.Processor;
-import model.tempImport.RendererPlatform;
-import model.tempImport.TranslateUtil;
 import util.geometry.geom2d.Segment2D;
-import view.MaterialManager;
 
 public class EdgeCollisionShapeDrawingProc extends Processor {
 	Map<String, Spatial> modelPrototypes = new HashMap<>();

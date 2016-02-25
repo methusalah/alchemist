@@ -1,9 +1,9 @@
 package logic.processor.logic.ability;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.ability.AbilityTrigger;
-import model.ECS.pipeline.Processor;
 
 public class AbilityTriggerResetProc extends Processor {
 

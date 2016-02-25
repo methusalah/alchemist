@@ -1,10 +1,10 @@
 package logic.processor.logic.shipGear;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.combat.resistance.Attrition;
 import component.lifeCycle.ToRemove;
-import model.ECS.pipeline.Processor;
 
 public class AttritionProc extends Processor {
 

@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.brainless.alchemist.model.state.DataState;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.jme3.scene.Node;
 
 import logic.processor.logic.world.WorldProc;
-import model.state.DataState;
-import model.tempImport.RendererPlatform;
 import plugin.infiniteWorld.pager.builder.BuilderState;
 import plugin.infiniteWorld.rendering.TerrainDrawer;
 import plugin.infiniteWorld.world.Region;

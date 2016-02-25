@@ -1,5 +1,7 @@
 package logic.processor.rendering.model;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
@@ -8,8 +10,6 @@ import com.simsilica.es.Entity;
 import component.assets.Model;
 import component.motion.PlanarStance;
 import logic.processor.SpatialPool;
-import model.ECS.pipeline.Processor;
-import model.tempImport.TranslateUtil;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
 

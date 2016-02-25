@@ -2,6 +2,8 @@ package logic.processor.logic.interaction.damage;
 
 import java.util.ArrayList;
 
+import com.brainless.alchemist.model.ECS.builtInComponent.Naming;
+import com.brainless.alchemist.model.tempImport.ColorData;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
@@ -11,8 +13,6 @@ import component.lifeCycle.LifeTime;
 import component.motion.PlanarStance;
 import component.motion.PlanarVelocityToApply;
 import component.motion.physic.Physic;
-import model.ECS.builtInComponent.Naming;
-import model.tempImport.ColorData;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 import util.math.Fraction;

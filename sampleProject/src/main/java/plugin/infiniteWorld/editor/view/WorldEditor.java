@@ -1,5 +1,8 @@
 package plugin.infiniteWorld.editor.view;
 
+import com.brainless.alchemist.view.ViewPlatform;
+import com.brainless.alchemist.view.util.ViewLoader;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -9,8 +12,6 @@ import plugin.infiniteWorld.editor.presentation.WorldTool;
 import plugin.infiniteWorld.editor.view.atlas.AtlasConfigurator;
 import plugin.infiniteWorld.editor.view.heightmap.HeightmapConfigurator;
 import plugin.infiniteWorld.editor.view.population.PopulationConfigurator;
-import view.ViewPlatform;
-import view.util.ViewLoader;
 
 public class WorldEditor extends BorderPane{
 	private final Tab container;

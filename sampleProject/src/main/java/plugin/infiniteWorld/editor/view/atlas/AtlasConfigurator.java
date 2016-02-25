@@ -2,6 +2,8 @@ package plugin.infiniteWorld.editor.view.atlas;
 
 import java.util.Optional;
 
+import com.brainless.alchemist.view.util.ViewLoader;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -19,7 +21,6 @@ import plugin.infiniteWorld.editor.presentation.atlas.AtlasConfiguratorPresenter
 import plugin.infiniteWorld.editor.view.Toolconfigurator;
 import plugin.infiniteWorld.editor.view.pencil.PencilConfigurator;
 import plugin.infiniteWorld.world.terrain.TerrainTexture;
-import view.util.ViewLoader;
 
 public class AtlasConfigurator extends VBox implements Toolconfigurator, AtlasConfiguratorViewer {
 	private final AtlasConfiguratorPresenter presenter;

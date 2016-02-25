@@ -1,12 +1,12 @@
 package logic.processor.logic.motion.physic;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.motion.PlanarStance;
 import component.motion.PlanarVelocityToApply;
 import component.motion.physic.Physic;
 import component.motion.physic.PhysicForce;
-import model.ECS.pipeline.Processor;
 import util.geometry.geom2d.Point2D;
 
 public class PhysicForceProc extends Processor {

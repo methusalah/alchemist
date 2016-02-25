@@ -3,12 +3,12 @@ package logic.processor.logic.motion.physic.collisionDetection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.motion.PlanarStance;
 import component.motion.physic.EdgedCollisionShape;
 import component.motion.physic.Physic;
-import model.ECS.pipeline.Processor;
 import util.geometry.geom2d.Point2D;
 
 public class EdgeEdgeCollisionProc extends Processor {

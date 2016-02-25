@@ -1,12 +1,12 @@
 package logic.processor.logic.command;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import command.CommandPlatform;
 import component.ability.PlayerControl;
 import component.motion.PlanarNeededRotation;
 import component.motion.PlanarStance;
-import model.ECS.pipeline.Processor;
 import util.geometry.geom2d.Point2D;
 import util.math.Angle;
 import util.math.AngleUtil;

@@ -5,12 +5,12 @@ package plugin.infiniteWorld.rendering;
 
 import java.util.List;
 
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.jme3.material.Material;
 import com.jme3.texture.Image;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
 
-import model.tempImport.RendererPlatform;
 import plugin.infiniteWorld.world.terrain.TerrainTexture;
 import plugin.infiniteWorld.world.terrain.atlas.Atlas;
 import util.LogUtil;

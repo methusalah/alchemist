@@ -1,9 +1,10 @@
 package logic.processor.rendering;
 
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.state.SceneSelectorState;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
+
 import command.CommandPlatform;
-import model.ECS.pipeline.Processor;
-import model.state.SceneSelectorState;
-import model.tempImport.RendererPlatform;
 
 public class MouseTargetingProc extends Processor {
 

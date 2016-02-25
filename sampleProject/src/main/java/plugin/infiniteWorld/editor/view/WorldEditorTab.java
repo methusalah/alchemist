@@ -1,6 +1,6 @@
 package plugin.infiniteWorld.editor.view;
 
-import view.control.OverviewTab;
+import com.brainless.alchemist.view.control.OverviewTab;
 
 public class WorldEditorTab extends OverviewTab {
 

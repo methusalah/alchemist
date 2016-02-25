@@ -2,6 +2,7 @@ package plugin.infiniteWorld.rendering;
 
 import java.util.List;
 
+import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Geometry;
@@ -9,7 +10,6 @@ import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 
 import logic.processor.SpatialPool;
-import model.tempImport.TranslateUtil;
 import plugin.infiniteWorld.world.terrain.Terrain;
 import plugin.infiniteWorld.world.terrain.heightmap.Parcel;
 import util.geometry.geom2d.Point2D;

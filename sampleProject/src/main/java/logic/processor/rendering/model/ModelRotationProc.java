@@ -1,11 +1,11 @@
 package logic.processor.rendering.model;
 
+import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
+import com.brainless.alchemist.model.ECS.pipeline.Processor;
 import com.simsilica.es.Entity;
 
 import component.assets.Model;
 import component.assets.ModelRotation;
-import model.ECS.pipeline.Pipeline;
-import model.ECS.pipeline.Processor;
 import util.math.Angle;
 import util.math.AngleUtil;
 

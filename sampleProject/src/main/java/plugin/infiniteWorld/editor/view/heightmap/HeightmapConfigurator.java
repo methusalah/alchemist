@@ -1,5 +1,7 @@
 package plugin.infiniteWorld.editor.view.heightmap;
 
+import com.brainless.alchemist.view.util.ViewLoader;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
@@ -8,7 +10,6 @@ import plugin.infiniteWorld.editor.presentation.Tool;
 import plugin.infiniteWorld.editor.presentation.HeightmapConfiguratorPresenter.Operation;
 import plugin.infiniteWorld.editor.view.Toolconfigurator;
 import plugin.infiniteWorld.editor.view.pencil.PencilConfigurator;
-import view.util.ViewLoader;
 
 public class HeightmapConfigurator extends VBox implements Toolconfigurator {
 
