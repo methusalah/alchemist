@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import ECS.processor.logic.world.WorldProc;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import logic.processor.logic.world.WorldProc;
 import model.tempImport.RendererPlatform;
 import plugin.infiniteWorld.editor.presentation.PencilConfiguratorPresenter;
 import plugin.infiniteWorld.world.Region;

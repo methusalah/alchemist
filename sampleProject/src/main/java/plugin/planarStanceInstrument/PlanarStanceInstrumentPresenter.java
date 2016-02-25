@@ -2,7 +2,7 @@ package plugin.planarStanceInstrument;
 
 import com.simsilica.es.EntityId;
 
-import ECS.component.motion.PlanarStance;
+import component.motion.PlanarStance;
 import model.EditorPlatform;
 import model.state.SpatialSelector;
 import presentation.common.EntityNode;

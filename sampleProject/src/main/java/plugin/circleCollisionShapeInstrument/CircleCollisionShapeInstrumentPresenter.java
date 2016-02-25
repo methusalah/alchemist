@@ -2,8 +2,8 @@ package plugin.circleCollisionShapeInstrument;
 
 import com.simsilica.es.EntityId;
 
-import ECS.component.motion.PlanarStance;
-import ECS.component.motion.physic.CircleCollisionShape;
+import component.motion.PlanarStance;
+import component.motion.physic.CircleCollisionShape;
 import model.EditorPlatform;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;

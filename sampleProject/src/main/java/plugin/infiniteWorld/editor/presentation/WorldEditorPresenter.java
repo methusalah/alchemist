@@ -2,7 +2,7 @@ package plugin.infiniteWorld.editor.presentation;
 
 import com.jme3.scene.Node;
 
-import ECS.processor.logic.world.WorldProc;
+import logic.processor.logic.world.WorldProc;
 import model.EditorPlatform;
 import model.state.SpatialSelector;
 import model.tempImport.RendererPlatform;

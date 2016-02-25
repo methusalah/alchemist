@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.simsilica.es.EntityComponent;
 
-import ECS.component.motion.PlanarStance;
-import ECS.processor.logic.world.WorldProc;
+import component.motion.PlanarStance;
 import javafx.collections.FXCollections;
+import logic.processor.logic.world.WorldProc;
 import model.ECS.blueprint.Blueprint;
 import model.ECS.blueprint.BlueprintLibrary;
 import model.tempImport.RendererPlatform;

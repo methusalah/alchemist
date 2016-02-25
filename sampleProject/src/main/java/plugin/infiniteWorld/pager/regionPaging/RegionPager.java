@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.jme3.scene.Node;
 
-import ECS.processor.logic.world.WorldProc;
+import logic.processor.logic.world.WorldProc;
 import model.state.DataState;
 import model.tempImport.RendererPlatform;
 import plugin.infiniteWorld.pager.builder.BuilderState;

@@ -3,7 +3,7 @@ package plugin.infiniteWorld.editor.presentation;
 import java.util.ArrayList;
 import java.util.List;
 
-import ECS.processor.logic.world.WorldProc;
+import logic.processor.logic.world.WorldProc;
 import model.EditorPlatform;
 import model.tempImport.RendererPlatform;
 import plugin.infiniteWorld.world.Region;

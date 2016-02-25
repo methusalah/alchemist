@@ -25,9 +25,9 @@ import util.math.Fraction;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
-import ECS.component.motion.PlanarStance;
-import ECS.component.motion.physic.EdgedCollisionShape;
-import ECS.component.motion.physic.Physic;
+import component.motion.PlanarStance;
+import component.motion.physic.EdgedCollisionShape;
+import component.motion.physic.Physic;
 
 public class RegionCreator implements BuilderReference {
 

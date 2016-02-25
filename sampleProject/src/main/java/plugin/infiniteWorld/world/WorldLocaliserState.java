@@ -2,7 +2,7 @@ package plugin.infiniteWorld.world;
 
 import com.jme3.app.state.AbstractAppState;
 
-import ECS.processor.logic.world.WorldProc;
+import logic.processor.logic.world.WorldProc;
 import model.tempImport.RendererPlatform;
 import model.tempImport.TranslateUtil;
 import util.geometry.geom2d.Point2D;
