@@ -1,6 +1,6 @@
 package com.brainless.alchemist.model.state;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.EntityData;
 
 /**
@@ -9,7 +9,7 @@ import com.simsilica.es.EntityData;
  *
  * @author Eike Foede, roah
  */
-public class DataState extends Processor {
+public class DataState extends BaseProcessor {
 	private final EntityData entityData;
 	
     public DataState(EntityData entityData) {

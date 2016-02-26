@@ -1,7 +1,7 @@
 package logic.processor.logic.ability;
 
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.ability.Ability;
@@ -9,7 +9,7 @@ import component.ability.AbilityTrigger;
 import component.ability.AbilityTriggerControl;
 import logic.commonLogic.Controlling;
 
-public class AbilityProc extends Processor {
+public class AbilityProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

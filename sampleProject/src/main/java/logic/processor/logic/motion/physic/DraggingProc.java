@@ -1,6 +1,6 @@
 package logic.processor.logic.motion.physic;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.motion.PlanarVelocityToApply;
@@ -9,7 +9,7 @@ import component.motion.physic.Physic;
 import util.geometry.geom2d.Point2D;
 import util.math.PrecisionUtil;
 
-public class DraggingProc extends Processor {
+public class DraggingProc extends BaseProcessor {
 	@Override
 	protected void registerSets() {
 		registerDefault(Dragging.class, Physic.class, PlanarVelocityToApply.class);

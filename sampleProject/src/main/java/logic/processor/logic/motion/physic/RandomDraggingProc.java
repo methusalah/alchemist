@@ -1,13 +1,13 @@
 package logic.processor.logic.motion.physic;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.motion.physic.Dragging;
 import component.motion.physic.RandomDragging;
 import util.math.RandomUtil;
 
-public class RandomDraggingProc extends Processor {
+public class RandomDraggingProc extends BaseProcessor {
 	@Override
 	protected void registerSets() {
 		registerDefault(RandomDragging.class);

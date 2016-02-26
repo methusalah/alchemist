@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.brainless.alchemist.model.ECS.builtInComponent.Naming;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.brainless.alchemist.view.MaterialManager;
@@ -19,7 +19,7 @@ import component.motion.physic.EdgedCollisionShape;
 import logic.processor.SpatialPool;
 import util.geometry.geom2d.Segment2D;
 
-public class EdgeCollisionShapeDrawingProc extends Processor {
+public class EdgeCollisionShapeDrawingProc extends BaseProcessor {
 	Map<String, Spatial> modelPrototypes = new HashMap<>();
 	
 	@Override

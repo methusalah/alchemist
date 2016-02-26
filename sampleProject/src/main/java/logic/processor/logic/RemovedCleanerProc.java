@@ -1,11 +1,11 @@
 package logic.processor.logic;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.lifeCycle.Removed;
 
-public class RemovedCleanerProc extends Processor {
+public class RemovedCleanerProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

@@ -3,7 +3,7 @@ package logic.processor.rendering.particle;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.jme3.effect.ParticleEmitter;
@@ -18,7 +18,7 @@ import component.assets.ParticleCaster;
 import logic.processor.SpatialPool;
 import util.LogUtil;
 
-public class ParticleProc extends Processor {
+public class ParticleProc extends BaseProcessor {
 	List<ParticleEmitter> toRemove = new ArrayList<ParticleEmitter>(); 
 
 	@Override

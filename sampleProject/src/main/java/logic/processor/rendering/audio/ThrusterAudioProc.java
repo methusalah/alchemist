@@ -3,7 +3,7 @@ package logic.processor.rendering.audio;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.jme3.audio.AudioNode;
 import com.simsilica.es.Entity;
@@ -15,7 +15,7 @@ import component.motion.ThrusterControl;
 import logic.commonLogic.Controlling;
 import logic.processor.SpatialPool;
 
-public class ThrusterAudioProc extends Processor {
+public class ThrusterAudioProc extends BaseProcessor {
 	Map<String, AudioNode> sounds = new HashMap<>();
 
 	@Override

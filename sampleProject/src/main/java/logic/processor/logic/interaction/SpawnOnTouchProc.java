@@ -1,7 +1,7 @@
 package logic.processor.logic.interaction;
 
 import com.brainless.alchemist.model.ECS.blueprint.BlueprintLibrary;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
@@ -9,7 +9,7 @@ import component.lifeCycle.SpawnOnTouch;
 import component.motion.PlanarStance;
 import component.motion.Touching;
 
-public class SpawnOnTouchProc extends Processor {
+public class SpawnOnTouchProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

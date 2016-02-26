@@ -1,6 +1,6 @@
 package logic.processor.logic.shipGear;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.motion.PlanarNeededThrust;
@@ -11,7 +11,7 @@ import logic.commonLogic.Controlling;
 import util.math.AngleUtil;
 import util.math.Fraction;
 
-public class ThrusterProc extends Processor {
+public class ThrusterProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

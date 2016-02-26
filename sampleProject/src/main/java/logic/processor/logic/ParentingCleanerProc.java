@@ -1,13 +1,13 @@
 package logic.processor.logic;
 
 import com.brainless.alchemist.model.ECS.builtInComponent.Parenting;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.lifeCycle.Removed;
 import component.lifeCycle.ToRemove;
 
-public class ParentingCleanerProc extends Processor {
+public class ParentingCleanerProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

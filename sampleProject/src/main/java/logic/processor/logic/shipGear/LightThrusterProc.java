@@ -1,12 +1,12 @@
 package logic.processor.logic.shipGear;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.assets.Lighting;
 import component.motion.Thruster;
 
-public class LightThrusterProc extends Processor {
+public class LightThrusterProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

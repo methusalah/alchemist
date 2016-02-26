@@ -1,7 +1,7 @@
 package logic.processor.logic.interaction.damage;
 
 import com.brainless.alchemist.model.ECS.builtInComponent.Naming;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
@@ -13,7 +13,7 @@ import component.lifeCycle.LifeTime;
 import component.motion.Touching;
 import util.math.RandomUtil;
 
-public class DamageOnTouchProc extends Processor {
+public class DamageOnTouchProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

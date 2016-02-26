@@ -1,13 +1,13 @@
 package logic.processor.logic.combat.resistance;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.combat.resistance.Attrition;
 import component.combat.resistance.SpawnOnShieldDepleted;
 import logic.commonLogic.Spawner;
 
-public class SpawnOnShieldDepletedProc extends Processor {
+public class SpawnOnShieldDepletedProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

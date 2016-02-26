@@ -8,7 +8,7 @@ import java.util.HashMap;
 import com.badlogic.gdx.ai.btree.BehaviorTree;
 import com.badlogic.gdx.ai.btree.utils.BehaviorTreeParser;
 import com.badlogic.gdx.utils.StreamUtils;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
@@ -16,7 +16,7 @@ import component.ability.Sighting;
 import component.motion.PlanarStance;
 import logic.AI.blackboard.ShipBlackboard;
 
-public class BehaviorTreeProc extends Processor {
+public class BehaviorTreeProc extends BaseProcessor {
 	HashMap<EntityId, BehaviorTree<ShipBlackboard>> bTrees = new HashMap<>();
 
 	@Override

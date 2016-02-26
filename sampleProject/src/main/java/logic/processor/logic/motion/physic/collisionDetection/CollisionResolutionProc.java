@@ -1,7 +1,7 @@
 package logic.processor.logic.motion.physic.collisionDetection;
 
 import com.brainless.alchemist.model.ECS.builtInComponent.Naming;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
@@ -13,7 +13,7 @@ import component.motion.physic.Collisioning;
 import component.motion.physic.Physic;
 import util.geometry.geom2d.Point2D;
 
-public class CollisionResolutionProc extends Processor {
+public class CollisionResolutionProc extends BaseProcessor {
 	
 	@Override
 	protected void registerSets() {

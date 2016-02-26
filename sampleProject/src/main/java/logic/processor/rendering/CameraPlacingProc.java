@@ -1,6 +1,6 @@
 package logic.processor.rendering;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.jme3.math.Vector3f;
@@ -9,7 +9,7 @@ import com.simsilica.es.Entity;
 
 import component.motion.ChasingCamera;
 
-public class CameraPlacingProc extends Processor {
+public class CameraPlacingProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

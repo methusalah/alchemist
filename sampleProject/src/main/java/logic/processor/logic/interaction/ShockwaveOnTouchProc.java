@@ -1,7 +1,7 @@
 package logic.processor.logic.interaction;
 
 import com.brainless.alchemist.model.ECS.builtInComponent.Naming;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
@@ -13,7 +13,7 @@ import component.motion.physic.PhysicForce;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 
-public class ShockwaveOnTouchProc extends Processor{
+public class ShockwaveOnTouchProc extends BaseProcessor{
 	@Override
 	protected void registerSets() {
 		registerDefault(ShockwaveOnTouch.class, Touching.class);

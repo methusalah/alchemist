@@ -1,6 +1,6 @@
 package logic.processor.logic.holder;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.motion.PlanarStance;
@@ -12,7 +12,7 @@ import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 import util.math.AngleUtil;
 
-public class PlanarHoldingProc extends Processor {
+public class PlanarHoldingProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

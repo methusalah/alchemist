@@ -1,13 +1,13 @@
 package logic.processor.logic;
 
 import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.lifeCycle.LifeTime;
 import component.lifeCycle.ToRemove;
 
-public class LifeTimeProc extends Processor{
+public class LifeTimeProc extends BaseProcessor{
 
 	@Override
 	protected void registerSets() {

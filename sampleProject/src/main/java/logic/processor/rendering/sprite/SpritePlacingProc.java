@@ -1,6 +1,6 @@
 package logic.processor.rendering.sprite;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -12,7 +12,7 @@ import component.motion.PlanarStance;
 import logic.processor.SpatialPool;
 import util.geometry.geom3d.Point3D;
 
-public class SpritePlacingProc extends Processor {
+public class SpritePlacingProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

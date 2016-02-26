@@ -1,6 +1,6 @@
 package logic.processor.rendering;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.jme3.light.DirectionalLight;
@@ -17,7 +17,7 @@ import logic.processor.SpatialPool;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
 
-public class LightProc extends Processor {
+public class LightProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

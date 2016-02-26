@@ -1,7 +1,7 @@
 package logic.processor.logic.interaction.damage;
 
 import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.combat.damage.DamageOverTime;
@@ -11,7 +11,7 @@ import component.combat.resistance.Shield;
 import component.lifeCycle.LifeTime;
 import component.lifeCycle.ToRemove;
 
-public class DamagingOverTimeProc extends Processor {
+public class DamagingOverTimeProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

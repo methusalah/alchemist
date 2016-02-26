@@ -3,7 +3,7 @@ package logic.processor.rendering.ui;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.jme3.font.BitmapFont;
@@ -14,7 +14,7 @@ import com.simsilica.es.EntityId;
 import component.assets.FloatingLabel;
 import component.motion.PlanarStance;
 
-public class FloatingLabelProc extends Processor {
+public class FloatingLabelProc extends BaseProcessor {
 	private BitmapFont font;
 	
 	private Map<EntityId, BitmapText> bitmaps = new HashMap<>();

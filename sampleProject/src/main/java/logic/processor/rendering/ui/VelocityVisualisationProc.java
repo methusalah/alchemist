@@ -1,6 +1,6 @@
 package logic.processor.rendering.ui;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.brainless.alchemist.view.MaterialManager;
@@ -13,7 +13,7 @@ import component.motion.PlanarStance;
 import logic.processor.SpatialPool;
 import util.geometry.geom2d.Point2D;
 
-public class VelocityVisualisationProc extends Processor {
+public class VelocityVisualisationProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

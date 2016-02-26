@@ -1,6 +1,6 @@
 package logic.processor.rendering.model;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -13,7 +13,7 @@ import logic.processor.SpatialPool;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
 
-public class ModelPlacingProc extends Processor {
+public class ModelPlacingProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

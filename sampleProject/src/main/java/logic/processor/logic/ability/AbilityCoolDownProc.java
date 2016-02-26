@@ -1,13 +1,13 @@
 package logic.processor.logic.ability;
 
 import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.ability.Ability;
 import component.ability.Cooldown;
 
-public class AbilityCoolDownProc extends Processor {
+public class AbilityCoolDownProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.brainless.alchemist.model.ECS.builtInComponent.Naming;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Spatial;
@@ -14,7 +14,7 @@ import component.assets.Model;
 import logic.processor.SpatialPool;
 import util.LogUtil;
 
-public class ModelProc extends Processor {
+public class ModelProc extends BaseProcessor {
 	Map<String, Spatial> modelPrototypes = new HashMap<>();
 	
 	@Override

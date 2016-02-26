@@ -1,6 +1,6 @@
 package logic.processor.logic.command;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import command.CommandPlatform;
@@ -8,7 +8,7 @@ import component.ability.PlayerControl;
 import component.motion.PlanarNeededThrust;
 import component.motion.PlanarStance;
 
-public class PlayerThrustControlProc extends Processor {
+public class PlayerThrustControlProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

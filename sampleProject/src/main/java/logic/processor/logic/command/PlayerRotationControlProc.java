@@ -1,6 +1,6 @@
 package logic.processor.logic.command;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import command.CommandPlatform;
@@ -11,7 +11,7 @@ import util.geometry.geom2d.Point2D;
 import util.math.Angle;
 import util.math.AngleUtil;
 
-public class PlayerRotationControlProc extends Processor {
+public class PlayerRotationControlProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

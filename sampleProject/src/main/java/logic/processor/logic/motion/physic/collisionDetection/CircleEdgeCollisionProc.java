@@ -2,7 +2,7 @@ package logic.processor.logic.motion.physic.collisionDetection;
 
 import java.util.List;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.motion.PlanarStance;
@@ -14,7 +14,7 @@ import util.geometry.geom2d.Point2D;
 import util.geometry.geom2d.Segment2D;
 import util.math.AngleUtil;
 
-public class CircleEdgeCollisionProc extends Processor {
+public class CircleEdgeCollisionProc extends BaseProcessor {
 	
 	@Override
 	protected void registerSets() {

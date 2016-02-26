@@ -1,14 +1,14 @@
 package logic.processor.logic.ability;
 
 import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.ability.Ability;
 import component.ability.TriggerRepeater;
 import util.math.RandomUtil;
 
-public class TriggerRepeaterProc extends Processor {
+public class TriggerRepeaterProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

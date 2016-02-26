@@ -1,7 +1,7 @@
 package logic.processor.logic.ability;
 
 import com.brainless.alchemist.model.ECS.builtInComponent.Parenting;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.ability.Ability;
@@ -12,7 +12,7 @@ import component.motion.physic.Physic;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 
-public class BoostProc extends Processor {
+public class BoostProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

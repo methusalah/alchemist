@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.jme3.app.state.AppStateManager;
@@ -25,7 +25,7 @@ import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 import util.math.RandomUtil;
 
-public class RagdollProc extends Processor{
+public class RagdollProc extends BaseProcessor{
 	private PhysicsSpace physicsSpace;
 	Map<EntityId, Double> masses = new HashMap<>();
 	Map<EntityId, Point2D> velocities = new HashMap<>();

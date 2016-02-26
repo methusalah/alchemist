@@ -6,7 +6,7 @@ import java.util.List;
 import com.brainless.alchemist.model.ECS.blueprint.Blueprint;
 import com.brainless.alchemist.model.ECS.blueprint.BlueprintLibrary;
 import com.brainless.alchemist.model.ECS.builtInComponent.Parenting;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
@@ -26,7 +26,7 @@ import util.math.Angle;
 import util.math.AngleUtil;
 import util.math.RandomUtil;
 
-public class ProjectileLauncherProc extends Processor {
+public class ProjectileLauncherProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

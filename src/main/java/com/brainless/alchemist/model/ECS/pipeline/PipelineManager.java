@@ -10,8 +10,6 @@ import com.brainless.alchemist.model.state.DataState;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.jme3.app.state.AppStateManager;
 
-import util.LogUtil;
-
 /**
  * The pipeline manager creates, holds and manage life cycle of the application piplines.
  * 

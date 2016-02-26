@@ -1,7 +1,7 @@
 package logic.processor.logic.command;
 
 import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.motion.MotionCapacity;
@@ -9,7 +9,7 @@ import component.motion.PlanarNeededRotation;
 import component.motion.PlanarStance;
 import util.math.Angle;
 
-public class NeededRotationProc extends Processor {
+public class NeededRotationProc extends BaseProcessor {
 	
 	@Override
 	protected void registerSets() {

@@ -1,11 +1,11 @@
 package logic.processor.logic.ability;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.ability.AbilityTrigger;
 
-public class AbilityTriggerResetProc extends Processor {
+public class AbilityTriggerResetProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

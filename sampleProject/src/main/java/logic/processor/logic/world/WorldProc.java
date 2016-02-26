@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.brainless.alchemist.model.ECS.builtInComponent.Naming;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.state.DataState;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.jme3.app.state.AppStateManager;
@@ -22,7 +22,7 @@ import plugin.infiniteWorld.world.RegionLoader;
 import plugin.infiniteWorld.world.terrain.heightmap.HeightMapNode;
 import util.geometry.geom2d.Point2D;
 
-public class WorldProc extends Processor {
+public class WorldProc extends BaseProcessor {
 	
 	private EntityId worldEntity;
 

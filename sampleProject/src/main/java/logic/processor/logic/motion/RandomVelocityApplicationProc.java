@@ -1,6 +1,6 @@
 package logic.processor.logic.motion;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.motion.PlanarVelocityToApply;
@@ -10,7 +10,7 @@ import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 import util.math.RandomUtil;
 
-public class RandomVelocityApplicationProc extends Processor {
+public class RandomVelocityApplicationProc extends BaseProcessor {
 	@Override
 	protected void registerSets() {
 		registerDefault(Physic.class, RandomVelocityToApply.class);

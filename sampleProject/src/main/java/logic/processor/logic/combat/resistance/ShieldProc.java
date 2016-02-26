@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.brainless.alchemist.model.ECS.builtInComponent.Naming;
 import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.tempImport.ColorData;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
@@ -19,7 +19,7 @@ import component.motion.physic.Physic;
 import util.geometry.geom2d.Point2D;
 import util.math.Fraction;
 
-public class ShieldProc extends Processor {
+public class ShieldProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

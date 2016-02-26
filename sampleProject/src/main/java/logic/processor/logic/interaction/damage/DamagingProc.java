@@ -1,6 +1,6 @@
 package logic.processor.logic.interaction.damage;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.combat.damage.DamageCapacity;
@@ -9,7 +9,7 @@ import component.combat.resistance.Attrition;
 import component.combat.resistance.Shield;
 import component.lifeCycle.ToRemove;
 
-public class DamagingProc extends Processor {
+public class DamagingProc extends BaseProcessor {
 	
 	@Override
 	protected void registerSets() {

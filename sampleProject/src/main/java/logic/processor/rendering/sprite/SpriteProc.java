@@ -3,7 +3,7 @@ package logic.processor.rendering.sprite;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.view.MaterialManager;
 import com.jme3.material.RenderState.BlendMode;
@@ -17,7 +17,7 @@ import logic.processor.CenteredQuad;
 import logic.processor.SpatialPool;
 import util.LogUtil;
 
-public class SpriteProc extends Processor {
+public class SpriteProc extends BaseProcessor {
 	Map<String, Spatial> spritePrototypes = new HashMap<>();
 	
 	@Override

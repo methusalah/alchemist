@@ -1,6 +1,6 @@
 package logic.processor.rendering.particle;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.jme3.effect.ParticleEmitter;
 import com.simsilica.es.Entity;
 
@@ -12,7 +12,7 @@ import logic.commonLogic.Controlling;
 import logic.processor.SpatialPool;
 import util.LogUtil;
 
-public class ParticleThrusterProc extends Processor {
+public class ParticleThrusterProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

@@ -1,13 +1,13 @@
 package logic.processor.logic.holder;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.assets.Skeleton;
 import component.motion.BoneHolding;
 import component.motion.SpaceStance;
 
-public class BoneHoldingProc extends Processor {
+public class BoneHoldingProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

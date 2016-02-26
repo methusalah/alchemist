@@ -3,7 +3,7 @@ package logic.processor.logic.senses;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityId;
 
@@ -12,7 +12,7 @@ import component.motion.PlanarStance;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 
-public class SightProc extends Processor {
+public class SightProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

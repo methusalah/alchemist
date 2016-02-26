@@ -1,6 +1,6 @@
 package logic.processor.rendering.particle;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.tempImport.TranslateUtil;
 import com.jme3.effect.ParticleEmitter;
 import com.simsilica.es.Entity;
@@ -11,7 +11,7 @@ import logic.processor.SpatialPool;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 
-public class ParticlePlacingProc extends Processor {
+public class ParticlePlacingProc extends BaseProcessor {
 	
 	@Override
 	protected void registerSets() {

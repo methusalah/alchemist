@@ -1,6 +1,6 @@
 package logic.processor.logic.motion.physic;
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.motion.PlanarStance;
@@ -9,7 +9,7 @@ import component.motion.physic.Physic;
 import component.motion.physic.PhysicForce;
 import util.geometry.geom2d.Point2D;
 
-public class PhysicForceProc extends Processor {
+public class PhysicForceProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

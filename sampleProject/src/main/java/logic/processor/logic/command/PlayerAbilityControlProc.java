@@ -1,14 +1,14 @@
 package logic.processor.logic.command;
 
 
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import command.CommandPlatform;
 import component.ability.AbilityTrigger;
 import component.ability.PlayerControl;
 
-public class PlayerAbilityControlProc extends Processor {
+public class PlayerAbilityControlProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

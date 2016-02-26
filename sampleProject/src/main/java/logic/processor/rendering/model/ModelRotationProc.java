@@ -1,7 +1,7 @@
 package logic.processor.rendering.model;
 
 import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.assets.Model;
@@ -9,7 +9,7 @@ import component.assets.ModelRotation;
 import util.math.Angle;
 import util.math.AngleUtil;
 
-public class ModelRotationProc extends Processor {
+public class ModelRotationProc extends BaseProcessor {
 
 	@Override
 	protected void registerSets() {

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.brainless.alchemist.model.ECS.builtInComponent.Naming;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.jme3.audio.AudioNode;
 import com.simsilica.es.Entity;
@@ -13,7 +13,7 @@ import component.assets.AudioSource;
 import logic.processor.SpatialPool;
 import util.LogUtil;
 
-public class AudioSourceProc extends Processor {
+public class AudioSourceProc extends BaseProcessor {
 	Map<String, AudioNode> soundPrototypes = new HashMap<>();
 
 	@Override

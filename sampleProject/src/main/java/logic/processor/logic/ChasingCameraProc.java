@@ -2,7 +2,7 @@ package logic.processor.logic;
 
 import com.brainless.alchemist.model.ECS.builtInComponent.Parenting;
 import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
-import com.brainless.alchemist.model.ECS.pipeline.Processor;
+import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
 import component.motion.ChasingCamera;
@@ -10,7 +10,7 @@ import component.motion.PlanarStance;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 
-public class ChasingCameraProc extends Processor {
+public class ChasingCameraProc extends BaseProcessor {
 	
 	@Override
 	protected void registerSets() {
