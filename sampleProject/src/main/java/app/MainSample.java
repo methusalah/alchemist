@@ -118,7 +118,7 @@ public class MainSample extends Alchemist {
 		ViewPlatform.getSceneInputManager().addListener(new TopDownCamInputListener(EditorPlatform.getScene()));
 		
 		// adding the playtime listener
-		ViewPlatform.game = new GameInputListener(EditorPlatform.getScene());
+		ViewPlatform.setGameInputListener(new GameInputListener(EditorPlatform.getScene()));
 	}
 	
 	private boolean addRendererSystems(){

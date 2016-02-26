@@ -24,9 +24,17 @@ public class ViewPlatform {
 
 	public static TabPane hierarchyTabPane, inspectorTabPane, resourcesTabPane, sceneViewTabPane;
 	public static SceneInputListener camera;
-	public static SceneInputListener game = null;
+	private static SceneInputListener gameInputListener = null;
 
 	public static SceneInputManager getSceneInputManager() {
 		return sceneInputManager;
+	}
+
+	public static SceneInputListener getGameInputListener() {
+		return gameInputListener;
+	}
+
+	public static void setGameInputListener(SceneInputListener gameInputListener) {
+		ViewPlatform.gameInputListener = gameInputListener;
 	}
 }

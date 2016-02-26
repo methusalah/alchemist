@@ -47,8 +47,8 @@ public class ActionBar extends BorderPane implements ActionBarViewer {
 	public void setGameInputListener() {
 		savedListeners.addAll(ViewPlatform.getSceneInputManager().getListeners());
 		ViewPlatform.getSceneInputManager().getListeners().clear();
-		if(ViewPlatform.game != null)
-			ViewPlatform.getSceneInputManager().addListener(ViewPlatform.game);
+		if(ViewPlatform.getGameInputListener() != null)
+			ViewPlatform.getSceneInputManager().addListener(ViewPlatform.getGameInputListener());
 	}
 
 	@Override
