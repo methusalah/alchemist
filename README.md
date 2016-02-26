@@ -1,22 +1,9 @@
-# alchemist
+![alchemist](http://s22.postimg.org/441jt21o1/f87cf6c3d0cf4be8f8c9b2a98f9338058ca85700.png)
 
-[![Build Status](https://travis-ci.org/brainless-studios/alchemist.svg?branch=master)](https://travis-ci.org/brainless-studios/alchemist)
+#Alchemist, an Entity Editor
 
+Alchemist is a game programming interface that allow video game mockup and creation. It entirely coded in Java 8, JavaFX, powered by the jMonkeyEngine and Zay-ES framework. It is open-source and free to use for an commercial or not project.
 
-#use it
+Alchemist is currently in alpha test and under heavy developpement. Help is wanted ! We are happy to welcome advanturous java coders that would like to create their game with it, as well as contributors.
 
-* add to build.gradle:
-
-				repositories {
-					...	
-					maven { url "https://jitpack.io" }
-					...
-				}
-			
-				dependencies {
-					...
-					compile 'com.github.brainless-studios:alchemist:-SNAPSHOT'
-					...
-				}
-	
-	
+Please consult the wiki and issue pages for more information, and don't hesitate to contact Brainless-studios at brainless.studios.contact@gmail.com if you have any question.
