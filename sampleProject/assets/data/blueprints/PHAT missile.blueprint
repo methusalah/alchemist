@@ -1,7 +1,7 @@
 {
   "name" : "PHAT missile",
   "components" : [ {
-    "class" : "model.ECS.builtInComponent.Naming",
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
     "name" : "PHAT missile"
   }, {
     "class" : "component.motion.PlanarStance",
@@ -83,7 +83,7 @@
   "children" : [ {
     "name" : "main thruster",
     "components" : [ {
-      "class" : "model.ECS.builtInComponent.Naming",
+      "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
       "name" : "main thruster"
     }, {
       "class" : "component.motion.PlanarStance",
@@ -150,7 +150,7 @@
     "children" : [ {
       "name" : "trail particle",
       "components" : [ {
-        "class" : "model.ECS.builtInComponent.Naming",
+        "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
         "name" : "trail particle"
       }, {
         "class" : "component.assets.ParticleCaster",
@@ -218,7 +218,7 @@
     }, {
       "name" : "main particle",
       "components" : [ {
-        "class" : "model.ECS.builtInComponent.Naming",
+        "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
         "name" : "main particle"
       }, {
         "class" : "component.assets.ParticleCaster",

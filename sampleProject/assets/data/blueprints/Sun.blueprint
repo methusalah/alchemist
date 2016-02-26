@@ -1,7 +1,7 @@
 {
   "name" : "Sun",
   "components" : [ {
-    "class" : "model.ECS.builtInComponent.Naming",
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
     "name" : "Sun"
   }, {
     "class" : "component.assets.Lighting",

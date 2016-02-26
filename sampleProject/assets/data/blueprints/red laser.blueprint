@@ -1,7 +1,7 @@
 {
   "name" : "red laser",
   "components" : [ {
-    "class" : "model.ECS.builtInComponent.Naming",
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
     "name" : "red laser"
   }, {
     "class" : "component.motion.PlanarStance",

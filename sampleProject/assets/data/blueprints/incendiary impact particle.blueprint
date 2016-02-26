@@ -1,7 +1,7 @@
 {
   "name" : "incendiary impact particle",
   "components" : [ {
-    "class" : "model.ECS.builtInComponent.Naming",
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
     "name" : "incendiary impact particle"
   }, {
     "class" : "component.motion.PlanarStance",

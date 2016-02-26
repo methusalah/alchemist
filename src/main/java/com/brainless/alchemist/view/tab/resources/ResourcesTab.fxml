@@ -4,10 +4,10 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import view.tab.resources.*?>
+<?import com.brainless.alchemist.view.tab.resources.Resources?>
 
 <fx:root text="Resources" type="Tab" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
   <content>
-    <Resources  />
+    <Resources   />
   </content>
 </fx:root>

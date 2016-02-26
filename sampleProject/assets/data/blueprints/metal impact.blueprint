@@ -1,7 +1,7 @@
 {
   "name" : "metal impact",
   "components" : [ {
-    "class" : "model.ECS.builtInComponent.Naming",
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
     "name" : "metal impact"
   }, {
     "class" : "component.motion.PlanarStance",

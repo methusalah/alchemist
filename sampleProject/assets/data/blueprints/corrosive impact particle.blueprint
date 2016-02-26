@@ -1,7 +1,7 @@
 {
   "name" : "corrosive impact particle",
   "components" : [ {
-    "class" : "model.ECS.builtInComponent.Naming",
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
     "name" : "corrosive impact particle"
   }, {
     "class" : "component.motion.PlanarStance",

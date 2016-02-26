@@ -1,6 +1,6 @@
 {
   "comps" : [ {
-    "class" : "model.ECS.builtInComponent.Naming",
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
     "name" : "player ship"
   }, {
     "class" : "component.ability.PlayerControl"
@@ -68,7 +68,7 @@
   } ],
   "children" : [ {
     "comps" : [ {
-      "class" : "model.ECS.builtInComponent.Naming",
+      "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
       "name" : "weapon left"
     }, {
       "class" : "component.relation.PlanarHolding",
@@ -106,7 +106,7 @@
     "children" : [ ]
   }, {
     "comps" : [ {
-      "class" : "model.ECS.builtInComponent.Naming",
+      "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
       "name" : "weapon right"
     }, {
       "class" : "component.relation.PlanarHolding",
@@ -144,7 +144,7 @@
     "children" : [ ]
   }, {
     "comps" : [ {
-      "class" : "model.ECS.builtInComponent.Naming",
+      "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
       "name" : "camera"
     }, {
       "class" : "component.motion.PlanarStance",

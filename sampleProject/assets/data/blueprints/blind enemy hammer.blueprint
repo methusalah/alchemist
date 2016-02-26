@@ -46,7 +46,7 @@
       "y" : 0.0
     }
   }, {
-    "class" : "model.ECS.builtInComponent.Naming",
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
     "name" : "blind enemy hammer"
   }, {
     "class" : "component.ability.AbilityTrigger",
@@ -92,13 +92,13 @@
   "children" : [ {
     "name" : "thrusters",
     "components" : [ {
-      "class" : "model.ECS.builtInComponent.Naming",
+      "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
       "name" : "thrusters"
     } ],
     "children" : [ {
       "name" : "main thruster",
       "components" : [ {
-        "class" : "model.ECS.builtInComponent.Naming",
+        "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
         "name" : "main thruster"
       }, {
         "class" : "component.motion.PlanarStance",
@@ -147,7 +147,7 @@
       "children" : [ {
         "name" : "main particle",
         "components" : [ {
-          "class" : "model.ECS.builtInComponent.Naming",
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
           "class" : "component.motion.ThrusterControl",
@@ -215,7 +215,7 @@
       }, {
         "name" : "debris particle",
         "components" : [ {
-          "class" : "model.ECS.builtInComponent.Naming",
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
           "name" : "debris particle"
         }, {
           "class" : "component.motion.ThrusterControl",
@@ -283,14 +283,14 @@
       }, {
         "name" : "sound",
         "components" : [ {
-          "class" : "model.ECS.builtInComponent.Naming",
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
           "name" : "sound"
         } ],
         "children" : [ ]
       }, {
         "name" : "trail particle",
         "components" : [ {
-          "class" : "model.ECS.builtInComponent.Naming",
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
           "name" : "trail particle"
         }, {
           "class" : "component.motion.ThrusterControl",
@@ -359,7 +359,7 @@
     }, {
       "name" : "frontal left thruster",
       "components" : [ {
-        "class" : "model.ECS.builtInComponent.Naming",
+        "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
         "name" : "frontal left thruster"
       }, {
         "class" : "component.motion.PlanarStance",
@@ -408,7 +408,7 @@
       "children" : [ {
         "name" : "main particle",
         "components" : [ {
-          "class" : "model.ECS.builtInComponent.Naming",
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
           "class" : "component.motion.ThrusterControl",
@@ -477,7 +477,7 @@
     }, {
       "name" : "frontal right thruster",
       "components" : [ {
-        "class" : "model.ECS.builtInComponent.Naming",
+        "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
         "name" : "frontal right thruster"
       }, {
         "class" : "component.motion.PlanarStance",
@@ -526,7 +526,7 @@
       "children" : [ {
         "name" : "main particle",
         "components" : [ {
-          "class" : "model.ECS.builtInComponent.Naming",
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
           "class" : "component.motion.ThrusterControl",
@@ -595,7 +595,7 @@
     }, {
       "name" : "rear left thruster",
       "components" : [ {
-        "class" : "model.ECS.builtInComponent.Naming",
+        "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
         "name" : "rear left thruster"
       }, {
         "class" : "component.motion.PlanarStance",
@@ -644,7 +644,7 @@
       "children" : [ {
         "name" : "main particle",
         "components" : [ {
-          "class" : "model.ECS.builtInComponent.Naming",
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
           "class" : "component.motion.ThrusterControl",
@@ -713,7 +713,7 @@
     }, {
       "name" : "rear right thruster",
       "components" : [ {
-        "class" : "model.ECS.builtInComponent.Naming",
+        "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
         "name" : "rear right thruster"
       }, {
         "class" : "component.motion.PlanarStance",
@@ -762,7 +762,7 @@
       "children" : [ {
         "name" : "main particle",
         "components" : [ {
-          "class" : "model.ECS.builtInComponent.Naming",
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
           "name" : "main particle"
         }, {
           "class" : "component.motion.ThrusterControl",
@@ -832,7 +832,7 @@
   }, {
     "name" : "burst weapon",
     "components" : [ {
-      "class" : "model.ECS.builtInComponent.Naming",
+      "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
       "name" : "burst weapon"
     }, {
       "class" : "component.ability.Ability",

@@ -1,7 +1,7 @@
 {
   "name" : "shock impact particle",
   "components" : [ {
-    "class" : "model.ECS.builtInComponent.Naming",
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
     "name" : "shock impact particle"
   }, {
     "class" : "component.motion.PlanarStance",

@@ -1,7 +1,7 @@
 {
   "name" : "camera",
   "components" : [ {
-    "class" : "model.ECS.builtInComponent.Naming",
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
     "name" : "camera"
   }, {
     "class" : "component.motion.PlanarStance",
@@ -38,7 +38,7 @@
   "children" : [ {
     "name" : "background",
     "components" : [ {
-      "class" : "model.ECS.builtInComponent.Naming",
+      "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
       "name" : "background"
     }, {
       "class" : "component.motion.PlanarStance",

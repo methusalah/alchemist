@@ -1,7 +1,7 @@
 {
   "name" : "rock03",
   "components" : [ {
-    "class" : "model.ECS.builtInComponent.Naming",
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
     "name" : "rock03"
   }, {
     "class" : "component.assets.Model",
