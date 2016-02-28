@@ -50,3 +50,5 @@ local.properties
 *.dll
 *.so
 **/.nb-gradle/
+
+config.properties
