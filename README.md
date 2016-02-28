@@ -4,6 +4,6 @@
 
 Alchemist is a game programming interface that allow video game mockup and creation. It entirely coded in Java 8, JavaFX, powered by the jMonkeyEngine and Zay-ES framework. It is open-source and free to use for an commercial or not project.
 
-Alchemist is currently in alpha test and under heavy developpement. Help is wanted ! We are happy to welcome advanturous java coders that would like to create their game with it, as well as contributors.
+Alchemist is currently in alpha test and under heavy developpement. Help is wanted ! We are happy to welcome adventurous java coders that would like to create their game with it, as well as contributors.
 
 Please consult the wiki and issue pages for more information, and don't hesitate to contact Brainless-studios at brainless.studios.contact@gmail.com if you have any question.
