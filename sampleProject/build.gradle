@@ -22,22 +22,9 @@ dependencies {
 
 sourceSets {
 	main {
-		java {
-			//srcDir 'src'
-		}
 		resources {
-	        srcDirs = ["src/main/java"]
-			includes = ["**/*.fxml", "**/*.css", "**/*.png"]
-		}
-	}
-
-}
-
-sourceSets {
-	main {
-		resources {
-			srcDir 'assets'
-			includes = ["**/*.fxml", "**/*.css", "**/*.png"]
+			srcDirs = ["src/main/java", "assets"]
+			includes = ["**/*.*"]
 		}
 	}
 
