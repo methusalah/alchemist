@@ -12,12 +12,12 @@ import util.geometry.geom3d.Point3D;
 
 public class SpatialSelector {
 
-	public boolean centered = false;
+	public static boolean centered = false;
 
-	public SpatialSelector() {
+	private SpatialSelector() {
 	}
 
-	public Geometry getGeometry(Node n) {
+	public static Geometry getGeometry(Node n) {
 		Ray r;
 		if (centered) {
 			r = getCameraRay();
@@ -27,7 +27,7 @@ public class SpatialSelector {
 		return PointUtil.getPointedGeometry(n, r);
 	}
 
-	public Point2D getCoord(Node n) {
+	public static Point2D getCoord(Node n) {
 		Ray r;
 		if (centered) {
 			r = getCameraRay();
@@ -37,7 +37,7 @@ public class SpatialSelector {
 		return PointUtil.getPointedCoord(n, r);
 	}
 
-	public Point2D getCenterViewCoord(Node n) {
+	public static Point2D getCenterViewCoord(Node n) {
 		return PointUtil.getPointedCoord(n, getCameraRay());
 	}
 
@@ -71,14 +71,14 @@ public class SpatialSelector {
 		return TranslateUtil.toPoint3D(screenCoord).get2D();
 	}
 
-	private Ray getMouseRay() {
+	private static Ray getMouseRay() {
 		Vector3f origin = RendererPlatform.getCamera().getWorldCoordinates(RendererPlatform.getInputManager().getCursorPosition(), 0f);
 		Vector3f direction = RendererPlatform.getCamera().getWorldCoordinates(RendererPlatform.getInputManager().getCursorPosition(), 1f);
 		direction.subtractLocal(origin).normalizeLocal();
 		return new Ray(origin, direction);
 	}
 
-	private Ray getCameraRay() {
+	private static Ray getCameraRay() {
 		return new Ray(RendererPlatform.getCamera().getLocation(), RendererPlatform.getCamera().getDirection());
 	}
 }
