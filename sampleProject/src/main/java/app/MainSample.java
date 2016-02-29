@@ -57,7 +57,6 @@ import logic.processor.logic.shipGear.AttritionProc;
 import logic.processor.logic.shipGear.LightThrusterProc;
 import logic.processor.logic.shipGear.RotationThrusterProc;
 import logic.processor.logic.shipGear.ThrusterProc;
-import logic.processor.logic.world.WorldProc;
 import logic.processor.rendering.CameraPlacingProc;
 import logic.processor.rendering.LightProc;
 import logic.processor.rendering.MouseTargetingProc;
@@ -80,6 +79,7 @@ import plugin.circleCollisionShapeInstrument.CircleCollisionShapeInstrument;
 import plugin.infiniteWorld.editor.view.WorldEditorTab;
 import plugin.infiniteWorld.pager.regionPaging.RegionPager;
 import plugin.infiniteWorld.world.WorldLocaliserState;
+import plugin.infiniteWorld.world.WorldProc;
 import plugin.planarStanceInstrument.PlanarStanceInstrument;
 import util.geometry.geom2d.Point2D;
 

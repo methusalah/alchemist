@@ -7,8 +7,8 @@ import com.brainless.alchemist.model.EditorPlatform;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.presentation.common.ToggledEnumProperty;
 
-import logic.processor.logic.world.WorldProc;
 import plugin.infiniteWorld.world.Region;
+import plugin.infiniteWorld.world.WorldProc;
 import plugin.infiniteWorld.world.terrain.heightmap.HeightMapNode;
 import util.geometry.geom2d.Point2D;
 import util.math.RandomUtil;

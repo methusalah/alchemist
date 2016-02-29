@@ -1,4 +1,4 @@
-package logic.processor.logic.world;
+package plugin.infiniteWorld.world;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +16,6 @@ import component.motion.ChasingCamera;
 import component.motion.PlanarStance;
 import plugin.infiniteWorld.pager.regionPaging.RegionPager;
 import plugin.infiniteWorld.rendering.TerrainDrawer;
-import plugin.infiniteWorld.world.EntityInstance;
-import plugin.infiniteWorld.world.Region;
-import plugin.infiniteWorld.world.RegionLoader;
 import plugin.infiniteWorld.world.terrain.heightmap.HeightMapNode;
 import util.geometry.geom2d.Point2D;
 
@@ -35,8 +32,10 @@ public class WorldProc extends BaseProcessor {
 
 	@Override
 	protected void onInitialized(AppStateManager stateManager) {
-		worldEntity = stateManager.getState(DataState.class).getEntityData().createEntity();
-		entityData.setComponent(worldEntity, new Naming("World"));
+		if(worldEntity == null){
+			worldEntity = stateManager.getState(DataState.class).getEntityData().createEntity();
+			entityData.setComponent(worldEntity, new Naming("World"));
+		}
 		setCoord(Point2D.ORIGIN);
 	}
 

@@ -5,7 +5,7 @@ import com.brainless.alchemist.model.state.SpatialSelector;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.jme3.scene.Node;
 
-import logic.processor.logic.world.WorldProc;
+import plugin.infiniteWorld.world.WorldProc;
 import util.geometry.geom2d.Point2D;
 
 public class WorldEditorPresenter {

@@ -10,9 +10,9 @@ import com.simsilica.es.EntityComponent;
 
 import component.motion.PlanarStance;
 import javafx.collections.FXCollections;
-import logic.processor.logic.world.WorldProc;
 import plugin.infiniteWorld.editor.view.population.PopulationConfigurator;
 import plugin.infiniteWorld.world.EntityInstance;
+import plugin.infiniteWorld.world.WorldProc;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 

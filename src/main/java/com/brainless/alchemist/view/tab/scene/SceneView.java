@@ -26,7 +26,8 @@ public class SceneView extends Pane implements SceneViewViewer{
 	public SceneView() {
 		presenter = new SceneViewPresenter(this);
 		
-		ViewPlatform.getSceneInputManager().addListener(new BaseCamera());
+		ViewPlatform.camera = new BaseCamera();
+		ViewPlatform.getSceneInputManager().addListener(ViewPlatform.camera);
 
 		ImageView image = new ImageView();
 		setStyle("-fx-background-color: gray");

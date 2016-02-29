@@ -9,12 +9,12 @@ import com.brainless.alchemist.model.state.DataState;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.jme3.scene.Node;
 
-import logic.processor.logic.world.WorldProc;
 import plugin.infiniteWorld.pager.builder.BuilderState;
 import plugin.infiniteWorld.rendering.TerrainDrawer;
 import plugin.infiniteWorld.world.Region;
 import plugin.infiniteWorld.world.RegionId;
 import plugin.infiniteWorld.world.RegionLoader;
+import plugin.infiniteWorld.world.WorldProc;
 import util.geometry.geom2d.Point2D;
 
 public class RegionPager extends BuilderState {
