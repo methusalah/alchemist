@@ -31,10 +31,10 @@ public class Overview extends BorderPane {
 		ViewPlatform.resourcesTabPane = resourcesTabPane;
 		ViewPlatform.sceneViewTabPane = sceneViewTabPane;
 		
+		sceneViewTabPane.getTabs().add(new SceneViewTab());
 		hierarchyTabPane.getTabs().add(new HierarchyTab());
 		inspectorTabPane.getTabs().addAll(new InspectorTab(), new ReportTab());
 		resourcesTabPane.getTabs().add(new ResourcesTab());
-		sceneViewTabPane.getTabs().add(new SceneViewTab());
 	}
 	
 }

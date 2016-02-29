@@ -27,6 +27,10 @@ import javafx.scene.image.ImageView;
  * @author davidB
  */
 public class JmeImageView {
+	
+	public JmeImageView() {
+		findOrCreate();
+	}
 
 	private static SimpleApplication makeJmeApplication(int framerate) {
 		AppSettings settings = new AppSettings(true);
@@ -117,4 +121,10 @@ public class JmeImageView {
 			jmeApp0.stop(waitFor);
 		}
 	}
+
+	public SimpleApplication getJmeApp0() {
+		return jmeApp0;
+	}
+	
+	
 }

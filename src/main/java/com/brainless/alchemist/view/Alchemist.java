@@ -6,6 +6,7 @@ import java.io.IOException;
 import com.brainless.alchemist.model.EditorPlatform;
 import com.brainless.alchemist.model.ECS.data.TraversableEntityData;
 import com.brainless.alchemist.model.ECS.pipeline.PipelineManager;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.view.overview.Overview;
 import com.brainless.alchemist.view.tab.scene.customControl.JmeImageView;
 import com.brainless.alchemist.view.util.UserComponentList;
@@ -27,6 +28,7 @@ public class Alchemist extends Application {
 		
 		// creation of the jme application
 		ViewPlatform.setScene(new JmeImageView());
+		RendererPlatform.setApp(ViewPlatform.getScene().getJmeApp0());
 
 		// View instanciation
 		Overview overview = new Overview();

@@ -8,6 +8,7 @@ import com.brainless.alchemist.model.state.SceneSelectorState;
 import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.presentation.base.AbstractPresenter;
 import com.brainless.alchemist.presentation.base.Viewer;
+import com.brainless.alchemist.view.ViewPlatform;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.post.FilterPostProcessor;
@@ -24,11 +25,11 @@ public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 
 	public SceneViewPresenter(Viewer viewer) {
 		super(viewer);
-		RendererPlatform.enqueue((app) -> createScene(app, EditorPlatform.getEntityData()));
+		ViewPlatform.getScene().enqueue((app) -> createScene(app, EditorPlatform.getEntityData()));
 	}
 	
 	static private boolean createScene(SimpleApplication app, EntityData ed) {
-		RendererPlatform.setApp(app);
+		//RendererPlatform.setApp(app);
 		app.getViewPort().addProcessor(new FilterPostProcessor(app.getAssetManager()));
 		
 		AppStateManager stateManager = app.getStateManager();
