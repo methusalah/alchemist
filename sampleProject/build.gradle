@@ -9,6 +9,7 @@ if (!hasProperty('mainClass')) {
 
 // In this section you declare where to find the dependencies of your project
 repositories {
+	mavenLocal()
 	mavenCentral()
 	maven { url "https://jitpack.io" }
 	maven { url 'http://updates.jmonkeyengine.org/maven' }	
@@ -24,7 +25,7 @@ sourceSets {
 	main {
 		resources {
 			srcDirs = ["src/main/java", "assets"]
-			includes = ["**/*.*"]
+//			includes = ["**/*.*"]
 		}
 	}
 
