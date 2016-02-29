@@ -2,6 +2,8 @@ package com.brainless.alchemist.view.util;
 
 import java.io.IOException;
 
+import org.slf4j.LoggerFactory;
+
 import javafx.fxml.FXMLLoader;
 import util.LogUtil;
 
@@ -36,6 +38,7 @@ public class ViewLoader {
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
+        	LoggerFactory.getLogger(ViewLoader.class).warn("Exception while loading the fxml file associated with " + control.getClass().getSimpleName() + ". Looking for the file " + control.getClass().getResource(control.getClass().getSimpleName() + ".fxml").getPath() + " that doesn't seem to exist.");
             throw new RuntimeException(exception);
         }
 	}

@@ -4,6 +4,7 @@ import com.brainless.alchemist.model.EditorPlatform;
 import com.brainless.alchemist.model.ECS.builtInComponent.Naming;
 import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
 import com.brainless.alchemist.model.ECS.pipeline.PipelineManager;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.jme3.app.SimpleApplication;
 
 import javafx.animation.Animation;
@@ -21,7 +22,7 @@ public class LogicThreadReporter {
 	private final IntegerProperty entityCount = new SimpleIntegerProperty();
 	private final DoubleProperty idelingRatio = new SimpleDoubleProperty();
 	private final Timeline worker = new Timeline(new KeyFrame(Duration.millis(500), e -> {
-		EditorPlatform.getScene().enqueue((app) -> refreshLogicThreadReport(app));
+		RendererPlatform.enqueue((app) -> refreshLogicThreadReport(app));
 		entityCount.setValue(EditorPlatform.getEntityData().getEntities(Naming.class).size());
 	}));
 	

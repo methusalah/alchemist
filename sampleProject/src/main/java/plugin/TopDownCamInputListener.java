@@ -1,6 +1,7 @@
 package plugin;
 
 import com.brainless.alchemist.model.state.DraggableCameraState;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.view.common.SceneInputListener;
 import com.brainless.alchemist.view.tab.scene.customControl.JmeImageView;
 import com.jme3.app.SimpleApplication;
@@ -12,15 +13,9 @@ import javafx.scene.input.ScrollEvent;
 import util.geometry.geom2d.Point2D;
 
 public class TopDownCamInputListener implements SceneInputListener{
-	private final JmeImageView jme;
-	
 	private boolean zPressed = false, sPressed = false, qPressed = false, dPressed = false;
 	private Point2D camVelocity = Point2D.ORIGIN;
 
-	public TopDownCamInputListener(JmeImageView jme) {
-		this.jme = jme;
-	}
-	
 	@Override
 	public void onMousePressed(MouseEvent e){
 	}
@@ -35,7 +30,7 @@ public class TopDownCamInputListener implements SceneInputListener{
 	
 	@Override
 	public void onMouseScroll(ScrollEvent e){
-		jme.enqueue((app) -> zoomCam(app, e.getDeltaY()/e.getMultiplierY()));
+		RendererPlatform.enqueue((app) -> zoomCam(app, e.getDeltaY()/e.getMultiplierY()));
 	}
 
 	@Override
@@ -53,7 +48,7 @@ public class TopDownCamInputListener implements SceneInputListener{
 			camVelocity = camVelocity.getAddition(1, 0);
 			dPressed = true;
 		}
-		jme.enqueue((app) -> setCamVelocity(app, camVelocity));
+		RendererPlatform.enqueue((app) -> setCamVelocity(app, camVelocity));
 	}
 	
 	@Override
@@ -71,7 +66,7 @@ public class TopDownCamInputListener implements SceneInputListener{
 			camVelocity = camVelocity.getAddition(-1, 0);
 			dPressed = false;
 		}
-		jme.enqueue((app) -> setCamVelocity(app, camVelocity));
+		RendererPlatform.enqueue((app) -> setCamVelocity(app, camVelocity));
 	}
 	
 	@Override

@@ -24,7 +24,7 @@ public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 
 	public SceneViewPresenter(Viewer viewer) {
 		super(viewer);
-		EditorPlatform.getScene().enqueue((app) -> createScene(app, EditorPlatform.getEntityData()));
+		RendererPlatform.enqueue((app) -> createScene(app, EditorPlatform.getEntityData()));
 	}
 	
 	static private boolean createScene(SimpleApplication app, EntityData ed) {

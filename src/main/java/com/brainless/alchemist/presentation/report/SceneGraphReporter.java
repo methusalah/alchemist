@@ -1,6 +1,6 @@
 package com.brainless.alchemist.presentation.report;
 
-import com.brainless.alchemist.model.EditorPlatform;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.model.tempImport.SceneGraphExplorer;
 import com.brainless.alchemist.model.tempImport.SceneGraphReportNode;
 import com.jme3.app.SimpleApplication;
@@ -17,7 +17,7 @@ import javafx.util.Duration;
 public class SceneGraphReporter {
 	private final ObjectProperty<SceneGraphReportNode> sceneGraphReportRootNode = new SimpleObjectProperty<>();
 	private final Timeline worker = new Timeline(new KeyFrame(Duration.millis(500), e -> {
-		EditorPlatform.getScene().enqueue((app) -> refreshSceneGraphReport(app));
+		RendererPlatform.enqueue((app) -> refreshSceneGraphReport(app));
 	}));
 	
 	public SceneGraphReporter() {

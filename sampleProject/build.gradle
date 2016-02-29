@@ -20,10 +20,25 @@ dependencies {
 	compile rootProject
 }
 
+sourceSets {
+	main {
+		java {
+			//srcDir 'src'
+		}
+		resources {
+	        srcDirs = ["src/main/java"]
+			includes = ["**/*.fxml", "**/*.css", "**/*.png"]
+		}
+	}
+
+}
 
 sourceSets {
 	main {
-		resources { srcDir 'assets' }
+		resources {
+			srcDir 'assets'
+			includes = ["**/*.fxml", "**/*.css", "**/*.png"]
+		}
 	}
 
 }

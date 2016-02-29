@@ -1,6 +1,9 @@
 package com.brainless.alchemist.model.tempImport;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppStateManager;
@@ -77,4 +80,13 @@ public class RendererPlatform {
 	public static void enqueue(Callable<?> callable){
 		app.enqueue(callable);
 	}
+
+	public static void enqueue(Runnable runnable){
+		app.enqueue(() -> {runnable.run(); return true;});
+	}
+	
+	public static void enqueue(Consumer<SimpleApplication> consumer) {
+		app.enqueue(() -> {consumer.accept(app); return true;});
+	}
+
 }

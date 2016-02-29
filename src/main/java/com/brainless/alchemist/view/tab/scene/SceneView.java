@@ -26,7 +26,7 @@ public class SceneView extends Pane implements SceneViewViewer{
 	public SceneView() {
 		presenter = new SceneViewPresenter(this);
 		
-		ViewPlatform.getSceneInputManager().addListener(new BaseCamera(EditorPlatform.getScene()));
+		ViewPlatform.getSceneInputManager().addListener(new BaseCamera());
 
 		ImageView image = new ImageView();
 		setStyle("-fx-background-color: gray");
@@ -42,7 +42,7 @@ public class SceneView extends Pane implements SceneViewViewer{
 		image.setOnMouseReleased(e -> ViewPlatform.getSceneInputManager().onMouseReleased(e));
 		image.setOnMouseMoved(e -> ViewPlatform.getSceneInputManager().onMouseMoved(e));
 		image.setOnScroll(e -> ViewPlatform.getSceneInputManager().onMouseScroll(e));
-		EditorPlatform.getScene().bind(image);
+		ViewPlatform.getScene().bind(image);
 		
 		getChildren().add(image);
 		ViewPlatform.JavaFXScene.addListener((obs, oldValue, newValue) -> registerKeyInputs(newValue));

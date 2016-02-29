@@ -95,7 +95,7 @@ public class MainSample extends Alchemist {
 		
 		// adding scene view behavior to place blueprint in view with correct planar stance
 		SceneViewBehavior.createEntityFunction = (blueprint, screenCoord) -> {
-			EditorPlatform.getScene().enqueue(app -> {
+			RendererPlatform.enqueue(app -> {
 				EntityData ed = app.getStateManager().getState(DataState.class).getEntityData(); 
 				EntityId newEntity = blueprint.createEntity(ed, null);
 				PlanarStance stance = ed.getComponent(newEntity, PlanarStance.class); 
@@ -103,22 +103,21 @@ public class MainSample extends Alchemist {
 					Point2D planarCoord = app.getStateManager().getState(SceneSelectorState.class).getPointedCoordInPlan(screenCoord);
 					ed.setComponent(newEntity, new PlanarStance(planarCoord, stance.getOrientation(), stance.getElevation(), stance.getUpVector()));
 				}
-				return true;
 			});
 			return null;
 		};
 		
 		// adding instruments
-		new PlanarStanceInstrument(EditorPlatform.getScene());
-		new CircleCollisionShapeInstrument(EditorPlatform.getScene());
+		new PlanarStanceInstrument();
+		new CircleCollisionShapeInstrument();
 
 		// adding the world editor window
 		ViewPlatform.inspectorTabPane.getTabs().add(new WorldEditorTab());
 		ViewPlatform.getSceneInputManager().removeListener(ViewPlatform.camera);
-		ViewPlatform.getSceneInputManager().addListener(new TopDownCamInputListener(EditorPlatform.getScene()));
+		ViewPlatform.getSceneInputManager().addListener(new TopDownCamInputListener());
 		
 		// adding the playtime listener
-		ViewPlatform.setGameInputListener(new GameInputListener(EditorPlatform.getScene()));
+		ViewPlatform.setGameInputListener(new GameInputListener());
 	}
 	
 	private boolean addRendererSystems(){

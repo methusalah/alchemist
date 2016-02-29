@@ -25,10 +25,8 @@ public class Alchemist extends Application {
 		EditorPlatform.getUserComponentList().setValue(new UserComponentList());
 		EditorPlatform.setPipelineManager(new PipelineManager());
 		
-		if(EditorPlatform.getScene() == null){
-			JmeImageView jmeScene = new JmeImageView();
-			EditorPlatform.setScene(jmeScene);
-		}
+		// creation of the jme application
+		ViewPlatform.setScene(new JmeImageView());
 
 		// View instanciation
 		Overview overview = new Overview();
@@ -41,7 +39,7 @@ public class Alchemist extends Application {
 		primaryStage.setScene(s);
 		primaryStage.show();
 		primaryStage.setTitle("Alchimist, Zay's Entity Editor");
-		primaryStage.setOnCloseRequest(e -> EditorPlatform.getScene().stop(false));
+		primaryStage.setOnCloseRequest(e -> ViewPlatform.getScene().stop(false));
 		
 		onIntialize();
 		EditorPlatform.getPipelineManager().runEditionPiplines();

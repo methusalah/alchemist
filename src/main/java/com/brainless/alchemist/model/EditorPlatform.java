@@ -14,7 +14,6 @@ import javafx.beans.property.SimpleObjectProperty;
 public class EditorPlatform {
 	private static TraversableEntityData entityData;
 	private static SceneSelectorState sceneSelector;
-	private static JmeImageView scene, preview;
 	private static PipelineManager pipelineManager;
 	private static final ObjectProperty<UserComponentList> userComponentListProperty = new SimpleObjectProperty<>();
 	private static final ObjectProperty<EntityNode> selectionProperty = new SimpleObjectProperty<>();
@@ -34,22 +33,6 @@ public class EditorPlatform {
 	
 	public static void setSceneSelector(SceneSelectorState sceneSelector) {
 		EditorPlatform.sceneSelector = sceneSelector;
-	}
-	
-	public static JmeImageView getScene() {
-		return scene;
-	}
-
-	public static void setScene(JmeImageView workScene) {
-		EditorPlatform.scene = workScene;
-	}
-	
-	public static JmeImageView getPreview() {
-		return preview;
-	}
-	
-	public static void setPreview(JmeImageView previewScene) {
-		EditorPlatform.preview = previewScene;
 	}
 	
 	public static ObjectProperty<EntityNode> getSelectionProperty() {

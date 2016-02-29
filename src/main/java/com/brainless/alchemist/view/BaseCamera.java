@@ -1,6 +1,7 @@
 package com.brainless.alchemist.view;
 
 import com.brainless.alchemist.model.state.DraggableCameraState;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.view.common.SceneInputListener;
 import com.brainless.alchemist.view.tab.scene.customControl.JmeImageView;
 import com.jme3.app.SimpleApplication;
@@ -11,13 +12,7 @@ import javafx.scene.input.ScrollEvent;
 import util.geometry.geom2d.Point2D;
 
 public class BaseCamera implements SceneInputListener{
-	private final JmeImageView jme;
-	
 	Point2D last = null;
-	
-	public BaseCamera(JmeImageView jme) {
-		this.jme = jme;
-	}
 	
 	@Override
 	public void onMousePressed(MouseEvent e){
@@ -28,9 +23,9 @@ public class BaseCamera implements SceneInputListener{
 	public void onMouseDragged(MouseEvent e){
 		Point2D vec = new Point2D(e.getX(), e.getY()).getSubtraction(last);
 		if(e.isSecondaryButtonDown())
-			jme.enqueue((app) -> rotateCam(app, vec));
+			RendererPlatform.enqueue((app) -> rotateCam(app, vec));
 		else if(e.isMiddleButtonDown())
-			jme.enqueue((app) -> moveCam(app, vec));
+			RendererPlatform.enqueue((app) -> moveCam(app, vec));
 		last = new Point2D(e.getX(), e.getY());
 	}
 	
@@ -40,7 +35,7 @@ public class BaseCamera implements SceneInputListener{
 	
 	@Override
 	public void onMouseScroll(ScrollEvent e){
-		jme.enqueue((app) -> zoomCam(app, e.getDeltaY()/e.getMultiplierY()));
+		RendererPlatform.enqueue((app) -> zoomCam(app, e.getDeltaY()/e.getMultiplierY()));
 	}
 	
 	@Override

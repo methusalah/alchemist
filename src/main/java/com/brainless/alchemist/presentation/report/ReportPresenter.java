@@ -1,6 +1,6 @@
 package com.brainless.alchemist.presentation.report;
 
-import com.brainless.alchemist.model.EditorPlatform;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.model.tempImport.SceneGraphExplorer;
 import com.brainless.alchemist.presentation.base.AbstractPresenter;
 
@@ -10,7 +10,7 @@ public class ReportPresenter extends AbstractPresenter<ReportViewer> {
 
 	public ReportPresenter(ReportViewer viewer) {
 		super(viewer);
-		EditorPlatform.getScene().enqueue((app) -> app.getStateManager().attach(new SceneGraphExplorer()));
+		RendererPlatform.enqueue((app) -> app.getStateManager().attach(new SceneGraphExplorer()));
 	}
 	
 	public void setLogicThreadReporterEnable(boolean value){

@@ -3,6 +3,7 @@ package com.brainless.alchemist.presentation.actionBar;
 import com.brainless.alchemist.model.EditorPlatform;
 import com.brainless.alchemist.model.ECS.data.EntityDataMemento;
 import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
+import com.brainless.alchemist.model.tempImport.RendererPlatform;
 import com.brainless.alchemist.presentation.actionBar.RunState.State;
 import com.brainless.alchemist.presentation.base.AbstractPresenter;
 import com.jme3.app.SimpleApplication;
@@ -35,14 +36,14 @@ public class ActionBarPresenter extends AbstractPresenter<ActionBarViewer> {
 		viewer.setGameInputListener();
 
 		EditorPlatform.getRunStateProperty().set(new RunState(State.Run));
-		EditorPlatform.getScene().enqueue(app -> jmeRun(app));
+		RendererPlatform.enqueue(app -> jmeRun(app));
 	}
 
 	private void stop(){
 		viewer.removeGameInputlistener();
 		// entity data restoring
 		EditorPlatform.getRunStateProperty().set(new RunState(State.Stop));
-		EditorPlatform.getScene().enqueue(app -> jmeStop(app));
+		RendererPlatform.enqueue(app -> jmeStop(app));
 	}
 
 	public boolean jmeRun(SimpleApplication app){

@@ -151,7 +151,7 @@ public class HeightmapConfiguratorPresenter extends PencilConfiguratorPresenter 
 			synchronized (r.getTerrain().getParcelling()) {
 				r.getTerrain().getParcelling().updateParcelsContaining(nodes);
 			}
-			EditorPlatform.getScene().enqueue(() -> {
+			RendererPlatform.enqueue(() -> {
 				synchronized (r.getTerrain().getParcelling()) {
 					getWorld().getTerrainDrawer(r).updateParcels(r.getTerrain().getParcelling().getParcelsContaining(nodes));
 				}
