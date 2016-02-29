@@ -42,7 +42,7 @@ eclipse {
 	}
 
 	project { 
-		name = appName + "-sample"
+		name = rootProject.name + "-sample"
 		natures 'org.springsource.ide.eclipse.gradle.core.nature'
 	}
 }
