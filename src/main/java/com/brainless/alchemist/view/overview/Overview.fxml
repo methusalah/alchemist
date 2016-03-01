@@ -21,7 +21,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TitledPane?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1600.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <SplitPane dividerPositions="0.1927409261576971, 0.7878598247809763" minWidth="100.0" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>

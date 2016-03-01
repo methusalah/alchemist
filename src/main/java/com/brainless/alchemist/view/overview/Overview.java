@@ -12,7 +12,6 @@ import com.brainless.alchemist.view.util.ViewLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-import util.LogUtil;
 
 public class Overview extends BorderPane {
 	
