@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
 public class TopDownCamInputListener implements SceneInputListener{
@@ -35,34 +36,37 @@ public class TopDownCamInputListener implements SceneInputListener{
 
 	@Override
 	public void onKeyPressed(KeyEvent e){
-		if(e.getCode() == KeyCode.Z && !zPressed){
+		if(e.getCode() == KeyCode.UP && !zPressed){
 			camVelocity = camVelocity.getAddition(0, 1);
 			zPressed = true;
-		} else if(e.getCode() == KeyCode.S && !sPressed){
+		} else if(e.getCode() == KeyCode.DOWN && !sPressed){
 			camVelocity = camVelocity.getAddition(0, -1);
 			sPressed = true;
-		} else if(e.getCode() == KeyCode.Q && !qPressed){
+		} else if(e.getCode() == KeyCode.LEFT && !qPressed){
 			camVelocity = camVelocity.getAddition(-1, 0);
 			qPressed = true;
-		} else if(e.getCode() == KeyCode.D && !dPressed){
+		} else if(e.getCode() == KeyCode.RIGHT && !dPressed){
 			camVelocity = camVelocity.getAddition(1, 0);
 			dPressed = true;
 		}
-		RendererPlatform.enqueue((app) -> setCamVelocity(app, camVelocity));
+		
+		RendererPlatform.enqueue((app) -> {
+			setCamVelocity(app, camVelocity);
+		});
 	}
 	
 	@Override
 	public void onKeyReleased(KeyEvent e){
-		if(e.getCode() == KeyCode.Z){
+		if(e.getCode() == KeyCode.UP){
 			camVelocity = camVelocity.getAddition(0, -1);
 			zPressed = false;
-		} else if(e.getCode() == KeyCode.S){
+		} else if(e.getCode() == KeyCode.DOWN){
 			camVelocity = camVelocity.getAddition(0, 1);
 			sPressed = false;
-		} else if(e.getCode() == KeyCode.Q){
+		} else if(e.getCode() == KeyCode.LEFT){
 			camVelocity = camVelocity.getAddition(1, 0);
 			qPressed = false;
-		} else if(e.getCode() == KeyCode.D){
+		} else if(e.getCode() == KeyCode.RIGHT){
 			camVelocity = camVelocity.getAddition(-1, 0);
 			dPressed = false;
 		}

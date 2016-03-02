@@ -25,7 +25,7 @@ public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 
 	public SceneViewPresenter(Viewer viewer) {
 		super(viewer);
-		ViewPlatform.getScene().enqueue((app) -> createScene(app, EditorPlatform.getEntityData()));
+		ViewPlatform.getScene().enqueue(app -> createScene(app, EditorPlatform.getEntityData()));
 	}
 	
 	static private boolean createScene(SimpleApplication app, EntityData ed) {
@@ -36,7 +36,7 @@ public class SceneViewPresenter extends AbstractPresenter<Viewer> {
 		
 		DraggableCameraState cam = new DraggableCameraState(app.getCamera());
 		cam.setRotationSpeed(0.001f);
-		cam.setMoveSpeed(0.00001f);
+		//cam.setMoveSpeed(0.001f);
 		stateManager.attach(cam);
 
 		stateManager.attach(new DataState(EditorPlatform.getEntityData()));

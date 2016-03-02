@@ -39,7 +39,7 @@ public class Alchemist extends Application {
 		
 		// creation of the jme application
 		ViewPlatform.setScene(new JmeImageView());
-		RendererPlatform.setApp(ViewPlatform.getScene().getJmeApp0());
+		RendererPlatform.setApp(ViewPlatform.getScene().getApp());
 
 		// View instanciation
 		Overview overview = new Overview();

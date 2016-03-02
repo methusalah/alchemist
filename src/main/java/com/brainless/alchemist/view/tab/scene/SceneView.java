@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
 public class SceneView extends Pane implements SceneViewViewer{
@@ -52,6 +53,7 @@ public class SceneView extends Pane implements SceneViewViewer{
 	public void registerKeyInputs(Scene rootScene){
 		// camera motion
 		rootScene.setOnKeyPressed(e -> {
+			LogUtil.info("key pressed " + e);
 			pressed.add(e.getCode());
 			ViewPlatform.getSceneInputManager().onKeyPressed(e);
 		});

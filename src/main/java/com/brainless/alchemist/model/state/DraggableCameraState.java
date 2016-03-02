@@ -9,6 +9,7 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
 /**
@@ -160,7 +161,8 @@ public class DraggableCameraState extends AbstractAppState {
 	
 	@Override
 	public void update(float tpf) {
-		if(!velocity.isOrigin())
-		cam.setLocation(cam.getLocation().add(TranslateUtil.toVector3f(velocity.getScaled(moveSpeed/2))));
+		if(!velocity.isOrigin()){
+			cam.setLocation(cam.getLocation().add(TranslateUtil.toVector3f(velocity.getScaled(moveSpeed/2))));
+		}
 	}
 }

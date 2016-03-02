@@ -114,7 +114,8 @@ public class MainSample extends Alchemist {
 		// adding the world editor window
 		ViewPlatform.inspectorTabPane.getTabs().add(new WorldEditorTab());
 		ViewPlatform.getSceneInputManager().removeListener(ViewPlatform.camera);
-		ViewPlatform.getSceneInputManager().addListener(new TopDownCamInputListener());
+		ViewPlatform.camera = new TopDownCamInputListener();
+		ViewPlatform.getSceneInputManager().addListener(ViewPlatform.camera );
 		
 		// adding the playtime listener
 		ViewPlatform.setGameInputListener(new GameInputListener());

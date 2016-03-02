@@ -28,8 +28,12 @@ import javafx.scene.image.ImageView;
  */
 public class JmeImageView {
 	
+	private final SimpleApplication app;
+	private SceneProcessorCopyToImageView jmeAppDisplayBinder = new SceneProcessorCopyToImageView();
+
 	public JmeImageView() {
-		findOrCreate();
+		app = makeJmeApplication(30);
+		app.start();
 	}
 
 	private static SimpleApplication makeJmeApplication(int framerate) {
@@ -52,20 +56,6 @@ public class JmeImageView {
 		app.setSettings(settings);
 		app.setShowSettings(false);
 		return app;
-	}
-
-	private SimpleApplication jmeApp0;
-	private SceneProcessorCopyToImageView jmeAppDisplayBinder = new SceneProcessorCopyToImageView();
-
-	/**
-	 * Lazy creation of the wrapped SimpleApplication.
-	 */
-	private SimpleApplication findOrCreate() {
-		if (jmeApp0 == null) {
-			jmeApp0 = makeJmeApplication(30);
-			jmeApp0.start();
-		}
-		return jmeApp0;
 	}
 
 	/**
@@ -101,29 +91,25 @@ public class JmeImageView {
 	 * @param f(jmeApp) the action to apply
 	 */
 	public <R> Future<R> enqueue(Function<SimpleApplication,R> f) {
-		SimpleApplication jmeApp = findOrCreate();
-		return jmeApp.enqueue(() -> {return f.apply(jmeApp);});
+		return app.enqueue(() -> {return f.apply(app);});
 	}
 
 	public void enqueue(Runnable r) {
-		SimpleApplication jmeApp = findOrCreate();
-		jmeApp.enqueue(() -> {r.run(); return true;});
+		app.enqueue(() -> {r.run(); return true;});
 	}
 
 	public void stop(boolean waitFor) {
-		if (jmeApp0 != null){
-			try {
-				unbind().get();
-			} catch (Exception exc) {
-				//TODO
-				exc.printStackTrace();
-			}
-			jmeApp0.stop(waitFor);
+		try {
+			unbind().get();
+		} catch (Exception exc) {
+			//TODO
+			exc.printStackTrace();
 		}
+		app.stop(waitFor);
 	}
 
-	public SimpleApplication getJmeApp0() {
-		return jmeApp0;
+	public SimpleApplication getApp() {
+		return app;
 	}
 	
 	
