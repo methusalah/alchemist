@@ -80,6 +80,7 @@ public class Alchemist extends Application {
 	    userPrefs.putDouble("stage.y", y);
 	    userPrefs.putDouble("stage.width", width);
 	    userPrefs.putDouble("stage.height", height);
+	    EditorPlatform.getPipelineManager().stopPiplines();
 	  }
 	
 	protected void onIntialize(){

@@ -11,9 +11,14 @@ import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.brainless.alchemist.model.ECS.pipeline.Pipeline;
 import com.simsilica.es.Entity;
 
+import component.motion.PlanarStance;
 import component.motion.physic.CircleCollisionShape;
 import component.motion.physic.Physic;
 import logic.processor.Pool;
+import logic.util.Point2DAdapter;
+import logic.util.Vector2Adapter;
+import util.geometry.geom2d.Point2D;
+import util.math.Angle;
 
 public class PhysicWorldProc extends BaseProcessor {
 	
@@ -21,11 +26,12 @@ public class PhysicWorldProc extends BaseProcessor {
 
 	public PhysicWorldProc() {
 		world = new World(new AxisAlignedBounds(1000, 1000));
+		world.setGravity(new Vector2Adapter(Point2D.ORIGIN));
 	}
 	
 	@Override
 	protected void registerSets() {
-		registerDefault(Physic.class, CircleCollisionShape.class);
+		registerDefault(Physic.class, CircleCollisionShape.class, PlanarStance.class);
 	}
 	
 	@Override
@@ -43,8 +49,15 @@ public class PhysicWorldProc extends BaseProcessor {
 	@Override
 	protected void onUpdated() {
 		world.update(Pipeline.getSecondPerTick());
-		
 	}
+	
+	@Override
+	protected void onEntityEachTick(Entity e) {
+		PlanarStance stance = e.get(PlanarStance.class);
+		Body b = Pool.bodies.get(e.getId());
+		setComp(e, new PlanarStance(new Point2DAdapter(b.getTransform().getTranslation()), new Angle(b.getTransform().getRotation()), stance.elevation, stance.upVector));
+	}
+	
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {

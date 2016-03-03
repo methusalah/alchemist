@@ -36,16 +36,16 @@ public class TopDownCamInputListener implements SceneInputListener{
 
 	@Override
 	public void onKeyPressed(KeyEvent e){
-		if(e.getCode() == KeyCode.UP && !zPressed){
+		if(e.getCode() == KeyCode.Z && !zPressed){
 			camVelocity = camVelocity.getAddition(0, 1);
 			zPressed = true;
-		} else if(e.getCode() == KeyCode.DOWN && !sPressed){
+		} else if(e.getCode() == KeyCode.S && !sPressed){
 			camVelocity = camVelocity.getAddition(0, -1);
 			sPressed = true;
-		} else if(e.getCode() == KeyCode.LEFT && !qPressed){
+		} else if(e.getCode() == KeyCode.Q && !qPressed){
 			camVelocity = camVelocity.getAddition(-1, 0);
 			qPressed = true;
-		} else if(e.getCode() == KeyCode.RIGHT && !dPressed){
+		} else if(e.getCode() == KeyCode.D && !dPressed){
 			camVelocity = camVelocity.getAddition(1, 0);
 			dPressed = true;
 		}
@@ -57,16 +57,16 @@ public class TopDownCamInputListener implements SceneInputListener{
 	
 	@Override
 	public void onKeyReleased(KeyEvent e){
-		if(e.getCode() == KeyCode.UP){
+		if(e.getCode() == KeyCode.Z){
 			camVelocity = camVelocity.getAddition(0, -1);
 			zPressed = false;
-		} else if(e.getCode() == KeyCode.DOWN){
+		} else if(e.getCode() == KeyCode.S){
 			camVelocity = camVelocity.getAddition(0, 1);
 			sPressed = false;
-		} else if(e.getCode() == KeyCode.LEFT){
+		} else if(e.getCode() == KeyCode.Q){
 			camVelocity = camVelocity.getAddition(1, 0);
 			qPressed = false;
-		} else if(e.getCode() == KeyCode.RIGHT){
+		} else if(e.getCode() == KeyCode.D){
 			camVelocity = camVelocity.getAddition(-1, 0);
 			dPressed = false;
 		}

@@ -10,6 +10,7 @@ import component.motion.PlanarNeededThrust;
 import component.motion.physic.Physic;
 import logic.processor.Pool;
 import logic.util.Vector2Adapter;
+import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
 public class NeededThrustProc extends BaseProcessor {

@@ -3,9 +3,7 @@ package com.brainless.alchemist.view.tab.scene;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.brainless.alchemist.model.EditorPlatform;
 import com.brainless.alchemist.model.ECS.blueprint.Blueprint;
-import com.brainless.alchemist.model.state.SceneSelectorState;
 import com.brainless.alchemist.presentation.sceneView.SceneViewPresenter;
 import com.brainless.alchemist.presentation.sceneView.SceneViewViewer;
 import com.brainless.alchemist.view.BaseCamera;
@@ -53,7 +51,6 @@ public class SceneView extends Pane implements SceneViewViewer{
 	public void registerKeyInputs(Scene rootScene){
 		// camera motion
 		rootScene.setOnKeyPressed(e -> {
-			LogUtil.info("key pressed " + e);
 			pressed.add(e.getCode());
 			ViewPlatform.getSceneInputManager().onKeyPressed(e);
 		});
