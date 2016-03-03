@@ -12,7 +12,7 @@ import component.ability.Ability;
 import component.ability.AbilityControl;
 import component.assets.AudioSource;
 import logic.commonLogic.Controlling;
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 
 public class AbilityAudioProc extends BaseProcessor {
 	Map<String, AudioNode> sounds = new HashMap<>();
@@ -59,11 +59,11 @@ public class AbilityAudioProc extends BaseProcessor {
 	}
 	
 	private void playSound(Entity e, AudioNode a){
-		AudioNode current = SpatialPool.playingSounds.get(e.getId());
+		AudioNode current = Pool.playingSounds.get(e.getId());
 		if(current != null)
 			current.stop();
 		a.play();
-		SpatialPool.playingSounds.put(e.getId(), a);
+		Pool.playingSounds.put(e.getId(), a);
 	}
 
 }

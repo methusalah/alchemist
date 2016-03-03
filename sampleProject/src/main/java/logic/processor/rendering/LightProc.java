@@ -13,7 +13,7 @@ import com.simsilica.es.Entity;
 import component.assets.Lighting;
 import component.motion.PlanarStance;
 import component.motion.SpaceStance;
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
 
@@ -49,9 +49,9 @@ public class LightProc extends BaseProcessor {
 	}
 
 	private void manageDirectional(Entity e, Lighting l, Point3D position, Point3D direction){
-		if(!SpatialPool.lights.containsKey(e.getId()) || !(SpatialPool.lights.get(e.getId()) instanceof DirectionalLight)){
+		if(!Pool.lights.containsKey(e.getId()) || !(Pool.lights.get(e.getId()) instanceof DirectionalLight)){
 			DirectionalLight light = new DirectionalLight();
-			SpatialPool.lights.put(e.getId(), light);
+			Pool.lights.put(e.getId(), light);
 			RendererPlatform.getMainSceneNode().addLight(light);
 
 			if(l.shadowIntensity.getValue() > 0){
@@ -68,7 +68,7 @@ public class LightProc extends BaseProcessor {
 				}
 			}
 		}
-		DirectionalLight light = (DirectionalLight)SpatialPool.lights.get(e.getId());
+		DirectionalLight light = (DirectionalLight)Pool.lights.get(e.getId());
 		
 		light.setColor(TranslateUtil.toColorRGBA(l.color).mult((float)(l.intensity*l.activation.getValue())));
 		light.setDirection(TranslateUtil.toVector3f(direction));
@@ -88,12 +88,12 @@ public class LightProc extends BaseProcessor {
 	}
 	
 	private void managePoint(Entity e, Lighting l, Point3D position, Point3D direction){
-		if(!SpatialPool.lights.containsKey(e.getId()) || !(SpatialPool.lights.get(e.getId()) instanceof PointLight)){
+		if(!Pool.lights.containsKey(e.getId()) || !(Pool.lights.get(e.getId()) instanceof PointLight)){
 			PointLight light = new PointLight();
-			SpatialPool.lights.put(e.getId(), light);
+			Pool.lights.put(e.getId(), light);
 			RendererPlatform.getMainSceneNode().addLight(light);
 		}
-		PointLight light = (PointLight)SpatialPool.lights.get(e.getId());
+		PointLight light = (PointLight)Pool.lights.get(e.getId());
 
 		light.setColor(TranslateUtil.toColorRGBA(l.color).mult((float)(l.intensity*l.activation.getValue())));
 		light.setPosition(TranslateUtil.toVector3f(position));
@@ -101,9 +101,9 @@ public class LightProc extends BaseProcessor {
 	}
 	
 	private void manageSpot(Entity e, Lighting l, Point3D position, Point3D direction){
-		if(!SpatialPool.lights.containsKey(e.getId()) || !(SpatialPool.lights.get(e.getId()) instanceof SpotLight)){
+		if(!Pool.lights.containsKey(e.getId()) || !(Pool.lights.get(e.getId()) instanceof SpotLight)){
 			SpotLight light = new SpotLight();
-			SpatialPool.lights.put(e.getId(), light);
+			Pool.lights.put(e.getId(), light);
 			RendererPlatform.getMainSceneNode().addLight(light);
 			
 //			if(l.shadowCaster){
@@ -115,7 +115,7 @@ public class LightProc extends BaseProcessor {
 //				AppFacade.getFilterPostProcessor().addFilter(sf);
 //			}
 		}
-		SpotLight light = (SpotLight)SpatialPool.lights.get(e.getId());
+		SpotLight light = (SpotLight)Pool.lights.get(e.getId());
 		
 		light.setColor(TranslateUtil.toColorRGBA(l.color).mult((float)(l.intensity*l.activation.getValue())));
 		light.setSpotRange((float)l.distance);
@@ -127,6 +127,6 @@ public class LightProc extends BaseProcessor {
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
-		RendererPlatform.getMainSceneNode().removeLight(SpatialPool.lights.remove(e.getId()));
+		RendererPlatform.getMainSceneNode().removeLight(Pool.lights.remove(e.getId()));
 	}
 }

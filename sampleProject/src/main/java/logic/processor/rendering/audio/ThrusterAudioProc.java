@@ -13,7 +13,7 @@ import component.motion.PlanarStance;
 import component.motion.Thruster;
 import component.motion.ThrusterControl;
 import logic.commonLogic.Controlling;
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 
 public class ThrusterAudioProc extends BaseProcessor {
 	Map<String, AudioNode> sounds = new HashMap<>();
@@ -97,11 +97,11 @@ public class ThrusterAudioProc extends BaseProcessor {
 	}
 	
 	private void playSound(Entity e, AudioNode a){
-		AudioNode current = SpatialPool.playingSounds.get(e.getId());
+		AudioNode current = Pool.playingSounds.get(e.getId());
 		if(current != null)
 			current.stop();
 		a.play();
-		SpatialPool.playingSounds.put(e.getId(), a);
+		Pool.playingSounds.put(e.getId(), a);
 	}
 
 }

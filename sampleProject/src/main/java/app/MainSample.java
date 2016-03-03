@@ -157,6 +157,7 @@ public class MainSample extends Alchemist {
 		logicPipeline.addProcessor(new RotationThrusterProc());
 		logicPipeline.addProcessor(new ThrusterProc());
 		// forces
+		
 		logicPipeline.addProcessor(new NeededRotationProc());
 		logicPipeline.addProcessor(new NeededThrustProc());
 		logicPipeline.addProcessor(new RandomDraggingProc());

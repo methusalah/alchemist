@@ -14,7 +14,7 @@ import com.simsilica.es.Entity;
 
 import component.assets.Sprite;
 import logic.processor.CenteredQuad;
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 import util.LogUtil;
 
 public class SpriteProc extends BaseProcessor {
@@ -27,8 +27,8 @@ public class SpriteProc extends BaseProcessor {
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
-		if(SpatialPool.models.containsKey(e.getId()))
-			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.models.remove(e.getId()));
+		if(Pool.models.containsKey(e.getId()))
+			RendererPlatform.getMainSceneNode().detachChild(Pool.models.remove(e.getId()));
 	}
 
 	@Override
@@ -38,8 +38,8 @@ public class SpriteProc extends BaseProcessor {
 	
 	@Override
 	protected void onEntityUpdated(Entity e) {
-		if(SpatialPool.models.containsKey(e.getId()))
-			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.models.get(e.getId()));
+		if(Pool.models.containsKey(e.getId()))
+			RendererPlatform.getMainSceneNode().detachChild(Pool.models.get(e.getId()));
 		
 		Sprite sprite = e.get(Sprite.class);
 		
@@ -49,7 +49,7 @@ public class SpriteProc extends BaseProcessor {
 			s = s.clone();
 			s.scale((float)sprite.getSize());
 			s.setUserData("EntityId", e.getId().getId());
-			SpatialPool.models.put(e.getId(), s);
+			Pool.models.put(e.getId(), s);
 			RendererPlatform.getMainSceneNode().attachChild(s);
 		}
 	}

@@ -4,6 +4,8 @@ package logic.processor;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.dyn4j.dynamics.Body;
+
 import com.jme3.audio.AudioNode;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.light.Light;
@@ -13,7 +15,7 @@ import com.simsilica.es.EntityId;
 import logic.processor.rendering.ui.VelocityView;
 import plugin.infiniteWorld.world.terrain.heightmap.Parcel;
 
-public class SpatialPool {
+public class Pool {
 
 	
 	public static final Map<EntityId, Spatial> models = new HashMap<>();
@@ -26,7 +28,8 @@ public class SpatialPool {
 	public static final Map<EntityId, Light> lights = new HashMap<>();
 	public static final Map<VelocityView, Spatial> velocities = new HashMap<>();
 	public static final Map<EntityId, AudioNode> playingSounds = new HashMap<>();
+	public static final Map<EntityId, Body> bodies = new HashMap<>();
 	
-	private SpatialPool(){
+	private Pool(){
 	}
 }

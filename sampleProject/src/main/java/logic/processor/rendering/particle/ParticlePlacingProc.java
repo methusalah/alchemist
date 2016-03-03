@@ -7,7 +7,7 @@ import com.simsilica.es.Entity;
 
 import component.assets.ParticleCaster;
 import component.motion.PlanarStance;
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 
@@ -31,7 +31,7 @@ public class ParticlePlacingProc extends BaseProcessor {
 		Point3D pos = stance.getCoord().get3D(stance.elevation);
 		Point3D velocity = Point2D.ORIGIN.getTranslation(stance.orientation.getValue(), caster.getInitialSpeed()).get3D(0);
 
-		ParticleEmitter pe = SpatialPool.emitters.get(e.getId());
+		ParticleEmitter pe = Pool.emitters.get(e.getId());
 		pe.setLocalTranslation(TranslateUtil.toVector3f(pos));
 		pe.getParticleInfluencer().setInitialVelocity(TranslateUtil.toVector3f(velocity));
 		

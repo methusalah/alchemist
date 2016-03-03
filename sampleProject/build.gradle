@@ -19,6 +19,7 @@ repositories {
 dependencies {
 	compile "com.badlogicgames.gdx:gdx-ai:1.6.0"
 	compile rootProject
+	compile 'org.dyn4j:dyn4j:3.2.1'
 }
 
 sourceSets {

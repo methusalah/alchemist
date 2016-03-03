@@ -10,7 +10,7 @@ import com.simsilica.es.Entity;
 
 import component.debug.VelocityViewing;
 import component.motion.PlanarStance;
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 import util.geometry.geom2d.Point2D;
 
 public class VelocityVisualisationProc extends BaseProcessor {
@@ -25,13 +25,13 @@ public class VelocityVisualisationProc extends BaseProcessor {
 		PlanarStance stance = e.get(PlanarStance.class);
 		
 		for(VelocityView v : e.get(VelocityViewing.class).velocities.values()){
-			if(!SpatialPool.velocities.containsKey(v)){
+			if(!Pool.velocities.containsKey(v)){
 				Geometry body = new Geometry("velocity");
 				body.setMaterial(MaterialManager.getColor(TranslateUtil.toColorRGBA(v.color)));
-				SpatialPool.velocities.put(v, body);
+				Pool.velocities.put(v, body);
 				RendererPlatform.getMainSceneNode().attachChild(body);
 			}
-			Geometry g = (Geometry)SpatialPool.velocities.get(v);
+			Geometry g = (Geometry)Pool.velocities.get(v);
 			Point2D end = stance.coord.getAddition(v.velocity);
 			Line l = new Line(TranslateUtil.toVector3f(stance.coord.get3D(v.elevation)), TranslateUtil.toVector3f(end.get3D(v.elevation)));
 			l.setLineWidth(v.thickness);

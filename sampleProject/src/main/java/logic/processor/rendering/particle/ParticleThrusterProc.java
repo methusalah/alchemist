@@ -9,7 +9,7 @@ import component.motion.RotationThruster;
 import component.motion.Thruster;
 import component.motion.ThrusterControl;
 import logic.commonLogic.Controlling;
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 import util.LogUtil;
 
 public class ParticleThrusterProc extends BaseProcessor {
@@ -24,7 +24,7 @@ public class ParticleThrusterProc extends BaseProcessor {
 		ParticleCaster caster = e.get(ParticleCaster.class);
 		ThrusterControl control = e.get(ThrusterControl.class);
 		if(control.isActive()){
-			ParticleEmitter pe = SpatialPool.emitters.get(e.getId());
+			ParticleEmitter pe = Pool.emitters.get(e.getId());
 			Thruster t = Controlling.getControl(Thruster.class, e.getId(), entityData);
 			RotationThruster rt = Controlling.getControl(RotationThruster.class, e.getId(), entityData);
 			
