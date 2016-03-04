@@ -31,23 +31,23 @@ public class PhysicWorldProc extends BaseProcessor {
 	
 	@Override
 	protected void registerSets() {
-		registerDefault(Physic.class, CircleCollisionShape.class, PlanarStance.class);
+		registerDefault(Physic.class, PlanarStance.class);
 	}
 	
 	@Override
 	protected void onEntityAdded(Entity e) {
-		CircleCollisionShape shape = e.get(CircleCollisionShape.class);
-
+		PlanarStance stance = e.get(PlanarStance.class);
+		Physic physic = e.get(Physic.class);
 		Body body = new Body();
-		BodyFixture f = body.addFixture(new Circle(shape.getRadius()));
-		f.setDensity(5);
-		body.setMass(MassType.NORMAL);
+		body.getTransform().setTranslation(new Vector2Adapter(stance.getCoord()));
+		body.setLinearVelocity(new Vector2Adapter(physic.getVelocity()));
+		body.setAngularVelocity(physic.getAngularVelocity());
 		world.addBody(body);
 		Pool.bodies.put(e.getId(), body);
 	}
 	
 	@Override
-	protected void onUpdated() {
+	protected void onTickBegin() {
 		world.update(Pipeline.getSecondPerTick());
 	}
 	

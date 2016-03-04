@@ -54,7 +54,7 @@ public class ProjectileLauncherProc extends BaseProcessor {
 			// adding the spawner for collision exception
 			Physic ph =entityData.getComponent(eid, Physic.class); 
 			if(ph != null)
-				entityData.setComponent(eid, new Physic(ph.getVelocity(), ph.getType(), ph.getExceptions(), ph.getMass(), ph.getRestitution(), p));
+				entityData.setComponent(eid, new Physic(ph.getVelocity(), 0, ph.getType(), ph.getExceptions(), ph.getMass(), ph.getRestitution(), p));
 			
 			// correcting the orientation of the velocity to apply
 			PlanarVelocityToApply vel = entityData.getComponent(eid, PlanarVelocityToApply.class); 

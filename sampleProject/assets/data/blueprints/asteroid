@@ -34,9 +34,10 @@
   }, {
     "class" : "component.motion.physic.Physic",
     "velocity" : {
-      "x" : 0.0,
-      "y" : 0.0
+      "x" : 0,
+      "y" : 0
     },
+    "angularVelocity" : 0,
     "type" : "scenery",
     "exceptions" : [ ],
     "mass" : 1000.0,

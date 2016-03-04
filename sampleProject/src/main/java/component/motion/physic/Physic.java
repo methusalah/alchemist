@@ -12,6 +12,7 @@ import util.math.Fraction;
 
 public class Physic implements EntityComponent {
 	private final Point2D velocity;
+	private final double angularVelocity;
 	private final String type;
 	private final List<String> exceptions;
 	private final Fraction restitution;
@@ -20,6 +21,7 @@ public class Physic implements EntityComponent {
 
 	public Physic() {
 		velocity = Point2D.ORIGIN;
+		angularVelocity = 0;
 		type = "";
 		exceptions = new ArrayList<>();
 		restitution = new Fraction(0);
@@ -28,12 +30,14 @@ public class Physic implements EntityComponent {
 	}
 
 	public Physic(@JsonProperty("velocity") Point2D velocity,
+			@JsonProperty("angularVelocity") double angularVelocity,
 			@JsonProperty("type") String type,
 			@JsonProperty("exceptions") List<String> exceptions,
 			@JsonProperty("mass") double mass,
 			@JsonProperty("restitution") Fraction restitution,
 			@JsonProperty("spawnerException") EntityId spawnerException) {
 		this.velocity = velocity;
+		this.angularVelocity = angularVelocity;
 		this.type = type;
 		this.exceptions = exceptions;
 		this.restitution = restitution;
@@ -63,5 +67,9 @@ public class Physic implements EntityComponent {
 
 	public EntityId getSpawnerException() {
 		return spawnerException;
+	}
+
+	public double getAngularVelocity() {
+		return angularVelocity;
 	}
 }

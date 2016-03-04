@@ -27,9 +27,10 @@
   }, {
     "class" : "component.motion.physic.Physic",
     "velocity" : {
-      "x" : 0.0,
+      "x" : 10.0,
       "y" : 0.0
     },
+    "angularVelocity" : 0.0,
     "type" : "missile",
     "exceptions" : [ "missile" ],
     "mass" : 0.001,
@@ -39,7 +40,8 @@
     "spawnerException" : null
   }, {
     "class" : "component.motion.physic.CircleCollisionShape",
-    "radius" : 0.2
+    "radius" : 0.2,
+    "density" : 1.0
   }, {
     "class" : "component.lifeCycle.LifeTime",
     "duration" : 2000.0

@@ -54,6 +54,7 @@ public abstract class BaseProcessor extends Processor {
     	if(!isEnabled())
     		return;
     	try{
+    		onTickBegin();
 	        for(EntitySet set : sets.values()){
 		        if (set.applyChanges()) {
 		            for (Entity e : set.getChangedEntities()) {
@@ -163,6 +164,12 @@ public abstract class BaseProcessor extends Processor {
      */
     protected void onInitialized(AppStateManager stateManager){}
     
+    /**
+     * Called each before entites are updated.
+     *
+     * @param tpf
+     */
+    protected void onTickBegin(){}
     /**
      * Called each frame.
      *

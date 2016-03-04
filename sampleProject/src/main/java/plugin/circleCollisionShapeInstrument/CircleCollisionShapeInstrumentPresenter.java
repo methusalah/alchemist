@@ -68,7 +68,7 @@ public class CircleCollisionShapeInstrumentPresenter implements InstrumentPresen
 			
 			CircleCollisionShape shape = EditorPlatform.getEntityData().getComponent(selection, CircleCollisionShape.class);
 			double newRadius = Math.max(shape.getRadius()+(v.x+v.y)/2, 0);
-			EditorPlatform.getEntityData().setComponent(selection, new CircleCollisionShape(newRadius));
+			EditorPlatform.getEntityData().setComponent(selection, new CircleCollisionShape(newRadius, shape.getDensity()));
 			dragStart = screenCoord;
 		}
 	}

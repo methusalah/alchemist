@@ -45,7 +45,9 @@ import logic.processor.logic.interaction.damage.DamagingOverTimeProc;
 import logic.processor.logic.interaction.damage.DamagingProc;
 import logic.processor.logic.motion.RandomVelocityApplicationProc;
 import logic.processor.logic.motion.VelocityApplicationProc;
+import logic.processor.logic.motion.physic.CircleCollisionShapeProc;
 import logic.processor.logic.motion.physic.DraggingProc;
+import logic.processor.logic.motion.physic.EdgedCollisionShapeProc;
 import logic.processor.logic.motion.physic.PhysicForceProc;
 import logic.processor.logic.motion.physic.PhysicWorldProc;
 import logic.processor.logic.motion.physic.RandomDraggingProc;
@@ -140,7 +142,7 @@ public class MainSample extends Alchemist {
 		visualPipeline.addProcessor(new VelocityVisualisationProc());
 		visualPipeline.addProcessor(new FloatingLabelProc());
 
-		//visualPipeline.addProcessor(new WorldProc());
+		visualPipeline.addProcessor(new WorldProc());
 
 		Pipeline audioPipeline = EditorPlatform.getPipelineManager().createPipeline("audio", true, false);
 		audioPipeline.addProcessor(new AudioSourceProc());
@@ -158,8 +160,10 @@ public class MainSample extends Alchemist {
 		logicPipeline.addProcessor(new RotationThrusterProc());
 		logicPipeline.addProcessor(new ThrusterProc());
 		// forces
-		logicPipeline.addProcessor(new PhysicWorldProc());
 		logicPipeline.addProcessor(new NeededRotationProc());
+		logicPipeline.addProcessor(new PhysicWorldProc());
+		logicPipeline.addProcessor(new CircleCollisionShapeProc());
+		logicPipeline.addProcessor(new EdgedCollisionShapeProc());
 		logicPipeline.addProcessor(new NeededThrustProc());
 		logicPipeline.addProcessor(new RandomDraggingProc());
 		logicPipeline.addProcessor(new DraggingProc());
@@ -168,11 +172,11 @@ public class MainSample extends Alchemist {
 		logicPipeline.addProcessor(new BoostProc());
 		logicPipeline.addProcessor(new VelocityApplicationProc());
 		// collisions
-		logicPipeline.addProcessor(new TouchingClearingProc());
-		logicPipeline.addProcessor(new CircleCircleCollisionProc());
-		logicPipeline.addProcessor(new CircleEdgeCollisionProc());
-		logicPipeline.addProcessor(new EdgeEdgeCollisionProc());
-		logicPipeline.addProcessor(new CollisionResolutionProc());
+//		logicPipeline.addProcessor(new TouchingClearingProc());
+//		logicPipeline.addProcessor(new CircleCircleCollisionProc());
+//		logicPipeline.addProcessor(new CircleEdgeCollisionProc());
+//		logicPipeline.addProcessor(new EdgeEdgeCollisionProc());
+//		logicPipeline.addProcessor(new CollisionResolutionProc());
 		// relations	
 		logicPipeline.addProcessor(new BoneHoldingProc());
 		logicPipeline.addProcessor(new PlanarHoldingProc());

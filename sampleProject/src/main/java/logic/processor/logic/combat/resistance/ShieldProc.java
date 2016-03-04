@@ -41,7 +41,7 @@ public class ShieldProc extends BaseProcessor {
 			entityData.setComponent(eid, new Naming("floating shield "));
 			entityData.setComponent(eid, entityData.getComponent(e.getId(), PlanarStance.class));
 			entityData.setComponent(eid, new FloatingLabel("Shield restored", new ColorData(150, 100, 100, 255), 20));
-			entityData.setComponent(eid, new Physic(Point2D.ORIGIN, "", new ArrayList<String>(), 0, new Fraction(0), null));
+			entityData.setComponent(eid, new Physic(Point2D.ORIGIN, 0, "", new ArrayList<String>(), 0, new Fraction(0), null));
 			entityData.setComponent(eid, new PlanarVelocityToApply(Point2D.UNIT_Y));
 			entityData.setComponent(eid, new LifeTime(1500));
 		}

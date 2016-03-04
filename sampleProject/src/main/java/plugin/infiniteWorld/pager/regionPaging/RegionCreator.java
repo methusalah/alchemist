@@ -84,7 +84,7 @@ public class RegionCreator implements BuilderReference {
 				ed.setComponent(pe, new Parenting(region.getEntityId()));
 				ed.setComponent(pe, new Naming("Parcel collision shape "+region.getTerrain().getParcelling().getCoord(p.getIndex())));
 				ed.setComponent(pe, new EdgedCollisionShape(edges));
-				ed.setComponent(pe, new Physic(Point2D.ORIGIN, "terrain", new ArrayList<>(), 1000000, new Fraction(0.2), null));
+				ed.setComponent(pe, new Physic(Point2D.ORIGIN, 0, "terrain", new ArrayList<>(), 1000000, new Fraction(0.2), null));
 				ed.setComponent(pe, new PlanarStance());
 				region.getTerrainColliders().add(pe);
 			}

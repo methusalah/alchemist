@@ -8,15 +8,17 @@ import com.simsilica.es.Entity;
 
 import component.motion.MotionCapacity;
 import component.motion.PlanarNeededRotation;
+import component.motion.PlanarStance;
 import component.motion.physic.Physic;
 import logic.processor.Pool;
 import util.LogUtil;
+import util.math.Angle;
 
 public class NeededRotationProc extends BaseProcessor {
 	
 	@Override
 	protected void registerSets() {
-		registerDefault(PlanarNeededRotation.class, MotionCapacity.class, Physic.class);
+		registerDefault(PlanarNeededRotation.class, MotionCapacity.class, Physic.class, PlanarStance.class);
 	}
 	
 	@Override
@@ -24,25 +26,23 @@ public class NeededRotationProc extends BaseProcessor {
 		PlanarNeededRotation neededRotation = e.get(PlanarNeededRotation.class);
 		MotionCapacity capacity = e.get(MotionCapacity.class);
 		
-		Body b = Pool.bodies.get(e.getId());
 
-		if(Math.abs(neededRotation.angle.getValue()) < 0.01){
-			b.clearAccumulatedTorque();
-			b.setAngularVelocity(0);
-			return;
-		}
+		PlanarStance stance = e.get(PlanarStance.class);
 		
-		double maxRotation = capacity.maxRotationSpeed;// * Pipeline.getSecondPerTick();
-		double radPerTick = maxRotation * Pipeline.getSecondPerTick();
-		if(Math.abs(b.getAngularVelocity()) >= Math.abs(neededRotation.angle.getValue() / Pipeline.getSecondPerTick())){
-			// I will rotate too much, I have to decelerate
-			b.setAngularVelocity(neededRotation.angle.getValue() / Pipeline.getSecondPerTick());
-			//b.getTransform().setRotation();
-			//b.setAngularDamping(500);
-		} else {
-			// I can accelerate
-			b.setAngularDamping(0);
-			b.applyTorque(maxRotation*Math.signum(neededRotation.angle.getValue()));
-		}
+		double maxRotation = capacity.maxRotationSpeed * Pipeline.getSecondPerTick();
+		maxRotation = Math.min(Math.abs(neededRotation.angle.getValue()), maxRotation);
+		double possibleRotation = maxRotation*Math.signum(neededRotation.angle.getValue());
+		
+		// we apply the new rotation to the physic body
+		Body b = Pool.bodies.get(e.getId());
+		if(b != null)
+			b.getTransform().setRotation(stance.orientation.getValue() + possibleRotation);
+		
+		// we also apply the rotation to the planar stance of the entity at once, to avoid the two data to be inconsistent.
+		// If we don't, the other thread who ask for the planarstance will get a data different from the one sotred in the body.
+		PlanarStance newStance = new PlanarStance(stance.coord, new Angle(stance.orientation.getValue() + possibleRotation), stance.elevation, stance.upVector);
+		
+		setComp(e, newStance);
+		removeComp(e, PlanarNeededRotation.class);
 	}
 }

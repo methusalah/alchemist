@@ -42,7 +42,8 @@
     }
   }, {
     "class" : "component.motion.physic.CircleCollisionShape",
-    "radius" : 0.8
+    "radius" : 0.8,
+    "density" : 1
   }, {
     "class" : "component.motion.physic.Dragging",
     "dragging" : 0.3
@@ -65,9 +66,10 @@
   }, {
     "class" : "component.motion.physic.Physic",
     "velocity" : {
-      "x" : -1.5122288085930047,
-      "y" : -0.8930689989569338
+      "x" : 0,
+      "y" : 0
     },
+    "angularVelocity" : 0,
     "type" : "",
     "exceptions" : [ ],
     "mass" : 100.0,
