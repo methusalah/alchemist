@@ -26,20 +26,23 @@ public class NeededRotationProc extends BaseProcessor {
 		
 		Body b = Pool.bodies.get(e.getId());
 
-		if(Math.abs(neededRotation.angle.getValue()) < 0.001){
+		if(Math.abs(neededRotation.angle.getValue()) < 0.01){
+			b.clearAccumulatedTorque();
 			b.setAngularVelocity(0);
 			return;
 		}
 		
 		double maxRotation = capacity.maxRotationSpeed;// * Pipeline.getSecondPerTick();
 		double radPerTick = maxRotation * Pipeline.getSecondPerTick();
-		LogUtil.info("radian per tick : " + radPerTick + " / radian to go : " + neededRotation.angle.getValue());
-		if(radPerTick * 5 >= neededRotation.angle.getValue()){
+		if(Math.abs(b.getAngularVelocity()) >= Math.abs(neededRotation.angle.getValue() / Pipeline.getSecondPerTick())){
+			// I will rotate too much, I have to decelerate
 			b.setAngularVelocity(neededRotation.angle.getValue() / Pipeline.getSecondPerTick());
-			//b.setAngularDamping(100);
+			//b.getTransform().setRotation();
+			//b.setAngularDamping(500);
 		} else {
+			// I can accelerate
 			b.setAngularDamping(0);
-			b.setAngularVelocity(maxRotation*Math.signum(neededRotation.angle.getValue()));
+			b.applyTorque(maxRotation*Math.signum(neededRotation.angle.getValue()));
 		}
 	}
 }
