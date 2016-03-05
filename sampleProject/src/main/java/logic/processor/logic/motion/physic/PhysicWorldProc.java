@@ -40,8 +40,11 @@ public class PhysicWorldProc extends BaseProcessor {
 		Physic physic = e.get(Physic.class);
 		Body body = new Body();
 		body.getTransform().setTranslation(new Vector2Adapter(stance.getCoord()));
+		body.getTransform().setRotation(stance.getOrientation().getValue());
+		
 		body.setLinearVelocity(new Vector2Adapter(physic.getVelocity()));
 		body.setAngularVelocity(physic.getAngularVelocity());
+		
 		world.addBody(body);
 		Pool.bodies.put(e.getId(), body);
 	}

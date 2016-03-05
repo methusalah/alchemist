@@ -149,6 +149,10 @@ public class RegionCreator implements BuilderReference {
 	public Region getRegion() {
 		return region;
 	}
+
+	public boolean isApplied() {
+		return applied;
+	}
 	
 	
 }

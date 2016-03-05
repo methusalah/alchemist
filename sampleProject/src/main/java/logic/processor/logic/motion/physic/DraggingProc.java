@@ -5,7 +5,6 @@ import org.dyn4j.dynamics.Body;
 import com.brainless.alchemist.model.ECS.pipeline.BaseProcessor;
 import com.simsilica.es.Entity;
 
-import component.motion.PlanarVelocityToApply;
 import component.motion.physic.Dragging;
 import component.motion.physic.Physic;
 import logic.processor.Pool;

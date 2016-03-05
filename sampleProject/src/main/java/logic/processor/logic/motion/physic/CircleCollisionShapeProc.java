@@ -48,7 +48,6 @@ public class CircleCollisionShapeProc extends BaseProcessor {
 			
 			b.setMass(MassType.NORMAL);
 
-			LogUtil.info("added a circle fixture");
 			fixtures.put(e.getId(), f);
 			bodies.put(e.getId(), b);
 		}
@@ -56,7 +55,6 @@ public class CircleCollisionShapeProc extends BaseProcessor {
 
 	@Override
 	protected void onEntityRemoved(Entity e) {
-		LogUtil.info("removed a circle fixture");
 		bodies.get(e.getId()).removeFixture(fixtures.get(e.getId()));
 		bodies.remove(e.getId());
 		fixtures.remove(e.getId());

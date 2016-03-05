@@ -19,6 +19,7 @@ import component.motion.physic.Physic;
 import logic.commonLogic.Controlling;
 import logic.processor.Pool;
 import logic.util.Vector2Adapter;
+import util.LogUtil;
 import util.geometry.geom2d.Segment2D;
 
 public class EdgedCollisionShapeProc extends BaseProcessor {
@@ -37,8 +38,12 @@ public class EdgedCollisionShapeProc extends BaseProcessor {
 		EntityId physicEntity = Controlling.getParentContaining(Physic.class, e.getId(), entityData);	
 		if(physicEntity != null){
 			Body b = Pool.bodies.get(physicEntity);
+			if(b == null)
+				LogUtil.info("body à null");
 			fixtures.put(e.getId(), new ArrayList<>());
 			for(Segment2D seg : shape.getEdges()){
+				if(seg == null)
+					LogUtil.info("segment à null");
 				BodyFixture f = b.addFixture(new Segment(new Vector2Adapter(seg.getStart()), new Vector2Adapter(seg.getEnd())));
 				f.setDensity(1);
 				fixtures.get(e.getId()).add(f);

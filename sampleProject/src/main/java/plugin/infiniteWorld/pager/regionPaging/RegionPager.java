@@ -52,7 +52,7 @@ public class RegionPager extends BuilderState {
 				if(creators.get(id).getRegion().isModified())
 					// 	we have to keep modified regions as needed, since they have to stay drawn while they are not saved
 					ids.add(id);
-				else{
+				else if (creators.get(id).isApplied()) {
 					getBuilder().release(creators.get(id));
 					creators.remove(id);
 				}
