@@ -10,6 +10,7 @@ import com.simsilica.es.EntityComponent;
 import com.simsilica.es.EntityId;
 
 import javafx.application.Platform;
+import util.LogUtil;
 
 /***
  * A Specialized EntityData that maintain a tree of nodes representing the hierarchy of the entities and their components.
@@ -66,6 +67,11 @@ public class TraversableEntityData extends SavableEntityData{
 	 * @return
 	 */
 	public EntityNode getNode(EntityId eid){
+		if(!entityNodes.containsKey(eid)){
+			EntityNode ep = new EntityNode(eid, "Just created. Should not be seen.");
+			rootEntityNode.childrenListProperty().add(ep);
+			entityNodes.put(ep.getEntityId(), ep);
+		}
 		return entityNodes.get(eid);
 	}
 	
@@ -81,21 +87,22 @@ public class TraversableEntityData extends SavableEntityData{
 	
 	private void handleComponentChange(EntityId eid, Class<? extends EntityComponent> compClass, EntityComponent lastComp, EntityComponent newComp){
 		Platform.runLater(() -> {
-			if(!entityNodes.containsKey(eid)){
-				EntityNode ep = new EntityNode(eid, "Just created. Should not be seen.");
-				rootEntityNode.childrenListProperty().add(ep);
-				entityNodes.put(ep.getEntityId(), ep);
-			}
-		});
-
-		Platform.runLater(() -> {
 			EntityNode node = getNode(eid);
 			if(compClass == Parenting.class){
 				Parenting parenting = (Parenting)newComp;
 				removeNodeFromParent(node, (Parenting)lastComp);
 				if(newComp != null){
 					// The entity has a new parent. We register the entity in the new parent's presenter's children list
-					EntityNode newParent = entityNodes.get(parenting.getParent());
+					EntityNode newParent = getNode(parenting.getParent());
+					if(newParent == null) {
+						LogUtil.warning("We try to set a new parent but we can't find the parent entity node.");
+						LogUtil.warning("  Component class : " + compClass.getSimpleName());
+						LogUtil.warning("  last component  : " + lastComp);
+						LogUtil.warning("  new component   : " + newComp);
+						LogUtil.warning("  new parent      : " + parenting.getParent() + " / name : " + (getComponent(parenting.getParent(), Naming.class) != null? getComponent(parenting.getParent(), Naming.class).getName() : "unnamed"));
+						Naming naming = getComponent(eid, Naming.class);
+						LogUtil.warning("  entity          : " + eid + (naming != null? naming.getName() : "unamed."));
+					}
 					newParent.childrenListProperty().add(node);
 				}
 				else
@@ -113,6 +120,14 @@ public class TraversableEntityData extends SavableEntityData{
 				} else if(lastComp != null && newComp != null){
 					// component is replaced
 					int index = node.componentListProperty().indexOf(lastComp);
+					if(index == -1){
+						LogUtil.warning("We need to replace a component in an entity node, but the old component can't be found in the entity node's comp list.");
+						LogUtil.warning("  Component class : " + compClass.getSimpleName());
+						LogUtil.warning("  last component  : " + lastComp);
+						LogUtil.warning("  new component   : " + newComp);
+						Naming naming = getComponent(eid, Naming.class);
+						LogUtil.warning("  entity          : " + eid + naming != null? naming.getName() : "unamed.");
+					}
 					node.componentListProperty().set(index, newComp);
 				} else if(lastComp == null && newComp != null){
 					// component is added
