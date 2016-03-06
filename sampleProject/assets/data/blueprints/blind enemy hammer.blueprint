@@ -3,10 +3,10 @@
   "components" : [ {
     "class" : "component.motion.physic.Physic",
     "velocity" : {
-      "x" : 0,
-      "y" : 0
+      "x" : 0.0,
+      "y" : 0.0
     },
-    "angularVelocity" : 0,
+    "angularVelocity" : 0.0,
     "type" : "ship",
     "exceptions" : [ "" ],
     "mass" : 100.0,
@@ -51,7 +51,11 @@
     "name" : "blind enemy hammer"
   }, {
     "class" : "component.ability.AbilityTrigger",
-    "triggers" : { }
+    "triggers" : {
+      "bonjour" : true,
+      "aurevoir" : false,
+      "ca va ?" : true
+    }
   }, {
     "class" : "component.motion.physic.Dragging",
     "dragging" : 0.8
@@ -68,11 +72,11 @@
   }, {
     "class" : "component.motion.PlanarStance",
     "coord" : {
-      "x" : -0.7308920621871948,
-      "y" : -1.1852514743804932
+      "x" : -0.09396984636783631,
+      "y" : 0.029554180204868316
     },
     "orientation" : {
-      "value" : -0.7208064947449373
+      "value" : 0.8660550262704783
     },
     "elevation" : 0.0,
     "upVector" : {
@@ -89,7 +93,8 @@
   }, {
     "class" : "component.motion.physic.CircleCollisionShape",
     "radius" : 0.8,
-    "density" : 1
+    "density" : 1,
+    "restitution" : 0.3
   } ],
   "children" : [ {
     "name" : "thrusters",
@@ -879,7 +884,7 @@
       "class" : "component.motion.PlanarStanceControl",
       "active" : true,
       "localPosition" : {
-        "x" : 0.0,
+        "x" : 1.0,
         "y" : 0.0,
         "z" : 0.0
       },

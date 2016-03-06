@@ -148,7 +148,7 @@ public class MainSample extends Alchemist {
 		commandPipeline.addProcessor(new PlayerThrustControlProc());
 		commandPipeline.addProcessor(new CameraPlacingProc());
 		
-		Pipeline logicPipeline = EditorPlatform.getPipelineManager().createPipeline("logic", false, false);
+		Pipeline logicPipeline = EditorPlatform.getPipelineManager().createPipeline("logic", true, false);
 		logicPipeline.addProcessor(new ChasingCameraProc());
 		logicPipeline.addProcessor(new RotationThrusterProc());
 		logicPipeline.addProcessor(new ThrusterProc());

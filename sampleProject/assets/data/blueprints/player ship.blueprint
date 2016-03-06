@@ -43,7 +43,8 @@
   }, {
     "class" : "component.motion.physic.CircleCollisionShape",
     "radius" : 0.8,
-    "density" : 1.0
+    "density" : 1,
+    "restitution" : 0.3
   }, {
     "class" : "component.motion.physic.Dragging",
     "dragging" : 0.3

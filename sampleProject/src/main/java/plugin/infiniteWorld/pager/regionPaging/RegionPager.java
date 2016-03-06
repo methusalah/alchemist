@@ -47,7 +47,7 @@ public class RegionPager extends BuilderState {
 		// we have to find the built regions that are not needed anymore and discard them
 		discardedRegions.removeAll(ids);
 		for(RegionId id : discardedRegions){
-			if(creators.containsKey(id)){
+			if(creators.containsKey(id) && creators.get(id).isBuilt()){
 				// TODO what happen when you discared a non ready region?
 				if(creators.get(id).getRegion().isModified())
 					// 	we have to keep modified regions as needed, since they have to stay drawn while they are not saved

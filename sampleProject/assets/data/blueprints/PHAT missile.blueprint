@@ -54,7 +54,8 @@
   }, {
     "class" : "component.motion.physic.CircleCollisionShape",
     "radius" : 0.2,
-    "density" : 1
+    "density" : 1,
+    "restitution" : 0.3
   }, {
     "class" : "component.lifeCycle.LifeTime",
     "duration" : 2000.0

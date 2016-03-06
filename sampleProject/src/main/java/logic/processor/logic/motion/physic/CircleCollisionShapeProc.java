@@ -45,7 +45,7 @@ public class CircleCollisionShapeProc extends BaseProcessor {
 			Body b = Pool.bodies.get(physicEntity);
 			BodyFixture f = b.addFixture(new Circle(shape.getRadius()));
 			f.setDensity(shape.getDensity());
-			
+			f.setRestitution(shape.getRestitution());
 			b.setMass(MassType.NORMAL);
 
 			fixtures.put(e.getId(), f);

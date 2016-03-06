@@ -46,6 +46,7 @@ public class EdgedCollisionShapeProc extends BaseProcessor {
 					LogUtil.info("segment à null");
 				BodyFixture f = b.addFixture(new Segment(new Vector2Adapter(seg.getStart()), new Vector2Adapter(seg.getEnd())));
 				f.setDensity(1);
+				f.setRestitution(shape.getRestitution());
 				fixtures.get(e.getId()).add(f);
 				bodies.put(e.getId(), b);
 			}

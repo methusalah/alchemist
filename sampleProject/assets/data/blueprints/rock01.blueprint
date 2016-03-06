@@ -48,7 +48,8 @@
   }, {
     "class" : "component.motion.physic.CircleCollisionShape",
     "radius" : 0.8,
-    "density" : 1
+    "density" : 1,
+    "restitution" : 0.3
   } ],
   "children" : [ ]
 }
