@@ -62,7 +62,6 @@ public class SpriteProc extends BaseProcessor {
 				Geometry g = new Geometry("Sprite");
 				g.setMesh(new CenteredQuad(1, 1));
 				g.setMaterial(MaterialManager.getLightingTexture("textures/"+spritePath));
-				g.getMaterial().setBoolean("UseAlpha",true);
 				g.setQueueBucket(Bucket.Transparent);
 				g.getMaterial().getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 
