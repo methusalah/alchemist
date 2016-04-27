@@ -2,6 +2,7 @@ package com.brainless.alchemist.model.ECS.blueprint;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +20,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  *
  */
 public class BlueprintLibrary {
-	private static final String PATH = "assets/data/blueprints/";
+//	private static final String PATH = "assets/data/blueprints/";
+	private static URL url = BlueprintLibrary.class.getResource("/data/blueprints/");
 	private static final String EXTENSION = ".blueprint";
 	private static final ObjectMapper mapper = new ObjectMapper();
 	private static final Map<String, Blueprint> blueprintMap;
@@ -47,7 +49,7 @@ public class BlueprintLibrary {
 	 */
 	public static void saveBlueprint(Blueprint bp){
 		try {
-			mapper.writeValue(new File(PATH + bp.getName() + EXTENSION), bp);
+			mapper.writeValue(new File(url.getPath(), bp.getName() + EXTENSION), bp);
 			blueprintMap.put(bp.getName(), bp);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -55,7 +57,7 @@ public class BlueprintLibrary {
 	}
 
 	private static void loadBlueprints(){
-		for(File f : getFilesDeeply(PATH))
+		for(File f : getFilesDeeply(url.getPath()))
 			try {
 				Blueprint bp = mapper.readValue(f, Blueprint.class);
 				blueprintMap.put(bp.getName(), bp);

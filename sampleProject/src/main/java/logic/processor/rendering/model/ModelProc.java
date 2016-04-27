@@ -63,10 +63,10 @@ public class ModelProc extends BaseProcessor {
 			return null;
 		if (!modelPrototypes.containsKey(modelPath)) {
 			try {
-				Spatial s = RendererPlatform.getAssetManager().loadModel("models/" + modelPath);
+				Spatial s = RendererPlatform.getAssetManager().loadModel("/models/" + modelPath);
 				modelPrototypes.put(modelPath, s);
 			} catch (Exception e) {
-				LogUtil.warning("Model not found : models/" + modelPath + " ("+ e + ")");
+				LogUtil.warning("Model not found : /models/" + modelPath + " ("+ e + ")");
 				return null;
 			}
 		}

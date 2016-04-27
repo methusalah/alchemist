@@ -2,6 +2,7 @@ package plugin.infiniteWorld.world;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,11 +11,13 @@ import java.util.Map;
 import util.LogUtil;
 import util.geometry.geom2d.Point2D;
 
+import com.brainless.alchemist.model.ECS.blueprint.BlueprintLibrary;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class RegionLoader {
-	private static final String PATH = "assets/data/regions/";
+//	private static final String PATH = "assets/data/regions/";
+	private static URL url = RegionLoader.class.getResource("/data/regions/");
 	private static final String EXT = ".region";
 	
 	private final ObjectMapper mapper = new ObjectMapper();
@@ -55,7 +58,7 @@ public class RegionLoader {
 	}
 	
 	private Region loadRegion(RegionId id, Point2D coord) {
-		File f = new File(PATH+id.getId()+EXT);
+		File f = new File(url.getPath(), id.getId()+EXT);
 		if (!f.exists()) {
 			return new Region(id.getId(), id.getOffset());
 		} else{
@@ -82,7 +85,7 @@ public class RegionLoader {
 	}
 
 	public static void saveRegion(Region region){
-		File f = new File(PATH+region.getId()+EXT);
+		File f = new File(url.getPath(), region.getId()+EXT);
 		if (!f.exists())
 			try {
 				f.createNewFile();
