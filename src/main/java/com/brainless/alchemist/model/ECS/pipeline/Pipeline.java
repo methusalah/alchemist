@@ -12,7 +12,7 @@ import com.jme3.app.state.AppStateManager;
  * For the moment, pipelines are intended to be created at startup and can't be modified. You put processors in and let the engine
  * plug it in and out.
  * 
- * @author Benoît
+ * @author BenoÃ®t
  *
  */
 public class Pipeline {

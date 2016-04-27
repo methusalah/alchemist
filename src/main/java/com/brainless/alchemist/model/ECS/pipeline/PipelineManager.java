@@ -13,7 +13,7 @@ import com.jme3.app.state.AppStateManager;
 /**
  * The pipeline manager creates, holds and manage life cycle of the application piplines.
  * 
- * @author Benoît
+ * @author BenoÃ®t
  *
  */
 public class PipelineManager {

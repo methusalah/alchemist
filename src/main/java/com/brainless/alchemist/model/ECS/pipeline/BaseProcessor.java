@@ -24,7 +24,7 @@ import com.simsilica.es.EntitySet;
  * 
  * Processors are included into pipelines and plugged to the main application to be ran at each tick.
  * 
- * @author Benoît
+ * @author BenoÃ®t
  *
  */
 public abstract class BaseProcessor extends Processor {
