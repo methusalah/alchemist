@@ -1,0 +1,36 @@
+{
+  "name" : "rock03",
+  "components" : [ {
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+    "name" : "rock03"
+  }, {
+    "class" : "component.assets.Model",
+    "path" : "floor assets/rocks/rock03.j3o",
+    "scale" : 0.008,
+    "yawFix" : {
+      "value" : 3.141592653589793
+    },
+    "pitchFix" : {
+      "value" : -3.063702654221644
+    },
+    "rollFix" : {
+      "value" : 1.1960180375711418
+    }
+  }, {
+    "class" : "component.motion.PlanarStance",
+    "coord" : {
+      "x" : 0.0,
+      "y" : 0.0
+    },
+    "orientation" : {
+      "value" : 0.0
+    },
+    "elevation" : 0.0,
+    "upVector" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 1.0
+    }
+  } ],
+  "children" : [ ]
+}

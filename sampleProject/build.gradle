@@ -1,0 +1,48 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+mainClassName = 'app.MainSample'
+if (!hasProperty('mainClass')) {
+	ext.mainClass = 'app.MainSample'
+}
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven { url "https://jitpack.io" }
+	maven { url 'http://updates.jmonkeyengine.org/maven' }	
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+	compile "com.badlogicgames.gdx:gdx-ai:1.6.0"
+	compile rootProject
+}
+
+sourceSets {
+	main {
+		resources {
+			srcDirs = ["src/main/java", "assets"]
+//			includes = ["**/*.*"]
+		}
+	}
+
+}
+
+eclipse {
+	classpath {
+		downloadSources=true
+	 }
+
+	jdt {
+		sourceCompatibility = 1.8
+		targetCompatibility = 1.8
+	}
+
+	project { 
+		name = rootProject.name + "-sample"
+		natures 'org.springsource.ide.eclipse.gradle.core.nature'
+	}
+}

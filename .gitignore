@@ -48,3 +48,7 @@ local.properties
 *.log
 /.nb-gradle/private/
 *.dll
+*.so
+**/.nb-gradle/
+
+config.properties

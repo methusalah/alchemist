@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane prefHeight="30.0">
+         <left>
+            <ToggleButton fx:id="raiseLowButton" mnemonicParsing="false" text="raise/low" BorderPane.alignment="CENTER" />
+         </left>
+         <center>
+            <ToggleButton fx:id="noiseSmoothButton" mnemonicParsing="false" text="noise/smooth" BorderPane.alignment="CENTER" />
+         </center>
+         <right>
+            <ToggleButton fx:id="uniformResetButton" mnemonicParsing="false" text="uniform/reset" BorderPane.alignment="CENTER" />
+         </right>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </BorderPane>
+   </children>
+</fx:root>

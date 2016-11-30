@@ -1,0 +1,52 @@
+{
+  "name" : "rock01",
+  "components" : [ {
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+    "name" : "rock01"
+  }, {
+    "class" : "component.assets.Model",
+    "path" : "floor assets/rocks/rock01.j3o",
+    "scale" : 0.35,
+    "yawFix" : {
+      "value" : 1.3968292466691012
+    },
+    "pitchFix" : {
+      "value" : -2.9253597820749544
+    },
+    "rollFix" : {
+      "value" : 2.8404962927294126
+    }
+  }, {
+    "class" : "component.motion.PlanarStance",
+    "coord" : {
+      "x" : -2.580000000000002,
+      "y" : -8.459999999999978
+    },
+    "orientation" : {
+      "value" : 5.809421546304796
+    },
+    "elevation" : 0.0,
+    "upVector" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 1.0
+    }
+  }, {
+    "class" : "component.motion.physic.Physic",
+    "velocity" : {
+      "x" : 0.3677223454978834,
+      "y" : -2.184177215486411
+    },
+    "type" : "",
+    "exceptions" : [ ],
+    "mass" : 1000.0,
+    "restitution" : {
+      "value" : 0.0
+    },
+    "spawnerException" : null
+  }, {
+    "class" : "component.motion.physic.CircleCollisionShape",
+    "radius" : 0.7899999999999989
+  } ],
+  "children" : [ ]
+}

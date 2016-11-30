@@ -1,0 +1,8 @@
+{
+  "name" : "Unamed entityEntityId[30]",
+  "components" : [ {
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+    "name" : "Unamed entity"
+  } ],
+  "children" : [ ]
+}

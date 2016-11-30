@@ -1,0 +1,85 @@
+# Ship tree
+
+# import tasks
+import aim : "logic.AI.task.Aim"
+import shoot : "logic.AI.task.Shoot"
+import approach : "logic.AI.task.Approach"
+import fastDodge : "logic.AI.task.FastDodge"
+import flee : "logic.AI.task.Flee"
+import stepBack : "logic.AI.task.StepBack"
+import strafeDodge : "logic.AI.task.StrafeDodge"
+import forgetEnemy : "logic.AI.task.ForgetEnemy"
+import recordEnemy : "logic.AI.task.RecordEnemy"
+
+import isEnemyInSight : "logic.AI.task.IsEnemyInSight"
+import isEnemyTouching : "logic.AI.task.IsEnemyTouching"
+import isEnemyRecorded : "logic.AI.task.IsEnemyRecorded"
+import isTooClose : "logic.AI.task.IsTooClose"
+import isTooFar : "logic.AI.task.IsTooFar"
+import isLowLife : "logic.AI.task.IsLowLife"
+
+# import decorators
+import cooldownTimer : "logic.AI.decorator.CooldownTimer"
+import persister : "logic.AI.decorator.Persister"
+import slower : "logic.AI.decorator.Slower"
+import succeeder : "logic.AI.decorator.Succeeder"
+import randomizer : "logic.AI.decorator.Randomizer"
+
+
+# tree
+root
+  selector
+    sequence
+      isEnemyRecorded
+      selector
+        sequence
+          isLowLife
+          persister duration:3000 range:1000
+            flee
+          forgetEnemy
+        sequence
+          isTooClose dist:3
+          persister duration:300 range:100
+            flee
+        sequence
+          isTooClose dist:5
+          aim
+          cooldownTimer duration:2000 range:1000 id:"attack"
+            shoot
+          stepBack
+        sequence
+          isTooFar dist:8
+          aim
+          cooldownTimer duration:2000 range:1000 id:"attack"
+            shoot
+          approach
+        sequence 
+          isTooFar dist:10
+          aim
+          approach
+        sequence 
+          isTooFar dist:12
+          forgetEnemy
+        selector
+          selector
+            randomizer
+              cooldownTimer duration:500 range:1000 id:"dodge"
+                persister duration:200 range:200
+                  sequence
+                    aim
+                    succeeder
+                      cooldownTimer duration:2000 range:1000 id:"attack"
+                        shoot
+                    strafeDodge
+            cooldownTimer duration:500 range:1000 id:"dodge"
+              persister duration:200 range:200
+                fastDodge
+          aim
+          shoot
+    sequence
+      isEnemyInSight
+      recordEnemy
+    sequence
+      isEnemyTouching
+      recordEnemy
+      

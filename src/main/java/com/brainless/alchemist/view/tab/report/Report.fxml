@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+
+
+<fx:root maxHeight="-Infinity" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <ScrollPane fitToWidth="true" maxWidth="1.7976931348623157E308" BorderPane.alignment="TOP_CENTER">
+         <content>
+            <VBox>
+               <children>
+                  <TitledPane fx:id="sceneGraphPane" animated="false" expanded="false" text="Scene graph">
+                     <content>
+                        <BorderPane fx:id="listViewContainer">
+                           <bottom>
+                              <Label fx:id="spatialLabel" text="Label" BorderPane.alignment="TOP_LEFT" />
+                           </bottom>
+                        </BorderPane>
+                     </content>
+                  </TitledPane>
+                  <TitledPane fx:id="logicLoopPane" animated="false" expanded="false" text="Logic loop">
+                     <content>
+                        <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <children>
+                              <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                 <children>
+                                    <Label fx:id="entityCountLabel" text="\$Entity count : " />
+                                    <Label fx:id="idelingRatioLabel" text="\$Idle time : " />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                     </content>
+                  </TitledPane>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </center>
+   <padding>
+      <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+   </padding>
+</fx:root>

@@ -1,40 +1,106 @@
 apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
 
-version = '1.0'
-
-allprojects {
-	apply plugin: "eclipse"
-	apply plugin: "idea"
-	apply plugin: 'pmd'
-	apply plugin: 'findbugs'
-	apply plugin: 'java'
-
-	version = '0.0.1'
-	ext {
-		appName = 'cosmovania'
-		jmonkeyengine_version = '3.0.10'
-		//jmonkeyengine_version = '3.1.0-SNAPSHOT'
-	}
-	sourceCompatibility = 1.8
-	targetCompatibility = 1.8
-	compileJava {
-		sourceCompatibility = '1.8'
-	 }
-
-	repositories {
-		mavenLocal()
-		mavenCentral()
-		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-		maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-		maven { url 'http://updates.jmonkeyengine.org/maven' }	
-		maven { url 'http://jcenter.bintray.com' }
-	}
+group = 'com.github.brainless-studios'
 	
-	pmd {
-		ignoreFailures = true
-	}
+ext {
+	//appName = 'alchemist'
+	jmonkeyengine_version = '3.0.10'
+}
 	
-	findbugs {
-		ignoreFailures = true
+repositories {
+	mavenLocal()
+	jcenter()
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+    maven { url "http://updates.jmonkeyengine.org/maven" }
+}
+
+dependencies {
+	// local libraries
+	compile fileTree(dir: 'lib', include: ['*.jar'])
+	
+	// reflection
+	compile 'org.reflections:reflections:0.9.10'
+	
+	// jMonkey Engine
+	compile "com.jme3:jme3-core:$jmonkeyengine_version"
+	compile "com.jme3:jme3-effects:$jmonkeyengine_version" 
+	compile "com.jme3:jme3-networking:$jmonkeyengine_version"
+	compile "com.jme3:jme3-blender:$jmonkeyengine_version"
+	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version"
+	compile "com.jme3:jme3-lwjgl:$jmonkeyengine_version"
+
+	// FasterXML - jackson
+	compile 'com.fasterxml.jackson.core:jackson-core:2.5.3'
+	compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.3'
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
+	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.5.0'
+
+	// myGeom
+	compile 'com.github.brainless-studios:myGeom:-SNAPSHOT'
+	
+	// Simple Logging Facade
+	compile 'org.slf4j:slf4j-simple:1.6.1'
+	
+	// LibGDX-AI
+	//compile "com.badlogicgames.gdx:gdx-ai:1.6.0"
+	
+	// Simsilica Pager
+	//compile 'com.github.simsilica:pager:-SNAPSHOT'
+	
+	// Zay-ES
+	//compile 'com.simsilica:zay-es:1.3.1-SNAPSHOT'
+	//compile 'com.github.brainless-studios:zay-es:-SNAPSHOT'
+
+	// JME3-JFX
+	compile 'com.github.empirephoenix:JME3-JFX:-SNAPSHOT'
+	
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+compileJava {
+	sourceCompatibility = '1.8'
+ }
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//	classifier = 'javadoc'
+//	from javadoc.destinationDir
+//}
+
+artifacts {
+	archives sourcesJar
+//	archives javadocJar
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+sourceSets {
+	main {
+		java {
+			//srcDir 'src'
+		}
+		resources {
+	        srcDirs = ["src/main/java"]
+//			includes = ["**/*.fxml", "**/*.css", "**/*.png"]
+		}
+	}
+
+}
+
+eclipse {
+	jdt {
+		sourceCompatibility = 1.8
+		targetCompatibility = 1.8
 	}
 }

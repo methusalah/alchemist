@@ -1,0 +1,1126 @@
+{
+  "name" : "player ship",
+  "components" : [ {
+    "class" : "component.ability.AbilityTrigger",
+    "triggers" : { }
+  }, {
+    "class" : "component.motion.PlanarStance",
+    "coord" : {
+      "x" : 0.8788450139734837,
+      "y" : 1.9539624336073471
+    },
+    "orientation" : {
+      "value" : 96.73540345410916
+    },
+    "elevation" : 1.0,
+    "upVector" : {
+      "x" : 0.0,
+      "y" : 0.0,
+      "z" : 1.0
+    }
+  }, {
+    "class" : "component.ability.PlayerControl",
+    "color" : {
+      "a" : 255,
+      "r" : 150,
+      "g" : 0,
+      "b" : 0
+    },
+    "angledelamortquitue" : {
+      "value" : 3.0
+    },
+    "listdetest" : [ "bonjour", "aurevoir", "ca va?" ],
+    "listdeboule" : [ true, false, true ],
+    "doubles" : [ 1.0, 3.0, 8.0 ]
+  }, {
+    "class" : "component.combat.Attackable"
+  }, {
+    "class" : "component.motion.PlanarVelocityToApply",
+    "vector" : {
+      "x" : 0.0,
+      "y" : 0.0
+    }
+  }, {
+    "class" : "component.motion.physic.CircleCollisionShape",
+    "radius" : 0.8
+  }, {
+    "class" : "component.motion.physic.Dragging",
+    "dragging" : 0.3
+  }, {
+    "class" : "component.assets.Model",
+    "path" : "playership/playership_base02.j3o",
+    "scale" : 0.005,
+    "yawFix" : {
+      "value" : 0.0
+    },
+    "pitchFix" : {
+      "value" : 0.0
+    },
+    "rollFix" : {
+      "value" : 0.0
+    }
+  }, {
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+    "name" : "player ship"
+  }, {
+    "class" : "component.motion.physic.Physic",
+    "velocity" : {
+      "x" : -1.5122288085930047,
+      "y" : -0.8930689989569338
+    },
+    "type" : "",
+    "exceptions" : [ ],
+    "mass" : 100.0,
+    "restitution" : {
+      "value" : 0.711
+    },
+    "spawnerException" : null
+  }, {
+    "class" : "component.motion.PlanarNeededThrust",
+    "direction" : {
+      "x" : 0.0,
+      "y" : 0.0
+    }
+  }, {
+    "class" : "component.motion.MotionCapacity",
+    "maxRotationSpeed" : 24.0,
+    "thrustPower" : 30.0,
+    "lateralThrustPower" : 10.0,
+    "frontalThrustPower" : 10.0
+  } ],
+  "children" : [ {
+    "name" : "camera",
+    "components" : [ {
+      "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+      "name" : "camera"
+    }, {
+      "class" : "component.motion.PlanarStance",
+      "coord" : {
+        "x" : 1.0696842818249457,
+        "y" : 2.0666655293904723
+      },
+      "orientation" : {
+        "value" : 0.0
+      },
+      "elevation" : 20.0,
+      "upVector" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "z" : 1.0
+      }
+    }, {
+      "class" : "component.motion.ChasingCamera",
+      "maxSpeed" : 200.0,
+      "speed" : 1.9199999999999984,
+      "acceleration" : 8.0,
+      "deceleration" : 8.0,
+      "pos" : {
+        "x" : 1.0696842818249457,
+        "y" : 2.0666655293904723,
+        "z" : 20.0
+      },
+      "target" : {
+        "x" : 0.9090895901453437,
+        "y" : 1.9718238135864858,
+        "z" : 1.0
+      }
+    } ],
+    "children" : [ {
+      "name" : "background",
+      "components" : [ {
+        "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+        "name" : "background"
+      }, {
+        "class" : "component.motion.PlanarStance",
+        "coord" : {
+          "x" : 0.0,
+          "y" : 0.0
+        },
+        "orientation" : {
+          "value" : 0.0
+        },
+        "elevation" : -50.0,
+        "upVector" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "z" : 1.0
+        }
+      }, {
+        "class" : "component.motion.PlanarStanceControl",
+        "active" : false,
+        "localPosition" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "z" : -40.0
+        },
+        "localOrientation" : {
+          "value" : 0.0
+        }
+      }, {
+        "class" : "component.assets.Sprite",
+        "path" : "",
+        "size" : 100.0
+      } ],
+      "children" : [ ]
+    } ]
+  }, {
+    "name" : "thrusters",
+    "components" : [ {
+      "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+      "name" : "thrusters"
+    } ],
+    "children" : [ {
+      "name" : "main thruster",
+      "components" : [ {
+        "class" : "component.motion.PlanarStance",
+        "coord" : {
+          "x" : 1.275682847465752,
+          "y" : 1.6497918664757414
+        },
+        "orientation" : {
+          "value" : -0.6539688071744436
+        },
+        "elevation" : 1.0,
+        "upVector" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "z" : 1.0
+        }
+      }, {
+        "class" : "component.motion.Thruster",
+        "direction" : {
+          "x" : 1.0,
+          "y" : 0.0,
+          "z" : 0.0
+        },
+        "activationAngle" : {
+          "value" : 1.3962634015954636
+        },
+        "activation" : {
+          "value" : 0.0
+        },
+        "onOff" : true
+      }, {
+        "class" : "component.motion.PlanarStanceControl",
+        "active" : true,
+        "localPosition" : {
+          "x" : -0.5,
+          "y" : 0.0,
+          "z" : 0.0
+        },
+        "localOrientation" : {
+          "value" : 3.141592653589793
+        }
+      }, {
+        "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+        "name" : "main thruster"
+      }, {
+        "class" : "component.motion.ThrustControl",
+        "active" : true
+      }, {
+        "class" : "component.assets.Lighting",
+        "color" : {
+          "a" : 255,
+          "r" : 255,
+          "g" : 128,
+          "b" : 128
+        },
+        "intensity" : 4.0,
+        "distance" : 3.0,
+        "innerAngle" : 0.0,
+        "outerAngle" : 0.7,
+        "shadowIntensity" : {
+          "value" : 1.0
+        },
+        "activation" : {
+          "value" : 0.0
+        }
+      } ],
+      "children" : [ {
+        "name" : "main particle",
+        "components" : [ {
+          "class" : "component.motion.ThrusterControl",
+          "active" : true
+        }, {
+          "class" : "component.assets.ParticleCaster",
+          "spritePath" : "particles/flame.png",
+          "nbCol" : 2,
+          "nbRow" : 2,
+          "initialSpeed" : 5.0,
+          "fanning" : 0.03,
+          "randomSprite" : false,
+          "maxCount" : 200,
+          "perSecond" : 50,
+          "startSize" : 0.4,
+          "endSize" : 0.1,
+          "startColor" : {
+            "a" : 255,
+            "r" : 153,
+            "g" : 51,
+            "b" : 0
+          },
+          "endColor" : {
+            "a" : 255,
+            "r" : 255,
+            "g" : 204,
+            "b" : 102
+          },
+          "minLife" : 0.15,
+          "maxLife" : 0.2,
+          "rotationSpeed" : 0.0,
+          "gravity" : false,
+          "facing" : "Camera",
+          "add" : false,
+          "startVariation" : 0.01,
+          "allAtOnce" : false
+        }, {
+          "class" : "component.motion.PlanarStance",
+          "coord" : {
+            "x" : 1.275682847465752,
+            "y" : 1.6497918664757414
+          },
+          "orientation" : {
+            "value" : -0.6539688071744436
+          },
+          "elevation" : 1.0,
+          "upVector" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 1.0
+          }
+        }, {
+          "class" : "component.motion.PlanarStanceControl",
+          "active" : true,
+          "localPosition" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 0.0
+          },
+          "localOrientation" : {
+            "value" : 0.0
+          }
+        }, {
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+          "name" : "main particle"
+        } ],
+        "children" : [ ]
+      }, {
+        "name" : "debris particle",
+        "components" : [ {
+          "class" : "component.motion.ThrusterControl",
+          "active" : true
+        }, {
+          "class" : "component.assets.ParticleCaster",
+          "spritePath" : "particles/flame.png",
+          "nbCol" : 2,
+          "nbRow" : 2,
+          "initialSpeed" : 4.0,
+          "fanning" : 0.5,
+          "randomSprite" : false,
+          "maxCount" : 100,
+          "perSecond" : 15,
+          "startSize" : 0.1,
+          "endSize" : 0.05,
+          "startColor" : {
+            "a" : 111,
+            "r" : 153,
+            "g" : 51,
+            "b" : 0
+          },
+          "endColor" : {
+            "a" : 165,
+            "r" : 141,
+            "g" : 139,
+            "b" : 138
+          },
+          "minLife" : 0.2,
+          "maxLife" : 0.3,
+          "rotationSpeed" : 0.0,
+          "gravity" : false,
+          "facing" : "Camera",
+          "add" : false,
+          "startVariation" : 0.0,
+          "allAtOnce" : false
+        }, {
+          "class" : "component.motion.PlanarStance",
+          "coord" : {
+            "x" : 1.275682847465752,
+            "y" : 1.6497918664757414
+          },
+          "orientation" : {
+            "value" : -0.6539688071744436
+          },
+          "elevation" : 1.0,
+          "upVector" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 1.0
+          }
+        }, {
+          "class" : "component.motion.PlanarStanceControl",
+          "active" : true,
+          "localPosition" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 0.0
+          },
+          "localOrientation" : {
+            "value" : 0.0
+          }
+        }, {
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+          "name" : "debris particle"
+        } ],
+        "children" : [ ]
+      }, {
+        "name" : "sound",
+        "components" : [ {
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+          "name" : "sound"
+        }, {
+          "class" : "component.motion.ThrusterControl",
+          "active" : true
+        }, {
+          "class" : "component.motion.PlanarStance",
+          "coord" : {
+            "x" : 0.0,
+            "y" : 0.0
+          },
+          "orientation" : {
+            "value" : 0.0
+          },
+          "elevation" : 0.0,
+          "upVector" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 1.0
+          }
+        }, {
+          "class" : "component.assets.ThrusterAudioSource",
+          "startPath" : "thruster_start.wav",
+          "loopPath" : "thruster_loop.wav",
+          "endPath" : "thruster_stop.wav",
+          "volume" : {
+            "value" : 1.0
+          },
+          "startTime" : 0,
+          "loopTime" : 1456491809025
+        } ],
+        "children" : [ ]
+      }, {
+        "name" : "trail particle",
+        "components" : [ {
+          "class" : "component.motion.ThrusterControl",
+          "active" : true
+        }, {
+          "class" : "component.assets.ParticleCaster",
+          "spritePath" : "particles/flame.png",
+          "nbCol" : 2,
+          "nbRow" : 2,
+          "initialSpeed" : 2.0,
+          "fanning" : 0.0,
+          "randomSprite" : false,
+          "maxCount" : 1000,
+          "perSecond" : 50,
+          "startSize" : 0.0,
+          "endSize" : 0.2,
+          "startColor" : {
+            "a" : 138,
+            "r" : 45,
+            "g" : 45,
+            "b" : 45
+          },
+          "endColor" : {
+            "a" : 132,
+            "r" : 39,
+            "g" : 39,
+            "b" : 39
+          },
+          "minLife" : 2.8,
+          "maxLife" : 3.0,
+          "rotationSpeed" : 0.0,
+          "gravity" : false,
+          "facing" : "Camera",
+          "add" : false,
+          "startVariation" : 0.01,
+          "allAtOnce" : false
+        }, {
+          "class" : "component.motion.PlanarStance",
+          "coord" : {
+            "x" : 1.275682847465752,
+            "y" : 1.6497918664757414
+          },
+          "orientation" : {
+            "value" : -0.6539688071744436
+          },
+          "elevation" : 1.0,
+          "upVector" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 1.0
+          }
+        }, {
+          "class" : "component.motion.PlanarStanceControl",
+          "active" : true,
+          "localPosition" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 0.0
+          },
+          "localOrientation" : {
+            "value" : 0.0
+          }
+        }, {
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+          "name" : "trail particle"
+        } ],
+        "children" : [ ]
+      } ]
+    }, {
+      "name" : "frontal left thruster",
+      "components" : [ {
+        "class" : "component.motion.PlanarStance",
+        "coord" : {
+          "x" : 0.5005406337533478,
+          "y" : 2.117931320614178
+        },
+        "orientation" : {
+          "value" : 2.923956159413919
+        },
+        "elevation" : 1.0,
+        "upVector" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "z" : 1.0
+        }
+      }, {
+        "class" : "component.motion.Thruster",
+        "direction" : {
+          "x" : -1.0,
+          "y" : -1.0,
+          "z" : 0.0
+        },
+        "activationAngle" : {
+          "value" : 1.2217304763960306
+        },
+        "activation" : {
+          "value" : 0.0
+        },
+        "onOff" : true
+      }, {
+        "class" : "component.motion.PlanarStanceControl",
+        "active" : true,
+        "localPosition" : {
+          "x" : 0.4,
+          "y" : 0.1,
+          "z" : 0.0
+        },
+        "localOrientation" : {
+          "value" : 0.4363323129985824
+        }
+      }, {
+        "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+        "name" : "frontal left thruster"
+      }, {
+        "class" : "component.motion.ThrustControl",
+        "active" : true
+      } ],
+      "children" : [ {
+        "name" : "main particle",
+        "components" : [ {
+          "class" : "component.motion.ThrusterControl",
+          "active" : true
+        }, {
+          "class" : "component.assets.ParticleCaster",
+          "spritePath" : "particles/flame.png",
+          "nbCol" : 2,
+          "nbRow" : 2,
+          "initialSpeed" : 4.0,
+          "fanning" : 0.03,
+          "randomSprite" : false,
+          "maxCount" : 200,
+          "perSecond" : 50,
+          "startSize" : 0.1,
+          "endSize" : 0.02,
+          "startColor" : {
+            "a" : 255,
+            "r" : 153,
+            "g" : 51,
+            "b" : 0
+          },
+          "endColor" : {
+            "a" : 255,
+            "r" : 255,
+            "g" : 204,
+            "b" : 102
+          },
+          "minLife" : 0.08,
+          "maxLife" : 0.1,
+          "rotationSpeed" : 0.0,
+          "gravity" : false,
+          "facing" : "Camera",
+          "add" : false,
+          "startVariation" : 0.01,
+          "allAtOnce" : false
+        }, {
+          "class" : "component.motion.PlanarStance",
+          "coord" : {
+            "x" : 0.5005406337533478,
+            "y" : 2.117931320614178
+          },
+          "orientation" : {
+            "value" : 2.923956159413919
+          },
+          "elevation" : 1.0,
+          "upVector" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 1.0
+          }
+        }, {
+          "class" : "component.motion.PlanarStanceControl",
+          "active" : true,
+          "localPosition" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 0.0
+          },
+          "localOrientation" : {
+            "value" : 0.0
+          }
+        }, {
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+          "name" : "main particle"
+        } ],
+        "children" : [ ]
+      } ]
+    }, {
+      "name" : "frontal right thruster",
+      "components" : [ {
+        "class" : "component.motion.PlanarStance",
+        "coord" : {
+          "x" : 0.6222088606059901,
+          "y" : 2.2766664540110852
+        },
+        "orientation" : {
+          "value" : 2.0512915334167445
+        },
+        "elevation" : 1.0,
+        "upVector" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "z" : 1.0
+        }
+      }, {
+        "class" : "component.motion.Thruster",
+        "direction" : {
+          "x" : -1.0,
+          "y" : 1.0,
+          "z" : 0.0
+        },
+        "activationAngle" : {
+          "value" : 1.2217304763960306
+        },
+        "activation" : {
+          "value" : 0.0
+        },
+        "onOff" : true
+      }, {
+        "class" : "component.motion.PlanarStanceControl",
+        "active" : true,
+        "localPosition" : {
+          "x" : 0.4,
+          "y" : -0.1,
+          "z" : 0.0
+        },
+        "localOrientation" : {
+          "value" : -0.4363323129985824
+        }
+      }, {
+        "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+        "name" : "frontal right thruster"
+      }, {
+        "class" : "component.motion.ThrustControl",
+        "active" : true
+      } ],
+      "children" : [ {
+        "name" : "main particle",
+        "components" : [ {
+          "class" : "component.motion.ThrusterControl",
+          "active" : true
+        }, {
+          "class" : "component.assets.ParticleCaster",
+          "spritePath" : "particles/flame.png",
+          "nbCol" : 2,
+          "nbRow" : 2,
+          "initialSpeed" : 4.0,
+          "fanning" : 0.03,
+          "randomSprite" : false,
+          "maxCount" : 200,
+          "perSecond" : 50,
+          "startSize" : 0.1,
+          "endSize" : 0.02,
+          "startColor" : {
+            "a" : 255,
+            "r" : 153,
+            "g" : 51,
+            "b" : 0
+          },
+          "endColor" : {
+            "a" : 255,
+            "r" : 255,
+            "g" : 204,
+            "b" : 102
+          },
+          "minLife" : 0.08,
+          "maxLife" : 0.1,
+          "rotationSpeed" : 0.0,
+          "gravity" : false,
+          "facing" : "Camera",
+          "add" : false,
+          "startVariation" : 0.01,
+          "allAtOnce" : false
+        }, {
+          "class" : "component.motion.PlanarStance",
+          "coord" : {
+            "x" : 0.6222088606059901,
+            "y" : 2.2766664540110852
+          },
+          "orientation" : {
+            "value" : 2.0512915334167445
+          },
+          "elevation" : 1.0,
+          "upVector" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 1.0
+          }
+        }, {
+          "class" : "component.motion.PlanarStanceControl",
+          "active" : true,
+          "localPosition" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 0.0
+          },
+          "localOrientation" : {
+            "value" : 0.0
+          }
+        }, {
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+          "name" : "main particle"
+        } ],
+        "children" : [ ]
+      } ]
+    }, {
+      "name" : "rear left thruster",
+      "components" : [ {
+        "class" : "component.motion.PlanarStance",
+        "coord" : {
+          "x" : 0.9555957038669756,
+          "y" : 1.6431420166446369
+        },
+        "orientation" : {
+          "value" : -1.6138998957713468
+        },
+        "elevation" : 1.0,
+        "upVector" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "z" : 1.0
+        }
+      }, {
+        "class" : "component.motion.Thruster",
+        "direction" : {
+          "x" : 1.0,
+          "y" : -1.5,
+          "z" : 0.0
+        },
+        "activationAngle" : {
+          "value" : 0.8726646259971648
+        },
+        "activation" : {
+          "value" : 0.0
+        },
+        "onOff" : true
+      }, {
+        "class" : "component.motion.PlanarStanceControl",
+        "active" : true,
+        "localPosition" : {
+          "x" : -0.25,
+          "y" : 0.2,
+          "z" : 0.0
+        },
+        "localOrientation" : {
+          "value" : 2.1816615649929116
+        }
+      }, {
+        "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+        "name" : "rear left thruster"
+      }, {
+        "class" : "component.motion.ThrustControl",
+        "active" : true
+      } ],
+      "children" : [ {
+        "name" : "main particle",
+        "components" : [ {
+          "class" : "component.motion.ThrusterControl",
+          "active" : true
+        }, {
+          "class" : "component.assets.ParticleCaster",
+          "spritePath" : "particles/flame.png",
+          "nbCol" : 2,
+          "nbRow" : 2,
+          "initialSpeed" : 4.0,
+          "fanning" : 0.03,
+          "randomSprite" : false,
+          "maxCount" : 200,
+          "perSecond" : 50,
+          "startSize" : 0.1,
+          "endSize" : 0.02,
+          "startColor" : {
+            "a" : 255,
+            "r" : 153,
+            "g" : 51,
+            "b" : 0
+          },
+          "endColor" : {
+            "a" : 255,
+            "r" : 255,
+            "g" : 204,
+            "b" : 102
+          },
+          "minLife" : 0.08,
+          "maxLife" : 0.1,
+          "rotationSpeed" : 0.0,
+          "gravity" : false,
+          "facing" : "Camera",
+          "add" : false,
+          "startVariation" : 0.01,
+          "allAtOnce" : false
+        }, {
+          "class" : "component.motion.PlanarStance",
+          "coord" : {
+            "x" : 0.9555957038669756,
+            "y" : 1.6431420166446369
+          },
+          "orientation" : {
+            "value" : -1.6138998957713468
+          },
+          "elevation" : 1.0,
+          "upVector" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 1.0
+          }
+        }, {
+          "class" : "component.motion.PlanarStanceControl",
+          "active" : true,
+          "localPosition" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 0.0
+          },
+          "localOrientation" : {
+            "value" : 0.0
+          }
+        }, {
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+          "name" : "main particle"
+        } ],
+        "children" : [ ]
+      } ]
+    }, {
+      "name" : "rear right thruster",
+      "components" : [ {
+        "class" : "component.motion.PlanarStance",
+        "coord" : {
+          "x" : 1.1989321575722602,
+          "y" : 1.9606122834384516
+        },
+        "orientation" : {
+          "value" : 0.3059622814224312
+        },
+        "elevation" : 1.0,
+        "upVector" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "z" : 1.0
+        }
+      }, {
+        "class" : "component.motion.Thruster",
+        "direction" : {
+          "x" : 1.0,
+          "y" : 1.5,
+          "z" : 0.0
+        },
+        "activationAngle" : {
+          "value" : 0.8726646259971648
+        },
+        "activation" : {
+          "value" : 0.0
+        },
+        "onOff" : true
+      }, {
+        "class" : "component.motion.PlanarStanceControl",
+        "active" : true,
+        "localPosition" : {
+          "x" : -0.25,
+          "y" : -0.2,
+          "z" : 0.0
+        },
+        "localOrientation" : {
+          "value" : -2.1816615649929116
+        }
+      }, {
+        "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+        "name" : "rear right thruster"
+      }, {
+        "class" : "component.motion.ThrustControl",
+        "active" : true
+      } ],
+      "children" : [ {
+        "name" : "main particle",
+        "components" : [ {
+          "class" : "component.motion.ThrusterControl",
+          "active" : true
+        }, {
+          "class" : "component.assets.ParticleCaster",
+          "spritePath" : "particles/flame.png",
+          "nbCol" : 2,
+          "nbRow" : 2,
+          "initialSpeed" : 4.0,
+          "fanning" : 0.03,
+          "randomSprite" : false,
+          "maxCount" : 200,
+          "perSecond" : 50,
+          "startSize" : 0.1,
+          "endSize" : 0.02,
+          "startColor" : {
+            "a" : 255,
+            "r" : 153,
+            "g" : 51,
+            "b" : 0
+          },
+          "endColor" : {
+            "a" : 255,
+            "r" : 255,
+            "g" : 204,
+            "b" : 102
+          },
+          "minLife" : 0.08,
+          "maxLife" : 0.1,
+          "rotationSpeed" : 0.0,
+          "gravity" : false,
+          "facing" : "Camera",
+          "add" : false,
+          "startVariation" : 0.01,
+          "allAtOnce" : false
+        }, {
+          "class" : "component.motion.PlanarStance",
+          "coord" : {
+            "x" : 1.1989321575722602,
+            "y" : 1.9606122834384516
+          },
+          "orientation" : {
+            "value" : 0.3059622814224312
+          },
+          "elevation" : 1.0,
+          "upVector" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 1.0
+          }
+        }, {
+          "class" : "component.motion.PlanarStanceControl",
+          "active" : true,
+          "localPosition" : {
+            "x" : 0.0,
+            "y" : 0.0,
+            "z" : 0.0
+          },
+          "localOrientation" : {
+            "value" : 0.0
+          }
+        }, {
+          "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+          "name" : "main particle"
+        } ],
+        "children" : [ ]
+      } ]
+    } ]
+  }, {
+    "name" : "weapon",
+    "components" : [ {
+      "class" : "component.motion.PlanarStance",
+      "coord" : {
+        "x" : 0.8788450139734837,
+        "y" : 1.9539624336073471
+      },
+      "orientation" : {
+        "value" : 2.4876238464153317
+      },
+      "elevation" : 1.0,
+      "upVector" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "z" : 1.0
+      }
+    }, {
+      "class" : "component.combat.damage.ProjectileLauncher",
+      "precision" : {
+        "value" : 0.98
+      },
+      "projectileBluePrint" : "red laser"
+    }, {
+      "class" : "component.motion.PlanarStanceControl",
+      "active" : true,
+      "localPosition" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "z" : 0.0
+      },
+      "localOrientation" : {
+        "value" : 0.0
+      }
+    }, {
+      "class" : "component.ability.AbilityTriggerControl",
+      "active" : true
+    }, {
+      "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+      "name" : "weapon"
+    }, {
+      "class" : "component.ability.Cooldown",
+      "remaining" : 0,
+      "duration" : 200
+    }, {
+      "class" : "component.combat.damage.DamageCapacity",
+      "type" : "SHOCK",
+      "base" : 20,
+      "dotChance" : {
+        "value" : 0.302
+      },
+      "dotPerSecond" : 10,
+      "blueprintOnImpact" : "incendiary impact particle",
+      "blueprintOnDOT" : ""
+    }, {
+      "class" : "component.ability.Ability",
+      "name" : "gun",
+      "triggered" : false
+    } ],
+    "children" : [ ]
+  }, {
+    "name" : "Boost",
+    "components" : [ {
+      "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+      "name" : "Boost"
+    }, {
+      "class" : "component.ability.Ability",
+      "name" : "boost",
+      "triggered" : false
+    }, {
+      "class" : "component.ability.AbilityTriggerControl",
+      "active" : true
+    }, {
+      "class" : "component.motion.Boost",
+      "force" : 40.0
+    } ],
+    "children" : [ ]
+  }, {
+    "name" : "right front light",
+    "components" : [ {
+      "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+      "name" : "right front light"
+    }, {
+      "class" : "component.motion.PlanarStanceControl",
+      "active" : true,
+      "localPosition" : {
+        "x" : 0.4,
+        "y" : -0.3,
+        "z" : 0.0
+      },
+      "localOrientation" : {
+        "value" : -0.17453292519943295
+      }
+    }, {
+      "class" : "component.motion.SpaceStance",
+      "position" : {
+        "x" : 0.7438770874586323,
+        "y" : 2.4354015874079926,
+        "z" : 1.0
+      },
+      "direction" : {
+        "x" : -0.6759806208588464,
+        "y" : 0.7369193987291205,
+        "z" : 0.0
+      }
+    }, {
+      "class" : "component.assets.Lighting",
+      "color" : {
+        "a" : 255,
+        "r" : 255,
+        "g" : 255,
+        "b" : 255
+      },
+      "intensity" : 4.0,
+      "distance" : 12.0,
+      "innerAngle" : 0.2,
+      "outerAngle" : 0.5,
+      "shadowIntensity" : {
+        "value" : 1.0
+      },
+      "activation" : {
+        "value" : 1.0
+      }
+    } ],
+    "children" : [ ]
+  }, {
+    "name" : "left front light",
+    "components" : [ {
+      "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+      "name" : "left front light"
+    }, {
+      "class" : "component.motion.PlanarStanceControl",
+      "active" : true,
+      "localPosition" : {
+        "x" : 0.4,
+        "y" : 0.3,
+        "z" : 0.0
+      },
+      "localOrientation" : {
+        "value" : 0.17453292519943295
+      }
+    }, {
+      "class" : "component.motion.SpaceStance",
+      "position" : {
+        "x" : 0.37887240690070556,
+        "y" : 1.9591961872172707,
+        "z" : 1.0
+      },
+      "direction" : {
+        "x" : -0.8872552795881309,
+        "y" : 0.46127873226823257,
+        "z" : 0.0
+      }
+    }, {
+      "class" : "component.assets.Lighting",
+      "color" : {
+        "a" : 255,
+        "r" : 255,
+        "g" : 255,
+        "b" : 255
+      },
+      "intensity" : 4.0,
+      "distance" : 12.0,
+      "innerAngle" : 0.2,
+      "outerAngle" : 0.7,
+      "shadowIntensity" : {
+        "value" : 1.0
+      },
+      "activation" : {
+        "value" : 1.0
+      }
+    } ],
+    "children" : [ ]
+  } ]
+}

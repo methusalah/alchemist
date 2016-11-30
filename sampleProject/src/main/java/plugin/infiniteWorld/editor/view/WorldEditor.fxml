@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minWidth="150.0" type="BorderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <TabPane fx:id="toolTabPane" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab fx:id="reliefTab" text="Relief" />
+          <Tab fx:id="textureTab" text="Texture" />
+            <Tab fx:id="entityTab" text="Entities" />
+        </tabs>
+      </TabPane>
+   </center>
+   <top>
+      <StackPane BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" text="Save map">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </StackPane>
+   </top>
+</fx:root>

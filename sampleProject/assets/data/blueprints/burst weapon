@@ -1,0 +1,32 @@
+{
+  "name" : "burst weapon",
+  "components" : [ {
+    "class" : "com.brainless.alchemist.model.ECS.builtInComponent.Naming",
+    "name" : "burst weapon"
+  }, {
+    "class" : "component.ability.AbilityTriggerControl",
+    "active" : true
+  }, {
+    "class" : "component.ability.Ability",
+    "name" : "",
+    "triggered" : false
+  }, {
+    "class" : "component.combat.damage.ProjectileLauncher",
+    "precision" : {
+      "value" : 0.95
+    },
+    "projectileBluePrint" : ""
+  }, {
+    "class" : "component.ability.Cooldown",
+    "remaining" : 0,
+    "duration" : 1000
+  }, {
+      "class" : "component.ability.TriggerRepeater",
+      "period" : 100,
+      "periodRange" : 0,
+      "remainingDuration" : 400,
+      "remainingBeforePeriod" : 0,
+      "maxDuration" : 400
+  } ],
+  "children" : [ ]
+}
