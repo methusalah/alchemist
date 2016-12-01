@@ -7,7 +7,7 @@ group = 'com.github.brainless-studios'
 	
 ext {
 	//appName = 'alchemist'
-	jmonkeyengine_version = '3.0.10'
+	jmonkeyengine_version = '[3.1,)'
 }
 	
 repositories {
@@ -26,12 +26,13 @@ dependencies {
 	compile 'org.reflections:reflections:0.9.10'
 	
 	// jMonkey Engine
-	compile "com.jme3:jme3-core:$jmonkeyengine_version"
-	compile "com.jme3:jme3-effects:$jmonkeyengine_version" 
-	compile "com.jme3:jme3-networking:$jmonkeyengine_version"
-	compile "com.jme3:jme3-blender:$jmonkeyengine_version"
-	compile "com.jme3:jme3-jbullet:$jmonkeyengine_version"
-	compile "com.jme3:jme3-lwjgl:$jmonkeyengine_version"
+	compile "org.jmonkeyengine:jme3-core:$jmonkeyengine_version"
+	compile "org.jmonkeyengine:jme3-effects:$jmonkeyengine_version" 
+	compile "org.jmonkeyengine:jme3-networking:$jmonkeyengine_version"
+	compile "org.jmonkeyengine:jme3-blender:$jmonkeyengine_version"
+	compile "org.jmonkeyengine:jme3-bullet:$jmonkeyengine_version"
+	compile "org.jmonkeyengine:jme3-bullet-native:$jmonkeyengine_version"
+	compile "org.jmonkeyengine:jme3-lwjgl:$jmonkeyengine_version"
 
 	// FasterXML - jackson
 	compile 'com.fasterxml.jackson.core:jackson-core:2.5.3'
