@@ -109,7 +109,7 @@ public class PipelineManager {
 		for(Pipeline pr : pipelineSet.keySet()){
 			for(Processor p : pr.getProcessors())
 				RendererPlatform.enqueue(() -> pr.getStateManager().detach(p));
-			if(pr.getRunnable() != null){
+			if(pr.getRunnable() != null && pipelineSet.get(pr) != null && pipelineSet.get(pr).isAlive()){
 				pipelineSet.get(pr).interrupt();
 			}
 		}

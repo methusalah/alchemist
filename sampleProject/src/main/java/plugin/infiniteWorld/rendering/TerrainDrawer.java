@@ -9,7 +9,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 import plugin.infiniteWorld.world.terrain.Terrain;
 import plugin.infiniteWorld.world.terrain.heightmap.Parcel;
 import util.geometry.geom2d.Point2D;
@@ -53,7 +53,7 @@ public class TerrainDrawer {
 			g.setQueueBucket(Bucket.Opaque);
 
 			//g.addControl(new RigidBodyControl(0));
-			SpatialPool.terrainParcels.put(parcel, g);
+			Pool.terrainParcels.put(parcel, g);
 			castAndReceiveNode.attachChild(g);
 			
 			//AppFacade.getApp().getStateManager().getState(BulletAppState.class).getPhysicsSpace().add(g);
@@ -73,7 +73,7 @@ public class TerrainDrawer {
 		for (Parcel parcel : parcels) {
 			Mesh jmeMesh = TranslateUtil.toJMEMesh(parcel.getMesh());
 			//SilentTangentBinormalGenerator.generate(jmeMesh);
-			Geometry g = ((Geometry) SpatialPool.terrainParcels.get(parcel));
+			Geometry g = ((Geometry) Pool.terrainParcels.get(parcel));
 			g.setMesh(jmeMesh);
 
 //			AppFacade.getApp().getStateManager().getState(BulletAppState.class).getPhysicsSpace().remove(g);

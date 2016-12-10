@@ -16,7 +16,7 @@ import com.jme3.scene.shape.Line;
 import com.simsilica.es.Entity;
 
 import component.motion.physic.EdgedCollisionShape;
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 import util.geometry.geom2d.Segment2D;
 
 public class EdgeCollisionShapeDrawingProc extends BaseProcessor {
@@ -29,8 +29,8 @@ public class EdgeCollisionShapeDrawingProc extends BaseProcessor {
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
-		if(SpatialPool.models.keySet().contains(e.getId()))
-			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.models.remove(e.getId()));
+		if(Pool.models.keySet().contains(e.getId()))
+			RendererPlatform.getMainSceneNode().detachChild(Pool.models.remove(e.getId()));
 	}
 
 	@Override
@@ -40,8 +40,8 @@ public class EdgeCollisionShapeDrawingProc extends BaseProcessor {
 	
 	@Override
 	protected void onEntityUpdated(Entity e) {
-		if(SpatialPool.models.containsKey(e.getId()))
-			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.models.get(e.getId()));
+		if(Pool.models.containsKey(e.getId()))
+			RendererPlatform.getMainSceneNode().detachChild(Pool.models.get(e.getId()));
 		
 		EdgedCollisionShape shape = e.get(EdgedCollisionShape.class);
 		
@@ -60,7 +60,7 @@ public class EdgeCollisionShapeDrawingProc extends BaseProcessor {
 			g.setMaterial(MaterialManager.getLightingColor(ColorRGBA.LightGray));
 			node.attachChild(g);
 		}
-		SpatialPool.models.put(e.getId(), node);
+		Pool.models.put(e.getId(), node);
 		RendererPlatform.getMainSceneNode().attachChild(node);
 	}
 }

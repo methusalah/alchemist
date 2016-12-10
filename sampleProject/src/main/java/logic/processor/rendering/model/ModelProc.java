@@ -11,7 +11,7 @@ import com.jme3.scene.Spatial;
 import com.simsilica.es.Entity;
 
 import component.assets.Model;
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 import util.LogUtil;
 
 public class ModelProc extends BaseProcessor {
@@ -24,8 +24,8 @@ public class ModelProc extends BaseProcessor {
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
-		if(SpatialPool.models.keySet().contains(e.getId())){
-			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.models.get(e.getId()));
+		if(Pool.models.keySet().contains(e.getId())){
+			RendererPlatform.getMainSceneNode().detachChild(Pool.models.get(e.getId()));
 		}
 	}
 
@@ -36,8 +36,8 @@ public class ModelProc extends BaseProcessor {
 	
 	@Override
 	protected void onEntityUpdated(Entity e) {
-		if(SpatialPool.models.containsKey(e.getId()))
-			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.models.get(e.getId()));
+		if(Pool.models.containsKey(e.getId()))
+			RendererPlatform.getMainSceneNode().detachChild(Pool.models.get(e.getId()));
 		
 		Model model = e.get(Model.class);
 		
@@ -53,7 +53,7 @@ public class ModelProc extends BaseProcessor {
 			s.scale((float)model.scale);
 			s.setUserData("EntityId", e.getId().getId());
 			s.setShadowMode(ShadowMode.CastAndReceive);
-			SpatialPool.models.put(e.getId(), s);
+			Pool.models.put(e.getId(), s);
 			RendererPlatform.getMainSceneNode().attachChild(s);
 		}
 	}

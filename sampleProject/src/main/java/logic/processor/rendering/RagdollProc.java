@@ -20,7 +20,7 @@ import com.simsilica.es.EntityId;
 import component.assets.Model;
 import component.assets.RagdollOnDecay;
 import component.motion.physic.Physic;
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 import util.geometry.geom2d.Point2D;
 import util.math.AngleUtil;
 import util.math.RandomUtil;
@@ -47,7 +47,7 @@ public class RagdollProc extends BaseProcessor{
 			RendererPlatform.getMainSceneNode().detachChild(s);
 			physicsSpace.remove(s);
 			managed.remove(s);
-			SpatialPool.models.remove(s);
+			Pool.models.remove(s);
 		}
 	}
 	
@@ -77,7 +77,7 @@ public class RagdollProc extends BaseProcessor{
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
-		Spatial s = SpatialPool.models.get(e.getId());
+		Spatial s = Pool.models.get(e.getId());
 		managed.put(s, System.currentTimeMillis());
 		s.setName(s.getName() + " ragdoll");
 

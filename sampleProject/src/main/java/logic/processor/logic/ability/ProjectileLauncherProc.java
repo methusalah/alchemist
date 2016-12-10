@@ -21,6 +21,7 @@ import component.motion.PlanarStance;
 import component.motion.PlanarVelocityToApply;
 import component.motion.physic.Physic;
 import util.LogUtil;
+import util.geometry.geom2d.Point2D;
 import util.geometry.geom3d.Point3D;
 import util.math.Angle;
 import util.math.AngleUtil;
@@ -52,15 +53,13 @@ public class ProjectileLauncherProc extends BaseProcessor {
 			EntityId eid = bp.createEntity(entityData, null);;
 			
 			// adding the spawner for collision exception
-			Physic ph =entityData.getComponent(eid, Physic.class); 
-			if(ph != null)
-				entityData.setComponent(eid, new Physic(ph.getVelocity(), ph.getType(), ph.getExceptions(), ph.getMass(), ph.getRestitution(), p));
-			
 			// correcting the orientation of the velocity to apply
-			PlanarVelocityToApply vel = entityData.getComponent(eid, PlanarVelocityToApply.class); 
-			if(vel != null)
-				entityData.setComponent(eid, new PlanarVelocityToApply(vel.vector.getRotation(orientation)));
-
+			Physic ph =entityData.getComponent(eid, Physic.class); 
+			if(ph != null){
+				Point2D velocity = ph.getVelocity().getRotation(orientation);
+				entityData.setComponent(eid, new Physic(velocity, 0, ph.getType(), ph.getExceptions(), ph.getMass(), ph.getRestitution(), p));
+			}
+			
 			// correcting the orientation of the needed thrust
 			PlanarNeededThrust thrust = entityData.getComponent(eid, PlanarNeededThrust.class);
 			if(thrust != null)

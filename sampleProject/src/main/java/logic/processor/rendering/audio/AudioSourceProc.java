@@ -10,7 +10,7 @@ import com.jme3.audio.AudioNode;
 import com.simsilica.es.Entity;
 
 import component.assets.AudioSource;
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 import util.LogUtil;
 
 public class AudioSourceProc extends BaseProcessor {
@@ -28,8 +28,8 @@ public class AudioSourceProc extends BaseProcessor {
 
 	@Override
 	protected void onEntityUpdated(Entity e) {
-		if(SpatialPool.playingSounds.containsKey(e.getId()))
-			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.playingSounds.get(e.getId()));
+		if(Pool.playingSounds.containsKey(e.getId()))
+			RendererPlatform.getMainSceneNode().detachChild(Pool.playingSounds.get(e.getId()));
 		
 		AudioSource source = e.get(AudioSource.class);
 		AudioNode node = getPrototype(source.getPath());
@@ -49,16 +49,16 @@ public class AudioSourceProc extends BaseProcessor {
 			node.setReverbEnabled(false);
 			node.play();
 			
-			SpatialPool.playingSounds.put(e.getId(), node);
+			Pool.playingSounds.put(e.getId(), node);
 			RendererPlatform.getMainSceneNode().attachChild(node);
 		}
 	}
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
-		if(SpatialPool.playingSounds.keySet().contains(e.getId())){
-			SpatialPool.playingSounds.get(e.getId()).stop();
-			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.playingSounds.get(e.getId()));
+		if(Pool.playingSounds.keySet().contains(e.getId())){
+			Pool.playingSounds.get(e.getId()).stop();
+			RendererPlatform.getMainSceneNode().detachChild(Pool.playingSounds.get(e.getId()));
 		}
 	}
 	

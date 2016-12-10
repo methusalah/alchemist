@@ -3,9 +3,10 @@
   "components" : [ {
     "class" : "component.motion.physic.Physic",
     "velocity" : {
-      "x" : 0.0,
-      "y" : 0.0
+      "x" : 0,
+      "y" : 0
     },
+    "angularVelocity" : 0,
     "type" : "ship",
     "exceptions" : [ "" ],
     "mass" : 100.0,
@@ -91,7 +92,9 @@
     "frontalThrustPower" : 10.0
   }, {
     "class" : "component.motion.physic.CircleCollisionShape",
-    "radius" : 0.8
+    "radius" : 0.8,
+    "density" : 1,
+    "restitution" : 0.3
   } ],
   "children" : [ {
     "name" : "thrusters",

@@ -40,6 +40,7 @@ public class RegionCreator implements BuilderReference {
 	private Region region;
 	private TerrainDrawer drawer;
 	private boolean applied = false;
+	private boolean built = false;
 	
 	@FunctionalInterface
 	interface Consumer2 <A, B> {
@@ -83,8 +84,8 @@ public class RegionCreator implements BuilderReference {
 				EntityId pe = ed.createEntity();
 				ed.setComponent(pe, new Parenting(region.getEntityId()));
 				ed.setComponent(pe, new Naming("Parcel collision shape "+region.getTerrain().getParcelling().getCoord(p.getIndex())));
-				ed.setComponent(pe, new EdgedCollisionShape(edges));
-				ed.setComponent(pe, new Physic(Point2D.ORIGIN, "terrain", new ArrayList<>(), 1000000, new Fraction(0.2), null));
+				ed.setComponent(pe, new EdgedCollisionShape(edges, 0.3));
+				ed.setComponent(pe, new Physic(Point2D.ORIGIN, 0, "terrain", new ArrayList<>(), 1000000, new Fraction(0.2), null));
 				ed.setComponent(pe, new PlanarStance());
 				region.getTerrainColliders().add(pe);
 			}
@@ -93,6 +94,7 @@ public class RegionCreator implements BuilderReference {
 		// creation of a terrain drawer
 		drawer = new TerrainDrawer(region.getTerrain(), region.getCoord());
 		drawer.render();
+		built = true;
 	}
 
 	private static Point3D getPlaneIntersection(Segment3D seg){
@@ -149,6 +151,16 @@ public class RegionCreator implements BuilderReference {
 	public Region getRegion() {
 		return region;
 	}
+
+	public boolean isApplied() {
+		return applied;
+	}
+
+	public boolean isBuilt() {
+		return built;
+	}
+	
+	
 	
 	
 }

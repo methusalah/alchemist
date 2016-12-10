@@ -40,7 +40,7 @@ public class DamageFloatingLabelCreator {
 		ed.setComponent(eid, ed.getComponent(target, PlanarStance.class));
 		String label = onShield? "(" + amount + ")" : ""+amount;
 		ed.setComponent(eid, new FloatingLabel(label, color, size));
-		ed.setComponent(eid, new Physic(Point2D.ORIGIN, "", new ArrayList<String>(), 0, new Fraction(0), null));
+		ed.setComponent(eid, new Physic(Point2D.ORIGIN, 0, "", new ArrayList<String>(), 0, new Fraction(0), null));
 		ed.setComponent(eid, new PlanarVelocityToApply(velocity));
 		ed.setComponent(eid, new LifeTime(lifetime));
 	}

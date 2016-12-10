@@ -9,7 +9,7 @@ import com.simsilica.es.Entity;
 
 import component.assets.Model;
 import component.motion.PlanarStance;
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 import util.geometry.geom3d.Point3D;
 import util.math.AngleUtil;
 
@@ -27,7 +27,7 @@ public class ModelPlacingProc extends BaseProcessor {
 	@Override
 	protected void onEntityUpdated(Entity e) {
 		Model model = e.get(Model.class);
-		Spatial s = SpatialPool.models.get(e.getId());
+		Spatial s = Pool.models.get(e.getId());
 		
 		if(s == null)
 			return;

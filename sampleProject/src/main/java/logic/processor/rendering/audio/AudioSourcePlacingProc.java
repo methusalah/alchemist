@@ -7,7 +7,7 @@ import com.simsilica.es.Entity;
 
 import component.assets.AudioSource;
 import component.motion.PlanarStance;
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 
 public class AudioSourcePlacingProc extends BaseProcessor {
 
@@ -18,14 +18,14 @@ public class AudioSourcePlacingProc extends BaseProcessor {
 	
 	@Override
 	protected void onEntityAdded(Entity e) {
-		AudioNode node = SpatialPool.playingSounds.get(e.getId());
+		AudioNode node = Pool.playingSounds.get(e.getId());
 		node.setPositional(true);
 		node.play();
 		onEntityUpdated(e);
 	}
 	@Override
 	protected void onEntityUpdated(Entity e) {
-		AudioNode node = SpatialPool.playingSounds.get(e.getId());
+		AudioNode node = Pool.playingSounds.get(e.getId());
 
 		if(node == null)
 			return;

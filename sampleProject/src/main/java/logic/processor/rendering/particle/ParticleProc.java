@@ -15,7 +15,7 @@ import com.jme3.math.Vector3f;
 import com.simsilica.es.Entity;
 
 import component.assets.ParticleCaster;
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 import util.LogUtil;
 
 public class ParticleProc extends BaseProcessor {
@@ -33,18 +33,18 @@ public class ParticleProc extends BaseProcessor {
 
 	@Override
 	protected void onEntityUpdated(Entity e) {
-		if(SpatialPool.emitters.containsKey(e.getId()))
-			RendererPlatform.getMainSceneNode().detachChild(SpatialPool.emitters.get(e.getId()));
+		if(Pool.emitters.containsKey(e.getId()))
+			RendererPlatform.getMainSceneNode().detachChild(Pool.emitters.get(e.getId()));
 		
 		ParticleEmitter pe = getEmiterFromCaster(e.get(ParticleCaster.class));
-		SpatialPool.emitters.put(e.getId(), pe);
+		Pool.emitters.put(e.getId(), pe);
 		RendererPlatform.getMainSceneNode().attachChild(pe);
 	}
 	
 	@Override
 	protected void onEntityRemoved(Entity e) {
-		ParticleEmitter pe = SpatialPool.emitters.get(e.getId());
-		SpatialPool.emitters.remove(e.getId());
+		ParticleEmitter pe = Pool.emitters.get(e.getId());
+		Pool.emitters.remove(e.getId());
 		pe.setParticlesPerSec(0);
 		toRemove.add(pe);
 	}

@@ -48,8 +48,8 @@ public class CollisionResolutionProc extends BaseProcessor {
 			Point2D newVelA = velA.getAddition(impulse.getNegation().getMult(1/massA));
 			Point2D newVelB = velB.getAddition(impulse.getMult(1/massB));
 			
-			setComp(A, new Physic(newVelA, phA.getType(), phA.getExceptions(), phA.getMass(), phA.getRestitution(), phA.getSpawnerException()));
-			setComp(B, new Physic(newVelB, phB.getType(), phB.getExceptions(), phB.getMass(), phB.getRestitution(), phB.getSpawnerException()));
+			setComp(A, new Physic(newVelA, 0, phA.getType(), phA.getExceptions(), phA.getMass(), phA.getRestitution(), phA.getSpawnerException()));
+			setComp(B, new Physic(newVelB, 0, phB.getType(), phB.getExceptions(), phB.getMass(), phB.getRestitution(), phB.getSpawnerException()));
 		}
 		setComp(e, new ToRemove());
 	}
@@ -73,9 +73,9 @@ public class CollisionResolutionProc extends BaseProcessor {
 			}
 		} else {
 			if(ph1.getSpawnerException() == e2.getId())
-				entityData.setComponent(e1.getId(), new Physic(ph1.getVelocity(), ph1.getType(), ph1.getExceptions(), ph1.getMass(), ph1.getRestitution(), null));
+				entityData.setComponent(e1.getId(), new Physic(ph1.getVelocity(), 0, ph1.getType(), ph1.getExceptions(), ph1.getMass(), ph1.getRestitution(), null));
 			if(ph2.getSpawnerException() == e1.getId())
-				entityData.setComponent(e2.getId(), new Physic(ph2.getVelocity(), ph2.getType(), ph2.getExceptions(), ph2.getMass(), ph2.getRestitution(), null));
+				entityData.setComponent(e2.getId(), new Physic(ph2.getVelocity(), 0, ph2.getType(), ph2.getExceptions(), ph2.getMass(), ph2.getRestitution(), null));
 		}
 	}
 }

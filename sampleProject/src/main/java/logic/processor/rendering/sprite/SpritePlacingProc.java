@@ -9,7 +9,7 @@ import com.simsilica.es.Entity;
 
 import component.assets.Sprite;
 import component.motion.PlanarStance;
-import logic.processor.SpatialPool;
+import logic.processor.Pool;
 import util.geometry.geom3d.Point3D;
 
 public class SpritePlacingProc extends BaseProcessor {
@@ -21,7 +21,7 @@ public class SpritePlacingProc extends BaseProcessor {
 	
 	@Override
 	protected void onEntityEachTick(Entity e) {
-		Spatial s = SpatialPool.models.get(e.getId());
+		Spatial s = Pool.models.get(e.getId());
 		if(s == null)
 			return;
 		
