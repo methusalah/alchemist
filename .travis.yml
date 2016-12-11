@@ -2,11 +2,6 @@ language: java
 jdk:
   - oraclejdk8
  
-notifications:
-  email:
-    recipients:
-      - dev@meltzow.net
-
 sudo: false
 addons:
   apt:
