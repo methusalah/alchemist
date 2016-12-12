@@ -7,3 +7,6 @@ Alchemist is a game programming interface that allow video game mockup and creat
 Alchemist is currently in alpha test and under heavy developpement. Help is wanted ! We are happy to welcome adventurous java coders that would like to create their game with it, as well as contributors.
 
 Please consult the wiki and issue pages for more information, and don't hesitate to contact Brainless-studios at brainless.studios.contact@gmail.com if you have any question.
+
+### Why not becoming a Patron ?
+Support the author with a <a href="https://www.patreon.com/user?u=2629002&ty=h" target="_blank">tiny financial contribution</a>. To grant time to the project, or buy assets pack, it helps a lot !
