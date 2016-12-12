@@ -63,33 +63,15 @@ varying vec3 lightVec;
 #ifdef DIFFUSEMAP_2_SCALE
   uniform float m_DiffuseMap_2_scale;
 #endif
-#ifdef DIFFUSEMAP_3_SCALE
   uniform float m_DiffuseMap_3_scale;
-#endif
-#ifdef DIFFUSEMAP_4_SCALE
   uniform float m_DiffuseMap_4_scale;
-#endif
-#ifdef DIFFUSEMAP_5_SCALE
   uniform float m_DiffuseMap_5_scale;
-#endif
-#ifdef DIFFUSEMAP_6_SCALE
   uniform float m_DiffuseMap_6_scale;
-#endif
-#ifdef DIFFUSEMAP_7_SCALE
   uniform float m_DiffuseMap_7_scale;
-#endif
-#ifdef DIFFUSEMAP_8_SCALE
   uniform float m_DiffuseMap_8_scale;
-#endif
-#ifdef DIFFUSEMAP_9_SCALE
   uniform float m_DiffuseMap_9_scale;
-#endif
-#ifdef DIFFUSEMAP_10_SCALE
   uniform float m_DiffuseMap_10_scale;
-#endif
-#ifdef DIFFUSEMAP_11_SCALE
   uniform float m_DiffuseMap_11_scale;
-#endif
 
 
 #ifdef ALPHAMAP
